@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<H2>
+  <SourceCode>
+var topPanel = O2Gui.open&lt;Panel&gt;("Compile FluildSharp",700,400);
+//var topPanel = panel.clear().add_Panel();
+var actionsPanel = topPanel.insert_Above(20);
+var codeEditor = topPanel.add_SourceCodeEditor();
+topPanel.insert_LogViewer();
+
+var currentFolder = PublicDI.CurrentScript.directoryName(); 
+//currentFolder = @"C:\O2\O2Scripts_Database\O2_Core_APIs";
+
+var compiledDllsFolder = "_FluidSharp_O2".tempDir(false);//currentFolder.pathCombine("_compiled_Dlls");    
+
+Action&lt;string,string, string&gt; compileToExtension = 
+	(file, extension,mainClass) =&gt;{
+				"Compiling file: {0} ".debug(file);
+				var fileToCompile = currentFolder.pathCombine(file + ".cs");
+				var compiledDll = compiledDllsFolder.pathCombine(file + extension);
+				if (fileToCompile.fileExists().isFalse()) 
+					"could not find file to compile: {0}".error(fileToCompile);  
+				else
+				{ 
+					var assembly = (mainClass.valid())
+										? new CompileEngine().compileSourceFiles(new List&lt;string&gt; {fileToCompile}, mainClass)
+										: new CompileEngine().compileSourceFiles(new List&lt;string&gt; {fileToCompile}, mainClass, System.IO.Path.GetFileNameWithoutExtension(compiledDll));
+					if (assembly.isNull()) 
+						"no compiled assembly object created for: {0}".error(fileToCompile);
+					else
+					{ 
+						Files.Copy(assembly.Location, compiledDll);
+						"Copied: {0} to {1}".info(assembly.Location, compiledDll);
+						if (compiledDll.fileExists().isFalse())
+							"compiled file not created in: {0}".error(compiledDll);
+						
+					}
+				}  
+			};
+ 
+Action&lt;string&gt; compile = 
+	(file)=&gt; compileToExtension(file,".dll", "");  
+  
+ 
+Action runCompilationProcess = 
+	()=&gt;{
+			compile("FluentSharp_O2_Interfaces");		 
+			compile("FluentSharp_O2_Kernel");   
+			compile("FluentSharp_O2_DotNetWrappers"); 
+			compile("FluentSharp_O2_Views_ASCX");   	 
+			compile("FluentSharp_O2");
+			compileToExtension("O2_Launcher", ".exe", "V2.O2.Platform.Launcher");  
+			
+			Files.Copy(currentFolder.pathCombine("O2_1st_Script.cs"), compiledDllsFolder);
+		};
+
+actionsPanel.add_Link("Run Compilation Process", 0,0,()=&gt; runCompilationProcess() )
+			.append_Link("Execute O2_Launcher.cs", ()=&gt; compiledDllsFolder.pathCombine("O2_Launcher.exe").startProcess())
+			.append_Link("Edit O2_Launcher.cs", ()=&gt; codeEditor.open(currentFolder.pathCombine("O2_Launcher.cs")))
+			.append_Link("Edit O2_1st_Script.cs", ()=&gt; codeEditor.open(currentFolder.pathCombine("O2_1st_Script.cs")))
+			.append_Link("Edit FluentSharp_O2_Interfaces.cs", ()=&gt; codeEditor.open(currentFolder.pathCombine("FluentSharp_O2_Interfaces.cs")))
+			.append_Link("Edit FluentSharp_O2_Kernel.cs", ()=&gt; codeEditor.open(currentFolder.pathCombine("FluentSharp_O2_Kernel.cs")))  
+			.append_Link("Edit FluentSharp_O2_DotNetWrappers.cs", ()=&gt; codeEditor.open(currentFolder.pathCombine("FluentSharp_O2_DotNetWrappers.cs")))
+			.append_Link("Edit FluentSharp_O2_Views_ASCX.cs", ()=&gt; codeEditor.open(currentFolder.pathCombine("FluentSharp_O2_Views_ASCX.cs")))
+			.append_Link("Open O2 Development Environment", ()=&gt; "Util - O2 Development Environment.h2".local().executeH2Script()) 
+			;
+
+codeEditor.open(currentFolder.pathCombine("O2_Launcher.cs"));
+return "done";</SourceCode>
+  <ReferencedAssemblies />
+</H2>

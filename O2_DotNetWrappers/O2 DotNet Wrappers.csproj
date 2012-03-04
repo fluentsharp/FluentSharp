@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1F252725-D8BE-408A-BE5C-2D11D0DE8586}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.DotNetWrappers</RootNamespace>
+    <AssemblyName>O2_DotNetWrappers</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Administrator\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\O2_Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.8.4.20, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_3rdPartyDlls\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DotNet\ClickOnceDeployment.cs" />
+    <Compile Include="DotNet\CompileEngine.cs" />
+    <Compile Include="DotNet\DevUtils.cs" />
+    <Compile Include="DotNet\DnD.cs" />
+    <Compile Include="ExtensionMethods\Clipboard_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\CompileEngine_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ConfigFiles_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Crypto_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Data_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Form_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NamedPipes_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\O2Controls_ExtensioMethods.cs" />
+    <Compile Include="ExtensionMethods\O2Utils_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\PerformanceCounters_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Sleep_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Processes_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\RegEx_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\SavingData_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Threads_ExtensionMethods.cs" />
+    <Compile Include="DotNet\GacUtils.cs" />
+    <Compile Include="DotNet\Loop.cs" />
+    <Compile Include="DotNet\O2Linq.cs" />
+    <Compile Include="DotNet\O2Thread.cs" />
+    <Compile Include="DotNet\O2Timer.cs" />
+    <Compile Include="DotNet\RegEx.cs" />
+    <Compile Include="DotNet\Serialize.cs" />
+    <Compile Include="DotNet\StringsAndLists.cs" />
+    <Compile Include="DI.cs" />
+    <Compile Include="DotNet\XmlHelpers.cs" />
+    <Compile Include="ExtensionMethods\Collections_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Control_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\IO_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Misc_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Serialize_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Web_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Xml_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Zip_ExtensionMethods.cs" />
+    <Compile Include="Filters\FilteredSignature.cs" />
+    <Compile Include="Filters\FilteredUrl.cs" />
+    <Compile Include="H2Scripts\H2.cs" />
+    <Compile Include="NetSDK\IL.cs" />
+    <Compile Include="Network\HttpFormUpload.cs" />
+    <Compile Include="Network\Mail.cs" />
+    <Compile Include="Network\Ping.cs" />
+    <Compile Include="Network\Web.cs" />
+    <Compile Include="O2CmdShell\O2Cmd.cs" />
+    <Compile Include="O2CmdShell\O2CmdApi.cs" />
+    <Compile Include="O2CmdShell\O2CmdExec.cs" />
+    <Compile Include="O2Findings\DotNet\AspNetAnalysis.cs" />
+    <Compile Include="O2Findings\O2Assessment.cs" />
+    <Compile Include="O2Findings\O2Finding.cs" />
+    <Compile Include="O2Findings\O2Trace.cs" />
+    <Compile Include="O2Findings\OzasmtCompatibility.cs" />
+    <Compile Include="O2Findings\OzasmtContext.cs" />
+    <Compile Include="O2Findings\OzasmtCopy.cs" />
+    <Compile Include="O2Findings\OzasmtDiff.cs" />
+    <Compile Include="O2Findings\OzasmtFilter.cs" />
+    <Compile Include="O2Findings\OzasmtGlue.cs" />
+    <Compile Include="O2Findings\OzasmtMappedToWindowsForms.cs" />
+    <Compile Include="O2Findings\OzasmtNew.cs" />
+    <Compile Include="O2Findings\OzasmtSearch.cs" />
+    <Compile Include="O2Findings\OzasmtStats.cs" />
+    <Compile Include="O2Findings\OzasmtUtils.cs" />
+    <Compile Include="O2Misc\SampleScripts.cs" />
+    <Compile Include="O2Misc\SourceCodeMappingsUtils.cs" />
+    <Compile Include="O2Misc\Vars.cs" />
+    <Compile Include="SearchApi\SearchEngine.cs" />
+    <Compile Include="SearchApi\SearchUtils.cs" />
+    <Compile Include="SearchApi\TextSearchResult.cs" />
+    <Compile Include="Network\WebEncoding.cs" />
+    <Compile Include="ViewObjects\Reflection_MethodInfo.cs" />
+    <Compile Include="ExtensionMethods\Ascx_ExtensionMethods.cs" />
+    <Compile Include="Windows\Controls.cs" />
+    <Compile Include="Network\Netsh.cs" />
+    <Compile Include="Windows\NamePipes.cs" />
+    <Compile Include="Windows\Files.cs" />
+    <Compile Include="Windows\FillTreeViewWithlSerializedObjectData.cs" />
+    <Compile Include="Windows\FolderWatcher.cs" />
+    <Compile Include="Windows\O2Forms.cs" />
+    <Compile Include="Windows\O2Forms_ThreadSafe_ProgressBar.cs" />
+    <Compile Include="Windows\O2FormsReflectionASCX.cs" />
+    <Compile Include="Windows\O2Forms_ThreadSafe_ToolStrip.cs" />
+    <Compile Include="Windows\Processes.cs" />
+    <Compile Include="Windows\Registry.cs" />
+    <Compile Include="Windows\Screenshots.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\Services.cs" />
+    <Compile Include="Windows\Win32.cs" />
+    <Compile Include="Xsd\SourceCodeMappings.cs">
+      <DependentUpon>SourceCodeMappings.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Zip\zipUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Windows\Mdi.cs.txt" />
+    <Content Include="Windows\RemoteThreadInjection.cs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2_Interfaces\O2_Interfaces.csproj">
+      <Project>{64223518-03C2-4818-8C82-F045037E3DFE}</Project>
+      <Name>O2_Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\O2_Kernel\O2 Kernel.csproj">
+      <Project>{BDB9EFED-296A-4535-99C6-F0B83316E80C}</Project>
+      <Name>O2 Kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Xsd\SourceCodeMappings.xsd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

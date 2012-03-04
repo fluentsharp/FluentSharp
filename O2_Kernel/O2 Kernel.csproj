@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BDB9EFED-296A-4535-99C6-F0B83316E80C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.Kernel</RootNamespace>
+    <AssemblyName>O2_Kernel</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\O2_Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publish to Deploy|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Publish to Deploy\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeUtils\O2Kernel_Web.cs" />
+    <Compile Include="CodeUtils\O2Svn.cs" />
+    <Compile Include="exec.cs" />
+    <Compile Include="ExtensionMethods\Logging_ExtensionMethods.cs" />
+    <Compile Include="CodeUtils\O2Kernel_Serialize.cs" />
+    <Compile Include="CodeUtils\O2Messages.cs" />
+    <Compile Include="CodeUtils\O2Kernel_Processes.cs" />
+    <Compile Include="ExtensionMethods\Object_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Reflection_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\String_ExtensionMethods.cs" />
+    <Compile Include="DI.cs" />
+    <Compile Include="ExtensionMethods\ViewControls_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Views_ExtensionMethods.cs" />
+    <Compile Include="InterfacesBaseImpl\KLoadedXRule.cs" />
+    <Compile Include="InterfacesBaseImpl\KScanTarget.cs" />
+    <Compile Include="InterfacesBaseImpl\KO2Message .cs" />
+    <Compile Include="InterfacesBaseImpl\O2Rule.cs" />
+    <Compile Include="InterfacesBaseImpl\O2RulePack.cs" />
+    <Compile Include="InterfacesBaseImpl\KGacDll.cs" />
+    <Compile Include="InterfacesBaseImpl\KM_DotNetAssemblyAvailable .cs" />
+    <Content Include="InterfacesBaseImpl\KM_OpenControlInGUI.cs.txt" />
+    <Compile Include="InterfacesBaseImpl\KM_FileOrFolderSelected.cs" />
+    <Compile Include="InterfacesBaseImpl\KM_SelectedTypeOrMethod.cs" />
+    <Compile Include="InterfacesBaseImpl\KM_GUIAction.cs" />
+    <Compile Include="InterfacesBaseImpl\KM_O2MdbgAction.cs" />
+    <Compile Include="InterfacesBaseImpl\KM_CirAction.cs" />
+    <Compile Include="InterfacesBaseImpl\KReflection.cs" />
+    <Compile Include="InterfacesBaseImpl\KO2Config.cs" />
+    <Compile Include="CodeUtils\O2Kernel_Files.cs" />
+    <Compile Include="CodeUtils\O2Kernel_O2Thread.cs" />
+    <Compile Include="InterfacesBaseImpl\KO2GenericMessage.cs" />
+    <Compile Include="InterfacesBaseImpl\KO2MessageQueue.cs" />
+    <Compile Include="CodeUtils\O2ConfigLoader.cs" />
+    <Compile Include="O2KernelCmdShell\O2Shell.cs" />
+    <Compile Include="O2KernelCmdShell\ShellCmdLet.cs" />
+    <Compile Include="O2KernelCmdShell\ShellCommands.cs" />
+    <Compile Include="O2KernelCmdShell\ShellExecution.cs" />
+    <Compile Include="O2KernelCmdShell\ShellIO.cs" />
+    <Compile Include="O2LiveObjects.cs" />
+    <Compile Include="Objects\KeyValueStrings.cs" />
+    <Compile Include="Objects\O2AppDomainFactory.cs" />
+    <Compile Include="CodeUtils\AppDomainUtils.cs" />
+    <Compile Include="CodeUtils\LoadTypes.cs" />
+    <Compile Include="CodeUtils\Callbacks.cs" />
+    <Compile Include="InterfacesBaseImpl\KO2Log.cs" />
+    <Compile Include="Objects\O2Object.cs" />
+    <Compile Include="Objects\O2ObjectFactory.cs" />
+    <Compile Include="Objects\O2Proxy.cs" />
+    <Compile Include="open.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicDI.cs" />
+    <Compile Include="show.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2_Interfaces\O2_Interfaces.csproj">
+      <Project>{64223518-03C2-4818-8C82-F045037E3DFE}</Project>
+      <Name>O2_Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

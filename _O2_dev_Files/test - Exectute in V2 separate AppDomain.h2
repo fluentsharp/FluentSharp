@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<H2>
+  <SourceCode>//NOT WORKING
+
+//var topPanel = O2Gui.open&lt;Panel&gt;("{name}",700,400);
+//O2Ref:C:\O2\O2Scripts_Database\O2_Core_APIs\_compiled_Dlls/FluentSharp_O2_Interfaces.dll
+//O2Ref:C:\O2\O2Scripts_Database\O2_Core_APIs\_compiled_Dlls/FluentSharp_O2_Kernel.dll
+//O2Ref:C:\O2\O2Scripts_Database\O2_Core_APIs\_compiled_Dlls/FluentSharp_O2_DotNetWrappers.dll
+//O2Ref:C:\O2\O2Scripts_Database\O2_Core_APIs\_compiled_Dlls/FluentSharp_O2_Views_ASCX.dll
+
+var topPanel = panel.clear().add_Panel();
+var compiledDllsFolder = @"C:\O2\O2Scripts_Database\O2_Core_APIs\_compiled_Dlls";
+var appDomainExecutionDir = "_O2Scripts_AppDomain".tempDir(false); 
+
+var appDomainName = 12.randomLetters();
+var o2AppDomain =  new O2AppDomainFactory(appDomainName,appDomainExecutionDir);
+
+Files.Copy(compiledDllsFolder.pathCombine("FluentSharp_O2_Interfaces.dll"),appDomainExecutionDir);
+Files.Copy(compiledDllsFolder.pathCombine("FluentSharp_O2_Kernel.dll"),appDomainExecutionDir);
+Files.Copy(compiledDllsFolder.pathCombine("FluentSharp_O2_DotNetWrappers.dll"),appDomainExecutionDir);
+Files.Copy(compiledDllsFolder.pathCombine("FluentSharp_O2_Views_ASCX.dll"),appDomainExecutionDir);
+Files.Copy(compiledDllsFolder.pathCombine("FluentSharp_O2.dll"),appDomainExecutionDir);
+
+
+o2AppDomain.load("FluentSharp_O2_Interfaces"); 	
+o2AppDomain.load("FluentSharp_O2_Kernel"); 	
+o2AppDomain.load("FluentSharp_O2_DotNetWrappers"); 	
+o2AppDomain.load("FluentSharp_O2_Views_ASCX"); 	
+
+var o2Proxy =  (FluentSharp.O2.Kernel.Objects.O2Proxy)o2AppDomain.getProxyObject("O2Proxy");
+ 
+//o2Proxy.staticInvocation("O2_XRules_Database","Program","Main",new object[] {});	 
+
+foreach(var assembly in o2AppDomain.getAssemblies(true))
+	"Assembly loaded: {0}".debug(assembly);
+
+o2AppDomain.unLoadAppDomain();
+
+return "ok";
+//using O2.Kernel.Objects			</SourceCode>
+  <ReferencedAssemblies />
+</H2>

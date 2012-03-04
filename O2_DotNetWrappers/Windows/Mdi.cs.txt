@@ -1,0 +1,253 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using O2.core.O2Core.O2Environment;
+using O2.core.O2Core.windows;
+using O2.o2AppDomainProxy;
+
+namespace O2.DotNetWrappers.Windows
+{
+    public class Mdi
+    {
+        public static Dictionary<String, mdiButton> dMdiChilds = new Dictionary<string, mdiButton>();
+        public static Dictionary<String, List<mdiButton>> dViews = new Dictionary<string, List<mdiButton>>();
+        public static Type tFormHost; // should be 
+
+
+        public static void loadTypeAsMdiChild(String sUniqueFormIdentifier, Type tControlType, String sParameters)
+        {
+            var mcMdiChild = new mdiChild(
+                new mdiButton(sUniqueFormIdentifier, tControlType, null, sParameters),
+                GlobalStaticVars.dO2LoadedForms,
+                GlobalStaticVars.fO2);
+            Callbacks.dMethod dLoad = mcMdiChild.load;
+            GlobalStaticVars.fO2.Invoke(dLoad);
+        }
+
+        public static void populateViewDictionary(String sMdiConfigFile, String sOrigin)
+        {
+//            if (false)                            // don't load these for now
+/*
+            if (File.Exists(sMdiConfigFile))
+            {                
+                String sAllControlsFromXmlFile = "All from Xml File ("+sOrigin+ ")";
+                List<mdiButton> lmbMdiButton = new List<mdiButton>();
+                ResourceManager rmResourceManaged = new ResourceManager(typeof(o2.core.resources.Resources_Icons));
+                MdiControls mcMdiControls = (MdiControls)Serialize.getSerializedObjectFromXmlFile(sMdiConfigFile, typeof(MdiControls));
+                foreach (MdiControlsView mdcView in mcMdiControls.View)
+                {
+                    dViews[mdcView.name] = new List<mdiButton>();
+                    if (null != mdcView.mdiButton)
+                        foreach (MdiControlsViewMdiButton mcvbMdiButton in mdcView.mdiButton)
+                            if (mcvbMdiButton.name != "" && mcvbMdiButton.type != "" && mcvbMdiButton.icon != "")
+                            {
+                                Type tTypeOfControlLoad =null;
+                                String sResolvedTypeName = mcvbMdiButton.name.Replace(" ", "");// take out spaces,
+                                if (GlobalStaticVars.dO2Controls.ContainsKey(sResolvedTypeName))
+                                {                                    
+                                    tTypeOfControlLoad = GlobalStaticVars.dO2Controls[sResolvedTypeName];
+                                    mcvbMdiButton.type = tTypeOfControlLoad.FullName;   
+                                }
+                                                  
+                                else
+                                    tTypeOfControlLoad = Type.GetType(mcvbMdiButton.type);
+
+                                if (tTypeOfControlLoad != null)
+                                {
+                                    Icon iIcon = null;
+                                    if (mcvbMdiButton.icon != null)
+                                        iIcon = (Icon)rmResourceManaged.GetObject(mcvbMdiButton.icon);
+                                    mdiButton mbMdiButton = new mdiButton(mcvbMdiButton.name, tTypeOfControlLoad, iIcon, mcvbMdiButton.parameter);
+                                    dViews[mdcView.name].Add(mbMdiButton);
+                                    lmbMdiButton.Add(mbMdiButton);
+                                }
+                                else
+                                    DI.log.error("in populateViewDictionary, could not resolve provided ascx type name: {0} :  {1} ",mcvbMdiButton.name, mcvbMdiButton.type);
+                            }
+                }
+                dViews.Add(sAllControlsFromXmlFile, lmbMdiButton);
+            }                        
+ */
+        }
+
+        public static void populateViewsComboBox(ComboBox cbTargetComboBox)
+        {
+            dViews.Clear();
+            populateViewDictionary(Path.Combine(Config.sCurrentExecutableDirectory, Config.sMdiConfigFile_PlugIns),
+                                   "Plug-Ins");
+            populateViewDictionary(Path.Combine(Config.sCurrentExecutableDirectory, Config.sMdiConfigFile), "O2 Core");
+
+
+            cbTargetComboBox.Items.Clear();
+            if (dViews.Count > 0)
+            {
+                foreach (String sViewName in dViews.Keys)
+                    cbTargetComboBox.Items.Add(sViewName);
+
+                cbTargetComboBox.SelectedIndex = 0;
+            }
+        }
+
+        #region Nested type: mdiButton
+
+        public class mdiButton
+        {
+            public int iButtonHeight = 40;
+            public int iButtonWidth = 100;
+            public Icon iIcon;
+            public String sName;
+            public String sParameter;
+            public Type tType;
+
+            public mdiButton(String sName, Type tType, Icon iIcon, String sParameter)
+            {
+                this.sName = sName;
+                this.tType = tType;
+                this.iIcon = iIcon;
+                this.sParameter = sParameter;
+            }
+        }
+
+        #endregion
+
+        #region Nested type: mdiChild
+
+        public class mdiChild
+        {
+            private readonly Dictionary<String, Form> dMdiParent_LoadedForms;
+            private readonly Form fMdiParent;
+            private readonly mdiButton mbMdiButton;
+            //  private int iFormHeight = 400;
+            //  private int iFormWidth = 400;
+
+
+            public mdiChild(mdiButton mbMdiButton, Dictionary<String, Form> dMdiParent_LoadedForms, Form fMdiParent)
+                /*     :
+                    this(mbMdiButton, 0, 0, dMdiParent_LoadedForms, fMdiParent)
+            {
+            }
+
+
+            public mdiChild(mdiButton mbMdiButton, int iFormWidth, int iFormHeight,
+                            Dictionary<String, Form> dMdiParent_LoadedForms, Form fMdiParent) */
+            {
+                this.mbMdiButton = mbMdiButton;
+                //    if (iFormWidth > 0)
+                //        this.iFormWidth = iFormWidth;
+                //    if (iFormHeight > 0)
+                //        this.iFormHeight = iFormHeight;
+                this.dMdiParent_LoadedForms = dMdiParent_LoadedForms;
+                this.fMdiParent = fMdiParent;
+            }
+
+
+            public String Name
+            {
+                get { return mbMdiButton.sName; }
+                set { mbMdiButton.sName = value; }
+            }
+
+
+            public override string ToString()
+            {
+                return mbMdiButton.sName;
+            }
+
+            public void loadButton(Object bButton)
+            {
+                ((Button) bButton).Enabled = false;
+                load();
+                ((Button) bButton).Enabled = true;
+            }
+
+            public void load()
+            {
+                if (mbMdiButton.tType == null)
+                {
+                    DI.log.error("The selected mbMdiButton.tType was null, aborting ascx load");
+                    return;
+                }
+
+                if (dMdiParent_LoadedForms.ContainsKey(mbMdiButton.sName))
+                {
+                    try
+                    {
+                        dMdiParent_LoadedForms[mbMdiButton.sName].Focus();
+                    }
+                    catch (Exception ex)
+                    {
+                        DI.log.error("In load: {0}", ex.Message);
+                    }
+                }
+                else
+                {
+                    Form fLoadedForm = O2Forms.loadAscxControlAsMdiChild(tFormHost, mbMdiButton.tType, fMdiParent,
+                                                                         mbMdiButton.sName, mbMdiButton.sParameter);
+                    if (fLoadedForm != null)
+                    {
+                        fLoadedForm.FormClosed += fFormWithFocus_FormClosed;
+                        dMdiParent_LoadedForms.Add(mbMdiButton.sName, fLoadedForm);
+                        DI.log.debug("Form of type {0} sucessfully loaded", mbMdiButton.tType.FullName);
+                    }
+                }
+            }
+
+            private void fFormWithFocus_FormClosed(object sender, FormClosedEventArgs e)
+            {
+                var sFormClosing = (Form) sender;
+                if (sFormClosing.Tag != null && "String" == sFormClosing.Tag.GetType().Name)
+                {
+                    var sAscxType = (String) sFormClosing.Tag;
+                    dMdiParent_LoadedForms.Remove(sAscxType);
+                    // ascx_O2FormControl1.updateFormManagementPanel(fFormWithFocus, dLoadedForms);
+                }
+                DI.log.debug("Form closed");
+            }
+
+            public void addToFlowLayoutPanel(FlowLayoutPanel flpTargetFlowLayoutPanel)
+            {
+                var bNewButton = new Button
+                                     {
+                                         Text = mbMdiButton.sName,
+                                         Name = mbMdiButton.sName,
+                                         Tag = this,
+                                         BackColor = Color.Black,
+                                         ForeColor = Color.White,
+                                         ImageAlign = ContentAlignment.MiddleLeft,
+                                         Size = new Size(205, 23),
+                                         TextAlign = ContentAlignment.MiddleRight
+                                     };
+                // if (mbMdiButton.iIcon != null)
+                //     bNewButton.Image = mbMdiButton.iIcon.ToBitmap();
+                bNewButton.Click += bNewButton_Click;
+                bNewButton.MouseEnter += bNewButton_MouseEnter;
+                bNewButton.MouseLeave += bNewButton_MouseLeave;
+                bNewButton.FlatStyle = FlatStyle.Popup;
+                bNewButton.UseVisualStyleBackColor = false;
+
+                flpTargetFlowLayoutPanel.Controls.Add(bNewButton);
+            }
+
+            private static void bNewButton_MouseLeave(object sender, EventArgs e)
+            {
+                //     ((Button)sender).Text = "Mouse enter";
+                ((Button) sender).ForeColor = Color.White;
+            }
+
+            private static void bNewButton_MouseEnter(object sender, EventArgs e)
+            {
+//                ((Button)sender).Text = "Mouse leave";
+                ((Button) sender).ForeColor = Color.LightBlue;
+            }
+
+            private void bNewButton_Click(object sender, EventArgs e)
+            {
+                loadButton(sender);
+            }
+        }
+
+        #endregion
+    }
+}

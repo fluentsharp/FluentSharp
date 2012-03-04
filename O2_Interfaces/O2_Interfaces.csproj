@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{64223518-03C2-4818-8C82-F045037E3DFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.Interfaces</RootNamespace>
+    <AssemblyName>O2_Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\O2_Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CIR\ICirAttribute.cs" />
+    <Compile Include="CIR\ICirClass.cs" />
+    <Compile Include="CIR\ICirData.cs" />
+    <Compile Include="CIR\ICirDataAnalysis.cs" />
+    <Compile Include="CIR\ICirDataSearchResult.cs" />
+    <Compile Include="CIR\ICirFieldClass.cs" />
+    <Compile Include="CIR\ICirFieldMember.cs" />
+    <Compile Include="CIR\ICirFunction.cs" />
+    <Compile Include="CIR\ICirFunctionCall.cs" />
+    <Compile Include="CIR\ICirFunctionParameter.cs" />
+    <Compile Include="CIR\ICirFunctionVariable.cs" />
+    <Compile Include="CIR\ICirSsaVariable.cs" />
+    <Compile Include="CIR\ICirTraces.cs" />
+    <Compile Include="Controllers\IAssemblyAnalysis.cs" />
+    <Compile Include="Controllers\IScanTarget.cs" />
+    <Compile Include="Controllers\IXmlConverter.cs" />
+    <Compile Include="DotNet\IGacDll.cs" />
+    <Compile Include="DotNet\PostSharpHookStatus.cs" />
+    <Compile Include="ExternalDlls\IO2MonoCecil.cs" />
+    <Compile Include="FrameworkSupport\J2EE\IStrutsConfigXml.cs" />
+    <Compile Include="FrameworkSupport\J2EE\IStrutsMappings.cs" />
+    <Compile Include="FrameworkSupport\J2EE\ITilesDefinition.cs" />
+    <Compile Include="FrameworkSupport\J2EE\IValidationXml.cs" />
+    <Compile Include="FrameworkSupport\J2EE\IWebXml.cs" />
+    <Compile Include="Messages\IM_CirAction.cs" />
+    <Compile Include="Messages\IM_DotNetAssemblyAvailable.cs" />
+    <Compile Include="Messages\IM_FileOrFolderSelected.cs" />
+    <Compile Include="Messages\IM_GUIAction.cs" />
+    <Compile Include="Messages\IM_O2MdbgAction.cs" />
+    <Compile Include="Messages\IM_SelectedTypeOrMethod.cs" />
+    <Compile Include="Messages\IO2Message.cs" />
+    <Compile Include="Messages\IO2MessageQueue.cs" />
+    <Compile Include="O2Core\IO2Config.cs" />
+    <Compile Include="O2Core\IO2Log.cs" />
+    <Compile Include="O2Core\IReflection.cs" />
+    <Compile Include="O2Core\IReflectionASCX.cs" />
+    <Compile Include="O2Findings\IO2Assessment.cs" />
+    <Compile Include="O2Findings\IO2AssessmentLoad.cs" />
+    <Compile Include="O2Findings\IO2AssessmentSave.cs" />
+    <Compile Include="O2Findings\IO2Finding.cs" />
+    <Compile Include="O2Findings\IO2Trace.cs" />
+    <Compile Include="O2Findings\TraceType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\IDatabaseRules.cs" />
+    <Compile Include="Rules\IO2Rule.cs" />
+    <Compile Include="Rules\O2RuleType.cs" />
+    <Compile Include="Rules\SupportedLanguage.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\ITaskControl.cs" />
+    <Compile Include="Tasks\ITaskThread.cs" />
+    <Compile Include="Tasks\TaskEvents.cs" />
+    <Compile Include="Tasks\TaskStatus.cs" />
+    <Compile Include="Utils\IZipUtils.cs" />
+    <Compile Include="Views\O2DockState.cs" />
+    <Compile Include="XRules\ILoadedXRule.cs" />
+    <Compile Include="XRules\IXRule.cs" />
+    <Compile Include="XRules\IXRulesDatabase.cs" />
+    <Compile Include="XRules\IXRule_Generic.cs" />
+    <Compile Include="XRules\IXRule_J2EE_Struts.cs" />
+    <Compile Include="XRules\XRuleAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Messages\IM_OpenControlInGUI.cs.txt" />
+    <Content Include="O2Tools\ISearchEngine.cs.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

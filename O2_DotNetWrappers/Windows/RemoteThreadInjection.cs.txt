@@ -1,0 +1,303 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using NUnit.Framework;
+using O2.core.O2Core.O2Environment;
+using O2.o2AppDomainProxy.Interfaces;
+
+namespace O2.DotNetWrappers.Windows
+{
+  
+    public class RemoteThreadInjection
+    {        
+
+        public static List<Process> getManagedProcess()
+        {
+            var processes = new List<Process>();
+
+            /*var processes_ = from process in Process.GetProcesses() where process.Modules.ToString().Contains("mscor") select process.ProcessName                                ;
+            foreach (var p in processes_)
+                processes.Add(p);*/
+            foreach(var process in Process.GetProcesses())
+            {
+                if (isProcessAManagedProcess(process))
+                    processes.Add(process);
+
+            }            
+            return processes;
+
+        }
+
+      //  private static string dllToFind = "mscoree.dll";
+        private static string dllToFind = "mscorlib.ni.dll";
+
+
+        public static bool isProcessAManagedProcess(Process process)
+        {
+            try
+                {
+                    foreach (ProcessModule module in process.Modules)
+                    {
+                     //   DI.log.info(module.ModuleName);
+                        if (module.ModuleName == dllToFind)
+                            return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                }
+            return false;
+        }
+
+        // this is the thread that is going to be executed
+        #region callback to inject
+
+        public static void MyThreadProc()
+        {            
+            Debug.WriteLine("am here ");            
+        }
+
+     /*   public static int MyThreadProc(IntPtr param)
+        {
+            int pid = Process.GetCurrentProcess().Id;
+            Debug.WriteLine("Pid " + pid.ToString() + ": Inside my new thread!. Param= " + param.ToInt32());
+            return 1;
+        }*/
+        #endregion
+        // using code snippets from http://blogs.msdn.com/jmstall/articles/sample_create_remote_thread.aspx
+        #region [Code from MSDN post] thread helpers
+        // stdcall        
+       
+
+        // Helper to wait for a thread to exit and print its exit code
+        public static void WaitForThreadToExit(IntPtr hThread)
+        {
+            WaitForSingleObject(hThread, unchecked((uint)-1));
+
+            uint exitCode;
+            GetExitCodeThread(hThread, out exitCode);
+            int pid = Process.GetCurrentProcess().Id;
+            Console.WriteLine("Pid {0}: Thread exited with code: {1}", pid, exitCode);
+        }
+
+        #endregion
+
+        #region [Code from MSDN post] standard imports from kernel32
+
+        // Thread proc, to be used with Create*Thread
+        //public delegate int ThreadProc(IntPtr param);
+        public delegate void ThreadProc();
+
+        // Friendly version, marshals thread-proc as friendly delegate
+        [DllImport("kernel32")]
+        public static extern IntPtr CreateThread(
+            IntPtr lpThreadAttributes,
+            uint dwStackSize,
+            ThreadProc lpStartAddress, // ThreadProc as friendly delegate
+            IntPtr lpParameter,
+            uint dwCreationFlags,
+            out uint dwThreadId);
+
+        // Marshal with ThreadProc's function pointer as a raw IntPtr.
+        [DllImport("kernel32", EntryPoint = "CreateThread")]
+        public static extern IntPtr CreateThreadRaw(
+            IntPtr lpThreadAttributes,
+            uint dwStackSize,
+            IntPtr lpStartAddress, // ThreadProc as raw IntPtr
+            IntPtr lpParameter,
+            uint dwCreationFlags,
+            out uint dwThreadId);
+
+
+        // CreateRemoteThread, since ThreadProc is in remote process, we must use a raw function-pointer.
+        [DllImport("kernel32")]
+        public static extern IntPtr CreateRemoteThread(
+          IntPtr hProcess,
+          IntPtr lpThreadAttributes,
+          uint dwStackSize,
+          IntPtr lpStartAddress, // raw Pointer into remote process
+          IntPtr lpParameter,
+          uint dwCreationFlags,
+          out uint lpThreadId
+        );
+
+        [DllImport("kernel32")]
+        public static extern IntPtr GetCurrentProcess();
+
+        public const uint PROCESS_ALL_ACCESS = 0x000F0000 | 0x00100000 | 0xFFF;
+        [DllImport("kernel32")]
+        public static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
+
+        [DllImport("kernel32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CloseHandle(IntPtr hObject);
+
+
+
+        [DllImport("kernel32")]
+        public static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
+
+        [DllImport("kernel32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeThread(IntPtr hThread, out uint lpExitCode);
+
+        #endregion // standard imports from kernel32
+    }
+
+    [TestFixture]
+    public class Test_RemoteThreadInjection
+    {
+        
+        [Test]
+        public void Test_getManagedProcess()
+        {
+            var processes = RemoteThreadInjection.getManagedProcess();
+            Assert.That(processes.Count > 0, "There were no process returned");
+            log.debug("There where {0} process returned, please chose the ProcessId for the Process to inject and feed it to the next UnitTest");
+            foreach (var process in processes)
+                log.info("{0} - {1}",process.Id,process.ProcessName);
+
+        }
+
+        [Test]
+        public void Test_InjectThreadIntoProcess()
+        {
+            uint processIdToInject = 2716; // run Test_getManagedProcess() to find out the process IDs of the .NET process in the current Box
+            var process = Process.GetProcessById((int)processIdToInject);
+            Assert.That(process != null, "process == null");
+            Assert.That(RemoteThreadInjection.isProcessAManagedProcess(process), "process is not a managed process");
+
+
+            // code sample
+
+            RemoteThreadInjection.ThreadProc proc = new RemoteThreadInjection.ThreadProc(RemoteThreadInjection.MyThreadProc);
+            IntPtr fpProc = Marshal.GetFunctionPointerForDelegate(proc);
+
+
+            //IntPtr fpProc = new IntPtr(Process.GetCurrentProcess().Id);
+
+            IntPtr hProcess = RemoteThreadInjection.OpenProcess(RemoteThreadInjection.PROCESS_ALL_ACCESS, false, processIdToInject);
+
+            uint dwThreadId;
+            // Create a thread in the first process.
+            IntPtr hThread = RemoteThreadInjection.CreateRemoteThread(
+                hProcess,
+                IntPtr.Zero,
+                0,
+                fpProc, new IntPtr(0),
+                0,
+                out dwThreadId);
+            RemoteThreadInjection.WaitForThreadToExit(hThread);
+            return;
+
+        }
+
+    }
+}
+
+
+/*
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+
+namespace CreateThread
+{
+    class Program
+    {
+        
+
+        
+
+        // Main function 
+        static void Main(string[] args)
+        {
+            int pid = Process.GetCurrentProcess().Id;
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Pid {0}:Started Parent process", pid);
+                
+                // Spawn the child
+                string fileName = Process.GetCurrentProcess().MainModule.FileName.Replace(".vshost", "");                
+
+                // Get thread proc as an IntPtr, which we can then pass to the 2nd-process.
+                ThreadProc proc = new ThreadProc(MyThreadProc);
+                IntPtr fpProc = Marshal.GetFunctionPointerForDelegate(proc);
+
+                // Spin up the other process, and pass our pid and function pointer so that it can
+                // use that to call CreateRemoteThraed
+                string arg = String.Format("{0} {1}", pid, fpProc);
+                ProcessStartInfo info = new ProcessStartInfo(fileName, arg);
+                info.UseShellExecute = false; // share console, output is interlaces.
+                Process processChild = Process.Start(info);
+                    
+                processChild.WaitForExit();
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Pid {0}:Started Child process", pid);
+                uint pidParent = uint.Parse(args[0]);
+                IntPtr fpProc = new IntPtr(int.Parse(args[1]));
+
+                IntPtr hProcess = OpenProcess(PROCESS_ALL_ACCESS, false, pidParent);
+
+                uint dwThreadId;
+                // Create a thread in the first process.
+                IntPtr hThread = CreateRemoteThread(
+                    hProcess,
+                    IntPtr.Zero,
+                    0,
+                    fpProc, new IntPtr(6789),
+                    0,
+                    out dwThreadId);
+                WaitForThreadToExit(hThread);
+                return;
+            }
+        }
+
+        // Other  variations of create thread
+        static void OtherMain(string[] args)
+        {
+            IntPtr fpProc = IntPtr.Zero;
+
+            ThreadProc proc = new ThreadProc(MyThreadProc);
+            fpProc = Marshal.GetFunctionPointerForDelegate(proc);
+
+            uint dwThreadId;
+#if false
+            IntPtr hThread = CreateThreadRaw(
+                IntPtr.Zero,
+                0,
+                fpProc, new IntPtr(1234),
+                0, // flags
+                out dwThreadId);
+#elif false
+            IntPtr hThread = CreateThread(
+                IntPtr.Zero,
+                0,
+                proc, new IntPtr(1234),
+                0, // flags
+                out dwThreadId);
+#else
+            IntPtr hThisProcess = GetCurrentProcess();
+                    
+            IntPtr hThread = CreateRemoteThread(        
+                hThisProcess,
+                IntPtr.Zero,
+                0,
+                fpProc, new IntPtr(5678),
+                0,
+                out dwThreadId);
+#endif      
+            WaitForThreadToExit(hThread);
+        }
+    }
+}*/
