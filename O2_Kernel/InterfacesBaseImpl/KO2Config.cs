@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Xml.Serialization;
 using O2.Interfaces.O2Core;
 using O2.Kernel.CodeUtils;
+using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.InterfacesBaseImpl
 {
@@ -83,6 +85,7 @@ namespace O2.Kernel.InterfacesBaseImpl
             }
         }
 
+		
 
         public string ZipppedScriptsFile { get; set; }
         public string LocalScriptsFolder { get; set; }
@@ -110,6 +113,15 @@ namespace O2.Kernel.InterfacesBaseImpl
             LocallyDevelopedScriptsFolder = defaultLocallyDevelopedScriptsFolder;
         }
 
+		public string ReferencesDownloadLocation
+		{
+			get 
+			{
+				return hardCodedO2LocalTempFolder.remove(DateTime.Today.ToShortDateString().Replace("/", "-"))
+												 .pathCombine("_ReferencesDownloaded")
+												 .createDir();
+			}
+		}
 
         public string CurrentExecutableDirectory
         {
@@ -160,6 +172,7 @@ namespace O2.Kernel.InterfacesBaseImpl
             get { return "O2_Kernel.dll"; }
             set { }
         }
+
 
         /// <summary>
         /// returns a tempfile in the temp directory with the provided extension 

@@ -29,6 +29,7 @@ namespace O2.Interfaces.O2Core
         string TempFileNameInTempDirectory { get; }
         string TempFolderInTempDirectory { get; }
         string O2KernelAssemblyName { get; }
+		string ReferencesDownloadLocation { get; }
         
         //String setDefaultDir_TempFolder();
 
@@ -46,6 +47,6 @@ namespace O2.Interfaces.O2Core
         void addPathToCurrentExecutableEnvironmentPathVariable(String sPathToAdd);
 
         // misc global vars
-        string O2FindingsFileExtension { get; set;}                 
-    }
+        string O2FindingsFileExtension { get; set;}		
+	}
 }

@@ -6,16 +6,19 @@ using System.Text;
 using System.IO;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.InterfacesBaseImpl;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.CodeUtils
 {
     public class O2ConfigLoader
     {
         public static string defaultLocationOfO2ConfigFile()
-        {
-            if (Environment.CurrentDirectory.IndexOf(@"E:\O2\_SourceCode_O2") > -1)
-                return @"C:\O2\devbox.o2.config";
-            return Path.Combine(Environment.CurrentDirectory, "o2.config");
+        {            
+			var pathToO2ConfigFile = Path.Combine(Environment.CurrentDirectory, "o2.config");
+			if (pathToO2ConfigFile.canSaveToFile().isFalse())
+				pathToO2ConfigFile = pathToO2ConfigFile.Replace(pathToO2ConfigFile.directoryName(), Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+			return pathToO2ConfigFile;
+
         }
 
         static public KO2Config getKO2Config()
@@ -82,10 +85,12 @@ namespace O2.Kernel.CodeUtils
         public static KO2Config loadO2Config(string pathToO2ConfigFile, bool createFileIfDoesntExit)
         {
             if (false == File.Exists(pathToO2ConfigFile))
-                if (createFileIfDoesntExit)
-                    return createO2ConfigFile(pathToO2ConfigFile);
-                else
-                    return null;
+				if (createFileIfDoesntExit)
+				{
+					return createO2ConfigFile(pathToO2ConfigFile);
+				}
+				else
+					return null;
 
             var kO2Config = (KO2Config)O2Kernel_Serialize.getDeSerializedObjectFromXmlFile(pathToO2ConfigFile, typeof(KO2Config));
             if (kO2Config != null)
@@ -104,7 +109,7 @@ namespace O2.Kernel.CodeUtils
 
         public static KO2Config createO2ConfigFile(string pathToO2ConfigFile)
         {
-            var newO2ConfigFile = new KO2Config(pathToO2ConfigFile);
+            var newO2ConfigFile = new KO2Config(pathToO2ConfigFile);			
             saveO2ConfigFile(newO2ConfigFile, pathToO2ConfigFile);
             return newO2ConfigFile;
         }

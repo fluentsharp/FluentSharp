@@ -30,8 +30,9 @@ namespace O2.DotNetWrappers.DotNet
             if (useCachedVersion && chachedListOfGacAssembliesNames.notNull())
                 return chachedListOfGacAssembliesNames;
 
-            return (from gacAssembly in currentGacAssemblies()
-                    select gacAssembly.name).toList();
+            chachedListOfGacAssembliesNames = (from gacAssembly in currentGacAssemblies()
+											   select gacAssembly.name).toList();
+			return chachedListOfGacAssembliesNames;
         }
 
 

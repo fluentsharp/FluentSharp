@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="O2_DotNetWrappers\DI.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DevUtils.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\GacUtils.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellExecution.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellIO.cs" />
     <Compile Include="O2_Kernel\O2LiveObjects.cs" />
+    <Compile Include="O2_Kernel\O2_at_GitHub.cs" />
     <Compile Include="O2_Kernel\Objects\KeyValueStrings.cs" />
     <Compile Include="O2_Kernel\Objects\O2AppDomainFactory.cs" />
     <Compile Include="O2_Kernel\Objects\O2Object.cs" />

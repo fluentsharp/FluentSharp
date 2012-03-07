@@ -30,63 +30,9 @@ namespace O2.Kernel.CodeUtils
             if (assemblyToLoad.contains("".tempDir()))       // don't try to fetch temp assemblies
                 return ;
             var thread = O2Kernel_O2Thread.mtaThread(
-                () =>
-                {
-                    try
-                    {
-                        if (AssembliesCheckedIfExists.Contains(assemblyToLoad) || AssembliesCheckedIfExists.Contains(Path.GetFileNameWithoutExtension(assemblyToLoad)))     // for performace reasons only check this once                           
-                            return;
-                        assemblyToLoad = assemblyToLoad.remove(NO_GAC_TAG); // special tag to allow force downloads
-                        "Trying to fetch assembly from O2's SVN repository: {0}".info(assemblyToLoad);
-                        AssembliesCheckedIfExists.Add(assemblyToLoad);
-                        if (new O2Kernel_Web().online() == false)
-                        {
-                            "We are currently offline, skipping the check".debug();
-                            return;
-                        }
-//                        if (Path.GetExtension(assemblyToLoad) == ".dll" ||
-//                            Path.GetExtension(assemblyToLoad) == ".exe")  // if there is no valid extension is it most likely a GAC reference
-//                        {
-                            var currentApplicationPath = PublicDI.config.CurrentExecutableDirectory;
-                            localFilePath=  (assemblyToLoad.contains("/","\\"))
-                                                ? Path.Combine(currentApplicationPath, Path.GetFileName(assemblyToLoad))
-                                                : Path.Combine(currentApplicationPath, assemblyToLoad);
-                            
-                            if (File.Exists(localFilePath))
-                                return;
-                            var webLocation1 = "{0}{1}".format(PublicDI.config.O2SVN_ExternalDlls, assemblyToLoad).trim();
-                            if (new O2Kernel_Web().httpFileExists(webLocation1))
-                            {
-                                new O2Kernel_Web().downloadBinaryFile(webLocation1, localFilePath);
-                            }
-                            else
-                            {
-                                var webLocation2 = "{0}{1}".format(PublicDI.config.O2SVN_Binaries, assemblyToLoad).trim();
-                                if (new O2Kernel_Web().httpFileExists(webLocation2))
-                                {
-                                    new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
-                                }
-                                else
-                                {
-                                    var webLocation3 = "{0}{1}".format(PublicDI.config.O2SVN_FilesWithNoCode, assemblyToLoad).trim();
-                                    if (new O2Kernel_Web().httpFileExists(webLocation3))
-                                    {
-                                        new O2Kernel_Web().downloadBinaryFile(webLocation3, localFilePath);
-                                    }
-                                }
-                            }
-                            if (File.Exists(localFilePath))
-                            {
-                                "Assembly sucessfully fetched from O2SVN: {0}".info(localFilePath);
-                                return;
-                            }
-//                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.log("in O2Svn, tryToFetchAssemblyFromO2SVN");
-                    }
-                });
+                ()=>{
+						downloadThread(assemblyToLoad, ref localFilePath);
+					});
             var maxWait = 60;
             if (thread.Join(maxWait * 1000) == false)
             {
@@ -99,5 +45,67 @@ namespace O2.Kernel.CodeUtils
             //var localPath = Path.Combine
             //return false;
         }
+
+		public static void downloadThread(string assemblyToLoad, ref string localFilePath)
+		{
+			try
+			{
+				if (Path.GetExtension(assemblyToLoad) != ".dll" && Path.GetExtension(assemblyToLoad) != ".exe")
+					assemblyToLoad += ".dll";
+
+				if (AssembliesCheckedIfExists.Contains(assemblyToLoad) || AssembliesCheckedIfExists.Contains(Path.GetFileNameWithoutExtension(assemblyToLoad)))     // for performace reasons only check this once                           
+					return;
+				assemblyToLoad = assemblyToLoad.remove(NO_GAC_TAG); // special tag to allow force downloads
+				"Trying to fetch assembly from O2's SVN repository: {0}".info(assemblyToLoad);
+				AssembliesCheckedIfExists.Add(assemblyToLoad);
+				if (new O2Kernel_Web().online() == false)
+				{
+					"We are currently offline, skipping the check".debug();
+					return;
+				}
+
+				var referencesDownloadLocation = PublicDI.config.ReferencesDownloadLocation;
+				localFilePath = (assemblyToLoad.contains("/", "\\"))
+									? Path.Combine(referencesDownloadLocation, Path.GetFileName(assemblyToLoad))
+									: Path.Combine(referencesDownloadLocation, assemblyToLoad);
+
+				if (File.Exists(localFilePath))
+				{
+					localFilePath.assembly();	// load it									
+					return;
+				}
+				var webLocation1 = "{0}{1}".format(PublicDI.config.O2SVN_ExternalDlls, assemblyToLoad).trim();
+				if (new O2Kernel_Web().httpFileExists(webLocation1))
+				{
+					new O2Kernel_Web().downloadBinaryFile(webLocation1, localFilePath);
+				}
+				else
+				{
+					var webLocation2 = "{0}{1}".format(PublicDI.config.O2SVN_Binaries, assemblyToLoad).trim();
+					if (new O2Kernel_Web().httpFileExists(webLocation2))
+					{
+						new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
+					}
+					else
+					{
+						var webLocation3 = "{0}{1}".format(PublicDI.config.O2SVN_FilesWithNoCode, assemblyToLoad).trim();
+						if (new O2Kernel_Web().httpFileExists(webLocation3))
+						{
+							new O2Kernel_Web().downloadBinaryFile(webLocation3, localFilePath);
+						}
+					}
+				}
+				if (File.Exists(localFilePath))
+				{
+					"Assembly sucessfully fetched from O2SVN: {0}".info(localFilePath);
+					localFilePath.assembly();		// load it
+					return;
+				}
+			}
+			catch (Exception ex)
+			{
+				ex.log("in O2Svn, tryToFetchAssemblyFromO2SVN");
+			}
+		}
     }
 }

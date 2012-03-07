@@ -5,7 +5,10 @@ using System.Reflection;
 using O2.Interfaces.O2Core;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.Objects;
+using System.IO;
+using O2.DotNetWrappers.DotNet;
 
 //O2File:../PublicDI.cs
 //O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
@@ -693,46 +696,63 @@ namespace O2.Kernel.InterfacesBaseImpl
 
         public Assembly loadAssembly(string assemblyToLoad)
         {
-            // try with load method #1
-            try
-            {
-                if (System.IO.File.Exists(assemblyToLoad) == false &&
-                    System.IO.File.Exists(System.IO.Path.Combine( PublicDI.config.CurrentExecutableDirectory,assemblyToLoad)))         // if this assembly is not on the current executable folder                                 
-                    new O2Svn().tryToFetchAssemblyFromO2SVN(assemblyToLoad);
+			if (AssemblyResolver.CachedMappedAssemblies.hasKey(assemblyToLoad))
+				return AssemblyResolver.CachedMappedAssemblies[assemblyToLoad];
+			Assembly assembly = AssemblyResolver.loadFromDisk(assemblyToLoad);
+			if (assembly != null)
+				return assembly;
+			
+			// try with load method #1
+			#pragma warning disable 618
+			assembly = Assembly.LoadWithPartialName(assemblyToLoad);
 
-                return Assembly.LoadFrom(assemblyToLoad);
-            }
-            catch (Exception ex1)
-            {
-                // try with load method #2
-                try
-                {
-                    return Assembly.Load(AssemblyName.GetAssemblyName(assemblyToLoad).FullName);
-                }
-                catch (Exception ex2)
-                {
-                    // try with load method #3
-            	    try
-                    {
-                        #pragma warning disable 618
-                        var assembly = Assembly.LoadWithPartialName(assemblyToLoad);
-                        #pragma warning restore 618
-                        if (assembly != null)
-            		    {
-            			    //PublicDI.log.info("load using partial name ('{0}') assembly: {1}",assemblyToLoad, assembly.Location); 
-            			    return assembly;
-            		    }
-            		    PublicDI.log.error("load using partial name ('{0}') returned null",assemblyToLoad);
-            	    }                	
-                    catch  (Exception ex3)
-            	    {
-            		    PublicDI.log.error("in loadAssembly (Assembly.LoadFrom) :{0}", ex1.Message);
-            		    PublicDI.log.error("in loadAssembly (Assembly.Load) :{0}", ex2.Message);
-                        PublicDI.log.error("in loadAssembly (Assembly.LoadWithPartialName) :{0}", ex3.Message);
-            	    }
-                }
-            }
-            return null;
+			if (assembly.isNull() && assemblyToLoad.lower().ends(".dll") || assemblyToLoad.lower().ends(".exe"))
+			{				
+				assembly = Assembly.LoadWithPartialName(Path.GetFileNameWithoutExtension(assemblyToLoad));
+			}
+			#pragma warning restore 618
+			if (assembly.isNull())
+			{
+				// try with load method #2
+				try
+				{
+					//if (System.IO.File.Exists(assemblyToLoad) == false &&
+					//   System.IO.File.Exists(System.IO.Path.Combine( PublicDI.config.CurrentExecutableDirectory,assemblyToLoad)))         // if this assembly is not on the current executable folder                                 
+					//   new O2Svn().tryToFetchAssemblyFromO2SVN(assemblyToLoad);		
+					//assembly = Assembly.Load(assemblyToLoad);		
+					assembly = Assembly.LoadFrom(assemblyToLoad);
+				}
+				catch //(Exception ex1)
+				{
+					// try with load method #3
+					try
+					{
+						assembly = Assembly.Load(AssemblyName.GetAssemblyName(assemblyToLoad).FullName);
+					}
+					catch// (Exception ex2)
+					{
+						// try with load method #4
+						try
+						{							
+							assembly = Assembly.Load(assemblyToLoad);
+						}
+						catch //(Exception ex3)
+						{
+							//            		    PublicDI.log.error("in loadAssembly (Assembly.LoadFrom) :{0}", ex1.Message);
+							//            		    PublicDI.log.error("in loadAssembly (Assembly.Load) :{0}", ex2.Message);
+							//                        PublicDI.log.error("in loadAssembly (Assembly.LoadWithPartialName) :{0}", ex3.Message);
+						}
+					}
+				}
+			}
+			if (assembly != null)		
+			{
+				AssemblyResolver.CachedMappedAssemblies.add(assemblyToLoad,assembly);
+				return assembly;
+			}
+			PublicDI.log.info("could not load/find assembly ('{0}')",assemblyToLoad); 
+			//PublicDI.log.error("load using partial name ('{0}') returned null",assemblyToLoad);					            		    
+            return assembly;
         }
 
         public bool loadAssemblyAndCheckIfAllTypesCanBeLoaded(string assemblyFile)
@@ -1054,7 +1074,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public Object createObjectUsingDefaultConstructor(Type tTypeToCreateObject)
         {
             try
-            {
+            {				
                 return Activator.CreateInstance(tTypeToCreateObject);
             }
             catch (Exception ex)

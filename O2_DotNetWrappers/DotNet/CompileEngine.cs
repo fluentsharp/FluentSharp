@@ -37,9 +37,11 @@ namespace O2.DotNetWrappers.DotNet
         public bool DebugMode;
 
         public static Dictionary<string, string> LocalScriptFileMappings = new Dictionary<string, string>();
+		public static List<string> LocalReferenceFolders				 = new List<string>();
         public static Dictionary<string, string> CachedCompiledAssemblies = new Dictionary<string, string>();
-        public static string CachedCompiledAssembliesMappingsFile = PublicDI.config.O2TempDir.pathCombine("..\\CachedCompiledAssembliesMappings.xml");
-        public static Dictionary<string,string> CompilationPathMappings = new Dictionary<string, string>();
+        public static string					 CachedCompiledAssembliesMappingsFile = PublicDI.config.O2TempDir.pathCombine("..\\CachedCompiledAssembliesMappings.xml");
+        public static Dictionary<string,string>  CompilationPathMappings = new Dictionary<string, string>();
+		
 
         // the first time were here, load up the mappings from the CachedCompiledAssembliesMappingsFile
         static CompileEngine() 
@@ -151,7 +153,11 @@ namespace O2.DotNetWrappers.DotNet
             if (cachedCompilation.notNull())
             {
                 compiledAssembly = cachedCompilation;
-                return cachedCompilation;
+				if (compiledAssembly.ImageRuntimeVersion.contains("v4__"))
+				{
+					loadReferencedAssembliesIntoMemory(compiledAssembly);
+					return cachedCompilation;
+				}
             }
             if (sourceCodeFiles.Count == 0)
                 return null;
@@ -178,6 +184,27 @@ namespace O2.DotNetWrappers.DotNet
             PublicDI.log.error("Compilation failed: {0}", errorMessages);
             return null;
         }
+
+		private void loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
+		{			
+			foreach (var assemblyName in targetAssembly.GetReferencedAssemblies())
+			{
+				Assembly assembly = null;
+				try
+				{
+					assembly = Assembly.Load(assemblyName);
+				}
+				catch
+				{
+					assembly = assemblyName.Name.assembly();
+					
+				}
+				if (assembly.isNull())
+				{
+					"[loadReferencedAssembliesIntoMemory] failed to load assembly".error();
+				}
+			}
+		}
 
         private void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
         {
@@ -705,24 +732,71 @@ namespace O2.DotNetWrappers.DotNet
             return "";
         }
 
+		public static string resolveCompilationReferencePath(string reference)
+		{			
+			if (reference.fileExists().isFalse())
+			{
+				if (reference.IndexOf(",") > 0)
+					reference = reference.split(",").first();
+				var resolvedFile = PublicDI.config.ReferencesDownloadLocation.pathCombine(reference);
+				if (resolvedFile.fileExists())
+					return resolvedFile;
+				foreach (var localReferenceFolder in LocalReferenceFolders)
+				{
+					resolvedFile = localReferenceFolder.pathCombine(reference);
+					if (resolvedFile.fileExists())
+						return resolvedFile;
+					resolvedFile = localReferenceFolder.pathCombine(reference + ".dll");
+					if (resolvedFile.fileExists())
+						return resolvedFile;
+					resolvedFile = localReferenceFolder.pathCombine(reference + ".exe");
+					if (resolvedFile.fileExists())
+						return resolvedFile;
+				}
+			}
+			return reference;
+		}
+
         public static void tryToResolveReferencesForCompilation(List<string> referencedAssemblies, bool workOffline)
         {
             var currentExecutablePath = PublicDI.config.CurrentExecutableDirectory;
-            foreach (var reference in referencedAssemblies)
-            {
-                //"Reference: {0}".debug(reference);
-                if (reference.fileExists())
-                {
-                    var expectedFile = currentExecutablePath.pathCombine(reference.fileName());
-                    if (expectedFile.fileExists().isFalse())
-                        Files.Copy(reference, expectedFile);
-                }
-                else
-                {
-                    populateCachedListOfGacAssemblies();     
-                    if (workOffline.isFalse())                            
-                        new O2Svn().tryToFetchAssemblyFromO2SVN(reference);
-                }
+
+			for (int i = 0; i < referencedAssemblies.size(); i++)
+			{
+				referencedAssemblies[i] = referencedAssemblies[i].trim();
+				referencedAssemblies[i] = resolveCompilationReferencePath(referencedAssemblies[i]);
+				//if (referencedAssemblies[i].fileExists())
+				//	continue;
+            //foreach (var reference in referencedAssemblies)
+            //{
+
+				var assembly = referencedAssemblies[i].assembly();
+				if(assembly.isNull())
+				{
+					//"Reference: {0}".debug(reference);
+				/*	if (reference.fileExists())
+					{
+						var expectedFile = currentExecutablePath.pathCombine(reference.fileName());
+						if (expectedFile.fileExists().isFalse())
+							Files.Copy(reference, expectedFile);
+					}
+					else
+					{*/
+						//populateCachedListOfGacAssemblies();     
+					if (workOffline.isFalse())
+					{
+						new O2Svn().tryToFetchAssemblyFromO2SVN(referencedAssemblies[i]);
+						assembly = referencedAssemblies[i].assembly();
+					}
+					//}
+				}
+				if (assembly.notNull() && assembly.Location.fileExists())
+					referencedAssemblies[i] = assembly.Location;
+				else
+				{
+					"[tryToResolveReferencesForCompilation] failed to resolve assembly reference: {0}".error(referencedAssemblies[i]);
+				}
+
             }
         }
 

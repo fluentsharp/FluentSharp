@@ -40,6 +40,8 @@ namespace O2.Kernel
             
             O2KernelProcessName = "Generic O2 Kernel Process"; ;
             AppDomainUtils.registerCurrentAppDomain();
+
+			O2_at_GitHub.configureReferencesDownloadLocations();
         }
 
         // DI targets

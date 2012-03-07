@@ -83,6 +83,31 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return "";
         }
 
+		public static bool canSaveToFile(this string targetFileName)
+		{
+			var fileExisted = targetFileName.fileExists();
+			var originalFileContents = (fileExisted)
+											? targetFileName.fileContents()
+											: null;
+			try
+			{
+				var testContent = "This is a test content";
+				testContent.saveAs(targetFileName);
+				if (testContent != targetFileName.fileContents())
+					return false;
+				if (fileExisted)
+					originalFileContents.saveAs(targetFileName);
+				else
+					File.Delete(targetFileName);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+
+		}
+
         public static string fileTrimContents(this string filePath)
         {
             var fileContents = filePath.fileContents();
@@ -198,9 +223,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         public static bool fileExists(this string file)
-        {            
-            if (file.valid() && file.size() < 256)
-                return File.Exists(file);
+        {
+			try
+			{
+				if (file.valid() && file.size() < 256)
+					return File.Exists(file);
+			}
+			catch
+			{ }
             return false;
         }
 
