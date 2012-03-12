@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7BFDC99E-0FC7-42FC-9E32-83F77B2BE8F0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.Views.ASCX</RootNamespace>
+    <AssemblyName>O2_Views_ASCX</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\O2_Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Merlin, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_3rdPartyDlls\Merlin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ascx\DataViewers\ascx_ShowInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_LogViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_LogViewer.Designer.cs">
+      <DependentUpon>ascx_LogViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_O2InstallAndTempDirectories.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_O2InstallAndTempDirectories.Designer.cs">
+      <DependentUpon>ascx_O2InstallAndTempDirectories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_ViewO2Config.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_ViewO2Config.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_ViewO2Config.Designer.cs">
+      <DependentUpon>ascx_ViewO2Config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_WorkingOnTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\MainGUI\ascx_WorkingOnTask.Designer.cs">
+      <DependentUpon>ascx_WorkingOnTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\Web\O2WebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="classes\MainGUI\WinFormsUILog.cs" />
+    <Compile Include="ExtensionMethods\ascx_TableList_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\CoreControls_ExtensionMethods.cs" />
+    <Compile Include="classes\CreateDataTable.cs" />
+    <Compile Include="classes\ImagesLists.cs" />
+    <Compile Include="classes\MainGUI\DebugMsg.cs" />
+    <Compile Include="classes\MainGUI\O2Gui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="classes\MainGUI\WinForms.cs" />
+    <Compile Include="ExtensionMethods\MainGui_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods.cs" />
+    <Compile Include="classes\O2CoreResources.Designer.cs">
+      <DependentUpon>O2CoreResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_Directory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_Directory.Designer.cs">
+      <DependentUpon>ascx_Directory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_DownloadFile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_DownloadFile.Designer.cs">
+      <DependentUpon>ascx_DownloadFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_FileMappings.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_FileMappings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_FileMappings.Designer.cs">
+      <DependentUpon>ascx_FileMappings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_O2ObjectModel.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_O2ObjectModel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_O2ObjectModel.Designer.cs">
+      <DependentUpon>ascx_O2ObjectModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_SelectVisiblePanels.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_SelectVisiblePanels.Designer.cs">
+      <DependentUpon>ascx_SelectVisiblePanels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\DataViewers\ascx_FunctionsViewer.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\DataViewers\ascx_FunctionsViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\DataViewers\ascx_FunctionsViewer.Designer.cs">
+      <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\DataViewers\ascx_TableList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\DataViewers\ascx_TableList.Designer.cs">
+      <DependentUpon>ascx_TableList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\O2_Main_GUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\O2_Main_GUI.Designer.cs">
+      <DependentUpon>O2_Main_GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReportBug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReportBug.Designer.cs">
+      <DependentUpon>ReportBug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MerlinWizard\IO2Wizard.cs" />
+    <Compile Include="MerlinWizard\MerlinUtils.cs" />
+    <Compile Include="MerlinWizard\O2Wizard.cs" />
+    <Compile Include="ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs" />
+    <Compile Include="ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs" />
+    <Compile Include="ExtensionMethods\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs" />
+    <Compile Include="ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs" />
+    <Compile Include="ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs" />
+    <Compile Include="Ascx\O2Findings\ascx_FindingEditor.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_FindingEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_FindingEditor.Designer.cs">
+      <DependentUpon>ascx_FindingEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_FindingsViewer.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_FindingsViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_FindingsViewer.Designer.cs">
+      <DependentUpon>ascx_FindingsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_TraceTreeView.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_TraceTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\O2Findings\ascx_TraceTreeView.Designer.cs">
+      <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_DropObject.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\CoreControls\ascx_DropObject.Designer.cs">
+      <DependentUpon>ascx_DropObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DI.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_Task.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_Task.Designer.cs">
+      <DependentUpon>ascx_Task.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\TasksWrappers\Task_LoadAssessmentFiles.cs" />
+    <Compile Include="classes\TasksWrappers\Task_Unzip.cs" />
+    <Compile Include="classes\Tasks\BTask.cs" />
+    <Compile Include="classes\Tasks\TaskThread.cs" />
+    <Compile Include="classes\Tasks\TaskUtils.cs" />
+    <Compile Include="classes\WebRequests.cs" />
+    <Compile Include="_Wizards\Wizard_BackupFolder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2_DotNetWrappers\O2 DotNet Wrappers.csproj">
+      <Project>{1F252725-D8BE-408A-BE5C-2D11D0DE8586}</Project>
+      <Name>O2 DotNet Wrappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\O2_Interfaces\O2_Interfaces.csproj">
+      <Project>{64223518-03C2-4818-8C82-F045037E3DFE}</Project>
+      <Name>O2_Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\O2_Kernel\O2 Kernel.csproj">
+      <Project>{BDB9EFED-296A-4535-99C6-F0B83316E80C}</Project>
+      <Name>O2 Kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ascx\MainGUI\ascx_LogViewer.resx">
+      <DependentUpon>ascx_LogViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\MainGUI\ascx_O2InstallAndTempDirectories.resx">
+      <DependentUpon>ascx_O2InstallAndTempDirectories.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\MainGUI\ascx_ViewO2Config.resx">
+      <DependentUpon>ascx_ViewO2Config.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\MainGUI\ascx_WorkingOnTask.resx">
+      <DependentUpon>ascx_WorkingOnTask.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="classes\O2CoreResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>O2CoreResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\CoreControls\ascx_Directory.resx">
+      <DependentUpon>ascx_Directory.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\CoreControls\ascx_DownloadFile.resx">
+      <DependentUpon>ascx_DownloadFile.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\CoreControls\ascx_DropObject.resx">
+      <DependentUpon>ascx_DropObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\CoreControls\ascx_FileMappings.resx">
+      <DependentUpon>ascx_FileMappings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\CoreControls\ascx_O2ObjectModel.resx">
+      <DependentUpon>ascx_O2ObjectModel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\CoreControls\ascx_SelectVisiblePanels.resx">
+      <DependentUpon>ascx_SelectVisiblePanels.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\DataViewers\ascx_FunctionsViewer.resx">
+      <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\DataViewers\ascx_TableList.resx">
+      <DependentUpon>ascx_TableList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\O2_Main_GUI.resx">
+      <DependentUpon>O2_Main_GUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\O2Findings\ascx_FindingEditor.resx">
+      <DependentUpon>ascx_FindingEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\O2Findings\ascx_FindingsViewer.resx">
+      <DependentUpon>ascx_FindingsViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\O2Findings\ascx_TraceTreeView.resx">
+      <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReportBug.resx">
+      <DependentUpon>ReportBug.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\Tasks\ascx_Task.resx">
+      <DependentUpon>ascx_Task.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ChangeLog.txt" />
+    <Content Include="classes\o2FindingsScriptLibrary.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

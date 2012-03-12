@@ -1,0 +1,19 @@
+using System;
+using O2.Kernel.Interfaces.Messages;
+using O2.Kernel.Interfaces.Views;
+
+namespace O2.Kernel.InterfacesBaseImpl
+{
+    public class KM_OpenControlInGUI : IM_OpenControlInGUI
+    {
+        public Guid messageGUID { get; set; }
+        public string messageText { get; set; }
+        public Type controlType { get; set; }
+        public O2DockState o2DockState { get; set; }
+        public string controlName { get; set; }
+
+        
+        
+      
+    }
+}

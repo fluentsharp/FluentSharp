@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using O2.Kernel.Interfaces.Views;
+
+namespace O2.Kernel.Interfaces.Messages
+{
+    public interface IM_OpenControlInGUI : IO2Message
+    {
+        Type controlType { get; set; }
+        O2DockState o2DockState { get; set; }
+        string controlName { get; set; } 
+    }
+}

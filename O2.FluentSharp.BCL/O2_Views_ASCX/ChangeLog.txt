@@ -1,0 +1,6 @@
+﻿5-Dec-09:
+	* Added right-click menu to directory view 
+		* Added menu item to create a new directory
+		* Added menu item to rename a file 
+		* Added menu item to delete a file 
+		* Added menu item to delete a folder

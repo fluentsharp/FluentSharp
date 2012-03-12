@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<o2FindingsScriptLibrary>
+  <script title="Default o2Findings Linq Script">from O2Finding finding in o2Findings select new {finding.vulnType , finding.vulnName, finding.confidence, finding.severity, finding.o2Traces, finding }</script>
+  <script title="Just VulnType and VulnName">from O2Finding finding in o2Findings select new {finding.vulnType, finding.vulnName , finding}</script>
+  <script title="All Finding Details">from O2Finding finding in o2Findings select finding</script>
+  <script title="All Findings with Traces">from O2Finding finding in o2Findings where finding.o2Traces.Count() ==1 select finding</script>
+  <script title="All Findings with NO Traces">from O2Finding finding in o2Findings where finding.o2Traces.Count() == 0 select finding</script>
+  <script title="Only Vulnerabilities">from O2Finding finding in o2Findings where finding.confidence ==  1 select finding</script>
+  <script title="Only Type I">from O2Finding finding in o2Findings where finding.confidence ==  2 select finding</script>
+  <script title="Only Type II">from O2Finding finding in o2Findings where finding.confidence ==  3 select finding</script>
+  <script title="Only High">from O2Finding finding in o2Findings where finding.severity ==  0 select finding</script>
+  <script title="Only Medium">from O2Finding finding in o2Findings where finding.severity ==  1 select finding</script>
+  <script title="Only Low">from O2Finding finding in o2Findings where finding.severity ==  2 select finding</script>
+  <script title="Only Info">from O2Finding finding in o2Findings where finding.severity ==  3 select finding</script>
+  <script title="Unique VulnName">from O2Finding finding in o2Findings select finding.vulnName</script>
+  <script title="Unique VulnType">from O2Finding finding in o2Findings select finding.vulnType</script>
+  <script title="Unique Sources">from O2Finding finding in o2Findings where finding.Source != ''  orderby finding.Source select finding.Source</script>
+  <script title="Unique Sinks">from O2Finding finding in o2Findings where finding.Sink != ''  orderby finding.Sink select finding.Sink</script>
+  <script title="Unique Lost Sinks">from O2Finding finding in o2Findings where finding.LostSink != ''  orderby finding.LostSink select finding.LostSink</script>
+  <script title="Unique Known Sinks">from O2Finding finding in o2Findings where finding.KnownSink != ''  orderby finding.KnownSink select finding.KnownSink</script>
+  <script title="Number of Findings on each Unique VulnName">from f in o2Findings orderby f.vulnName descending group f by f.vulnName into g select new { vulnName = g.Key, number_of_calls = g.Count()}</script>
+  <script title="Number of Findings on each Unique VulnType">from f in o2Findings orderby f.vulnType ascending group f by f.vulnType into g select new { vulnName = g.Key, number_of_calls = g.Count()}</script>
+</o2FindingsScriptLibrary>
