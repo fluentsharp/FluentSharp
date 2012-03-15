@@ -29,11 +29,11 @@ namespace O2.DotNetWrappers.DotNet
         static List<string> specialO2Tag_ExtraFolder = new List<string>() { "//O2Tag_AddSourceFolder:", "//O2Folder:", "//O2Dir:" };
         static List<string> specialO2Tag_DontCompile= new List<string>() { "//O2NoCompile"};
 
-        public Assembly compiledAssembly;
-        public CompilerParameters cpCompilerParameters;
-        public CompilerResults crCompilerResults;
-        public CSharpCodeProvider cscpCSharpCodeProvider;
-        public StringBuilder sbErrorMessage;
+        public Assembly				compiledAssembly;
+        public CompilerParameters	cpCompilerParameters;
+        public CompilerResults		crCompilerResults;
+        public CSharpCodeProvider	cscpCSharpCodeProvider;
+        public StringBuilder		sbErrorMessage;
         public bool DebugMode;
 
         public static Dictionary<string, string> LocalScriptFileMappings = new Dictionary<string, string>();
@@ -146,19 +146,18 @@ namespace O2.DotNetWrappers.DotNet
                                                  string outputAssemblyName, bool workOffline)
         {            
             sourceCodeFiles = checkForNoCompileFiles(sourceCodeFiles);
-
+			
             // see if we already have a cache of all these files
             var filesMd5 = sourceCodeFiles.filesContents().md5Hash();
             var cachedCompilation = getCachedCompiledAssembly_MD5(filesMd5);
             if (cachedCompilation.notNull())
             {
                 compiledAssembly = cachedCompilation;
-				if (compiledAssembly.ImageRuntimeVersion.contains("v4__"))
-				{
-					loadReferencedAssembliesIntoMemory(compiledAssembly);
-					return cachedCompilation;
-				}
+				
+				loadReferencedAssembliesIntoMemory(compiledAssembly);
+				return cachedCompilation;				
             }
+			//if not compile file
             if (sourceCodeFiles.Count == 0)
                 return null;
             string errorMessages = "";
@@ -185,7 +184,7 @@ namespace O2.DotNetWrappers.DotNet
             return null;
         }
 
-		private void loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
+		public static void loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
 		{			
 			foreach (var assemblyName in targetAssembly.GetReferencedAssemblies())
 			{
@@ -227,13 +226,13 @@ namespace O2.DotNetWrappers.DotNet
             }
         }
 
-        public Assembly getCachedCompiledAssembly_MD5(List<string> sourceCodeFiles)
+        public static Assembly getCachedCompiledAssembly_MD5(List<string> sourceCodeFiles)
         {
             var filesMd5 =  sourceCodeFiles.filesContents().md5Hash();
             return getCachedCompiledAssembly_MD5(filesMd5);
         }
 
-        public Assembly getCachedCompiledAssembly_MD5(string key)
+		public static Assembly getCachedCompiledAssembly_MD5(string key)
         {
             if (CachedCompiledAssemblies.hasKey(key))
             {
