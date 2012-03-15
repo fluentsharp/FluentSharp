@@ -27,7 +27,7 @@ namespace O2.Kernel.ExtensionMethods
         {
             try
             {
-                var objectType = "O2_Views_Ascx.dll".type(controlName);
+                var objectType = "O2_FluentSharp_BCL.dll".type(controlName);
                 if (objectType == null)
                     "could not load control type: {0}".format(controlName).error();
                 else

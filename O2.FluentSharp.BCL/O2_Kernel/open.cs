@@ -100,7 +100,7 @@ namespace O2.Kernel
 
         public static object o2ObjectModel()
         {
-            var graphControlType = "O2_Views_ASCX.dll".type("ascx_O2ObjectModel");
+			var graphControlType = "O2_FluentSharp_BCL.dll".type("ascx_O2ObjectModel");
             return graphControlType.openControlAsForm("O2 Object Model", 500, 400);
         
         }
