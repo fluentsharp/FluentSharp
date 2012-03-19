@@ -32,10 +32,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -181,13 +181,9 @@
     <Compile Include="O2_Kernel\PublicDI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="O2_DotNetWrappers\O2 DotNet Wrappers.csproj" />
     <Content Include="O2_DotNetWrappers\Windows\Mdi.cs.txt" />
     <Content Include="O2_DotNetWrappers\Windows\RemoteThreadInjection.cs.txt" />
     <Content Include="O2_Interfaces\O2Tools\ISearchEngine.cs.txt" />
-    <Content Include="O2_Interfaces\O2_Interfaces.csproj" />
-    <Content Include="O2_Kernel\O2 Kernel.csproj" />
-    <Content Include="O2_Kernel\O2 Kernel.sln" />
   </ItemGroup>
   <ItemGroup>
     <None Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.xsd">

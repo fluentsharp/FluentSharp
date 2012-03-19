@@ -16,7 +16,7 @@ namespace O2.Kernel.InterfacesBaseImpl
     public class KO2Config : IO2Config
     {
         //public static string defaultLocalScriptFolder = @"C:\O2\O2Scripts_Database\_Scripts";
-		public static string defaultLocalScriptFolder				= @"..\O2.Platform.Scripts";
+		public static string defaultLocalScriptFolder				= @"..\..\O2.Platform.Scripts";
         public static string defaultLocallyDevelopedScriptsFolder	= @"C:\O2\_XRules_Local";        
         public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
         public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";

@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip">
-      <HintPath>_external_dlls_used\Ionic.Zip.dll</HintPath>
+    <Reference Include="Ionic.Zip, Version=1.8.4.20, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Merlin">
-      <HintPath>_external_dlls_used\Merlin.dll</HintPath>
+    <Reference Include="Merlin, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\Merlin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -345,8 +347,8 @@
     <Content Include="O2_Kernel\InterfacesBaseImpl\KM_OpenControlInGUI.cs.txt" />
     <Content Include="O2_Views_ASCX\ChangeLog.txt" />
     <Content Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml" />
-    <Content Include="O2_Views_ASCX\O2_Views_ASCX.csproj" />
-    <Content Include="O2_Views_ASCX\O2_Views_ASCX.sln" />
+    <Content Include="_External_Dlls\Ionic.Zip.dll" />
+    <Content Include="_External_Dlls\Merlin.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
