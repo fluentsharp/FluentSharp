@@ -1,8 +1,11 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Windows.Forms;
-using O2.Views.ASCX.classes.MainGUI;
+using System.Diagnostics;
 using O2.Kernel;
+using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
+using O2.Views.ASCX.classes.MainGUI;
 
 namespace O2.Views.ASCX.Ascx.MainGUI
 {
@@ -81,8 +84,19 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                     else
                         DI.log.error("in ascx_LogViewer_Load, there was not parent so .Closing event could not be set");
                     loadConfigExecuted = true;
+					updateMemoryUsageLabel();
                 }
             }
         }
+
+		public void updateMemoryUsageLabel()
+		{
+			lbMemoryUsed.set_Text("{0:#,###} kb |  {1:#,###} kb".format(Process.GetCurrentProcess().WorkingSet64 / 1024, Process.GetCurrentProcess().PrivateMemorySize64 / 1024));
+		}
+
+		private void lbMemoryUsed_Click(object sender, EventArgs e)
+		{
+			updateMemoryUsageLabel();
+		}
     }
 }

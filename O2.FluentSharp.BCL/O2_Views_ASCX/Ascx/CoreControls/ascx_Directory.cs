@@ -46,7 +46,7 @@ namespace O2.Views.ASCX.CoreControls
         private FolderWatcher folderWatcher;
         //public String fileFilter = "*.*";
         private ViewMode viewMode = ViewMode.Advanced;
-        public List<string> listOfExtensionsToShowToolTipContents = new List<string> { ".cs" };
+        public List<string> listOfExtensionsToShowToolTipContents = new List<string> { ".cs" , ".o2", ".h2" };
 
         public ascx_Directory()
         {
@@ -57,6 +57,8 @@ namespace O2.Views.ASCX.CoreControls
             _FileFilter = "*.*";
             if (DI.config!=null)
                 openDirectory(DI.config.O2TempDir); // if not specified one, open the temp directory
+
+			//tvDirectory.showToolTip();
         }
 
         public ascx_Directory(String sDirectoryToOpen) : this()
@@ -652,7 +654,7 @@ namespace O2.Views.ASCX.CoreControls
             
         }
 
-        private void tvDirectory_MouseMove(object sender, MouseEventArgs e)
+       /* private void tvDirectory_MouseMove(object sender, MouseEventArgs e)
         {
             var currentNode = tvDirectory.GetNodeAt(e.Location);
             if (currentNode != null)
@@ -660,10 +662,10 @@ namespace O2.Views.ASCX.CoreControls
                 setNodeTagToFileContents(currentNode);
                 //DI.log.info(currentNode.Text);
             }
-        }
+        }*/
 
-        private void setNodeTagToFileContents(TreeNode currentNode)
-        {
+/*        private void setNodeTagToFileContents(TreeNode currentNode)
+        {			
             if (_ShowFileContentsOnTopTip &&  currentNode.Tag != null && currentNode.ToolTipText == "") 
             {
                 var currentNodeFile = currentNode.Tag.ToString();
@@ -675,14 +677,14 @@ namespace O2.Views.ASCX.CoreControls
                         var fileContents = Files.getFileContents(currentNodeFile);
                         currentNode.ToolTipText = fileContents;
 
-                        /*currentNode.ToolTipText = (fileContents.Length < 2000)
+                        / *currentNode.ToolTipText = (fileContents.Length < 2000)
                                 ? fileContents
-                                : fileContents.Substring(0, 2000);*/
+                                : fileContents.Substring(0, 2000);* /
                     }                    
                 }
             }
         }
-
+*/		
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             refreshDirectoryView();

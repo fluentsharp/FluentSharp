@@ -154,8 +154,8 @@ namespace O2.DotNetWrappers.DotNet
             {
                 compiledAssembly = cachedCompilation;
 				
-				loadReferencedAssembliesIntoMemory(compiledAssembly);
-				return cachedCompilation;				
+				if (loadReferencedAssembliesIntoMemory(compiledAssembly))
+					return cachedCompilation;				
             }
 			//if not compile file
             if (sourceCodeFiles.Count == 0)
@@ -184,8 +184,9 @@ namespace O2.DotNetWrappers.DotNet
             return null;
         }
 
-		public static void loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
-		{			
+		public static bool loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
+		{
+			var allLoadedOk = true;
 			foreach (var assemblyName in targetAssembly.GetReferencedAssemblies())
 			{
 				Assembly assembly = null;
@@ -201,8 +202,10 @@ namespace O2.DotNetWrappers.DotNet
 				if (assembly.isNull())
 				{
 					"[loadReferencedAssembliesIntoMemory] failed to load assembly".error();
+					allLoadedOk = false;
 				}
 			}
+			return allLoadedOk;
 		}
 
         private void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
@@ -579,7 +582,11 @@ namespace O2.DotNetWrappers.DotNet
                 if (null != sReferenceAssembliesToAdd)
                     foreach (String sReferenceAssembly in sReferenceAssembliesToAdd)
                     {
-                        try
+						if (File.Exists(sReferenceAssembly))
+							cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
+				//		else
+				//			"[compileSourceFiles] in cpCompilerParameters.ReferencedAssemblies.Add, could not find: {0}".error(sReferenceAssembly);
+/*                        try
                         {
                             // first try to resolve it in the current directory
                             String sResolvedAssemblyName = Path.Combine(PublicDI.config.CurrentExecutableDirectory,
@@ -600,7 +607,7 @@ namespace O2.DotNetWrappers.DotNet
                         }
                         catch (Exception)
                         { }
-
+						*/
                         //PublicDI.log.error("in compileSourceCode_CSharp, could not resolve path to reference assembly :{0}", sReferenceAssembly);
                     }
                 //cpCompilerParameters.ReferencedAssemblies.AddRange(sReferenceAssembliesToAdd);                

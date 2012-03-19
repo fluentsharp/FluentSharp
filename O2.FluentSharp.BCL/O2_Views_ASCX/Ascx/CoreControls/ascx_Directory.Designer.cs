@@ -85,7 +85,7 @@ namespace O2.Views.ASCX.CoreControls
             this.tvDirectory.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvDirectory_DragDrop);
             this.tvDirectory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDirectory_AfterSelect);
             this.tvDirectory.MouseEnter += new System.EventHandler(this.tvDirectory_MouseEnter);
-            this.tvDirectory.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tvDirectory_MouseMove);
+            //this.tvDirectory.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tvDirectory_MouseMove);
             this.tvDirectory.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvDirectory_MouseDown);
             this.tvDirectory.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvDirectory_DragEnter);
             this.tvDirectory.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvDirectory_KeyUp);

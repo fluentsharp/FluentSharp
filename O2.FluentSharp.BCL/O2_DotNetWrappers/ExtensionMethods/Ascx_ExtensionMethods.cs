@@ -1010,6 +1010,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         #region TreeView
 
+		public static TreeView applyPatchFor_1NodeMissingNodeBug(this TreeView treeView)
+		{
+			if (treeView.nodes().size() == 1)
+			{
+				var firstNode = treeView.nodes()[0];
+				firstNode.set_Text(firstNode.get_Text() + "");
+			}
+			return treeView;
+		}
+
         public static TreeView add_TreeView(this Control control)
         {
             return (TreeView) control.invokeOnThread(
@@ -1800,6 +1810,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                     var nodeText = baseFolder.valid() ? item.remove(baseFolder) : item;
                                     treeView.add_Node(nodeText, item);
                                 }
+							treeView.applyPatchFor_1NodeMissingNodeBug();
                           };
 
             treeView.insert_Above<TextBox>(25).onEnter(populateTreeView);
@@ -1820,6 +1831,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     foreach (var item in itemsToShow)
                         if (skipRegexFilter || item.Key.regEx(text))
                             treeView.add_Node(item.Key, item.Value, item.Value.size() > 0);
+					treeView.applyPatchFor_1NodeMissingNodeBug();
                 });
 
             foreach (var item in itemsToShow)
@@ -1998,6 +2010,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     foreach (var item in itemsToShow)
                         if (skipRegexFilter || item.Key.regEx(text))
                             treeView.add_Node(item.Key, item.Value, addDummyNode);
+					treeView.applyPatchFor_1NodeMissingNodeBug();
                 });
 
             var textBoxValue = textBoxKey.insert_Right<TextBox>(textBoxKey.width() / 2).onEnter(
@@ -2008,6 +2021,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     foreach (var item in itemsToShow)
                         if (skipRegexFilter || item.Value != null && item.Value.str().regEx(text))
                             treeView.add_Node(item.Key, item.Value, addDummyNode);
+					treeView.applyPatchFor_1NodeMissingNodeBug();
                 });
 
             foreach (var item in itemsToShow)
@@ -2299,6 +2313,45 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return menuItem;
             return clildMenuItem;
         }
+
+		public static ToolStripComboBox enabled(this ToolStripComboBox toolStripComboBox)
+		{
+			return toolStripComboBox.enabled(true);
+		}
+
+		public static ToolStripComboBox enabled(this ToolStripComboBox toolStripComboBox, bool value)
+		{
+			toolStripComboBox.Control.enabled(value);
+			
+			//				toolStripComboBox.Enabled = value;
+//						});
+			return toolStripComboBox;
+		}
+
+		public static ToolStripButton enabled(this ToolStripButton toolStripButton)
+		{
+			return toolStripButton.enabled(true);
+		}
+
+		public static ToolStripButton enabled(this ToolStripButton toolStripButton, bool value)
+		{
+			toolStripButton.Enabled = value;
+			return toolStripButton;
+		}
+
+		public static ToolStripButton visible(this ToolStripButton toolStripButton)
+		{
+			return toolStripButton.visible(true);
+		}
+
+		public static ToolStripButton visible(this ToolStripButton toolStripButton, bool value)
+		{
+			toolStripButton.Owner.invokeOnThread(
+					()=>{						
+							toolStripButton.Visible = value;
+						});
+			return toolStripButton;
+		}
         #endregion
 
         #region MenuStrip

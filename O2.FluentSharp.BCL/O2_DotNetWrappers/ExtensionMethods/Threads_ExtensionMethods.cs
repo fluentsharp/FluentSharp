@@ -72,6 +72,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 System.Diagnostics.Debug.WriteLine(ex.Message);                
             }
         }
+
+		public static void invokeOnThread(this ToolStrip toolStrip, Action codeToInvoke)
+		{
+			try
+			{
+				if (toolStrip.InvokeRequired)
+					toolStrip.Invoke(new EventHandler((sender, e) => codeToInvoke()));
+				else
+					codeToInvoke();
+			}
+
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
+		}
         /// <summary>
         /// invokes target if control.InvokeRequired 
         /// Although if control.InvokeRequired the exection

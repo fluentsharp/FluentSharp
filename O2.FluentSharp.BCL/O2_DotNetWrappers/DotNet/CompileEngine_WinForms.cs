@@ -148,7 +148,7 @@ namespace O2.DotNetWrappers.DotNet
             //tvTargetTreeView.Visible = true;
         }
 
-/*        public static void addExtraFileReferencesToSelectedNode(TreeView treeView, string file)
+        public static void addExtraFileReferencesToSelectedNode(TreeView treeView, string file)
         {
             if (treeView != null)
                 treeView.invokeOnThread(
@@ -165,7 +165,7 @@ namespace O2.DotNetWrappers.DotNet
                 treeNode.Nodes.Clear();
                 // this will get the list of files to compile (which includes the extra files referenced in the source code that we want to add to this treeview)
                 var filesToCompile = new List<string> { file };
-                addSourceFileOrFolderIncludedInSourceCode(filesToCompile, new List<string>());
+                CompileEngine.addSourceFileOrFolderIncludedInSourceCode(filesToCompile, new List<string>());
                 filesToCompile.Remove(file);
                 foreach (var extraFile in filesToCompile)
                 {
@@ -174,6 +174,6 @@ namespace O2.DotNetWrappers.DotNet
                 treeNode.ExpandAll();
             }
         }
-		*/
+		
     }
 }
