@@ -702,7 +702,12 @@ namespace O2.Kernel.InterfacesBaseImpl
 					return AssemblyResolver.CachedMappedAssemblies[assemblyToLoad];
 				Assembly assembly = AssemblyResolver.loadFromDisk(assemblyToLoad);
 				if (assembly != null)
+				{
+					AssemblyResolver.CachedMappedAssemblies.add(assemblyToLoad, assembly);
+					AssemblyResolver.CachedMappedAssemblies.add(assembly.FullName, assembly);
+					AssemblyResolver.CachedMappedAssemblies.add(assembly.GetName().Name, assembly);
 					return assembly;
+				}
 
 				// try with load method #1
 #pragma warning disable 618
@@ -750,6 +755,8 @@ namespace O2.Kernel.InterfacesBaseImpl
 				if (assembly != null)
 				{
 					AssemblyResolver.CachedMappedAssemblies.add(assemblyToLoad, assembly);
+					AssemblyResolver.CachedMappedAssemblies.add(assembly.FullName, assembly);
+					AssemblyResolver.CachedMappedAssemblies.add(assembly.GetName().Name, assembly);
 					return assembly;
 				}
 			}

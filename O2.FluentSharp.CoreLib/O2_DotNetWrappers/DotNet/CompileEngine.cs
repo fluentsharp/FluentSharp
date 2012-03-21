@@ -185,14 +185,17 @@ namespace O2.DotNetWrappers.DotNet
         }
 
 		public static bool loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
-		{
-			var allLoadedOk = true;
+		{			
 			foreach (var assemblyName in targetAssembly.GetReferencedAssemblies())
 			{
 				Assembly assembly = null;
 				try
 				{
-					assembly = Assembly.Load(assemblyName);
+					var tmpFileLocation = PublicDI.config.O2TempDir.pathCombine(assemblyName.Name + ".dll");
+					if (tmpFileLocation.fileExists())
+						assembly = Assembly.LoadFrom(tmpFileLocation);
+					else
+						assembly = Assembly.Load(assemblyName);
 				}
 				catch
 				{
@@ -202,10 +205,10 @@ namespace O2.DotNetWrappers.DotNet
 				if (assembly.isNull())
 				{
 					"[loadReferencedAssembliesIntoMemory] failed to load assembly".error();
-					allLoadedOk = false;
+					return false;
 				}
 			}
-			return allLoadedOk;
+			return true;
 		}
 
         private void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
