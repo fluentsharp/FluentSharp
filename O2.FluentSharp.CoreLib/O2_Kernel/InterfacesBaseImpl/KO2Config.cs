@@ -16,7 +16,7 @@ namespace O2.Kernel.InterfacesBaseImpl
     public class KO2Config : IO2Config
     {
         //public static string defaultLocalScriptFolder = @"C:\O2\O2Scripts_Database\_Scripts";
-		public static string defaultLocalScriptFolder				= @"..\..\O2.Platform.Scripts";
+		public static string defaultLocalScriptFolder				= @"..\..\O2.Platform.Scripts";	
         public static string defaultLocallyDevelopedScriptsFolder	= @"C:\O2\_XRules_Local";        
         public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
         public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
@@ -26,11 +26,11 @@ namespace O2.Kernel.InterfacesBaseImpl
         public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
         public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
 
-        public string  defaultO2LocalTempFolder = @"C:\O2\_tempDir\";
+        public string  defaultO2LocalTempFolder = @"..\\..\\_O2_V4_TempDir";
 
         public KO2Config()
         {
-			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine("_O2_TempDir");
+			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
 
 			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
 
