@@ -115,12 +115,15 @@ namespace O2.DotNetWrappers.DotNet
 
         public static bool isClickOnceDeployment()
         {
-            var systemDeploymentDll = "System.Deployment".assembly();
+			return false;
+			
+            /*var systemDeploymentDll = "System.Deployment".assembly();
 
             var value = (bool)systemDeploymentDll.type("ApplicationDeployment").prop("IsNetworkDeployed");
             //return ApplicationDeployment.IsNetworkDeployed;
             "isClickOnceDeployment: {0}".info(value);
             return value;
+            */
         }
-    }
+	}
 }
