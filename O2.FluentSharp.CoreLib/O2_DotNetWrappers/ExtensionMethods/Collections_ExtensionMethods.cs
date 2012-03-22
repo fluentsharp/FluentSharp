@@ -252,10 +252,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static Dictionary<T, T1> add<T, T1>(this Dictionary<T, T1> dictionary, T key, T1 value)
         {
-            if (dictionary.hasKey(key))
-                dictionary[key] = value;
-            else
-                dictionary.Add(key, value);
+			if (dictionary.isNull ())
+			    "[Dictionary<T, T1> add] dictionary object was null".error ();
+			else
+			{
+            	if (dictionary.hasKey(key))
+            	    dictionary[key] = value;
+            	else
+            	    dictionary.Add(key, value);
+			}
             return dictionary;
         }
 
