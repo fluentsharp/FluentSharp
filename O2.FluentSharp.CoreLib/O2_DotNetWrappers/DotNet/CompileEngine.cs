@@ -85,13 +85,15 @@ namespace O2.DotNetWrappers.DotNet
                 if (CachedCompiledAssembliesMappingsFile.fileExists())
                 {
                     "in loadCachedCompiledAssembliesMappings: {0}".debug(CachedCompiledAssembliesMappingsFile);
-                    CachedCompiledAssemblies = CachedCompiledAssembliesMappingsFile.load<KeyValueStrings>().toDictionary();                        
+                    CachedCompiledAssemblies = CachedCompiledAssembliesMappingsFile.load<KeyValueStrings>().toDictionary();                        					
                 }
             }
             catch (Exception ex)
             {
                 ex.log("in loadCachedCompiledAssembliesMappings");
             }
+			if (CachedCompiledAssemblies.isNull())
+				CachedCompiledAssemblies = new Dictionary<string, string>();
         }
 
         public static void saveCachedCompiledAssembliesMappings()
@@ -185,14 +187,17 @@ namespace O2.DotNetWrappers.DotNet
         }
 
 		public static bool loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
-		{
-			var allLoadedOk = true;
+		{			
 			foreach (var assemblyName in targetAssembly.GetReferencedAssemblies())
 			{
 				Assembly assembly = null;
 				try
 				{
-					assembly = Assembly.Load(assemblyName);
+					var tmpFileLocation = PublicDI.config.O2TempDir.pathCombine(assemblyName.Name + ".dll");
+					if (tmpFileLocation.fileExists())
+						assembly = Assembly.LoadFrom(tmpFileLocation);
+					else
+						assembly = Assembly.Load(assemblyName);
 				}
 				catch
 				{
@@ -202,10 +207,10 @@ namespace O2.DotNetWrappers.DotNet
 				if (assembly.isNull())
 				{
 					"[loadReferencedAssembliesIntoMemory] failed to load assembly".error();
-					allLoadedOk = false;
+					return false;
 				}
 			}
-			return allLoadedOk;
+			return true;
 		}
 
         private void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
@@ -254,14 +259,14 @@ namespace O2.DotNetWrappers.DotNet
         public void mapReferencesIncludedInSourceCode(string sourceCodeFile, List<string> referencedAssemblies)
         {
             var sourceCodeFiles = new List<string> { sourceCodeFile };
-            addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
+			addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, new List<string>());
             addReferencesIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
             
         }
 
         public void mapReferencesIncludedInSourceCode(List<string> sourceCodeFiles, List<string> referencedAssemblies)
         {
-            addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
+            addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, new List<string>());
             addReferencesIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
 
             if (sourceCodeFiles.Count > 1)
@@ -349,23 +354,36 @@ namespace O2.DotNetWrappers.DotNet
             return sourceCodeFiles;                
         }
 
-        public static void addSourceFileOrFolderIncludedInSourceCode(List<string> sourceCodeFiles, List<string> referencedAssemblies)
+        public static void addSourceFileOrFolderIncludedInSourceCode(List<string> sourceCodeFiles, List<string> referencedAssemblies ,List<string> resolvedFiles)
         {
             var currentSourceDirectories = new List<string>(); // in case we need to resolve file names below
-            foreach (var file in sourceCodeFiles)
+			foreach (var sourceCodeFile in sourceCodeFiles)
             {
-                if (file.valid())
+				if (sourceCodeFile.valid())
                 {
-                    var directory = Path.GetDirectoryName(file);
+					if (resolvedFiles.contains(sourceCodeFile))
+						continue;
+					var directory = Path.GetDirectoryName(sourceCodeFile);
                     if (false == currentSourceDirectories.Contains(directory))
                         currentSourceDirectories.Add(directory);
                 }
             }
 
-            var filesToAdd = new List<string>();
+            var filesToLoad = new List<string>();
+			Action<string,string> add_to_FilesToLoad = 
+				(original,mapped) =>
+					{
+						resolvedFiles.add(original);
+						filesToLoad.add(mapped);
+
+						"Found reference '{0}' in '{1}".debug(mapped.fileName(), original.fileName());
+					};
+
             // find the extra files to add
             foreach (var sourceCodeFile in sourceCodeFiles)
             {
+				if (resolvedFiles.contains(sourceCodeFile))
+					continue;
                 if (sourceCodeFile.valid() && sourceCodeFile.extension(".h2").isFalse())
                 {
                     var fileLines = Files.getFileLines(sourceCodeFile);
@@ -376,12 +394,12 @@ namespace O2.DotNetWrappers.DotNet
                         {
                             //   var file = fileLine.Replace(specialO2Tag_ExtraSourceFile, "").Trim();
                             var file = fileLine.Replace(match, "").Trim();
-                            if (false == sourceCodeFiles.Contains(file) && false == filesToAdd.Contains(file))
+							if (false == sourceCodeFiles.Contains(file) && false == filesToLoad.Contains(file))
                             {
                                 //handle the File:xxx:Ref:xxx case
                                 if (CompileEngine.isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(file, referencedAssemblies)
                                                  .isFalse())
-                                    filesToAdd.Add(file);
+									add_to_FilesToLoad(sourceCodeFile, file);
                             }
                         }
                         //else if (fileLine.StartsWith(specialO2Tag_ExtraFolder))
@@ -399,8 +417,8 @@ namespace O2.DotNetWrappers.DotNet
                                             break;
                                         }
                                 foreach (var file in Files.getFilesFromDir_returnFullPath(folder, "*.cs", true))
-                                    if (false == sourceCodeFiles.Contains(file) && false == filesToAdd.Contains(file))
-                                        filesToAdd.Add(file);
+									if (false == sourceCodeFiles.Contains(file) && false == filesToLoad.Contains(file))
+										add_to_FilesToLoad(sourceCodeFile, file);
                             }
 
                             else
@@ -414,32 +432,37 @@ namespace O2.DotNetWrappers.DotNet
                 }
             }
 
-            applyCompilationPathMappings(filesToAdd);
+            
 
             // add them to the list (checking if the file exist)
-            if (filesToAdd.Count > 0)
-            {                
-                PublicDI.log.info("There are {0} extra files to add to the list of source code files to compile: {0}", filesToAdd.Count);
-                foreach (var file in filesToAdd)
+			if (filesToLoad.Count > 0)
+            {
+				applyCompilationPathMappings(filesToLoad);
+				PublicDI.log.info("There are {0} extra files to add to the list of source code files to compile: {0}", filesToLoad.Count);
+				foreach (var file in filesToLoad)
                 {                    
                     var filePath = "";
                     if (File.Exists(file))
                         filePath = file;
                     else
                     {
-                        
-                        // try to find the file in the current sourceCodeFiles directories                        
-                        foreach (var directory in currentSourceDirectories)
-                            if (File.Exists(Path.Combine(directory, file)))
-                            {
-                                filePath = Path.Combine(directory, file);
-                                break;
-                            }
-                        if (filePath.fileExists().isFalse())
-                            filePath = findScriptOnLocalScriptFolder(file);
-                        
-                        if (filePath == "")
-                            PublicDI.log.error("in addSourceFileOrFolderIncludedInSourceCode, could not file file to add: {0}", file);
+						if (file.local().fileExists())
+							filePath = file.local();
+						else
+						{
+							// try to find the file in the current sourceCodeFiles directories                        
+							foreach (var directory in currentSourceDirectories)
+								if (File.Exists(Path.Combine(directory, file)))
+								{
+									filePath = Path.Combine(directory, file);
+									break;
+								}							
+						}
+						if (filePath == "")
+						{
+							PublicDI.log.error("in addSourceFileOrFolderIncludedInSourceCode, could not file file to add: {0}", file);
+							filesToLoad.add(file);
+						}
                     }
                     if (filePath != "" )
                     {
@@ -447,7 +470,7 @@ namespace O2.DotNetWrappers.DotNet
                         if (false == sourceCodeFiles.lower().Contains(filePath.lower()))
                         {
                             sourceCodeFiles.Add(filePath);
-                            addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies); // we need to recursively add new new dependencies 
+							addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, resolvedFiles); // we need to recursively add new new dependencies 
                         }
                     }
                 }               
@@ -667,19 +690,22 @@ namespace O2.DotNetWrappers.DotNet
         }
         public static string findFileOnLocalScriptFolder(string file)
         {
-            if (LocalScriptFileMappings.size() == 0)  // if there are no mappings create the cached list
+            //if (LocalScriptFileMappings.size() == 0)  // if there are no mappings create the cached list
+			if (LocalScriptFileMappings.hasKey("Util - LogViewer.h2".lower()).isFalse()) // this script should be there, if not it means we need to refresh this list
                 resetLocalScriptsFileMappings();
 
             var key = file.ToLower();
             if (CompileEngine.LocalScriptFileMappings.hasKey(key))
                 return CompileEngine.LocalScriptFileMappings[key];
-            PublicDI.log.debug("in CompileEngine, could NOT map file reference '{0}'", file);
+            PublicDI.log.error("in CompileEngine, could NOT map file reference '{0}'", file);
             return "";                    
         }
 
         public static string findScriptOnLocalScriptFolder(string file)
         {
-            if (file.contains("/", @"\"))       // currenlty relative paths are not supported
+			return findFileOnLocalScriptFolder(file);
+
+           /* if (file.contains("/", @"\"))       // currenlty relative paths are not supported
                 return "";
 
             //string defaultLocalScriptsFolder = @"C:\O2\O2Scripts_Database\_Scripts";
@@ -703,6 +729,7 @@ namespace O2.DotNetWrappers.DotNet
             if (mappedFilePath.valid())
                 LocalScriptFileMappings.add(file, mappedFilePath);
             return mappedFilePath;
+		    * */
         }
 
         public static string getCachedCompiledAssembly(string scriptOrFile)
