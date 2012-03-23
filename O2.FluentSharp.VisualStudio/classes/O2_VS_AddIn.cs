@@ -18,6 +18,12 @@ using O2.Platform;
 using O2.Kernel;
 using System.Windows.Forms;
 
+//O2Ref:EnvDTE.dll
+//O2Ref:EnvDTE80.dll
+//O2Ref:Extensibility.dll
+//O2Ref:Microsoft.VisualStudio.CommandBars.dll
+//O2Ref:O2_FluentSharp_VisualStudio.dll
+
 namespace O2.FluentSharp.VisualStudio
 {
 	public class O2_VS_AddIn
