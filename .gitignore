@@ -10,3 +10,4 @@ UpgradeLog.xml
 *.suo
 *.pidb
 *.userprefs
+.DS_Store
