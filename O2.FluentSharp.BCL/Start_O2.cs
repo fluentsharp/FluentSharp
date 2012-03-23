@@ -13,7 +13,7 @@ namespace O2.Platform.BCL
 	{
 		public Start_O2()
 		{
-			RegisterWindowsExtension.registerO2Extensions();
+		//	RegisterWindowsExtension.registerO2Extensions();
 		}
 
 		public Assembly compileScript(string o2Script)

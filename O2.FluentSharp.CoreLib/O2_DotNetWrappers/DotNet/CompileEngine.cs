@@ -640,7 +640,8 @@ namespace O2.DotNetWrappers.DotNet
                 crCompilerResults = cscpCSharpCodeProvider.CompileAssemblyFromFile(cpCompilerParameters, sourceCodeFiles.ToArray());
                 
 
-                if (crCompilerResults.Errors.Count == 0)
+                //if (crCompilerResults.Errors.Count == 0)
+				if (crCompilerResults.CompiledAssembly.notNull())
                 {
                     if (bVerbose)
                         PublicDI.log.debug("There were no errors...");
@@ -657,8 +658,11 @@ namespace O2.DotNetWrappers.DotNet
                     //sErrorMessages += ceCompilerError.ErrorText + Environment.NewLine;
                 }
                 sErrorMessages = sbErrorMessage.ToString();
+				
+				Console.WriteLine(sbErrorMessage);
+				
                 if (bVerbose)
-                    PublicDI.log.error("Compilatation errors \n\n {0}", sErrorMessages);                
+                    PublicDI.log.error("Compilatation errors \n\n {0}", sErrorMessages);        
             }
             catch (Exception ex)
             {
@@ -680,7 +684,7 @@ namespace O2.DotNetWrappers.DotNet
             var filesToSearch = PublicDI.config.LocalScriptsFolder.files(true);
             foreach (var localScriptFile in filesToSearch)
             {
-                if (localScriptFile.contains(@"\.git").isFalse())
+                if (localScriptFile.contains(@".git").isFalse())
                 {
                     var key = localScriptFile.fileName().ToLower();
                     CompileEngine.LocalScriptFileMappings.add(key, localScriptFile);

@@ -12,14 +12,14 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\binaries</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET_4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AssemblyName>O2_FluentSharp_CoreLib</AssemblyName>
-    <additionalargs>/debug:full</additionalargs>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,12 +28,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AssemblyName>O2_FluentSharp_CoreLib</AssemblyName>
+    <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'test|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
     <AssemblyName>O2.FluentSharp.CoreLib</AssemblyName>
+    <OutputPath>bin\test</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

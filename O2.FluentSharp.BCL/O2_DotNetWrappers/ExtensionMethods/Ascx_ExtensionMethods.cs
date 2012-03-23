@@ -1958,7 +1958,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (string)treeView.invokeOnThread(() => { return treeView.Text; });
         }
+		
+		public static object getTag(this TreeView treeView)  // Mono
+        {
+            return Ascx_ExtensionMethods.get_Tag(treeView);
+        }
 
+		
         public static object get_Tag(this TreeView treeView)
         {
             return (object)treeView.invokeOnThread(() => { return treeView.Tag; });
@@ -1973,7 +1979,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (string)treeNode.treeView().invokeOnThread(() => { return treeNode.Text; });
         }
-
+		
+		public static object getTag(this TreeNode treeNode) //Mono
+        {
+            return Ascx_ExtensionMethods.get_Tag(treeNode);
+        }
+		
         public static object get_Tag(this TreeNode treeNode)
         {
             return (object)treeNode.treeView().invokeOnThread(() => { return treeNode.Tag; });
