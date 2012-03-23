@@ -18,7 +18,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                       .allowRowsDeletion()
                                       .add_Columns("Key", "Value")
                                       .columnWidth(0, 200);
-            var optionsPanel = dataGridView.insert_Above<GroupBox>(40).set_Text("Options").add_Panel();
+            var optionsPanel = dataGridView.insert_Above<GroupBox>(40).setText("Options").add_Panel();
             var config = file.localConfig_Load();
             if (config.isNull())
             {
@@ -27,7 +27,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return control;
             }
             Label uiMessage = null;
-            dataGridView.CellValueChanged += (sender, e) => { uiMessage.set_Text("Modified config settings").foreColor(Color.DarkRed); };
+            dataGridView.CellValueChanged += (sender, e) => { uiMessage.setText("Modified config settings").foreColor(Color.DarkRed); };
             uiMessage = optionsPanel.add_Link("Save", 0, 0,
                                         () =>
                                         {
@@ -36,7 +36,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                                 if (row[0].str().valid() && row[1].str().valid())
                                                     config.add(row[0].str(), row[1].str());
                                             config.localConfig_Save(file);
-                                            uiMessage.set_Text("Config file saved").foreColor(Color.DarkGreen);
+                                            uiMessage.setText("Config file saved").foreColor(Color.DarkGreen);
                                         })
                                     .append_Label("Currenlty loaded config file:{0}".format(file)).autoSize()
                                     .append_Label("..").autoSize();

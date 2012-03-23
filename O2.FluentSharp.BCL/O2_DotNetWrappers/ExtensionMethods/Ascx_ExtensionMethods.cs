@@ -98,7 +98,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return button;
         }
-
+		
+		public static Button setText(this Button button, string text) //because of mono
+		{
+			return Ascx_ExtensionMethods.set_Text (button,text);
+		}
+		
         public static Button set_Text(this Button button, string text)
         {
             return (Button)button.invokeOnThread(
@@ -118,7 +123,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static Button button(this Control control, string text)
         {
             foreach (var button in control.buttons())
-                if (button.get_Text() == text)
+                if (button.getText() == text)
                     return button;
             return null;
         }
@@ -163,9 +168,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static System.Windows.Forms.Label append_Label<T>(this T control, string text)
             where T : Control
         {
-            return control.append_Control<System.Windows.Forms.Label>().set_Text(text);
+            return control.append_Control<System.Windows.Forms.Label>().setText(text);
         }
-
+		
+		public static Label setText(this Label label, string text)  // because of Mono who throws a 'cannot explicitly call operator or accessor when using get_Text or set_Text
+		{			
+			return Ascx_ExtensionMethods.set_Text (label,text);
+		}
+			
         public static Label set_Text(this Label label, string text)
         {
             return (Label)label.invokeOnThread(
@@ -186,7 +196,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
 
         }
-
+		
+		public static string getText(this Label label)
+		{
+			return Ascx_ExtensionMethods.get_Text (label);			
+		}
+		
         public static string get_Text(this Label label)
         {
             return (string)label.invokeOnThread(
@@ -844,14 +859,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static TextBox append_TextBox(this Control control, string text, int width, int height)
         {
             var textBox = control.Parent.add_TextBox(control.Top - 3, control.Left + control.Width + 5, width, height);
-            textBox.set_Text(text);
+            textBox.setText(text);
             return textBox;
         }
 
         public static TreeNode select(this TreeView treeView, string text)
         {
             foreach (var treeNode in treeView.nodes())
-                if (treeNode.get_Text() == text)
+                if (treeNode.getText() == text)
                     return treeNode.selected();
             return null;
         }
@@ -861,7 +876,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             textBox.invokeOnThread(() => textBox.Select(start, length));
             return textBox;
         }
-
+		
+		public static TextBox setText(this TextBox textBox, string text) // because of mono
+		{
+			return Ascx_ExtensionMethods.set_Text(textBox, text);
+		}
+			
         public static TextBox set_Text(this TextBox textBox, string text)
         {
             textBox.invokeOnThread(
@@ -873,7 +893,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return textBox;
         }
-
+		
+		public static string getText(this TextBox textBox) //mono
+		{
+			return Ascx_ExtensionMethods.get_Text(textBox);
+		}	
+			
         public static string get_Text(this TextBox textBox)
         {
             return (string)textBox.invokeOnThread(
@@ -1015,7 +1040,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			if (treeView.nodes().size() == 1)
 			{
 				var firstNode = treeView.nodes()[0];
-				firstNode.set_Text(firstNode.get_Text() + "");
+				firstNode.setText(firstNode.getText() + "");
 			}
 			return treeView;
 		}
@@ -1923,7 +1948,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 "could not find event name: {0}".format(eventName).error();
             return treeView;
         }
-
+		
+		public static string getText(this TreeView treeView) //mono
+		{
+			return Ascx_ExtensionMethods.get_Text(treeView);
+		}
+		
         public static string get_Text(this TreeView treeView)
         {
             return (string)treeView.invokeOnThread(() => { return treeView.Text; });
@@ -1933,7 +1963,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (object)treeView.invokeOnThread(() => { return treeView.Tag; });
         }
-
+		
+		public static string getText(this TreeNode treeNode) // becasue of mono
+		{			
+			return 	Ascx_ExtensionMethods.get_Text(treeNode);
+		}
+		
         public static string get_Text(this TreeNode treeNode)
         {
             return (string)treeNode.treeView().invokeOnThread(() => { return treeNode.Text; });
@@ -1943,7 +1978,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (object)treeNode.treeView().invokeOnThread(() => { return treeNode.Tag; });
         }
-
+		
+		public static TreeNode setText(this TreeNode treeNode, string text) //because of mono
+		{
+			return Ascx_ExtensionMethods.set_Text (treeNode,text);
+		}
+			 
         public static TreeNode set_Text(this TreeNode treeNode, string text)
         {
             return (TreeNode)treeNode.treeView().invokeOnThread(
@@ -2053,7 +2093,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                              return richTextBox;
                                          });
         }
-
+		
+		public static RichTextBox setText(this RichTextBox richTextBox, string contents)
+		{
+			return Ascx_ExtensionMethods.set_Text(richTextBox, contents);
+		}
+		
         public static RichTextBox set_Text(this RichTextBox richTextBox, string contents)
         {
             return (RichTextBox)richTextBox.invokeOnThread(
@@ -2116,7 +2161,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                              return richTextBox;
                                          });
         }
-
+		
+		public static string getText(this RichTextBox richTextBox) //mono
+		{
+			return Ascx_ExtensionMethods.get_Text (richTextBox);
+		}
+		
         public static string get_Text(this RichTextBox richTextBox)
         {
             return (string)richTextBox.invokeOnThread(() => richTextBox.Text);
@@ -2957,7 +3007,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return form.add_StatusStrip(Color.FromName("Control"));
         }				
-
+		
+		public static ToolStripStatusLabel setText(this ToolStripStatusLabel label, string message)  //mono
+		{
+			return Ascx_ExtensionMethods.set_Text(label, message);
+		}
+			
         public static ToolStripStatusLabel set_Text(this ToolStripStatusLabel label, string message)
         {
             //return (ToolStripStatusLabel)label.invokeOnThread(
@@ -3027,12 +3082,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
             menuItem.DropDownItems.Add(textBox);
             return textBox;
         }
-
+		
+		public static string getText(this ToolStripTextBox textBox) //because of mono
+		{
+			return Ascx_ExtensionMethods.get_Text (textBox);
+		}
+		
         public static string get_Text(this ToolStripTextBox textBox)
         {
             return textBox.Text;
         }
-
+		
+		public static ToolStripTextBox setText(this ToolStripTextBox textBox, string text)
+		{
+			return Ascx_ExtensionMethods.set_Text(textBox, text);
+		}
+		
         public static ToolStripTextBox set_Text(this ToolStripTextBox textBox, string text)
         {
             textBox.Text = text;
@@ -3072,7 +3137,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             });
             return comboBox;
         }
-        
+		
+        public static string getText(this ComboBox comboBox) //because of mono
+		{
+			return Ascx_ExtensionMethods.get_Text (comboBox);
+		}
+		
         public static string get_Text(this ComboBox comboBox)
         {
             return (string)comboBox.invokeOnThread(
@@ -3081,7 +3151,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return comboBox.Text;
                 });
         }
-
+		
+		public static ComboBox setText(this ComboBox comboBox, string text) //Mono
+		{
+			return Ascx_ExtensionMethods.set_Text (comboBox, text);
+		}
+		
         public static ComboBox set_Text(this ComboBox comboBox, string text)
         {
             return (ComboBox)comboBox.invokeOnThread(
@@ -3289,8 +3364,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var button = textBox.append_Control<System.Windows.Forms.Button>();
 
             //set text (the label needs to set on the ctor so that the append_Control puts the textbox on its right
-            textBox.set_Text(textBoxText);
-            button.set_Text(buttonText);
+            textBox.setText(textBoxText);
+            button.setText(buttonText);
 
             //position controls
             button.anchor_TopRight();
@@ -3305,7 +3380,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             button.heightAdd(-2);
 
             //events
-            button.onClick(() => onButtonClick(textBox.get_Text()));
+            button.onClick(() => onButtonClick(textBox.getText()));
             textBox.onEnter((text) => onButtonClick(text));
             return control;
         }
@@ -3319,8 +3394,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var button = comboBox.append_Control<System.Windows.Forms.Button>();
 
             //set text (the label needs to set on the ctor so that the append_Control puts the textbox on its right
-            comboBox.set_Text(comboBoxText);
-            button.set_Text(buttonText);
+            comboBox.setText(comboBoxText);
+            button.setText(buttonText);
 
             //position controls
             button.anchor_TopRight();
@@ -3344,9 +3419,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
 
             //events
-            button.onClick(() => onNewItem(comboBox.get_Text()));
+            button.onClick(() => onNewItem(comboBox.getText()));
             comboBox.onEnter((text) => onNewItem(text));
-            comboBox.onSelection(() => onNewItem(comboBox.get_Text()));
+            comboBox.onSelection(() => onNewItem(comboBox.getText()));
             return control;
         }
 

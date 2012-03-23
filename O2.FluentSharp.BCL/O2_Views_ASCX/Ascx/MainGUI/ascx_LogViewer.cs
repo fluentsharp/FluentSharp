@@ -91,7 +91,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
 
 		public void updateMemoryUsageLabel()
 		{
-			lbMemoryUsed.set_Text("{0:#,###} kb |  {1:#,###} kb".format(Process.GetCurrentProcess().WorkingSet64 / 1024, Process.GetCurrentProcess().PrivateMemorySize64 / 1024));
+			lbMemoryUsed.setText("{0:#,###} kb |  {1:#,###} kb".format(Process.GetCurrentProcess().WorkingSet64 / 1024, Process.GetCurrentProcess().PrivateMemorySize64 / 1024));
 		}
 
 		private void lbMemoryUsed_Click(object sender, EventArgs e)

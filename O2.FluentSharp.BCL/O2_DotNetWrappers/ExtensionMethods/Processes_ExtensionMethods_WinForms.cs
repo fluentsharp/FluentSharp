@@ -24,7 +24,7 @@ public static class Processes_ExtensionMethods_WinForms
 
     public static Process startProcessAndShowConsoleOut(this TextBox textBox, string processToStart, string arguments)
     {
-        textBox.set_Text("");
+        textBox.setText("");
         return processToStart.startConsoleApp(arguments, (text) => textBox.append_Line(text));
     }
 

@@ -62,7 +62,7 @@ namespace O2.Views.ASCX._Wizards
 		{			
 			O2Thread.mtaThread(
 			()=> {
-				step.set_Text("");				
+				step.setText("");				
 				var sourceDirectory = step.getPathFromStep(0);
 				var targetDirectory = step.getPathFromStep(1);
 				var targetFile = calculateTargetFileName(sourceDirectory, targetDirectory);

@@ -66,7 +66,7 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
             newStep.OnComponentAction =
                 (step) =>
                 {
-                    step.set_Text(messageToAdd());
+                    step.setText(messageToAdd());
                 };
             steps.Add(newStep);
             return newStep;
@@ -172,7 +172,7 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
             textBox.Width = (textBoxWidth > -1) ? textBoxWidth : 90;
             textBox.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             textBox.AllowDrop = true;
-            textBox.DragDrop += (sender, e) => textBox.set_Text(Dnd.tryToGetFileOrDirectoryFromDroppedObject(e));
+            textBox.DragDrop += (sender, e) => textBox.setText(Dnd.tryToGetFileOrDirectoryFromDroppedObject(e));
             textBox.DragEnter += (sender, e) => e.Effect = DragDropEffects.Copy;
 
             // button
@@ -221,7 +221,7 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
             textBox.Width = 400;
             textBox.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             textBox.AllowDrop = true;
-            textBox.DragDrop += (sender, e) => textBox.set_Text(Dnd.tryToGetFileOrDirectoryFromDroppedObject(e));
+            textBox.DragDrop += (sender, e) => textBox.setText(Dnd.tryToGetFileOrDirectoryFromDroppedObject(e));
             textBox.DragEnter += (sender, e) => e.Effect = DragDropEffects.Copy;
 
             // button
@@ -338,7 +338,7 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
             dropArea.DragDrop += (sender, e) =>
             {
                 var fileOrDirectory = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e);
-                dropArea.set_Text(fileOrDirectory);
+                dropArea.setText(fileOrDirectory);
                 onDroppedFile(fileOrDirectory);
             };
             dropArea.DragEnter += (sender, e) =>

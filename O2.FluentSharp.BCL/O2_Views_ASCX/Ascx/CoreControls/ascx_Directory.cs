@@ -425,7 +425,7 @@ namespace O2.Views.ASCX.CoreControls
 
         public String getCurrentDirectory()
         {
-            return tbCurrentDirectoryName.get_Text();            
+            return tbCurrentDirectoryName.getText();            
         }
 
         public String getSelectedItem()

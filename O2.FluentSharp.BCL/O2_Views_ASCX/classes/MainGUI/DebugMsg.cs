@@ -63,7 +63,7 @@ namespace O2.Views.ASCX.classes.MainGUI
         private static void setRichTextBoxesText(string text)
         {
             foreach (RichTextBox richTextBox in targetRichTextBoxes)
-                richTextBox.set_Text(text);
+                richTextBox.setText(text);
         }
 
         public static List<RichTextBox> getRtbObject()

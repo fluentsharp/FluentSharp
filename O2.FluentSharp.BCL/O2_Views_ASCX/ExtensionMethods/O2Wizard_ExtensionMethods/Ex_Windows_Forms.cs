@@ -35,7 +35,12 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
             var newStep = new TemplateStep(textBox, 10, stepTitle);
             return newStep;
         }
-
+		
+		public static void setText(this IStep step, string message) //because of mono
+		{
+			Ex_Windows_Forms.set_Text (step,message);
+		}
+		
         public static void set_Text(this IStep step, string message)
         {
             if (step.FirstControl != null)

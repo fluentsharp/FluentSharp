@@ -187,7 +187,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return null;
         }
-
+		
+		public static string getText(this Control control) // because of mono
+		{
+			return Control_ExtensionMethods.get_Text(control);			
+		}	
+		
         public static string get_Text(this Control control)
         {
             return (string)control.invokeOnThread(() => { return control.Text; });
@@ -197,7 +202,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             where T : Control
         {
             foreach (var control in controls)
-                if (control.get_Text() == textToFind)
+                if (control.getText() == textToFind)
                     return control;
             return null;
         }
@@ -206,7 +211,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             where T : Control
         {
             return (from control in controls
-                    select control.get_Text()).toList();
+                    select control.getText()).toList();
         }
 
         #endregion
@@ -217,7 +222,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return control.parent<Form>();
         }
-
+		
+		public static T setText<T>(this T control, string text)
+			where T : Control
+		{
+			return Control_ExtensionMethods.set_Text<T>(control,text);
+		}
+		
         public static T set_Text<T>(this T control, string text)
             where T : Control
         {
@@ -256,7 +267,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static Form newFormInThread(this Control control)
         {
-            return control.newFormInThread("New Form in thread of: {0}".format(control.get_Text()));
+            return control.newFormInThread("New Form in thread of: {0}".format(control.getText()));
         }
 
         public static Form newFormInThread(this Control control, string text)
@@ -1255,7 +1266,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             textBox.KeyUp += (sender, e) =>
             {
                 if (onlyFireOnEnter.isFalse() || e.KeyCode == Keys.Enter)
-                    onTextChanged(textBox.get_Text());
+                    onTextChanged(textBox.getText());
             };
             return control;
         }
