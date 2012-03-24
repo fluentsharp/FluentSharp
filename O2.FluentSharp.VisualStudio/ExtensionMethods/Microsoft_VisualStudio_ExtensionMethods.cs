@@ -10,6 +10,12 @@ using O2.DotNetWrappers.ExtensionMethods;
 using EnvDTE;
 using System.Windows.Forms;
 
+//O2Ref:EnvDTE.dll
+//O2Ref:EnvDTE80.dll
+//O2Ref:Extensibility.dll
+//O2Ref:Microsoft.VisualStudio.CommandBars.dll
+
+
 namespace O2.FluentSharp.VisualStudio.ExtensionMethods
 {
     /// <summary>

@@ -5,8 +5,12 @@ using System.Text;
 using O2.FluentSharp.VisualStudio.ExtensionMethods;
 using O2.Kernel.ExtensionMethods;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.FluentSharp.VisualStudio;
 using EnvDTE;
 
+//O2File:../classes/O2_VS_AddIn.cs
+//O2File:../ExtensionMethods/Microsoft_VisualStudio_ExtensionMethods.cs
+//O2Ref:EnvDTE.dll
 
 namespace O2.FluentSharp.VisualStudio.Commands
 {

@@ -22,7 +22,13 @@ using System.Windows.Forms;
 //O2Ref:EnvDTE80.dll
 //O2Ref:Extensibility.dll
 //O2Ref:Microsoft.VisualStudio.CommandBars.dll
-//O2Ref:O2_FluentSharp_VisualStudio.dll
+
+//O2File:../Commands/CommandBase.cs
+//O2File:../Commands/O2_LogViewer.cs
+//O2File:../Commands/O2_ScriptGui.cs
+//O2File:../Commands/O2_ScriptWithPanel.cs
+
+
 
 namespace O2.FluentSharp.VisualStudio
 {
@@ -57,12 +63,12 @@ namespace O2.FluentSharp.VisualStudio
 				//syncO2Repositories();
                 "Testing Log viewer...".info();
 				
-				this.add_TopMenu("O2 Platform");
+				//this.add_TopMenu("O2 Platform");
 
 
-				this.add_Command<O2_ScriptWithPanel>()
+				/*this.add_Command<O2_ScriptWithPanel>()
 					.add_Command<O2_ScriptGui>()
-					.add_Command<O2_LogViewer>();
+					.add_Command<O2_LogViewer>();*/
 			}
 			catch (Exception ex)
 			{

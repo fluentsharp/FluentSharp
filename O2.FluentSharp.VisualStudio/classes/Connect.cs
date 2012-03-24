@@ -7,6 +7,13 @@ using O2.FluentSharp.VisualStudio.ExtensionMethods;
 using System.Diagnostics;
 using System.Windows.Forms;
 
+//O2File:O2_VS_AddIn.cs
+
+//O2Ref:EnvDTE.dll
+//O2Ref:EnvDTE80.dll
+//O2Ref:Extensibility.dll
+//O2Ref:Microsoft.VisualStudio.CommandBars.dll
+
 namespace O2.FluentSharp.VisualStudio
 {
 	/// <summary>The object for implementing an Add-in.</summary>
