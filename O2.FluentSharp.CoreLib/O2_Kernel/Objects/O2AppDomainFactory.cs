@@ -7,6 +7,7 @@ using System.Security;
 using System.Security.Permissions;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 
 //O2File:../DI.cs
 //O2File:../CodeUtils/O2Kernel_Files.cs
@@ -401,7 +402,7 @@ namespace O2.Kernel.Objects
                     // last change load assembly into current appdomain to get its full name and try again
                     try
                     {
-                        appDomain.Load(Kernel.ExtensionMethods.Reflection_ExtensionMethods.assembly(fullAssemblyName).FullName);
+                        appDomain.Load(fullAssemblyName.assembly().FullName);
                     }
                     catch (Exception ex3)
                     {

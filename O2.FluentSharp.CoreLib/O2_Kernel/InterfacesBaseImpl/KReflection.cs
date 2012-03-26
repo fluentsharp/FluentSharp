@@ -24,6 +24,8 @@ namespace O2.Kernel.InterfacesBaseImpl
 	
     public class KReflection : IReflection
     {
+        public bool verbose { get; set; }
+
         public const BindingFlags BindingFlagsAll = BindingFlags.Public | BindingFlags.NonPublic |
                                                              BindingFlags.Instance | BindingFlags.Static;
 

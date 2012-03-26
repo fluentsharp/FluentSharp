@@ -2,7 +2,7 @@ using System;
 using Extensibility;
 using EnvDTE;
 using EnvDTE80;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods; 
 using O2.FluentSharp.VisualStudio.ExtensionMethods;
 using System.Diagnostics;
 using System.Windows.Forms;

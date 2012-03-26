@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using O2.DotNetWrappers.ExtensionMethods;
 //using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.DotNet
@@ -26,7 +27,7 @@ namespace O2.DotNetWrappers.DotNet
                 return false;
             //DI.dRegExes.add(sRegExToFind, createRegEx(sRegExToFind));
             if (DI.dRegExes.ContainsKey(sRegExToFind) == false)      
-                O2.DotNetWrappers.ExtensionMethods.Collections_ExtensionMethods.add(DI.dRegExes,sRegExToFind, createRegEx(sRegExToFind));
+                Collections_ExtensionMethods_Dictionary.add(DI.dRegExes,sRegExToFind, createRegEx(sRegExToFind));
 
             return execRegExOnText_hasMatches(DI.dRegExes[sRegExToFind], sSource);
         }

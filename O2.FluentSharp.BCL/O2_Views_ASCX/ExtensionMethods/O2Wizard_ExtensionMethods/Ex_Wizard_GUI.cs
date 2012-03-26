@@ -1,6 +1,6 @@
 using Merlin;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
 {

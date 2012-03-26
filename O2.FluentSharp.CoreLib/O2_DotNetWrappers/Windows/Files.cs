@@ -482,7 +482,7 @@ namespace O2.DotNetWrappers.Windows
 
         public static bool WriteFileContent(string targetFile, string newFileContent, bool dontWriteIfTargetFileIsTheSameAsString)
         {
-           if (O2.Kernel.ExtensionMethods.String_ExtensionMethods.empty(newFileContent))
+           if (newFileContent.empty())
                 return false;
             if (File.Exists(targetFile) && dontWriteIfTargetFileIsTheSameAsString)
             {

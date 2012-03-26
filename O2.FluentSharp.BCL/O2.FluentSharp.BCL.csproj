@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,16 +53,22 @@
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Ascx_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Clipboard_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\ComObjects_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Compilation_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods_WinForms.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Control_ExtensionMethods.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Form_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Control_Object.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_DataGridView.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Form.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\IO_ExtensionMethods_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\O2Controls_ExtensioMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Threads_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Network\Main_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\Network\WebEncoding.cs" />
@@ -254,9 +260,8 @@
     <Compile Include="O2_Views_ASCX\classes\Tasks\TaskUtils.cs" />
     <Compile Include="O2_Views_ASCX\classes\WebRequests.cs" />
     <Compile Include="O2_Views_ASCX\DI.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\ascx_TableList_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\CoreControls_ExtensionMethods.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\MainGui_ExtensionMethods.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs" />
@@ -288,6 +293,7 @@
   <ItemGroup>
     <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_Directory.resx">
       <DependentUpon>ascx_Directory.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DownloadFile.resx">
       <DependentUpon>ascx_DownloadFile.cs</DependentUpon>

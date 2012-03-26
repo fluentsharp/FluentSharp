@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using System.Net.NetworkInformation;
 
 //O2File:../DI.cs

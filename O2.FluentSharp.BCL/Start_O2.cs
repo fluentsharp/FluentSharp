@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using O2.Kernel.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.DotNetWrappers.DotNet;
 using System.Reflection;
 
 namespace O2.Platform.BCL

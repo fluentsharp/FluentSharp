@@ -12,9 +12,8 @@ using System.Xml.Schema;
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class Xml_ExtensionMethods
-    {
-        #region XML load
-        public static XmlReader xmlReader(this string xml)
+    {        
+        public static XmlReader     xmlReader(this string xml)
         {
             var xmlToLoad = xml.fileExists() ? xml.fileContents() : xml;
             XmlReaderSettings xmlReaderSettings = new XmlReaderSettings();
@@ -29,8 +28,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var stringReader = new StringReader(xmlToLoad);
             return XmlReader.Create(stringReader, xmlReaderSettings);
         }
-
-        public static XmlDocument xmlDocument(this string xml)
+        public static XmlDocument   xmlDocument(this string xml)
         {
             try
             {
@@ -44,8 +42,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return null;
             }
         }
-
-        public static string xmlDocumentElement(this string xml)
+        public static string        xmlDocumentElement(this string xml)
         {
             try
             {
@@ -58,18 +55,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 ex.log("in xmlDocumentElement");
                 return "";
             }
-        }
-
-        #endregion
-
-        #region XML format
-
-        public static string xmlFormat(this string xml)
+        }        
+        public static string        xmlFormat(this string xml)
         {
             return xml.xmlFormat(2, ' ');
         }
-
-        public static string xmlFormat(this string xml, int indentation, char indentChar)
+        public static string        xmlFormat(this string xml, int indentation, char indentChar)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(xml.xmlReader());
@@ -82,12 +73,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             doc.Save(xmlWriter);
             return stringWriter.str();
         }
-
-        #endregion
-
-        #region XmlDocument
-
-        public static string xmlString(this XmlDocument xmlDocument)
+        public static string        xmlString(this XmlDocument xmlDocument)
         {
             var stringBuilder = new StringBuilder();
             var stringWriter = new StringWriter(stringBuilder);
@@ -95,7 +81,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return stringWriter.str();
         }
 
-        #endregion
+        public static List<XmlAttribute>    add_XmlAttribute(this List<XmlAttribute> xmlAttributes, string name, string value)
+		{
+			var xmlDocument = (xmlAttributes.size() > 0) 
+									?  xmlAttributes[0].OwnerDocument
+									: new XmlDocument();						
+			var newAttribute = xmlDocument.CreateAttribute(name);
+			newAttribute.Value = value;
+			xmlAttributes.add(newAttribute);
+			return xmlAttributes;
+		}		
 
     }
 }

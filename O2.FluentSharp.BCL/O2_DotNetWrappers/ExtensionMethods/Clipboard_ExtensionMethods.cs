@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using O2.DotNetWrappers.DotNet;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using System.Windows.Forms;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class Clipboard_ExtensionMethods
     {
-        public static void toClipboard(this string newClipboardText)
+        public static void      toClipboard(this string newClipboardText)
         {
             newClipboardText.clipboardText_Set();
         }
-
-        public static string clipboardText_Set(this string newClipboardText)
+        public static string    clipboardText_Set(this string newClipboardText)
         {
             var sync = new AutoResetEvent(false);
             O2Thread.staThread(
@@ -30,8 +30,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             sync.WaitOne(2000);
             return newClipboardText;
         }
-
-        public static string clipboardText_Get(this object _object)
+        public static string    clipboardText_Get(this object _object)
         {
             var sync = new AutoResetEvent(false);
             string clipboardText = null;
@@ -44,10 +43,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             sync.WaitOne(2000);
             return clipboardText;
         }
-
-
-
-        public static string saveImageFromClipboard(this object _object)
+        public static string    saveImageFromClipboard(this object _object)
         {
             var sync = new AutoResetEvent(false);
             string savedImage = null;
@@ -68,5 +64,27 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             return savedImage;
         }
+        public static string    saveImageFromClipboardToFolder(this string targetFolder)
+		{
+			var targetFile = targetFolder.pathCombine(DateTime.Now.safeFileName() + ".jpg");
+			return targetFile.saveImageFromClipboardToFile();
+		}		
+		public static string    saveImageFromClipboardToFile(this string targetFile)
+		{
+			var clipboardImagePath = targetFile.saveImageFromClipboard();
+			if (clipboardImagePath.fileExists())
+			{				
+				var fileToSave = (targetFile.valid()) 
+										? targetFile
+										: O2Forms.askUserForFileToSave(PublicDI.config.O2TempDir,"*.jpg");
+				if (fileToSave.valid())
+				{
+					Files.MoveFile(clipboardImagePath, fileToSave);
+					"Clipboard Image saved to: {0}".info(fileToSave);
+					return fileToSave;
+				}				
+			}
+			return null;
+		}	
     }
 }

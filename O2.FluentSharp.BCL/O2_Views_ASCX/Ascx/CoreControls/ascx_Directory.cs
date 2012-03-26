@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
@@ -404,9 +404,10 @@ namespace O2.Views.ASCX.CoreControls
             
         }
 
-        public void simpleMode_withAddressBar()
+        public ascx_Directory simpleMode_withAddressBar()
         {
             _ViewMode = ViewMode.Simple_With_LocationBar;
+            return this;
             /*
             this.invokeOnThread(
                 () =>

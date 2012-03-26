@@ -8,10 +8,11 @@ namespace O2.Interfaces.O2Core
     public interface IReflection
     {
         // GET 
+        bool            verbose       { get; set; }
 
-        Assembly getAssembly(string pathToAssemblyToLoad);
-        Assembly getCurrentAssembly();
-        List<Assembly> getAssembliesInCurrentAppDomain();
+        Assembly        getAssembly(string pathToAssemblyToLoad);
+        Assembly        getCurrentAssembly();
+        List<Assembly>  getAssembliesInCurrentAppDomain();
 
         List<Module> getModules(Assembly assembly);
 

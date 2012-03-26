@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using O2.Kernel.CodeUtils;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.Objects
 {

@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.IO;
-//using O2.Kernel.InterfacesBaseImpl;
+using O2.DotNetWrappers.ExtensionMethods;
 using System.Text;
 
 //O2File:../DI.cs
@@ -91,7 +91,7 @@ namespace O2.Kernel.CodeUtils
 
         public static bool WriteFileContent(string targetFile, string newFileContent, bool dontWriteIfTargetFileIsTheSameAsString)
         {
-            if (O2.Kernel.ExtensionMethods.String_ExtensionMethods.empty(newFileContent))
+            if (newFileContent.empty())
                 return false;
             if (File.Exists(targetFile) && dontWriteIfTargetFileIsTheSameAsString)
             {

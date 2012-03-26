@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System;
+using O2.Kernel;
 
 //O2File:../DI.cs
 
-namespace O2.Kernel.ExtensionMethods
+namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class Logging_ExtensionMethods
     {

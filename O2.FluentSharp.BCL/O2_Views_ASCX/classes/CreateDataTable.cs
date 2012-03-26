@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Views.ASCX.classes
 {  	

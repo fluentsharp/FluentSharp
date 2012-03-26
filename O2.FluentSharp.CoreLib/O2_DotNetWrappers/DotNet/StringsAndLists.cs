@@ -32,7 +32,7 @@ namespace O2.DotNetWrappers.DotNet
 
         public static List<String> fromTextGetLines(String sText)
         {
-            if (O2.Kernel.ExtensionMethods.String_ExtensionMethods.valid(sText))
+            if (sText.valid())
             {
                 String[] asSplittedLines = sText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 return new List<String>(asSplittedLines);

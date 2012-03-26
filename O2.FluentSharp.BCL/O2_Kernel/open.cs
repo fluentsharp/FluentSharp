@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using O2.Kernel.ExtensionMethods;
+//using O2.DotNetWrappers.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.CodeUtils;
+using System.Drawing;
+using O2.Views.ASCX.CoreControls;
 
 //O2File:ExtensionMethods/Reflection_ExtensionMethods.cs
 //O2File:ExtensionMethods/Views_ExtensionMethods.cs
@@ -17,9 +20,12 @@ namespace O2.Kernel
     {
         public static Control directory()
         {
-            var directory = viewAscx("ascx_Directory");
+            return "Directory Viewer".popupWindow(300,300)    
+                                    .add_Control< ascx_Directory>()
+                                    .simpleMode_withAddressBar();
+            /*var directory = viewAscx("ascx_Directory");
             directory.invoke("simpleMode_withAddressBar");
-            return directory;
+            return directory;*/
         }
 
         public static Control directory(string startDir)
@@ -37,20 +43,26 @@ namespace O2.Kernel
         public static TextBox file(string fileToView)
         {
             var title = "Text file: " + fileToView;
-            return title.openControlAsForm<TextBox>(800, 400, "add_TextBox", true, "set_Text", O2Kernel_Files.getFileContents(fileToView));            
+            return title.popupWindow(800, 400)
+                        .add_TextBox()
+                        .set_Text(O2Kernel_Files.getFileContents(fileToView));            
         }
 
         public static RichTextBox document(string fileToView)
         {
             var title = "RTF file: " + fileToView;
-            return title.openControlAsForm<RichTextBox>(800, 400, "add_RichTextBox", null, "set_Rtf", O2Kernel_Files.getFileContents(fileToView));
+            return title.popupWindow(800, 400)
+                        .add_RichTextBox()
+                        .set_Rtf(O2Kernel_Files.getFileContents(fileToView));
         }        
 
 
-        public static PictureBox image(object imageToLoad)
+        public static PictureBox image(string imageToLoad)
         {
             var title = "image: " + imageToLoad;
-            return title.openControlAsForm<PictureBox>(800, 400, "add_PictureBox", null ,"load", imageToLoad);
+            return title.popupWindow(800, 400)
+                        .add_PictureBox()
+                        .load(imageToLoad);
         }
 
         public static object web()
@@ -91,19 +103,23 @@ namespace O2.Kernel
             return browser;
         }
 
-        public static object scriptEditor()
+        public static ascx_O2ObjectModel o2ObjectModel()
+        {
+            return "O2 Object Model".popupWindow(500, 400)
+                                    .add_Control<ascx_O2ObjectModel>();
+
+			//var graphControlType = "O2_FluentSharp_BCL.dll".type("ascx_O2ObjectModel");
+            //return graphControlType.openControlAsForm("O2 Object Model", 500, 400);
+        
+        }
+/*        public static object scriptEditor()
         {
             var graphControlType = "O2_External_SharpDevelop".type("ascx_XRules_Editor");
             return graphControlType.openControlAsForm("XRules/Script Editor", 1024, 600);
         }
         
 
-        public static object o2ObjectModel()
-        {
-			var graphControlType = "O2_FluentSharp_BCL.dll".type("ascx_O2ObjectModel");
-            return graphControlType.openControlAsForm("O2 Object Model", 500, 400);
         
-        }
 
         public static Control viewAscx(string controlName)
         {
@@ -118,6 +134,6 @@ namespace O2.Kernel
         public static T asForm<T>() where T : Control
         {
             return typeof(T).openControlAsForm<T>(typeof(T).Name,500,400);
-        }
+        }*/
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.CoreControls;
 using O2.Views.ASCX.DataViewers;
 using System;
@@ -72,36 +72,6 @@ namespace O2.Views.ASCX.ExtensionMethods
             return directory;
         }	
 
-        #endregion
-
-        #region ascx_TableList
-
-                
-                
-        
-
-
-
-     
-
-        /*public static ascx_TableList add_TableList<T>(this Control control, List<T> contents)
-        {
-            return control.add_TableList("", contents);
-        }*/
-
-        /*public static ascx_TableList add_TableList<T>(this Control control, string name, List<T> contents)
-        {
-            var tableList = control.add_TableList(name);
-            var dataTable = CreateDataTable.from_List<T>(contents);
-            tableList.setDataTable(dataTable);
-
-            //var ascx_TableList = 
-            //return ascx_TableList;
-            return null;
-        }*/
-
-        
-
-        #endregion
+        #endregion    
     }
 }

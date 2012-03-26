@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 
@@ -44,7 +44,7 @@ namespace O2.DotNetWrappers.Windows
                 try
                 {
                     var fForm = new Form {Width = controlToLoad.Width, Height = controlToLoad.Height};
-
+                    fForm.set_H2Icon();
                     controlToLoad.Dock = DockStyle.Fill;
                     fForm.Controls.Add(controlToLoad);
                     if (loadAsApplication)

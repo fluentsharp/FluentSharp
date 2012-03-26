@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using O2.Kernel.ExtensionMethods;
 using System.IO;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.CodeUtils
 {
+    //need to change this text (it is using GIT now)
     public class O2Svn
     {
         public const string NO_GAC_TAG = "__NoGAC__";

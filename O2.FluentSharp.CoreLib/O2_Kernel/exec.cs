@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using System.IO;
+using O2.DotNetWrappers.Windows;
 
 //O2File:PublicDI.cs
 
@@ -19,7 +20,8 @@ namespace O2.Kernel
 
         public static void cmd(string commandToExecute, string arguments)
         {
-            "O2_DotNetWrappers".type("Processes").invokeStatic("startProcess",commandToExecute, arguments);
+            commandToExecute.startProcess(arguments);
+            //"O2_DotNetWrappers".type("Processes").invokeStatic("startProcess",commandToExecute, arguments);
         }
 
         public static string cmdViaConsole(string commandToExecute)
@@ -29,7 +31,8 @@ namespace O2.Kernel
 
         public static string cmdViaConsole(string commandToExecute, string arguments)
         {
-            var returnData = "O2_DotNetWrappers".type("Processes").invokeStatic("startProcessAsConsoleApplicationAndReturnConsoleOutput", commandToExecute, arguments);
+            var returnData = Processes.startProcessAsConsoleApplicationAndReturnConsoleOutput(commandToExecute, arguments);
+//            var returnData = "O2_DotNetWrappers".type("Processes").invokeStatic("startProcessAsConsoleApplicationAndReturnConsoleOutput", commandToExecute, arguments);
             return returnData != null ? returnData.ToString() : "";
         }
 

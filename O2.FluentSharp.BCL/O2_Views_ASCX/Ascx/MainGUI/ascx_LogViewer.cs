@@ -3,7 +3,7 @@ using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
 

@@ -26,11 +26,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return Serialize.createSerializedXmlStringFromObject(_object);
         }
 
-        public static T deserialize<T>(this string file)
-        {
-            return (T)Serialize.getDeSerializedObjectFromXmlFile(file, typeof(T));
-        }
-
         public static string save(this object _object)
         {
             return _object.serialize();
@@ -41,7 +36,23 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return _object.serialize(pathToSave);
         }
 
-        
+    }
+
+    public static class DeSerialize_ExtensionMethods
+    { 
+        public static T deserialize<T>(this string file)
+        {
+            return (T)Serialize.getDeSerializedObjectFromXmlFile(file, typeof(T));
+        }
+
+        public static T deserialize<T>(this string _string, bool fromDisk)
+		{
+			if (fromDisk && _string.fileExists())
+				return _string.deserialize<T>();
+			
+			return (T)Serialize.getDeSerializedObjectFromString(_string, typeof(T));  
+		}
+
         public static T load<T>(this string pathToSerializedObject)
         {
             return pathToSerializedObject.deserialize<T>();
