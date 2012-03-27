@@ -786,6 +786,9 @@ namespace O2.DotNetWrappers.DotNet
 					if (resolvedFile.fileExists())
 						return resolvedFile;
 				}
+                resolvedFile = PublicDI.CurrentScript.directoryName().pathCombine(reference);   
+                if (resolvedFile.fileExists())
+					return resolvedFile;
 			}
 			return reference;
 		}

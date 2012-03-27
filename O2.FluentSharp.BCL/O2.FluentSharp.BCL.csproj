@@ -347,18 +347,24 @@
     <EmbeddedResource Include="O2_Views_ASCX\Properties\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="O2_Interfaces\Messages\IM_OpenControlInGUI.cs.txt" />
-    <Content Include="O2_Kernel\InterfacesBaseImpl\KM_OpenControlInGUI.cs.txt" />
-    <Content Include="O2_Views_ASCX\ChangeLog.txt" />
-    <Content Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml" />
-    <Content Include="_External_Dlls\Ionic.Zip.dll" />
-    <Content Include="_External_Dlls\Merlin.dll" />
+    <None Include="O2_Interfaces\Messages\IM_OpenControlInGUI.cs.txt" />
+    <None Include="O2_Kernel\InterfacesBaseImpl\KM_OpenControlInGUI.cs.txt" />
+    <None Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_External_Dlls\Ionic.Zip.dll" />
+    <None Include="_External_Dlls\Merlin.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>O2.FluentSharp.CoreLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="O2.FluentSharp.BCL.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

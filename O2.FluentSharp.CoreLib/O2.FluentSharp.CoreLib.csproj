@@ -127,7 +127,6 @@
     <Compile Include="O2_Interfaces\O2Findings\IO2Finding.cs" />
     <Compile Include="O2_Interfaces\O2Findings\IO2Trace.cs" />
     <Compile Include="O2_Interfaces\O2Findings\TraceType.cs" />
-    <Compile Include="O2_Interfaces\Properties\AssemblyInfo.cs" />
     <Compile Include="O2_Interfaces\Rules\IDatabaseRules.cs" />
     <Compile Include="O2_Interfaces\Rules\IO2Rule.cs" />
     <Compile Include="O2_Interfaces\Rules\O2RuleType.cs" />
@@ -182,20 +181,22 @@
     <Compile Include="O2_Kernel\Objects\O2ObjectFactory.cs" />
     <Compile Include="O2_Kernel\Objects\O2Proxy.cs" />
     <Compile Include="O2_Kernel\PublicDI.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="O2_DotNetWrappers\Windows\Mdi.cs.txt" />
-    <Content Include="O2_DotNetWrappers\Windows\RemoteThreadInjection.cs.txt" />
-    <Content Include="O2_Interfaces\O2Tools\ISearchEngine.cs.txt" />
+    <None Include="O2_DotNetWrappers\Windows\Mdi.cs.txt" />
+    <None Include="O2_DotNetWrappers\Windows\RemoteThreadInjection.cs.txt" />
+    <None Include="O2_Interfaces\O2Tools\ISearchEngine.cs.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="O2.FluentSharp.CoreLib.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
