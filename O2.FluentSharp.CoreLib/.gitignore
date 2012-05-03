@@ -7,3 +7,4 @@ UpgradeLog.xml
 *.suo
 *.pidb
 *.userprefs
+*.nupkg
