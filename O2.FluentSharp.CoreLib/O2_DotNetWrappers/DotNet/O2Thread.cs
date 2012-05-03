@@ -2,11 +2,14 @@
 using System.Threading;
 using System;
 using O2.DotNetWrappers.ExtensionMethods;
+using System.Collections.Generic;
 
 namespace O2.DotNetWrappers.DotNet
 {
     public class O2Thread
     {
+        public static List<Thread> ThreadsCreated = new List<Thread>();
+
         #region Delegates
 
         public delegate Thread FuncThread(); // they forgot to include this one :)
@@ -51,6 +54,7 @@ namespace O2.DotNetWrappers.DotNet
             staThread.SetApartmentState(ApartmentState.STA);
             staThread.Priority = threadPriority;
             staThread.Start();            
+            ThreadsCreated.add(staThread);            
             return staThread;
         }
 
@@ -99,6 +103,7 @@ namespace O2.DotNetWrappers.DotNet
             mtaThread.SetApartmentState(ApartmentState.MTA);
             mtaThread.Priority = threadPriority;
             mtaThread.Start();
+            ThreadsCreated.add(mtaThread);
             return mtaThread;
         }
 
@@ -117,6 +122,7 @@ namespace O2.DotNetWrappers.DotNet
                                             });
             _mtaThread.SetApartmentState(ApartmentState.MTA);
             _mtaThread.Start();
+            ThreadsCreated.add(_mtaThread);
             return _mtaThread;
 
         }

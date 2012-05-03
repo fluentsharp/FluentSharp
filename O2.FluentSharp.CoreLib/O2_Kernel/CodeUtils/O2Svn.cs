@@ -59,7 +59,7 @@ namespace O2.Kernel.CodeUtils
 				assemblyToLoad = assemblyToLoad.remove(NO_GAC_TAG); // special tag to allow force downloads
 				"Trying to fetch assembly from O2's SVN repository: {0}".info(assemblyToLoad);
 				AssembliesCheckedIfExists.Add(assemblyToLoad);
-				if (new O2Kernel_Web().online() == false)
+				if (O2Kernel_Web.SkipOnlineCheck.isFalse() && new O2Kernel_Web().online() == false)
 				{
 					"We are currently offline, skipping the check".debug();
 					return;

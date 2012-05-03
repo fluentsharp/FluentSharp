@@ -15,6 +15,7 @@ namespace O2.Kernel.CodeUtils
 {
     public class O2Kernel_Web
     {
+        public static bool SkipOnlineCheck = false;
 
         //need these settings of the WebClient and GetResponseStream Http .NET clients methods will hang
         //for more references see:
@@ -87,7 +88,8 @@ namespace O2.Kernel.CodeUtils
         #region Ping
         public bool online()
         {
-            return ping("www.google.com");
+            return ping("www.google.com") ||                                // first ping, 
+                   httpFileExists("https://www.google.com/favicon.ico");    // then try making a HEAD connection
         }
 
         public bool ping(string address)
