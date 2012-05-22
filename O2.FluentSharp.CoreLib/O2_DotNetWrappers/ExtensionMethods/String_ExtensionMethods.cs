@@ -343,9 +343,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return "{0} {1}".format(_string, Guid.NewGuid());
         }
 
-        public static string    trim(this string _string)
+        public static string  trim(this string _string)
         {           
-            return _string.Trim();
+            if (_string.valid())
+                return _string.Trim();
+            return _string;
         }
         public static string    pad(this string targetString, int totalWidth)
         {

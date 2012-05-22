@@ -605,9 +605,10 @@ namespace O2.DotNetWrappers.Windows
 
         public static String getFileSaveDateTime_Now()
         {
-            String sFileSafeNowDateTime = " (" + DateTime.Now.ToShortDateString() + "," +
-                                          DateTime.Now.ToShortTimeString() + ") ";
-            sFileSafeNowDateTime = sFileSafeNowDateTime.Replace("/", "_").Replace(":", "_");
+            //String sFileSafeNowDateTime = " (" + DateTime.Now.ToShortDateString() + "," +
+            //                              DateTime.Now.ToShortTimeString() + ") ";
+            //sFileSafeNowDateTime = sFileSafeNowDateTime.Replace("/", "_").Replace(":", "_");
+            var sFileSafeNowDateTime = DateTime.Now.ToString(" (HH\\h mm\\s ss\\m\\s , dd-MM-yy)");
             return sFileSafeNowDateTime;
         }
 
@@ -632,9 +633,16 @@ namespace O2.DotNetWrappers.Windows
             var safeString = new StringBuilder(stringToParse);
             for(int i=0; i<safeString.Length;i++)
             {
-                if (false == RegEx.findStringInString(safeString[i].ToString(), validCharsRegEx))
+                try
                 {
-                    var cc = safeString[i];
+                    if (false == RegEx.findStringInString(safeString[i].ToString(), validCharsRegEx))
+                    {
+                        var cc = safeString[i];
+                        safeString[i] = '_';
+                    }
+                }
+                catch
+                {
                     safeString[i] = '_';
                 }
             }
