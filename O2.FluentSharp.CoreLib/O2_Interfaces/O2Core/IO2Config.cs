@@ -8,14 +8,15 @@ namespace O2.Interfaces.O2Core
     public interface IO2Config
     {
         string hardCodedO2LocalTempFolder { get; set; }
-        string hardCodedO2LocalBuildDir { get; set; }
-        string hardCodedO2LocalSourceCodeDir { get; set; }
+//        string hardCodedO2LocalBuildDir { get; set; }
+//        string hardCodedO2LocalSourceCodeDir { get; set; }
         
-        string O2TempDir { get; set; }
-        string LocalScriptsFolder { get; set; }        
-        string LocallyDevelopedScriptsFolder { get; set; }
-        string ScriptsTemplatesFolder { get; set; }        
-        string SvnO2RootFolder { get; set; }
+        string O2TempDir                        { get; set; }
+        string LocalScriptsFolder               { get; set; }        
+        string LocallyDevelopedScriptsFolder    { get; set; }
+        string AutoSavedScripts                 { get; set;}
+        string ScriptsTemplatesFolder           { get; set; }        
+        string SvnO2RootFolder                  { get; set; }
         string SvnO2DatabaseRulesFolder { get; set; }
         string O2SVN_ExternalDlls { get; set; }
         string O2SVN_Binaries { get; set; }

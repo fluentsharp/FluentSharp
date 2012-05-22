@@ -26,7 +26,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
         public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
 
-        public string  defaultO2LocalTempFolder = @"..\\..\\_O2_V4_TempDir";
+        public string  defaultO2LocalTempFolder = @"..\..\_O2_V4_TempDir";
 
         public KO2Config()
         {
@@ -37,8 +37,8 @@ namespace O2.Kernel.InterfacesBaseImpl
 
             hardCodedO2LocalTempFolder = defaultO2LocalTempFolder;
             O2TempDir = hardCodedO2LocalTempFolder;                 // default to this one since there are a couple cases where in Visual Studio the loading of o2.config files causes a problem
-            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
-            hardCodedO2LocalSourceCodeDir = @"E:\O2\_SourceCode_O2";            
+//            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
+//            hardCodedO2LocalSourceCodeDir = @"E:\O2\_SourceCode_O2";            
             O2FindingsFileExtension = ".O2Findings";
             extraSettings = new List<Setting>();
             dependenciesInjection = new List<DependencyInjection>();
@@ -51,6 +51,10 @@ namespace O2.Kernel.InterfacesBaseImpl
             O2SVN_FilesWithNoCode = defaultO2SVN_FilesWithNoCode;
             ZipppedScriptsFile = defaultZippedScriptsFile;
             O2DownloadLocation = defaultO2DownloadLocation;
+
+            AutoSavedScripts = O2TempDir.pathCombine(@"../_AutoSavedScripts")
+                                        .pathCombine(DateTime.Now.ToShortDateString().Replace("/","_")); // can't used safeFileName() here because the DI object is not created
+            ReferencesDownloadLocation = O2TempDir.pathCombine(@"../_ReferencesDownloaded");
         }
                        
         public KO2Config(string o2ConfigFile) :this ()
@@ -66,8 +70,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         public string O2ConfigFile { get; set; }        
         public string O2FindingsFileExtension { get; set; }        
         public string hardCodedO2LocalTempFolder { get; set; }
-        public string hardCodedO2LocalBuildDir { get; set; }
-        public string hardCodedO2LocalSourceCodeDir { get; set; }
+//        public string hardCodedO2LocalBuildDir { get; set; }
+//        public string hardCodedO2LocalSourceCodeDir { get; set; }
         public static string dependencyInjectionTest { get; set; }
 
         //interaface properties
@@ -84,15 +88,14 @@ namespace O2.Kernel.InterfacesBaseImpl
             set {
                 //note: need to find a better solution for making today's data part of the temp folder 
                 if (value.StartsWith(defaultO2LocalTempFolder))
-                    hardCodedO2LocalTempFolder = Path.Combine(defaultO2LocalTempFolder, DateTime.Today.ToShortDateString().Replace("/", "-"));
+                    hardCodedO2LocalTempFolder = Path.Combine(defaultO2LocalTempFolder, DateTime.Now.ToShortDateString().Replace("/","_"));
                 else
                     hardCodedO2LocalTempFolder = value; 
 
             }
         }
 
-		
-
+        public string AutoSavedScripts { get; set; }
         public string ZipppedScriptsFile { get; set; }
         public string LocalScriptsFolder { get; set; }
         public string LocallyDevelopedScriptsFolder { get; set; }
@@ -121,12 +124,13 @@ namespace O2.Kernel.InterfacesBaseImpl
 
 		public string ReferencesDownloadLocation
 		{
-			get 
-			{
-				return hardCodedO2LocalTempFolder.remove(DateTime.Today.ToShortDateString().Replace("/", "-"))
-												 .pathCombine("_ReferencesDownloaded")
+			get; set; 
+/*			{
+				//*return hardCodedO2LocalTempFolder.remove(DateTime.Today.ToShortDateString().Replace("/", "-"))
+//												 .pathCombine("")
 												 .createDir();
 			}
+ * */
 		}
 
         public string CurrentExecutableDirectory
