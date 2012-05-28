@@ -29,8 +29,9 @@ namespace O2.Interfaces.O2Core
         string ExecutingAssembly { get; }
         string TempFileNameInTempDirectory { get; }
         string TempFolderInTempDirectory { get; }
-        string O2KernelAssemblyName { get; }
+        //string O2KernelAssemblyName { get; }
 		string ReferencesDownloadLocation { get; }
+        string ToolsOrApis { get; }
         
         //String setDefaultDir_TempFolder();
 

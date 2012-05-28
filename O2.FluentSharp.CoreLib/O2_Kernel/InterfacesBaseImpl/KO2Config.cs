@@ -108,6 +108,14 @@ namespace O2.Kernel.InterfacesBaseImpl
         public string O2DownloadLocation { get; set; }
         
 
+        public string ToolsOrApis
+        {
+            get
+            {
+                return O2TempDir.pathCombine("..//_ToolsOrApis");
+            }
+        }
+
         public string Version 
         {
             get 
@@ -185,11 +193,12 @@ namespace O2.Kernel.InterfacesBaseImpl
             set { }
         }
 
-        public string O2KernelAssemblyName
+        /*public string O2KernelAssemblyName
         {
             get { return "O2_Kernel.dll"; }
             set { }
-        }
+        }*/
+
 
 
         /// <summary>

@@ -49,6 +49,11 @@ namespace O2.DotNetWrappers.DotNet
             loadCachedCompiledAssembliesMappings();
         }
 
+        public CompileEngine()
+        {
+            setDefaultLocalReferenceFolders();
+        }
+
         public static List<String> get_GACExtraReferencesToAdd()
         {
             return new [] {
@@ -77,7 +82,7 @@ namespace O2.DotNetWrappers.DotNet
                             }.toList();
         
         }
-
+        
         public static void loadCachedCompiledAssembliesMappings()
         {
             try
@@ -109,7 +114,13 @@ namespace O2.DotNetWrappers.DotNet
                 ex.log("in loadCachedCompiledAssembliesMappings");
             }
         }
-   
+
+        public void setDefaultLocalReferenceFolders()
+        { 
+            LocalReferenceFolders.Add(PublicDI.config.ReferencesDownloadLocation);
+            LocalReferenceFolders.Add(PublicDI.config.ToolsOrApis);   
+        }
+
         public Assembly compileSourceCode(String sourceCodeFile)
         {
             return compileSourceCode(sourceCodeFile, "", "");
@@ -193,11 +204,16 @@ namespace O2.DotNetWrappers.DotNet
 				Assembly assembly = null;
 				try
 				{
-					var tmpFileLocation = PublicDI.config.O2TempDir.pathCombine(assemblyName.Name + ".dll");
-					if (tmpFileLocation.fileExists())
-						assembly = Assembly.LoadFrom(tmpFileLocation);
-					else
-						assembly = Assembly.Load(assemblyName);
+                    if (CachedCompiledAssemblies.ContainsKey(assemblyName.Name))
+                        assembly = CachedCompiledAssemblies[assemblyName.Name].assembly();
+                    else
+                    {
+                        var tmpFileLocation = PublicDI.config.O2TempDir.pathCombine(assemblyName.Name + ".dll");
+                        if (tmpFileLocation.fileExists())
+                            assembly = Assembly.LoadFrom(tmpFileLocation);
+                        else
+                            assembly = Assembly.Load(assemblyName);
+                    }
 				}
 				catch
 				{
@@ -230,6 +246,7 @@ namespace O2.DotNetWrappers.DotNet
                 compiledAssembly.Location.fileExists())
             {                                            
                 CachedCompiledAssemblies.add(key, compiledAssembly.Location);
+                CachedCompiledAssemblies.add(compiledAssembly.GetName().Name, compiledAssembly.Location);
                 saveCachedCompiledAssembliesMappings();                
             }
         }
@@ -759,6 +776,7 @@ namespace O2.DotNetWrappers.DotNet
             {
                 var pathToDll = assembly.Location;
                 CachedCompiledAssemblies.add(scriptOrFile, pathToDll);
+                CachedCompiledAssemblies.add(assembly.GetName().Name, pathToDll);
                 "in getCachedCompiledAssembly, compiled file '{0}' to assembly '{1}' (and added it to CachedCompiledAssembly)".debug(scriptOrFile, pathToDll);
                 return assembly.Location;
             }
@@ -767,28 +785,31 @@ namespace O2.DotNetWrappers.DotNet
 
 		public static string resolveCompilationReferencePath(string reference)
 		{			
+            if (CachedCompiledAssemblies.ContainsKey(reference))    // check in CachedCompiledAssemblies first
+                return  CachedCompiledAssemblies[reference];
 			if (reference.fileExists().isFalse())
 			{
 				if (reference.IndexOf(",") > 0)
 					reference = reference.split(",").first();
-				var resolvedFile = PublicDI.config.ReferencesDownloadLocation.pathCombine(reference);
+				/*var resolvedFile = PublicDI.config.ReferencesDownloadLocation.pathCombine(reference);
 				if (resolvedFile.fileExists())
+					return resolvedFile;*/
+                var resolvedFile = PublicDI.CurrentScript.directoryName().pathCombine(reference);   
+                if (resolvedFile.fileExists())
 					return resolvedFile;
 				foreach (var localReferenceFolder in LocalReferenceFolders)
 				{
 					resolvedFile = localReferenceFolder.pathCombine(reference);
 					if (resolvedFile.fileExists())
 						return resolvedFile;
-					resolvedFile = localReferenceFolder.pathCombine(reference + ".dll");
+					/*resolvedFile = localReferenceFolder.pathCombine(reference + ".dll");
 					if (resolvedFile.fileExists())
 						return resolvedFile;
 					resolvedFile = localReferenceFolder.pathCombine(reference + ".exe");
 					if (resolvedFile.fileExists())
-						return resolvedFile;
+						return resolvedFile;*/
 				}
-                resolvedFile = PublicDI.CurrentScript.directoryName().pathCombine(reference);   
-                if (resolvedFile.fileExists())
-					return resolvedFile;
+                
 			}
 			return reference;
 		}
@@ -800,40 +821,29 @@ namespace O2.DotNetWrappers.DotNet
 			for (int i = 0; i < referencedAssemblies.size(); i++)
 			{
 				try
-				{
-					referencedAssemblies[i] = referencedAssemblies[i].trim();
-					referencedAssemblies[i] = resolveCompilationReferencePath(referencedAssemblies[i]);
-					//if (referencedAssemblies[i].fileExists())
-					//	continue;
-					//foreach (var reference in referencedAssemblies)
-					//{
-
+				{                    
+					referencedAssemblies[i] = referencedAssemblies[i].trim();                                        
+                    var originalReference = referencedAssemblies[i];
+					referencedAssemblies[i] = resolveCompilationReferencePath(originalReference);
+                    
 					var assembly = referencedAssemblies[i].assembly();
 					if (assembly.isNull())
 					{
-						//"Reference: {0}".debug(reference);
-						/*	if (reference.fileExists())
-							{
-								var expectedFile = currentExecutablePath.pathCombine(reference.fileName());
-								if (expectedFile.fileExists().isFalse())
-									Files.Copy(reference, expectedFile);
-							}
-							else
-							{*/
-						//populateCachedListOfGacAssemblies();     
 						if (workOffline.isFalse())
 						{
 							new O2Svn().tryToFetchAssemblyFromO2SVN(referencedAssemblies[i]);
 							assembly = referencedAssemblies[i].assembly();
-						}
-						//}
+						}						
 					}
-					if (assembly.notNull() && assembly.Location.fileExists())
-						referencedAssemblies[i] = assembly.Location;
-					else
-					{
-						"[tryToResolveReferencesForCompilation] failed to resolve assembly reference: {0}".error(referencedAssemblies[i]);
-					}
+                    if (assembly.notNull() && assembly.Location.fileExists())
+                    {
+                        referencedAssemblies[i] = assembly.Location;
+                        CachedCompiledAssemblies.add(originalReference, referencedAssemblies[i]);
+                    }
+                    else
+                    {
+                      "[tryToResolveReferencesForCompilation] failed to resolve assembly reference: {0}".error(referencedAssemblies[i]);
+                    }
 				}
 				catch (Exception ex)
 				{
