@@ -60,7 +60,7 @@ namespace O2.Kernel.CodeUtils
         public static Thread raiseRegistedCallbacks(Delegate delegatesToInvoke)
         {
             return raiseRegistedCallbacks(delegatesToInvoke, new object[0]);
-        }
+        }        
 
         public static Thread raiseRegistedCallbacks(Delegate delegatesToInvoke, object[] parameters)
         {

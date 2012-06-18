@@ -20,9 +20,9 @@ namespace O2.Kernel.InterfacesBaseImpl
         public static string defaultLocallyDevelopedScriptsFolder	= @"C:\O2\_XRules_Local";        
         public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
         public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
-        public static string defaultO2SVN_ExternalDlls				= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/";
-        public static string defaultO2SVN_FilesWithNoCode			= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/FilesWithNoCode/";
-        public static string defaultO2SVN_Binaries					= "http://o2platform.googlecode.com/svn/trunk/O2_Binaries/";
+        public static string defaultO2GitHub_ExternalDlls				= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/";
+        public static string defaultO2GitHub_FilesWithNoCode			= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/FilesWithNoCode/";
+        public static string defaultO2GitHub_Binaries					= "http://o2platform.googlecode.com/svn/trunk/O2_Binaries/";
         public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
         public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
 
@@ -46,9 +46,9 @@ namespace O2.Kernel.InterfacesBaseImpl
             ScriptsTemplatesFolder = defaultLocalScriptFolder + @"\_Templates"; ;            
             SvnO2RootFolder = defaultSvnO2RootFolder;
             SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
-            O2SVN_ExternalDlls = defaultO2SVN_ExternalDlls;
-            O2SVN_Binaries = defaultO2SVN_Binaries;
-            O2SVN_FilesWithNoCode = defaultO2SVN_FilesWithNoCode;
+            O2GitHub_ExternalDlls = defaultO2GitHub_ExternalDlls;
+            O2GitHub_Binaries = defaultO2GitHub_Binaries;
+            O2GitHub_FilesWithNoCode = defaultO2GitHub_FilesWithNoCode;
             ZipppedScriptsFile = defaultZippedScriptsFile;
             O2DownloadLocation = defaultO2DownloadLocation;
 
@@ -102,9 +102,9 @@ namespace O2.Kernel.InterfacesBaseImpl
         public string ScriptsTemplatesFolder { get; set; }
         public string SvnO2RootFolder { get; set; }
         public string SvnO2DatabaseRulesFolder { get; set; }
-        public string O2SVN_ExternalDlls { get; set; }
-        public string O2SVN_Binaries { get; set; }
-        public string O2SVN_FilesWithNoCode { get; set; }
+        public string O2GitHub_ExternalDlls { get; set; }
+        public string O2GitHub_Binaries { get; set; }
+        public string O2GitHub_FilesWithNoCode { get; set; }
         public string O2DownloadLocation { get; set; }
         
 

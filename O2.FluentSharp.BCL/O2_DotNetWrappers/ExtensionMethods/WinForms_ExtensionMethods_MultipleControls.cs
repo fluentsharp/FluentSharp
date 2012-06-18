@@ -7,9 +7,19 @@ using O2.Kernel;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Collections;
 using O2.DotNetWrappers.DotNet;
-
+using System.ComponentModel;
 namespace O2.DotNetWrappers.ExtensionMethods
 {
+    public static class WinForms_ExtensionMethods_Component
+    {
+        public static T onDisposed<T>(this T component, Action onDisposed)  
+            where T : Component
+        {
+            component.Disposed += (sender, e) => onDisposed();
+            return component;
+        }
+    }
+    
     public static class WinForms_ExtensionMethods_Button
     {     
         public static Button add_Button(this Control control, string text)
@@ -66,10 +76,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return control.add_Button(top, 0, buttonText);
         }
+
         public static Button add_Button(this Control control, int top, int left, string buttonText)
         {
             return control.add_Button(buttonText, top, left);
         }
+
         public static Button onClick(this Button button, MethodInvoker onClick)
         {
             if (onClick != null)
@@ -77,7 +89,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return button;
         }
         public static Button click(this Button button)
-        {
+        {            
             O2Thread.mtaThread(
                 () =>
                 {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using O2.DotNetWrappers.Windows;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.NetSDK
 {
@@ -12,13 +13,15 @@ namespace O2.DotNetWrappers.NetSDK
     {
         public static string pathToExecutableILAsm = @"C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\ilasm.exe";
 
-        public static List<String> possibleILdasmLocations = new List<string>
-                                                           {
-                                                               @"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\Ildasm.exe",
-                                                               @"C:\Program Files\Microsoft SDKs\Windows\v6.0A\bin\ildasm.exe",
-                                                               DI.config.CurrentExecutableDirectory + "\\Ildasm.exe"
-                                                           };
-
+        public static List<String> possibleILdasmLocations = new List<string>();
+                                                           
+		static IL()
+		{
+			possibleILdasmLocations.add(@"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\Ildasm.exe")
+								   .add(@"C:\Program Files\Microsoft SDKs\Windows\v6.0A\bin\ildasm.exe")
+								   .add(DI.config.CurrentExecutableDirectory + "\\Ildasm.exe");                                                           
+		}
+		
         public static string getILAsmExe()
         {
             if (File.Exists(pathToExecutableILAsm))

@@ -8,10 +8,10 @@ using System.Reflection;
 using System.Text;
 using O2.Interfaces.O2Core;
 using O2.Kernel;
+using O2.Kernel.ExtensionMethods;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX;
 using O2.Views.ASCX.classes.MainGUI;
 
@@ -77,7 +77,8 @@ namespace O2.Views.ASCX.DataViewers
                     // populate treeview
                     var contextMenu = treeView.add_ContextMenu();
                     contextMenu.add_MenuItem("Copy To Clipboard: Selected Node Text", (item) => { treeView.SelectedNode.Text.toClipboard(); });
-                    treeView.add_Nodes((IEnumerable)_object).Sort();
+                    var items = (_object as IEnumerable).toList();
+                    treeView.add_Nodes(items).sort();
                 });
             }
             else

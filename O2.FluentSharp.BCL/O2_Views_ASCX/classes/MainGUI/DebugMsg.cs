@@ -58,6 +58,13 @@ namespace O2.Views.ASCX.classes.MainGUI
                 setRichTextBoxesText(sbLogCache.ToString());
                 sbLogCache = new StringBuilder();
             }
+            rtrObject.onHandleCreated(()=>
+                {
+                    rtrObject.onClosed(() =>
+                    {
+                        DebugMsg.removeRtbObject(rtrObject);
+                    });                    
+                });            
         }
 
         private static void setRichTextBoxesText(string text)

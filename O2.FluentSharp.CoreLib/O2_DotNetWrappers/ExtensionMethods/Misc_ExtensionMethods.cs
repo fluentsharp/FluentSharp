@@ -138,12 +138,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static T         o2Cache<T>(this string key, Func<T> ctor)
 		{
-			if (key.o2Cache<T>().isNull())
-			{
-				"there was no o2Chache object for type '{0}' so invoking the contructor callback".info(typeof(T));
-				key.o2Cache<T>(ctor());
-			}
-			return key.o2Cache<T>();			
+            try
+            {
+                if (key.o2Cache<T>().isNull())
+                {
+                    "there was no o2Chache object for type '{0}' so invoking the contructor callback".info(typeof(T));
+                    key.o2Cache<T>(ctor());
+                }
+                return key.o2Cache<T>();
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+            }
+            return default(T);			
 		}
     }
 }

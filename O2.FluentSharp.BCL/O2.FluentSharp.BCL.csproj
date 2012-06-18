@@ -285,6 +285,11 @@
     <Compile Include="O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs" />
     <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard.cs" />
     <Compile Include="O2_Views_ASCX\Properties\Resources.Designer.cs" />
+    <Compile Include="O2_Views_ASCX\FormImages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormImages.resx</DependentUpon>
+    </Compile>
     <Compile Include="O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Start_O2.cs" />
@@ -345,6 +350,10 @@
       <DependentUpon>ReportBug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="O2_Views_ASCX\Properties\Resources.resx" />
+    <EmbeddedResource Include="O2_Views_ASCX\FormImages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FormImages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="O2_Interfaces\Messages\IM_OpenControlInGUI.cs.txt" />
@@ -365,6 +374,48 @@
     <None Include="O2.FluentSharp.BCL.nuspec">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btDragAssemblyCreated.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btExecuteOnExternalEngine.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btExecuteSelectedMethod.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btOpenFile.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSaveFile.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSeachAndViewAst.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSelectedLineHistory.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSettings.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btShowHideCompilationErrors.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btShowHidePythonLogExecutionOutputData.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btShowLogs.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tbShowO2ObjectModel.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btCompileCode.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btDebugMethod.Image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -59,8 +59,9 @@ namespace O2.DotNetWrappers.Network
                             "/t/tSubject:{4}\n" +
                             "/t/t# attachments:{5}",
                             sHost, sFrom, sTo, sFrom, sCC, sSubject, lsAttachmentFiles.Count);
-                var mmMailMessage = new MailMessage(new MailAddress(sFrom), new MailAddress(sTo))
-                                        {From = new MailAddress(sFrom)};
+                var mmMailMessage = new MailMessage(new MailAddress(sFrom), new MailAddress(sTo));
+                mmMailMessage.From = new MailAddress(sFrom);
+                
                 if (sCC != "")
                     mmMailMessage.CC.Add(new MailAddress(sCC));
                 mmMailMessage.Subject = sSubject;
@@ -69,7 +70,8 @@ namespace O2.DotNetWrappers.Network
                 {
                     mmMailMessage.Attachments.Add(new Attachment(sAttachment));
                 }
-                var scSmtpClient = new SmtpClient {Host = sHost};
+                var scSmtpClient = new SmtpClient();
+                scSmtpClient.Host = sHost;
                 scSmtpClient.SendCompleted += scSmtpClient_SendCompleted;
                 if (bSendSync)
                 {

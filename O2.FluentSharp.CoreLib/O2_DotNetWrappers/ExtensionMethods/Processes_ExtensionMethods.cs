@@ -35,19 +35,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }        
         public static Process       startConsoleApp(this string processToStart, string arguments, Action<string> consoleOut)
         {
-            var pProcess = new Process
-            {
-                StartInfo =
-                {
-                    Arguments = arguments,
-                    FileName = processToStart,
-                    UseShellExecute = false,
-                    //RedirectStandardInput  = true,
-                    //RedirectStandardOutput = true,
-                    //RedirectStandardError = true,
-                    //CreateNoWindow = false
-                }
-            };
+            var pProcess = new Process();
+            pProcess.StartInfo = new ProcessStartInfo();
+            pProcess.StartInfo.Arguments = arguments;
+			pProcess.StartInfo.FileName = processToStart;
+			pProcess.StartInfo.UseShellExecute = false;                             
             pProcess.EnableRaisingEvents = true;
             pProcess.Exited += (sender, e) => "Process exited".error();
 

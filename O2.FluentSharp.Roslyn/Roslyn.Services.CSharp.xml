@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Roslyn.Services.CSharp</name>
+    </assembly>
+    <members>
+        <member name="M:Roslyn.Services.CSharp.Extensions.CommonSyntaxNodeExtensions.GetEnclosingUsingDirectives(Roslyn.Compilers.Common.CommonSyntaxNode)">
+            <summary>
+            Returns the list of using directives that affect 'node'.  The list will be returned in
+            top down order.  
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.ISemanticModelExtensions.GenerateNameForArgument(Roslyn.Compilers.Common.ISemanticModel,Roslyn.Compilers.CSharp.ArgumentSyntax)">
+            <summary>
+            Given an argument node, tries to generate an appropriate name that can be used for that
+            argument.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.ISemanticModelExtensions.GenerateNameForExpression(Roslyn.Compilers.Common.ISemanticModel,Roslyn.Compilers.CSharp.ExpressionSyntax)">
+            <summary>
+            Given an expression node, tries to generate an appropriate name that can be used for
+            that expression. 
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.GetAllPrecedingTriviaToPreviousToken(Roslyn.Compilers.CSharp.SyntaxToken)">
+            <summary>
+            Returns all of the trivia to the left of this token up to the previous token (concatenates
+            the previous token's trailing trivia and this token's leading trivia).
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.ContainsInterleavedDirective(Roslyn.Compilers.CSharp.SyntaxNode,System.Threading.CancellationToken)">
+            <summary>
+            Returns true if the passed in node contains an interleaved pp directive.
+            
+            i.e. The following returns false:
+            
+              void Foo() {
+            #if true
+            #endif
+              }
+            
+            #if true
+              void Foo() {
+              }
+            #endif
+            
+            but these return true:
+            
+            #if true
+              void Foo() {
+            #endif
+              }
+            
+              void Foo() {
+            #if true
+              }
+            #endif
+            
+            #if true
+              void Foo() {
+            #else
+              }
+            #endif
+            
+            i.e. the method returns true if it contains a PP directive that belongs to a grouping
+            constructs (like #if/#endif or #region/#endregion), but the grouping construct isn't
+            entirely contained within the span of the node.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.SplitNodesOnPreprocessorBoundaries``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Breaks up the list of provided nodes, based on how they are interspersed with pp
+            directives, into groups.  Within these groups nodes can be moved around safely, without
+            breaking any pp constructs.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.RemoveNode``1(``0,Roslyn.Compilers.CSharp.SyntaxNode)">
+            <summary>
+            Removes the given node from a list (possibly separated) contained in the root.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.FindTokenOnRightOfPosition(Roslyn.Compilers.CSharp.SyntaxNode,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            If the position is inside of token, return that token; otherwise, return the token to the right.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.FindTokenOnLeftOfPosition(Roslyn.Compilers.CSharp.SyntaxNode,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            If the position is inside of token, return that token; otherwise, return the token to the left.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxNodeExtensions.FindSkippedToken(Roslyn.Compilers.CSharp.SyntaxTriviaList,System.Int32)">
+            <summary>
+            Look inside a trivia list for a skipped token that contains the given position.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxTokenExtensions.IsFirstTokenOnLine(Roslyn.Compilers.CSharp.SyntaxToken,Roslyn.Compilers.IText)">
+            <summary>
+            Determines whether the given SyntaxToken is the first token on a line in the specified IText.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxTokenExtensions.GetAllTrailingTrivia(Roslyn.Compilers.CSharp.SyntaxToken)">
+            <summary>
+            Retrieves all trivia after this token, including it's trailing trivia and
+            the leading trivia of the next token.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxTokenExtensions.FindLastTokenOfPartialGenericName(Roslyn.Compilers.CSharp.SyntaxToken)">
+            <summary>
+            Lexically, find the last token that looks like it's part of this generic name.
+            </summary>
+            <param name="genericIdentifier">The "name" of the generic identifer, last token before
+            the "&amp;"</param>
+            <returns>The last token in the name</returns>
+            <remarks>This is related to the code in <see cref="M:SyntaxTreeExtensions.IsInPartiallyWrittenGeneric"/></remarks>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxTreeExtensions.FindTokenOnRightOfPosition(Roslyn.Compilers.CSharp.SyntaxTree,System.Int32,System.Boolean)">
+            <summary>
+            If the position is inside of token, return that token; otherwise, return the token to the right.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.Extensions.SyntaxTreeExtensions.FindTokenOnLeftOfPosition(Roslyn.Compilers.CSharp.SyntaxTree,System.Int32,System.Boolean)">
+            <summary>
+            If the position is inside of token, return that token; otherwise, return the token to the left.
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.Formatting.FormattingResult">
+            <summary>
+            this holds onto changes made by formatting engine.
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.Formatting.TriviaDataFactory">
+            <summary>
+            trivia factory.
+            
+            it will cache some commonly used trivia to reduce memory footprint and heap allocation
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.Formatting.TriviaDataFactory.ComplexTrivia">
+            <summary>   
+            represents a general trivia between two tokens. slightly more expensive than others since it
+            needs to calculate stuff unlike other cases
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.CSharpSyntaxTreeFactoryService.PathSyntaxReference">
+            <summary>
+            Represents a syntax reference that doesn't actually hold onto the 
+            referenced node.  Instead, enough data is held onto so that the node
+            can be recovered and returned if necessary.
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.CSharpSyntaxTreeFactoryService.NullSyntaxReference">
+            <summary>
+            Represents a syntax reference that was passed a null
+            reference to a node. In this case, we just hold onto the
+            weak tree reference and throw if any invalid properties
+            are accessed.
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.CSharpSyntaxTreeFactoryService.PositionalSyntaxReference">
+            <summary>
+            Represents a syntax reference that doesn't actually hold onto the 
+            referenced node.  Instead, enough data is held onto so that the node
+            can be recovered and returned if necessary.
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.CSharpSyntaxTreeFactoryService.RecoverableSyntaxTree">
+            <summary>
+            Represents a syntax tree that only has a weak reference to its 
+            underlying data.  This way it can be passed around without forcing
+            the underlying full tree to stay alive.  Think of it more as a 
+            key that can be used to identify a tree rather than the tree itself.
+            </summary>
+        </member>
+        <member name="T:Roslyn.Services.CSharp.RemoveUnnecessaryImports.CSharpRemoveUnnecessaryImportsService.Visitor">
+            <summary>
+            TODO(cyrusn): 
+            
+            1) Handle queries.  They may bind to extension methods and should cause extensions to be
+               considered used.
+            2) Currently we will mark a using as used if an identifier binds to a member of that
+                namespace that the using pulls.  This is valid in most cases except for when we're also
+                *inside* that namespace.  i.e. "using Foo; namespace Foo { ... }".  In this case we do
+                want to remove the "using Foo;" as it's not actually removed. 
+             3) Handle extern aliases.  We want to remove them as well if they're not used.
+             4) GetAwaiter+async.
+            </summary>
+        </member>
+        <member name="M:Roslyn.Services.CSharp.RemoveUnnecessaryImports.CSharpRemoveUnnecessaryImportsService.Visitor.ShouldCheck(System.Collections.Generic.Stack{System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.HashSet{Roslyn.Compilers.CSharp.UsingDirectiveSyntax}}},System.String)">
+            <summary>
+            There is no point binding to a node with name 'N' if we already think the usings
+            that brought in 'N' are 'used'.  We should only bind the names for things that are
+            coming from usings that are still potentially unused that we want to know more
+            about.
+            </summary>
+        </member>
+    </members>
+</doc>

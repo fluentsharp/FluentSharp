@@ -26,40 +26,41 @@ namespace O2.DotNetWrappers.Filters
         public String sReturnClass = "";
         public String sSignature = "";
         public String sModule = "";
-
-        public FilteredSignature(String sSignature)
+        public List<String> classesToNotApplyDotNetPatch = new List<string>();
+        
+		public  FilteredSignature()
+		{
+			classesToNotApplyDotNetPatch.AddRange(new string[] {"System.String","System.Char","System.Object", "System.Int16", "System.Int32", "System.Int64", "System.Boolean", "System.Double", "System.Void"});        
+		}
+		
+        public FilteredSignature(String sSignature) : this()
         {
             this.sSignature = sSignature;
             sParseSignature();
         }        
 
-        public FilteredSignature(String sSignature, Char cParametersSplitChar)
+        public FilteredSignature(String sSignature, Char cParametersSplitChar)  : this()
         {
             this.sSignature = sSignature;
             this.cParametersSplitChar = cParametersSplitChar;
             sParseSignature();
         }
 
-        public FilteredSignature(ICirFunction cirFunction)
+        public FilteredSignature(ICirFunction cirFunction)  : this()
         {
             populateSignatureObjectsFromCirFunction(cirFunction);
         }
 
-        public FilteredSignature(MethodInfo methodInfo)
+        public FilteredSignature(MethodInfo methodInfo)  : this()
         {
             populateSignatureObjectsFromMethodInfo(methodInfo);
         }
-
-        protected FilteredSignature()
-        {
-        }
+        
 
         public override string ToString()
         {
             return sSignature;
-        }
-
-        List<String> classesToNotApplyDotNetPatch = new List<string>{"System.String","System.Char","System.Object", "System.Int16", "System.Int32", "System.Int64", "System.Boolean", "System.Double", "System.Void"};
+        }        
 
         private void populateSignatureObjectsFromCirFunction(ICirFunction cirFunction)
         {

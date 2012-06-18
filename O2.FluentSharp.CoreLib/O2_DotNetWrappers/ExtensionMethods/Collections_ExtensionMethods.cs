@@ -11,6 +11,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class Collections_ExtensionMethods_IEnumerable
     {
+        public static string asString<T>(this IEnumerable<T> sequence) where T : class
+        {
+            return sequence.toString();
+        }
+
         public static string    toString<T>(this IEnumerable<T> sequence) where T : class
         {
             var value = "";
@@ -110,6 +115,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return list;
 		}
 
+        public static List<object>  toList(this IEnumerable collection)
+        {
+            return collection.toList<object>();
+        }
+
         public static List<T>       toList<T>(this IEnumerable<T> collection)
         {
             return (collection != null) ? collection.ToList() : null;
@@ -180,6 +190,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return list.Contains(text);
             return false;
         }
+
+        public static List<T> clear<T>(this List<T> list)
+        {
+            list.Clear();
+            return list;
+        }
+
         public static List<string>      add_OnlyNewItems(this List<string> targetList, List<string> itemsToAdd)
         {
             foreach (var item in itemsToAdd)

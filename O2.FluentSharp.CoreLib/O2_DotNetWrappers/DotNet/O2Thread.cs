@@ -95,15 +95,12 @@ namespace O2.DotNetWrappers.DotNet
                                             {
                                                 DI.log.ex(ex,"in mtaThread", true);
                                             }
-                                        })
-                                        // Thread() contructor
-                                        {
-                                            Name = threadName
-                                        };
+                                        });                                         
+			mtaThread.Name =      threadName;                                   
             mtaThread.SetApartmentState(ApartmentState.MTA);
             mtaThread.Priority = threadPriority;
             mtaThread.Start();
-            ThreadsCreated.add(mtaThread);
+            ThreadsCreated.add(mtaThread);         
             return mtaThread;
         }
 

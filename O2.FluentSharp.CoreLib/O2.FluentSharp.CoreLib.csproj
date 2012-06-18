@@ -154,6 +154,7 @@
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Serialize.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Web.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Svn.cs" />
+    <Compile Include="O2_Kernel\debug.cs" />
     <Compile Include="O2_Kernel\DI.cs" />
     <Compile Include="O2_Kernel\exec.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Logging_ExtensionMethods.cs" />

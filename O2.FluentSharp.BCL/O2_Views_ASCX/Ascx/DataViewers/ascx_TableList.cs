@@ -155,13 +155,14 @@ namespace O2.Views.ASCX.DataViewers
             makeColumnWidthMatchCellWidth();
         }
         
-        public void makeColumnWidthMatchCellWidth()
+        public ascx_TableList makeColumnWidthMatchCellWidth()
         {
-            this.invokeOnThread(() =>
+            return (ascx_TableList)this.invokeOnThread(() =>
                 {
                     resizeColumnsWidth = false;
                     lvData.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                     resizeColumnsWidth = true;
+                    return this;
                 });
         }
 

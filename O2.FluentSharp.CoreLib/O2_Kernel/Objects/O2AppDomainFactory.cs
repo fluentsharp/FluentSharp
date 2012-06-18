@@ -46,11 +46,10 @@ namespace O2.Kernel.Objects
 
         public O2AppDomainFactory(string appDomainName, string baseDirectory)
         {
-            var appDomainSetup = new AppDomainSetup {
-                                                        ApplicationBase = baseDirectory,
-                                                        PrivateBinPath = baseDirectory, //PublicDI.config.CurrentExecutableDirectory,
-                                                        ShadowCopyFiles = "true"                                                        
-                                                    };            
+            var appDomainSetup = new AppDomainSetup();
+            appDomainSetup.ApplicationBase = baseDirectory;
+			appDomainSetup.PrivateBinPath = baseDirectory; 
+			appDomainSetup.ShadowCopyFiles = "true";                                                                                                               
             createAppDomain(appDomainName, appDomainSetup);            
         }
 

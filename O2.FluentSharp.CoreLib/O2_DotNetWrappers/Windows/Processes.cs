@@ -45,7 +45,12 @@ namespace O2.DotNetWrappers.Windows
             try
             {
                 DI.log.debug("Starting process {0} with arguments {1}", sProcessToStart, sArguments);
-                var pProcess = new Process {StartInfo = {Arguments = sArguments, FileName = sProcessToStart,WorkingDirectory = Path.GetDirectoryName(sProcessToStart)}};
+                var pProcess = new Process();
+                pProcess.StartInfo = new ProcessStartInfo();
+                pProcess.StartInfo.Arguments = sArguments;
+                pProcess.StartInfo.FileName = sProcessToStart;
+                pProcess.StartInfo.WorkingDirectory = Path.GetDirectoryName(sProcessToStart);
+                
                 if (CreateNoWindow)
                 {
                     pProcess.StartInfo.CreateNoWindow = true;
@@ -135,19 +140,16 @@ namespace O2.DotNetWrappers.Windows
                 if (showProcessDetails)
                     DI.log.debug("Starting process {0} as a console Application with arguments {1}", processToStart,
                                  arguments);
-                var pProcess = new Process
-                                   {
-                                       StartInfo =
-                                           {
-                                               Arguments = arguments,
-                                               FileName = processToStart,
-                                               UseShellExecute = false,
-                                               WorkingDirectory = workingDirectory,
-                                               RedirectStandardOutput = true,
-                                               RedirectStandardError = true,
-                                               CreateNoWindow = true
-                                           }
-                                   };
+                var pProcess = new Process();
+                pProcess.StartInfo = new ProcessStartInfo();
+                pProcess.StartInfo.Arguments = arguments;
+				pProcess.StartInfo.FileName = processToStart;
+				pProcess.StartInfo.UseShellExecute = false;
+				pProcess.StartInfo.WorkingDirectory = workingDirectory;
+				pProcess.StartInfo.RedirectStandardOutput = true;
+				pProcess.StartInfo.RedirectStandardError = true;
+				pProcess.StartInfo.CreateNoWindow = true;
+
                 pProcess.Start();
                 // _note that the StandardOutput and StandardError might not show in the correct order in consoleData is just adding one the other othere
                 var consoleData = pProcess.StandardOutput.ReadToEnd();
@@ -179,18 +181,15 @@ namespace O2.DotNetWrappers.Windows
         {
             DI.log.debug("Starting process {0} as a console Application with arguments {1}", sProcessToStart,
                          sArguments);
-            var pProcess = new Process
-                               {
-                                   StartInfo =
-                                       {
-                                           Arguments = sArguments,
-                                           FileName = sProcessToStart,
-                                           UseShellExecute = false,
-                                           RedirectStandardOutput = true,
-                                           RedirectStandardError = true,
-                                           CreateNoWindow = true
-                                       }
-                               };
+            var pProcess = new Process();
+            pProcess.StartInfo = new ProcessStartInfo();
+            pProcess.StartInfo.Arguments = sArguments;
+            pProcess.StartInfo.FileName = sProcessToStart;
+            pProcess.StartInfo.UseShellExecute = false;
+            pProcess.StartInfo.RedirectStandardOutput = true;
+            pProcess.StartInfo.RedirectStandardError = true;
+            pProcess.StartInfo.CreateNoWindow = true;
+
             if (callbackErrorDataReceived == null)
                 pProcess.ErrorDataReceived += pProcess_ErrorDataReceived;
             else
@@ -262,21 +261,17 @@ namespace O2.DotNetWrappers.Windows
         {            
             DI.log.debug("Starting process {0} as a console Application with IO redirected {1}", processToStart,
                          arguments);
-            var process = new Process
-                              {
-                                  StartInfo =
-                                      {
-                                          Arguments = string.IsNullOrEmpty(arguments) ? null : arguments,
-                                          FileName = processToStart,
-                                          WorkingDirectory = workingDirectory,
-                                          UseShellExecute = false,
-                                          RedirectStandardInput = true,
-                                          RedirectStandardOutput = true,
-                                          RedirectStandardError = true,
-                                          CreateNoWindow = true   
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo();
+            process.StartInfo.Arguments = string.IsNullOrEmpty(arguments) ? null : arguments;
+			process.StartInfo.FileName = processToStart;
+			process.StartInfo.WorkingDirectory = workingDirectory;
+			process.StartInfo.UseShellExecute = false;
+			process.StartInfo.RedirectStandardInput = true;
+			process.StartInfo.RedirectStandardOutput = true;
+			process.StartInfo.RedirectStandardError = true;
+			process.StartInfo.CreateNoWindow = true;
 
-                                      }
-                              };
             process.StartInfo.EnvironmentVariables.Add("_NT_SYMBOL_PATH",@"srv*c:\symbols*http://msdl.microsoft.com/download/symbols");
 
             if (callbackErrorDataReceived == null)
@@ -358,21 +353,18 @@ namespace O2.DotNetWrappers.Windows
         {
             DI.log.debug("Reseting IIS");
             Thread.Sleep(2000); // give the current request some time to complete
-            var myProcess = new Process
-                                {
-                                    StartInfo =
-                                        {
-                                            Arguments = "/noforce /timeout:300 /restart",
-                                            FileName = "c:\\windows\\system32\\iisreset.exe",
-                                            UseShellExecute = true,
-                                            WindowStyle = ProcessWindowStyle.Hidden,
-                                            CreateNoWindow = true
-                                        }
-                                };
-            myProcess.Start();
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo();
+            process.StartInfo.Arguments = "/noforce /timeout:300 /restart";
+			process.StartInfo.FileName = "c:\\windows\\system32\\iisreset.exe";
+			process.StartInfo.UseShellExecute = true;
+			process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+			process.StartInfo.CreateNoWindow = true;
+
+            process.Start();
             if (bWaitForCompletion)
             {
-                myProcess.WaitForExit();
+                process.WaitForExit();
                 DI.log.info("IIS service reset");
             }
         }
@@ -478,9 +470,12 @@ namespace O2.DotNetWrappers.Windows
 
         public static void Sleep(int miliSecondsToSleep, bool verbose)
         {
-            if (verbose)
-                DI.log.info("Sleeping for: {0} mili-seconds", miliSecondsToSleep);
-            Thread.Sleep(miliSecondsToSleep);
+            if (miliSecondsToSleep > 0)
+            {
+                if (verbose)
+                    DI.log.info("Sleeping for: {0} mili-seconds", miliSecondsToSleep);
+                Thread.Sleep(miliSecondsToSleep);
+            }
         }
 
 

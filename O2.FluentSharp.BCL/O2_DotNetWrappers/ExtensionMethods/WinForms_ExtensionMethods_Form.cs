@@ -16,6 +16,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Form
     {
+        public static Form form(this string text)
+        {
+            return text.openForm();
+        }
+        public static Form openForm(this string text)
+        {
+            foreach (Form form in Application.OpenForms)
+                if (form.get_Text() == text)
+                    return form;
+            return null;        
+        }
         public static T form<T>(this FormCollection formCollection) where T : Form
         {
             var forms = new List<T>();

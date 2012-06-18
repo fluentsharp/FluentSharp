@@ -16,9 +16,10 @@ namespace O2.Views.ASCX.O2Findings
         public event O2Thread.FuncVoidT1<IO2Trace> _onTraceSelected;
         public event Callbacks.dMethod_Object onTreeNodeAfterSelect;
         public event Callbacks.dMethod_String onTreeNodeAfterLabelEdit;
-        public bool runOnLoad = true;        
-        public IO2Trace o2Trace { get; set; }
-        public IO2Finding o2Finding { get; set; }
+        public bool runOnLoad = true;
+        public bool DontSelectNodeOnLoad { get; set; }
+        public IO2Trace o2Trace          { get; set; }
+        public IO2Finding o2Finding      { get; set; }
         public object selectedNodeTag { get; set; }
         public TreeNode selectedNode { get; set; }
         public TreeView traceTreeView { get; set; }
@@ -58,9 +59,9 @@ namespace O2.Views.ASCX.O2Findings
                                                     foreach (IO2Trace chilldO2Trace in o2Finding.o2Traces)
                                                         loadO2TraceIntoTreeNodeCollection(chilldO2Trace, tvSmartTrace.Nodes);
                                                     tvSmartTrace.ExpandAll();
-                                                    if (tvSmartTrace.Nodes.Count > 0 &&
-                                                        tvSmartTrace.SelectedNode == null)
-                                                        tvSmartTrace.SelectedNode = tvSmartTrace.Nodes[0];
+                                                    if (DontSelectNodeOnLoad.isFalse())
+                                                        if (tvSmartTrace.Nodes.Count > 0 && tvSmartTrace.SelectedNode == null)
+                                                            tvSmartTrace.SelectedNode = tvSmartTrace.Nodes[0];
                                                     tvSmartTrace.Visible = true;
                                                 }
                                                 return null;

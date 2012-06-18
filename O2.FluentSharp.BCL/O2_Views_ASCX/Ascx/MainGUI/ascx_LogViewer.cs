@@ -6,6 +6,7 @@ using O2.Kernel;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
+using O2.DotNetWrappers.DotNet;
 
 namespace O2.Views.ASCX.Ascx.MainGUI
 {
@@ -27,8 +28,12 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                 cbDebugMessages.Checked = true;
                 cbInfoMessages.Checked = true;
                 //DI.log.error("Testing logging: Error Message");
-                DI.log.debug("Testing logging: Debug Message");
-                DI.log.info("Testing logging: Info Message");                  
+                /*O2Thread.mtaThread(()=>
+                    {
+                        DI.log.debug("Testing logging: Debug Message");
+                        DI.log.info("Testing logging: Info Message");
+                    });*/
+                
             }
             //  this.Location = new Point(20,500);            
         }
@@ -75,14 +80,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
             if (false == DesignMode)
             {
                 if (false == loadConfigExecuted)
-                {
-                    if (ParentForm != null)
-                        ParentForm.Closing += delegate
-                                                  {
-                                                      DebugMsg.removeRtbObject(rtbDebugMessages);
-                                                  };
-                    else
-                        DI.log.error("in ascx_LogViewer_Load, there was not parent so .Closing event could not be set");
+                {                    
                     loadConfigExecuted = true;
 					updateMemoryUsageLabel();
                 }

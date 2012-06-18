@@ -9,10 +9,10 @@ using O2.DotNetWrappers.ExtensionMethods;
 namespace O2.Kernel.CodeUtils
 {
     //need to change this text (it is using GIT now)
-    public class O2Svn
+    public class O2GitHub
     {
         public const string NO_GAC_TAG = "__NoGAC__";
-        public static List<string> AssembliesCheckedIfExists = new List<string>() {"System.Deployment"};        
+        public static List<string> AssembliesCheckedIfExists = new List<string>().add("System.Deployment");
 
         public static void clear_AssembliesCheckedIfExists()
         {
@@ -20,12 +20,12 @@ namespace O2.Kernel.CodeUtils
             AssembliesCheckedIfExists = new List<string>();
         }
 
-        public void tryToFetchAssemblyFromO2SVN(string assemblyToLoad)
+        public void tryToFetchAssemblyFromO2GitHub(string assemblyToLoad)
         {
-            tryToFetchAssemblyFromO2SVN(assemblyToLoad, true);
+            tryToFetchAssemblyFromO2GitHub(assemblyToLoad, true);
         }
 
-        public void tryToFetchAssemblyFromO2SVN(string assemblyToLoad, bool useCacheInfo)
+        public void tryToFetchAssemblyFromO2GitHub(string assemblyToLoad, bool useCacheInfo)
         {            
             string localFilePath = "";
             if (assemblyToLoad.contains("".tempDir()))       // don't try to fetch temp assemblies
@@ -38,7 +38,7 @@ namespace O2.Kernel.CodeUtils
             if (thread.Join(maxWait * 1000) == false)
             {
                 if (File.Exists(localFilePath))                
-                    "TimeOut (of {1} secs) was reached, but Assembly was sucessfully fetched from O2SVN: {0}".info(maxWait,localFilePath);                                    
+                    "TimeOut (of {1} secs) was reached, but Assembly was sucessfully fetched from O2GitHub: {0}".info(maxWait,localFilePath);                                    
                 else
                     "error while tring to fetchAssembly: {0} (max wait of {1} seconds reached)".error(assemblyToLoad, maxWait);
                 return;
@@ -75,21 +75,21 @@ namespace O2.Kernel.CodeUtils
 					localFilePath.assembly();	// load it									
 					return;
 				}
-				var webLocation1 = "{0}{1}".format(PublicDI.config.O2SVN_ExternalDlls, assemblyToLoad).trim();
+				var webLocation1 = "{0}{1}".format(PublicDI.config.O2GitHub_ExternalDlls, assemblyToLoad).trim();
 				if (new O2Kernel_Web().httpFileExists(webLocation1))
 				{
 					new O2Kernel_Web().downloadBinaryFile(webLocation1, localFilePath);
 				}
 				else
 				{
-					var webLocation2 = "{0}{1}".format(PublicDI.config.O2SVN_Binaries, assemblyToLoad).trim();
+					var webLocation2 = "{0}{1}".format(PublicDI.config.O2GitHub_Binaries, assemblyToLoad).trim();
 					if (new O2Kernel_Web().httpFileExists(webLocation2))
 					{
 						new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
 					}
 					else
 					{
-						var webLocation3 = "{0}{1}".format(PublicDI.config.O2SVN_FilesWithNoCode, assemblyToLoad).trim();
+						var webLocation3 = "{0}{1}".format(PublicDI.config.O2GitHub_FilesWithNoCode, assemblyToLoad).trim();
 						if (new O2Kernel_Web().httpFileExists(webLocation3))
 						{
 							new O2Kernel_Web().downloadBinaryFile(webLocation3, localFilePath);
@@ -98,14 +98,14 @@ namespace O2.Kernel.CodeUtils
 				}
 				if (File.Exists(localFilePath))
 				{
-					"Assembly sucessfully fetched from O2SVN: {0}".info(localFilePath);
+					"Assembly sucessfully fetched from O2GitHub: {0}".info(localFilePath);
 					localFilePath.assembly();		// load it
 					return;
 				}
 			}
 			catch (Exception ex)
 			{
-				ex.log("in O2Svn, tryToFetchAssemblyFromO2SVN");
+				ex.log("in O2GitHub, tryToFetchAssemblyFromO2GitHub");
 			}
 		}
     }

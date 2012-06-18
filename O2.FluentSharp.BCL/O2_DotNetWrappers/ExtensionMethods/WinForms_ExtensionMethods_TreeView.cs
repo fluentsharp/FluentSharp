@@ -443,13 +443,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         return treeView;
                     });
         }
-        public static void      clear(this TreeView treeView)
+        public static TreeView clear(this TreeView treeView)
         {
-            treeView.invokeOnThread(()
+            return (TreeView) treeView.invokeOnThread(()
                                     =>
                                         {
                                             treeView.Nodes.Clear();
-                                            return; // makes this Sync call
+                                            return treeView;
                                         });
         }
                 

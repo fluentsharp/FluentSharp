@@ -508,6 +508,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T visible<T>(this T control, bool state) where T : Control
         {
+            if (control.isNull())
+                return null;
             return (T)control.invokeOnThread(
                 () =>
                 {
@@ -646,9 +648,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T control<T>(this Control control, bool searchRecursively) where T : Control
         {
-            foreach (var childControl in control.controls(searchRecursively))
-                if (childControl is T)
-                    return (T)childControl;
+            if (control.notNull())
+                foreach (var childControl in control.controls(searchRecursively))
+                    if (childControl is T)
+                        return (T)childControl;
             return null;
         }
         public static List<Control> list(this Control.ControlCollection controlCollection)
@@ -819,6 +822,26 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             //
         }
+
+        public static T onHandleCreated<T>(this T control, Action onHandleCreated) where T : Control
+        {
+            control.HandleCreated += (sender, e) =>
+            {
+                onHandleCreated();
+            };
+            return control;
+        }
+
+        
+        public static T onControlAdded<T>(this T control, Action onControlAdded) where T : Control
+        {
+            control.ControlAdded += (sender, e) =>
+            {
+                onControlAdded();
+            };
+            return control;
+        }
+
         public static T onClosed<T>(this T control, MethodInvoker onClosed) where T : Control
         {
             var parentForm = control.parentForm();
@@ -1337,10 +1360,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T onKeyPress<T>(this T control, Keys onlyFireOnKey, Action<String> callback) where T : Control
         {
-            control.KeyUp += (sender, e) =>
+            control.KeyDown += (sender, e) =>
             {
                 if (e.KeyData == onlyFireOnKey)
+                {
                     callback(control.Text);
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
             };
             return control;
         }

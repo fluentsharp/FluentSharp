@@ -86,5 +86,9 @@ namespace O2.Kernel
             }
         }
 
+        public static void debugBreak()
+        {
+            debug.@break();
+        }
     }
 }

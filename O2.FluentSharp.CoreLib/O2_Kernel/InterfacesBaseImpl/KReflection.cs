@@ -14,7 +14,7 @@ using O2.DotNetWrappers.DotNet;
 //O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
 //O2File:../ExtensionMethods/String_ExtensionMethods.cs
 //O2File:../Objects/O2Object.cs
-//O2File:../CodeUtils/O2Svn.cs
+//O2File:../CodeUtils/O2GitHub.cs
 //O2File:../CodeUtils/O2Kernel_O2Thread.cs
 //O2File:../CodeUtils/O2Kernel_Files.cs
 
@@ -706,7 +706,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 				if (assembly != null)
 				{
 					AssemblyResolver.CachedMappedAssemblies.add(assemblyToLoad, assembly);
-					AssemblyResolver.CachedMappedAssemblies.add(assembly.FullName, assembly);
+					AssemblyResolver.CachedMappedAssemblies.add(assembly.FullName, assembly);         // this has side effects on dynamic code scanning
 					AssemblyResolver.CachedMappedAssemblies.add(assembly.GetName().Name, assembly);
 					return assembly;
 				}
@@ -727,7 +727,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 					{
 						//if (System.IO.File.Exists(assemblyToLoad) == false &&
 						//   System.IO.File.Exists(System.IO.Path.Combine( PublicDI.config.CurrentExecutableDirectory,assemblyToLoad)))         // if this assembly is not on the current executable folder                                 
-						//   new O2Svn().tryToFetchAssemblyFromO2SVN(assemblyToLoad);		
+						//   new O2GitHub().tryToFetchAssemblyFromO2GitHub(assemblyToLoad);		
 						//assembly = Assembly.Load(assemblyToLoad);		
 						assembly = Assembly.LoadFrom(assemblyToLoad);
 					}
@@ -900,8 +900,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         public object invoke(object oLiveObject, MethodInfo methodInfo, object[] methodParameters)
         {
             try
-            {
-                return methodInfo.Invoke(oLiveObject, methodParameters);
+            {                
+                return methodInfo.Invoke(oLiveObject,BindingFlags.OptionalParamBinding, null, methodParameters,null);
             }
             catch (Exception ex)
             {

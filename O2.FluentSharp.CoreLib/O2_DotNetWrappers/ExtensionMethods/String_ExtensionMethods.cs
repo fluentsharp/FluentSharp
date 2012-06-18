@@ -129,6 +129,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return !_string.valid();
         }
+
+        public static bool notValid(this string _string)
+        {
+            return !_string.valid();
+        }
+
         public static bool      valid(this string _string)
         {
             if (_string != null && false == string.IsNullOrEmpty(_string))

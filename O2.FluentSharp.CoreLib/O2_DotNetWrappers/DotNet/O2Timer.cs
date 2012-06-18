@@ -1,12 +1,14 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.DotNet
 {
     public class O2Timer
     {
-        private String Description { get; set; }
-        private DateTime StartDateTime { get; set; }
+        public String Description { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public TimeSpan timeSpan { get; set; }
         public string TimeSpanString { get; set; }
 
         public O2Timer() // automatically start when we don't provide a description
@@ -19,6 +21,14 @@ namespace O2.DotNetWrappers.DotNet
         {
             Description = _description;
         }
+
+        public O2Timer(String _description, Action actionToTime)
+        {
+            Description = _description;
+            start();
+            actionToTime();
+            stop();
+        }                
 
         public O2Timer start()
         {
@@ -39,19 +49,21 @@ namespace O2.DotNetWrappers.DotNet
 
         public O2Timer stop(bool showValueOnLog)
         {
-            TimeSpan tsTime = DateTime.Now - StartDateTime;
-            TimeSpanString = getTimeSpanString(tsTime);
+            timeSpan = DateTime.Now - StartDateTime;
+            TimeSpanString = getTimeSpanString(timeSpan);
             //   if (description == "")
             //       return timeSpanString;
             if (showValueOnLog)
-                DI.log.debug(getTimeSpanString(tsTime));
+                DI.log.debug(getTimeSpanString(timeSpan));
             return this;
             //return timeSpanString;
         }
 
         public string getTimeSpanString(TimeSpan tsTime)
         {
-            if (Description != "" && Description.Contains(" in ") == false)
+            if (Description.notValid())
+                Description = "...";
+            if (Description.Contains(" in ") == false)
                 Description += " in ";
             if (tsTime.Hours > 0)
                 return String.Format("{0}{1}h:{2}m:{3}s:{4}ms", Description, tsTime.Hours, tsTime.Minutes,
@@ -66,5 +78,21 @@ namespace O2.DotNetWrappers.DotNet
 		{
 			return this.TimeSpanString;
 		}
+    }
+
+    public static class O2Timer_ExtensionMehods
+    {
+        public static string infoTimeSpan(this Action actionToTime)
+        {
+            return actionToTime.infoTimeSpan("Action");
+        }
+        public static string infoTimeSpan(this Action actionToTime, string description)
+        {
+            return new O2Timer(description, actionToTime).TimeSpanString.info();            
+        }
+        public static string infoTimeSpan(this string description, Action actionToTime)
+        { 
+            return new O2Timer(description, actionToTime).TimeSpanString.info();            
+        }
     }
 }

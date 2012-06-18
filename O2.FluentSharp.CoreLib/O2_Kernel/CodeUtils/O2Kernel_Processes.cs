@@ -14,18 +14,14 @@ namespace O2.Kernel.CodeUtils
                          sArguments);
             try
             {
-                var pProcess = new Process
-                {
-                    StartInfo =
-                    {
-                        Arguments = sArguments,
-                        FileName = sProcessToStart,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true
-                    }
-                };
+                var pProcess = new Process();
+                pProcess.StartInfo = new ProcessStartInfo();
+                pProcess.StartInfo.Arguments = sArguments;
+                pProcess.StartInfo.FileName = sProcessToStart;
+                pProcess.StartInfo.UseShellExecute = false;
+                pProcess.StartInfo.RedirectStandardOutput = true;
+                pProcess.StartInfo.RedirectStandardError = true;
+                pProcess.StartInfo.CreateNoWindow = true;
                 pProcess.Start();
                 return pProcess.StandardOutput.ReadToEnd();
 
