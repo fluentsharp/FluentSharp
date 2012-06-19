@@ -661,6 +661,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 controls.Add(control);
             return controls;
         }
+
         public static T focus<T>(this T control) where T : Control
         {
             return (T)control.invokeOnThread(

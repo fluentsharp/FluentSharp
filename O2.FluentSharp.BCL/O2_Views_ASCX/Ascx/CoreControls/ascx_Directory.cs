@@ -59,6 +59,8 @@ namespace O2.Views.ASCX.CoreControls
                 openDirectory(DI.config.O2TempDir); // if not specified one, open the temp directory
 
 			//tvDirectory.showToolTip();
+
+            tvDirectory.onDrag<string>();
         }
 
         public ascx_Directory(String sDirectoryToOpen) : this()
@@ -473,9 +475,15 @@ namespace O2.Views.ASCX.CoreControls
         {
             Callbacks.raiseRegistedCallbacks(_onFileWatchEvent, new[] {callback});
 
-            if (callback.folderWatched == getCurrentDirectory())
+            if (callback.folderWatched == getCurrentDirectory())    // if there is no parent form it means this is not being used any more
             {
-                refreshDirectoryView();
+                if (this.parentForm().isNull())
+                {
+                    folderWatcher.enabled = false;
+                    "Directory Viewer not used anymore, so disabling it".info();
+                }
+                else
+                    refreshDirectoryView();
             }
         }
 
@@ -506,7 +514,8 @@ namespace O2.Views.ASCX.CoreControls
             refreshDirectoryView();
         }
 
-        private void tvDirectory_ItemDrag(object sender, ItemDragEventArgs e)
+
+/*        private void tvDirectory_ItemDrag(object sender, ItemDragEventArgs e)
         {
             tvDirectory.invokeOnThread(
                 () =>
@@ -525,7 +534,7 @@ namespace O2.Views.ASCX.CoreControls
                 });
             
 
-        }
+        }*/
 
         private void tvDirectory_DragEnter(object sender, DragEventArgs e)
         {

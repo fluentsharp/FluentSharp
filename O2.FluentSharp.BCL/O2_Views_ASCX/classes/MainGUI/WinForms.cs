@@ -39,13 +39,14 @@ namespace O2.Views.ASCX.classes.MainGUI
                             if (width > -1)
                                 control.Width = width;
                             else
-                                o2Gui.Width = control.Width + 10;            // if it is not defined resize the form to fit the control
+                                o2Gui.Width = control.Width;            // if it is not defined resize the form to fit the control
 
                             if (height > -1)
                                 control.Height = height;
                             else
-                                o2Gui.Height = control.Height + 20;          // if it is not defined resize the form to fit the control
-                            // note: need to double check if the correct values to add to the form (above) are 10 and 20                            
+                                o2Gui.Height = control.Height;          // if it is not defined resize the form to fit the control                                                   
+
+                            o2Gui.clientSize(control.Width, o2Gui.Height);  // reset the form size to the control's size
                             o2Gui.Controls.Add(control);
                             o2Gui.Load += (sender, e) => controlCreation.Set();
                             //o2Gui.showDialog(false);

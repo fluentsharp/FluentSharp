@@ -52,12 +52,14 @@
     <Compile Include="O2_DotNetWrappers\DotNet\RegEx.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\Serialize.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\StringsAndLists.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\TypeConfusion.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\XmlHelpers.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Collections_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\CompileEngine_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Crypto_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Data_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\DynamicTypes_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\IO_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Items_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Misc_ExtensionMethods.cs" />

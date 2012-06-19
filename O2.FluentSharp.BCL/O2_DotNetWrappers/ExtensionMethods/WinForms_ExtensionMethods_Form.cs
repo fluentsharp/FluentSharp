@@ -254,5 +254,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return form.set_Icon("O2Logo.ico".local().icon());
 		}
+
+        public static Form clientSize(this Form form, int width, int height)
+        {
+            return (Form)form.invokeOnThread(() =>
+                {
+                    form.ClientSize = new Size(width, height);
+                    return form;
+                });
+        }
     }
 }

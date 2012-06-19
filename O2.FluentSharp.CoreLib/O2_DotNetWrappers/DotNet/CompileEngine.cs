@@ -35,7 +35,7 @@ namespace O2.DotNetWrappers.DotNet
         public CSharpCodeProvider	cscpCSharpCodeProvider;
         public StringBuilder		sbErrorMessage;
         public bool DebugMode;
-
+        public bool UseCachedAssemblyIfAvailable;
         public static Dictionary<string, string> LocalScriptFileMappings = new Dictionary<string, string>();
 		public static List<string> LocalReferenceFolders				 = new List<string>();
         public static Dictionary<string, string> CachedCompiledAssemblies = new Dictionary<string, string>();
@@ -47,6 +47,7 @@ namespace O2.DotNetWrappers.DotNet
         static CompileEngine() 
         {
             loadCachedCompiledAssembliesMappings();
+            setDefaultLocalReferenceFolders();
             specialO2Tag_ExtraReferences	.add("//O2Tag_AddReferenceFile:")
             						  		.add("//O2Ref:");
             specialO2Tag_Download			.add("//Download:")
@@ -61,9 +62,14 @@ namespace O2.DotNetWrappers.DotNet
             specialO2Tag_DontCompile   		.add("//O2NoCompile");
         }
 
-        public CompileEngine()
+        public CompileEngine() : this (true)
         {
-            setDefaultLocalReferenceFolders();
+            
+        }
+
+        public CompileEngine(bool useCachedAssemblyIfAvailable)
+        {
+            UseCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
         }
 
         public static List<String> get_GACExtraReferencesToAdd()
@@ -81,16 +87,16 @@ namespace O2.DotNetWrappers.DotNet
                             //O2Related
                                 "O2_FluentSharp_CoreLib.dll",
                                 "O2_FluentSharp_BCL.dll",
-                                //"O2_Platform_Launcher.exe",
-//                                                                                     "O2_XRules_Database.exe",
                                 "O2_External_SharpDevelop.dll",
-                                "O2SharpDevelop.dll"
+                                "O2SharpDevelop.dll",
                                 //,
                             //WPF 
 //                                                                                    "PresentationCore.dll",
 //                                                                                    "PresentationFramework.dll",
 //                                                                                    "WindowsBase.dll",
 //                                                                                    "System.Core.dll"
+                            // to support the use of dynamic:
+                               "Microsoft.CSharp.dll" 
                             }.toList();
         
         }
@@ -129,7 +135,7 @@ namespace O2.DotNetWrappers.DotNet
             }
         }
 
-        public void setDefaultLocalReferenceFolders()
+        public static void setDefaultLocalReferenceFolders()
         { 
             LocalReferenceFolders.Add(PublicDI.config.ReferencesDownloadLocation);
             LocalReferenceFolders.Add(PublicDI.config.ToolsOrApis);   
@@ -175,16 +181,18 @@ namespace O2.DotNetWrappers.DotNet
                                                  string outputAssemblyName, bool workOffline)
         {            
             sourceCodeFiles = checkForNoCompileFiles(sourceCodeFiles);
-			
-            // see if we already have a cache of all these files
             var filesMd5 = sourceCodeFiles.filesContents().md5Hash();
-            var cachedCompilation = getCachedCompiledAssembly_MD5(filesMd5);
-            if (cachedCompilation.notNull())
+
+            if (UseCachedAssemblyIfAvailable)
             {
-                compiledAssembly = cachedCompilation;
-				
-				if (loadReferencedAssembliesIntoMemory(compiledAssembly))
-					return cachedCompilation;				
+                // see if we already have a cache of all these files                
+                var cachedCompilation = getCachedCompiledAssembly_MD5(filesMd5);
+                if (cachedCompilation.notNull())
+                {
+                    compiledAssembly = cachedCompilation;
+                    if (loadReferencedAssembliesIntoMemory(compiledAssembly))
+                        return cachedCompilation;
+                }
             }
 			//if not compile file
             if (sourceCodeFiles.Count == 0)
@@ -283,7 +291,7 @@ namespace O2.DotNetWrappers.DotNet
                 saveCachedCompiledAssembliesMappings();
             }
         }
-
+        
         public static Assembly getCachedCompiledAssembly_MD5(List<string> sourceCodeFiles)
         {
             var filesMd5 =  sourceCodeFiles.filesContents().md5Hash();
@@ -304,6 +312,16 @@ namespace O2.DotNetWrappers.DotNet
                 }
             }
             return null;
+        }
+
+        public static bool removeCachedAssemblyForCode_MD5(string key)
+        {
+            if (CachedCompiledAssemblies.hasKey(key))
+            {
+                CachedCompiledAssemblies.Remove(key);
+                return true;
+            }
+            return false;
         }
 
         public void mapReferencesIncludedInSourceCode(string sourceCodeFile, List<string> referencedAssemblies)
@@ -897,7 +915,8 @@ namespace O2.DotNetWrappers.DotNet
                 if (resolvedAssemblies.contains(originalReference))
                     return;
                 var resolvedAssembly = resolve_Assembly_ToAddTo_ReferencedAssemblies_List(originalReference, workOffline);
-                if (resolvedAssembly.notNull() && originalReference != resolvedAssembly && resolvedAssemblies.contains(resolvedAssembly).isFalse())
+                //if (resolvedAssembly.notNull() && originalReference != resolvedAssembly && resolvedAssemblies.contains(resolvedAssembly).isFalse())
+                if (resolvedAssembly.notNull() && resolvedAssemblies.contains(resolvedAssembly).isFalse())
                 {                      
                     resolvedAssemblies.Add(resolvedAssembly);
                     return;
@@ -927,8 +946,9 @@ namespace O2.DotNetWrappers.DotNet
             }
             referencedAssemblies.clear()
                                 .add(resolvedAssemblies);
-            "[tryToResolveReferencesForCompilation]: There were {0} assemblies resolved".info(resolvedAssemblies.size());
-            o2Timer.stop();
+            
+            //"[tryToResolveReferencesForCompilation]: There were {0} assemblies resolved".info(resolvedAssemblies.size());
+            //o2Timer.stop();
         }
 
         public static void populateCachedListOfGacAssemblies()

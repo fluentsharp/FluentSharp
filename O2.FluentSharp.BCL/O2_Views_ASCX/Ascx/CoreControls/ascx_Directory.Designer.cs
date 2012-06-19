@@ -90,7 +90,7 @@ namespace O2.Views.ASCX.CoreControls
             this.tvDirectory.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvDirectory_DragEnter);
             this.tvDirectory.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvDirectory_KeyUp);
             this.tvDirectory.MouseHover += new System.EventHandler(this.tvDirectory_MouseHover);
-            this.tvDirectory.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvDirectory_ItemDrag);
+            //this.tvDirectory.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvDirectory_ItemDrag);
             this.tvDirectory.Click += new System.EventHandler(this.tvDirectory_Click);
             // 
             // directoryMenu

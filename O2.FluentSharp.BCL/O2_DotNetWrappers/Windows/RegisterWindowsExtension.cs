@@ -47,17 +47,22 @@ namespace O2.Platform
 
 			var key_command = key_Extension.CreateSubKey("Shell\\Open\\command", RegistryKeyPermissionCheck.ReadWriteSubTree);
 			//key = key.CreateSubKey("command");
+            var expectedValue = "\"" + exe_Path + "\" \"%L\"";
+            var currentValue = (string)key_command.GetValue("");
+            if (expectedValue != currentValue)
+            {
+                O2.Kernel.PublicDI.log.info("Value of key {0} was '{1}' so setting it to '{2}'", key_command.Name, currentValue, expectedValue);
+                key_command.SetValue("", expectedValue);
+                key_command.Close();
 
-			key_command.SetValue("", "\"" + exe_Path + "\" \"%L\"");
-			key_command.Close();
+                var key_defaultIcon = key_Extension.CreateSubKey("DefaultIcon");
+                key_defaultIcon.SetValue("", icon_Path);
+                key_defaultIcon.Close();
 
-			var key_defaultIcon = key_Extension.CreateSubKey("DefaultIcon");
-			key_defaultIcon.SetValue("", icon_Path);
-			key_defaultIcon.Close();
+                key_Extension.Close();
 
-			key_Extension.Close();
-
-			raiseChangeNotify();
+                raiseChangeNotify();
+            }
 		}
 
 	}

@@ -294,11 +294,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}				
 		public static TreeNode  add_Nodes<T>(this TreeNode treeNode, IEnumerable<T> collection, Func<T,string> getNodeName, Func<T,object> getTagValue, Func<T, bool> getAddDummyNode, Func<T, Color> getColor)
 		{
-			foreach(var item in collection)
-			{
-				var newNode = WinForms_ExtensionMethods_TreeView.add_Node(treeNode,getNodeName(item), getTagValue(item), getAddDummyNode(item));
-				newNode.color(getColor(item));
-			}
+            if (treeNode.isNull())
+                "[TreeNode][add_Nodes] provided treeNode was null".error();
+            else 
+			    foreach(var item in collection)
+			    {
+				    var newNode = WinForms_ExtensionMethods_TreeView.add_Node(treeNode,getNodeName(item), getTagValue(item), getAddDummyNode(item));
+				    newNode.color(getColor(item));
+			    }
 			return treeNode;
 		}				
 		public static TreeView  add_Nodes<T>(this TreeView treeView, IEnumerable<T> collection, Func<T,string> getNodeName, bool addDummyNode)
@@ -564,7 +567,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeNode  rootNode(this TreeView treeView)
         {
-            return treeView.Nodes.parentTreeNode();
+            if (treeView.notNull())
+                return treeView.Nodes.parentTreeNode();
+            return null;
         }       
         
         public static TreeView  show_Object(this TreeView treeView, object objectToShow)

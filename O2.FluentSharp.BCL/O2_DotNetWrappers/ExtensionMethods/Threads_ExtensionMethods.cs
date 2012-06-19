@@ -59,8 +59,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         /// </summary>
         public static void invokeOnThread(this Control control, O2Thread.FuncVoid codeToInvoke)
         {
-            try
+            if (control.isNull())
             {
+                "Control.invokeOnThread, provided control value was null (so not invoking code)".error();
+                return;
+            }
+            try
+            {                
                 if (control.InvokeRequired)
                     control.Invoke(new EventHandler((sender, e) => codeToInvoke()));     
                 else                                   

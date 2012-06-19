@@ -37,7 +37,9 @@ namespace O2.DotNetWrappers.DotNet
 		}
 
 		public static Assembly loadFromDisk(string name)
-		{			
+		{
+            if (name.valid() && CachedMappedAssemblies.hasKey(name))
+                return CachedMappedAssemblies[name];
 		/*	if (name.contains("SharpDevelop"))
 			{
 			
