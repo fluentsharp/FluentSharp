@@ -65,7 +65,7 @@ namespace O2.Kernel.CodeUtils
 					return;
 				}
 
-				var referencesDownloadLocation = PublicDI.config.ReferencesDownloadLocation;
+				var referencesDownloadLocation = PublicDI.config.ReferencesDownloadLocation.createDir();
 				localFilePath = (assemblyToLoad.contains("/", "\\"))
 									? Path.Combine(referencesDownloadLocation, Path.GetFileName(assemblyToLoad))
 									: Path.Combine(referencesDownloadLocation, assemblyToLoad);

@@ -122,12 +122,9 @@ namespace O2.DotNetWrappers.DotNet
         public static void saveCachedCompiledAssembliesMappings()
         {
             try
-            {                
-                 "in saveCachedCompiledAssembliesMapping".infoTimeSpan(()=>
-                    {
-                        var keyValueStrings = CompileEngine.CachedCompiledAssemblies.toKeyValueStrings();
-                        keyValueStrings.saveAs(CachedCompiledAssembliesMappingsFile);
-                    });
+            {                                 
+                var keyValueStrings = CompileEngine.CachedCompiledAssemblies.toKeyValueStrings();
+                keyValueStrings.saveAs(CachedCompiledAssembliesMappingsFile);                 
             }
             catch (Exception ex)
             {
