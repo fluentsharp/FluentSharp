@@ -5,6 +5,7 @@ using System.Text;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace O2.Platform.BCL
 {
@@ -17,12 +18,11 @@ namespace O2.Platform.BCL
 
 		public Assembly compileScript(string o2Script)
 		{
-			var assembly = new CompileEngine().compileSourceFile(o2Script.local());
+            var compileEngine = new CompileEngine();
+			var assembly = compileEngine.compileSourceFile(o2Script.local());
+            if (assembly.isNull())
+                MessageBox.Show(compileEngine.sbErrorMessage.str(), "Compilation error in Start_O2:");
 			return assembly;
-		}
-
-
-
-		
+        }		
 	}
 }

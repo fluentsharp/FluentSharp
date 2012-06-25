@@ -36,6 +36,7 @@ namespace O2.DotNetWrappers.DotNet
         public StringBuilder		sbErrorMessage;
         public bool DebugMode;
         public bool UseCachedAssemblyIfAvailable;
+        public string compilationVersion;
         public static Dictionary<string, string> LocalScriptFileMappings = new Dictionary<string, string>();
 		public static List<string> LocalReferenceFolders				 = new List<string>();
         public static Dictionary<string, string> CachedCompiledAssemblies = new Dictionary<string, string>();
@@ -70,6 +71,7 @@ namespace O2.DotNetWrappers.DotNet
         public CompileEngine(bool useCachedAssemblyIfAvailable)
         {
             UseCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
+            compilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
         }
 
         public static List<String> get_GACExtraReferencesToAdd()
@@ -88,7 +90,7 @@ namespace O2.DotNetWrappers.DotNet
                                 "O2_FluentSharp_CoreLib.dll",
                                 "O2_FluentSharp_BCL.dll",
                                 "O2_External_SharpDevelop.dll",
-                                "O2SharpDevelop.dll",
+                                "O2SharpDevelop.dll"                                
                                 //,
                             //WPF 
 //                                                                                    "PresentationCore.dll",
@@ -96,7 +98,7 @@ namespace O2.DotNetWrappers.DotNet
 //                                                                                    "WindowsBase.dll",
 //                                                                                    "System.Core.dll"
                             // to support the use of dynamic:
-                               "Microsoft.CSharp.dll" 
+                               //"Microsoft.CSharp.dll" 
                             }.toList();
         
         }
@@ -165,6 +167,7 @@ namespace O2.DotNetWrappers.DotNet
 
         public Assembly compileSourceFiles(List<String> sourceCodeFiles, string mainClass)
         {
+            
             return compileSourceFiles(sourceCodeFiles, mainClass, "" /*outputAssemblyName*/);
         }
 
@@ -304,7 +307,8 @@ namespace O2.DotNetWrappers.DotNet
                 {
                     "found cached compiled assembly: {0}".info(cachedAssembly);
                     var assembly = cachedAssembly.assembly();
-                    if (assembly.ImageRuntimeVersion == Assembly.GetExecutingAssembly().ImageRuntimeVersion)
+                    if (assembly.notNull())
+                      if (assembly.ImageRuntimeVersion == Assembly.GetExecutingAssembly().ImageRuntimeVersion)
                         return assembly;
                 }
             }
@@ -643,7 +647,8 @@ namespace O2.DotNetWrappers.DotNet
                 if (cscpCSharpCodeProvider == null)
                 {
                     //var providerOptions = new Dictionary<string, string> {{"CompilerVersion", "v3.5"}};
-                    var providerOptions = new Dictionary<string, string>().add("CompilerVersion", "v4.0" );
+                    //var providerOptions = new Dictionary<string, string>().add("CompilerVersion", "v4.0" );
+                    var providerOptions = new Dictionary<string, string>().add("CompilerVersion", compilationVersion);
                     cscpCSharpCodeProvider = new CSharpCodeProvider(providerOptions);
                 }
                 cpCompilerParameters = new CompilerParameters();
@@ -677,36 +682,7 @@ namespace O2.DotNetWrappers.DotNet
                     {
 						if (File.Exists(sReferenceAssembly))
 							cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
-				//		else
-				//			"[compileSourceFiles] in cpCompilerParameters.ReferencedAssemblies.Add, could not find: {0}".error(sReferenceAssembly);
-/*                        try
-                        {
-                            // first try to resolve it in the current directory
-                            String sResolvedAssemblyName = Path.Combine(PublicDI.config.CurrentExecutableDirectory,
-                                                                        sReferenceAssembly);
-                            if (File.Exists(sResolvedAssemblyName))
-                                cpCompilerParameters.ReferencedAssemblies.Add(sResolvedAssemblyName);
-                            else
-                            {
-                                // if not try the _temp directory
-                                sResolvedAssemblyName = Path.Combine(sDefaultPathToResolveReferenceAssesmblies,
-                                                                     sReferenceAssembly);
-                                if (File.Exists(sResolvedAssemblyName))
-                                    cpCompilerParameters.ReferencedAssemblies.Add(sResolvedAssemblyName);
-                                else
-                                    // in case it is in the GAC, just add the name directly
-                                    cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
-                            }
-                        }
-                        catch (Exception)
-                        { }
-						*/
-                        //PublicDI.log.error("in compileSourceCode_CSharp, could not resolve path to reference assembly :{0}", sReferenceAssembly);
                     }
-                //cpCompilerParameters.ReferencedAssemblies.AddRange(sReferenceAssembliesToAdd);                
-                //CompilerResults crCompilerResults =
-                //    cscpCSharpCodeProvider.CompileAssemblyFromSource(cpCompilerParameters, sSourceCode);
-                //cpCompilerParameters.LinkedResources.Add(@"C:\O2\_XRules_Local\CodeCompletion\O2CodeComplete.resx");                
                 crCompilerResults = cscpCSharpCodeProvider.CompileAssemblyFromFile(cpCompilerParameters, sourceCodeFiles.ToArray());
                 
 

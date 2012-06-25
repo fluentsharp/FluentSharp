@@ -15,7 +15,7 @@ namespace O2.Kernel.CodeUtils
 {
     public class O2Kernel_Web
     {
-        public static bool SkipOnlineCheck = false;
+        public static bool SkipOnlineCheck = PublicDI.Offline;
 
         //need these settings of the WebClient and GetResponseStream Http .NET clients methods will hang
         //for more references see:

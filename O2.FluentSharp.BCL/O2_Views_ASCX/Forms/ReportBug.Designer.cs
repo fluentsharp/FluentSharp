@@ -55,7 +55,7 @@ namespace O2.Views.ASCX.Forms
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -328,7 +328,7 @@ namespace O2.Views.ASCX.Forms
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -18,13 +18,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var xmlToLoad = xml.fileExists() ? xml.fileContents() : xml;
             XmlReaderSettings xmlReaderSettings = new XmlReaderSettings();
             xmlReaderSettings.XmlResolver = null;
-#if NET_4
+/*#if NET_4
             xmlReaderSettings.DtdProcessing = DtdProcessing.Ignore; 
 #endif
-#if NET_3_5
+#if NET_3_5*/
             xmlReaderSettings.ProhibitDtd = false;
             
-#endif
+//#endif
             var stringReader = new StringReader(xmlToLoad);
             return XmlReader.Create(stringReader, xmlReaderSettings);
         }

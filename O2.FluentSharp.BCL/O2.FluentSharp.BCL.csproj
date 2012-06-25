@@ -11,6 +11,8 @@
     <RootNamespace>O2.Platform.BCL</RootNamespace>
     <AssemblyName>O2_FluentSharp_BCL</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -353,6 +355,7 @@
     <EmbeddedResource Include="O2_Views_ASCX\FormImages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FormImages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

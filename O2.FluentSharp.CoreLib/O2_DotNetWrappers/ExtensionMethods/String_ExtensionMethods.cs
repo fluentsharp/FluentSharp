@@ -755,7 +755,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}				
 		public static string    timeSpan_ToString(this TimeSpan timeSpan)
 		{
-			return timeSpan.ToString("mm'm 'ss's 'ff'ms'");
+			//return timeSpan.ToString("mm'm 'ss's 'ff'ms'");  //4.0 dependent
+            return timeSpan.ToString();
 		}
 		
 	}

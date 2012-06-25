@@ -112,52 +112,9 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btCompileCode_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btCompileCode.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btDebugMethod_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btDebugMethod.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btDragAssemblyCreated_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btDragAssemblyCreated.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btExecuteOnExternalEngine_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btExecuteOnExternalEngine.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btExecuteSelectedMethod_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btExecuteSelectedMethod.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btOpenFile_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btOpenFile.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btSaveFile_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btSaveFile.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btSeachAndViewAst_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btSeachAndViewAst.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btSelectedLineHistory_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btSelectedLineHistory.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btSettings_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btSettings.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btShowHideCompilationErrors_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btShowHideCompilationErrors.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btShowHidePythonLogExecutionOutputData_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btShowHidePythonLogExecutionOutputData.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btShowLogs_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btShowLogs.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tbShowO2ObjectModel_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tbShowO2ObjectModel.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

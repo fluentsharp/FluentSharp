@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.InterfacesBaseImpl;
 using O2.Kernel.Objects;
+using O2.DotNetWrappers.ExtensionMethods;
+using System.Configuration;
 
 //O2File:DI.cs
 //O2File:InterfacesBaseImpl/KO2Log.cs
@@ -20,24 +22,18 @@ namespace O2.Kernel
     /// todo: merge this with the O2.Kernel.DI class so that only this PublicDI.exists
     public static class PublicDI
     {
+        public static bool Offline { get; set; }
+
         static PublicDI()
         {
+            loadValuesFromConfigFile();
+
             log = (KO2Log)DI.log;
             config = (KO2Config)DI.config;
             reflection = (KReflection) DI.reflection;
             
             appDomainsControledByO2Kernel = DI.appDomainsControledByO2Kernel;
-            O2KernelProcessName = DI.O2KernelProcessName;
-           /* // all these variables need to be setup
-            appDomainsControledByO2Kernel = new Dictionary<string, O2AppDomainFactory>();            
-            log = new KO2Log();
-            reflection = new KReflection();
-            o2MessageQueue = KO2MessageQueue.getO2KernelQueue();            
-            O2KernelProcessName = DI.O2KernelProcessName;
-
-            // before we load the O2Config data (which is loaded from the local disk)
-            config = O2ConfigLoader.getKO2Config(); 
-            */
+            O2KernelProcessName = DI.O2KernelProcessName;           
 
             sDefaultFileName_ReportBug_LogView = "ReportBug_LogView.Rtf";
             sDefaultFileName_ReportBug_ScreenShotImage = "ReportBug_ScreenShotImage.bmp";
@@ -47,7 +43,20 @@ namespace O2.Kernel
             sO2Website = "https://ounceopen.squarespace.com";
             LogViewerControlName = "O2 Logs";
 
-            
+            loadValuesFromConfigFile();       
+        }
+
+        public static void loadValuesFromConfigFile()
+        {
+            try
+            {
+                var offlineValue = ConfigurationSettings.AppSettings["Offline"];
+                PublicDI.Offline = offlineValue.toBool();
+            }
+            catch
+            {
+                
+            }
         }
 
         public static KO2Log log { get; set; }

@@ -55,12 +55,12 @@ namespace O2.Views.ASCX.O2Findings
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFindingsDetails)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.dgvFindingsDetails)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTraceDetails)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.dgvTraceDetails)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -315,14 +315,14 @@ namespace O2.Views.ASCX.O2Findings
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFindingsDetails)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.dgvFindingsDetails)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             this.splitContainer2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTraceDetails)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.dgvTraceDetails)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -17,21 +17,21 @@ namespace O2.Interfaces.O2Core
         string AutoSavedScripts                 { get; set;}
         string ScriptsTemplatesFolder           { get; set; }        
         string SvnO2RootFolder                  { get; set; }
-        string SvnO2DatabaseRulesFolder { get; set; }
-        string O2GitHub_ExternalDlls { get; set; }
-        string O2GitHub_Binaries { get; set; }
-        string O2GitHub_FilesWithNoCode { get; set; }
-        string O2DownloadLocation { get; set; }
-        string Version { get; }
-        string O2ConfigFile { get; set; }
-        string CurrentExecutableDirectory { get; }
-        string CurrentExecutableFileName { get; }
-        string ExecutingAssembly { get; }
-        string TempFileNameInTempDirectory { get; }
-        string TempFolderInTempDirectory { get; }
+        string SvnO2DatabaseRulesFolder         { get; set; }
+        string O2GitHub_ExternalDlls            { get; set; }
+        string O2GitHub_Binaries                { get; set; }
+        string O2GitHub_FilesWithNoCode         { get; set; }
+        string O2DownloadLocation               { get; set; }        
+        string O2ConfigFile                     { get; set; }
+        string Version                          { get; }
+        string CurrentExecutableDirectory       { get; }
+        string CurrentExecutableFileName        { get; }
+        string ExecutingAssembly                { get; }
+        string TempFileNameInTempDirectory      { get; }
+        string TempFolderInTempDirectory        { get; }
         //string O2KernelAssemblyName { get; }
-		string ReferencesDownloadLocation { get; }
-        string ToolsOrApis { get; }
+		string ReferencesDownloadLocation       { get; }
+        string ToolsOrApis                      { get; }        
         
         //String setDefaultDir_TempFolder();
 

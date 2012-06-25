@@ -11,6 +11,8 @@
     <RootNamespace>O2</RootNamespace>
     <AssemblyName>O2_FluentSharp_CoreLib</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

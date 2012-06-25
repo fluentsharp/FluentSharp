@@ -104,9 +104,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         public string SvnO2DatabaseRulesFolder { get; set; }
         public string O2GitHub_ExternalDlls { get; set; }
         public string O2GitHub_Binaries { get; set; }
-        public string O2GitHub_FilesWithNoCode { get; set; }
-        public string O2DownloadLocation { get; set; }
-        
+        public string O2GitHub_FilesWithNoCode  { get; set; }
+        public string O2DownloadLocation        { get; set; }        
 
         public string ToolsOrApis
         {
