@@ -7,6 +7,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers;
 using O2.DotNetWrappers.Windows;
 using O2.Interfaces.Utils;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Zip
 {    
@@ -38,7 +39,7 @@ namespace O2.DotNetWrappers.Zip
             var lsFilesInZip = new List<string>();
             var zpZipFile = new ZipFile(sZipFileToLoad);
 
-            Object oZipEntries = DI.reflection.getFieldValue("_entries", zpZipFile);
+            Object oZipEntries = PublicDI.reflection.getFieldValue("_entries", zpZipFile);
             if (oZipEntries != null)
             {
                 var lzeZipEntries = (List<ZipEntry>) oZipEntries;
@@ -86,7 +87,7 @@ namespace O2.DotNetWrappers.Zip
 
         public string unzipFile(string fileToUnzip)
         {
-            string tempFolder = DI.config.TempFolderInTempDirectory + "_" +
+            string tempFolder = PublicDI.config.TempFolderInTempDirectory + "_" +
                                 Path.GetFileNameWithoutExtension(fileToUnzip);
             return unzipFile(fileToUnzip, tempFolder);
         }
@@ -96,7 +97,7 @@ namespace O2.DotNetWrappers.Zip
            // targetFolder = "C:\\O2\\_tempDir\\tmp10BA_aa";
             try
             {
-                DI.log.info("UnZiping file {0} into folder {1}", fileToUnzip, targetFolder);
+                PublicDI.log.info("UnZiping file {0} into folder {1}", fileToUnzip, targetFolder);
                 Files.checkIfDirectoryExistsAndCreateIfNot(targetFolder);
                 var zpZipFile = new ZipFile(fileToUnzip);
                 //zpZipFile.ExtractAll(targetFolder, true);

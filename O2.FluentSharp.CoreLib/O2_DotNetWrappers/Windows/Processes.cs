@@ -272,7 +272,7 @@ namespace O2.DotNetWrappers.Windows
 			process.StartInfo.RedirectStandardError = true;
 			process.StartInfo.CreateNoWindow = true;
 
-            process.StartInfo.EnvironmentVariables.Add("_NT_SYMBOL_PATH",@"srv*c:\symbols*http://msdl.microsoft.com/download/symbols");
+            //process.StartInfo.EnvironmentVariables.Add("_NT_SYMBOL_PATH",@"srv*c:\symbols*http://msdl.microsoft.com/download/symbols");
 
             if (callbackErrorDataReceived == null)
                 process.ErrorDataReceived += pProcess_ErrorDataReceived;

@@ -148,6 +148,7 @@
     <Compile Include="O2_Interfaces\XRules\IXRule_Generic.cs" />
     <Compile Include="O2_Interfaces\XRules\IXRule_J2EE_Struts.cs" />
     <Compile Include="O2_Interfaces\XRules\XRuleAttribute.cs" />
+    <Compile Include="O2_Kernel\clr.cs" />
     <Compile Include="O2_Kernel\CodeUtils\AppDomainUtils.cs" />
     <Compile Include="O2_Kernel\CodeUtils\Callbacks.cs" />
     <Compile Include="O2_Kernel\CodeUtils\LoadTypes.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KScanTarget.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2Rule.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2RulePack.cs" />
+    <Compile Include="O2_Kernel\launch.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\O2Shell.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellCmdLet.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellCommands.cs" />

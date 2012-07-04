@@ -24,6 +24,21 @@ namespace O2.XRules.Database.APIs
                               .AddSyntaxTrees(tree);
         }
 
+        /*        public static Compilation compiler(this SyntaxTree tree, string assemblyName, bool compileIntoDll = true)
+        {
+            return tree.compiler(assemblyName, compileIntoDll 
+                                    ? OutputKind.DynamicallyLinkedLibrary
+                                    : OutputKind.ConsoleApplication);            
+        }
+
+        public static Compilation compiler(this SyntaxTree tree, string assemblyName, OutputKind outputKind)
+        {
+            var compilationOptions = new CompilationOptions(outputKind);
+            return Compilation.Create(assemblyName, compilationOptions)
+                             .add_Reference("mscorlib")
+                              .AddSyntaxTrees(tree);
+        }*/
+
         public static T add_Reference<T>(this T compilation, string assemblyName)
             where T : CommonCompilation
         {

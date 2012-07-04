@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.IO;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Platform
 {
@@ -36,34 +37,35 @@ namespace O2.Platform
 			register(extension, name, Path.Combine( Application.StartupPath, icon_VirtualPath), Application.ExecutablePath);
 		}
 
-		public static void register(string extension, string name , string icon_Path, string exe_Path)
-		{			
-			var classesRoot = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Classes", true);
+        public static void register(string extension, string name, string icon_Path, string exe_Path)
+        {
+            var classesRoot = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Classes", true);
 
-			var key_Extension = classesRoot.CreateSubKey(extension);
-			
-			key_Extension.SetValue("", name);
-			//key_Extension.SetValue("DefaultIcon", icon_Path);
+            var key_Extension = classesRoot.CreateSubKey(extension);
 
-			var key_command = key_Extension.CreateSubKey("Shell\\Open\\command", RegistryKeyPermissionCheck.ReadWriteSubTree);
-			//key = key.CreateSubKey("command");
+            key_Extension.SetValue("", name);
+            //key_Extension.SetValue("DefaultIcon", icon_Path);
+
+            var key_command = key_Extension.CreateSubKey("Shell\\Open\\command", RegistryKeyPermissionCheck.ReadWriteSubTree);
+            //key = key.CreateSubKey("command");
             var expectedValue = "\"" + exe_Path + "\" \"%L\"";
             var currentValue = (string)key_command.GetValue("");
-            if (expectedValue != currentValue)
-            {
-                O2.Kernel.PublicDI.log.info("Value of key {0} was '{1}' so setting it to '{2}'", key_command.Name, currentValue, expectedValue);
-                key_command.SetValue("", expectedValue);
-                key_command.Close();
+            if (expectedValue != currentValue)                          // only do it if not there
+                if (currentValue.Contains("O2 Platform.exe").isFalse()) // don't do this for the O2 exes
+                {
+                    O2.Kernel.PublicDI.log.info("Value of key {0} was '{1}' so setting it to '{2}'", key_command.Name, currentValue, expectedValue);
+                    key_command.SetValue("", expectedValue);
+                    key_command.Close();
 
-                var key_defaultIcon = key_Extension.CreateSubKey("DefaultIcon");
-                key_defaultIcon.SetValue("", icon_Path);
-                key_defaultIcon.Close();
+                    var key_defaultIcon = key_Extension.CreateSubKey("DefaultIcon");
+                    key_defaultIcon.SetValue("", icon_Path);
+                    key_defaultIcon.Close();
 
-                key_Extension.Close();
+                    key_Extension.Close();
 
-                raiseChangeNotify();
-            }
-		}
+                    raiseChangeNotify();
+                }
+        }
 
 	}
 }

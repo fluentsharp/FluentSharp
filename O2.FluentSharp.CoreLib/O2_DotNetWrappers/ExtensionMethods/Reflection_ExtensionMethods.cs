@@ -402,11 +402,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string            signature(this MethodInfo methodInfo)
 		{
-			return "mscorlib".assembly()
-							 .type("RuntimeMethodInfo")
-							 .invokeStatic("ConstructName",methodInfo)
-							 .str();
-		}		    
+            if (Environment.Version.Major == 4)
+            {                
+                var method = methodInfo.type().method("ConstructName");
+                var result = method.Invoke(methodInfo, new object[] { });
+                return result.str(); ;         
+            }
+            return "mscorlib".assembly().type("RuntimeMethodInfo")
+                                            .method("ConstructName")
+                                            .invokeStatic(methodInfo)
+                                            .str();                
+            
+		}		
+    
         public static List<MethodInfo>  methods(this List<Type> types)
 		{
 			return (from type in types
@@ -443,6 +451,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return liveObject.invoke(methodName, new object[] { });
         }
+
+        public static object invoke(this object liveObject, MethodInfo methodInfo, params object[] parameters)
+        {
+            return methodInfo.invoke_on_LiveObject(liveObject, parameters);
+        }
+
         public static object    invoke(this object liveObject, string methodName, params object[] parameters)
         {
             return PublicDI.reflection.invoke(liveObject, methodName, parameters);
@@ -463,7 +477,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static object    invoke(this MethodInfo methodInfo, params object[] parameters)
         {
             return PublicDI.reflection.invoke(methodInfo, parameters);
+        }        
+
+        public static object invoke_on_LiveObject(this MethodInfo methodInfo, object liveObject, object[] parameters)
+        {         
+            return PublicDI.reflection.invoke(liveObject, methodInfo, parameters);            
         }
+
         public static Thread    invokeStatic_StaThread(this MethodInfo methodInfo)
 		{
 			return methodInfo.invokeStatic_StaThread(null);
@@ -477,10 +497,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return methodInfo.invokeStatic(null);
 		}		
 		public static object    invokeStatic(this MethodInfo methodInfo, params object[] invocationParameters)
-		{	
+		{            
 			if (invocationParameters.notNull())
-				return PublicDI.reflection.invokeMethod_Static(methodInfo, new object[] { invocationParameters});
-			
+                return PublicDI.reflection.invokeMethod_Static(methodInfo, invocationParameters);
+				//return PublicDI.reflection.invokeMethod_Static(methodInfo, new object[] { invocationParameters});			
 			return PublicDI.reflection.invokeMethod_Static(methodInfo);
 		}				
     }

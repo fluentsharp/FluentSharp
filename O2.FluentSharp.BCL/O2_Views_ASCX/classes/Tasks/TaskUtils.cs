@@ -14,7 +14,7 @@ namespace O2.Views.ASCX.classes.Tasks
     public class TaskUtils
     {
 
-        public static void unzipFileAndInvokeCallback(string assessmentFile, FlowLayoutPanel taskHostControl,
+/*        public static void unzipFileAndInvokeCallback(string assessmentFile, FlowLayoutPanel taskHostControl,
                                                       Callbacks.dMethod_String callbackToInvokeForEachUnzippedFile)
         {
             executeTask(new Task_Unzip(assessmentFile, DI.config.TempFolderInTempDirectory),
@@ -25,7 +25,7 @@ namespace O2.Views.ASCX.classes.Tasks
                                     foreach (string item in (List<string>)resultObject)
                                         callbackToInvokeForEachUnzippedFile(item);
                             });
-        }
+        }*/
 
 
         public static void executeTask(ITask task, TaskEvents.TaskEvent_StatusChanged onTaskStatusChange)

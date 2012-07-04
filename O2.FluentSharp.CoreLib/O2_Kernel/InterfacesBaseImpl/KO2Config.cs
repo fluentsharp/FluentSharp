@@ -16,8 +16,8 @@ namespace O2.Kernel.InterfacesBaseImpl
     public class KO2Config : IO2Config
     {
         //public static string defaultLocalScriptFolder = @"C:\O2\O2Scripts_Database\_Scripts";
-		public static string defaultLocalScriptFolder				= @"..\..\O2.Platform.Scripts";	
-        public static string defaultLocallyDevelopedScriptsFolder	= @"C:\O2\_XRules_Local";        
+		public static string defaultLocalScriptFolder				= "O2.Platform.Scripts";	
+        public static string defaultLocallyDevelopedScriptsFolder	= "_XRules_Local";        
         public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
         public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
         public static string defaultO2GitHub_ExternalDlls				= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/";
@@ -26,14 +26,22 @@ namespace O2.Kernel.InterfacesBaseImpl
         public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
         public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
 
-        public string  defaultO2LocalTempFolder = @"..\..\_O2_V4_TempDir";
+        public string  defaultO2LocalTempFolder = @"_O2_V4_TempDir";
 
         public KO2Config()
         {
-			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
+            //detect if we are running O2 as a stand alone exe
+            if (Assembly.GetEntryAssembly().GetName().Name.starts("O2 Platform"))
+            {
+                defaultO2LocalTempFolder = @"..\..\" + defaultO2LocalTempFolder;
+                defaultLocalScriptFolder = @"..\..\" + defaultLocalScriptFolder;
+            }
 
+            
+			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
 			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
 
+            defaultLocallyDevelopedScriptsFolder = defaultO2LocalTempFolder.pathCombine(defaultLocallyDevelopedScriptsFolder);
 
             hardCodedO2LocalTempFolder = defaultO2LocalTempFolder;
             O2TempDir = hardCodedO2LocalTempFolder;                 // default to this one since there are a couple cases where in Visual Studio the loading of o2.config files causes a problem

@@ -6,8 +6,8 @@ using System.Threading;
 using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
 using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.ExtensionMethods;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Views.ASCX.classes.MainGUI
 {
@@ -107,7 +107,7 @@ namespace O2.Views.ASCX.classes.MainGUI
         }        
 
         public static T load<T>() where T : Control
-        {
+        {                
             return (T)typeof(T).showAsForm();
         }
 
@@ -123,7 +123,7 @@ namespace O2.Views.ASCX.classes.MainGUI
 
         public static T showAsForm<T>() where T : Control
         {
-            return (T) typeof (T).showAsForm();            
+            return (T) typeof(T).showAsForm();            
         }
 
         public static T showAsForm<T>(string title) where T : Control

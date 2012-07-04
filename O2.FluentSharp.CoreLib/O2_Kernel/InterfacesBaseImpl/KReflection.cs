@@ -905,9 +905,24 @@ namespace O2.Kernel.InterfacesBaseImpl
             }
             catch (Exception ex)
             {
-                PublicDI.log.ex(ex, "in reflection.invokeMethod_InstanceStaticPublicNonPublic", true);
+                if (ex is TargetParameterCountException || ex is MissingMethodException || ex is ArgumentException)
+                {
+                    //Hack: to deal with weird reflection behaviour that happens when the parameter is an array
+                    methodParameters = new object[] { methodParameters };
+                    try
+                    {
+                        return methodInfo.Invoke(oLiveObject, BindingFlags.OptionalParamBinding, null, methodParameters, null);
+                    }
+                    catch (Exception ex2)
+                    {
+                        PublicDI.log.ex(ex2, "in reflection.invoke", true);
+                        return null;
+                    }
+                }
+                PublicDI.log.ex(ex, "in reflection.invoke", true);
                 return null;
-            }
+            } 
+            
         }
 
         public object invoke(object oLiveObject, string sMethodToInvoke, object[] methodParameters)
@@ -965,6 +980,23 @@ namespace O2.Kernel.InterfacesBaseImpl
             }
             catch (Exception ex)
             {
+                if (ex is TargetParameterCountException || ex is MissingMethodException || ex is ArgumentException)
+                {
+                    try
+                    {
+                        //HACK: deal with the problem of invoking into a method with an array as a parameter
+                        oParams = new object[] { oParams };
+                        return methodToExecute.Invoke(null,
+                                                  BindingFlags.Public | BindingFlags.NonPublic |
+                                                  BindingFlags.Static | BindingFlags.InvokeMethod, null,
+                                                  (oParams ?? new object[0]), null);
+                    }
+                    catch (Exception ex2)
+                    {
+                        PublicDI.log.ex(ex2, "in reflection..invokeMethod_Static", true);
+                        return null;
+                    }
+                }
                 PublicDI.log.ex(ex, "in reflection..invokeMethod_Static", true);
                 return null;
             }
@@ -981,6 +1013,23 @@ namespace O2.Kernel.InterfacesBaseImpl
             }
             catch (Exception ex)
             {
+                if (ex is TargetParameterCountException || ex is MissingMethodException || ex is ArgumentException)
+                {
+                    try
+                    {
+                        //HACK: deal with the problem of invoking into a method with an array as a parameter
+                        oParams = new object[] { oParams };
+                        return tMethodToInvokeType.InvokeMember(sMethodToInvokeName,
+                                                                BindingFlags.Public | BindingFlags.NonPublic |
+                                                                BindingFlags.Static | BindingFlags.InvokeMethod, null, null,
+                                                                (oParams ?? new object[0]));
+                    }
+                    catch (Exception ex2)
+                    {
+                        PublicDI.log.ex(ex2, "in reflection.invokeMethod_Static", true);
+                        return null;
+                    }
+                }
                 PublicDI.log.ex(ex, "in reflection..invokeMethod_Static", true);
                 return null;
             }

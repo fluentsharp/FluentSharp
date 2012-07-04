@@ -39,22 +39,14 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Ionic.Zip">
-      <HintPath>_External_Dlls\Ionic.Zip.dll</HintPath>
-    </Reference>
-    <Reference Include="Merlin">
-      <HintPath>_External_Dlls\Merlin.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="O2_DotNetWrappers\DI.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
-    <Compile Include="O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Clipboard_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Compilation_ExtensionMethods.cs" />
@@ -71,10 +63,8 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Network\Main_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\Network\WebEncoding.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\Web_Zip.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\DotNet\AspNetAnalysis.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\O2Assessment.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\O2Finding.cs" />
@@ -126,7 +116,6 @@
     <Compile Include="O2_DotNetWrappers\Windows\O2Forms_ThreadSafe_ProgressBar.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\O2Forms_ThreadSafe_ToolStrip.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Screenshots.cs" />
-    <Compile Include="O2_DotNetWrappers\Zip\zipUtils.cs" />
     <Compile Include="O2_Interfaces\O2Core\IReflectionASCX.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Messages.cs" />
     <Compile Include="O2_Kernel\ExtensionMethods\Views_ExtensionMethods.cs" />
@@ -264,11 +253,6 @@
     <Compile Include="O2_Views_ASCX\DI.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\CoreControls_ExtensionMethods.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs" />
-    <Compile Include="O2_Views_ASCX\ExtensionMethods\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\WinForms_ExtensionMethods.cs" />
     <Compile Include="O2_Views_ASCX\Forms\O2_Main_GUI.cs">
       <SubType>Form</SubType>
@@ -282,17 +266,12 @@
     <Compile Include="O2_Views_ASCX\Forms\ReportBug.Designer.cs">
       <DependentUpon>ReportBug.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\MerlinWizard\IO2Wizard.cs" />
-    <Compile Include="O2_Views_ASCX\MerlinWizard\MerlinUtils.cs" />
-    <Compile Include="O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs" />
-    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard.cs" />
     <Compile Include="O2_Views_ASCX\Properties\Resources.Designer.cs" />
     <Compile Include="O2_Views_ASCX\FormImages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FormImages.resx</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Start_O2.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs" />
@@ -364,8 +343,6 @@
     <None Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="_External_Dlls\Ionic.Zip.dll" />
-    <None Include="_External_Dlls\Merlin.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.FluentSharp.Misc</RootNamespace>
+    <AssemblyName>O2_FluentSharp_Misc</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.8.4.20, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Merlin, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\Merlin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\Network\Web_Zip.cs" />
+    <Compile Include="O2_DotNetWrappers\Zip\zipUtils.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\IO2Wizard.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\MerlinUtils.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs" />
+    <Compile Include="O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs" />
+    <Compile Include="O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_External_Dlls\Ionic.Zip.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_External_Dlls\Merlin.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>O2.FluentSharp.BCL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>O2.FluentSharp.CoreLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -89,6 +89,7 @@ namespace O2.DotNetWrappers.DotNet
                             //O2Related
                                 "O2_FluentSharp_CoreLib.dll",
                                 "O2_FluentSharp_BCL.dll",
+                                "O2_FluentSharp_Misc.dll",
                                 "O2_External_SharpDevelop.dll",
                                 "O2SharpDevelop.dll"                                
                                 //,
@@ -307,9 +308,14 @@ namespace O2.DotNetWrappers.DotNet
                 {
                     "found cached compiled assembly: {0}".info(cachedAssembly);
                     var assembly = cachedAssembly.assembly();
+                                      
                     if (assembly.notNull())
-                      if (assembly.ImageRuntimeVersion == Assembly.GetExecutingAssembly().ImageRuntimeVersion)
-                        return assembly;
+                        if (assembly.ImageRuntimeVersion == Assembly.GetEntryAssembly().ImageRuntimeVersion)
+                        {
+                            return assembly;
+                        }
+                        else
+                            CachedCompiledAssemblies.Remove(key);
                 }
             }
             return null;
@@ -531,7 +537,7 @@ namespace O2.DotNetWrappers.DotNet
 						if (filePath == "")
 						{
 							PublicDI.log.error("in addSourceFileOrFolderIncludedInSourceCode, could not file file to add: {0}", file);
-							filesToLoad.add(file);
+							//filesToLoad.add(file);
 						}
                     }
                     if (filePath != "" )
