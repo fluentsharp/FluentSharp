@@ -75,6 +75,13 @@ namespace O2.DotNetWrappers.DotNet
             compilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
         }
 
+        public CompileEngine(string _compilationVersion) : this (true)
+        { 
+            if (_compilationVersion.notNull())
+                compilationVersion = _compilationVersion;
+        }
+
+
         public static List<String> get_GACExtraReferencesToAdd()
         {
             return new [] {

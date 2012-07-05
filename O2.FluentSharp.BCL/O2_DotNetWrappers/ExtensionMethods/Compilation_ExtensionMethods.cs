@@ -12,6 +12,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
     public static class Compilation_ExtensionMethods
     {
         public static string compileIntoDll_inFolder(this string fileToCompile, string targetFolder)
+        { 
+            return fileToCompile.compileIntoDll_inFolder(targetFolder,null);
+        }
+
+        public static string compileIntoDll_inFolder(this string fileToCompile, string targetFolder, string compilationVersion)
 		{
 			"Compiling file: {0} ".debug(fileToCompile);
 			//var fileToCompile = currentFolder.pathCombine(file + ".cs");
@@ -22,7 +27,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				"could not find file to compile: {0}".error(fileToCompile);  
 			else
 			{ 
-				var assembly = new CompileEngine().compileSourceFiles(new List<string> {fileToCompile}, 
+				var assembly = new CompileEngine(compilationVersion).compileSourceFiles(new List<string> {fileToCompile}, 
 																	  mainClass, 
 																	  filenameWithoutExtension);
 				if (assembly.isNull()) 
