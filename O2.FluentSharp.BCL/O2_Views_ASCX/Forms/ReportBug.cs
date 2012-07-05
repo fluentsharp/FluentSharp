@@ -20,6 +20,7 @@ namespace O2.Views.ASCX.Forms
 
         public ReportBug()
         {
+            "Stating ReportBug Gui".info();
             InitializeComponent();
         }
 
@@ -103,16 +104,21 @@ namespace O2.Views.ASCX.Forms
                 tbMailServer.Text = PublicDI.sEmailHost;
                 updateRichTextBoxWithLogViewer();
                 updateImageWithScreenShotOfParentForm();
-                checkIfMailServerIsOnline();
+                //checkIfMailServerIsOnline();
             }
         }
 
         private void checkIfMailServerIsOnline()
         {
-            if (Mail.isMailServerOnline(tbMailServer.Text))
-                setHostControlsVisibleStatus(false);
-            else
-                setHostControlsVisibleStatus(true);
+            btSendMessage.enabled(false);
+            O2Thread.mtaThread(
+                ()=>{
+                        "Checking to see if we are online".info();
+                        if (Mail.isMailServerOnline(tbMailServer.Text))
+                            setHostControlsVisibleStatus(false);
+                        else
+                            setHostControlsVisibleStatus(true);
+                    });
         }
 
         private void emailSentCallback(bool success)
@@ -155,10 +161,11 @@ namespace O2.Views.ASCX.Forms
 
         public void setHostControlsVisibleStatus(bool bVisibleStatus)
         {
-            tbMailServer.Visible = bVisibleStatus;
-            lbMailServerConnectErrorMessage.Visible = bVisibleStatus;
-            lbMailServerLabel.Visible = bVisibleStatus;
-            lbFirstCheckToMailServer.Visible = false;
+            tbMailServer.enabled(bVisibleStatus);
+            lbMailServerConnectErrorMessage.enabled(bVisibleStatus);
+            lbMailServerLabel.enabled(bVisibleStatus);
+            lbFirstCheckToMailServer.enabled(bVisibleStatus);
+            btSendMessage.enabled(bVisibleStatus);
         }
 
         /*private void btPingMailServer_Click(object sender, EventArgs e)
