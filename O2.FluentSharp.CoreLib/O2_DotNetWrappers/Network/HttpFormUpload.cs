@@ -6,7 +6,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.Network

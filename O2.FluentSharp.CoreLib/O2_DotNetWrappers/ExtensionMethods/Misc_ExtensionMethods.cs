@@ -2,7 +2,7 @@ using System;
 using O2.DotNetWrappers.Network;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+
 using System.Drawing;
 using O2.DotNetWrappers.DotNet;
 using System.Threading;

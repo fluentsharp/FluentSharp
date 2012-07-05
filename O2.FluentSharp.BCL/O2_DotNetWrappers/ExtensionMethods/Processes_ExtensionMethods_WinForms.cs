@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel;
 
 namespace O2.DotNetWrappers.ExtensionMethods

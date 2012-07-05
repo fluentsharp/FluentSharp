@@ -21,6 +21,7 @@ namespace O2.DotNetWrappers.Windows
 
 
         // I tried to do this but still can't get the data from objects like webbrowser and richtext box
+        // Make sure the caller is on the correct thread
         public static Image getScreenshotOfFormObjectAndItsControls(Object oObjectToTakeScreenShotOf)
         {
             try

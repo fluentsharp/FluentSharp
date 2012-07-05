@@ -22,10 +22,17 @@ namespace O2.Kernel
             //loadDependencies
             //load_O2_Assembly("O2_FluentSharp_CoreLib.dll");
             //load_O2_Assembly("O2_FluentSharp_BCL.dll");
+            /*
             var fluentSharpBCL = "O2_FluentSharp_BCL.dll".assembly();
             var startO2 = fluentSharpBCL.type("Start_O2").ctor();
             var method = startO2.type().method("complileO2StartupScriptAndExecuteIt");    
-            startO2.invoke(method,args);            
+            startO2.invoke(method,new object[] { args});            */
+
+            "O2_External_SharpDevelop.dll".assembly()
+                                    .type("ascx_Execute_Scripts")
+                                    .invokeStatic("startControl_With_Args",new object[] { args});
+
+            
         }
 
 /*        public static Assembly load_O2_Assembly(string assemblyName)

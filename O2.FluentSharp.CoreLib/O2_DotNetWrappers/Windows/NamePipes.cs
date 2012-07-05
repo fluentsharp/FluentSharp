@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 using System.IO.Pipes;
 using O2.DotNetWrappers.DotNet;

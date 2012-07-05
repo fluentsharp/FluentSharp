@@ -2,7 +2,6 @@ using System;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
 
 namespace O2.Views.ASCX.ExtensionMethods

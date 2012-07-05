@@ -28,7 +28,8 @@ namespace O2.Views.ASCX.classes.MainGUI
         {
             try
             {
-                base.Dispose(disposing);
+                if (base.IsDisposed.isFalse())
+                    base.Dispose(disposing);               
             }
             catch (Exception ex)
             {

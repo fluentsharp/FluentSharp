@@ -517,7 +517,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     treeNode.TreeView.SelectedNode = treeNode;
                     return treeNode;
                 });
-        }                
+        }
+
+        public static TreeNode node(this TreeView treeView, string text)
+        {
+            return treeView.rootNode().node(text);
+        }
+
+        public static TreeNode node(this TreeNode treeNode, string text)
+        {
+            if (text.valid())
+                foreach (var node in treeNode.nodes())
+                    if (node.get_Text() == text)
+                        return node;
+            return null;
+        }
 
         public static List<TreeNode>    allNodes(this TreeView treeView)
         {
@@ -960,10 +974,23 @@ namespace O2.DotNetWrappers.ExtensionMethods
 											treeView.HideSelection = value.isFalse();
 											return treeView;
 										});
-		}		
-		
-		
+		}
 
+
+        public static TreeNode collapse(this TreeNode treeNode)
+        {
+            return (TreeNode)treeNode.treeView().invokeOnThread(
+                () =>
+                {
+                    treeNode.Collapse();
+                    return treeNode;
+                });
+        }
+
+        public static TreeNode expandAndCollapse(this TreeNode treeNode)
+        {
+            return treeNode.expand().collapse();
+        }
     }
 
     public static class WinForms_ExtensionMethods_TreeView_Events
@@ -1074,8 +1101,38 @@ namespace O2.DotNetWrappers.ExtensionMethods
             };
             return treeView;
         }
-        
-        
+
+        public static TreeView onDrop<T>(this TreeView treeView, Action<T, TreeNode> onDrop)
+        {
+            treeView.invokeOnThread(() =>
+            {
+                treeView.AllowDrop = true;
+                treeView.DragEnter += (sender, e) => Dnd.setEffect(e);
+                treeView.DragDrop += (sender, e) =>
+                {
+                    O2Thread.mtaThread(
+                        () =>
+                        {
+                            "on Drop".info();
+                            var data = Dnd.tryToGetObjectFromDroppedObject(e, typeof(T));
+                            if (data.notNull())
+                            {
+                                var treeNode = O2Forms.getTreeNodeAtDroppedOverPoint(treeView, e.X, e.Y);
+                                "{0} - {1} : {2}".info(sender.typeName(), e.typeName(), treeNode);
+                                onDrop((T)data, treeNode);
+                            }
+                            else
+                            {
+                                var _object = Dnd.tryToGetObjectFromDroppedObject(e);
+                                "{0}".info(_object.serialize(false));
+                                "got _object: {0} : {1}".error(_object, _object.typeName());
+
+                            }
+                        });
+                };
+            });
+            return treeView;
+        }
 
 
         public static Delegate[]    getEventHandlers(this TreeView treeView, string eventName)

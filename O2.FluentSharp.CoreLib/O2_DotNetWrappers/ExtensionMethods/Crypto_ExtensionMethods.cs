@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Security.Cryptography;
 using System.IO;

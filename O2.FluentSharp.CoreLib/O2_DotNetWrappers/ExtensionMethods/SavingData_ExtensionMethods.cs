@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
-using O2.Kernel.ExtensionMethods;
+
 using O2.Kernel;
 using System.Drawing.Drawing2D;
 

@@ -307,7 +307,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static ascx_TableList onDoubleClick_ShowTagObject<T>(this ascx_TableList tableList)
 		{
-			return tableList.onDoubleClick<T>((t)=> O2.Kernel.show.info(t));
+			return tableList.onDoubleClick<T>((t)=> t.showInfo());
 		}				
 		public static ascx_TableList afterSelect<T>(this ascx_TableList tableList,  Action<T> callback)
 		{
@@ -518,6 +518,31 @@ namespace O2.DotNetWrappers.ExtensionMethods
 	                    }
 	                    return listViewItem;
 	                });
+        }
+
+        //Sorting
+        public static ascx_TableList ascending(this ascx_TableList tableList)
+        {
+            return tableList.sort(System.Windows.Forms.SortOrder.Ascending);
+        }
+
+        public static ascx_TableList descending(this ascx_TableList tableList)
+        {
+            return tableList.sort(System.Windows.Forms.SortOrder.Descending);
+        }
+        public static ascx_TableList sort(this ascx_TableList tableList)
+        {
+            return tableList.sort(System.Windows.Forms.SortOrder.Ascending);
+        }
+
+        public static ascx_TableList sort(this ascx_TableList tableList, System.Windows.Forms.SortOrder sortOrder)
+        {
+            return (ascx_TableList)tableList.invokeOnThread(
+                () =>
+                {
+                    tableList.listView().Sorting = sortOrder;
+                    return tableList;
+                });
         }
         
         //Colors        

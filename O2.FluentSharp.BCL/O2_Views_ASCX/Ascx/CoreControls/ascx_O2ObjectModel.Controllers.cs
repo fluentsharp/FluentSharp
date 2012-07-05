@@ -37,6 +37,13 @@ namespace O2.Views.ASCX.CoreControls
         }        
         private static List<Assembly> getDefaultLoadedAssemblies()
         {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().toList()
+                                        .with_Valid_Location()
+                                        .where((assembly) => assembly.name().contains("O2"));
+            foreach(var assembly in assemblies)
+                "Loading data for assembly: {0}".info(assembly.Location);
+            return assemblies;
+            /*
             var assembliesPaths = CompileEngine.getListOfO2AssembliesInExecutionDir();                       
             var assemblies = new List<Assembly>();
             foreach (var assemblyPath in assembliesPaths)
@@ -52,7 +59,7 @@ namespace O2.Views.ASCX.CoreControls
                 }
 
             }           
-            return assemblies;
+            return assemblies;*/
         }
 
         public void refreshViews()
@@ -128,20 +135,26 @@ namespace O2.Views.ASCX.CoreControls
 
         public void refreshO2ObjectModelView(bool hideCSharpGeneratedMethods)
         {
-            PublicDI.log.debug("from loaded assemblies, calulating list of (reflection) method information");
-            methodsLoaded = new List<MethodInfo>();
-            foreach (var assembly in assembliesLoaded)
-                methodsLoaded.AddRange(PublicDI.reflection.getMethods(assembly).ToArray());
-            PublicDI.log.debug("Convering method information into filtered signatures objects");
-            mapMethodsToFilteredSignatures(methodsLoaded, ref filteredSignatures, ref methodsLoaded_bySignature, hideCSharpGeneratedMethods);
-            PublicDI.log.info("there are {0} O2 assemblies", assembliesLoaded.Count);
-            PublicDI.log.info("there are {0} methods", methodsLoaded.Count);
-            var methodsSignature = getMethodSignatures(filteredSignatures, hideCSharpGeneratedMethods);
-            
-            PublicDI.log.info("there are {0} methods sigantures", methodsSignature.Count);
+            try
+            {
+                PublicDI.log.debug("from loaded assemblies, calulating list of (reflection) method information");
+                methodsLoaded = new List<MethodInfo>();
+                foreach (var assembly in assembliesLoaded)
+                    methodsLoaded.add(PublicDI.reflection.getMethods(assembly));
+                PublicDI.log.debug("Convering method information into filtered signatures objects");
+                mapMethodsToFilteredSignatures(methodsLoaded, ref filteredSignatures, ref methodsLoaded_bySignature, hideCSharpGeneratedMethods);
+                PublicDI.log.info("there are {0} O2 assemblies", assembliesLoaded.Count);
+                PublicDI.log.info("there are {0} methods", methodsLoaded.Count);
+                var methodsSignature = getMethodSignatures(filteredSignatures, hideCSharpGeneratedMethods);
 
-            functionsViewer.showSignatures(methodsSignature);
-            
+                PublicDI.log.info("there are {0} methods sigantures", methodsSignature.Count);
+
+                functionsViewer.showSignatures(methodsSignature);
+            }
+            catch (Exception ex)
+            {
+                "[O2 Object Model] refreshO2ObjectModelView: {0}".error(ex.Message);
+            }
 
             //var functionsViewer = (ascx_FunctionsViewer)O2AscxGUI.openAscx(typeof(ascx_FunctionsViewer), O2DockState.Float, "O2 Object Model");
             //functionsViewer.showSignatures(methodsSignature);
@@ -155,22 +168,32 @@ namespace O2.Views.ASCX.CoreControls
             methods_bySignature = new Dictionary<string, MethodInfo>();
             foreach (var method in methodsToMap)
             {
-                var filteredSignature = new FilteredSignature(method);
-                if (hideCSharpGeneratedMethods == false || (filteredSignature.sSignature.IndexOf("<>") == -1 &&
-                                                             false == filteredSignature.sFunctionName.StartsWith("b__")))
+                try
                 {
-                    filteredSignatures.Add(filteredSignature);
-                    // create methodsLoaded_bySignature                       
-                    if (methods_bySignature.ContainsKey(filteredSignature.sSignature))
+                    var filteredSignature = new FilteredSignature(method);
+                    if (hideCSharpGeneratedMethods == false || (filteredSignature.sSignature.IndexOf("<>") == -1 &&
+                                                                 false == filteredSignature.sFunctionName.StartsWith("b__")))
                     {
-                        PublicDI.log.error("in mapMethodsToFilteredSignatures, repeated signature: {0}", filteredSignature.sSignature);
+                        // create methodsLoaded_bySignature                       
+                        if (methods_bySignature.ContainsKey(filteredSignature.sSignature))
+                        {
+                            if (method.type().Assembly.GetName().Name.contains("O2"))
+                                PublicDI.log.error("in mapMethodsToFilteredSignatures, repeated signature: {0}", filteredSignature.sSignature);
+                        }
+                        else
+                        {
+                            filteredSignatures.Add(filteredSignature);
+                            methods_bySignature.Add(filteredSignature.sSignature, method);
+                        }
                     }
                     else
-                        methods_bySignature.Add(filteredSignature.sSignature, method);
+                    {
+                        //PublicDI.log.info("Skipping: {0}", method.Name);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    //PublicDI.log.info("Skipping: {0}", method.Name);
+                    "[O2 Object Model] mapMethodsToFilteredSignatures: {0}".error(ex.Message);
                 }
             }
         }

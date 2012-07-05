@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+
 using System.Reflection;
 using System.Threading;
 using O2.DotNetWrappers.DotNet;
@@ -46,12 +46,24 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				"[assemblyName] {0}".error(ex.Message);
 				return null;
 			}
-		}		
+		}
+
+        public static List<Assembly>        with_Valid_Location(this List<Assembly> assemblies)
+        {
+            return assemblies.where((assembly) => assembly.Location.valid()).toList();
+        }
+
 		public static List<string>          names(this List<AssemblyName> assemblyNames)
 		{
 			return (from assemblyName in assemblyNames
 					select assemblyName.name()).toList();
-		}		
+		}
+
+		public static string                name(this Assembly assembly)
+        {
+            return assembly.GetName().Name;
+        }
+
 		public static string                name(this AssemblyName assemblyName)
 		{
 			if(assemblyName.notNull())
@@ -71,7 +83,105 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			if(assembly.notNull())
 				return assembly.Location;
 			return null;
-		}	
+		}
+        public static List<AssemblyName> referencedAssemblies(this AssemblyName assemblyName)
+        {
+            return assemblyName.assembly().referencedAssemblies();
+        }
+
+        public static List<AssemblyName> referencedAssemblies(this Assembly assembly, bool recursiveSearch)
+        {
+            return assembly.referencedAssemblies(recursiveSearch, true);
+        }
+        public static List<AssemblyName> referencedAssemblies(this Assembly assembly, bool recursiveSearch, bool removeGacEntries)
+        {
+            var mappedReferences = new List<string>();
+            var resolvedAssemblies = new List<AssemblyName>();
+
+            Action<List<AssemblyName>> resolve = null;
+
+            resolve = (assemblyNames) =>
+            {
+                if (removeGacEntries)
+                    assemblyNames = assemblyNames.removeGacAssemblies();
+                if (assemblyNames.isNull())
+                    return;
+                foreach (var assemblyName in assemblyNames)
+                {
+                    if (mappedReferences.contains(assemblyName.str()).isFalse())
+                    {
+                        mappedReferences.add(assemblyName.str());
+                        resolvedAssemblies.add(assemblyName);
+                        resolve(assemblyName.referencedAssemblies());
+                    }
+                }
+            };
+
+            resolve(assembly.referencedAssemblies());
+
+            "there where {0} NonGac  assemblies resolved for {1}".debug(resolvedAssemblies.size(), assembly.Location);
+            return resolvedAssemblies;
+        }
+
+        public static List<AssemblyName> removeGacAssemblies(this List<AssemblyName> assemblyNames)
+        {
+            var systemRoot = Environment.GetEnvironmentVariable("SystemRoot");
+            return (from assemblyName in assemblyNames
+                    let assembly = assemblyName.assembly()
+                    where assembly.notNull() && assembly.Location.starts(systemRoot).isFalse()
+                    select assemblyName).toList();
+        }
+
+        public static List<string> locations(this List<AssemblyName> assemblyNames)
+        {
+
+            var locations = new List<string>();
+            try
+            {
+                foreach (var assemblyName in assemblyNames)
+                {
+                    var location = assemblyName.assembly().Location;
+                    locations.add(location);
+                }
+            }
+            catch (Exception ex)
+            {
+                "[Reflection] locations, could not resolve {0}".error(ex.Message);
+            }
+            return locations;
+        }
+
+        public static PortableExecutableKinds assembly_PortableExecutableKind(this string assemblyLocation)
+        {
+            return Assembly.ReflectionOnlyLoadFrom(assemblyLocation).portableExecutableKind();
+        }
+        public static PortableExecutableKinds portableExecutableKind(this Assembly assembly)
+        {
+            PortableExecutableKinds peKind;
+            ImageFileMachine imageFileMachine;
+            assembly.ManifestModule.GetPEKind(out peKind, out imageFileMachine);
+            return peKind;
+        }
+
+        public static string value(this PortableExecutableKinds peKind)
+        {
+            switch (peKind)
+            {
+                case PortableExecutableKinds.ILOnly:
+                    return "AnyCPU";
+                case PortableExecutableKinds.Required32Bit:
+                    return "x86";
+                case PortableExecutableKinds.PE32Plus:
+                    return "x64";
+                case PortableExecutableKinds.Unmanaged32Bit:
+                    return "Unmanaged32Bit";
+                case PortableExecutableKinds.NotAPortableExecutableImage:
+                    return "NotAPortableExecutableImage";
+                default:
+                    return peKind.str();
+                //throw new ArgumentOutOfRangeException();
+            }
+        }
 		
     }
 
@@ -358,6 +468,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<MethodInfo>  methods(this Assembly assembly)
         {
             return PublicDI.reflection.getMethods(assembly);
+        }
+        public static List<MethodInfo> methods(this Type type, string methodName)
+        {
+            return (from method in type.methods()
+                    where method.Name == methodName
+                    select method).toList();
+        }
+        public static MethodInfo method_bySignature(this Type type, string methodSignature)
+        {
+            return (from method in type.methods()
+                    where method.str() == methodSignature
+                    select method).first();
         }
         public static List<MethodInfo>  methods_public(this Type type)
         {

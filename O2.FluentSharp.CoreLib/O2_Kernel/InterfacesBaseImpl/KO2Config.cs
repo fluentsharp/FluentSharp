@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using O2.Interfaces.O2Core;
 using O2.Kernel.CodeUtils;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.InterfacesBaseImpl
@@ -44,7 +44,10 @@ namespace O2.Kernel.InterfacesBaseImpl
             defaultLocallyDevelopedScriptsFolder = defaultO2LocalTempFolder.pathCombine(defaultLocallyDevelopedScriptsFolder);
 
             hardCodedO2LocalTempFolder = defaultO2LocalTempFolder;
-            O2TempDir = hardCodedO2LocalTempFolder;                 // default to this one since there are a couple cases where in Visual Studio the loading of o2.config files causes a problem
+            O2TempDir = hardCodedO2LocalTempFolder;                 
+            
+            UserData = defaultO2LocalTempFolder.pathCombine("_USERDATA"); //"C:\\O2\\_USERDATA"
+
 //            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
 //            hardCodedO2LocalSourceCodeDir = @"E:\O2\_SourceCode_O2";            
             O2FindingsFileExtension = ".O2Findings";
@@ -113,7 +116,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         public string O2GitHub_ExternalDlls { get; set; }
         public string O2GitHub_Binaries { get; set; }
         public string O2GitHub_FilesWithNoCode  { get; set; }
-        public string O2DownloadLocation        { get; set; }        
+        public string O2DownloadLocation        { get; set; }       
+        public string UserData                  { get; set; }
 
         public string ToolsOrApis
         {

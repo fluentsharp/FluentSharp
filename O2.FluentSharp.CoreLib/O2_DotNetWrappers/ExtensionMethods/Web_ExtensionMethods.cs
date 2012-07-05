@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using O2.DotNetWrappers.Network;
 using O2.DotNetWrappers.Windows;
-using O2.Kernel.ExtensionMethods;
+
 using System.Drawing;
 using System.IO;
 
@@ -52,6 +52,76 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var memoryStream = new MemoryStream(imageBytes);
             var bitmap = new Bitmap(memoryStream);
             return bitmap;
+        }
+
+
+        //GET requests
+
+        public static string GET(this Uri uri)
+        {
+            return uri.get_Html();
+        }
+
+        public static string GET(this string url)
+        {
+            return url.get_Html();
+        }
+
+        public static string html(this string url)
+        {
+            return url.get_Html();
+        }
+        public static string get_Html(this string url)
+        {
+            if (url.isUri())
+                return url.uri().get_Html();
+            "in get_Html (GET), url provided was not valid URI: {0}".error(url);
+            return null;
+        }
+
+        public static string get_Html(this Uri url)	// this is a better way to represent it
+        {
+            return url.getHtml();
+        }
+
+        //POST requests
+
+        public static string POST(this Uri uri, byte[] postData)
+        {
+            return uri.get_Html(postData);
+        }
+
+        public static string POST(this Uri uri, string postData)
+        {
+            return uri.get_Html(postData);
+        }
+
+        public static string POST(this string url, string postData)
+        {
+            return url.html(postData);
+        }
+
+        public static string html(this string url, string postData)
+        {
+            return url.get_Html(postData);
+        }
+
+        public static string get_Html(this string url, string postData)
+        {
+            if (url.isUri())
+                return url.uri().get_Html(postData);
+            "in get_Html (POST), url provided was not  valid URI: {0}".error(url);
+            return null;
+        }
+
+        public static string get_Html(this Uri url, string postData)
+        {
+            return new Web().getUrlContents_POST(url.str(), postData);
+        }
+
+        public static string get_Html(this Uri url, byte[] postData)
+        {
+            return new Web().getUrlContents_POST(url.str(), postData);
         }
     }
     
@@ -120,6 +190,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return "{0}://{1}".format(uri.Scheme, uri.Host);
         }
+        public static string pathNoQuery(this Uri uri)
+        {
+            return uri.Query.valid()
+                        ? uri.AbsoluteUri.remove(uri.Query)
+                        : uri.AbsoluteUri;
+        }
         public static Uri       append(this Uri uri, string virtualPath)
 		{
 			try
@@ -184,6 +260,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
     }
     public static class Web_ExtensionMethods_Encoding
     {
+        public static List<List<string>> encode(this List<List<string>> data, Func<string, string> encodeCallback)
+        {
+            foreach (var list in data)
+                list.encode(encodeCallback);
+            return data;
+        }
+
+
+        public static List<string> encode(this List<string> list, Func<string, string> encodeCallback)
+        {
+            for (int i = 0; i < list.size(); i++)
+                list[i] = encodeCallback(list[i]);
+            return list;
+        }	
+
         public static byte      asciiByte(this char charToConvert)
         {
             try

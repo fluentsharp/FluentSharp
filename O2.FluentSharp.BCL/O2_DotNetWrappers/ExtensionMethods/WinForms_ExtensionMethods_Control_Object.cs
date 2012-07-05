@@ -805,6 +805,29 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         //events 
+        public static T onDrop<T, T1>(this T control, Action<T1> onDrop)
+            where T : Control
+        {
+            control.invokeOnThread(() =>
+            {
+                control.AllowDrop = true;
+                control.DragEnter += (sender, e) => Dnd.setEffect(e);
+                control.DragDrop += (sender, e) =>
+                {
+                    sender.showInfo();
+                    e.showInfo();
+
+                    "{0} - {1}".info(sender.typeName(), e.typeName());
+                    var data = Dnd.tryToGetObjectFromDroppedObject(e, typeof(T1));
+                    if (data.notNull())
+                    {
+                        onDrop((T1)data);
+                    }
+                };
+            });
+            return (T)control;
+        }
+
         public static T onDrop<T>(this T control, Action<string> onDropFileOrFolder) where T : Control
         {
             return (T)control.invokeOnThread(() =>
@@ -1595,6 +1618,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static Label append_Below_Label(this Control control, string label)
 		{
 			return control.parent().add_Label(label, control.top() + 22 , control.left());
-		}						
+		}
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using O2.Interfaces.CIR;
 using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 //using Mono.Cecil;
 //using O2.o2AppDomainProxy;
@@ -110,6 +110,7 @@ namespace O2.DotNetWrappers.Filters
         {
             try
             {
+                this.sOriginalSignature = methodInfo.str();
                 //   DI.log.info(" --   :{0}", methodInfo.Name);
                 sFunctionName = methodInfo.Name;
                 foreach (ParameterInfo parameter in methodInfo.GetParameters())

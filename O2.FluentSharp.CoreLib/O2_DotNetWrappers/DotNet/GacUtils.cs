@@ -7,7 +7,7 @@ using O2.Interfaces.DotNet;
 using O2.Kernel;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel.InterfacesBaseImpl;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.DotNet

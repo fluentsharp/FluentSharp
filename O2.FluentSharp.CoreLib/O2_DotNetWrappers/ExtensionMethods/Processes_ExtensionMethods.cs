@@ -140,7 +140,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
 						process.stop();
 					});
 			return process;
-		}		
+		}
+
+        public static Process with_Name(this List<Process> processes, string name)
+        {
+            return (from process in processes
+                    where process.ProcessName == name
+                    select process).first();
+        }
+
+        public static Process with_Id(this List<Process> processes, int id)
+        {
+            return (from process in processes
+                    where process.Id == id
+                    select process).first();
+        }
     }
 
     public static class Console_ExtensionMethods

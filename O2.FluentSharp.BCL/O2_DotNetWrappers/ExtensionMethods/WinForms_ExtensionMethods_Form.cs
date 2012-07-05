@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.DotNetWrappers.DotNet;
 using System.Drawing;
+using O2.Views.ASCX.Ascx.MainGUI;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -178,6 +179,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 }
             return forms;
         }
+        public static Form maximized(this Form form)
+        {
+            return (Form)form.invokeOnThread(
+                () =>
+                {
+                    form.WindowState = FormWindowState.Maximized;
+                    return form;
+                });
+        }
         public static T minimized<T>(this T control)            where T : Control
         {
             return control.windowState(FormWindowState.Minimized);
@@ -263,5 +273,121 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return form;
                 });
         }
+
+
+    }
+
+    public static class WinForms_ExtensionMethods_MDIForms
+    {
+        public static Form mdiForm(this string title)
+        {
+            return title.mdiHost();
+        }
+
+        public static Form mdiHost(this string title)
+        {
+            return title.popupWindow()
+                        .parentForm()
+                        .isMdiContainer();
+        }
+
+        public static Form isMdiContainer(this Form form)
+        {
+            return form.isMdiContainer(true);
+        }
+
+        public static Form isMdiContainer(this Form form, bool value)
+        {
+            return (Form)form.invokeOnThread(
+                () =>
+                {
+                    form.Controls.Clear();
+                    form.IsMdiContainer = true;
+                    return form;
+                });
+        }
+
+        public static Form add_MdiChild(this Form parentForm)
+        {
+            return parentForm.add_MdiChild("");
+        }
+
+        public static Form add_MdiChild(this Form parentForm, string title)
+        {
+            return parentForm.add_MdiChild<Form>(title);
+        }
+
+        public static T add_MdiChild<T>(this Form parentForm, string title)
+            where T : Form
+        {
+            return (T)parentForm.invokeOnThread(
+                () =>
+                {
+                    var mdiChild = (Form)typeof(T).ctor();
+                    mdiChild.Text = title;
+                    mdiChild.MdiParent = parentForm;
+                    mdiChild.Show();
+                    return mdiChild;
+                });
+        }
+
+        public static Form add_MdiChild(this Form parentForm, Func<Form> formCtor)
+        {
+            return (Form)parentForm.invokeOnThread(
+                () =>
+                {
+                    var mdiChild = formCtor();
+                    mdiChild.MdiParent = parentForm;
+                    mdiChild.Show();
+                    return mdiChild;
+                });
+        }
+
+
+        public static Form layout(this Form parentForm, MdiLayout layout)
+        {
+            return (Form)parentForm.invokeOnThread(
+                () =>
+                {
+                    parentForm.LayoutMdi(layout);
+                    return parentForm;
+                });
+        }
+
+        public static Form layout_TileHorizontal(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.TileHorizontal);
+        }
+
+        public static Form layout_TileVertical(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.TileVertical);
+        }
+
+        public static Form layout_Cascade(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.Cascade);
+        }
+
+        public static Form layout_ArrangeIcons(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.ArrangeIcons);
+        }
+
+        public static Form tileHorizontaly(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.TileHorizontal);
+        }
+
+        public static Form tileVerticaly(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.TileVertical);
+        }
+
+        public static Form cascade(this Form parentForm)
+        {
+            return parentForm.layout(MdiLayout.Cascade);
+        }
+
     }
 }

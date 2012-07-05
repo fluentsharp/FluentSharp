@@ -35,6 +35,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
         }
 
+        public static T wait<T>(this T _object)
+        {
+            return _object.wait(1000, true);
+        }
+        public static T wait<T>(this T _object, int length, bool verbose)
+        {
+            _object.sleep(length, verbose);
+            return _object;
+        }
+
         
     }
 }

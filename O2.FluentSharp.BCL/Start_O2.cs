@@ -34,7 +34,7 @@ namespace O2.Platform.BCL
                 var startO2 = Activator.CreateInstance(startO2_Type);
 
                 var compileScript = startO2.GetType().GetMethod("compileScript");
-                var assembly = (Assembly)compileScript.Invoke(startO2, new object[] { "ascx_Execute_Scripts.cs" });*/
+                var assembly = (Assembly)compileScript.Invoke(startO2, new object[] { "ascx_Execute_Scripts.cs" });*/                
                 var assembly = compileScript("ascx_Execute_Scripts.cs");
                 if (assembly == null)
                 {

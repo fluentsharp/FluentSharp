@@ -7,5 +7,6 @@ using System.Text;
 
 namespace O2.Kernel.ExtensionMethods
 { 
-
+    public static class nothingHere
+    {}
 }

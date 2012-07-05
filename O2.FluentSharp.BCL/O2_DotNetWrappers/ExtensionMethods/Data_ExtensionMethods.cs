@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using O2.Kernel.ExtensionMethods;
 using System.Reflection;
 
 namespace O2.DotNetWrappers.ExtensionMethods

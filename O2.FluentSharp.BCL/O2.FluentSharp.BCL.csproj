@@ -38,7 +38,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -51,6 +50,9 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Compilation_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Data_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Download_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Linq_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Control_Object.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_DataGridView.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Form.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtSearch.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtStats.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtUtils.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\FileCache.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\SourceCodeMappingsUtils.cs" />
     <Compile Include="O2_DotNetWrappers\SearchApi\SearchEngine.cs" />
     <Compile Include="O2_DotNetWrappers\SearchApi\SearchUtils.cs" />
@@ -98,7 +101,7 @@
     <Compile Include="O2_Interfaces\Messages\IM_SelectedTypeOrMethod.cs" />
     <Compile Include="O2_Interfaces\Messages\IO2Message.cs" />
     <Compile Include="O2_Interfaces\Messages\IO2MessageQueue.cs" />
-    <Compile Include="O2_Kernel\DI.cs" />
+    <Content Include="O2_Kernel\DI.cs.txt" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_CirAction.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_DotNetAssemblyAvailable .cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_FileOrFolderSelected.cs" />
@@ -109,7 +112,6 @@
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2Message.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2MessageQueue.cs" />
     <Compile Include="O2_Kernel\PublicDI_BCL.cs" />
-    <Compile Include="O2_Kernel\show.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Controls.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\O2Forms.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\O2FormsReflectionASCX.cs" />
@@ -118,8 +120,6 @@
     <Compile Include="O2_DotNetWrappers\Windows\Screenshots.cs" />
     <Compile Include="O2_Interfaces\O2Core\IReflectionASCX.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Messages.cs" />
-    <Compile Include="O2_Kernel\ExtensionMethods\Views_ExtensionMethods.cs" />
-    <Compile Include="O2_Kernel\open.cs" />
     <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_Directory.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -225,11 +225,24 @@
     <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.Designer.cs">
       <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui_ExtensionMethods.cs" />
     <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.Designer.cs">
       <DependentUpon>ascx_Task.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_Ping.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_WebGet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_WebPost.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="O2_Views_ASCX\Ascx\Web\O2WebBrowser.cs">
       <SubType>Component</SubType>
@@ -272,6 +285,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FormImages.resx</DependentUpon>
     </Compile>
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\ISecretData.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\SecretData_ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Start_O2.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs" />
@@ -356,6 +371,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\SecretDataEditor.cs" />
     <None Include="Resources\btDragAssemblyCreated.Image.png" />
   </ItemGroup>
   <ItemGroup>

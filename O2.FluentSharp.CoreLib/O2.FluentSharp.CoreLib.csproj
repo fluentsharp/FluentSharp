@@ -34,10 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -60,8 +57,8 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\CompileEngine_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Crypto_ExtensionMethods.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Data_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\DynamicTypes_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\H2_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\IO_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Items_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Misc_ExtensionMethods.cs" />
@@ -71,6 +68,7 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Processes_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Reflection_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\RegEx_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Registry_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\SavingData_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Serialize_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Sleep_ExtensionMethods.cs" />
@@ -95,7 +93,6 @@
     <Compile Include="O2_DotNetWrappers\Windows\NamePipes.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Processes.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Registry.cs" />
-    <Compile Include="O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Win32.cs" />
     <Compile Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.cs">
       <DependentUpon>SourceCodeMappings.xsd</DependentUpon>

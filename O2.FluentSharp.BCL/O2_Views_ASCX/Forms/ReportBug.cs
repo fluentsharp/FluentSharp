@@ -8,6 +8,7 @@ using O2.DotNetWrappers.Network;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 using O2.Views.ASCX.classes.MainGUI;
+using O2.DotNetWrappers.DotNet;
 
 namespace O2.Views.ASCX.Forms
 {
@@ -26,15 +27,8 @@ namespace O2.Views.ASCX.Forms
         {
             if (rtbSourceRichTextBox != null)
             {
-                rtbSourceRichTextBox.invokeOnThread(
-                    () =>
-                        {
-                            var rtfText = rtbSourceRichTextBox.Rtf;
-                            Threads_ExtensionMethods.invokeOnThread(rtbLogViewContentsToSend, () =>
-                                    {
-                                        rtbLogViewContentsToSend.Rtf = rtfText;
-                                    });
-                        });
+                var rtfText = rtbSourceRichTextBox.get_Rtf();
+                rtbLogViewContentsToSend.set_Rtf(rtfText);                
             }
         }
 
@@ -177,7 +171,8 @@ namespace O2.Views.ASCX.Forms
 
         public void updateImageWithScreenShotOfParentForm()
         {
-            setScreenShoot(Screenshots.getScreenshotOfFormObjectAndItsControls(fParentForm));
+            fParentForm.invokeOnThread(
+                    ()=> setScreenShoot(Screenshots.getScreenshotOfFormObjectAndItsControls(fParentForm)) );
             //setScreenShoot(Screenshots.getScreenshotOfFormObjectAndItsControls(btRefresh_LogViewerData));
         }
 
@@ -209,6 +204,24 @@ namespace O2.Views.ASCX.Forms
         private void tbSubject_TextChanged(object sender, EventArgs e)
         {
             tbSubject.BackColor = Color.LightGreen;
+        }
+
+        public static void showGui<T>(T control)
+            where T : Control
+        {
+            showGui(control.parentForm());
+        }
+        public static void showGui(Form form)
+        {
+            O2Thread.staThread(
+                    ()=>{
+                            var rpReportBug = new ReportBug { fParentForm = form };
+                            rpReportBug.setFromEmail("o2User@owasp.org");
+                            rpReportBug.setSubject("[Comment from O2 user] ");
+                            rpReportBug.setMessage(Mail.getUserDetailsAsEmailFormat() + " says:" + Environment.NewLine +
+                                                   "Hello O2 Support, " + Environment.NewLine + Environment.NewLine);
+                            rpReportBug.ShowDialog();
+                        });      
         }
     }
 }

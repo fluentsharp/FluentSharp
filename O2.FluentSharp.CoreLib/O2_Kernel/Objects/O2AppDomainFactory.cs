@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using O2.Kernel.CodeUtils;
-using O2.Kernel.ExtensionMethods;
+
 using O2.DotNetWrappers.ExtensionMethods;
 
 //O2File:../DI.cs

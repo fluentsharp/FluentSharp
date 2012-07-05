@@ -43,6 +43,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,8 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\GZip_and_JSON_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Network\Web_Zip.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="O2_DotNetWrappers\Zip\zipUtils.cs" />
     <Compile Include="O2_Views_ASCX\MerlinWizard\IO2Wizard.cs" />
     <Compile Include="O2_Views_ASCX\MerlinWizard\MerlinUtils.cs" />

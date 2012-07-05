@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using O2.DotNetWrappers.Windows;
-using O2.Kernel.ExtensionMethods;
+
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
 
@@ -290,6 +290,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return path.folders(false);
         }
+
+        public static DirectoryInfo directoryInfo(this string directoryPath)
+        {
+            return new DirectoryInfo(directoryPath);
+        }
     }
 
     public static class IO_ExtensionMethods_File_Open
@@ -526,6 +531,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			}
 			return null;
 		}
+
+        public static string file_Copy(this string file, string folder)
+        {
+            return file.file_CopyToFolder(folder);
+        }
+
+        public static List<string> files_Copy(this List<string> files, string targetFolder)
+        {
+            foreach (var file in files)
+                Files.Copy(file, targetFolder);
+            return files;
+        }
 
     }
 
