@@ -1949,7 +1949,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					if (tag is List<T>)
 					{
 						var items = (List<T>)tag;
-						if (index > items.size())
+						if (index > items.size()-1)
 							"[TrackBar][onSlide] provided index is bigger that items list".error();
 						else
 							onSlide(items[index]);

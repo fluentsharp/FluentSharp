@@ -66,7 +66,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static Process executeH2_as_Admin(this string scriptToExecute)
         {
             var process = new Process();
-            process.StartInfo.FileName = System.Reflection.Assembly.GetEntryAssembly().Location; //PublicDI.config.CurrentExecutableDirectory.pathCombine("O2 Platform.exe");            
+            process.StartInfo.FileName = System.Reflection.Assembly.GetEntryAssembly().location(); //PublicDI.config.CurrentExecutableDirectory.pathCombine("O2 Platform.exe");            
             process.StartInfo.Arguments = "\"{0}\"".format(scriptToExecute);
             process.StartInfo.Verb = "runas";
             process.Start();

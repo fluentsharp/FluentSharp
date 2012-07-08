@@ -427,6 +427,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         //Misc
         public static Form parentForm(this Control control)
         {
+            if (control is Form)
+                return (Form)control;
             return control.parent<Form>();
         }
         public static T set_Text<T>(this T control, string text) where T : Control
