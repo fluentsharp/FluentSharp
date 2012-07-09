@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.FluentSharp.REPL</RootNamespace>
+    <AssemblyName>O2_FluentSharp_REPL</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="O2_External_SharpDevelop, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\O2_External_SharpDevelop.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph, Version=3.2.40122.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_External_Dlls\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ascx\ascx_AssemblyInvoke.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_AssemblyInvoke.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_AssemblyInvoke.Designer.cs">
+      <DependentUpon>ascx_AssemblyInvoke.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\ascx_Execute_Scripts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_ObjectViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_Panel_With_Inspector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_Scripts.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_Scripts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_Scripts.Designer.cs">
+      <DependentUpon>ascx_Scripts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\ascx_ScriptsFolder.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_ScriptsFolder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_ScriptsFolder.Designer.cs">
+      <DependentUpon>ascx_ScriptsFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\ascx_Simple_Script_Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_SourceCodeEditor.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_SourceCodeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_SourceCodeEditor.Designer.cs">
+      <DependentUpon>ascx_SourceCodeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\ascx_SourceCodeViewer.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_SourceCodeViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_SourceCodeViewer.Designer.cs">
+      <DependentUpon>ascx_SourceCodeViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\ascx_XRules_Editor.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_XRules_Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\ascx_XRules_Editor.Designer.cs">
+      <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\MiscUI\ascx_AskUserForLoginDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\MiscUI\ascx_CaptchaQuestion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\MiscUI\ascx_FolderViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\MiscUI\ascx_SimpleFileSearch.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\MiscUI\FileViewers.cs" />
+    <Compile Include="Charp_FastCompiler.cs" />
+    <Compile Include="DI.cs" />
+    <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\XmlToXsd_ExtensionMethods.cs" />
+    <Compile Include="open.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="show.cs" />
+    <Compile Include="TextToCodeMappings.cs" />
+    <Compile Include="_O2_API_AST\AST\AstDetails.cs" />
+    <Compile Include="_O2_API_AST\AST\AstTreeView.cs" />
+    <Compile Include="_O2_API_AST\AST\AstValue.cs" />
+    <Compile Include="_O2_API_AST\AST\Ast_CSharp.cs" />
+    <Compile Include="_O2_API_AST\AST\Ast_CSharp_ShowDetailsInViewer.cs" />
+    <Compile Include="_O2_API_AST\CSharp\AstVisitors.cs" />
+    <Compile Include="_O2_API_AST\CSharp\FindLocationInAst.cs" />
+    <Compile Include="_O2_API_AST\CSharp\O2AstResolver.cs" />
+    <Compile Include="_O2_API_AST\CSharp\O2AstVisitor.cs" />
+    <Compile Include="_O2_API_AST\CSharp\O2CodeStream.cs" />
+    <Compile Include="_O2_API_AST\CSharp\O2MappedAstData.cs" />
+    <Compile Include="_O2_API_AST\CSharp\O2MethodStream.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\AstResolve_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\BidirectionalGraph_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CodeDom_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\AbstractNode_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\Attribute_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\BlockStatement_ExtensionMethod.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\CompilationUnit_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\ConstructorDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\CSharpSourceCode_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\Expression_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\FieldDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\IMethod_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\INode_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\InvocationExpression_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\LocalVariableDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\MemberReferenceExpression_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\MethodDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\NamespaceDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\ObjectCreateExpression_ExtensionMethod.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\ParameterDeclarationExpression_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\Parser_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\PropertyDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\TypeDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\TypeReference_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\UsingDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\VariableDeclaration_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\IAstVisitor_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Graph\AstMethodFinder.cs" />
+    <Compile Include="_O2_API_AST\Visitors\FindIdentifierUsage.cs" />
+    <Compile Include="_O2_API_AST\Visitors\GetAllINodes.cs" />
+    <Compile Include="_O2_API_AST\Visitors\MapAstToDom.cs" />
+    <Compile Include="_O2_API_AST\Visitors\MapAstToNRefactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ascx\ascx_SourceCodeEditor.resx">
+      <DependentUpon>ascx_SourceCodeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_External_Dlls\Mono.Cecil.dll" />
+    <Content Include="_External_Dlls\O2_External_SharpDevelop.dll" />
+    <Content Include="_External_Dlls\QuickGraph.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>O2.FluentSharp.BCL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>O2.FluentSharp.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\O2.FluentSharp.Misc\O2.FluentSharp.Misc.csproj">
+      <Project>{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}</Project>
+      <Name>O2.FluentSharp.Misc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
