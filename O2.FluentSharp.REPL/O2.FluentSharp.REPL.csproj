@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2.FluentSharp.REPL</RootNamespace>
     <AssemblyName>O2_FluentSharp_REPL</AssemblyName>
@@ -22,6 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,18 +33,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_External_Dlls\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="O2_External_SharpDevelop, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_External_Dlls\O2_External_SharpDevelop.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="QuickGraph, Version=3.2.40122.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_External_Dlls\QuickGraph.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -140,12 +148,8 @@
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\XmlToXsd_ExtensionMethods.cs" />
     <Compile Include="open.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="show.cs" />
     <Compile Include="TextToCodeMappings.cs" />
     <Compile Include="_O2_API_AST\AST\AstDetails.cs" />
@@ -194,18 +198,9 @@
     <Compile Include="_O2_API_AST\Visitors\MapAstToNRefactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ascx\ascx_SourceCodeEditor.resx">
-      <DependentUpon>ascx_SourceCodeEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="_External_Dlls\Mono.Cecil.dll" />
-    <Content Include="_External_Dlls\O2_External_SharpDevelop.dll" />
-    <Content Include="_External_Dlls\QuickGraph.dll" />
+    <EmbeddedResource Include="_External_Dlls\Mono.Cecil.dll" />
+    <EmbeddedResource Include="_External_Dlls\O2_External_SharpDevelop.dll" />
+    <EmbeddedResource Include="_External_Dlls\QuickGraph.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">

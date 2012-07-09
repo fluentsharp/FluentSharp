@@ -280,7 +280,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return form.set_Icon("H2Logo.ico".local().icon());
 		}
         public static Form set_O2Icon(this Form form)	
-		{
+		{            
 			return form.set_Icon("O2Logo.ico".local().icon());
 		}
 

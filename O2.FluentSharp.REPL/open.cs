@@ -13,6 +13,7 @@ using O2.Core.XRules.Ascx;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.DotNetWrappers.DotNet;
 using System.Threading;
+using O2.Views.ASCX.Ascx.MainGUI;
 
 //O2File:ExtensionMethods/Reflection_ExtensionMethods.cs
 //O2File:ExtensionMethods/Views_ExtensionMethods.cs
@@ -138,6 +139,12 @@ namespace O2.Kernel
             return O2Thread.mtaThread(() => devEnvironment());
         }
 
+        public static ascx_LogViewer logViewer()
+        {
+
+            return O2Gui.open<ascx_LogViewer>();
+
+        }
         /*
         public static Control viewAscx(string controlName)
         {

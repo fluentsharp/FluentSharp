@@ -702,7 +702,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 			{
 				if (AssemblyResolver.CachedMappedAssemblies.hasKey(assemblyToLoad))
 					return AssemblyResolver.CachedMappedAssemblies[assemblyToLoad];
-				Assembly assembly = AssemblyResolver.loadFromDisk(assemblyToLoad);
+                Assembly assembly = AssemblyResolver.loadFromDiskOrResource(assemblyToLoad);
 				if (assembly != null)
 				{
 					AssemblyResolver.CachedMappedAssemblies.add(assemblyToLoad, assembly);

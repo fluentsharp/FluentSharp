@@ -6,6 +6,7 @@ using System.Reflection;
 
 using O2.DotNetWrappers.ExtensionMethods;
 using System.IO;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -13,6 +14,7 @@ namespace O2.DotNetWrappers.DotNet
 	{
 		public static Func<string, string> NameResolver						{ get; set; }
 		public static Dictionary<string, Assembly> CachedMappedAssemblies	{ get; set; }
+        public static bool  Initialized                                     { get; set; }
 
 		static AssemblyResolver()
 		{
@@ -34,37 +36,30 @@ namespace O2.DotNetWrappers.DotNet
 		public static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			var name = args.prop("Name").str();
-			return loadFromDisk(name);
-		}
+            if (name.contains(".resources"))
+                return null;
 
+            return loadFromDiskOrResource(name); 
+		}
+        public static Assembly loadFromDiskOrResource(string name)
+        {
+            "[AssemblyResolve] for name: {0}".debug(name);
+            //first resolve by name/location
+            var assembly = loadFromDisk(name);
+            if (assembly.notNull())
+                return assembly;
+
+            //then by resources
+            assembly = loadFromEmbededResources(name);
+
+            return assembly;
+        }
 		public static Assembly loadFromDisk(string name)
 		{
+            "[AssemblyResolve] loadFromDisk : {0}".info(name);
             if (name.valid() && CachedMappedAssemblies.hasKey(name))
                 return CachedMappedAssemblies[name];
-
-            var nameToFind = (name.isAssemblyName())
-                                ? name.assemblyName().Name
-                                : name;
-            foreach(var resourceName in Assembly.GetEntryAssembly().GetManifestResourceNames())
-            {
-                if (resourceName.contains(nameToFind))
-                {
-                    var assemblyStream = Assembly.GetEntryAssembly().GetManifestResourceStream(resourceName);
-                    byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
-                    Assembly assembly = Assembly.Load(data);
-                    if (assembly.notNull())
-                    {
-                        CachedMappedAssemblies.add(name, assembly);
-                        return assembly;
-                    }
-                }
-            }
-
-            if (name.contains(".resources").isFalse())
-            { 
-            
-            }
-			//"[AssemblyResolve] for name: {0}".debug(name);
+			
 			var location = NameResolver(name);
 			if (location.valid() && location.fileExists())
 			{
@@ -82,12 +77,40 @@ namespace O2.DotNetWrappers.DotNet
 					return assembly;
 				}
 				else
-					"[AssemblyResolve] failed to load Assembly from location: {0}".error(location);
+                    "[AssemblyResolve] failed to load Assembly from location: {0}".error(location);
 			}
 			//else
 			//	"[AssemblyResolve] could not find a location for assembly with name: {0}".error(name);
 			return null;
 		}
+
+        public static Assembly loadFromEmbededResources(string name)
+        {
+            
+            var nameToFind = (name.isAssemblyName())
+                    ? name.assemblyName().Name
+                    : name.lower();
+
+            foreach (var currentAssembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if(currentAssembly.name().starts("O2"))
+                    foreach (var resourceName in currentAssembly.GetManifestResourceNames())
+                    {
+                        if (resourceName.lower().contains(nameToFind.lower()))
+                        {
+                            "Found resource for {0} at {1} in {2}".info(name, resourceName, currentAssembly.name());
+                            var assemblyStream = currentAssembly.GetManifestResourceStream(resourceName);
+                            byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
+                            var saveAssemblyTo = PublicDI.config.ReferencesDownloadLocation.createDir().pathCombine(nameToFind);
+                            if ((saveAssemblyTo.extension(".dll") || saveAssemblyTo.extension(".exe")).isFalse())
+                                saveAssemblyTo+=".dll";
+                            O2.DotNetWrappers.Windows.Files.WriteFileContent(saveAssemblyTo, data);
+                            return loadFromDisk(saveAssemblyTo);
+                        }
+                    }
+            }
+            return null;            
+        }
 		
 		public static void enable_AssemblyResolve()
 		{
@@ -104,5 +127,11 @@ namespace O2.DotNetWrappers.DotNet
 		{			
 			return assemblyToLoad.assembly();			
 		}
-	}
+
+        //will setup the assembly resolver
+        public static void Init()
+        {
+            Initialized = true;            
+        }
+    }
 }

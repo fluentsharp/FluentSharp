@@ -69,6 +69,9 @@ namespace O2.Kernel.InterfacesBaseImpl
             AutoSavedScripts = O2TempDir.pathCombine(@"../_AutoSavedScripts")
                                         .pathCombine(DateTime.Now.ToShortDateString().Replace("/","_")); // can't used safeFileName() here because the DI object is not created
             ReferencesDownloadLocation = O2TempDir.pathCombine(@"../_ReferencesDownloaded");
+
+
+            O2.DotNetWrappers.DotNet.AssemblyResolver.Init();            
         }
                        
         public KO2Config(string o2ConfigFile) :this ()
