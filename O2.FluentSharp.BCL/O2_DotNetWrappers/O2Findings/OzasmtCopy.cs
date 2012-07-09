@@ -14,25 +14,24 @@ namespace O2.DotNetWrappers.O2Findings
 
         public static IO2Finding createCopy(IO2Finding o2Finding, bool processChildTraces)
         {
-            var newO2Finding = new O2Finding
-                                   {
-                                       actionObject = o2Finding.actionObject,
-                                       callerName = o2Finding.callerName,
-                                       context = o2Finding.context,
-                                       columnNumber = o2Finding.actionObject,
-                                       confidence = o2Finding.confidence,
-                                       exclude = o2Finding.exclude,
-                                       file = o2Finding.file,
-                                       lineNumber = o2Finding.lineNumber,
-                                       ordinal = o2Finding.ordinal,
-                                       projectName = o2Finding.projectName,
-                                       propertyIds = o2Finding.propertyIds,
-                                       recordId = o2Finding.recordId,
-                                       severity = o2Finding.severity,
-                                       text = createCopy(o2Finding.text),
-                                       vulnName = o2Finding.vulnName,
-                                       vulnType = o2Finding.vulnType
-                                   };
+            var newO2Finding = new O2Finding();
+			newO2Finding.vulnType = o2Finding.vulnType;
+			newO2Finding.vulnName = o2Finding.vulnName;
+			newO2Finding.text = createCopy(o2Finding.text);
+			newO2Finding.severity = o2Finding.severity;
+			newO2Finding.recordId = o2Finding.recordId;
+			newO2Finding.propertyIds = o2Finding.propertyIds;
+			newO2Finding.projectName = o2Finding.projectName;
+			newO2Finding.ordinal = o2Finding.ordinal;
+			newO2Finding.lineNumber = o2Finding.lineNumber;
+			newO2Finding.file = o2Finding.file;
+			newO2Finding.exclude = o2Finding.exclude;
+			newO2Finding.confidence = o2Finding.confidence;
+			newO2Finding.columnNumber = o2Finding.actionObject;
+			newO2Finding.context = o2Finding.context;
+			newO2Finding.callerName = o2Finding.callerName;
+			newO2Finding.actionObject = o2Finding.actionObject;
+			
             if (processChildTraces)
                 newO2Finding.o2Traces = createCopy(o2Finding.o2Traces);
 
@@ -49,20 +48,19 @@ namespace O2.DotNetWrappers.O2Findings
             if (o2Trace == null)
                 return null;
 
-            var newO2Trace = new O2Trace
-                                 {
-                                     clazz = o2Trace.clazz,
-                                     columnNumber = o2Trace.columnNumber,
-                                     context = o2Trace.context,
-                                     file = o2Trace.file,
-                                     method = o2Trace.method,
-                                     lineNumber = o2Trace.lineNumber,
-                                     ordinal = o2Trace.ordinal,
-                                     signature = o2Trace.signature,
-                                     taintPropagation = o2Trace.taintPropagation,
-                                     traceType = o2Trace.traceType,
-                                     text = createCopy(o2Trace.text)
-                                 };
+			var newO2Trace = new O2Trace();
+			newO2Trace.text = createCopy(o2Trace.text);
+			newO2Trace.traceType = o2Trace.traceType;
+			newO2Trace.taintPropagation = o2Trace.taintPropagation;
+			newO2Trace.signature = o2Trace.signature;
+			newO2Trace.ordinal = o2Trace.ordinal;
+			newO2Trace.lineNumber = o2Trace.lineNumber;
+			newO2Trace.method = o2Trace.method;
+			newO2Trace.file = o2Trace.file;
+			newO2Trace.context = o2Trace.context;
+			newO2Trace.columnNumber = o2Trace.columnNumber;
+			newO2Trace.clazz = o2Trace.clazz;
+			
             if (processChildTraces)
                 newO2Trace.childTraces = createCopy(o2Trace.childTraces);
             return newO2Trace;

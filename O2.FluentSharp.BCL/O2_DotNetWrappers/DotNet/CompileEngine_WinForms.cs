@@ -164,7 +164,8 @@ namespace O2.DotNetWrappers.DotNet
             {
                 treeNode.Nodes.Clear();
                 // this will get the list of files to compile (which includes the extra files referenced in the source code that we want to add to this treeview)
-                var filesToCompile = new List<string> { file };
+                var filesToCompile = new List<string>();
+				filesToCompile.Add(file);
                 CompileEngine.addSourceFileOrFolderIncludedInSourceCode(filesToCompile, new List<string>() , new List<string>());
                 filesToCompile.Remove(file);
                 foreach (var extraFile in filesToCompile)

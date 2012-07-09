@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using O2.DotNetWrappers.Windows;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Interfaces.O2Findings;
 
 namespace O2.DotNetWrappers.O2Findings
@@ -313,10 +314,8 @@ namespace O2.DotNetWrappers.O2Findings
         }
         public IO2Trace addTrace(string traceSignature, TraceType _traceType)        
         {
-            var newTrace = new O2Trace(traceSignature)
-                               {
-                                   traceType = _traceType
-                               };
+			var newTrace = new O2Trace(traceSignature);
+			newTrace.traceType = _traceType;
         
             o2Traces.Add(newTrace);
             return newTrace;
@@ -346,7 +345,8 @@ namespace O2.DotNetWrappers.O2Findings
         {
             var newO2Trace = new O2Trace(traceSignature, traceType);                    
             newO2Trace.childTraces.AddRange(o2Traces);
-            o2Traces = new List<IO2Trace> { newO2Trace };
+            o2Traces = new List<IO2Trace>();
+            o2Traces.add(newO2Trace);
         }
         
     }

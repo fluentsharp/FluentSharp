@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using O2.DotNetWrappers.Filters;
 using O2.DotNetWrappers.O2Findings;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Interfaces.O2Findings;
 using O2.Interfaces.Rules;
 
@@ -24,17 +25,17 @@ namespace O2.DotNetWrappers.O2Findings
         }
         public static IO2Trace getKnownSink(IO2Trace o2Trace)
         {
-            return getTraceType(new List<IO2Trace> {o2Trace}, TraceType.Known_Sink);
+            return getTraceType(new List<IO2Trace>().add(o2Trace), TraceType.Known_Sink);
         }
 
         public static IO2Trace getLostSink(IO2Trace o2Trace)
         {
-            return getTraceType(new List<IO2Trace> {o2Trace}, TraceType.Lost_Sink);
+            return getTraceType(new List<IO2Trace>().add(o2Trace), TraceType.Lost_Sink);
         }
 
         public static IO2Trace getSource(IO2Trace o2Trace)
         {
-            return getTraceType(new List<IO2Trace> {o2Trace}, TraceType.Source);
+            return getTraceType(new List<IO2Trace>().add(o2Trace), TraceType.Source);
         }
 
         public static IO2Trace getKnownSink(List<IO2Trace> o2Traces)

@@ -32,10 +32,8 @@ namespace O2.Views.ASCX.classes.MainGUI
                         if (control != null)
                         {
                             control.Dock = DockStyle.Fill;
-                            o2Gui = new O2Gui(width, height, false)         // I might need to adjust these width, height so that the control is the one with this size (and not the hosting form)
-                                            {
-                                                Text = formTitle
-                                            };
+                            o2Gui = new O2Gui(width, height, false) ;        // I might need to adjust these width, height so that the control is the one with this size (and not the hosting form)
+                            o2Gui.Text = formTitle;
                             if (width > -1)
                                 control.Width = width;
                             else

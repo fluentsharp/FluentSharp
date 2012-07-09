@@ -31,69 +31,57 @@ namespace O2.Kernel.InterfacesBaseImpl
 
         public static KM_GUIAction openControlInGui(Type _controlType, O2DockState _o2DockState, string _controlName)
         {
-            var kmGuiAction = new KM_GUIAction
-                                  {
-                                      GuiAction = IM_GUIActions.openControlInGui,
-                                      messageGUID = new Guid(),
-                                      messageText = "KM_OpenControlInGUI",
-                                      controlType = _controlType,
-                                      o2DockState = _o2DockState,
-                                      controlName = _controlName
-                                  };
+			var kmGuiAction = new KM_GUIAction();
+			kmGuiAction.controlName = _controlName;
+			kmGuiAction.o2DockState = _o2DockState;
+			kmGuiAction.controlType = _controlType;
+			kmGuiAction.messageText = "KM_OpenControlInGUI";
+			kmGuiAction.messageGUID = new Guid();
+			kmGuiAction.GuiAction = IM_GUIActions.openControlInGui;
             return kmGuiAction;
         }
 
         public static KM_GUIAction getGuiAscx(string ascxToGet, Action<object> _returnDataCallback)
         {
-            var kmGuiAction = new KM_GUIAction
-                                  {
-                                      GuiAction = IM_GUIActions.getGuiAscx,
-                                      controlName = ascxToGet,
-                                        returnDataCallback = _returnDataCallback
-                                  };
+			var kmGuiAction = new KM_GUIAction();
+			kmGuiAction.returnDataCallback = _returnDataCallback;
+			kmGuiAction.controlName = ascxToGet;
+			kmGuiAction.GuiAction = IM_GUIActions.getGuiAscx;
             return kmGuiAction;
         }
 
         public static KM_GUIAction isAscxGuiAvailable()
         {
-            var kmGuiAction = new KM_GUIAction
-            {
-                GuiAction = IM_GUIActions.isAscxGuiAvailable                
-            };
+            var kmGuiAction = new KM_GUIAction();
+            kmGuiAction. GuiAction = IM_GUIActions.isAscxGuiAvailable;
             return kmGuiAction;            
         }
 
         internal static KM_GUIAction executeOnAscx(string ascxToExecuteMethod, string targetMethod, string[] methodParameters)
         {
-            var kmGuiAction = new KM_GUIAction
-            {
-                GuiAction = IM_GUIActions.executeOnAscx,
-                controlName = ascxToExecuteMethod,
-                targetMethod = targetMethod,
-                methodParameters = methodParameters
-            };
+			var kmGuiAction = new KM_GUIAction();
+			kmGuiAction.methodParameters = methodParameters;
+			kmGuiAction.targetMethod = targetMethod;
+			kmGuiAction.controlName = ascxToExecuteMethod;
+			kmGuiAction.GuiAction = IM_GUIActions.executeOnAscx;
             return kmGuiAction;  
         }
 
         internal static KM_GUIAction closeAscxParent(string targetAscxControl)
         {
-            var kmGuiAction = new KM_GUIAction
-            {
-                GuiAction = IM_GUIActions.closeAscxParent,
-                controlName = targetAscxControl,                
-            };
+            var kmGuiAction = new KM_GUIAction();
+			kmGuiAction.controlName = targetAscxControl;
+			kmGuiAction.GuiAction = IM_GUIActions.closeAscxParent;
             return kmGuiAction;  
         }
 
         internal static KM_GUIAction setAscxDockStateAndOpenIfNotAvailable(string typeOfControl, O2DockState _o2DockState, string _controlName)
         {
-            var kmGuiAction = new KM_GUIAction
-                                  {
-                                      GuiAction = IM_GUIActions.setAscxDockStateAndOpenIfNotAvailable,
-                                      controlTypeString = typeOfControl,
-                                      o2DockState = _o2DockState,
-                                      controlName = _controlName
-            };
+            var kmGuiAction = new KM_GUIAction();
+			kmGuiAction.controlName = _controlName;
+			kmGuiAction.o2DockState = _o2DockState;
+			kmGuiAction.controlTypeString = typeOfControl;
+			kmGuiAction.GuiAction = IM_GUIActions.setAscxDockStateAndOpenIfNotAvailable;
             return kmGuiAction;  
         }
     }

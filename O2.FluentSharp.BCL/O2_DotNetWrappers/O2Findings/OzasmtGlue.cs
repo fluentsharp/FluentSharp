@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using O2.Interfaces.O2Findings;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.O2Findings
 {
@@ -41,7 +42,7 @@ namespace O2.DotNetWrappers.O2Findings
 
         public static IO2Finding createCopyAndGlueTraceSinkWithTrace(IO2Finding o2TemplateFinding, IO2Trace o2TracesToGlue)
         {
-            return createCopyAndGlueTraceSinkWithTrace(o2TemplateFinding, new List<IO2Trace> {o2TracesToGlue});
+            return createCopyAndGlueTraceSinkWithTrace(o2TemplateFinding, new List<IO2Trace>().add(o2TracesToGlue));
         }
 
         public static IO2Finding createCopyAndGlueTraceSinkWithTrace(IO2Finding o2TemplateFinding,

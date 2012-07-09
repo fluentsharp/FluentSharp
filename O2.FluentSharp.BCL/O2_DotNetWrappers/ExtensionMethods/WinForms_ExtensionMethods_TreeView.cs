@@ -27,15 +27,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static TreeView  add_TreeView(this Control control)
         {
             return (TreeView) control.invokeOnThread(
-                                  () =>
-                                      {
-                                          var treeView = new TreeView {Dock = DockStyle.Fill};
-                                          control.Controls.Add(treeView);
-                                          //change the default dehaviour of treeviews of not selecting on mouse click (big problem when using right click) 
-                                          treeView.NodeMouseClick += (sender, e) => { treeView.SelectedNode = e.Node; };
-                                          treeView.HideSelection = false;
-                                          return treeView;
-                                      });
+                                  () =>{
+                                          	var treeView = new TreeView();
+											treeView.Dock = DockStyle.Fill;
+                                          	control.Controls.Add(treeView);
+                                          	//change the default dehaviour of treeviews of not selecting on mouse click (big problem when using right click) 
+                                          	treeView.NodeMouseClick += (sender, e) => { treeView.SelectedNode = e.Node; };
+                                          	treeView.HideSelection = false;
+                                          	return treeView;
+                                      	});
         }
 
         public static TreeNode  add_Node(this TreeView treeView, TreeNode rootNode, string nodeText, Color textColor)
@@ -58,18 +58,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeNode  add_Node(this TreeView treeView, string nodeText, object nodeTag)
         {
-            return (TreeNode) treeView.invokeOnThread((()
-                                                       =>
-                                                           {
-                                                               var treeNode = new TreeNode
-                                                                                  {
-                                                                                      Name = nodeText,
-                                                                                      Text = nodeText,
-                                                                                      Tag = nodeTag
-                                                                                  };                                                               
-                                                               treeView.Nodes.Add(treeNode);
+            return (TreeNode) treeView.invokeOnThread((()=>{
+																var treeNode = new TreeNode();
+																treeNode.Tag = nodeTag;
+																treeNode.Text = nodeText;
+																treeNode.Name = nodeText;                                                            
+                                                               	treeView.Nodes.Add(treeNode);
                                                                //treeView.Refresh();
-                                                               return treeNode;
+                                                               	return treeNode;
                                                            }));
         }
         public static int       add_Node(this TreeView treeView, TreeNode treeNode)
@@ -219,7 +215,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         var nodeText = (maxNodeTextSize > 1 && item.Key.size() > maxNodeTextSize)
                                             ? item.Key.Substring(0, maxNodeTextSize).add("...")
                                             : item.Key;
-                        TreeNode newNode = new TreeNode { Text = nodeText, Name = nodeText };                        
+                        TreeNode newNode = new TreeNode();
+						newNode.Name = nodeText;
+						newNode.Text = nodeText;
                         newNode.ImageIndex = newNode.SelectedImageIndex = 0;
                         newNode.Tag = item.Value;                        
                         if (item.Value.size() > 1)

@@ -9,16 +9,14 @@ namespace O2.DotNetWrappers.Windows
         public static ListBox add_ListBox(Control cTargetControl, String sTitle, int iLeft, int iTop, int iWidth,
                                          int iHeight)
         {
-            var lbListBox = new ListBox
-                                {
-                                    Left = iLeft,
-                                    Top = iTop,
-                                    Width = iWidth,
-                                    Height = iHeight,
-                                    FormattingEnabled = true,
-                                    HorizontalScrollbar = true,
-                                    Sorted = true
-                                };
+            var lbListBox = new ListBox();
+			lbListBox.Sorted = true;
+			lbListBox.HorizontalScrollbar = true;
+			lbListBox.FormattingEnabled = true;
+			lbListBox.Height = iHeight;
+			lbListBox.Width = iWidth;
+			lbListBox.Top = iTop;
+			lbListBox.Left = iLeft;
             cTargetControl.Controls.Add(lbListBox);
             // if sTitle != "" add a title on the top left
             if (sTitle != "")
@@ -28,21 +26,33 @@ namespace O2.DotNetWrappers.Windows
 
         public static Label add_Label(Control cTargetControl, String sLabelText, int iLeft, int iTop)
         {
-            var lLabel = new Label {AutoSize = true, Text = sLabelText, Left = iLeft, Top = iTop};
+            var lLabel = new Label();
+			lLabel.Top = iTop;
+			lLabel.Left = iLeft;
+			lLabel.Text = sLabelText;
+			lLabel.AutoSize = true;
             cTargetControl.Controls.Add(lLabel);
             return lLabel;
         }
 
         public static TextBox add_TextBox(Control cTargetControl, String sLabelText, int iLeft, int iTop)
         {
-            var tbTextBox = new TextBox {AutoSize = true, Text = sLabelText, Left = iLeft, Top = iTop};
+            var tbTextBox = new TextBox();
+			tbTextBox.Top = iTop;
+			tbTextBox.Left = iLeft;
+			tbTextBox.Text = sLabelText;
+			tbTextBox.AutoSize = true;
             cTargetControl.Controls.Add(tbTextBox);
             return tbTextBox;
         }
 
         public static Button add_Button(Control cTargetControl, String sLabelText, int iLeft, int iTop)
         {
-            var btButton = new Button {AutoSize = true, Text = sLabelText, Left = iLeft, Top = iTop};
+            var btButton = new Button();
+			btButton.Top = iTop;
+			btButton.Left = iLeft;
+			btButton.Text = sLabelText;
+			btButton.AutoSize = true;
             cTargetControl.Controls.Add(btButton);
             return btButton;
         }
@@ -51,15 +61,13 @@ namespace O2.DotNetWrappers.Windows
                                                    int iLeft, int iTop, int iWidth, int iHeight,
                                                    AnchorStyles asAnchorStyles)
         {
-            var dgvDataGridView = new DataGridView
-                                      {
-                                          Top = iTop,
-                                          Left = iLeft,
-                                          Width = iWidth,
-                                          Height = iHeight,
-                                          Anchor = asAnchorStyles,
-                                          SelectionMode = DataGridViewSelectionMode.FullRowSelect
-                                      };
+			var dgvDataGridView = new DataGridView();
+			dgvDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgvDataGridView.Anchor = asAnchorStyles;
+			dgvDataGridView.Height = iHeight;
+			dgvDataGridView.Width = iWidth;
+			dgvDataGridView.Left = iLeft;
+			dgvDataGridView.Top = iTop;
             //	dgvDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             cTargetControl.Controls.Add(dgvDataGridView);
             return dgvDataGridView;

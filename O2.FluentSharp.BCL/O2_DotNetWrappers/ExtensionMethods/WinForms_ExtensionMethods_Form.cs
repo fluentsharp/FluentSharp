@@ -81,6 +81,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static Panel popupWindow(this string title)
         {
+        	//title+=" - test" ;
             return title.showAsForm();
         }
         public static Panel popupWindow(this string title, int width, int height)

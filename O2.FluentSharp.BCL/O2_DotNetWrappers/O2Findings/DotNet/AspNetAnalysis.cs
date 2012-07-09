@@ -57,13 +57,11 @@ namespace O2.DotNetWrappers.O2Findings.DotNet
                                 //           sinkO2Trace.childTraces.Add(o2Finding.o2Trace);
                                 //           sourceO2Trace.childTraces.Add(sinkO2Trace);
 
-                                var newO2Finding = new O2Finding
-                                                       {
-                                                           vulnType = "ASP.NET Attack Surface",
-                                                           vulnName = word + "_" + variableName,
-                                                           //o2Trace = sourceO2Trace
-                                                           o2Traces = o2Finding.o2Traces
-                                                       };
+                              	var newO2Finding = new O2Finding();
+								newO2Finding.o2Traces = o2Finding.o2Traces;
+								newO2Finding.vulnName = word + "_" + variableName;
+								newO2Finding.vulnType = "ASP.NET Attack Surface";
+
                                 results.Add(newO2Finding);
                             }
                         }

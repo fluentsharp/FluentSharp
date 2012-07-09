@@ -118,33 +118,53 @@ namespace O2.Kernel.CodeUtils
 
         public static Thread raiseO2MDbgCommandExecutionMessage(IM_O2MdbgActions _o2MdbgAction, string _lastCommandExecutionMessage)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_O2MdbgAction { o2MdbgAction = _o2MdbgAction, lastCommandExecutionMessage = _lastCommandExecutionMessage });
+        	var action = new KM_O2MdbgAction();
+			action.lastCommandExecutionMessage = _lastCommandExecutionMessage;
+			action.o2MdbgAction = _o2MdbgAction;
+            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
         }
 
         
         public static Thread raiseO2MDbgAction(IM_O2MdbgActions _o2MdbgAction)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_O2MdbgAction { o2MdbgAction = _o2MdbgAction});
+        	var action = new KM_O2MdbgAction();
+        	action.o2MdbgAction = _o2MdbgAction;
+            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbgBreakEvent(string filename, int line)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_O2MdbgAction { o2MdbgAction = IM_O2MdbgActions.breakEvent, filename = filename, line = line });
+        	var action = new KM_O2MdbgAction();
+			action.line = line;
+			action.filename = filename;
+			action.o2MdbgAction = IM_O2MdbgActions.breakEvent;
+            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbgDebugProcessRequest(string assemblyToDebug)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_O2MdbgAction { o2MdbgAction = IM_O2MdbgActions.debugProcessRequest, filename = assemblyToDebug});
+        	var action = new KM_O2MdbgAction();
+			action.filename = assemblyToDebug;
+			action.o2MdbgAction = IM_O2MdbgActions.debugProcessRequest;
+            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbgDebugMethodInfoRequest(MethodInfo methodToDebug, string loadDllsFrom)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_O2MdbgAction { o2MdbgAction = IM_O2MdbgActions.debugMethodInfoRequest, method = methodToDebug, loadDllsFrom = loadDllsFrom});
+        	var action = new KM_O2MdbgAction();
+			action.loadDllsFrom = loadDllsFrom;
+			action.method = methodToDebug;
+			action.o2MdbgAction = IM_O2MdbgActions.debugMethodInfoRequest;
+            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbg_SetBreakPointOnFile(string fileName, int lineNumber)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_O2MdbgAction { o2MdbgAction = IM_O2MdbgActions.setBreakpointOnFile, filename = fileName, line = lineNumber });
+        	var action = new KM_O2MdbgAction();
+			action.line = lineNumber;
+			action.filename = fileName;
+			action.o2MdbgAction = IM_O2MdbgActions.setBreakpointOnFile;
+            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
         }
         
         //O2Messages.raiseO2MDbgAction(IM_O2MdbgActions.startDebugSession);

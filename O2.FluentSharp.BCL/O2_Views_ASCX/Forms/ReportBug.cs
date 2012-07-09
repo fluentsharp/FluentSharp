@@ -222,7 +222,8 @@ namespace O2.Views.ASCX.Forms
         {
             O2Thread.staThread(
                     ()=>{
-                            var rpReportBug = new ReportBug { fParentForm = form };
+                            var rpReportBug = new ReportBug();
+                            rpReportBug.fParentForm = form;;
                             rpReportBug.setFromEmail("o2User@owasp.org");
                             rpReportBug.setSubject("[Comment from O2 user] ");
                             rpReportBug.setMessage(Mail.getUserDetailsAsEmailFormat() + " says:" + Environment.NewLine +

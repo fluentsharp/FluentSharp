@@ -291,7 +291,9 @@ namespace O2.DotNetWrappers.Windows
 
             {
                 incProgressbar();
-                var tnNewNode = new TreeNode {Text = sText, Name = sName};
+                var tnNewNode = new TreeNode();
+				tnNewNode.Name = sName;
+				tnNewNode.Text = sText;
                 tnNewNode.ImageIndex = tnNewNode.SelectedImageIndex = iImageIndex;
                 tnNewNode.Tag = oObject;
                 tnNewNode.ForeColor = Color.Black;  // to handle the weird 'treeView with 1 Node makes the TreeNode Text  white' bug

@@ -322,7 +322,7 @@ namespace O2.Views.ASCX.CoreControls
                 }
                 if (Directory.Exists(fileOrFolder))
                 {
-                    var assembliesToAdd =Files.getFilesFromDir_returnFullPath(fileOrFolder, new List<string> { "*.dll", "*.exe" }, true);
+                    var assembliesToAdd =Files.getFilesFromDir_returnFullPath(fileOrFolder, new List<string>().add("*.dll").add("*.exe"), true);
                     if (assembliesToAdd.Count > 0)
                     {
                         foreach (var file in assembliesToAdd)

@@ -29,25 +29,25 @@ namespace O2.DotNetWrappers.DotNet
 
         public static DragAndDropAction getSelectedFileAction(String sSelectedFile)
         {
-            var dActionData = new Dictionary<String, object> {{"Path", sSelectedFile}};
+            var dActionData = new Dictionary<String, object>();
+			dActionData.Add("Path", sSelectedFile);
             var dddaSourceCode = new DragAndDropAction(Action.SelectedFileAction, dActionData);
             return dddaSourceCode;
         }
 
         public static DragAndDropAction getSourceCodeAction(String sPathToSourceCodeFile)
         {
-            var dActionData = new Dictionary<String, object>
-                                  {
-                                      {"Path", sPathToSourceCodeFile},
-                                      {"Contents", Files.getFileContents(sPathToSourceCodeFile)}
-                                  };
+            var dActionData = new Dictionary<String, object>();
+			dActionData.Add("Path", sPathToSourceCodeFile);
+			dActionData.Add("Contents", Files.getFileContents(sPathToSourceCodeFile));
             var dddaSourceCode = new DragAndDropAction(Action.SourceCodeAction, dActionData);
             return dddaSourceCode;
         }
 
         public static DragAndDropAction getObjectDataAction(Object oObjectToSend)
         {
-            var dActionData = new Dictionary<String, object> {{"Object", oObjectToSend}};
+            var dActionData = new Dictionary<String, object>();
+			dActionData.Add("Object", oObjectToSend);
             var dddaSourceCode = new DragAndDropAction(Action.ObjectData, dActionData);
             return dddaSourceCode;
         }

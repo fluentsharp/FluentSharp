@@ -252,10 +252,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         splitControl_1.SplitterDistance = spliterDistance;
                     else
                         "In add_SplitContainer_1x1, could not set the spliterDistance value of: {0}".format(spliterDistance).error();
-
+ 
                     GroupBox groupBox_1 = splitControl_1.Panel1.add_GroupBox(title_1);
                     GroupBox groupBox_2 = splitControl_1.Panel2.add_GroupBox(title_2);
-                    return new List<Control> { groupBox_1, groupBox_2 };
+                    var controls = new List<Control>();
+                    controls.add(groupBox_1);
+                    controls.add(groupBox_2 );
+                    return controls;
                 });
         }
         public static GroupBox add_SplitContainer_1x1(this Control control, Control childControl_1, string title_2, bool verticalSplit, int spliterDistance)
@@ -314,7 +317,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     Control groupBox_1 = control.add_SplitContainer_1x1(title_1, splitControl_2, verticalSplit,
                                                                         spliterDistance_1);
 
-                    var controls = new List<Control> { groupBox_1, groupBox_2, groupBox_3 };
+                    var controls = new List<Control>();
+					controls.Add(groupBox_3);
+					controls.Add(groupBox_2);
+					controls.Add(groupBox_1);
                     return controls;
                 });
         }
@@ -342,7 +348,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             control.add_SplitContainer_1x1(splitControl_2, splitControl_3, verticalSplit, spliterDistance_1);
 
-            var controls = new List<Control> {groupBox_1, groupBox_2, groupBox_3, groupBox_4};
+            var controls = new List<Control>();
+			controls.Add(groupBox_4);
+			controls.Add(groupBox_3);
+			controls.Add(groupBox_2);
+			controls.Add(groupBox_1);
             return controls;
         }
 

@@ -27,7 +27,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				"could not find file to compile: {0}".error(fileToCompile);  
 			else
 			{ 
-				var assembly = new CompileEngine(compilationVersion).compileSourceFiles(new List<string> {fileToCompile}, 
+				var assembly = new CompileEngine(compilationVersion).compileSourceFiles(new List<string>().add(fileToCompile), 
 																	  mainClass, 
 																	  filenameWithoutExtension);
 				if (assembly.isNull()) 
@@ -69,9 +69,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 "could not find file to compile: {0}".error(fileToCompile); 
             else
             {
-                var assembly = (mainClass.valid())
-                                    ? new CompileEngine().compileSourceFiles(new List<string> {fileToCompile}, mainClass)
-                                    : new CompileEngine().compileSourceFiles(new List<string> {fileToCompile}, mainClass, System.IO.Path.GetFileNameWithoutExtension(compiledDll));
+                var assembly = (mainClass.valid())   
+                                    ? new CompileEngine().compileSourceFiles(new List<string>().add(fileToCompile), mainClass)
+                                    : new CompileEngine().compileSourceFiles(new List<string>().add(fileToCompile), mainClass, System.IO.Path.GetFileNameWithoutExtension(compiledDll));
                 if (assembly.isNull())
                     "no compiled assembly object created for: {0}".error(fileToCompile);
                 else

@@ -43,7 +43,9 @@ namespace O2.DotNetWrappers.Windows
             {
                 try
                 {
-                    var fForm = new Form {Width = controlToLoad.Width, Height = controlToLoad.Height};
+                    var fForm = new Form();
+					fForm.Height = controlToLoad.Height;
+					fForm.Width = controlToLoad.Width;
                     fForm.set_H2Icon();
                     controlToLoad.Dock = DockStyle.Fill;
                     fForm.Controls.Add(controlToLoad);
@@ -486,11 +488,9 @@ namespace O2.DotNetWrappers.Windows
                                                                                          new[] {itemToAdd});
                                 break;
                             case "ListView":
-                                var listViewItem = new ListViewItem(itemToAdd.ToString())
-                                                       {
-                                                           Name = itemToAdd.ToString(),
-                                                           Tag = itemToAdd
-                                                       };
+                                var listViewItem = new ListViewItem(itemToAdd.ToString());
+								listViewItem.Tag = itemToAdd;
+								listViewItem.Name = itemToAdd.ToString();
                                 PublicDI.reflection.invokeMethod_InstanceStaticPublicNonPublic(targetCollection, "Add",
                                                                                          new[] {listViewItem});
                                 break;
@@ -620,7 +620,9 @@ namespace O2.DotNetWrappers.Windows
         // create a new node object
         public static TreeNode newTreeNode(string text, string name, int imageIndex, object tag)
         {
-            var tnNewNode = new TreeNode {Text = text, Name = name};
+            var tnNewNode = new TreeNode();
+			tnNewNode.Name = name;
+			tnNewNode.Text = text;
             tnNewNode.ImageIndex = tnNewNode.SelectedImageIndex = imageIndex;
             tnNewNode.Tag = tag;
             tnNewNode.ForeColor = Color.Black;  // to handle the weird 'treeView with 1 Node makes the TreeNode Text  white' bug
@@ -636,13 +638,11 @@ namespace O2.DotNetWrappers.Windows
         public static DataGridViewTextBoxColumn newDataGridViewTextBoxColumn(String sName, String sHeaderValue,
                                                                              bool bReadOnly, Type tValueType)
         {
-            var dgvcNewTextBoxColumn = new DataGridViewTextBoxColumn
-                                           {
-                                               Name = sName,
-                                               HeaderText = sHeaderValue,
-                                               ReadOnly = bReadOnly,
-                                               ValueType = tValueType
-                                           };
+            var dgvcNewTextBoxColumn = new DataGridViewTextBoxColumn();
+			dgvcNewTextBoxColumn.ValueType = tValueType;
+			dgvcNewTextBoxColumn.ReadOnly = bReadOnly;
+			dgvcNewTextBoxColumn.HeaderText = sHeaderValue;
+			dgvcNewTextBoxColumn.Name = sName;
             return dgvcNewTextBoxColumn;
         }
 
@@ -651,7 +651,8 @@ namespace O2.DotNetWrappers.Windows
         {
             const string sTrue = "true";
             const string sFalse = "false";
-            var dgvcNewComboBoxCell = new DataGridViewComboBoxCell {ReadOnly = bReadOnly};
+            var dgvcNewComboBoxCell = new DataGridViewComboBoxCell();
+            dgvcNewComboBoxCell.ReadOnly = bReadOnly;
             dgvcNewComboBoxCell.Items.AddRange(new[] {sTrue, sFalse});
             dgvcNewComboBoxCell.Value = bDefaultValue ? sTrue : sFalse;
             dgvcNewComboBoxCell.Tag = typeof (Boolean);
@@ -662,8 +663,9 @@ namespace O2.DotNetWrappers.Windows
         {
             try
             {
-                using (var fbdFolderBrowserDialog = new FolderBrowserDialog {SelectedPath = sStartDir})
+                using (var fbdFolderBrowserDialog = new FolderBrowserDialog())
                 {
+                	fbdFolderBrowserDialog.SelectedPath = sStartDir;
                     DialogResult drDialogResult = fbdFolderBrowserDialog.ShowDialog();
                     return drDialogResult == DialogResult.OK ? fbdFolderBrowserDialog.SelectedPath : "";
                 }
@@ -688,7 +690,8 @@ namespace O2.DotNetWrappers.Windows
         {
             try
             {
-                var openFileDialog = new OpenFileDialog { InitialDirectory = proposedFolder };
+                var openFileDialog = new OpenFileDialog();
+                openFileDialog.InitialDirectory = proposedFolder;
                 if (filter.valid())
                     openFileDialog.Filter = filter;
                 DialogResult drDialogResult = openFileDialog.ShowDialog();
@@ -712,12 +715,10 @@ namespace O2.DotNetWrappers.Windows
             try
             {
                 string extension = Path.GetExtension(proposedFile);
-                var openFileDialog = new SaveFileDialog
-                                         {
-                                             InitialDirectory = proposedFolder,
-                                             FileName = proposedFile,
-                                             Filter = string.Format("{0} files (*{0})|*{0}", extension)
-                                         };
+               	var openFileDialog = new SaveFileDialog();
+				openFileDialog.Filter = string.Format("{0} files (*{0})|*{0}", extension);
+				openFileDialog.FileName = proposedFile;
+				openFileDialog.InitialDirectory = proposedFolder;
                 DialogResult drDialogResult = openFileDialog.ShowDialog();
                 if (drDialogResult == DialogResult.OK)
                     return openFileDialog.FileName;

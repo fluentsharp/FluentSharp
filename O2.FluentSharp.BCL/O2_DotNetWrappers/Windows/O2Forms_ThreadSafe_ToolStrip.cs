@@ -77,7 +77,8 @@ namespace O2.DotNetWrappers.Windows
                 return (ToolStripItem)toolStrip.invokeOnThread(
                     () =>
                     {
-                        var newTextBox = new ToolStripTextBox(controlName) { Text = defaultValue };
+                        var newTextBox = new ToolStripTextBox(controlName);
+                        newTextBox.Text = defaultValue;
                         toolStrip.Items.Add(newTextBox);
                         if (onKeyUp != null)
                             newTextBox.KeyUp += onKeyUp;
@@ -95,11 +96,9 @@ namespace O2.DotNetWrappers.Windows
                 return (ToolStripItem)toolStrip.invokeOnThread(
                     () =>
                     {
-                        var newLabel = new ToolStripLabel(labelName) 
-                        {
-                        	Name = labelName,
-                        	Text = labelText 
-                        };
+                        var newLabel = new ToolStripLabel(labelName);
+						newLabel.Text = labelText;
+						newLabel.Name = labelName;
                         toolStrip.Items.Add(newLabel);                        
                         return newLabel;
                     });

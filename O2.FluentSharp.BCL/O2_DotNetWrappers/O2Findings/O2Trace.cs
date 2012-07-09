@@ -67,10 +67,8 @@ namespace O2.DotNetWrappers.O2Findings
 
         public IO2Trace addTrace(string traceSignature, TraceType _traceType)
         {            
-            var newTrace = new O2Trace(traceSignature)
-                               {
-                                   traceType = _traceType
-                               };
+            var newTrace = new O2Trace(traceSignature);
+			newTrace.traceType = _traceType;
             childTraces.Add(newTrace);
             return newTrace;
         }
@@ -85,10 +83,8 @@ namespace O2.DotNetWrappers.O2Findings
             var newTraces = new List<IO2Trace>();
             foreach (var traceSignature in traceSignatures)
             {
-                var newTrace = new O2Trace(prefixText + traceSignature)
-                                   {
-                                       traceType = _traceType
-                                   };
+                var newTrace = new O2Trace(prefixText + traceSignature);
+                newTrace.traceType = _traceType;
                 childTraces.Add(newTrace);
                 newTraces.Add(newTrace);
             }

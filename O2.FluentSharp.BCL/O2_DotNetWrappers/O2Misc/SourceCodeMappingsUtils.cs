@@ -57,7 +57,8 @@ namespace O2.DotNetWrappers.O2Misc
             {
                 DI.log.info("Asking the user to resolve the file reference: {0}", sFileToFind);
                 String sFilename = Path.GetFileName(sFileToFind);
-                var opdOpenFileDialog = new OpenFileDialog { Filter = (sFilename + "|" + sFilename) };
+                var opdOpenFileDialog = new OpenFileDialog();
+                opdOpenFileDialog.Filter = (sFilename + "|" + sFilename);
                 DialogResult drDialogResult = opdOpenFileDialog.ShowDialog();
                 if (drDialogResult == DialogResult.OK)
                     return opdOpenFileDialog.FileName;
@@ -83,7 +84,8 @@ namespace O2.DotNetWrappers.O2Misc
 				"[getSourceCodeMappings] {0}".error(ex.Message);
 			}
 
-            var scmSourceCodeMappings = new SourceCodeMappings {Mapping = new SourceCodeMappingsMapping[] {}};
+            var scmSourceCodeMappings = new SourceCodeMappings();
+            scmSourceCodeMappings.Mapping = new SourceCodeMappingsMapping[] {};
             return scmSourceCodeMappings;
         }
 
@@ -106,15 +108,14 @@ namespace O2.DotNetWrappers.O2Misc
             {
                 if (rRow.Cells[0].Value != null && rRow.Cells[1].Value != null)
                 {
-                    var mMapping = new SourceCodeMappingsMapping
-                                       {
-                                           replaceThisString = rRow.Cells[0].Value.ToString(),
-                                           withThisString = rRow.Cells[1].Value.ToString()
-                                       };
+                    var mMapping = new SourceCodeMappingsMapping();
+					mMapping.withThisString = rRow.Cells[1].Value.ToString();
+					mMapping.replaceThisString = rRow.Cells[0].Value.ToString();
                     lmMappings.Add(mMapping);
                 }
             }
-            var scmSourceCodeMappings = new SourceCodeMappings {Mapping = lmMappings.ToArray()};
+            var scmSourceCodeMappings = new SourceCodeMappings();
+			scmSourceCodeMappings.Mapping = lmMappings.ToArray();
             return scmSourceCodeMappings;
 
         }
@@ -190,11 +191,11 @@ namespace O2.DotNetWrappers.O2Misc
             {
                 var mappings = new List<SourceCodeMappingsMapping>(DI.sourceCodeMappings.Mapping);
 
-                mappings.Add( new SourceCodeMappingsMapping
-                                  {
-                                      replaceThisString = pathToFind,
-                                      withThisString = pathToReplace
-                                  });
+				var sourceCodeMappings = new SourceCodeMappingsMapping();
+				sourceCodeMappings.withThisString = pathToReplace;
+				sourceCodeMappings.replaceThisString = pathToFind;
+				
+                mappings.Add(sourceCodeMappings);
                 DI.sourceCodeMappings.Mapping = mappings.ToArray();
                 saveSourceCodeMappings(DI.sourceCodeMappings);
             }

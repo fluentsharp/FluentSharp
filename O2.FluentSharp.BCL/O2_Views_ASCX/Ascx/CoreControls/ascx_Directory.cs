@@ -46,10 +46,14 @@ namespace O2.Views.ASCX.CoreControls
         private FolderWatcher folderWatcher;
         //public String fileFilter = "*.*";
         private ViewMode viewMode = ViewMode.Advanced;
-        public List<string> listOfExtensionsToShowToolTipContents = new List<string> { ".cs" , ".o2", ".h2" };
+        public List<string> listOfExtensionsToShowToolTipContents = new List<string>();
 
         public ascx_Directory()
-        {
+        {        	
+			listOfExtensionsToShowToolTipContents.Add(".h2");
+			listOfExtensionsToShowToolTipContents.Add(".o2");
+			listOfExtensionsToShowToolTipContents.Add(".cs");
+
             InitializeComponent();
             _ProcessDroppedObjects = true;
             _ShowFileSize = false;

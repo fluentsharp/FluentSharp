@@ -104,7 +104,7 @@ namespace O2.Views.ASCX.O2Findings
         public void insertNewO2Trace()
         {
             if (o2Finding.o2Traces.Count == 0)
-                o2Finding.o2Traces = new List<IO2Trace> { new O2Trace("new root trace") };
+                o2Finding.o2Traces = new List<IO2Trace>().add(new O2Trace("new root trace"));
             else if (tvSmartTrace.SelectedNode != null && tvSmartTrace.SelectedNode.Tag.GetType().Name == "O2Trace")
             {
                 var newO2Trace = new O2Trace("insertedNewTrace");
@@ -137,7 +137,7 @@ namespace O2.Views.ASCX.O2Findings
         public void appendNewO2Trace()
         {
             if (o2Finding.o2Traces.Count == 0)
-                o2Finding.o2Traces = new List<IO2Trace> { new O2Trace("new root trace") };
+                o2Finding.o2Traces = new List<IO2Trace>().add(new O2Trace("new root trace"));
             else if (tvSmartTrace.SelectedNode != null && tvSmartTrace.SelectedNode.Tag.GetType().Name == "O2Trace")
             {
                 o2Trace = new O2Trace("newChildTrace");

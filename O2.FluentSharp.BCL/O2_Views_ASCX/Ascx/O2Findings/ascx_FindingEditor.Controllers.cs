@@ -110,16 +110,11 @@ namespace O2.Views.ASCX.O2Findings
                                                         property.Name != "getKnownSink")
                                                     {
                                                         var newRow = new DataGridViewRow();
-                                                        var cellName = new DataGridViewTextBoxCell
-                                                                           {Value = property.Name};
-                                                        var cellValue = new DataGridViewTextBoxCell
-                                                                            {
-                                                                                ValueType = property.PropertyType,
-                                                                                Value =
-                                                                                    DI.reflection.getProperty(
-                                                                                    property.Name, currentO2Finding)
-                                                                                //currentO2Finding.getField(field.Name)
-                                                                            };
+                                                        var cellName = new DataGridViewTextBoxCell();
+                                                        cellName.Value = property.Name;
+                                                        var cellValue = new DataGridViewTextBoxCell();
+														cellValue.Value = DI.reflection.getProperty(property.Name, currentO2Finding);
+														cellValue.ValueType = property.PropertyType;                                                        
                                                         newRow.Cells.AddRange(new[] {cellName, cellValue});
 
                                                         dgvFindingsDetails.Rows.Add(newRow);
@@ -136,8 +131,7 @@ namespace O2.Views.ASCX.O2Findings
 
         public void showO2Trace(IO2Trace o2Trace)
         {
-            this.invokeOnThread(() =>
-                                    {
+            this.invokeOnThread(()=>{
                                         currentO2Trace = o2Trace;
                                         btSaveChangesToTrace.Visible = false;
                                         if (o2Trace != null)
@@ -150,19 +144,17 @@ namespace O2.Views.ASCX.O2Findings
                                                 if (property.Name != "childTraces")
                                                 {
                                                     var newRow = new DataGridViewRow();
-                                                    var cellName = new DataGridViewTextBoxCell {Value = property.Name};
-                                                    var cellValue = new DataGridViewTextBoxCell
-                                                                        {
-                                                                            ValueType = property.PropertyType,
-                                                                            Value = DI.reflection.getProperty(property.Name, o2Trace)
-                                                                        };
+                                                    var cellName = new DataGridViewTextBoxCell();
+                                                    cellName.Value = property.Name;
+													var cellValue = new DataGridViewTextBoxCell();
+													cellValue.Value = DI.reflection.getProperty(property.Name, o2Trace);
+													cellValue.ValueType = property.PropertyType;
 
                                                     newRow.Cells.AddRange(new[] {cellName, cellValue});
                                                     dgvTraceDetails.Rows.Add(newRow);
                                                 }
                                             }
-                                            cbCurrentO2TraceType.Text =
-                                                getCellWithCurrentO2TraceText("traceType").Value.ToString();
+                                            cbCurrentO2TraceType.Text = getCellWithCurrentO2TraceText("traceType").Value.ToString();
                                             dgvTraceDetails.Visible = true;
                                         }
                                     });

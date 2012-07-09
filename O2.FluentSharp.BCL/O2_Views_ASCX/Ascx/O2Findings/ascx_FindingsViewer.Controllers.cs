@@ -528,7 +528,8 @@ namespace O2.Views.ASCX.O2Findings
                 OzasmtCompatibility.makeCompatibleWithOunceV6(o2FindingsToSave);
 
                 string targetFile = tbSavedFileName.Text;
-                var o2Assessment = new O2Assessment {name = assessmentName};
+                var o2Assessment = new O2Assessment();
+                o2Assessment.name = assessmentName;
                 o2Assessment.o2Findings.AddRange(o2FindingsToSave);
                 if (saveIntoO2BinaryFormat)
                 {
@@ -719,7 +720,7 @@ namespace O2.Views.ASCX.O2Findings
 
         public static Thread openInFloatWindow(IO2Finding o2Finding)
         {
-            return openInFloatWindow(new List<IO2Finding> { o2Finding });
+            return openInFloatWindow(new List<IO2Finding>().add(o2Finding));
         }
 
         public static Thread openInFloatWindow(List<IO2Finding> o2Findings)

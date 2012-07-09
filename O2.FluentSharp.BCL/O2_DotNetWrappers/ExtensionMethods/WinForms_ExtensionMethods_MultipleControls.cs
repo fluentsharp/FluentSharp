@@ -49,7 +49,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (Button)control.invokeOnThread(
                                () =>
                                    {
-                                       var button = new Button {Text = text};
+                                       var button = new Button();
+										button.Text = text;
                                        if (top > -1)
                                            button.Top = top;
                                        if (left > -1)
@@ -128,17 +129,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static CheckBox add_CheckBox(this Control control, string text, int top, int left, Action<bool> onChecked)
         {
             return (CheckBox) control.invokeOnThread(
-                                  () =>
-                                      {
-                                          var checkBox = new CheckBox {Text = text};
-                                          checkBox.CheckedChanged += (sender, e) => onChecked(checkBox.Checked);
-                                          if (top > -1)
-                                              checkBox.Top = top;
-                                          if (left > -1)
-                                              checkBox.Left = left;
-                                          control.Controls.Add(checkBox);
-                                          return checkBox;
-                                      });
+                                  () =>{
+											var checkBox = new CheckBox();
+											checkBox.Text = text;
+                                          	checkBox.CheckedChanged += (sender, e) => onChecked(checkBox.Checked);
+                                          	if (top > -1)
+                                              	checkBox.Top = top;
+                                          	if (left > -1)
+                                          	    checkBox.Left = left;
+                                          	control.Controls.Add(checkBox);
+                                          	return checkBox;
+                                      	});
         }
         public static CheckBox add_CheckBox(this Control control, int top, string checkBoxText)
         {
@@ -453,7 +454,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             if (contextMenu.isNull())
                 return null;
-            var menuItem = new ToolStripMenuItem {Text = text};
+            var menuItem = new ToolStripMenuItem();
+			menuItem.Text = text;
             contextMenu.Items.Add(menuItem);
             menuItem.Click += (sender, e) => O2Thread.mtaThread(() => onClick(menuItem));
             return menuItem;
@@ -484,7 +486,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 ()=>{
                         if (menuItem.isNull())
                             return null;
-                        var clildMenuItem = new ToolStripMenuItem { Text = text };            
+                        var clildMenuItem = new ToolStripMenuItem();
+						clildMenuItem.Text = text;
                         clildMenuItem.Click +=
                             (sender, e) => O2Thread.mtaThread(() => onClick(clildMenuItem)); 
                         menuItem.DropDownItems.Add(clildMenuItem);
@@ -550,11 +553,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static GroupBox add_GroupBox(this Control control, string groupBoxText)
         {
             return (GroupBox) control.invokeOnThread(
-                                  () =>
-                                      {
-                                          var groupBox = new GroupBox {Text = groupBoxText, Dock = DockStyle.Fill};
-                                          control.Controls.Add(groupBox);
-                                          return groupBox;
+                                  ()=>{
+                                    		var groupBox = new GroupBox();
+											groupBox.Dock = DockStyle.Fill;
+											groupBox.Text = groupBoxText;
+	                                        control.Controls.Add(groupBox);
+	                                        return groupBox;
                                       });
         }
         public static GroupBox title(this Control control, string title)
@@ -584,15 +588,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static Label add_Label(this Control control, string labelText)
         {
             return (Label) control.invokeOnThread(
-                               () =>
-                                   {
-                                       var label = new Label
-                                                       {
-                                                           Text = labelText, 
-                                                           AutoSize = true
-                                                       };
-                                       control.Controls.Add(label);
-                                       return label;
+                               ()=>{
+										var label = new Label();
+										label.AutoSize = true;
+										label.Text = labelText;
+                                       	control.Controls.Add(label);
+                                       	return label;
                                    });
         }
         public static System.Windows.Forms.Label append_Label<T>(this T control, string text)            where T : Control
@@ -664,23 +665,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static LinkLabel add_Link(this Control control, string text, int top, int left, MethodInvoker onClick)
         {
             return (LinkLabel)control.invokeOnThread(
-                                  () =>
-                                      {
-                                          var link = new LinkLabel
-                                                         {
-                                                             AutoSize = true,
-                                                             Text = text,
-                                                             Top = top,
-                                                             Left = left
-                                                         };
-                                          link.LinkClicked += 
+								()=>{
+										var link = new LinkLabel();
+										link.Left = left;
+										link.Top = top;
+										link.Text = text;
+										link.AutoSize = true;
+                                        link.LinkClicked += 
                                               (sender, e)=> { 
                                                                 if (onClick != null) 
                                                                     O2Thread.mtaThread(()=> onClick()); 
                                                             };
-                                          control.Controls.Add(link);
-                                          return link;
-                                      });
+                                        control.Controls.Add(link);
+                                        return link;
+                                     });
 
         }
         public static LinkLabel append_Link(this Control control, string text, MethodInvoker onClick)
@@ -1070,7 +1068,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (ToolStripMenuItem)menuStrip.invokeOnThread(
                 () =>
                 {
-                    var fileMenuItem = new ToolStripMenuItem { Text = text };
+                    var fileMenuItem = new ToolStripMenuItem();
+					fileMenuItem.Text = text;
                     menuStrip.Items.Add(fileMenuItem);
                     if (callback != null)
                         menuStrip.Click += (sender, e) => callback();
@@ -1121,24 +1120,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static PictureBox add_PictureBox(this Control control, int top, int left)
         {
             return (PictureBox)control.invokeOnThread(
-                                   () =>
-                                       {
-                                           var pictureBox = new PictureBox
-                                                                {
-                                                                    BackgroundImageLayout = ImageLayout.Stretch
-                                                                };
-                                           if (top == -1 && left == -1)
+                                   ()=>{
+											var pictureBox = new PictureBox();
+												pictureBox.BackgroundImageLayout = ImageLayout.Stretch;
+                                           	if (top == -1 && left == -1)
                                                pictureBox.fill();
-                                           else
-                                           {
+                                           	else
+                                           	{
                                                if (top > -1)
                                                    pictureBox.Top = top;
                                                if (left > -1)
                                                    pictureBox.Left = left;
-                                           }
-                                           control.Controls.Add(pictureBox);
-                                           return pictureBox;
-                                       });
+                                           	}
+                                           	control.Controls.Add(pictureBox);
+                                           	return pictureBox;
+                                        });
         }
         public static PictureBox load(this PictureBox pictureBox, Image image)
         {
@@ -1282,11 +1278,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static RichTextBox add_RichTextBox(this Control control, string text)
         {
             return (RichTextBox) control.invokeOnThread(
-                                     () =>
-                                         {
-                                             var richTextBox = new RichTextBox {Dock = DockStyle.Fill, Text = text};
-                                             control.Controls.Add(richTextBox);
-                                             return richTextBox;
+                                     ()=>{
+                                            var richTextBox = new RichTextBox();
+											richTextBox.Text = text;
+											richTextBox.Dock = DockStyle.Fill;
+                                            control.Controls.Add(richTextBox);
+                                            return richTextBox;
                                          });
         }
         public static RichTextBox set_Text(this RichTextBox richTextBox, string contents)
@@ -1449,7 +1446,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (SplitContainer) control.invokeOnThread(
                                         () =>
                                             {
-                                                var splitContainer = new SplitContainer {Orientation = orientation};
+                                                var splitContainer = new SplitContainer();
+                                                splitContainer.Orientation = orientation;
                                                 splitContainer.minimumSize(1);                                                
                                                 if (setDockStyleToFill)
                                                     splitContainer.Dock = DockStyle.Fill;
@@ -1585,7 +1583,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (TabControl) control.invokeOnThread(
                                     () =>
                                         {
-                                            var tabControl = new TabControl {Dock = DockStyle.Fill};
+                                            var tabControl = new TabControl();
+											tabControl.Dock = DockStyle.Fill;
                                             control.Controls.Add(tabControl);
                                             return tabControl;
                                         });
@@ -1595,7 +1594,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (TabPage) tabControl.invokeOnThread(
                                  () =>
                                      {
-                                         var tabPage = new TabPage {Text = tabTitle};
+                                         var tabPage = new TabPage();
+                                         tabPage.Text = tabTitle;
                                          tabControl.TabPages.Add(tabPage);
                                          return tabPage;
                                      });
@@ -1770,13 +1770,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
     { 
         public static ToolStripTextBox add_TextBox(this ContextMenuStrip contextMenu, string text)
         {
-            var textBox = new ToolStripTextBox { Text = text };
+            var textBox = new ToolStripTextBox();
+            textBox.Text = text;
             contextMenu.Items.Add(textBox);
             return textBox;
         }
         public static ToolStripTextBox add_TextBox(this ToolStripMenuItem menuItem, string text)
         {
-            var textBox = new ToolStripTextBox { Text = text };
+            var textBox = new ToolStripTextBox();
+            textBox.Text = text;
             menuItem.DropDownItems.Add(textBox);
             return textBox;
         }

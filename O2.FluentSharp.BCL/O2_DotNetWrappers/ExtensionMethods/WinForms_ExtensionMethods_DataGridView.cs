@@ -58,16 +58,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static int add_Column_Link(this DataGridView dataGridView, string title, int width, bool useColumnTextForLinkValue)
         {
             return (int)dataGridView.invokeOnThread(() =>
-                {
-                    var links = new DataGridViewLinkColumn
-                                    {
-                                        HeaderText = title,
-                                        DataPropertyName = title,
-                                        ActiveLinkColor = Color.White,
-                                        LinkBehavior = LinkBehavior.SystemDefault,
-                                        LinkColor = Color.Blue,
-                                        TrackVisitedState = true
-                                    };
+                {                    
+					var links = new DataGridViewLinkColumn();
+					links.TrackVisitedState = true;
+					links.LinkColor = Color.Blue;
+					links.LinkBehavior = LinkBehavior.SystemDefault;
+					links.ActiveLinkColor = Color.White;
+					links.DataPropertyName = title;
+					links.HeaderText = title;
+
                     if (useColumnTextForLinkValue)
                     {
                         links.UseColumnTextForLinkValue = true;
