@@ -95,8 +95,9 @@ namespace O2.DotNetWrappers.DotNet
                                 "System.dll",
                             //O2Related
                                 "O2_FluentSharp_CoreLib.dll",
-                                "O2_FluentSharp_BCL.dll",
+                                "O2_FluentSharp_BCL.dll",                                
                                 "O2_FluentSharp_Misc.dll",
+                                "O2_FluentSharp_REPL.dll",
                                 "O2_External_SharpDevelop.dll",                                                             
                                 //,
                             //WPF 

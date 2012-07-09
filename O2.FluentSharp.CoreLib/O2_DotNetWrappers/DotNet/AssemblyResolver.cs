@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 
 using O2.DotNetWrappers.ExtensionMethods;
+using System.IO;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -40,10 +41,29 @@ namespace O2.DotNetWrappers.DotNet
 		{
             if (name.valid() && CachedMappedAssemblies.hasKey(name))
                 return CachedMappedAssemblies[name];
-		/*	if (name.contains("SharpDevelop"))
-			{
-			
-			}*/
+
+            var nameToFind = (name.isAssemblyName())
+                                ? name.assemblyName().Name
+                                : name;
+            foreach(var resourceName in Assembly.GetEntryAssembly().GetManifestResourceNames())
+            {
+                if (resourceName.contains(nameToFind))
+                {
+                    var assemblyStream = Assembly.GetEntryAssembly().GetManifestResourceStream(resourceName);
+                    byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
+                    Assembly assembly = Assembly.Load(data);
+                    if (assembly.notNull())
+                    {
+                        CachedMappedAssemblies.add(name, assembly);
+                        return assembly;
+                    }
+                }
+            }
+
+            if (name.contains(".resources").isFalse())
+            { 
+            
+            }
 			//"[AssemblyResolve] for name: {0}".debug(name);
 			var location = NameResolver(name);
 			if (location.valid() && location.fileExists())

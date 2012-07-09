@@ -33,8 +33,11 @@ namespace O2.Kernel.InterfacesBaseImpl
             //detect if we are running O2 as a stand alone exe
             if (Assembly.GetEntryAssembly().isNull() || Assembly.GetEntryAssembly().name().starts("O2 Platform"))
             {
-                defaultO2LocalTempFolder = @"..\..\" + defaultO2LocalTempFolder;
-                defaultLocalScriptFolder = @"..\..\" + defaultLocalScriptFolder;
+                if (CurrentExecutableDirectory.pathCombine(@"..\..\" + defaultLocalScriptFolder).dirExists()) // check if the GitHub synced Scripts Folder exists
+                {
+                    defaultO2LocalTempFolder = @"..\..\" + defaultO2LocalTempFolder;
+                    defaultLocalScriptFolder = @"..\..\" + defaultLocalScriptFolder;
+                }
             }
 
             
