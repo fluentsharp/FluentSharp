@@ -78,16 +78,34 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return form;
         }
-
+		
+		
+		public static T popupWindow<T>(this string title)
+			where T : Control
+        {
+        	//title+=" - test" ;
+            return title.showAsForm().add_Control<T>();
+        }
+        
+        public static T popupWindow<T>(this string title, int width, int height)
+        	where T : Control
+        {
+            return title.showAsForm(width, height)
+            			.add_Control<T>();
+        }
+        
         public static Panel popupWindow(this string title)
         {
         	//title+=" - test" ;
             return title.showAsForm();
         }
+        
         public static Panel popupWindow(this string title, int width, int height)
         {
             return title.showAsForm(width, height);
         }
+        
+        
         public static Panel createForm(this string title)
         {
             return title.showAsForm();

@@ -304,6 +304,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_FileMappings.resx">
       <DependentUpon>ascx_FileMappings.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_O2ObjectModel.resx">
       <DependentUpon>ascx_O2ObjectModel.cs</DependentUpon>
