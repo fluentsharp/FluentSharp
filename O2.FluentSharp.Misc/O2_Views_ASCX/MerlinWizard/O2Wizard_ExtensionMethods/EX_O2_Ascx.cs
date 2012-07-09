@@ -20,13 +20,12 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
 
         public static ascx_Directory add_Directory(this IStep step, string startDirectory)
         {
-            var directory = new ascx_Directory
-                                {
-                                    AllowDrop = false,
-                                    _ViewMode = ascx_Directory.ViewMode.Simple_With_LocationBar,
-                                    _HideFiles = true,
-                                    Dock = DockStyle.Fill
-                                };
+           	var directory = new ascx_Directory();
+			directory.Dock = DockStyle.Fill;
+			directory._HideFiles = true;
+			directory._ViewMode = ascx_Directory.ViewMode.Simple_With_LocationBar;
+			directory.AllowDrop = false;
+			
             directory.openDirectory(startDirectory);
             directory.refreshDirectoryView();
             directory._WatchFolder = true;
@@ -115,11 +114,9 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
         public static IStep add_Control(this List<IStep> steps, Control control, string stepTitle, string stepSubTitle, Action<IStep> onComponentLoad)
         {
             control.AllowDrop = false;
-            var newStep = new TemplateStep(control, 10, stepTitle)
-                              {
-                                  Subtitle = stepSubTitle,
-                                  OnComponentAction = onComponentLoad
-                              };
+            var newStep = new TemplateStep(control, 10, stepTitle);
+			newStep.OnComponentAction = onComponentLoad;
+			newStep.Subtitle = stepSubTitle;
             steps.Add(newStep);
             return newStep;
         }
@@ -292,11 +289,9 @@ namespace O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods
             return (Label) step.UI.invokeOnThread(
                                () =>
                                    {
-                                       var label = new Label
-                                                       {
-                                                           AutoSize = true, 
-                                                           Text = text
-                                                       };
+                                       var label = new Label();
+                                       label.AutoSize = true;
+                                       label.Text = text;
                                        if (top > -1)
                                            label.Top = top;
                                        if (left > -1)
