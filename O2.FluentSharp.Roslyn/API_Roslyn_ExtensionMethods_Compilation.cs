@@ -123,10 +123,13 @@ namespace O2.XRules.Database.APIs
                 emitResult = compilation.Emit(ilStream, pdbFilename, pdbStream);
                 if (emitResult.Success && fileToCreate.fileExists())
                 {
-                    "[create_Assembly] created assembly: {0}".info(fileToCreate);                    
+                    "[create_Assembly] created assembly: {0}".info(fileToCreate);
                 }
                 else
+                {
                     "[create_Assembly] could not create assembly: {0}".error(fileToCreate);
+                    "[create_Assembly] Compilation errors: {1} {0}".error(emitResult.Diagnostics.errors().asString());
+                }
             }            
             if (emitResult.Success)
                 return Assembly.LoadFrom(fileToCreate);
