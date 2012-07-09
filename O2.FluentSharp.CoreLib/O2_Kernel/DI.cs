@@ -24,8 +24,7 @@ namespace O2.Kernel
             //Apply .NET Network Connection hack
             O2Kernel_Web.ApplyNetworkConnectionHack();
 
-            // all these variables need to be setup
-            appDomainsControledByO2Kernel = new Dictionary<string, O2AppDomainFactory>();
+            // all these variables need to be setup            
             log = new KO2Log();
             reflection = new KReflection();            
             
@@ -56,7 +55,5 @@ namespace O2.Kernel
 
         // local global variables
         public static string O2KernelProcessName { get; set; }
-
-        public static Dictionary<string, O2AppDomainFactory> appDomainsControledByO2Kernel;
     }
 }

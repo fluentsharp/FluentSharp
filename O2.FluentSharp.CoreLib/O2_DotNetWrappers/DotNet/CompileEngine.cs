@@ -331,9 +331,9 @@ namespace O2.DotNetWrappers.DotNet
                 {
                     "found cached compiled assembly: {0}".info(cachedAssembly);
                     var assembly = cachedAssembly.assembly();
-                                      
-                    if (assembly.notNull())
-                        if (assembly.ImageRuntimeVersion == Assembly.GetEntryAssembly().ImageRuntimeVersion)
+
+                    if (assembly.notNull() && Assembly.GetEntryAssembly().notNull())
+                        if (assembly.ImageRuntimeVersion == Assembly.GetEntryAssembly().imageRuntimeVersion())
                         {
                             return assembly;
                         }

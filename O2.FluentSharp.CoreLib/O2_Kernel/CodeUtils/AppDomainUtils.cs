@@ -48,18 +48,18 @@ namespace O2.Kernel.CodeUtils
 
         public static void renameCurrentO2KernelProcessName(string newO2KernelProcessName)
         {
-            var o2AppDomainFactory = DI.appDomainsControledByO2Kernel[DI.O2KernelProcessName];
+            var o2AppDomainFactory = O2AppDomainFactory.AppDomains_ControledByO2Kernel[DI.O2KernelProcessName];
             //o2AppDomainFactory.appDomain.FriendlyName = newAppDomainName; // can't do this since there is no Setter for the FiendlyName property
-            DI.appDomainsControledByO2Kernel.Remove(newO2KernelProcessName);
+            O2AppDomainFactory.AppDomains_ControledByO2Kernel.Remove(newO2KernelProcessName);
             DI.O2KernelProcessName = newO2KernelProcessName;
-            DI.appDomainsControledByO2Kernel.Add(DI.O2KernelProcessName, o2AppDomainFactory);
+            O2AppDomainFactory.AppDomains_ControledByO2Kernel.Add(DI.O2KernelProcessName, o2AppDomainFactory);
         }
 
         public static void registerCurrentAppDomain()
         {
             try
             {
-                DI.appDomainsControledByO2Kernel.Add(DI.O2KernelProcessName, new O2AppDomainFactory(AppDomain.CurrentDomain));
+                O2AppDomainFactory.AppDomains_ControledByO2Kernel.Add(DI.O2KernelProcessName, new O2AppDomainFactory(AppDomain.CurrentDomain));
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace O2.Kernel.CodeUtils
 
         public static O2AppDomainFactory getO2AppDomainFactoryForCurrentO2Kernel()
         {
-            return DI.appDomainsControledByO2Kernel[DI.O2KernelProcessName];
+            return O2AppDomainFactory.AppDomains_ControledByO2Kernel[DI.O2KernelProcessName];
         }        
     }
 }

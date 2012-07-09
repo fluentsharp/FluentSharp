@@ -22,8 +22,16 @@ namespace O2.Kernel.Objects
     [Serializable]
     public class O2AppDomainFactory
     {
+
+        public static Dictionary<string, O2AppDomainFactory> AppDomains_ControledByO2Kernel { get; set; }
+
         public String BaseDirectory { get; set; }
         public AppDomain appDomain { get; set; }
+
+        static O2AppDomainFactory()
+        {
+            AppDomains_ControledByO2Kernel = new Dictionary<string, O2AppDomainFactory>();
+        }
 
         public O2AppDomainFactory(AppDomain _appDomain)
         {
@@ -68,7 +76,7 @@ namespace O2.Kernel.Objects
         {
             try
             {
-                if (DI.appDomainsControledByO2Kernel.ContainsKey(appDomainName))
+                if (AppDomains_ControledByO2Kernel.ContainsKey(appDomainName))
                     DI.log.error("in createAppDomain, appDomainName provided has already been used, appDomainNames must be unique: {0}", appDomainName);
                 else
                 {
@@ -82,7 +90,7 @@ namespace O2.Kernel.Objects
                     // give our appDomain full trust :)
                     var permissionSet = new PermissionSet(PermissionState.Unrestricted);
 
-                    DI.appDomainsControledByO2Kernel.Add(appDomainName,this);
+                    AppDomains_ControledByO2Kernel.Add(appDomainName, this);
                     
                     //Create domain
                     appDomain = AppDomain.CreateDomain(appDomainName, null, appDomainSetup, permissionSet);
@@ -151,7 +159,7 @@ namespace O2.Kernel.Objects
 
         public string Name
         {
-            get { return appDomain.FriendlyName; }
+            get { return appDomain.notNull() ? appDomain.FriendlyName : ""; }
         }
 
 
@@ -159,7 +167,9 @@ namespace O2.Kernel.Objects
         {
             get
             {
-                return new List<string>(Directory.GetFiles(BaseDirectory));                
+                if (BaseDirectory.notNull())
+                    return new List<string>(Directory.GetFiles(BaseDirectory));
+                return new List<string>();
             }
         }
 
@@ -540,8 +550,8 @@ namespace O2.Kernel.Objects
             try
             {
                 DI.log.info("Unloading appDomain: {0}", Name);
-                if (DI.appDomainsControledByO2Kernel.ContainsKey(this.Name))
-                    DI.appDomainsControledByO2Kernel.Remove(this.Name);                
+                if (AppDomains_ControledByO2Kernel.ContainsKey(this.Name))
+                    AppDomains_ControledByO2Kernel.Remove(this.Name);                
                 AppDomain.Unload(appDomain);                
                 return true;
             }

@@ -32,7 +32,6 @@ namespace O2.Kernel
             config = (KO2Config)DI.config;
             reflection = (KReflection) DI.reflection;
             
-            appDomainsControledByO2Kernel = DI.appDomainsControledByO2Kernel;
             O2KernelProcessName = DI.O2KernelProcessName;           
 
             sDefaultFileName_ReportBug_LogView = "ReportBug_LogView.Rtf";
@@ -61,8 +60,7 @@ namespace O2.Kernel
 
         public static KO2Log log { get; set; }
         public static KO2Config config { get; set; }
-        public static KReflection reflection { get; set; }        
-        public static Dictionary<string, O2AppDomainFactory> appDomainsControledByO2Kernel;
+        public static KReflection reflection { get; set; }               
         public static string O2KernelProcessName { get; set; }
 
         // GUI stuff
@@ -97,7 +95,7 @@ namespace O2.Kernel
 
         public static void debugBreak()
         {
-            debug.@break();
+            debug._break();
         }
     }
 }

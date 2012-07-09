@@ -8,8 +8,8 @@ using O2.DotNetWrappers.DotNet;
 namespace O2.Kernel
 {
     public class debug
-    {
-        public static void @break()
+    {        
+        public static void _break()
         {
             Debugger.Break();
         }        

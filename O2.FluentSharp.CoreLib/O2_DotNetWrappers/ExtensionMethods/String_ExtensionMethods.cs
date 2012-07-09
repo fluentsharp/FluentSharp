@@ -72,9 +72,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static bool      starts(this string textToSearch, List<string> stringsToFind)
         {
-            foreach(var stringToFind in stringsToFind)
-                if (textToSearch.starts(stringToFind))
-                    return true;
+            if (textToSearch.valid() && stringsToFind.notNull())
+                foreach(var stringToFind in stringsToFind)
+                    if (textToSearch.starts(stringToFind))
+                        return true;
             return false;
         }
         public static bool      starts(this string stringToSearch, string stringToFind)

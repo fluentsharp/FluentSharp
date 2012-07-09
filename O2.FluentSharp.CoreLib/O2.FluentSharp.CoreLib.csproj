@@ -171,6 +171,7 @@
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2Rule.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2RulePack.cs" />
     <Compile Include="O2_Kernel\launch.cs" />
+    <Compile Include="O2_Kernel\o2.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\O2Shell.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellCmdLet.cs" />
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellCommands.cs" />

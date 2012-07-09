@@ -61,7 +61,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
 		public static string                name(this Assembly assembly)
         {
-            return assembly.GetName().Name;
+            if (assembly.notNull())
+                return assembly.GetName().Name;
+            return null;
         }
 
 		public static string                name(this AssemblyName assemblyName)
@@ -150,7 +152,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return locations;
         }
-
+        public static string imageRuntimeVersion(this Assembly assembly)
+        {
+            if (assembly.notNull())
+                return assembly.ImageRuntimeVersion;
+            return null;
+        }
         public static PortableExecutableKinds assembly_PortableExecutableKind(this string assemblyLocation)
         {
             return Assembly.ReflectionOnlyLoadFrom(assemblyLocation).portableExecutableKind();

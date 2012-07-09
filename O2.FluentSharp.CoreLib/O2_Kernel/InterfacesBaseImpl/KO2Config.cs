@@ -31,7 +31,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public KO2Config()
         {
             //detect if we are running O2 as a stand alone exe
-            if (Assembly.GetEntryAssembly().GetName().Name.starts("O2 Platform"))
+            if (Assembly.GetEntryAssembly().isNull() || Assembly.GetEntryAssembly().name().starts("O2 Platform"))
             {
                 defaultO2LocalTempFolder = @"..\..\" + defaultO2LocalTempFolder;
                 defaultLocalScriptFolder = @"..\..\" + defaultLocalScriptFolder;

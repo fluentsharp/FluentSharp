@@ -2,6 +2,7 @@
 
 //O2File:../DI.cs
 
+using O2.Kernel.Objects;
 namespace O2.Kernel.O2CmdShell
 {
     public class ShellCommands
@@ -37,17 +38,17 @@ namespace O2.Kernel.O2CmdShell
 
         public static void appDomains()
         {
-            DI.o2Shell.shellIO.writeLine("\nThere are {0} AppDomains currently hosted by this O2Kernel process", DI.appDomainsControledByO2Kernel.Count);
-            foreach(var hostedAppDomains in DI.appDomainsControledByO2Kernel.Keys)
+            DI.o2Shell.shellIO.writeLine("\nThere are {0} AppDomains currently hosted by this O2Kernel process", O2AppDomainFactory.AppDomains_ControledByO2Kernel.Count);
+            foreach (var hostedAppDomains in O2AppDomainFactory.AppDomains_ControledByO2Kernel.Keys)
                 DI.o2Shell.shellIO.writeLine("\t{0}", hostedAppDomains);
         }
 
         public static void filesInAppDomain(string appDomainName)
         {
-            if (false == DI.appDomainsControledByO2Kernel.ContainsKey(appDomainName))
+            if (false == O2AppDomainFactory.AppDomains_ControledByO2Kernel.ContainsKey(appDomainName))
                 DI.o2Shell.shellIO.writeLine("AppDomain not found {0}", appDomainName);
             {
-                var assemblies = DI.appDomainsControledByO2Kernel[appDomainName].FilesInAppDomainBaseDirectory;
+                var assemblies = O2AppDomainFactory.AppDomains_ControledByO2Kernel[appDomainName].FilesInAppDomainBaseDirectory;
                 DI.o2Shell.shellIO.writeLine("\nThere are {0} files in the AppDomain ", assemblies.Count , appDomainName);
                 foreach(var assemblyName in assemblies)
                     DI.o2Shell.shellIO.writeLine("\t{0}", assemblyName);

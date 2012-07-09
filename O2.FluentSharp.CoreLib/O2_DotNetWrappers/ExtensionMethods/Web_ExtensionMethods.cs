@@ -166,7 +166,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                if (_string.valid())
+                if (_string.valid() && _string.contains("://"))
                 {
                     var uri = new Uri(_string);
                     return (uri != null && uri.IsAbsoluteUri && uri.IsFile.isFalse());
