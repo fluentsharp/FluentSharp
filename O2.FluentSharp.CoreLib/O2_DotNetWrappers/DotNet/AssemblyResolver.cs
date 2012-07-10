@@ -43,7 +43,7 @@ namespace O2.DotNetWrappers.DotNet
 		}
         public static Assembly loadFromDiskOrResource(string name)
         {
-            "[AssemblyResolve] for name: {0}".debug(name);
+            //"[AssemblyResolve] for name: {0}".debug(name);
             //first resolve by name/location
             var assembly = loadFromDisk(name);
             if (assembly.notNull())
@@ -56,7 +56,7 @@ namespace O2.DotNetWrappers.DotNet
         }
 		public static Assembly loadFromDisk(string name)
 		{
-            "[AssemblyResolve] loadFromDisk : {0}".info(name);
+            //"[AssemblyResolve] loadFromDisk : {0}".info(name);
             if (name.valid() && CachedMappedAssemblies.hasKey(name))
                 return CachedMappedAssemblies[name];
 			
@@ -101,7 +101,7 @@ namespace O2.DotNetWrappers.DotNet
                             "Found resource for {0} at {1} in {2}".info(name, resourceName, currentAssembly.name());
                             var assemblyStream = currentAssembly.GetManifestResourceStream(resourceName);
                             byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
-                            var saveAssemblyTo = PublicDI.config.ReferencesDownloadLocation.createDir().pathCombine(nameToFind);
+                            var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(nameToFind);
                             if ((saveAssemblyTo.extension(".dll") || saveAssemblyTo.extension(".exe")).isFalse())
                                 saveAssemblyTo+=".dll";
                             O2.DotNetWrappers.Windows.Files.WriteFileContent(saveAssemblyTo, data);

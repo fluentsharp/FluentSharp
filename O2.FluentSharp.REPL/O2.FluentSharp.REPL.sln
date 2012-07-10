@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.REPL", "O2.F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.BCL", "..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.Misc", "..\O2.FluentSharp.Misc\O2.FluentSharp.Misc.csproj", "{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.CoreLib", "..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj", "{0A7CE0E0-B092-43B5-AB80-99BA909019C9}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Release|Any CPU.ActiveCfg = Release|Any CPU

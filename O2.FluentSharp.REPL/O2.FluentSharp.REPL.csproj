@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2.FluentSharp.REPL</RootNamespace>
     <AssemblyName>O2_FluentSharp_REPL</AssemblyName>
@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +37,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>_External_Dlls\Ionic.Zip.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Merlin">
+      <HintPath>_External_Dlls\Merlin.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_External_Dlls\Mono.Cecil.dll</HintPath>
@@ -55,6 +63,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -196,6 +208,22 @@
     <Compile Include="_O2_API_AST\Visitors\GetAllINodes.cs" />
     <Compile Include="_O2_API_AST\Visitors\MapAstToDom.cs" />
     <Compile Include="_O2_API_AST\Visitors\MapAstToNRefactory.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\GZip_and_JSON_ExtensionMethods.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\Web_Zip.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_External_Dlls\Mono.Cecil.dll" />
@@ -211,10 +239,12 @@
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>O2.FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\O2.FluentSharp.Misc\O2.FluentSharp.Misc.csproj">
-      <Project>{1EDD5D0C-09D5-4A58-9EC9-E972F8F28C07}</Project>
-      <Name>O2.FluentSharp.Misc</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_External_Dlls\Merlin.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_External_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

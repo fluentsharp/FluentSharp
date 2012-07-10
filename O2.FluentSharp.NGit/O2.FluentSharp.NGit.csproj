@@ -34,26 +34,32 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_ExternalDlls\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_ExternalDlls\Mono.Posix.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_ExternalDlls\Mono.Security.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NGit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_ExternalDlls\NGit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NSch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_ExternalDlls\NSch.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Sharpen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_ExternalDlls\Sharpen.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,12 +70,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="_ExternalDlls\ICSharpCode.SharpZipLib.dll" />
-    <Content Include="_ExternalDlls\Mono.Posix.dll" />
-    <Content Include="_ExternalDlls\Mono.Security.dll" />
-    <Content Include="_ExternalDlls\NGit.dll" />
-    <Content Include="_ExternalDlls\NSch.dll" />
-    <Content Include="_ExternalDlls\Sharpen.dll" />
+    <EmbeddedResource Include="_ExternalDlls\ICSharpCode.SharpZipLib.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Mono.Posix.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Mono.Security.dll" />
+    <EmbeddedResource Include="_ExternalDlls\NGit.dll" />
+    <EmbeddedResource Include="_ExternalDlls\NSch.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Sharpen.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">

@@ -69,7 +69,7 @@ namespace O2.Kernel.InterfacesBaseImpl
             AutoSavedScripts = O2TempDir.pathCombine(@"../_AutoSavedScripts")
                                         .pathCombine(DateTime.Now.ToShortDateString().Replace("/","_")); // can't used safeFileName() here because the DI object is not created
             ReferencesDownloadLocation = O2TempDir.pathCombine(@"../_ReferencesDownloaded");
-
+            EmbeddedAssemblies = O2TempDir.pathCombine(@"../_EmbeddedAssemblies");
 
             O2.DotNetWrappers.DotNet.AssemblyResolver.Init();            
         }
@@ -158,6 +158,8 @@ namespace O2.Kernel.InterfacesBaseImpl
  * */
 		}
 
+        public string EmbeddedAssemblies { get; set; }
+
         public string CurrentExecutableDirectory
         {
             get
@@ -172,9 +174,9 @@ namespace O2.Kernel.InterfacesBaseImpl
 						return Path.GetDirectoryName(entryAssembly.Location);
 					}
 				}
-				catch (Exception ex)
+				catch// (Exception ex)
 				{
-					ex.log();
+					//ex.log();
 				}
                 return AppDomain.CurrentDomain.BaseDirectory;                
             }

@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\binaries\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;B</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,20 +31,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Roslyn.Compilers">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\Roslyn.Compilers.Common.1.1.20524.4\lib\net40\Roslyn.Compilers.dll</HintPath>
+    <Reference Include="Roslyn.Compilers, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_ExternalDlls\Roslyn.Compilers.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Compilers.CSharp">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\Roslyn.Compilers.CSharp.1.1.20524.4\lib\net40\Roslyn.Compilers.CSharp.dll</HintPath>
+    <Reference Include="Roslyn.Compilers.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_ExternalDlls\Roslyn.Compilers.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Services">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\Roslyn.Services.Common.1.1.20524.4\lib\net40\Roslyn.Services.dll</HintPath>
+    <Reference Include="Roslyn.Services, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_ExternalDlls\Roslyn.Services.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Services.CSharp">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\Roslyn.Services.CSharp.1.1.20524.4\lib\net40\Roslyn.Services.CSharp.dll</HintPath>
+    <Reference Include="Roslyn.Services.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_ExternalDlls\Roslyn.Services.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Utilities">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\Roslyn.Services.Common.1.1.20524.4\lib\net40\Roslyn.Utilities.dll</HintPath>
+    <Reference Include="Roslyn.Utilities, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_ExternalDlls\Roslyn.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,13 +80,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Roslyn.Services.CSharp.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Roslyn.Services.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="_ExternalDlls\Roslyn.Compilers.CSharp.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Roslyn.Compilers.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Roslyn.Services.CSharp.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Roslyn.Services.dll" />
+    <EmbeddedResource Include="_ExternalDlls\Roslyn.Utilities.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
