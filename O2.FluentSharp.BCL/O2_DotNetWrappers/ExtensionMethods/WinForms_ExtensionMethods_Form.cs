@@ -12,6 +12,9 @@ using O2.Views.ASCX.classes.MainGUI;
 using O2.DotNetWrappers.DotNet;
 using System.Drawing;
 using O2.Views.ASCX.Ascx.MainGUI;
+using System.Diagnostics;
+using System.Reflection;
+using System.IO;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -245,6 +248,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             typeof(Form).fieldValue("defaultIcon", icon);
             return icon;
         }
+
+        public static Icon asIcon(this Bitmap bitmap)
+        {
+            return Icon.FromHandle(bitmap.GetHicon());
+        }
+
         public static Icon icon(this string iconFile)
 		{
 			try
@@ -256,7 +265,29 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				"[icon] {0}".error(ex.Message);
 				return null;
 			}
-		}		
+		}
+
+        public static string saveAs_Icon(this Bitmap bitmap)
+        {
+            return bitmap.saveAs_Icon(".ico".tempFile());
+        }
+
+        public static string saveAs_Icon(this Bitmap bitmap, string targetFile)
+        {
+            return bitmap.asIcon().saveAs(targetFile);
+        }
+        public static string save(this Icon icon)
+        {            
+            return icon.saveAs(".ico".tempFile());
+        }
+
+        public static string saveAs(this Icon icon, string targetFile)
+        {
+            using (FileStream fileStream = new FileStream(targetFile, FileMode.Create))
+                icon.Save(fileStream);
+            return targetFile;
+        }
+
 		public static T set_Form_Icon<T>(this T control, string iconFile)			where T : Control
 		{
 			return control.set_Form_Icon(iconFile.icon());
@@ -284,6 +315,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return form.set_Icon("O2Logo.ico".local().icon());
 		}
 
+        public static Form set_DefaultIcon(this Form form)
+        {
+            try
+            {
+                var icon = Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location);
+                form.set_Icon(icon);
+            }
+            catch { }
+            return form;        
+        }
         public static Form clientSize(this Form form, int width, int height)
         {
             return (Form)form.invokeOnThread(() =>

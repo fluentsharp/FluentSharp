@@ -764,7 +764,7 @@ namespace O2.Views.ASCX.DataViewers
                     {
                         tvTreeView.Nodes.Clear();
                         lsSignatures = new List<string>();
-                        return null;                       // make this a Sync operation
+                        return default(object);                      // make this a Sync operation
                     });
             
             

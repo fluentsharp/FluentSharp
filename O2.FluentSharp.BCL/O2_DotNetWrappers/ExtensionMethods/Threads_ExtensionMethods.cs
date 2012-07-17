@@ -14,31 +14,29 @@ namespace O2.DotNetWrappers.ExtensionMethods
         /// <param name="control"></param>
         /// <param name="codeToInvoke"></param>
         /// <returns></returns>
-        public static object invokeOnThread(this Control control, Func<object> codeToInvoke)
+        public static T invokeOnThread<T>(this Control control, Func<T> codeToInvoke)
         {
             try
-            {
+            {                
+                if (control.isNull() || control.IsDisposed)
+                    return default(T);
                 if (control.InvokeRequired)
                 {
-                    object returnData = null;
+                    T returnData = default(T);
                     //lock (control)
                     //{                        
                         var sync = new AutoResetEvent(false);
+                        if (control.IsDisposed)
+                            return default(T);
                         control.Invoke(new EventHandler((sender, e) =>
                                                             {
-                                                                //try
-                                                                //{
-                                                                    returnData = codeToInvoke();
-                                                                //}
-                                                                //catch (Exception ex)
-                                                                //{
-                                                                //    System.Diagnostics.Debug.WriteLine("in invokeOnThread: " + ex.Message);
-                                                                //}
+                                                                if (control.IsDisposed.isFalse())
+                                                                    returnData = codeToInvoke();                                                                
                                                                 sync.Set();
                                                             }));
                         if (sync.WaitOne(2000).isFalse())
                         {
-                            return null;
+                            return default(T);
                         }
                     //}
                     return returnData;
@@ -49,7 +47,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                return null;
+                return default(T);
             }         
         }        
 
@@ -59,16 +57,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
         /// </summary>
         public static void invokeOnThread(this Control control, O2Thread.FuncVoid codeToInvoke)
         {
-            if (control.isNull())
+            if (control.isNull() || control.IsDisposed)
             {
-                "Control.invokeOnThread, provided control value was null (so not invoking code)".error();
+                "Control.invokeOnThread, provided control value was null or dispose(so not invoking code)".error();
                 return;
             }
             try
-            {                
+            {
                 if (control.InvokeRequired)
-                    control.Invoke(new EventHandler((sender, e) => codeToInvoke()));     
-                else                                   
+                {                    
+                    control.Invoke(new EventHandler((sender, e)=>{
+                                                                    if (control.IsDisposed)
+                                                                        return;
+                                                                    codeToInvoke();
+                                                                 }));
+                }
+                else
                     codeToInvoke();
             }
 
@@ -180,6 +184,35 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 System.Diagnostics.Debug.WriteLine(ex.Message);                
                 return false;
             }
-        }        
+        }
+
+        public static T onThread<T>(this T control, Action action) where T : Control
+        {
+            return control.update((c) => action());
+        }
+        public static T onThread<T>(this T control, Action<T> action) where T : Control
+        {
+            return (T)control.invokeOnThread(
+                    () =>
+                    {
+                        action(control);
+                        return control;
+                    });
+        }
+        public static T update<T>(this T control, Action updateAction) where T : Control
+        {
+            return control.update((c) => updateAction());
+        }
+        public static T update<T>(this T control, Action<T> updateAction) where T : Control
+        {
+            return (T)control.invokeOnThread(
+                        () =>
+                        {
+                            control.refresh_Disable();
+                            updateAction(control);
+                            control.refresh_Enable();
+                            return control;
+                        });
+        }
     }
 }

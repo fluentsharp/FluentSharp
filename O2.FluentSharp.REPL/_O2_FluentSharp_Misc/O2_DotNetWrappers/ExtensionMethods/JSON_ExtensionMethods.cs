@@ -10,35 +10,7 @@ using System.Web.Script.Serialization;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
-
-    public static class GZip_ExtensionMethods
-	{	
-		public static byte[] gzip_Compress(this string _string)
-		{
-			var bytes = Encoding.ASCII.GetBytes (_string);
-			var outputStream = new MemoryStream();
-			using (var gzipStream = new GZipStream(outputStream,CompressionMode.Compress))			
-				gzipStream.Write(bytes, 0, bytes.size());			
-			return outputStream.ToArray();
-		}
-		
-		public static string gzip_Decompress(this byte[] bytes)
-		{
-			var inputStream = new MemoryStream();
-			inputStream.Write(bytes, 0, bytes.Length);
-			inputStream.Position = 0;
-			var outputStream = new MemoryStream();
-			using (var gzipStream= new GZipStream(inputStream,CompressionMode.Decompress))
-			{
-			    byte[] buffer = new byte[4096];
-			    int numRead;
-			    while ((numRead = gzipStream.Read(buffer, 0, buffer.Length)) != 0)			    
-			        outputStream.Write(buffer, 0, numRead);			    
-			}	
-			return outputStream.ToArray().ascii();
-		}
-	}
-
+    
     public static class Json_ExtensionMethods
 	{
 		public static string json<T>(this T _object)
@@ -55,7 +27,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 	        memoryStream.Dispose();
 	        return serializedObject;
 	    }
-
+        
 	    public static T json_Deserialize<T>(this string json)
 	    {
 	        //T obj = Activator.CreateInstance<T>();
@@ -77,5 +49,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 	        //T obj = Activator.CreateInstance<T>();
 	        return new JavaScriptSerializer().Deserialize<T>(json);	        
 	    }
+
+        /// <summary>
+        /// Assign the return value to a dynamic object to access the data as it was a string dictionary
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static object json_Deserialize(this string jsonString)
+        {
+            return new JavaScriptSerializer().Deserialize<object>(jsonString);
+        }
     }
 }

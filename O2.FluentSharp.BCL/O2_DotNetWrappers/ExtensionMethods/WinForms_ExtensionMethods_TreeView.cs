@@ -448,7 +448,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (TreeView) treeView.invokeOnThread(()
                                     =>
-                                        {
+                                        {                                            
                                             treeView.Nodes.Clear();
                                             return treeView;
                                         });
@@ -475,9 +475,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeView  selectFirst(this TreeView treeView)
         {
-            var nodes = treeView.nodes();
-            if (nodes.size() > 0)
-                treeView.selectedNode(nodes[0]);
+            if (treeView.notNull())
+            {
+                var nodes = treeView.nodes();
+                treeView.selectedNode(nodes.first());
+            }
             return treeView;
         }
         public static TreeView  selectNode(this TreeView treeView, TreeNode treeNode)
@@ -491,6 +493,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeView  selectedNode(this TreeView treeView, TreeNode treeNode)
         {
+            if (treeView.isNull() || treeNode.isNull())
+                return treeView;
             return (TreeView)treeView.invokeOnThread(
                 () =>
                 {
@@ -517,11 +521,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
         }
 
+        //get Node(s)
         public static TreeNode node(this TreeView treeView, string text)
         {
             return treeView.rootNode().node(text);
         }
-
         public static TreeNode node(this TreeNode treeNode, string text)
         {
             if (text.valid())
@@ -530,7 +534,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         return node;
             return null;
         }
-
         public static List<TreeNode>    allNodes(this TreeView treeView)
         {
             return treeView.nodes().allNodes();
@@ -546,9 +549,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return ltnNodes;
         }
         public static List<TreeNode>    nodes(this TreeView treeView)
-        {
+        {            
             var nodes = new List<TreeNode>();
-            treeView.Nodes.forEach<TreeNode>((node) => nodes.Add(node));
+            if (treeView.notNull())
+                treeView.Nodes.forEach<TreeNode>((node) => nodes.Add(node));
             return nodes;
         }
         public static List<TreeNode>    nodes(this TreeNode treeNode)
@@ -562,6 +566,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var results = new List<TreeNode>();
             treeNodes.forEach<TreeNode>((node) => results.AddRange(node.nodes()));
             return results;
+        }
+        public static List<TreeNode>    nodes(this TreeView treeView, bool recursive)
+        {
+            if (recursive)
+                return treeView.allNodes();
+            return treeView.nodes();
         }
                       
         public static TreeView  sort(this TreeView treeView)
@@ -818,6 +828,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return treeView;
         }
 
+        //Text
         public static string        get_Text(this TreeView treeView)
         {
             return (string)treeView.invokeOnThread(() => { return treeView.Text; });
@@ -830,8 +841,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return (from treeNode in treeNodes
 					select treeNode.get_Text()).toList();
-		} 
-       
+		}        
         public static TreeNode      set_Text(this TreeNode treeNode, string text)
         {
             return (TreeNode)treeNode.treeView().invokeOnThread(
@@ -842,6 +852,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                         });
         }
 
+        //Tag
         public static object        get_Tag(this TreeView treeView)
         {
             return (object)treeView.invokeOnThread(() => { return treeView.Tag; });
@@ -850,11 +861,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (object)treeNode.treeView().invokeOnThread(() => { return treeNode.Tag; });
         }
-        public static object        tag<T>(this TreeNode treeNode)
+        public static T             tag<T>(this TreeNode treeNode)
         {
             if (treeNode.Tag != null && treeNode.Tag is T)
                 return (T)treeNode.Tag;
-            return null;
+            return default(T);
         }
         public static List<T>       tags<T>(this TreeView treeView)
 		{
@@ -892,7 +903,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static TreeView  sort(this TreeView treeView, bool value)
         {
-            return (TreeView)treeView.invokeOnThread(() => treeView.Sorted = value);
+            return (TreeView)treeView.invokeOnThread(
+                    ()=>{
+                            treeView.Sorted = value;
+                            return treeView;
+                        });
         }
         public static int       index(this TreeNode treeNode)
         {
@@ -945,14 +960,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			treeView.showSelected(propertyGrid);;
 			return treeView;
 		}   
-        
-        public static TreeView  collapse(this TreeView treeView)
-		{
-			if (treeView.notNull())
-				treeView.invokeOnThread(()=> treeView.CollapseAll());
-			return treeView;
-		}
-		
+                
+		//show selected
 		public static TreeView  showSelected(this TreeView treeView, PropertyGrid propertyGrid)			
 		{
 			return treeView.showSelected<object>(propertyGrid);
@@ -974,7 +983,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
 										});
 		}
 
-
+        //expand
+        public static TreeView collapse(this TreeView treeView)
+        {
+            if (treeView.notNull())
+                treeView.invokeOnThread(() => treeView.CollapseAll());
+            return treeView;
+        }
         public static TreeNode collapse(this TreeNode treeNode)
         {
             return (TreeNode)treeNode.treeView().invokeOnThread(
@@ -984,11 +999,43 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return treeNode;
                 });
         }
-
         public static TreeNode expandAndCollapse(this TreeNode treeNode)
         {
             return treeNode.expand().collapse();
         }
+
+        //CheckBoxes
+        public static TreeView       checkBoxes(this TreeView treeView, bool enable)
+        {
+            return treeView.invokeOnThread(() => { treeView.CheckBoxes = enable; return treeView; });
+        }
+        public static TreeNode       checkBox(this TreeNode treeNode, bool value)
+        {
+            return treeNode.treeView().invokeOnThread(() => { treeNode.Checked = value; return treeNode; });
+        }
+        public static List<T>        checkBoxes_SelectedNodes<T>(this TreeView treeView)
+        {
+            return treeView.checkBoxes_SelectedNodes()
+                           .Where((node) => node.Tag is T)
+                           .Select((node) => (T)node.Tag).toList();
+        }
+        public static List<TreeNode> checkBoxes_SelectedNodes(this TreeView treeView)
+        {
+            return treeView.nodes().where((node) => node.Checked);
+        }
+        public static TreeView       checkBoxes_SelectAll(this TreeView treeView)
+        {
+            foreach (var node in treeView.nodes(true))
+                node.checkBox(true);
+            return treeView;
+        }
+        public static TreeView       checkBoxes_DeSelectAll(this TreeView treeView)
+        {
+            foreach (var node in treeView.nodes(true))
+                node.checkBox(false);
+            return treeView;
+        }
+
     }
 
     public static class WinForms_ExtensionMethods_TreeView_Events
@@ -1244,12 +1291,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return treeNode;
         }
         public static TreeNode  color(this TreeNode treeNode, Color color)
-        {
+        {            
             return treeNode.setTextColor(color);
         }
         public static TreeNode  setTextColor(this TreeNode treeNode, Color color)
         {
-            treeNode.TreeView.invokeOnThread(() => { treeNode.ForeColor = color; });
+            if (treeNode != null)                
+                treeNode.TreeView.invokeOnThread(() => { treeNode.ForeColor = color; });
             return treeNode;
         }
     }

@@ -9,6 +9,8 @@ namespace O2.External.SharpDevelop.AST
 {
     public class TextToCodeMappings
     {
+        //removed since this (if done) will need to be done via AST manipulation
+        /*
         // this code does multiple passes in creating and ast from the code 
         //(in an attempt to make it more user friendly to the user
         public static string tryToFixRawCode(string originalCode, Func<string,string> codeCreationEngine)
@@ -27,12 +29,14 @@ namespace O2.External.SharpDevelop.AST
             //code.ToLower().eq(new string[] { "hello", "hi" }, () => code = "Hi, Welcome to O2");
             //code = code.ToLower().eq(new []{"how are you?" ,"how are you doing" }) ? "I'm fine thanks" : code;            
             // first try with the code provided
-            parsedCode = codeCreationEngine(code);
+            
 
+             
             // todo: move logic below to a more optimized and refactored code :)
             //if it failed:
             tempCode = code;
             if (parsedCode == null)
+
                 // and it has one line, wrap it around a return statement;
                 if (code.lines().size() == 1 && code.Length >0)
                 {
@@ -67,6 +71,6 @@ namespace O2.External.SharpDevelop.AST
                 }
             return parsedCode;
 
-        }
+        }*/
     }
 }

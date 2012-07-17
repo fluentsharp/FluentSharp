@@ -146,7 +146,10 @@ namespace O2.XRules.Database.Utils
 						var folderViewer = new ascx_FolderView(buildGuiOnCtor)
 													.fill();
 						control.add_Control(folderViewer);
-						folderViewer.open(path);
+                        if (buildGuiOnCtor)
+                            folderViewer.open(path);
+                        else
+                            folderViewer.RootFolder = path;
 						return folderViewer;
 					});
 		}

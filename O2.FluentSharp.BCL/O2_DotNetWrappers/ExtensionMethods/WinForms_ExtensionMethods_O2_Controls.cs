@@ -13,8 +13,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static ascx_LogViewer add_LogViewer<T>(this T control)
             where T : Control
         {            
-            var logControl = control.add_Control<ascx_LogViewer>();
-            "New log control created".info();
+            var logControl = control.add_Control<ascx_LogViewer>();            
             return logControl;
         }
 

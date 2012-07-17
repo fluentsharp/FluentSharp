@@ -1201,25 +1201,27 @@ namespace O2.API.AST.Visitors // was ICSharpCode.NRefactory.Visitors
                         // CodeDom doesn't support ExclusiveOr
                         op = CodeBinaryOperatorType.BitwiseAnd;
                         break;
-                }
-                //DC
-                if (binaryOperatorExpression.Left.IsNull || binaryOperatorExpression.Right.IsNull)
-                {
-                    "in VisitBinaryOperatorExpression, one of binaryOperatorExpression operators was null".error();
-                    //return null;
-                }
-                //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Left.IsNull);
-                //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Right.IsNull);
+                
+                    if (binaryOperatorExpression.Left.IsNull || binaryOperatorExpression.Right.IsNull)
+                    {
+                        "in VisitBinaryOperatorExpression, one of binaryOperatorExpression operators was null".error();
+                        //return null;
+                    }
+                    //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Left.IsNull);
+                    //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Right.IsNull);
 
-                var cboe = new CodeBinaryOperatorExpression(
-                    (CodeExpression)binaryOperatorExpression.Left.AcceptVisitor(this, data),
-                    op,
-                    (CodeExpression)binaryOperatorExpression.Right.AcceptVisitor(this, data));
-                if (binaryOperatorExpression.Op == BinaryOperatorType.InEquality)
-                {
-                    cboe = new CodeBinaryOperatorExpression(cboe, CodeBinaryOperatorType.ValueEquality, new CodePrimitiveExpression(false));
+                    var cboe = new CodeBinaryOperatorExpression(
+                        (CodeExpression)binaryOperatorExpression.Left.AcceptVisitor(this, data),
+                        op,
+                        (CodeExpression)binaryOperatorExpression.Right.AcceptVisitor(this, data));
+                    if (binaryOperatorExpression.Op == BinaryOperatorType.InEquality)
+                    {
+                        cboe = new CodeBinaryOperatorExpression(cboe, CodeBinaryOperatorType.ValueEquality, new CodePrimitiveExpression(false));
+                    }
+                    return cboe;
                 }
-                return cboe;
+                return null;
+                //DC
             }
             catch (Exception ex)
             {
@@ -1521,17 +1523,22 @@ namespace O2.API.AST.Visitors // was ICSharpCode.NRefactory.Visitors
                 CodeVariableReferenceExpression left1 = new CodeVariableReferenceExpression(name);
 
                 codeStack.Push(NullStmtCollection); // send statements to nul Statement collection
-                CodeExpression right1 = (CodeExpression)usingStatement.ResourceAcquisition.AcceptVisitor(this, data);
-                codeStack.Pop();
+                //DC:HACK (there were cases where the line below returned a CodeVariableReferenceExpression
+                var result = usingStatement.ResourceAcquisition.AcceptVisitor(this, data);
+                if (result is CodeExpression)
+                {
+                    CodeExpression right1 = (CodeExpression)result;
+                    codeStack.Pop();
 
-                CodeAssignStatement assign1 = new CodeAssignStatement(left1, right1);
+                    CodeAssignStatement assign1 = new CodeAssignStatement(left1, right1);
 
-                tryStmt.TryStatements.Add(assign1);
-                tryStmt.TryStatements.Add(new CodeSnippetStatement());
+                    tryStmt.TryStatements.Add(assign1);
+                    tryStmt.TryStatements.Add(new CodeSnippetStatement());
 
-                codeStack.Push(tryStmt.TryStatements);
-                usingStatement.EmbeddedStatement.AcceptChildren(this, data);
-                codeStack.Pop();
+                    codeStack.Push(tryStmt.TryStatements);
+                    usingStatement.EmbeddedStatement.AcceptChildren(this, data);
+                    codeStack.Pop();
+                } //DC hack ends
 
                 CodeMethodInvokeExpression isInstanceOfType = new CodeMethodInvokeExpression(new CodeTypeOfExpression(typeof(IDisposable)), "IsInstanceOfType", new CodeExpression[] { left1 });
 

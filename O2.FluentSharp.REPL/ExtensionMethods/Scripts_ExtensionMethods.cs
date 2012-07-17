@@ -16,12 +16,14 @@ namespace O2.XRules.Database.Utils
         {
             return hostControl.add_Script();
         }
-
+        public static ascx_Simple_Script_Editor insert_Script(this Control control)
+        {
+            return control.insert_Below().add_Script();
+        }
         public static ascx_Simple_Script_Editor add_Script(this Control hostControl)
         {
             return hostControl.add<ascx_Simple_Script_Editor>();
         }
-
         public static ascx_Simple_Script_Editor add_Script(this Control hostControl, bool codeCompleteSupport)
         {
             return (ascx_Simple_Script_Editor)hostControl.invokeOnThread(
@@ -33,7 +35,6 @@ namespace O2.XRules.Database.Utils
                     return scriptControl;
                 });
         }
-
         public static ascx_Simple_Script_Editor set_Command(this ascx_Simple_Script_Editor scriptEditor, string commandText)
         {
             return (ascx_Simple_Script_Editor)scriptEditor.invokeOnThread(
@@ -43,15 +44,11 @@ namespace O2.XRules.Database.Utils
                     return scriptEditor;
                 });
         }
-
-        public static ascx_Simple_Script_Editor add_DevEnvironment<T>(this Control control)
-            where T : Control
+        public static ascx_Simple_Script_Editor add_DevEnvironment<T>(this Control control) where T : Control
         {
             return control.add_DevEnvironment<T>(false);
         }
-
-        public static ascx_Simple_Script_Editor add_DevEnvironment<T>(this Control control, bool includeLogViewer)
-            where T : Control
+        public static ascx_Simple_Script_Editor add_DevEnvironment<T>(this Control control, bool includeLogViewer) where T : Control
         {
             var tTypeName = typeof(T).name().lowerCaseFirstLetter();
             var groupBoxes = control.add_1x1("Script", tTypeName, false, control.Width / 2);
@@ -64,7 +61,6 @@ namespace O2.XRules.Database.Utils
                 tControl.insert_Below<ascx_LogViewer>(150);
             return script;
         }
-
         public static ascx_Simple_Script_Editor execute(this ascx_Simple_Script_Editor scriptEditor, params string[] codesToExecute)
         {
             var codeToExecute = "";
@@ -78,7 +74,6 @@ namespace O2.XRules.Database.Utils
                     return scriptEditor;
                 });
         }
-
         public static ascx_Simple_Script_Editor onCompileExecuteOnce(this ascx_Simple_Script_Editor scriptEditor)
         {
             return (ascx_Simple_Script_Editor)scriptEditor.invokeOnThread(
@@ -93,22 +88,41 @@ namespace O2.XRules.Database.Utils
                     return scriptEditor;
                 });
         }
-
         public static ascx_Simple_Script_Editor script_Me(this object objectToScript)
         {
             var objectName = objectToScript.typeName().lowerCaseFirstLetter();
-            var topPanel = "PoC - Script the {0} Object".format(objectName).popupWindow(700, 400);
-            return objectToScript.script_Me(topPanel);
+            return objectToScript.script_Me(objectName);
         }
-
+        public static ascx_Simple_Script_Editor script_Me(this object objectToScript, string objectName)
+        {
+            var topPanel = "PoC - Script the {0} Object".format(objectName).popupWindow(700, 400).insert_LogViewer();
+            return objectToScript.script_Me(objectName,topPanel);
+        }
         public static ascx_Simple_Script_Editor add_Script_Object(this Panel topPanel, object objectToScript)
         {
             return objectToScript.script_Me(topPanel);
         }
+        public static ascx_Simple_Script_Editor add_Script_Me(this Panel panel, object _object)
+        {
+            return _object.script_Me(panel.clear());
+        }        
+        public static ascx_Simple_Script_Editor insert_Right_Script_Me(this Control control, object _object)
+        {
+            return control.insert_Right().add_Script_Me(_object);
+        }
+        public static ascx_Simple_Script_Editor insert_Below_Script_Me(this Control control, object _object)
+        {
+            return control.insert_Below().add_Script_Me(_object);
+        }
         public static ascx_Simple_Script_Editor script_Me(this object objectToScript, Panel topPanel)
         {
             var objectName = objectToScript.typeName().lowerCaseFirstLetter();
-            var scriptHost = topPanel.add_Script(false);
+            return objectToScript.script_Me(objectName, topPanel);
+        }
+
+        public static ascx_Simple_Script_Editor script_Me(this object objectToScript, string objectName, Panel topPanel)
+        {
+            var scriptHost = topPanel.add_Script(true);             //enable autocomplete by default
             scriptHost.onCompileExecuteOnce();
             scriptHost.InvocationParameters.add(objectName, objectToScript);
             var code =
@@ -116,7 +130,9 @@ namespace O2.XRules.Database.Utils
 
 //" + @"O2Ref:{1}
 //O2" + @"Tag_DontAddExtraO2Files";
-            scriptHost.Code = code.format(objectName, objectToScript.type().assemblyLocation()); ;
+            scriptHost.Code = code.format(objectName, objectToScript.type().assemblyLocation().fileName()); ;
+            if (objectToScript.isNull())
+                "[script_Me] provided objectToScript was null".error();
             return scriptHost;
         }
         //"test".popupWindow().add_Script().InvocationParameters.add("mdbgShell", mdbgShell);        

@@ -15,16 +15,14 @@ namespace O2.Views.ASCX.Forms
     public partial class ReportBug : Form
     {
         public static String sFromEmail = "";
-        public bool bOnPingSuccessHideControls = true;
-        public Form fParentForm;
-
+        public bool          bOnPingSuccessHideControls = true;
+        public Form         fParentForm;
         public ReportBug()
         {
             "Stating ReportBug Gui".info();
             InitializeComponent();
         }
-
-        public void setRichTextBoxContents(RichTextBox rtbSourceRichTextBox)
+        public void         setRichTextBoxContents(RichTextBox rtbSourceRichTextBox)
         {
             if (rtbSourceRichTextBox != null)
             {
@@ -32,34 +30,27 @@ namespace O2.Views.ASCX.Forms
                 rtbLogViewContentsToSend.set_Rtf(rtfText);                
             }
         }
-
-        public void setScreenShoot(Image iSourceImage)
+        public void         setScreenShoot(Image iSourceImage)
         {
             pbScreenShotToSend.BackgroundImage = iSourceImage;
         }
-
-        public void setFromEmail(String sFrom)
+        public void         setFromEmail(String sFrom)
         {
             sFromEmail = sFrom;
             tBoxFromEmail.Text = sFromEmail;
             //tBoxFromEmail.BackColor = Color.Coral;
         }
-
-        public void setSubject(String sSubject)
+        public void         setSubject(String sSubject)
         {
             tbSubject.Text = sSubject;
             tbSubject.BackColor = Color.Coral;
         }
-
-
-        public void setMessage(String sMessage)
+        public void         setMessage(String sMessage)
         {
             tbMessage.Text = sMessage;
             tbMessage.BackColor = Color.Coral;
         }
-
-
-        private void btSendMessage_Click(object sender, EventArgs e)
+        private void        btSendMessage_Click(object sender, EventArgs e)
         {
             btSendMessage.Enabled = false;
             lbMailServerConnectErrorMessage.Visible = false;
@@ -73,28 +64,23 @@ namespace O2.Views.ASCX.Forms
             Mail.sendMail(tbMailServer.Text, tBoxFromEmail.Text, tBoxToEmail.Text, "", tbSubject.Text,
                           tbMessage.Text, lsAttachements, true, emailSentCallback);
         }
-
-        private void showEmailCouldNotBeSendError()
+        private void        showEmailCouldNotBeSendError()
         {
             lbMailServerConnectErrorMessage.Text = "Could not send email, refreshing LogView information below";
             lbMailServerConnectErrorMessage.Visible = true;
             updateRichTextBoxWithLogViewer();
         }
-
-        public void closeForm()
+        public void         closeForm()
         {
             Close();
         }
-
-
-        private void tBoxFromEmail_TextChanged(object sender, EventArgs e)
+        private void        tBoxFromEmail_TextChanged(object sender, EventArgs e)
         {
             if (cbOunceLabsEmail.Checked && tBoxFromEmail.Text.IndexOf("@ouncelabs.com") == -1)
                 tBoxFromEmail.Text += "@ouncelabs.com";
             tBoxFromEmail.BackColor = Color.LightGreen;
         }
-
-        private void ReportBug_Load(object sender, EventArgs e)
+        private void        ReportBug_Load(object sender, EventArgs e)
         {
             if (false == DesignMode)
             {
@@ -107,8 +93,7 @@ namespace O2.Views.ASCX.Forms
                 //checkIfMailServerIsOnline();
             }
         }
-
-        private void checkIfMailServerIsOnline()
+        private void        checkIfMailServerIsOnline()
         {
             btSendMessage.enabled(false);
             O2Thread.mtaThread(
@@ -120,8 +105,7 @@ namespace O2.Views.ASCX.Forms
                             setHostControlsVisibleStatus(true);
                     });
         }
-
-        private void emailSentCallback(bool success)
+        private void        emailSentCallback(bool success)
         {
             if (success)
             {
@@ -133,7 +117,6 @@ namespace O2.Views.ASCX.Forms
                 showEmailCouldNotBeSendError();
             }
         }
-
         /*private void network_ePingCompleted(object oObject, PingCompletedEventArgs e)
         {
             try
@@ -158,8 +141,7 @@ namespace O2.Views.ASCX.Forms
             }
             btPingMailServer.Enabled = true;
         }*/
-
-        public void setHostControlsVisibleStatus(bool bVisibleStatus)
+        public void         setHostControlsVisibleStatus(bool bVisibleStatus)
         {
             tbMailServer.enabled(bVisibleStatus);
             lbMailServerConnectErrorMessage.enabled(bVisibleStatus);
@@ -167,7 +149,6 @@ namespace O2.Views.ASCX.Forms
             lbFirstCheckToMailServer.enabled(bVisibleStatus);
             btSendMessage.enabled(bVisibleStatus);
         }
-
         /*private void btPingMailServer_Click(object sender, EventArgs e)
         {
             bOnPingSuccessHideControls = false;
@@ -175,50 +156,41 @@ namespace O2.Views.ASCX.Forms
             lbPingStatus.Text = "";
             Ping.ping_Async(tbMailServer.Text);
         }*/
-
-        public void updateImageWithScreenShotOfParentForm()
+        public void         updateImageWithScreenShotOfParentForm()
         {
             fParentForm.invokeOnThread(
                     ()=> setScreenShoot(Screenshots.getScreenshotOfFormObjectAndItsControls(fParentForm)) );
             //setScreenShoot(Screenshots.getScreenshotOfFormObjectAndItsControls(btRefresh_LogViewerData));
         }
-
-        public void updateRichTextBoxWithLogViewer()
+        public void         updateRichTextBoxWithLogViewer()
         {
             setRichTextBoxContents(DebugMsg.getFirstRtbObject());
         }
-
-        private void btRefresh_LogViewerData_Click(object sender, EventArgs e)
+        private void        btRefresh_LogViewerData_Click(object sender, EventArgs e)
         {
             updateRichTextBoxWithLogViewer();
         }
-
-        private void btRefresh_ScreenShot_Click(object sender, EventArgs e)
+        private void        btRefresh_ScreenShot_Click(object sender, EventArgs e)
         {
             updateImageWithScreenShotOfParentForm();
         }
-
-        private void tbMessage_TextChanged(object sender, EventArgs e)
+        private void        tbMessage_TextChanged(object sender, EventArgs e)
         {
             tbMessage.BackColor = Color.LightGreen;
         }
-
-        private void tbMailServer_TextChanged(object sender, EventArgs e)
+        private void         tbMailServer_TextChanged(object sender, EventArgs e)
         {
             checkIfMailServerIsOnline();
         }
-
-        private void tbSubject_TextChanged(object sender, EventArgs e)
+        private void        tbSubject_TextChanged(object sender, EventArgs e)
         {
             tbSubject.BackColor = Color.LightGreen;
         }
-
-        public static void showGui<T>(T control)
-            where T : Control
+        public static void  showGui<T>(T control)            where T : Control
         {
             showGui(control.parentForm());
         }
-        public static void showGui(Form form)
+        public static void  showGui(Form form)
         {
             O2Thread.staThread(
                     ()=>{
@@ -230,6 +202,15 @@ namespace O2.Views.ASCX.Forms
                                                    "Hello O2 Support, " + Environment.NewLine + Environment.NewLine);
                             rpReportBug.ShowDialog();
                         });      
+        }
+    }
+
+    public static class ReportBug_ExtensionMethods
+    {
+        public static T     reportBug<T>(this T control)    where T : Control
+        {            
+            ReportBug.showGui(control);
+            return control;
         }
     }
 }

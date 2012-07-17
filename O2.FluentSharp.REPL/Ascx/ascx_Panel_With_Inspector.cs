@@ -19,8 +19,15 @@ namespace O2.XRules.Database.Utils
 
         public static ascx_Panel_With_Inspector runControl()
         {
+            return runControl(null);
+        }
+        public static ascx_Panel_With_Inspector runControl(string file)
+        {
             var currentProcess = Processes.getCurrentProcess();
-            return O2Gui.load<ascx_Panel_With_Inspector>("C# REPL Editor             ({0})".format(clr.details())); //and name: {1})".format(clr.details(), currentProcess.ProcessName));
+            var panelWithInspector = O2Gui.load<ascx_Panel_With_Inspector>("C# REPL Editor             ({0})".format(clr.details())); //and name: {1})".format(clr.details(), currentProcess.ProcessName));
+            if (file.valid())
+                panelWithInspector.inspector.openFile(file);
+            return panelWithInspector;
         }
 
         public static ascx_Panel_With_Inspector runControl_withParameter(string parameterName, object parameterObject)
@@ -34,8 +41,8 @@ namespace O2.XRules.Database.Utils
         {
             try
             {
-                this.Width = 600;
-                this.Height = 400;
+                this.Width = 800;
+                this.Height = 600;
 
                 var controls = this.add_1x1("Panel", "Inspector", false, 200);
 
@@ -49,12 +56,14 @@ namespace O2.XRules.Database.Utils
                     "[ascx_Panel_With_Inspector] add_Script failed, inspector variable was null".error();
                     return;
                 }
-                inspector.defaultCode = "//var topPanel = O2Gui.open<Panel>(\"{name}\",700,400);".line() +
+                inspector.defaultCode = "//var topPanel = \"{name}\".popupWindow(700,400);".line() +
                                          "var topPanel = panel.clear().add_Panel();".line() +                   // so that we don't get an autosave for this test code
                                         "var textBox = topPanel.add_TextBox(true);".line() +
                                         "textBox.set_Text(\"hello world\");";
                 inspector.Code = inspector.defaultCode;
                 inspector.InvocationParameters.Add("panel", panel);
+                inspector.showLogViewer();
+                inspector.compile();
                 //inspector.InvocationParameters.Add("inspector", inspector);
                 //inspector.enableCodeComplete();
             }

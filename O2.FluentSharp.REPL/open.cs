@@ -124,6 +124,12 @@ namespace O2.Kernel
             return ascx_Panel_With_Inspector.runControl();
         }
 
+        public static ascx_Panel_With_Inspector scriptEditor(string file)
+        {
+            return ascx_Panel_With_Inspector.runControl(file);
+        }
+        
+
         public static Thread scriptEditor_MtaThread()
         {
             return O2Thread.mtaThread(() => scriptEditor());

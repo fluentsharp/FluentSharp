@@ -61,12 +61,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return uri.get_Html();
         }
-
         public static string GET(this string url)
         {
             return url.get_Html();
         }
-
         public static string html(this string url)
         {
             return url.get_Html();
@@ -78,7 +76,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             "in get_Html (GET), url provided was not valid URI: {0}".error(url);
             return null;
         }
-
         public static string get_Html(this Uri url)	// this is a better way to represent it
         {
             return url.getHtml();
@@ -90,22 +87,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return uri.get_Html(postData);
         }
-
         public static string POST(this Uri uri, string postData)
         {
             return uri.get_Html(postData);
         }
-
         public static string POST(this string url, string postData)
         {
             return url.html(postData);
         }
-
         public static string html(this string url, string postData)
         {
             return url.get_Html(postData);
         }
-
         public static string get_Html(this string url, string postData)
         {
             if (url.isUri())
@@ -113,12 +106,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             "in get_Html (POST), url provided was not  valid URI: {0}".error(url);
             return null;
         }
-
         public static string get_Html(this Uri url, string postData)
         {
             return new Web().getUrlContents_POST(url.str(), postData);
         }
-
         public static string get_Html(this Uri url, byte[] postData)
         {
             return new Web().getUrlContents_POST(url.str(), postData);
@@ -143,8 +134,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                if (_string.isFile().isFalse())                    
+                if (_string.starts("about:"))   // deal with the fact that Uri throws an error for urls like about:blank
+                    return null;
+                if (_string.isFile().isFalse() && _string.isFolder().isFalse())                    
                     _string = _string.StartsWith("http") ? _string : @"http://" + _string;
+                
                 return new Uri(_string);
             }
             catch (Exception)
@@ -190,7 +184,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return "{0}://{1}".format(uri.Scheme, uri.Host);
         }
-        public static string pathNoQuery(this Uri uri)
+        public static string    pathNoQuery(this Uri uri)
         {
             return uri.Query.valid()
                         ? uri.AbsoluteUri.remove(uri.Query)
@@ -207,6 +201,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return null;
 			}
 		}
+        public static bool      isWebRequest(this Uri uri)
+        {
+            if (uri.notNull())
+                return uri.Scheme.lower() == "html" || uri.Scheme.lower() == "https";
+            return false;
+        }
+        
     }
 
     public static class Web_ExtensionMethods_QueryString

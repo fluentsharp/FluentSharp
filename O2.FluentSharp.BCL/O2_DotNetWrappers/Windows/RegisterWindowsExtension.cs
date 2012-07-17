@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 
-namespace O2.Platform
+namespace O2.DotNetWrappers.Windows
 {
 	public class RegisterWindowsExtension
 	{
@@ -18,11 +18,11 @@ namespace O2.Platform
 		static UInt32 SHCNE_ASSOCCHANGED = 0x8000000;
 		static UInt32 SHCNF_IDLIST = 0;
 
-
+         
 		public static void registerO2Extensions()
 		{
-			RegisterWindowsExtension.register_CurrentApplication(".h2", "O2 Platform v.4", @"Icons\H2Logo.ico");
-			RegisterWindowsExtension.register_CurrentApplication(".o2", "O2 Platform v.4", @"Icons\O2Logo.ico");			
+			RegisterWindowsExtension.register_CurrentApplication(".h2", "O2 Platform v.4.1", @"Icons\H2Logo.ico");
+			RegisterWindowsExtension.register_CurrentApplication(".o2", "O2 Platform v.4.1", @"Icons\O2Logo.ico");			
 		}
 
 		public static void raiseChangeNotify()

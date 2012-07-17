@@ -91,23 +91,39 @@ namespace O2.DotNetWrappers.DotNet
                     ? name.assemblyName().Name
                     : name.lower();
 
-            foreach (var currentAssembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (var currentAssembly in AppDomain.CurrentDomain.GetAssemblies())      
             {
-                if(currentAssembly.name().starts("O2"))
+                try
+                {
+                    var isDynamic = currentAssembly.prop("IsDynamic");
+                    if (isDynamic.str() == "True")
+                        continue;                    
+                        // if(currentAssembly.name().starts("O2"))                               // it shouldn't have a big performance hit to look in all assemblies
                     foreach (var resourceName in currentAssembly.GetManifestResourceNames())
                     {
-                        if (resourceName.lower().contains(nameToFind.lower()))
+                        if (resourceName.lower().contains(nameToFind.lower()) &&
+                            (resourceName.extension(".dll") || resourceName.extension(".exe")))
                         {
                             "Found resource for {0} at {1} in {2}".info(name, resourceName, currentAssembly.name());
                             var assemblyStream = currentAssembly.GetManifestResourceStream(resourceName);
                             byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
+                            if (resourceName.contains(".gz"))
+                                data = data.gzip_Decompress();
                             var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(nameToFind);
                             if ((saveAssemblyTo.extension(".dll") || saveAssemblyTo.extension(".exe")).isFalse())
-                                saveAssemblyTo+=".dll";
-                            O2.DotNetWrappers.Windows.Files.WriteFileContent(saveAssemblyTo, data);
+                                saveAssemblyTo += ".dll";
+                            if (saveAssemblyTo.fileExists())
+                                "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);
+                            else
+                                O2.DotNetWrappers.Windows.Files.WriteFileContent(saveAssemblyTo, data);
                             return loadFromDisk(saveAssemblyTo);
                         }
                     }
+                }
+                catch (Exception ex)
+                { 
+                  ex.log("[loadFromEmbededResources] while looking at assembly: {0}".format( currentAssembly.FullName));
+                }
             }
             return null;            
         }

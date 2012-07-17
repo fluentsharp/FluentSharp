@@ -46,12 +46,13 @@ namespace O2.XRules.Database
         public static string NEW_GUI_SCRIPT = "Main O2 Gui.h2";
 
         public static void startControl_No_Args()
-        {
+        {            
             startControl("");
         }
 
         public static void startControl_With_Args(string[] args)
         {
+            RegisterWindowsExtension.registerO2Extensions();
             startControl(args);
         }
 
@@ -168,6 +169,7 @@ namespace O2.XRules.Database
                 if (newGui.notNull())
                 {
                     newGui.executeFirstMethod();
+                    "Welcome to O2 :)".info();
                 }
                 else
                     executeScripts.status("There was an error compiling the new GUI!");

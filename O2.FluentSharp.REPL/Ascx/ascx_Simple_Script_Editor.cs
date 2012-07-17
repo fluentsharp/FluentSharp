@@ -237,14 +237,15 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("show/hide generated source code", (menuitem) => swapGeneratedCodeViewMode())
                        .add_MenuItem("-------------------------------")
                        .add_MenuItem("clear AssembliesCheckedIfExists list", (menuitem) => O2GitHub.clear_AssembliesCheckedIfExists())
-                       .add_MenuItem("clear CachedCompiledAssemblies list", (menuitem) => CompileEngine.CachedCompiledAssemblies.Clear())
+                       .add_MenuItem("clear CachedCompiledAssemblies list", (menuitem) => CompileEngine.clearCompilationCache())
                        .add_MenuItem("clear LocalScriptFileMappings list", (menuitem) => CompileEngine.clearLocalScriptFileMappings())
                        .add_MenuItem("clear CompilationPathMappings list", (menuitem) => CompileEngine.clearCompilationPathMappings());
 
-            contextMenu.add_MenuItem("clipboard")
+            contextMenu.add_MenuItem("clipboard & selected text")
                        .add_MenuItem("cut", () => commandsToExecute.editor().clipboard_Cut())
                        .add_MenuItem("copy", () => commandsToExecute.editor().clipboard_Copy())
-                       .add_MenuItem("paste", () => commandsToExecute.editor().clipboard_Paste());
+                       .add_MenuItem("paste", () => commandsToExecute.editor().clipboard_Paste())
+                       .add_MenuItem("(if a local file) open selected text in code Editor", () => openSelectedTextInCodeEditor());
                        
             //.add_MenuItem("clear CachedCompiledAssemblies list", (menuitem) => CompileEngine.clear.Clear());
             //.add_MenuItem("[Internal Debugging]",false, (menuitem) => swapGeneratedCodeViewMode())
@@ -274,16 +275,39 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("run in MTA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("clear 'AssembliesCheckedIfExists' cache", (menuitem) => insertCodeSnipptet(menuitem.Text));
             contextMenu.add_MenuItem("other O2 Scripts")
+                       .add_MenuItem("find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
                        .add_MenuItem("open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script())
                        .add_MenuItem("script this Script", (menuitem) => scriptTheCurrentScript())
-                       .add_MenuItem("open Find Scripts GUI", () => "Util - O2 Available scripts.h2".local().executeH2Script())
+                       .add_MenuItem("Find Script to execute", () => "Util - O2 Available scripts.h2".local().executeH2Script())
                        .add_MenuItem("open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script());
+
+            contextMenu.add_MenuItem("package current Script as StandAlone Exe", () => packageCurrentScriptAsStandAloneExe());            
             contextMenu.add_MenuItem("show O2 Object Model", () => open.o2ObjectModel());            
             contextMenu.add_MenuItem("report a bug to O2 developers", () => ReportBug.showGui(commandsToExecute));
             contextMenu.add_MenuItem("show Log Viewer", (menuitem) => showLogViewer());
 
         }
 
+        public void openSelectedTextInCodeEditor()
+        {
+            var selectedText = this.commandsToExecute.editor()
+                                                    .selectedText()
+                                                    .remove("//O2File:");
+            var file = selectedText.local();
+            if (file.exists())
+                file.showInCodeEditor();
+        }
+
+        public void packageCurrentScriptAsStandAloneExe()
+        {
+            var h2File = currentSourceCodeFilePath();
+            if (h2File.valid())
+                saveScript();
+            else
+                h2File = Code.h2_File();
+            var packageScript = (Action<string>)"Util - Package O2 Script into separate Folder.h2".executeFirstMethod();
+            packageScript(h2File);
+        }
 
         public void insertCodeSnipptet(string snippetToInsert)
         {
@@ -349,7 +373,11 @@ namespace O2.XRules.Database.Utils
             }
         }
 
-
+        public ascx_Simple_Script_Editor openFile(string file)
+        {
+            commandsToExecute.open(file);
+            return this;
+        }
 
         public void setCompilerEnvironment()
         {

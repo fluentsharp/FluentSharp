@@ -425,6 +425,10 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                              };
             return codeEditor;
         }
+        public static string                    selectedText(this ascx_SourceCodeEditor codeEditor)
+        {
+            return codeEditor.invokeOnThread(() => codeEditor.textArea().SelectionManager.SelectedText);
+        }
         public static ascx_SourceCodeEditor     setSelectionText(this ascx_SourceCodeEditor codeEditor, Location startLocation, Location endLocation)
         {
             return (ascx_SourceCodeEditor)codeEditor.invokeOnThread(() =>
@@ -638,6 +642,74 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             sourceCodeEditor.invokeOnThread(()=> sourceCodeEditor.textArea().ClipboardHandler.Paste(null, null));
             return sourceCodeEditor;
         }
+
+
+        public static Location location(this TextLocation textLocation)
+        {
+            return new Location(textLocation.X + 1, textLocation.Y + 1);
+        }
+
+        public static ascx_SourceCodeViewer selectText(this ascx_SourceCodeViewer codeViewer, int offsetStart, int offsetEnd)
+        {
+            codeViewer.editor().selectText(offsetStart, offsetEnd);
+            return codeViewer;
+        }
+
+        public static ascx_SourceCodeEditor selectText(this ascx_SourceCodeEditor codeEditor, int offsetStart, int offsetEnd)
+        {
+            codeEditor.textEditor().invokeOnThread(
+                () =>
+                {
+                    try
+                    {
+                        var position1 = codeEditor.document().OffsetToPosition(offsetStart).location();
+                        var position2 = codeEditor.document().OffsetToPosition(offsetEnd).location();
+                        codeEditor.setSelectionText(position1, position2);
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.log("in ascx_SourceCodeEditor selectText");
+                    }
+                });
+            return codeEditor;
+        }
+        public static ascx_SourceCodeViewer add_CodeMarker(this ascx_SourceCodeViewer codeViewer, int offsetStart, int offsetEnd)
+        {
+            codeViewer.editor().add_CodeMarker(offsetStart, offsetEnd);
+            return codeViewer;
+        }
+
+        public static ascx_SourceCodeEditor add_CodeMarker(this ascx_SourceCodeEditor codeEditor, int offsetStart, int offsetEnd)
+        {
+            codeEditor.textEditor().invokeOnThread(
+                () =>
+                {
+                    var position1 = codeEditor.document().OffsetToPosition(offsetStart);
+                    var position2 = codeEditor.document().OffsetToPosition(offsetEnd);
+                    codeEditor.clearMarkers();
+                    codeEditor.selectTextWithColor(position1, position2)
+                                          .refresh();
+                    codeEditor.document().MarkerStrategy.TextMarker.first().field("color", Color.Azure);
+                });
+            return codeEditor;
+        }
+
+        public static ascx_SourceCodeViewer markerColor(this ascx_SourceCodeViewer codeViewer, Color color)
+        {
+            codeViewer.editor().markerColor(color);
+            return codeViewer;
+        }
+
+        public static ascx_SourceCodeEditor markerColor(this ascx_SourceCodeEditor codeEditor, Color color)
+        {
+            codeEditor.textEditor().invokeOnThread(
+                () =>
+                {
+                    foreach (var marker in codeEditor.document().MarkerStrategy.TextMarker)
+                        marker.field("color", color);
+                });
+            return codeEditor;
+        }
         
     }
 
@@ -704,6 +776,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             sourceCodeViewer.editor().enableCodeComplete(sourceCodeViewerToGrabCodeFrom.editor());
         }*/
+
     }
 
     public static class WinForms_ExtensionMethods_MDIForms_O2Controls_CodeEditor

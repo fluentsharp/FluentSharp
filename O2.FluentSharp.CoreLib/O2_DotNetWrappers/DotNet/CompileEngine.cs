@@ -274,7 +274,7 @@ namespace O2.DotNetWrappers.DotNet
 			return true;
 		}
 
-        private void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
+        public static void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
         {
             if (sourceCodeFiles.notNull())
             {
@@ -301,6 +301,7 @@ namespace O2.DotNetWrappers.DotNet
                 needCachedCompiledAssembliesSave = true;             
                 CachedCompiledAssemblies.add(key, compiledAssembly.Location);
                 CachedCompiledAssemblies.add(compiledAssembly.GetName().Name, compiledAssembly.Location);
+                CachedCompiledAssemblies.add(compiledAssembly.str(), compiledAssembly.Location);
                 if (triggerSave)
                     saveCachedCompiledAssembliesMappings();                
             }
@@ -393,6 +394,17 @@ namespace O2.DotNetWrappers.DotNet
             return CompilationPathMappings;
         }
 
+        public static Dictionary<string, string> clearCompilationCache()
+        {
+            "Clearing Compilation Cache".debug();
+            CachedCompiledAssemblies.Clear();
+            saveCachedCompiledAssembliesMappings();
+            
+             "Deleting Embedded dlls Cache".debug();
+             foreach (var file in PublicDI.config.EmbeddedAssemblies.files())             
+                 file.file_Delete();             
+            return CachedCompiledAssemblies;
+        }
         public static Dictionary<string, string> clearLocalScriptFileMappings()
         {
             "in clearLocalScriptFileMappings".info();
@@ -546,18 +558,16 @@ namespace O2.DotNetWrappers.DotNet
                         filePath = file;
                     else
                     {
-						if (file.local().fileExists())
-							filePath = file.local();
-						else
-						{
-							// try to find the file in the current sourceCodeFiles directories                        
-							foreach (var directory in currentSourceDirectories)
-								if (File.Exists(Path.Combine(directory, file)))
-								{
-									filePath = Path.Combine(directory, file);
-									break;
-								}							
-						}
+                        // try to find the file in the current sourceCodeFiles directories                        
+                        foreach (var directory in currentSourceDirectories)
+                            if (File.Exists(Path.Combine(directory, file)))
+                            {
+                                filePath = Path.Combine(directory, file);
+                                break;
+                            }							
+                        //then look in the O2 Scripts folder
+						if (filePath == "" && file.local().fileExists())
+							filePath = file.local();						
 						if (filePath == "")
 						{
 							PublicDI.log.error("in addSourceFileOrFolderIncludedInSourceCode, could not file file to add: {0}", file);
@@ -764,8 +774,16 @@ namespace O2.DotNetWrappers.DotNet
             }            
             return CompileEngine.LocalScriptFileMappings;                
         }
+        public static string findFileOnLocalScriptFolder(string file, string searchInFolder)
+        { 
+            if (searchInFolder.valid() && searchInFolder.pathCombine(file).fileExists())
+               return searchInFolder.pathCombine(file);
+            return findFileOnLocalScriptFolder(file);
+        }
         public static string findFileOnLocalScriptFolder(string file)
         {
+            if (file.fileExists())
+                return file;            
             //if (LocalScriptFileMappings.size() == 0)  // if there are no mappings create the cached list
 			if (LocalScriptFileMappings.hasKey("Util - LogViewer.h2".lower()).isFalse()) // this script should be there, if not it means we need to refresh this list
                 resetLocalScriptsFileMappings();
@@ -861,13 +879,13 @@ namespace O2.DotNetWrappers.DotNet
 				{
 					resolvedFile = localReferenceFolder.pathCombine(reference);
 					if (resolvedFile.fileExists())
-						return resolvedFile;
-					/*resolvedFile = localReferenceFolder.pathCombine(reference + ".dll");
-					if (resolvedFile.fileExists())
-						return resolvedFile;
-					resolvedFile = localReferenceFolder.pathCombine(reference + ".exe");
-					if (resolvedFile.fileExists())
-						return resolvedFile;*/
+						return resolvedFile;                    
+                    resolvedFile = localReferenceFolder.pathCombine(reference + ".dll");
+                    if (resolvedFile.fileExists())
+                        return resolvedFile;
+                    resolvedFile = localReferenceFolder.pathCombine(reference + ".exe");
+                    if (resolvedFile.fileExists())
+                            return resolvedFile;                    
 				}
                 
 			}

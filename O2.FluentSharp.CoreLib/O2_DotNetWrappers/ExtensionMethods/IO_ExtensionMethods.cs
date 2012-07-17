@@ -87,6 +87,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 fileContents.trim().save(filePath);
             return filePath;
         }
+        public static string    inTempDir(this string fileName)
+        {
+            return PublicDI.config.O2TempDir.pathCombine(fileName);
+        }
     }
 
     public static class IO_ExtensionMethods_FileInfo
@@ -272,7 +276,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string        directoryName(this string file)
         {
-            if (file.valid())
+            if (file.valid() && file.isFile())
                 return Path.GetDirectoryName(file);
             return "";            
         }
@@ -341,7 +345,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static string        contents(this string file)
         {
             if (file.valid())
+            {
+                if (file.extension(".h2"))
+                    return file.h2_SourceCode();
                 return Files.getFileContents(file);
+            }
             return "";
         }
         public static byte[]        contentsAsBytes(this string file)
@@ -531,13 +539,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			}
 			return null;
 		}
-
-        public static string file_Copy(this string file, string folder)
+        public static string        file_Copy(this string file, string folder)
         {
             return file.file_CopyToFolder(folder);
         }
-
-        public static List<string> files_Copy(this List<string> files, string targetFolder)
+        public static List<string>  files_Copy(this List<string> files, string targetFolder)
         {
             foreach (var file in files)
                 Files.Copy(file, targetFolder);
@@ -584,6 +590,34 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					"[file_CopyFileToFolder]..targetFolder or its parent doesn't exist: {0}".error(targetFolderOrFile);					
 			return null;			
 		}
+
+        public static bool file_Delete(this string path)
+        {
+            return path.delete_File();
+        }
+        public static bool delete_File(this string path)
+        {
+            try
+            {
+                File.Delete(path);
+                "Deleted file: {0}".info(path);
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+            }
+            return path.fileExists();
+        }
+        public static bool folder_Delete(this string path)
+        {
+            return path.delete_Folder();
+        }
+        public static bool delete_Folder(this string path)
+        {
+            Files.deleteAllFilesFromDir(path);
+            Files.deleteFolder(path);
+            return path.dirExists();
+        }
     }
 
     public static class IO_ExtensionMethods_AskUser
@@ -599,6 +633,41 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             var parameters = new object[] { question, title, defaultValue, -1, -1 };
             return intercation.invokeStatic("InputBox", parameters).str();
+        }
+    }
+
+    public static class IO_ExtensionMethods_MemoryStream
+    {
+        public static MemoryStream  stream(this string initialValue)
+        {
+            return initialValue.memoryStream();
+        }
+        public static MemoryStream  memoryStream(this string initialValue)
+        {
+            return new MemoryStream().write(initialValue);
+        }
+        public static MemoryStream  writeLine(this MemoryStream memoryStream)
+        {
+            return memoryStream.writeLine("");
+        }
+        public static MemoryStream  writeLine(this MemoryStream memoryStream, string text)
+        {
+            return memoryStream.write(text.line());
+        }
+        public static MemoryStream  write(this MemoryStream memoryStream)
+        {
+            return memoryStream.write("");
+        }
+        public static MemoryStream  write(this MemoryStream memoryStream, string text)
+        {
+            var bytes = text.asciiBytes();
+            "write size: {0} - {1} : {2}".debug(bytes.size(), text.size(), text);
+            memoryStream.Write(bytes, 0, bytes.size());
+            return memoryStream;
+        }
+        public static string        ascii(this MemoryStream memoryStream)
+        {
+            return memoryStream.ToArray().ascii();
         }
     }
     

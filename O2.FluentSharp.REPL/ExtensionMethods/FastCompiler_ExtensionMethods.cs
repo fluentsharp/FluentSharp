@@ -14,7 +14,30 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 {
     public static class FastCompiler_ExtensionMethods
     {
+        public static string compileScriptFile_into_SeparateFolder(this string scriptFile)
+        {
+            var assembly = scriptFile.compileScriptFile(true);
+            if (assembly.notNull() && assembly.Location.fileExists())
+            {
+                "Compiled Script {0} ok to: {0}".info(scriptFile.fileName(), assembly.Location);
+                var targetDir = "{0} [{1}]".format(scriptFile.fileName_WithoutExtension(), 5.randomNumbers()).tempDir(false);
+
+                var compiledScript = assembly.Location.file_Copy(targetDir);
+                //copy assembly references to targetDir
+                var referenceAssemblies = assembly.referencedAssemblies(true).names();
+                targetDir.copyAssembliesToFolder(referenceAssemblies.ToArray());
+
+                "Copied compiled script and its dependencies into folder {0}".info(targetDir);
+                return compiledScript;
+            }
+            return null;
+        }
+
         public static Assembly compileScriptFile(this string scriptToCompile)
+        { 
+            return scriptToCompile.compileScriptFile(false);
+        }
+        public static Assembly compileScriptFile(this string scriptToCompile, bool generateDebugSymbols)
         {
             if (scriptToCompile.valid())
             {
@@ -22,8 +45,8 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                     scriptToCompile = scriptToCompile.local();
                 if (scriptToCompile.fileExists())
                     return (scriptToCompile.extension(".h2"))
-                                ? scriptToCompile.compile_H2Script()
-                                : scriptToCompile.compile();
+                                ? scriptToCompile.compile_H2Script(generateDebugSymbols)
+                                : scriptToCompile.compile(generateDebugSymbols);
             }
             "[compileScriptFile] could not find file to compile: {0}".error(scriptToCompile);
             return null;
@@ -73,6 +96,11 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 
         public static Assembly compile_H2Script(this string h2Script)
         {
+            return h2Script.compile_H2Script(false);
+        }
+
+        public static Assembly compile_H2Script(this string h2Script, bool generateDebugSymbols)            
+        {
             try
             {                
                 var sourceCode = "";
@@ -83,8 +111,10 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                         h2Script = h2Script.local();
                     sourceCode = H2.load(h2Script).SourceCode;
                 }
+                else
+                    sourceCode = h2Script;
                 if (sourceCode.valid())
-                    return sourceCode.compile_CodeSnippet();
+                    return sourceCode.compile_CodeSnippet(generateDebugSymbols);
             }
             catch (Exception ex)
             {
@@ -92,6 +122,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             }
             return null;
         }
+
         public static Assembly assembly(this CSharp_FastCompiler csharpCompiler)
         {
 			if (csharpCompiler != null)

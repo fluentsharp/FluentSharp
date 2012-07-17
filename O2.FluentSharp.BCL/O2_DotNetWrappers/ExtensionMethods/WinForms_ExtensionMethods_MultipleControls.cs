@@ -10,6 +10,7 @@ using O2.DotNetWrappers.DotNet;
 using System.ComponentModel;
 using O2.Views.ASCX.O2Findings;
 using O2.Views.ASCX.DataViewers;
+
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Component
@@ -320,7 +321,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 {
                     if (comboBox.SelectedItem is T)
                         return (T)comboBox.SelectedItem;
-                    return null;
+                    return default(T);
                 });
         }
         public static ComboBox onSelection(this ComboBox comboBox, MethodInvoker callback)
@@ -430,6 +431,132 @@ namespace O2.DotNetWrappers.ExtensionMethods
 						return comboBox;
 					});
 		}    
+    }
+
+    public static class WinForms_ExtensionMethods_MainMenu
+    {
+        public static MainMenu          mainMenu(this Control control)
+		{
+			if (control.notNull())
+			{
+				var parentForm = control.parentForm();
+				if (parentForm.notNull())
+				{
+					return (MainMenu)control.invokeOnThread(
+						()=>{						
+								if (parentForm.Menu.notNull())
+									return parentForm.Menu;
+								var mainMenu =  new MainMenu();
+								parentForm.Menu = mainMenu;
+								return mainMenu;
+							});					
+				}
+			}
+			"provided control is null or is not hosted by a Form".error();
+			return null;
+		}
+        public static MainMenu          add_MainMenu(this Control control)
+        {
+            return control.mainMenu().clear();
+        }		
+		public static Form              parentForm(this MenuItem menuItem)
+		{
+			if (menuItem.isNull())
+				return null;
+			return menuItem.Parent.GetMainMenu().GetForm();
+		}						
+		public static MainMenu          mainMenu(this MenuItem menuItem)
+		{
+			return menuItem.Parent.GetMainMenu();
+		}
+        public static MenuItem          add(this MenuItem menuItem, string name, Action onSelect)
+        {
+            return menuItem.add_MenuItem(name, onSelect);
+        }
+		public static MenuItem          add_Menu(this MainMenu mainMenu , string name)
+		{
+			return (MenuItem)mainMenu.GetForm()
+								     .invokeOnThread(
+										()=>{
+												var newMenuItem = new MenuItem();
+												newMenuItem.Text = name;
+												mainMenu.MenuItems.Add(newMenuItem);
+												return newMenuItem; 
+											});					
+		}		
+		public static MenuItem          add_Menu(this MenuItem menuItem, string name)
+		{
+			return (MenuItem)menuItem.parentForm()
+								     .invokeOnThread(
+										()=>{
+												return menuItem.mainMenu().add_Menu(name);
+											});
+		}	
+		public static MenuItem          add_MenuItem(this MenuItem menuItem, string name)
+		{
+			return menuItem.add_MenuItem(name,false,null);
+		}		
+		public static MenuItem          add_MenuItem(this MenuItem menuItem , string name, Action onClick)
+		{
+			return menuItem.add_MenuItem(name, false, onClick);
+		}		
+		public static MenuItem          add_MenuItem(this MenuItem menuItem , string name, bool returnNewMenuItem, Action onClick)
+		{
+			return (MenuItem)menuItem.parentForm()
+								     .invokeOnThread(
+										()=>{
+												var newMenuItem = new MenuItem();
+												newMenuItem.Text = name;
+												if(onClick.notNull())
+													newMenuItem.Click+= (sender,e)=>{
+																						O2Thread.mtaThread(()=> onClick());
+																					 };
+												menuItem.MenuItems.Add(newMenuItem);							 
+												if (returnNewMenuItem)
+													return newMenuItem;
+												return menuItem; 
+											});					
+		}        
+        public static MenuItem          add_Separator(this MenuItem menuItem)
+        {
+            return menuItem.add_MenuItem("-", () => { });
+        }
+        public static List<MenuItem>    items(this MainMenu mainMenu)
+        {
+            return (List<MenuItem>)mainMenu.GetForm()
+                                           .invokeOnThread(
+                                                () =>
+                                                {
+                                                    var menuItems = new List<MenuItem>();
+                                                    foreach (MenuItem menuItem in mainMenu.MenuItems)  // Linq query doesn't work
+                                                        menuItems.Add(menuItem);
+                                                    return menuItems;
+                                                });
+        }
+        public static MenuItem          menu(this MainMenu mainMenu, string name)
+        {
+            return (MenuItem)mainMenu.GetForm()
+                                     .invokeOnThread(
+                                        () =>
+                                        {
+                                            var topMenu = mainMenu.items().where((item) => item.Text == name).first();
+                                            if (topMenu.notNull())
+                                                return topMenu;
+                                            return null;
+                                        });
+        }
+        public static MainMenu          clear(this MainMenu mainMenu)
+        {
+            return (MainMenu)mainMenu.GetForm()
+                                 .invokeOnThread(
+                                    () =>
+                                    {
+                                        mainMenu.MenuItems.Clear();
+                                        return mainMenu;
+                                    });
+
+        }		
+        
     }
 
     public static class WinForms_ExtensionMethods_ContextMenuStrip
@@ -598,7 +725,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static System.Windows.Forms.Label append_Label<T>(this T control, string text)            where T : Control
         {
-            return control.append_Control<System.Windows.Forms.Label>().set_Text(text);
+            return control.append_Control<System.Windows.Forms.Label>()
+                          .set_Text(text)
+                          .autoSize();
         }
         public static Label set_Text(this Label label, string text)
         {
@@ -730,6 +859,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return null;
         }
 
+        public static ToolStrip add_ToolStrip(this Control control)
+        {
+            return control.add_Control<ToolStrip>();
+        }
         public static ToolStrip toolStrip(this ToolStripItem toolStripItem)
         {
             if (toolStripItem.isNull())
@@ -740,12 +873,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return toolStripItem.Owner;
         }
-
         public static ToolStripItem item(this ToolStrip toolStrip, string text)
         {
             return toolStrip.items().where((item) => item.str() == text).first();
         }
-
         public static List<ToolStripItem> items(this ToolStrip toolStrip)
         {
             //return (from item in toolStrip.Items			//doesn't work
@@ -755,7 +886,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 items.add(item);
             return items;
         }
-
         public static ToolStrip clearItems(this ToolStrip toolStrip)
         {
             return (ToolStrip)toolStrip.invokeOnThread(
@@ -765,25 +895,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return toolStrip;
                 });
         }
-
         public static T add_Control<T>(this ToolStripItem toolStripItem)
             where T : ToolStripItem
         {
             return toolStripItem.add_Control(default(Action<T>));
         }
-
         public static T add_Control<T>(this ToolStripItem toolStripItem, Action<T> onCtor)
             where T : ToolStripItem
         {
             return toolStripItem.toolStrip().add_Control(onCtor);
         }
-
         public static T add_Control<T>(this ToolStrip toolStrip)
             where T : ToolStripItem
         {
             return toolStrip.add_Control(default(Action<T>));
         }
-
         public static T add_Control<T>(this ToolStrip toolStrip, Action<T> onCtor)
             where T : ToolStripItem
         {
@@ -805,12 +931,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     }
                 });
         }
-
         public static ToolStripSeparator add_Separator(this ToolStripItem toolStripItem)
         {
             return toolStripItem.toolStrip().add_Control<ToolStripSeparator>();
         }
-
         public static ToolStripLabel add_Label(this ToolStripItem toolStripItem, string text)
         {
             return toolStripItem.toolStrip().add_Label(text);
@@ -924,6 +1048,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
 
+
         //Prob:
         // if I use the original: 
         //   	public static T onKeyPress<T>(this T control, Keys onlyFireOnKey, Action<String> callback) where T : Control
@@ -996,6 +1121,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
             else
                 hostType.componentResourceManager().ApplyResources(toolStripItem, name);
             return toolStripItem;
+        }
+
+        public static ToolStripLabel visible(this ToolStripLabel toolStripLabel, bool value) 
+        {
+            return toolStripLabel.toolStrip().invokeOnThread(() =>
+                {
+                        toolStripLabel.Visible = value;
+                        return toolStripLabel;
+                });
         }
     }
 
@@ -1515,6 +1649,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return control.splitterDistance(value);
         }
+        //DCFIX: check if value is > 0
         public static SplitContainer splitterDistance(this SplitContainer control, int value)
         {
             return (SplitContainer)control.invokeOnThread(
@@ -1799,50 +1934,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
     }
 
-    public static class WinForms_ExtensionMethods_WebBrowser
-    {     
-        public static WebBrowser add_WebBrowser_Control<T>(this T control)            where T : Control
-        {
-            return control.add_Control<WebBrowser>();
-        }
-        public static WebBrowser open(this WebBrowser webBrowser, string url)
-        {
-            webBrowser.invokeOnThread(() => webBrowser.Navigate(url));
-            return webBrowser;
-        }
-		public static WebBrowser onNavigated(this WebBrowser webBrowser, Action<string> callback)
-		{
-			webBrowser.invokeOnThread(()=> webBrowser.Navigated+= (sender,e)=> callback(e.Url.str()));
-			return webBrowser;													
-		}		
-		public static WebBrowser add_WebBrowser_with_NavigationBar(this Control control)
-		{
-			return control.add_WebBrowser_Control().add_NavigationBar();
-		}		
-		public static WebBrowser add_NavigationBar(this WebBrowser webBrowser)
-		{		
-			Action<string> openUrl = 
-				(url)=> {
-							"[WebBrowser] opening: {0}".info(url);
-							webBrowser.open(url);
-						};
-						
-			var actionPanel = webBrowser.insert_Above(40,"location")
-						 	     	    .add_LabelAndComboBoxAndButton("Url","","Go",(text)=>{});
-			var comboBox = actionPanel.controls<ComboBox>();
-			var button = actionPanel.controls<Button>().onClick(()=> openUrl(comboBox.get_Text())) ;
-			comboBox.onEnter(openUrl);
-			webBrowser.onNavigated(
-				(url)=>{
-							if(url != "about:blank")
-							 	comboBox.add_Item(url).selectLast();
-					   });
-			
-
-			return webBrowser;
-		}
-    }
-
     public static class WinForms_ExtensionMethods_GuiHelpers
     { 
         public static T     add_LabelAndTextAndButton<T>(this T control, string labelText, string textBoxText, string buttonText, Action<string> onButtonClick)            where T : Control
@@ -1994,9 +2085,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return (ListViewItem)listView.invokeOnThread(
 				()=>{
 						if (items.size() < 2)
-						{
-							listView.Items.Add(items.first() ?? "");
-							return listView;
+						{                            
+							return listView.Items.Add(items.first() ?? "");						                            
 						}													
 						var listViewItem = new ListViewItem();
 						listViewItem.Text = items.first();
@@ -2150,4 +2240,29 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return new ComponentResourceManager(type);
         }
     }
+
+    public static class WinForms_ExtensionMethods_MessageBox
+    {
+        public static DialogResult msgBox(this string message, params string[] formatParameters)
+        {
+            return message.messageBox(formatParameters);
+        }
+        public static DialogResult alert(this string message, params string[] formatParameters)
+        {
+            return message.messageBox(formatParameters);
+        }
+
+        public static DialogResult msgbox(this string message, params string[] formatParameters )
+        {
+            return message.messageBox(formatParameters);
+        }
+
+        public static DialogResult messageBox(this string message, params string[] formatParameters)
+        {            
+            if (formatParameters.size() > 0)
+                message = message.format(formatParameters);            
+            return MessageBox.Show(message, "O2 MessageBox");
+        }
+    }
 }
+;

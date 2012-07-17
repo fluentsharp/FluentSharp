@@ -14,7 +14,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {
         public static TextBox   add_TextArea(this Control control)
         {
-            return control.add_TextBox(true);
+            return control.add_TextBox(true)
+                          .unlimitedSize();
         }
         public static TextBox   add_TextBox(this Control control)
         {
@@ -125,6 +126,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 {
                     return textBox.Text;
                 });
+        }
+        public static string    contents(this TextBox textBox)
+        {
+            return textBox.get_Text();
+        }
+        public static TextBox   contents(this TextBox textBox, string text)
+        {
+            return textBox.set_Text(text);
         }
         public static TextBox   insertText(this TextBox textBox, string textToInsert)
         {
@@ -330,5 +339,26 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			searchText_TextBox.onTextChange(runSearch); 
 			return targetTextBox;
 		}
+
+        public static TextBox unlimitedSize(this TextBox textBox)
+        {
+            return textBox.maxLength(0);
+        }
+        public static TextBox noMaxLength(this TextBox textBox)
+        {
+            return textBox.maxLength(0);
+        }
+        public static TextBox maxLength(this TextBox textBox, int value)
+        {
+            return textBox.invokeOnThread(() => { textBox.MaxLength = value; return textBox; });
+        }
+
+        public static TextBox show_in_TextArea(this string text)
+        {
+            return "Viewing String with size: {0}".format(text.size())
+                        .popupWindow()
+                        .add_TextArea()
+                        .set_Text(text.fixCRLF());
+        }
     }
 }

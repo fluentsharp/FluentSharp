@@ -90,7 +90,7 @@ namespace O2.External.SharpDevelop.AST
                                      .add("System.Xml.Linq")
                                      .add("System.Linq")
                                      .add("O2.Interfaces")
-                                     .add("O2.Kernel")                                     
+                                     .add("O2.Kernel")
                                      .add("O2.Views.ASCX.ExtensionMethods")
                                      .add("O2.Views.ASCX.CoreControls")
                                      .add("O2.Views.ASCX.classes.MainGUI")
@@ -107,8 +107,7 @@ namespace O2.External.SharpDevelop.AST
                                      .add("O2.External.SharpDevelop.Ascx")
                 //O2 XRules Database
                                      .add("O2.XRules.Database.APIs")
-                                     .add("O2.XRules.Database.Utils")
-                                     .add("O2.XRules.Database.Utils.O2");
+                                     .add("O2.XRules.Database.Utils");                                     
                 //GraphSharp related
 /*                                     //.add("O2.Script")
                                      .add("GraphSharp.Controls")
@@ -333,7 +332,9 @@ namespace O2.External.SharpDevelop.AST
                 var assembly = new CompileEngine(UseCachedAssemblyIfAvailable).compileSourceFiles(ExtraSourceCodeFilesToCompile);                
                 if (assembly != null)
                 {
+                    
                     ReferencedAssemblies.Add(assembly.Location);
+                    CompileEngine.setCachedCompiledAssembly(ExtraSourceCodeFilesToCompile, assembly);
                     generateDebugSymbols = true;                // if there are extra assemblies we can't generate the assembly in memory                    
                 }
             }
@@ -344,7 +345,9 @@ namespace O2.External.SharpDevelop.AST
         }*/
         public string createCSharpCodeWith_Class_Method_WithMethodText(string code)
         {                        
-            var parsedCode = TextToCodeMappings.tryToFixRawCode(code, tryToCreateCSharpCodeWith_Class_Method_WithMethodText);            
+            //var parsedCode = TextToCodeMappings.tryToFixRawCode(code, tryToCreateCSharpCodeWith_Class_Method_WithMethodText);            
+
+            var parsedCode = tryToCreateCSharpCodeWith_Class_Method_WithMethodText(code);
         
             if (parsedCode == null)
             {
@@ -363,14 +366,26 @@ namespace O2.External.SharpDevelop.AST
                       
             try
             {
-                // handle special incudes in source code
-/*                foreach(var originalLine in code.lines())
-                    originalLine.starts("//include", (includeText) => 
+                //handle special incudes in source code
+                var lines = code.fixCRLF().lines();
+                foreach (var originalLine in lines)
+                    originalLine.starts("//O2Include:", (includeText) => 
                         {
-                            if (includeText.fileExists())
-                                code = code.Replace(originalLine, originalLine.line().add(includeText.contents()));
+                            var file = includeText;
+                            var baseFile = this.SourceCodeFile ?? PublicDI.CurrentScript;
+                            var parentFolder = baseFile.parentFolder();
+                            if (parentFolder.notValid())
+                                "[CSharpFastCompiled] in O2Include mapping, could not get parent folder of current script".error();
+                            var resolvedFile = CompileEngine.findFileOnLocalScriptFolder(file,parentFolder);
+                            if (resolvedFile.fileExists())
+                            {
+                                var fileContents = resolvedFile.contents();
+                                code = code.Replace(originalLine, originalLine.line().add(fileContents).line());
+                            }
+                            else
+                                "[CSharpFastCompiled] in O2Include mapping, could not a mapping for: {0}".error(includeText);
                         });  
- */ 
+  
             	var snippetParser = new SnippetParser(SupportedLanguage.CSharp);
                 
                 var parsedCode = snippetParser.Parse(code);

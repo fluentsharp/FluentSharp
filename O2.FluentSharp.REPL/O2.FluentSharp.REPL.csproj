@@ -50,11 +50,6 @@
       <HintPath>_External_Dlls\Mono.Cecil.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="O2_External_SharpDevelop, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_External_Dlls\O2_External_SharpDevelop.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="QuickGraph, Version=3.2.40122.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_External_Dlls\QuickGraph.dll</HintPath>
@@ -85,9 +80,6 @@
     </Compile>
     <Compile Include="Ascx\ascx_Execute_Scripts.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Ascx\ascx_ObjectViewer.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ascx\ascx_Panel_With_Inspector.cs">
       <SubType>Component</SubType>
@@ -155,6 +147,7 @@
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
     <Compile Include="DI.cs" />
+    <Compile Include="ExtensionMethods\EmbeddedResources_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
@@ -209,7 +202,7 @@
     <Compile Include="_O2_API_AST\Visitors\MapAstToDom.cs" />
     <Compile Include="_O2_API_AST\Visitors\MapAstToNRefactory.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\GZip_and_JSON_ExtensionMethods.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\JSON_ExtensionMethods.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\Web_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
@@ -227,10 +220,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_External_Dlls\Mono.Cecil.dll" />
-    <EmbeddedResource Include="_External_Dlls\O2_External_SharpDevelop.dll" />
+    <None Include="_External_Dlls\O2_External_SharpDevelop.dll" />
     <EmbeddedResource Include="_External_Dlls\QuickGraph.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
+      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
+      <Name>O2_External_SharpDevelop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>

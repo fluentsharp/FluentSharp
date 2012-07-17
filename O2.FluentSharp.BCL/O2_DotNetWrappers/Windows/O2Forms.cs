@@ -514,15 +514,7 @@ namespace O2.DotNetWrappers.Windows
         }
 
 
-        public static void openDirectoryInWebBrowser(WebBrowser wbWebBrowser, String sDirectoryToOpen)
-        {
-            sDirectoryToOpen = sDirectoryToOpen.Replace(@"\\", @"\");
-            // Web Browser Navigate object doesn't like \\ in the path
-            if (Directory.Exists(sDirectoryToOpen))
-                wbWebBrowser.Navigate("file://" + sDirectoryToOpen);
-            else
-                wbWebBrowser.Navigate("about:blank");
-        }
+
 
         // we need to do this because of the threading issues related with cross thread object access
         public static void setTextBoxValue_ThreadSafeWay(String sTextValue, TextBox tTargetTextBox)
@@ -763,34 +755,44 @@ namespace O2.DotNetWrappers.Windows
 
         public static TreeNode getTreeNodeAtDroppedOverPoint(TreeView tvTreeView, int iDroppedX, int iDroppedY)
         {
-            Point pPointToString = tvTreeView.PointToScreen(tvTreeView.Location);
+            return tvTreeView.invokeOnThread(
+                () =>{
+                        Point pPointToString = tvTreeView.PointToScreen(tvTreeView.Location);
 
-            int iAdjustedX = tvTreeView.Left + iDroppedX - pPointToString.X;
-            int iAdjustedY = tvTreeView.Top + iDroppedY - pPointToString.Y;
+                        int iAdjustedX = tvTreeView.Left + iDroppedX - pPointToString.X;
+                        int iAdjustedY = tvTreeView.Top + iDroppedY - pPointToString.Y;
 
-            //PublicDI.log.info("x:{0} y:{1}   - {2}, {3}", x, y, tvCurrentFilters.Left, tvCurrentFilters.Top);
-            return tvTreeView.GetNodeAt(iAdjustedX, iAdjustedY);
+                        //PublicDI.log.info("x:{0} y:{1}   - {2}, {3}", x, y, tvCurrentFilters.Left, tvCurrentFilters.Top);
+                        return tvTreeView.GetNodeAt(iAdjustedX, iAdjustedY);
+                    });
         }
 
-        public static void selectTreeNodeAtDroppedOverPoint(TreeView tvTreeView, int iDroppedX, int iDroppedY)
+        public static TreeView selectTreeNodeAtDroppedOverPoint(TreeView tvTreeView, int iDroppedX, int iDroppedY)
         {
-            TreeNode tnDraggedTarget = getTreeNodeAtDroppedOverPoint(tvTreeView, iDroppedX, iDroppedY);
-            if (tnDraggedTarget != null)
-                tvTreeView.SelectedNode = tnDraggedTarget;
+            return tvTreeView.invokeOnThread(
+                () =>{
+                        TreeNode tnDraggedTarget = getTreeNodeAtDroppedOverPoint(tvTreeView, iDroppedX, iDroppedY);
+                        if (tnDraggedTarget != null)
+                            tvTreeView.SelectedNode = tnDraggedTarget;
+                        return tvTreeView;
+                    });
         }
 
         public static Control findParentThatHostsControl(Control controlToFind)
         {
-            if (controlToFind != null)
-            {
-                IEnumerable<Control> results = from Control control in controlToFind.Parent.Controls
-                                               where control == controlToFind
-                                               select controlToFind.Parent;
-                if (results.Count() == 1)
-                    return results.First();
-                findParentThatHostsControl(controlToFind.Parent);
-            }
-            return null;
+            return controlToFind.invokeOnThread(
+                () =>{
+                        if (controlToFind != null)
+                        {
+                            IEnumerable<Control> results = from Control control in controlToFind.Parent.Controls
+                                                           where control == controlToFind
+                                                           select controlToFind.Parent;
+                            if (results.Count() == 1)
+                                return results.First();
+                            findParentThatHostsControl(controlToFind.Parent);
+                        }
+                        return null;
+                });
         }
        
 

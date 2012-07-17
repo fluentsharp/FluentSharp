@@ -336,7 +336,7 @@ namespace O2.External.SharpDevelop.Ascx
                         {
                             PublicDI.log.error("in loadSourceCodeFileIntoTextEditor: {0}", ex.Message);
                         }
-                        return null;
+                        return default(object);
                     });
 
         }
@@ -837,7 +837,7 @@ namespace O2.External.SharpDevelop.Ascx
                                var method = (Reflection_MethodInfo)cboxCompliledSourceCodeMethods.SelectedItem;
                                method.invokeMTA(new object[0]);
                            }
-                           return null;
+                           return default(object);
                        });
         }
 
@@ -910,9 +910,11 @@ namespace O2.External.SharpDevelop.Ascx
 
             var state = compiledAssembly == null && compileEngine.sbErrorMessage != null;
             //btShowHideCompilationErrors.visible(state);
-            btShowHideCompilationErrors.prop("Visible",state);
+            //btShowHideCompilationErrors.prop("Visible",state);
+            btShowHideCompilationErrors.visible(state);
             tvCompilationErrors.visible(state);
-            lbCompilationErrors.prop("Visible", state);
+            lbCompilationErrors.visible(state);
+            //lbCompilationErrors.prop("Visible", state);
                 
             
 
@@ -1135,7 +1137,7 @@ namespace O2.External.SharpDevelop.Ascx
                                lbSampleScripts.Visible = true;
                                cBoxSampleScripts.Visible = true;
                            }
-                           return null;
+                           return default(object);
                        });
 
             /*    O2Forms.newTreeNode(tvSampleScripts.Nodes, scriptName, 1, sampleScripts[scriptName]);

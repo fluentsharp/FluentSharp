@@ -6,15 +6,16 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using System.Reflection;
 using System.Windows.Forms;
+using O2.DotNetWrappers.Windows;
 
 namespace O2.Platform.BCL
 {
 	public class Start_O2
 	{
-		public Start_O2()
+		/*public Start_O2()
 		{
-			RegisterWindowsExtension.registerO2Extensions();
-		}
+			
+		}*/
 
 		public Assembly compileScript(string o2Script)
 		{
@@ -27,7 +28,8 @@ namespace O2.Platform.BCL
         public bool complileO2StartupScriptAndExecuteIt(string[] args)
         {
             try
-            {
+            {               
+
                 /*var o2Bcl = load_O2_Assembly("O2_FluentSharp_BCL.dll");
                 var startO2_Type = o2Bcl.GetType("O2.Platform.BCL.Start_O2");
 

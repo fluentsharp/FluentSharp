@@ -193,7 +193,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int       size(this string _string)
         {
-            if (_string.valid())
+            if (_string.notNull())
                 return _string.Length;
             return 0;
         }
@@ -258,11 +258,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static string    fixCRLF(this string stringToFix)
         {
-            if (stringToFix.contains(Environment.NewLine))
+            //old method (had some misses)
+           /* if (stringToFix.contains(Environment.NewLine))
                 return stringToFix;
             if (stringToFix.contains("\n"))
                 return stringToFix.Replace("\n", Environment.NewLine);
-            return stringToFix;
+            return stringToFix;*/
+            return stringToFix.Replace(Environment.NewLine, "\n")
+                              .Replace("\n", Environment.NewLine);
         }    
 
         public static string    ascii(this byte value)
@@ -484,7 +487,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return _string.subString(index + _stringToFind.size());
 			}
 			return "";
-		}		
+		}
+
+        public static string subString_Before(this string stringToProcess, string untilString)
+        {
+            var lastIndex = stringToProcess.indexLast(untilString);
+            return (lastIndex > 0)
+                        ? stringToProcess.subString(0, lastIndex)
+                        : stringToProcess;
+        }
 
 		public static string    lastChar(this string _string)
 		{

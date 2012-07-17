@@ -19,6 +19,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string                assemblyLocation(this Type type)
         {
+            if (type.isNull())
+                return null;
             return type.Assembly.Location;
         }
         public static string                version(this Assembly assembly)
@@ -48,9 +50,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			}
 		}
 
+        public static List<Assembly> notDynamic(this List<Assembly> assemblies)
+        {
+            return (from assembly in assemblies
+                    let isDynamic = assembly.prop<bool>("IsDynamic")
+                    where isDynamic.isFalse()
+                    select assembly).toList();
+        }
         public static List<Assembly>        with_Valid_Location(this List<Assembly> assemblies)
         {
-            return assemblies.where((assembly) => assembly.Location.valid()).toList();
+            return assemblies.notDynamic().where((assembly) => assembly.Location.valid()).toList();
         }
 
 		public static List<string>          names(this List<AssemblyName> assemblyNames)
@@ -189,6 +198,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 //throw new ArgumentOutOfRangeException();
             }
         }
+
+
 		
     }
 
@@ -261,6 +272,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return PublicDI.reflection.getTypes(type);
         }
+
+        public static List<Type> types<T>(this List<T> list)
+        {
+            return list.Select((item) => item.type()).toList();
+        }
         public static void          infoTypeName(this object _object)
         {
             if (_object.notNull())
@@ -286,6 +302,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return type.FullName;
         }
+
+        public static List<string> names(this List<Type> types)
+        {
+            return types.Select((type) => type.Name).toList();
+        }
+
         public static string        comTypeName(this object _object)
         {
             return PublicDI.reflection.getComObjectTypeName(_object);
@@ -379,10 +401,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return PublicDI.reflection.getProperty(propertyName, type);
         }    
+
+        public static T                     prop<T>(this object liveObject, string propertyName)
+        {            
+            var value = liveObject.prop(propertyName);
+            if (value is T)
+                return (T)value;
+            return default(T);
+        }
+
         public static object                prop(this object liveObject, string propertyName)
         {
             return PublicDI.reflection.getProperty(propertyName, liveObject);
         }
+
         public static void                  prop(this object _liveObject, PropertyInfo propertyInfo, object value)
         {
             PublicDI.reflection.setProperty(propertyInfo, _liveObject, value);
@@ -631,7 +663,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return PublicDI.reflection.invokeMethod_Static(methodInfo, invocationParameters);
 				//return PublicDI.reflection.invokeMethod_Static(methodInfo, new object[] { invocationParameters});			
 			return PublicDI.reflection.invokeMethod_Static(methodInfo);
-		}				
+		}
+
+        public static object invokeStatic(this Assembly assembly, string type, string method, params object[] parameters)
+        {
+            return assembly.type(type).invokeStatic(method, parameters);
+        }
     }
 
     public static class Reflection_ExtensionMethods_Interfaces

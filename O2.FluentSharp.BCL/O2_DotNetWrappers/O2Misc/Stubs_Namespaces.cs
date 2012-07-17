@@ -17,10 +17,3 @@ namespace O2.XRules.Database.Utils
 	{
 	}
 }
-
-namespace O2.XRules.Database.Utils.O2
-{
-	class Stub_Namespace
-	{
-	}
-}

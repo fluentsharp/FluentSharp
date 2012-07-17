@@ -14,8 +14,8 @@ using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.ExtensionMethods;
+//using O2.External.SharpDevelop.Ascx;
+//using O2.External.SharpDevelop.ExtensionMethods;
 
 namespace O2.XRules.Database.Utils
 {
@@ -46,7 +46,7 @@ namespace O2.XRules.Database.Utils
 
         public PropertyGrid propertyGrid;
         public TreeView treeView;
-        public ascx_SourceCodeViewer serializedString;
+        //public ascx_SourceCodeViewer serializedString;
         public CheckBox showSerializedString_CheckBox;
         public CheckBox createObjectWhenNull_CheckBox;
         public CheckBox simpleView_CheckBox;
@@ -66,19 +66,19 @@ namespace O2.XRules.Database.Utils
             try
             {
                 var topPanel = this.add_Panel();
-                serializedString = topPanel.insert_Right(200).add_GroupBox("Serialized Object").add_SourceCodeViewer();
-                var serializedStringPanel = serializedString.splitContainer().panel2Collapsed(true);
+                //serializedString = topPanel.insert_Right(200).add_GroupBox("Serialized Object").add_SourceCodeViewer();
+                //var serializedStringPanel = serializedString.splitContainer().panel2Collapsed(true);
                 propertyGrid = topPanel.add_GroupBox("").add_PropertyGrid().helpVisible(false);
                 treeView = propertyGrid.parent().insert_Left<Panel>().add_TreeView().sort(); ;
                 //treeView.splitterDistance(300);
                 var toStringValue = propertyGrid.parent().insert_Below<Panel>(100).add_GroupBox("ToString Value (not editable):").add_TextArea();
                 var optionsPanel = treeView.insert_Below<Panel>(70);
                 var objectName = toStringValue.parent().insert_Above<Panel>(20).add_TextBox("name", "");
-                propertyGrid.onValueChange(updateSerializedString);
+                //propertyGrid.onValueChange(updateSerializedString);
 
                 //setSerializedStringSyncWithPropertyGrid();
 
-                serializedString.insert_Above(20).add_Link("Sync Serialized String With PropertyGrid", 0, 0, () => updateSerializedStringSyncWithPropertyGrid());
+                //serializedString.insert_Above(20).add_Link("Sync Serialized String With PropertyGrid", 0, 0, () => updateSerializedStringSyncWithPropertyGrid());
 
                 LinkLabel invokeLink = null;
                 invokeLink = optionsPanel.add_CheckBox("Show Methods", 0, 0,
@@ -124,14 +124,14 @@ namespace O2.XRules.Database.Utils
                     })
                             .bringToFront();
 
-                showSerializedString_CheckBox = optionsPanel.add_CheckBox("Show serialized string", 44, 0,
+                /*showSerializedString_CheckBox = optionsPanel.add_CheckBox("Show serialized string", 44, 0,
                     (value) =>
                     {
                         ShowSerializedString = value;
                         serializedStringPanel.panel2Collapsed(!value);
                         refresh();
                     })
-                             .autoSize();
+                             .autoSize();*/
 
                 createObjectWhenNull_CheckBox = optionsPanel.add_CheckBox("Create Object When Null", 44, 150,
                     (value) =>
@@ -299,7 +299,7 @@ namespace O2.XRules.Database.Utils
                 addObjectPropertyAndFields(objectNode, targetObject);
                 objectNode.expand();
                 treeView.selectFirst();
-                updateSerializedString();
+                //updateSerializedString();
             }
         }
 
@@ -325,7 +325,7 @@ namespace O2.XRules.Database.Utils
             return this;
         }
 
-        public void updateSerializedString()
+        /*public void updateSerializedString()
         {
             if (guiReady && ShowSerializedString)
             {
@@ -339,9 +339,9 @@ namespace O2.XRules.Database.Utils
                 else
                     this.serializedString.enabled(false);
             }
-        }
+        }*/
 
-        public void updateSerializedStringSyncWithPropertyGrid()
+/*        public void updateSerializedStringSyncWithPropertyGrid()
         {
             //this.serializedString.onTextChange(
             //	(text)=>{ 	
@@ -364,7 +364,7 @@ namespace O2.XRules.Database.Utils
             }
             //	});
 
-        }
+        }*/
 
         public void show(object _object)
         {
@@ -403,7 +403,7 @@ namespace O2.XRules.Database.Utils
                 var result = RootObject.invoke(methodToInvoke.Name);
                 "invocation result: {0}".debug(result);
                 if (result.notNull())
-                    Kernel.show.info(result);
+                    result.showInfo();
             }
             else
                 "Selected Node was not a Method, it was {0}".error(selectedNodeTag.typeName());
@@ -440,14 +440,11 @@ namespace O2.XRules.Database.Utils
             }
             return _object;
         }
-    }
 
-
-    public static class _Extra_ObjectDetails_ExtensionMethods
-    {        
-        public static void details<T>(this T _object)
+        public static T details<T>(this T _object)
         {
             O2Thread.mtaThread(() => _object.showObject());
+            return _object;
         }
     }
 }

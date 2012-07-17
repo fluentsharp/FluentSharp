@@ -5,11 +5,18 @@ using System.Text;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Drawing;
+using O2.Views.ASCX.classes.MainGUI;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class ConfigFiles_ExtensionMethods_WinForms
-    {
+    {        
+        public static Panel editLocalConfigFile(this string file)
+        {
+            var panel = O2Gui.open<Panel>("Editing local config file: {0}".format(file), 700, 300);
+            return file.editLocalConfigFile(panel);
+        }
+
         public static T editLocalConfigFile<T>(this string file, T control)
            where T : Control
         {

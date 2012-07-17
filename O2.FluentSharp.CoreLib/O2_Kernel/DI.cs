@@ -14,6 +14,7 @@ using System;
 //O2File:CodeUtils/O2ConfigLoader.cs
 //O2File:CodeUtils/AppDomainUtils.cs
 //O2File:InterfacesBaseImpl/KO2Log.cs
+//
 
 namespace O2.Kernel
 {

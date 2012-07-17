@@ -45,10 +45,10 @@ namespace O2.Kernel.InterfacesBaseImpl
 			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
 
             defaultLocallyDevelopedScriptsFolder = defaultO2LocalTempFolder.pathCombine(defaultLocallyDevelopedScriptsFolder);
-
-            hardCodedO2LocalTempFolder = defaultO2LocalTempFolder;
-            O2TempDir = hardCodedO2LocalTempFolder;                 
             
+            hardCodedO2LocalTempFolder = Path.Combine(defaultO2LocalTempFolder, DateTime.Now.ToShortDateString().Replace("/", "_")); ;
+            var o2TempDir = hardCodedO2LocalTempFolder; // so that we don't trigger the auto creation of the tempDir
+                       
             UserData = defaultO2LocalTempFolder.pathCombine("_USERDATA"); //"C:\\O2\\_USERDATA"
 
 //            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
@@ -66,10 +66,10 @@ namespace O2.Kernel.InterfacesBaseImpl
             ZipppedScriptsFile = defaultZippedScriptsFile;
             O2DownloadLocation = defaultO2DownloadLocation;
 
-            AutoSavedScripts = O2TempDir.pathCombine(@"../_AutoSavedScripts")
+            AutoSavedScripts = o2TempDir.pathCombine(@"../_AutoSavedScripts")
                                         .pathCombine(DateTime.Now.ToShortDateString().Replace("/","_")); // can't used safeFileName() here because the DI object is not created
-            ReferencesDownloadLocation = O2TempDir.pathCombine(@"../_ReferencesDownloaded");
-            EmbeddedAssemblies = O2TempDir.pathCombine(@"../_EmbeddedAssemblies");
+            ReferencesDownloadLocation = o2TempDir.pathCombine(@"../_ReferencesDownloaded");
+            EmbeddedAssemblies = o2TempDir.pathCombine(@"../_EmbeddedAssemblies");
 
             O2.DotNetWrappers.DotNet.AssemblyResolver.Init();            
         }
@@ -104,9 +104,9 @@ namespace O2.Kernel.InterfacesBaseImpl
             }
             set {
                 //note: need to find a better solution for making today's data part of the temp folder 
-                if (value.StartsWith(defaultO2LocalTempFolder))
-                    hardCodedO2LocalTempFolder = Path.Combine(defaultO2LocalTempFolder, DateTime.Now.ToShortDateString().Replace("/","_"));
-                else
+                //if (value.StartsWith(defaultO2LocalTempFolder))
+                    
+                //else
                     hardCodedO2LocalTempFolder = value; 
 
             }

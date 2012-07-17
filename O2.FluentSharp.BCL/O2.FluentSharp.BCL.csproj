@@ -46,6 +46,8 @@
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Misc_GUI_Helpers.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_WebBrowser.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Clipboard_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Compilation_ExtensionMethods.cs" />
@@ -170,6 +172,9 @@
     </Compile>
     <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.Designer.cs">
       <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_ObjectViewer.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_ShowInfo.cs">
       <SubType>UserControl</SubType>

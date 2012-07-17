@@ -54,6 +54,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return list.count();
 		}
+        public static bool      empty(this IEnumerable list)
+        {
+            return list.size() < 1;
+        }
 		public static int       count(this IEnumerable list)
 		{			
 			var count = 0;
@@ -142,9 +146,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
     }
 
     public static class Collections_ExtensionMethods_List
-    {
-        
-
+    {        
         public static List<string>          split_onLines(this string targetString)
         {
             return targetString.split(Environment.NewLine);
@@ -354,7 +356,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return list;
 		}
 
-        public static void              createTypeAndAddToList<T>(this List<T> sequence, params object[] values)
+        public static void      createTypeAndAddToList<T>(this List<T> sequence, params object[] values)
         {
             var t = (T)typeof(T).ctor();
             var properties = t.type().properties();
@@ -368,13 +370,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return colection.Count;
         }
+        public static bool      empty(this ICollection colection)
+        {
+            return colection.size() < 1;
+        }
         public static T         first<T>(this ICollection<T> collection)
         {
             //collection.GetEnumerator().Reset();
-            var enumerator = collection.GetEnumerator();
-            enumerator.Reset();
-            if (enumerator.MoveNext())            
-                return enumerator.Current;
+            try
+            {
+                var enumerator = collection.GetEnumerator();
+                enumerator.Reset();
+                if (enumerator.MoveNext())
+                    return enumerator.Current;
+            }
+            catch { }
             return default(T);
         }        
         public static bool      size(this ICollection colection, int value)

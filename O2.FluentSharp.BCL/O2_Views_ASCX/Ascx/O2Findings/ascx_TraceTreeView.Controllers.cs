@@ -44,7 +44,7 @@ namespace O2.Views.ASCX.O2Findings
                                     {
                                         o2Finding = _o2Finding;
                                         showO2TraceTree();
-                                        return null;
+                                        return default(object);
                                     });
         }
 
@@ -64,7 +64,7 @@ namespace O2.Views.ASCX.O2Findings
                                                             tvSmartTrace.SelectedNode = tvSmartTrace.Nodes[0];
                                                     tvSmartTrace.Visible = true;
                                                 }
-                                                return null;
+                                                return default(object);
                                             });
         }
 

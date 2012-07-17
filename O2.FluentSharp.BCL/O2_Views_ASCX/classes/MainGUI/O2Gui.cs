@@ -59,7 +59,7 @@ namespace O2.Views.ASCX.classes.MainGUI
             Load += (sender, e) => formLoaded.Set();
             Closed += (sender,e) => this.Dispose();
 
-            this.set_O2Icon();
+            this.set_DefaultIcon();
             
         }
         		

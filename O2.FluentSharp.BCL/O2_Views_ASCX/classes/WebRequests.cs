@@ -52,7 +52,7 @@ namespace O2.Views.ASCX.classes
                                                                    adfDownloadFile.setAutoCloseOnDownload(true);
                                                                    adfDownloadFile.setCallBackWhenCompleted(dCallbackWhenCompleted);
                                                                    adfDownloadFile.downloadFile();
-                                                                   return null;
+                                                                   return default(object);
                                                                });
 
                                                    }

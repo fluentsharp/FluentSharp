@@ -89,9 +89,12 @@ namespace O2.Kernel
                 {
                     PublicDI.log.info("Setting CurrentScript to:: {0}", value);
                     _currentScript = value;
+                    CurrentScriptFolder = value.parentFolder();
                 }
             }
         }
+
+        public static string CurrentScriptFolder { get; private set; }
 
         public static void debugBreak()
         {

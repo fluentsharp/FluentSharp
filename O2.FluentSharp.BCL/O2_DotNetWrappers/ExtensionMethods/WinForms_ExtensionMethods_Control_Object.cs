@@ -660,10 +660,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T control<T>(this Control control, bool searchRecursively) where T : Control
         {
-            if (control.notNull())
-                foreach (var childControl in control.controls(searchRecursively))
-                    if (childControl is T)
-                        return (T)childControl;
+            try
+            {
+                if (control.notNull())
+                    foreach (var childControl in control.controls(searchRecursively))
+                        if (childControl is T)
+                            return (T)childControl;
+            }
+            catch {}
             return null;
         }
         public static List<Control> list(this Control.ControlCollection controlCollection)
@@ -847,13 +851,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
                     control.AllowDrop = true;
                     control.DragEnter += (sender, e) => Dnd.setEffect(e);
-                    control.DragDrop += (sender, e)
-                         =>
-                    {
-                        var fileOrFolder = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e);
-                        if (fileOrFolder.valid())
-                            onDropFileOrFolder(fileOrFolder);
-                    };
+                    control.DragDrop += (sender, e)=>{
+                                                         var fileOrFolder = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e);
+                                                         if (fileOrFolder.valid())
+                                                         O2Thread.mtaThread(
+                                                            () =>{
+                                                                  
+                                                                        onDropFileOrFolder(fileOrFolder);
+                                                                 });
+                                                    };
                     return control;
                 });
             //
@@ -1369,6 +1375,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return control.insert_Below<Panel>(width).add_GroupBox(title).add_Panel();
 		}
 
+        public static Panel insert_ActionPanel(this Control control)
+        {
+            return control.insert_Above(40, "Actions");
+        }
+
         // Key Events
         public static T onKeyPress<T>(this T control, Func<Keys, bool> callback) where T : Control
         {
@@ -1399,8 +1410,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
             control.KeyDown += (sender, e) =>
             {
                 if (e.KeyData == onlyFireOnKey)
-                {
-                    callback(control.Text);
+                {   
+                    var text = control.Text;
+                    O2Thread.mtaThread(() => callback(text));
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
@@ -1433,7 +1445,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             textBox.KeyUp += (sender, e) =>
             {
                 if (onlyFireOnEnter.isFalse() || e.KeyCode == Keys.Enter)
-                    onTextChanged(textBox.get_Text());
+                    O2Thread.mtaThread(()=>onTextChanged(textBox.get_Text()));
             };
             return control;
         }
@@ -1451,7 +1463,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 var text = comboBox.Text;
                 if (onlyFireOnEnter.isFalse() || e.KeyCode == Keys.Enter)
                 {
-                    onTextChanged(text);
+                    O2Thread.mtaThread(()=> onTextChanged(text));
                     if (addToHistory)
                     {
                         comboBox.Items.Insert(0, text);
@@ -1578,7 +1590,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static T pink<T>(this T control)			where T : Control
 		{
 			return control.backColor(Color.LightPink);
-		}		
+		}
+        public static T red<T>(this T control) where T : Control
+        {
+            return control.backColor(Color.Red);
+        }		
 		public static T green<T>(this T control)			where T : Control
 		{
 			return control.backColor(Color.LightGreen);
@@ -1631,5 +1647,28 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return control.parent().add_Label(label, control.top() + 22 , control.left());
 		}
+
+        //Refresh enable and disable
+        public static T refresh_Disable<T>(this T control) where T : Control
+        {
+            return control.beginUpdate();
+        }
+
+        public static T refresh_Enable<T>(this T control) where T : Control
+        {
+            return control.endUpdate();
+        }
+
+        public static T beginUpdate<T>(this T control) where T : Control
+        {
+            control.invoke("BeginUpdateInternal");
+            return control;
+        }
+
+        public static T endUpdate<T>(this T control) where T : Control
+        {
+            control.invoke("EndUpdateInternal");
+            return control;
+        }
     }
 }

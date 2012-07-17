@@ -19,9 +19,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (file.extension(".h2"))
             {
                 //"return source code of H2 file".info();
-                return H2.load(file).SourceCode;
+                return H2.load(file).SourceCode.fixCRLF();
             }
             return null;
-        }	
+        }
+
+        public static H2 h2(this string code)
+        {
+            var h2 = new H2();
+            h2.SourceCode = code;
+            return h2;
+        }
+
+        public static string h2_File(this string code, string targetFile = null)
+        {
+            if (targetFile.valid().isFalse())
+                targetFile = ".h2".tempFile();
+            if (code.h2().saveAs(targetFile).isFalse())
+                "Something when wrong saving this code as an h2 script: {0}".error(code);
+            return targetFile;
+        }			
     }
 }
