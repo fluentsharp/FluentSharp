@@ -58,6 +58,7 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Crypto_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\DynamicTypes_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\EmbeddedResources_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\GZip_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\H2_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\IO_ExtensionMethods.cs" />

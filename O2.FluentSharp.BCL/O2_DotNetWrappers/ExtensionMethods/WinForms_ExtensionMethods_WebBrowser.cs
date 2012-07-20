@@ -220,8 +220,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var thread = O2Thread.mtaThread(
                 () =>
                 {
-                    if (browser.readyState() == WebBrowserReadyState.Complete && browser.isBusy().isFalse() && url.str() != "about:blank")
-                        "[waitForCompleted] browser.readyState() was set to Complete and browser.isBusy was false when this was called".error();
+                    //if (browser.readyState() == WebBrowserReadyState.Complete && browser.isBusy().isFalse() && url.str().contains("about:blank").isFalse())
+                    //    "[waitForCompleted] browser.readyState() was set to Complete and browser.isBusy was false when this was called".error();
                     while ((browser.readyState() != WebBrowserReadyState.Complete || 
                            browser.isBusy().isTrue())  && abortThread.isFalse())
                         browser.wait(100, false);

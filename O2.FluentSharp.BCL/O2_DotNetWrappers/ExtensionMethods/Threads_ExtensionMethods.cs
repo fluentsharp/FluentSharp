@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
+using System.Diagnostics;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -14,63 +15,91 @@ namespace O2.DotNetWrappers.ExtensionMethods
         /// <param name="control"></param>
         /// <param name="codeToInvoke"></param>
         /// <returns></returns>
-        public static T invokeOnThread<T>(this Control control, Func<T> codeToInvoke)
-        {
+        /// 
+        private static T invokeThread<T>(Func<T> codeToInvoke)
+        { 
             try
-            {                
+            {
+                return codeToInvoke();
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in invokeThread<T>]");
+                return default(T);
+            }                                                 
+        }
+        public static T invokeOnThread<T>(this Control control, Func<T> codeToInvoke)
+        {            
+            try
+            {
                 if (control.isNull() || control.IsDisposed)
                     return default(T);
                 if (control.InvokeRequired)
                 {
                     T returnData = default(T);
-                    //lock (control)
-                    //{                        
-                        var sync = new AutoResetEvent(false);
-                        if (control.IsDisposed)
-                            return default(T);
-                        control.Invoke(new EventHandler((sender, e) =>
-                                                            {
-                                                                if (control.IsDisposed.isFalse())
-                                                                    returnData = codeToInvoke();                                                                
-                                                                sync.Set();
-                                                            }));
-                        if (sync.WaitOne(2000).isFalse())
-                        {
-                            return default(T);
-                        }
-                    //}
+                    var sync = new AutoResetEvent(false);
+                    if (control.IsDisposed)
+                        return default(T);                    
+                    control.Invoke(new EventHandler((sender, e) =>
+                        {                            
+                            if (control.IsDisposed.isFalse())
+                                returnData = invokeThread(codeToInvoke);
+                            sync.Set();
+                        }));
+                    sync.WaitOne();
+                    /*if (sync.WaitOne(20000).isFalse())
+                    {
+                        "[in invokeOnThread] Func<T> codeToInvoke took more than 2s to execute"
+                        return default(T);
+                    } */
                     return returnData;
                 }
                 return codeToInvoke();
             }
-
+            catch (System.ComponentModel.InvalidAsynchronousStateException)
+            { 
+                //ignore these
+            }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                return default(T);
-            }         
+                ex.log("[in invokeOnThread<T>]");                
+            }
+            return default(T);
         }        
 
         /// <summary>
         /// ASync execution of code on the the Control thread unless we are on the correct thread
         /// and the execution will be sync
         /// </summary>
-        public static void invokeOnThread(this Control control, O2Thread.FuncVoid codeToInvoke)
+        /// 
+        private static void invokeThread(Action codeToInvoke)
+        {
+            try
+            {
+                codeToInvoke();
+            }
+            catch (Exception ex)
+            {
+                ex.log("[invokeThread]");                
+            }
+        }
+        public static void invokeOnThread(this Control control, Action codeToInvoke)
         {
             if (control.isNull() || control.IsDisposed)
             {
-                "Control.invokeOnThread, provided control value was null or dispose(so not invoking code)".error();
+                //"Control.invokeOnThread, provided control value was null or dispose(so not invoking code)".error();
                 return;
             }
             try
             {
                 if (control.InvokeRequired)
                 {                    
-                    control.Invoke(new EventHandler((sender, e)=>{
-                                                                    if (control.IsDisposed)
-                                                                        return;
-                                                                    codeToInvoke();
-                                                                 }));
+                    control.Invoke(new EventHandler((sender, e)=>
+                        {
+                            if (control.IsDisposed)
+                                return;
+                            invokeThread(codeToInvoke);
+                        }));
                 }
                 else
                     codeToInvoke();
@@ -78,7 +107,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);                
+                ex.log("[invokeOnThread]");                
             }
         }
 
@@ -87,14 +116,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			try
 			{
 				if (toolStrip.InvokeRequired)
-					toolStrip.Invoke(new EventHandler((sender, e) => codeToInvoke()));
+                    toolStrip.Invoke(new EventHandler((sender, e) =>
+                        {
+                            invokeThread(codeToInvoke); 
+                        }));
 				else
 					codeToInvoke();
 			}
 
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine(ex.Message);
+                ex.log("[in invokeOnThread]");
 			}
 		}
         /// <summary>
@@ -122,8 +154,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
-                    //   DI.log.ex(ex, "in okThreadSync");
+                    ex.log("[in okThreadSync]");                    
                 }
             //return null;
         }
@@ -157,7 +188,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);               
+                ex.log("[in okThread]");
                 return false;
             }
         }
@@ -181,7 +212,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);                
+                ex.log("[in okThread]");
                 return false;
             }
         }

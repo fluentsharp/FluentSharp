@@ -267,8 +267,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 : new List<string>();
         }
         public static string        createDir(this string directory)
-        {
-            return Files.checkIfDirectoryExistsAndCreateIfNot(directory);
+        {            
+            return Files.checkIfDirectoryExistsAndCreateIfNot(directory);            
         }
         public static string        createFolder(this string folder)
         {            
@@ -276,9 +276,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string        directoryName(this string file)
         {
-            if (file.valid() && file.isFile())
-                return Path.GetDirectoryName(file);
-            return "";            
+            if (file.valid())
+            {
+                try
+                {
+                    return Path.GetDirectoryName(file);
+                }
+                catch(Exception ex)
+                {
+                    ex.log("in directoryName for: {0}".info(file));                    
+                }
+            }
+            return ""; 
         }
         public static bool          isFolder(this string path)
         {

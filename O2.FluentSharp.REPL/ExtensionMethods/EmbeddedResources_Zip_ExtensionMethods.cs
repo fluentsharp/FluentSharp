@@ -40,7 +40,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
     }
 
-    public static class EmbeddedResources_ExtensionMethods
+    public static class EmbeddedResources_Zip_ExtensionMethods
     {
         public static string extract_EmbeddedResource_into_O2RootDir(this string resourceName)
 		{
@@ -70,28 +70,5 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			}
 			return null;
 		}
-		public static Stream resourceStream(this string resourceName)
-		{
-			resourceName = resourceName.lower();
-			foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies())
-				foreach(var name in assembly.resourcesNames())
-					if (name.lower() == resourceName)
-						return assembly.resourceStream(name);
-			return null;
-		}
-		public static Stream resourceStream(this Assembly assembly, string resourceName)
-		{			
-			return assembly.GetManifestResourceStream(resourceName);
-		}
-		
-		public static List<string> resourcesNames(this Assembly assembly)
-		{
-			return assembly.GetManifestResourceNames().toList();            
-		}
-		
-		public static byte[] bytes(this Stream stream)
-		{
-			return new BinaryReader(stream).ReadBytes((int)stream.Length);
-		}
-	}    
+    }    
 }

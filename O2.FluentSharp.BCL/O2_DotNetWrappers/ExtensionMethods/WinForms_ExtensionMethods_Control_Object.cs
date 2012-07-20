@@ -55,10 +55,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }          
         public static T add_Control<T>(this Control hostControl, params int[] position) where T : Control
         {
-            var values = new[] { -1, -1, -1, -1 };
-            for (int i = 0; i < position.Length; i++)
-                values[i] = position[i];
-            return hostControl.add_Control<T>(values[0], values[1], values[2], values[3]);
+            if (hostControl.notNull())
+            {
+                var values = new[] { -1, -1, -1, -1 };
+                for (int i = 0; i < position.Length; i++)
+                    values[i] = position[i];
+                return hostControl.add_Control<T>(values[0], values[1], values[2], values[3]);
+            }
+            return default(T);
         }
         public static T add_Control<T>(this Control hostControl, int top, int left, int width, int height) where T : Control
         {
@@ -90,7 +94,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     catch (Exception ex)
                     {
                        // ex.log("in add_Control<T>");  // can't realy log this since it will introduce an race-condition
-                        System.Diagnostics.Debug.WriteLine("in add_Control<T>: " + ex.Message);
+                        PublicDI.log.error("in add_Control<T>: " + ex.Message);
                     }
                     return null;
                 });
@@ -103,7 +107,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T append_Control<T>(this Control control) where T : Control
         {
-            return control.Parent.add_Control<T>(control.Top, control.Left + control.Width + 5);
+            if(control.notNull())
+                return control.parent().add_Control<T>(control.Top, control.Left + control.Width + 5);
+            return null;
         }
 
 
@@ -677,7 +683,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 controls.Add(control);
             return controls;
         }
-
+        public static IntPtr handle(this Control control)
+        {
+            try
+            {
+                return control.invokeOnThread(() => control.Handle);
+            }
+            catch 
+            {
+                return IntPtr.Zero;
+            }
+        }
+        public static bool hasHandle(this Control control)
+        {
+            return control.handle() != IntPtr.Zero;
+        }
+        public static bool noHandle(this Control control)
+        {
+            return control.handle() == IntPtr.Zero;
+        }
         public static T focus<T>(this T control) where T : Control
         {
             return (T)control.invokeOnThread(
@@ -821,8 +845,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         //events 
-        public static T onDrop<T, T1>(this T control, Action<T1> onDrop)
-            where T : Control
+        public static T onDrop<T, T1>(this T control, Action<T1> onDrop) where T : Control
         {
             control.invokeOnThread(() =>
             {
@@ -843,7 +866,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             });
             return (T)control;
         }
-
         public static T onDrop<T>(this T control, Action<string> onDropFileOrFolder) where T : Control
         {
             return (T)control.invokeOnThread(() =>
@@ -864,7 +886,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             //
         }
-
         public static T onHandleCreated<T>(this T control, Action onHandleCreated) where T : Control
         {
             control.HandleCreated += (sender, e) =>
@@ -872,9 +893,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 onHandleCreated();
             };
             return control;
-        }
-
-        
+        }        
         public static T onControlAdded<T>(this T control, Action onControlAdded) where T : Control
         {
             control.ControlAdded += (sender, e) =>
@@ -883,7 +902,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             };
             return control;
         }
-
         public static T onClosed<T>(this T control, MethodInvoker onClosed) where T : Control
         {
             var parentForm = control.parentForm();
@@ -1587,11 +1605,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return control.backColor(Color.White);
 		}		
-		public static T pink<T>(this T control)			where T : Control
+		public static T pink<T>(this T control)			    where T : Control
 		{
 			return control.backColor(Color.LightPink);
 		}
-        public static T red<T>(this T control) where T : Control
+        public static T red<T>(this T control)              where T : Control
         {
             return control.backColor(Color.Red);
         }		
@@ -1653,22 +1671,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return control.beginUpdate();
         }
-
         public static T refresh_Enable<T>(this T control) where T : Control
         {
             return control.endUpdate();
         }
-
         public static T beginUpdate<T>(this T control) where T : Control
         {
-            control.invoke("BeginUpdateInternal");
-            return control;
+            return control.invokeOnThread(() =>
+                {
+                    control.invoke("BeginUpdateInternal");
+                    return control;
+                });            
         }
-
         public static T endUpdate<T>(this T control) where T : Control
         {
-            control.invoke("EndUpdateInternal");
-            return control;
+            return control.invokeOnThread(() =>
+                {
+                    control.invoke("EndUpdateInternal");
+                    return control;
+                });
         }
     }
 }

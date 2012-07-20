@@ -147,7 +147,7 @@
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
     <Compile Include="DI.cs" />
-    <Compile Include="ExtensionMethods\EmbeddedResources_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\EmbeddedResources_Zip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />

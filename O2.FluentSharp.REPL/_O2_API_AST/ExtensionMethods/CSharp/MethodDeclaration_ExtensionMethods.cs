@@ -79,10 +79,11 @@ namespace O2.API.AST.ExtensionMethods.CSharp
         public static TypeReference setReturnType(this MethodDeclaration methodDeclaration)
         {
             var blockStatement = methodDeclaration.Body;
-            if (false == blockStatement.hasReturnStatement())
-                methodDeclaration.TypeReference = new TypeReference("void", true);
-            else
-            {
+            //just default to always have a return of type object
+//            if (false == blockStatement.hasReturnStatement())
+  //              methodDeclaration.TypeReference = new TypeReference("void", true);
+    //        else
+      //      {
 				methodDeclaration.TypeReference = new TypeReference("System.Object", true);                
 
 				blockStatement.add_Return(null); // add an extra default return value;
@@ -101,7 +102,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
                 }
 				*/
 				
-            }
+        //    }
             return methodDeclaration.TypeReference;
         }
 

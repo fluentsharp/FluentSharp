@@ -553,7 +553,8 @@ namespace O2.External.SharpDevelop.Ascx
         /// <returns></returns>
         public String getSourceCode()
         {
-            return (string)this.tecSourceCode.ActiveTextAreaControl.TextArea.invokeOnThread(() => tecSourceCode.Text);
+            return this.tecSourceCode.invokeOnThread(() => tecSourceCode.Text);
+            //return (string)this.tecSourceCode.ActiveTextAreaControl.TextArea.invokeOnThread(() => tecSourceCode.Text);
 
             /*try
             {

@@ -13,7 +13,7 @@ namespace O2.DotNetWrappers.DotNet
         #region Delegates
 
         public delegate Thread FuncThread(); // they forgot to include this one :)
-        public delegate void FuncVoid(); // they forgot to include this one :)
+        //public delegate void FuncVoid(); // they forgot to include this one :)
         public delegate void FuncVoidT1<T1>(T1 arg1);
         public delegate void FuncVoidT1T2<T1,T2>(T1 arg1,T2 arg2);
         public delegate void FuncVoidT1T2T3<T1, T2,T3>(T1 arg1, T2 arg2, T3 arg3);
@@ -32,12 +32,12 @@ namespace O2.DotNetWrappers.DotNet
             }
         }*/
 
-        public static Thread staThread(FuncVoid codeToExecute)
+        public static Thread staThread(Action codeToExecute)
         {
             return staThread(codeToExecute, ThreadPriority.Normal);
         }
 
-        public static Thread staThread(FuncVoid codeToExecute, ThreadPriority threadPriority)            
+        public static Thread staThread(Action codeToExecute, ThreadPriority threadPriority)            
         {
             var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
             var staThread = new Thread(()=>{
@@ -50,7 +50,7 @@ namespace O2.DotNetWrappers.DotNet
 		                                            ex.log("in staThread");
                                                 }
 	                                        });
-   
+            staThread.Name = "[O2 Sta Thread]";
             staThread.SetApartmentState(ApartmentState.STA);
             staThread.Priority = threadPriority;
             staThread.Start();            
@@ -67,22 +67,22 @@ namespace O2.DotNetWrappers.DotNet
             }
         }*/
 
-        public static Thread mtaThread(FuncVoid codeToExecute)
+        public static Thread mtaThread(Action codeToExecute)
         {
             return mtaThread("[O2 Mta Thread]", codeToExecute);
         }
 
-        public static Thread mtaThread(FuncVoid codeToExecute, ThreadPriority threadPriority)
+        public static Thread mtaThread(Action codeToExecute, ThreadPriority threadPriority)
         {
             return mtaThread("[O2 Mta Thread]", codeToExecute, threadPriority);
         }
 
-        public static Thread mtaThread(string threadName, FuncVoid codeToExecute)
+        public static Thread mtaThread(string threadName, Action codeToExecute)
         {
             return mtaThread(threadName, codeToExecute, ThreadPriority.Normal);
         }
 
-        public static Thread mtaThread(string threadName, FuncVoid codeToExecute, ThreadPriority threadPriority)
+        public static Thread mtaThread(string threadName, Action codeToExecute, ThreadPriority threadPriority)
         {
             var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
             var mtaThread = new Thread(() =>
@@ -104,7 +104,7 @@ namespace O2.DotNetWrappers.DotNet
             return mtaThread;
         }
 
-        public static Thread mtaThread(Semaphore semaphore, FuncVoid codeToExecute)
+        public static Thread mtaThread(Semaphore semaphore, Action codeToExecute)
         {
             var stackTrace = getCurrentStackTrace(); // used for cross thread debugging purposes
             if (semaphore == null)

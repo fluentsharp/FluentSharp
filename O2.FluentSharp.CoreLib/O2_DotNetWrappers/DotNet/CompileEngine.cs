@@ -791,7 +791,7 @@ namespace O2.DotNetWrappers.DotNet
             var key = file.ToLower();
             if (CompileEngine.LocalScriptFileMappings.hasKey(key))
                 return CompileEngine.LocalScriptFileMappings[key];
-            PublicDI.log.error("in CompileEngine, could NOT map file reference '{0}'", file);
+            "in CompileEngine, could NOT map file reference '{0}'".debug(file);
             return "";                    
         }
 

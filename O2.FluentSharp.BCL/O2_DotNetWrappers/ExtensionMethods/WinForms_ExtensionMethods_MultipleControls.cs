@@ -334,7 +334,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static ComboBox onSelection<T>(this ComboBox comboBox, Action<T> callback)
         {
-            if (callback != null)
+            if (comboBox.notNull() && callback.notNull())
             {
                 comboBox.SelectedIndexChanged += (sender, e) =>
                 {
@@ -555,7 +555,37 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                         return mainMenu;
                                     });
 
-        }		
+        }
+        public static MenuItem          item(this MenuItem menuItem, string name)
+        {
+            return menuItem.menuItem(name);
+        }
+        public static MenuItem          menuItem(this MenuItem menuItem, string name)
+        {
+            return menuItem.menuItems().where((childItem) => childItem.Text == name).first();
+        }
+        public static List<MenuItem>    items(this MenuItem menuItem)
+        {
+            return menuItem.menuItems();
+        }
+        public static List<MenuItem>    menuItems(this MenuItem menuItem)
+        {
+            var items = new List<MenuItem>();
+            if (menuItem.notNull())
+                foreach (MenuItem childMenu in menuItem.MenuItems)
+                    items.add(childMenu);
+            return items;
+        }
+        public static string            get_Text(this MenuItem menuItem)
+        {
+            return menuItem.parentForm()
+                           .invokeOnThread(() => menuItem.Text);
+        }
+        public static MenuItem          set_Text(this MenuItem menuItem, string value)
+        {
+            return menuItem.parentForm()
+                           .invokeOnThread(() => { menuItem.Text = value; return menuItem; });
+        }
         
     }
 
@@ -1272,7 +1302,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static PictureBox load(this PictureBox pictureBox, Image image)
         {
-            pictureBox.BackgroundImage = image;
+            if (pictureBox.notNull())
+                pictureBox.BackgroundImage = image;
             return pictureBox;
         }
         public static PictureBox add_PictureBox(this Control control, string pathToImage)
@@ -1313,7 +1344,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static PictureBox onDoubleClick(this PictureBox pictureBox, Action callback)
         {
-            pictureBox.DoubleClick += (sender, e) => callback();
+            if (pictureBox.notNull())
+                pictureBox.DoubleClick += (sender, e) => callback();
             return pictureBox;
         }
     }
@@ -1648,14 +1680,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static SplitContainer distance(this SplitContainer control, int value)
         {
             return control.splitterDistance(value);
-        }
-        //DCFIX: check if value is > 0
+        }        
         public static SplitContainer splitterDistance(this SplitContainer control, int value)
         {
             return (SplitContainer)control.invokeOnThread(
                 () =>
                 {   
-                    control.SplitterDistance = value;
+                    if (value > 0)
+                        control.SplitterDistance = value;
                     return control;
                 });
         }

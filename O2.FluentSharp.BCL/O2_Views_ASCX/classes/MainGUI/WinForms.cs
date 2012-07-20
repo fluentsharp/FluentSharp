@@ -64,7 +64,9 @@ namespace O2.Views.ASCX.classes.MainGUI
                             o2Gui.Dispose();
                     }
                 });
-            controlCreation.WaitOne();
+            var maxTimeOut = System.Diagnostics.Debugger.IsAttached ? -1 : 20000;
+            if (controlCreation.WaitOne(maxTimeOut).failed())
+                "[WinForms] Something went wrong with the creation of the {0} control with title '{1}' since it took more than 20s to start".error(controlType, formTitle);
             return control;
         }
     }

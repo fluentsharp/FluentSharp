@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using O2.Kernel;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.DotNetWrappers.DotNet;
 
@@ -16,24 +15,37 @@ namespace O2.Views.ASCX.Ascx.MainGUI
 
         public ascx_LogViewer()
         {
-            InitializeComponent();
-            if (false == DesignMode)
+            try
             {
-				if (PublicDI.log.LogRedirectionTarget == null)
-					PublicDI.log.LogRedirectionTarget = new WinFormsUILog();
+                InitializeComponent();
+                if (false == DesignMode)
+                {      
+                    if (PublicDI.log.LogRedirectionTarget == null)
+                        PublicDI.log.LogRedirectionTarget = new WinFormsUILog();
 
-                DebugMsg.setRtbObject(rtbDebugMessages);
+                    cbErrorMessages.Checked = true;
+                    cbDebugMessages.Checked = true;
+                    cbInfoMessages.Checked = true;
 
-                cbErrorMessages.Checked = true;
-                cbDebugMessages.Checked = true;
-                cbInfoMessages.Checked = true;
-                //DI.log.error("Testing logging: Error Message");
-                /*O2Thread.mtaThread(()=>
-                    {
-                        DI.log.debug("Testing logging: Debug Message");
-                        DI.log.info("Testing logging: Info Message");
-                    });*/
-                
+                    this.Load+=(sender,e)=>
+                        {
+                            try
+                            {                                
+                                DebugMsg.setRtbObject(rtbDebugMessages);
+
+                                "Testing logging: Debug Message".debug();
+                                "Testing logging: Info Message".info();
+                            }
+                            catch (Exception ex)
+                            {
+                                ex.log("[in ascx_LogViewer onLoad]");
+                            }
+                        };
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in ascx_LogViewer]");
             }
             //  this.Location = new Point(20,500);            
         }

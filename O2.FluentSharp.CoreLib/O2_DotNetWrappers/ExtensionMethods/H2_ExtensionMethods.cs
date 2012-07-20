@@ -19,7 +19,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (file.extension(".h2"))
             {
                 //"return source code of H2 file".info();
-                return H2.load(file).SourceCode.fixCRLF();
+                if (file.fileExists())
+                    return H2.load(file).SourceCode.fixCRLF();
             }
             return null;
         }

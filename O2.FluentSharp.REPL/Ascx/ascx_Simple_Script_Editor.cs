@@ -398,8 +398,7 @@ namespace O2.XRules.Database.Utils
                     //"AST creation failed".error();
                     //	this.sourceCodeViewer.enabled(false);    	 				
                     this.executeButton.enabled(false);
-                    this.result_RichTextBox.textColor(Color.Red)
-                                      .set_Text("Ast Parsing Errors:\r\n\r\n");
+                    this.result_RichTextBox.textColor(Color.Red).set_Text("Ast Parsing Errors:\r\n\r\n");
                     //.append_Text(csharpCompiler.AstErrors);						
                     this.commandsToExecute.updateCodeComplete(csharpCompiler);
                     this.sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);

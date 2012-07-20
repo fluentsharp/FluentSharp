@@ -18,7 +18,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static string localScript(this string fileName)
         {
-            return CompileEngine.findFileOnLocalScriptFolder(fileName);
+            return CompileEngine.findFileOnLocalScriptFolder(fileName.trim());
         }
     }
 }

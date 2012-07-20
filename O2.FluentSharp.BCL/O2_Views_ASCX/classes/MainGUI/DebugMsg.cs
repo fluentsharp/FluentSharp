@@ -13,6 +13,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 using O2.Views.ASCX.Forms;
 using O2.DotNetWrappers.DotNet;
+using System.Threading;
 
 namespace O2.Views.ASCX.classes.MainGUI
 {
@@ -21,12 +22,12 @@ namespace O2.Views.ASCX.classes.MainGUI
     /// </summary>    
     public class DebugMsg
     {
-        #region Delegates
+        /*#region Delegates
 
         public delegate void dDelegateForInsertText(String sText, Color cColour);
 
-        #endregion
-
+        #endregion*/
+        public static int DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY = 20;
         //internal static bool bAlsoSendMessageToDebugView;
 
         public static bool bLogCache; // use when we want to keep a log of particular errors
@@ -37,6 +38,7 @@ namespace O2.Views.ASCX.classes.MainGUI
         public static bool bShowMessages = true;
         public static bool bShowTimeStamp = true;
         public static bool bUseShortTimeFormat = false;
+        public static bool showMessages = true;
         public static bool criticalErrorHasBeenHandled;
 
         public static StringBuilder sbLogCache = new StringBuilder();
@@ -45,6 +47,9 @@ namespace O2.Views.ASCX.classes.MainGUI
         public static Stream sOutputStream;
         public static bool sShowStreamWithHtmlFormating;
         public static List<RichTextBox> targetRichTextBoxes = new List<RichTextBox>();
+        public static Stack<MessageWithColor> messagesToWrite = new Stack<MessageWithColor>();
+        public static Thread activeShowThread; 
+        
 
         /// <summary>
         /// use to set the RichTextObject to use when displaying log messages
@@ -53,21 +58,163 @@ namespace O2.Views.ASCX.classes.MainGUI
         /// <param name="rtrObject"></param>
         public static void setRtbObject(RichTextBox rtrObject)
         {
-            targetRichTextBoxes.Add(rtrObject);
-            if (sbLogCache.Length > 0)
+            try
             {
-                setRichTextBoxesText(sbLogCache.ToString());
-                sbLogCache = new StringBuilder();
-            }
-            rtrObject.onHandleCreated(()=>
+                targetRichTextBoxes.Add(rtrObject);
+                if (sbLogCache.Length > 0)
                 {
-                    rtrObject.onClosed(() =>
+                    setRichTextBoxesText(sbLogCache.ToString());
+                    sbLogCache = new StringBuilder();
+                }
+                rtrObject.onHandleCreated(() =>
                     {
-                        DebugMsg.removeRtbObject(rtrObject);
-                    });                                        
-                });            
+                        rtrObject.onClosed(() =>
+                        {
+                            
+                        });
+                    });
+                rtrObject.ParentChanged += (sender, e) =>
+                        {
+                        };
+                rtrObject.Disposed += (sender, e) =>
+                {
+                };
+
+                rtrObject.HandleDestroyed += (sender, e) =>
+                {
+                    DebugMsg.removeRtbObject(rtrObject);
+                };
+                startShowThread();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[DebugMsg] error in setRtbObject: {0}".format(ex.Message));
+            }
         }
 
+        
+        public static void startShowThread()
+        {
+            if (targetRichTextBoxes.notEmpty() && activeShowThread.isNull())
+            {
+                showMessages = true;
+                activeShowThread = O2Thread.mtaThread(showLoop); 
+            }
+        }
+
+        public static void showLoop()
+        {
+            "[DebugMsg] Starting DebugMsg ShowLoop".info();
+            while (showMessages)
+            {                
+                writeMessageToRichTextBoxes(messagesToWrite.next());
+                if (messagesToWrite.empty())                
+                    Thread.Sleep(DebugMsg.DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY);
+            }
+            activeShowThread = null;
+            "[DebugMsg] Ended DebugMsg ShowLoop".info();
+        }
+
+        public static void writeMessageToRichTextBoxes(MessageWithColor messageWithColor)
+        {
+            if(messageWithColor.notNull())
+                writeMessageToRichTextBoxes(messageWithColor.message, messageWithColor.color);
+        }
+        public static void writeMessageToRichTextBoxes(string sText, Color cColour)
+        {
+            try
+            {
+                if (PublicDI.log.alsoShowInConsole)         // for the cases when the GUI is started from the command line
+                    Console.WriteLine(sText);
+
+                if (PublicDI.log.LogRedirectionTarget == null)   // this means that we have already removed this logging mode and most of the RichTextBoxes below have been disposed
+                    PublicDI.log.debug("Item in DebugMsg:", sText);
+                else
+                {
+                    if (targetRichTextBoxes.Count == 0)
+                    {
+                        // if there are no RichTextBox defined, then just sent it to System.Diagnostics.Debug
+                        Debug.WriteLine(sText);
+                        if (sOutputStream != null)
+                        {
+                            if (sShowStreamWithHtmlFormating)
+                                sText = String.Format("<span style=\"color: {0}\">{1}</text><br/>", cColour.Name, sText);
+                            byte[] bASCIIString = Encoding.ASCII.GetBytes(sText);
+                            sOutputStream.Write(bASCIIString, 0, bASCIIString.Length);
+                        }
+                        return;
+                    }
+                    string sText1 = sText;
+                    if (bShowTimeStamp)
+                        if (bUseShortTimeFormat)
+                            sText = "[" + DateTime.Now.ToShortTimeString() + "] " + sText;
+                        else
+                            sText = "[" + DateTime.Now.ToLongTimeString() + "] " + sText;                    
+                    foreach (RichTextBox richTextBoxToUpdate in targetRichTextBoxes.toList())
+                    {
+                     //   if (richTextBoxToUpdate.noHandle())
+                     //       continue;                        
+                        var richTextBox = richTextBoxToUpdate;                        
+                        try
+                        {                            
+                            richTextBox.invokeOnThread(() =>
+                                {                                    
+                                    if (richTextBox.IsDisposed)
+                                    {
+                                        removeRtbObject(richTextBox);
+                                        return "...";
+                                    }
+                                    try
+                                    {
+                                        if (bLogCache)
+                                        {
+                                            sbLogCache.Insert(0, sText + Environment.NewLine);
+                                        }
+
+                                        if (bShowMessages)
+                                        {
+                                            richTextBox.SelectionStart = 0;
+                                            richTextBox.SelectedText = sText + Environment.NewLine +
+                                                                        richTextBox.SelectedText;
+                                            richTextBox.SelectionStart = 0;
+                                            richTextBox.SelectionLength = sText.Length;
+                                            richTextBox.SelectionColor = cColour;
+                                            //Application.DoEvents();
+                                            // PublicDI.log.error(sText);                              
+                                            //if (bAlsoSendMessageToDebugView)
+                                            //    Debug.WriteLine(sText);
+                                        }                                     
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Debug.WriteLine("ERROR Inside DebugMsg" + ex.Message);
+                                    }
+                                    return "done"; //make this sync
+                                });
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("ERROR Inside DebugMsg" + ex.Message);
+                        }
+                    }
+                    //}
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR IN DebugMsg (1/3): " + ex.Message + "\n\n");
+                Debug.WriteLine("ERROR IN DebugMsg (2/3): original message: " + sText);
+                Debug.WriteLine("ERROR IN DebugMsg (2/3): Stack Trace" + ex.StackTrace);
+            }
+        }
+    
+
+        public static void stopShowThread()
+        {
+            "[DebugMsg] stopShowThread received".error();
+            showMessages= false;
+        }
         private static void setRichTextBoxesText(string text)
         {
             foreach (RichTextBox richTextBox in targetRichTextBoxes)
@@ -124,80 +271,14 @@ namespace O2.Views.ASCX.classes.MainGUI
                     insertText("ERROR: in _Error function", Color.Red);
             }
         }
-
+        /// <summary>
+        /// add to messagesToWrite which will be handled by a separate thread
+        /// </summary>
+        /// <param name="sText"></param>
+        /// <param name="cColour"></param>
         public static void insertText(String sText, Color cColour)
         {
-            //can't do this or the whole thing start to fall apart (too many threads :) )
-            //O2Thread.mtaThread(() =>
-            //       {
-                       try
-                       {
-                           if (PublicDI.log.alsoShowInConsole)         // for the cases when the GUI is started from the command line
-                               Console.WriteLine(sText);
-
-                           if (PublicDI.log.LogRedirectionTarget == null)   // this means that we have already removed this logging mode and most of the RichTextBoxes below have been disposed
-                               PublicDI.log.debug("Item in DebugMsg:", sText);
-                           else
-                           {
-                               if (targetRichTextBoxes.Count == 0)
-                               {
-                                   // if there are no RichTextBox defined, then just sent it to System.Diagnostics.Debug
-                                   Debug.WriteLine(sText);
-                                   if (sOutputStream != null)
-                                   {
-                                       if (sShowStreamWithHtmlFormating)
-                                           sText = String.Format("<span style=\"color: {0}\">{1}</text><br/>", cColour.Name, sText);
-                                       byte[] bASCIIString = Encoding.ASCII.GetBytes(sText);
-                                       sOutputStream.Write(bASCIIString, 0, bASCIIString.Length);
-                                   }
-                                   return;
-                               }
-                               string sText1 = sText;
-                               if (bShowTimeStamp)
-                                   if (bUseShortTimeFormat)
-                                       sText = "[" + DateTime.Now.ToShortTimeString() + "] " + sText;
-                                   else
-                                       sText = "[" + DateTime.Now.ToLongTimeString() + "] " + sText;
-                               //if (targetRichTextBoxes[0].okThread(delegate { insertText(sText1, cColour); }))
-                               //{
-                               foreach (RichTextBox richTextBoxToUpdate in targetRichTextBoxes.toList())
-                               {
-                                   var richTextBox = richTextBoxToUpdate;
-                                   richTextBox.invokeOnThread(
-                                       () =>
-                                       {
-                                           if (bLogCache)
-                                           {
-                                               sbLogCache.Insert(0, sText + Environment.NewLine);
-                                           }
-
-                                           if (bShowMessages)
-                                           {
-                                               richTextBox.SelectionStart = 0;
-                                               richTextBox.SelectedText = sText + Environment.NewLine +
-                                                                          richTextBox.SelectedText;
-                                               richTextBox.SelectionStart = 0;
-                                               richTextBox.SelectionLength = sText.Length;
-                                               richTextBox.SelectionColor = cColour;
-                                               //Application.DoEvents();
-                                               // System.Diagnostics.Debug.WriteLine(sText);                              
-                                               //if (bAlsoSendMessageToDebugView)
-                                               //    Debug.WriteLine(sText);
-                                           }
-                                           return "done"; //make this sync
-                                       });
-                               }
-                               //}
-
-                           }
-                       }
-                       catch (Exception ex)
-                       {
-                           Debug.WriteLine("ERROR IN DebugMsg (1/3): " + ex.Message + "\n\n");
-                           Debug.WriteLine("ERROR IN DebugMsg (2/3): original message: " + sText);
-                           Debug.WriteLine("ERROR IN DebugMsg (2/3): Stack Trace" + ex.StackTrace);
-                       }
-             //      });
+            messagesToWrite.Push(new MessageWithColor { message = sText, color = cColour });
         }
 
         public static void showNow(String sMessage)
@@ -285,7 +366,7 @@ namespace O2.Views.ASCX.classes.MainGUI
                 _Error(text + " {0}", ex.Message);
                 if (showStackTrace)
                     _Error(text + "  StackTrace:\n\n{0}\n\n", ex.StackTrace);
-                LogException(ex.InnerException, "     InnerException: {0}", true);
+                LogException(ex.InnerException, "     InnerException: {0}", showStackTrace);
             }
             //_Error("     InnerException: {0}", ex.InnerException.Message);            
         }      
@@ -294,6 +375,8 @@ namespace O2.Views.ASCX.classes.MainGUI
         {
             if (targetRichTextBoxes.Contains(rtbToRemove))
                 targetRichTextBoxes.Remove(rtbToRemove);
+            if (targetRichTextBoxes.empty())
+                stopShowThread();
         }
 
 /*        public static void reportCriticalErrorToO2Developers(object currentObject, Exception ex, String sourceMessage)
@@ -341,13 +424,15 @@ namespace O2.Views.ASCX.classes.MainGUI
 
 
 
-        #region Nested type: O2Timer
-
-        #endregion
-
         public static bool IsDebuggerAttached()
         {
             return Debugger.IsAttached;
+        }
+
+        public class MessageWithColor
+        {
+            public string message;
+            public Color  color;
         }
     }
 }

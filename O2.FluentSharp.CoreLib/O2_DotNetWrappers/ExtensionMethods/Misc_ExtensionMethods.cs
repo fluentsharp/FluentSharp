@@ -85,7 +85,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return !value;
         }
-
+        public static bool      failed(this bool value)
+        {
+            return value.isFalse();
+        }
+        public static bool      ok(this bool value)
+        {
+            return value.isTrue();
+        }
     }
 
     public static class Misc_ExtensionMethods_BitMap

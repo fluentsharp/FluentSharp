@@ -248,12 +248,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             typeof(Form).fieldValue("defaultIcon", icon);
             return icon;
         }
-
         public static Icon asIcon(this Bitmap bitmap)
         {
             return Icon.FromHandle(bitmap.GetHicon());
         }
-
         public static Icon icon(this string iconFile)
 		{
 			try
@@ -266,12 +264,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return null;
 			}
 		}
-
         public static string saveAs_Icon(this Bitmap bitmap)
         {
             return bitmap.saveAs_Icon(".ico".tempFile());
         }
-
         public static string saveAs_Icon(this Bitmap bitmap, string targetFile)
         {
             return bitmap.asIcon().saveAs(targetFile);
@@ -280,14 +276,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {            
             return icon.saveAs(".ico".tempFile());
         }
-
         public static string saveAs(this Icon icon, string targetFile)
         {
             using (FileStream fileStream = new FileStream(targetFile, FileMode.Create))
                 icon.Save(fileStream);
             return targetFile;
         }
-
 		public static T set_Form_Icon<T>(this T control, string iconFile)			where T : Control
 		{
 			return control.set_Form_Icon(iconFile.icon());
@@ -297,6 +291,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			control.parentForm().set_Icon(icon);
 			return control;
 		}
+        public static T set_Icon<T>(this T control, string iconName) where T : Control
+        {
+            var file = iconName.local_Or_Resource();
+            var parentForm = control.parentForm();
+            if (file.fileExists() && parentForm.notNull())
+            {
+                parentForm.set_Icon(file.icon());
+                return control;
+            }
+            "Error setting parent Form's Icon to: {0}".error(iconName);
+            return control;
+        }
         public static Form set_Icon(this Form form, Icon icon)
 		{
 			form.invokeOnThread(()=> form.Icon = icon);
@@ -314,7 +320,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{            
 			return form.set_Icon("O2Logo.ico".local().icon());
 		}
-
         public static Form set_DefaultIcon(this Form form)
         {
             try

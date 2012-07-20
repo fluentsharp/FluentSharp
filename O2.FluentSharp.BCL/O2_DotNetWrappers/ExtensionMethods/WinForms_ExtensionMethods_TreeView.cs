@@ -15,12 +15,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
     public static class WinForms_ExtensionMethods_TreeView
     {
 		public static TreeView  treeView(this TreeNode treeNode)
-        {            
+        {
+            if (treeNode.isNull())
+                return null;
             return treeNode.TreeView;
         }
         public static TreeView  treeView(this List<TreeNode> treeNodes)
         {
-            if (treeNodes.size() > 0)
+            if (treeNodes.notNull() && treeNodes.size() > 0)
                 return treeNodes[0].TreeView;
             return null;					 // this could cause problems 
         }        
@@ -120,13 +122,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static TreeNode  add_Node(this TreeNode treeNode, string text, object tag)
         {
             if (treeNode != null)
-                return treeNode.TreeView.add_Node(treeNode, text, tag, false);
+                return treeNode.treeView().add_Node(treeNode, text, tag, false);
             return null;
         }
         public static TreeNode  add_Node(this TreeNode treeNode, string text, object tag, bool addDummyChildNode)
         {
             if (treeNode != null)
-                return treeNode.TreeView.add_Node(treeNode, text, tag, addDummyChildNode);
+                return treeNode.treeView().add_Node(treeNode, text, tag, addDummyChildNode);
             return null;
         }
 
@@ -407,7 +409,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeNode          expand(this TreeNode treeNode)
         {
-            return (TreeNode)treeNode.TreeView.invokeOnThread(
+            return (TreeNode)treeNode.treeView().invokeOnThread(
                 () =>
                 {
                     treeNode.Expand();
@@ -503,7 +505,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
         }
         public static TreeView  showSelection(this TreeView treeView)
-        {
+        {            
             return (TreeView)treeView.invokeOnThread(
                 () =>
                 {
@@ -512,11 +514,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
         }
         public static TreeNode  selected(this TreeNode treeNode)
-        {
-            return (TreeNode)treeNode.TreeView.invokeOnThread(
+        {            
+            return (TreeNode)treeNode.treeView().invokeOnThread(
                 () =>
                 {
-                    treeNode.TreeView.SelectedNode = treeNode;
+                    treeNode.treeView().SelectedNode = treeNode;
                     return treeNode;
                 });
         }
@@ -585,7 +587,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeView  parentTreeView(this TreeNodeCollection treeNodeCollection)
         {
-            return treeNodeCollection.parentTreeNode().TreeView;
+            return treeNodeCollection.parentTreeNode().treeView();
         }
         public static TreeNode  rootNode(this TreeView treeView)
         {
@@ -1296,8 +1298,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TreeNode  setTextColor(this TreeNode treeNode, Color color)
         {
-            if (treeNode != null)                
-                treeNode.TreeView.invokeOnThread(() => { treeNode.ForeColor = color; });
+            if (treeNode != null)
+                treeNode.treeView().invokeOnThread(() => { treeNode.ForeColor = color; });
             return treeNode;
         }
     }

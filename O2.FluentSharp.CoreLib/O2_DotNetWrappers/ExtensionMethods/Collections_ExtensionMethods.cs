@@ -368,11 +368,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {
         public static int       size(this ICollection colection)
         {
-            return colection.Count;
+            if (colection.notNull())
+                return colection.Count;
+            return 0;
         }
         public static bool      empty(this ICollection colection)
         {
             return colection.size() < 1;
+        }
+        public static bool      notEmpty(this ICollection colection)
+        {
+            return colection.empty().isFalse();
         }
         public static T         first<T>(this ICollection<T> collection)
         {
@@ -703,5 +709,55 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				results.Add(action(i));
 			return results;
 		}
+    }
+
+    public static class Stack_ExtensionMethods
+    {
+        
+        public static List<T>       items<T>(this Stack<T> stack)
+        {
+            return stack.ToArray().toList();
+        }
+        public static  Stack<T>     push<T>(this Stack<T> stack, T item)
+        {
+            if (item == null)
+                "in Stack push, provided value was null)".error();
+            else if (stack.isNull())
+                "in Stack push, stack value was null)".error();
+            else
+                stack.push(item);
+            return stack;
+        }
+        public static T             pop<T>(this Stack<T> stack)
+        {            
+            if (stack.notNull())
+                return stack.Pop();
+            "in Stack pop, stack value was null)".error();
+            return default(T);                
+        }
+        public static bool          hasItems<T>(this Stack<T> stack)
+        {
+            return stack.Count > 0;
+        }
+        public static bool          empty<T>(this Stack<T> stack)
+        {
+            return stack.hasItems().isFalse();
+        }
+        public static bool          notEmpty<T>(this Stack<T> stack)
+        {
+            return stack.hasItems();
+        }
+        public static Stack<T>      add<T>(this Stack<T> stack, T item)
+        {
+            return stack.push(item);
+        }
+        public static T             next<T>(this Stack<T> stack)
+        {
+            if (stack.hasItems())
+                return stack.pop();
+            return default(T);
+        }
+
+
     }
 }

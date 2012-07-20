@@ -19,13 +19,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			openFolder(startFolder);
 			return treeVIew;;
 		}
-
     	public static TreeView insert_FolderViewer_Simple(this Control targetPanel, Action<string> openFile, ref Action<string> _openFolder)
     	{
     		return targetPanel.insert_Left()
     						     .add_FolderViewer_Simple(openFile, ref _openFolder, true);
-    	}
-    	
+    	}    	
     	public static TreeView add_FolderViewer_Simple<T>(this T targetPanel, Action<string> openFile, ref Action<string> _openFolder, bool addFileMenu)  		where T : Control    		
     	{
     		Action<TreeNode, string> mapFolder = 
@@ -99,16 +97,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			_openFolder = openFolder;
 			
 			return treeView;
-    	}
-    	
+    	}    	
     	
     	public static TextBox add_Notepad(this Control topPanel)
     	{
     		Action<string> _openFile = null;
     		Func<string> _currentFile = null;
     		return topPanel.add_Notepad(ref _openFile, ref _currentFile, true);
-    	}
-    	
+    	}    	
     	public static TextBox add_Notepad(this Control topPanel, ref Action<string> _openFile, ref Func<string> _currentFile, bool addMenus)
     	{
     		var textArea = topPanel.add_TextBox(true)

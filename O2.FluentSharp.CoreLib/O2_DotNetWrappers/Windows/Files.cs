@@ -526,7 +526,7 @@ namespace O2.DotNetWrappers.Windows
         public static String checkIfDirectoryExistsAndCreateIfNot(String directory)
         {
             try
-            {
+            {                
                 if (Directory.Exists(directory))
                     return directory;
                 Directory.CreateDirectory(directory);

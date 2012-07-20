@@ -52,8 +52,7 @@ namespace O2.Core.XRules.Ascx
             this.tpNoRulesLoaded = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.llReloadSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
-            this.llRemoveSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
-            this.ascx_LogViewer1 = new O2.Views.ASCX.Ascx.MainGUI.ascx_LogViewer();
+            this.llRemoveSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();            
             this.scTopLevel.Panel1.SuspendLayout();
             this.scTopLevel.Panel2.SuspendLayout();
             this.scTopLevel.SuspendLayout();
@@ -319,11 +318,7 @@ namespace O2.Core.XRules.Ascx
             this.scRightPanel.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
             // 
             // scRightPanel.Panel2
-            // 
-            this.scRightPanel.Panel2.Controls.Add(this.ascx_LogViewer1);
-            this.scRightPanel.Size = new System.Drawing.Size(394, 456);
-            this.scRightPanel.SplitterDistance = 356;
-            this.scRightPanel.TabIndex = 3;
+            //             
             // 
             // tcTabControlWithRulesSource
             // 
@@ -385,12 +380,6 @@ namespace O2.Core.XRules.Ascx
             // 
             // ascx_LogViewer1
             // 
-            this.ascx_LogViewer1.BackColor = System.Drawing.Color.Gainsboro;
-            this.ascx_LogViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ascx_LogViewer1.Location = new System.Drawing.Point(0, 0);
-            this.ascx_LogViewer1.Name = "ascx_LogViewer1";
-            this.ascx_LogViewer1.Size = new System.Drawing.Size(394, 96);
-            this.ascx_LogViewer1.TabIndex = 0;
             // 
             // ascx_XRules_Editor
             // 
@@ -447,8 +436,7 @@ namespace O2.Core.XRules.Ascx
         private System.Windows.Forms.ToolStripLabel llReloadXRules;
         private System.Windows.Forms.ToolStripTextBox tbFileToOpen;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.SplitContainer scRightPanel;
-        private O2.Views.ASCX.Ascx.MainGUI.ascx_LogViewer ascx_LogViewer1;
+        private System.Windows.Forms.SplitContainer scRightPanel;        
         private System.Windows.Forms.TabControl tabControl_WithLocalScripts;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage_WithSearchForScript;
