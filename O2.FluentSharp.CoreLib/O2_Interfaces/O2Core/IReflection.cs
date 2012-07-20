@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 
 namespace O2.Interfaces.O2Core
 {
@@ -81,9 +82,9 @@ namespace O2.Interfaces.O2Core
 
         // INVOKE
 
-        void invokeASync(MethodInfo execute, Action<object> onMethodExecutionCompletion);
-        void invokeASync(object oLiveObject, MethodInfo execute, Action<object> onMethodExecutionCompletion);
-        void invokeASync(object oLiveObject, MethodInfo methodInfo, object[] methodParameters,Action<object> onMethodExecutionCompletion);
+        Thread invokeASync(MethodInfo execute, Action<object> onMethodExecutionCompletion);
+        Thread invokeASync(object oLiveObject, MethodInfo execute, Action<object> onMethodExecutionCompletion);
+        Thread invokeASync(object oLiveObject, MethodInfo methodInfo, object[] methodParameters, Action<object> onMethodExecutionCompletion);
 
         bool invokeMethod_returnSucess(object oLiveObject, string sMethodToInvoke, object[] methodParameters);
 

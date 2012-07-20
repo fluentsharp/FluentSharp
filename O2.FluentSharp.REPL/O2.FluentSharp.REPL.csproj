@@ -219,6 +219,9 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Ascx\ascx_XRules_Editor.resx">
+      <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="_External_Dlls\Mono.Cecil.dll" />
     <None Include="_External_Dlls\O2_External_SharpDevelop.dll" />
     <EmbeddedResource Include="_External_Dlls\QuickGraph.dll" />

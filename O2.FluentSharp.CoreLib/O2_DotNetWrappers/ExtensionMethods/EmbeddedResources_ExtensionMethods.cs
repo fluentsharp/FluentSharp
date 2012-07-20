@@ -24,6 +24,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<string> resourcesNames(this Assembly assembly)
         {
+            if (assembly.isDynamic())
+                return new List<string>();
             return assembly.GetManifestResourceNames().toList();
         }
         public static byte[] bytes(this Stream stream)

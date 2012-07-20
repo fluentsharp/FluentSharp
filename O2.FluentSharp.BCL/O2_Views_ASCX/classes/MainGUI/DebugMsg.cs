@@ -47,7 +47,7 @@ namespace O2.Views.ASCX.classes.MainGUI
         public static Stream sOutputStream;
         public static bool sShowStreamWithHtmlFormating;
         public static List<RichTextBox> targetRichTextBoxes = new List<RichTextBox>();
-        public static Stack<MessageWithColor> messagesToWrite = new Stack<MessageWithColor>();
+        public static Queue<MessageWithColor> messagesToWrite = new Queue<MessageWithColor>();
         public static Thread activeShowThread; 
         
 
@@ -278,7 +278,7 @@ namespace O2.Views.ASCX.classes.MainGUI
         /// <param name="cColour"></param>
         public static void insertText(String sText, Color cColour)
         {
-            messagesToWrite.Push(new MessageWithColor { message = sText, color = cColour });
+            messagesToWrite.add(new MessageWithColor { message = sText, color = cColour });
         }
 
         public static void showNow(String sMessage)

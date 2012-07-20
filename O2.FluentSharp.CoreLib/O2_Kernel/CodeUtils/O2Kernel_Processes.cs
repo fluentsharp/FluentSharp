@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using O2.DotNetWrappers.DotNet;
 
 namespace O2.Kernel.CodeUtils
 {
@@ -33,9 +34,9 @@ namespace O2.Kernel.CodeUtils
             }
         }
 
-        public static void KillCurrentO2Process(int delayBeforeProcessKill)
+        public static Thread KillCurrentO2Process(int delayBeforeProcessKill)
         {
-            O2Kernel_O2Thread.mtaThread(() =>
+            return O2Thread.mtaThread(() =>
             {
                 Thread.Sleep(delayBeforeProcessKill);
                 DI.log.info("KillCurrentO2Process was invoked, so current process will be killed");                

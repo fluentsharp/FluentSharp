@@ -335,11 +335,21 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 													O2Thread.mtaThread(()=>itemToExecute.executeFirstMethod());
 												}
 											else*/
-											O2Thread.mtaThread(()=>itemToExecute.executeFirstMethod());
+
+                                            executeInSeparateAppDomain(itemToExecute);
+											
 										}                                        
 									}
 								});		
 			return comboBox;			
-		}	
+		}
+        
+        //to solve the problem that we need to make sure there are no working threads
+        public static void executeInSeparateAppDomain(string itemToExecute)
+        {            
+            //"\"{0}\".executeFirstMethod()".executeCodeSnippet_InSeparateAppDomain();
+            //so for now continue with the previous model of running in a separate thread
+            O2Thread.mtaThread(()=>itemToExecute.executeFirstMethod());
+        }	
     }
 }

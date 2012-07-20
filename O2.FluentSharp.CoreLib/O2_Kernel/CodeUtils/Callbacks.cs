@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading;
 using O2.Interfaces.O2Core;
 using O2.Kernel.InterfacesBaseImpl;
+using O2.DotNetWrappers.DotNet;
 //O2File:../PublicDI.cs
 
 namespace O2.Kernel.CodeUtils
@@ -60,28 +61,28 @@ namespace O2.Kernel.CodeUtils
         public static Thread raiseRegistedCallbacks(Delegate delegatesToInvoke)
         {
             return raiseRegistedCallbacks(delegatesToInvoke, new object[0]);
-        }        
+        }
 
         public static Thread raiseRegistedCallbacks(Delegate delegatesToInvoke, object[] parameters)
         {
-            return O2Kernel_O2Thread.mtaThread(() =>
-                                                       {
-                                                           if (delegatesToInvoke != null)
-                                                               foreach (
-                                                                   Delegate registerCallback in
-                                                                       delegatesToInvoke.GetInvocationList())
-                                                                   try
-                                                                   {
-                                                                       registerCallback.DynamicInvoke(parameters);
-                                                                   }
-                                                                   catch (Exception ex)
-                                                                   {
-                                                                       log.error(
-                                                                           "in raiseRegistedCallbacks, while invoking {0} : ",
-                                                                           registerCallback.Method.Name,
-                                                                           ex.Message);
-                                                                   }
-                                                       });
+            return O2Thread.mtaThread(() =>
+                        {
+                            if (delegatesToInvoke != null)
+                                foreach (
+                                    Delegate registerCallback in
+                                        delegatesToInvoke.GetInvocationList())
+                                    try
+                                    {
+                                        registerCallback.DynamicInvoke(parameters);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        log.error(
+                                            "in raiseRegistedCallbacks, while invoking {0} : ",
+                                            registerCallback.Method.Name,
+                                            ex.Message);
+                                    }
+                        });
         }
     }
 }

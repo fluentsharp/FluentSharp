@@ -49,12 +49,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return null;
 			}
 		}
-
+        public static bool isDynamic(this Assembly assembly)
+        {
+            return assembly.prop<bool>("IsDynamic");
+        }
         public static List<Assembly> notDynamic(this List<Assembly> assemblies)
         {
-            return (from assembly in assemblies
-                    let isDynamic = assembly.prop<bool>("IsDynamic")
-                    where isDynamic.isFalse()
+            return (from assembly in assemblies                    
+                    where assembly.isDynamic().isFalse()
                     select assembly).toList();
         }
         public static List<Assembly>        with_Valid_Location(this List<Assembly> assemblies)
@@ -403,15 +405,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }    
 
         public static T                     prop<T>(this object liveObject, string propertyName)
-        {            
-            var value = liveObject.prop(propertyName);
-            if (value is T)
-                return (T)value;
+        {
+            if (liveObject.notNull())
+            {
+                var value = liveObject.prop(propertyName);
+                if (value is T)
+                    return (T)value;
+            }
             return default(T);
         }
 
         public static object                prop(this object liveObject, string propertyName)
-        {
+        {            
             return PublicDI.reflection.getProperty(propertyName, liveObject);
         }
 

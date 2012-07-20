@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using O2.Interfaces.Messages;
 using O2.Kernel.CodeUtils;
+using O2.DotNetWrappers.DotNet;
  
 //O2File:../CodeUtils/O2Kernel_O2Thread.cs
 //O2File:../CodeUtils/Callbacks.cs
@@ -41,7 +42,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public void sendMessageSync(IO2Message messageToSend)
         {
             var messageSent = new AutoResetEvent(false);
-            O2Kernel_O2Thread.mtaThread((() =>
+            O2Thread.mtaThread((() =>
                                                         {
                                                             var messageThread = sendMessage(messageToSend);
                                                             messageThread.Join();

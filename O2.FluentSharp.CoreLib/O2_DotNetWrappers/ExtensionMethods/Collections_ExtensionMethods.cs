@@ -712,20 +712,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
     }
 
     public static class Stack_ExtensionMethods
-    {
-        
+    {        
         public static List<T>       items<T>(this Stack<T> stack)
         {
             return stack.ToArray().toList();
         }
-        public static  Stack<T>     push<T>(this Stack<T> stack, T item)
+        public static Stack<T>      push<T>(this Stack<T> stack, T item)
         {
             if (item == null)
                 "in Stack push, provided value was null)".error();
             else if (stack.isNull())
                 "in Stack push, stack value was null)".error();
             else
-                stack.push(item);
+                stack.Push(item);
             return stack;
         }
         public static T             pop<T>(this Stack<T> stack)
@@ -757,7 +756,53 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return stack.pop();
             return default(T);
         }
-
-
     }
+
+    public static class Queue_ExtensionMethods
+    {        
+        public static List <T>      items<T>(this Queue <T> stack)
+        {
+            return stack.ToArray().toList();
+        }
+        public static Queue<T>      push<T>(this Queue<T> queue, T item)
+        {
+            if (item == null)
+                "in Queue  push, provided value was null)".error();
+            else if (queue.isNull())
+                "in Queue  push, stack value was null)".error();
+            else
+                queue.Enqueue(item);
+            return queue;
+        }
+        public static T             pop<T>(this Queue<T> queue)
+        {
+            if (queue.notNull())
+                return queue.Dequeue();
+            "in Stack pop, queue value was null)".error();
+            return default(T);                
+        }
+        public static bool          hasItems<T>(this Queue<T> queue)
+        {
+            return queue.Count > 0;
+        }
+        public static bool          empty<T>(this Queue<T> queue)
+        {
+            return queue.hasItems().isFalse();
+        }
+        public static bool          notEmpty<T>(this Stack<T> queue)
+        {
+            return queue.hasItems();
+        }
+        public static Queue<T>      add<T>(this Queue<T> queue, T item)
+        {
+            return queue.push(item);
+        }
+        public static T             next<T>(this Queue<T> queue)
+        {
+            if (queue.hasItems())
+                return queue.pop();
+            return default(T);
+        }
+    }
+    
 }

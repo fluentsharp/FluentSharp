@@ -96,6 +96,8 @@ namespace O2.Kernel.Objects
                     appDomain = AppDomain.CreateDomain(appDomainName, null, appDomainSetup, permissionSet);
             //        appDomain.AssemblyResolve += new ResolveEventHandler(assemblyResolve);
                     BaseDirectory = appDomain.BaseDirectory;
+
+                    appDomain.DomainUnload += (sender, e) => this.removeDomainFromManagedList();
                     return appDomain;
                 }
             }
@@ -545,13 +547,21 @@ namespace O2.Kernel.Objects
             new O2AppDomainFactory(appDomainName);
         }
 
+        public void removeDomainFromManagedList()
+        {
+            if (AppDomains_ControledByO2Kernel.ContainsKey(this.Name))
+            {
+                "Removing AppDomain '{0}' from AppDomains_ControledByO2Kernel list".info(this.Name); 
+                AppDomains_ControledByO2Kernel.Remove(this.Name);
+            }
+        }
+
         public bool unLoadAppDomain()
         {
             try
             {
-                DI.log.info("Unloading appDomain: {0}", Name);
-                if (AppDomains_ControledByO2Kernel.ContainsKey(this.Name))
-                    AppDomains_ControledByO2Kernel.Remove(this.Name);                
+                DI.log.info("Forcibly Unloading appDomain: {0}", Name);
+                //removeDomainFromManagedList();
                 AppDomain.Unload(appDomain);                
                 return true;
             }

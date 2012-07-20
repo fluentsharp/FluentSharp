@@ -53,6 +53,7 @@
     <Compile Include="O2_DotNetWrappers\DotNet\StringsAndLists.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\TypeConfusion.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\XmlHelpers.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\AppDomain_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Collections_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\CompileEngine_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods.cs" />
@@ -153,7 +154,7 @@
     <Compile Include="O2_Kernel\CodeUtils\LoadTypes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2ConfigLoader.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Files.cs" />
-    <Compile Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs" />
+    <Content Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Processes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Serialize.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Web.cs" />

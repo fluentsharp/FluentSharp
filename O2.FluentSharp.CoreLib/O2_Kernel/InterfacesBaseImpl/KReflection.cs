@@ -9,6 +9,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.Objects;
 using System.IO;
 using O2.DotNetWrappers.DotNet;
+using System.Threading;
 
 //O2File:../PublicDI.cs
 //O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
@@ -115,7 +116,7 @@ namespace O2.Kernel.InterfacesBaseImpl
                 {
                     if (bVerbose)
                         PublicDI.log.error(
-                            "in getProperty, desired property ({0}) doesn't exist in the target obejct's class {1} ",
+                            "in getProperty, desired property ({0}) doesn't exist in the target object's class {1} ",
                             sPropertyToGet, oTargetObject.GetType().FullName);
                 }
                 else
@@ -792,32 +793,24 @@ namespace O2.Kernel.InterfacesBaseImpl
         #region invoke
 
 
-        public void invokeASync(MethodInfo methodInfo, Action<object> onMethodExecutionCompletion)
+        public Thread invokeASync(MethodInfo methodInfo, Action<object> onMethodExecutionCompletion)
         {
-            try
-            {
-                O2Kernel_O2Thread.mtaThread(
+            return O2Thread.mtaThread(
                     () =>
                         {
                             var result = invokeMethod_Static(methodInfo);
                             onMethodExecutionCompletion(result);
-                        });
-            }
-            catch (Exception ex)
-            {
-                //PublicDI.log.error(ex, "in reflection.invokeASync", true);
-                PublicDI.log.error("in reflection.invokeASync: {0}", ex.Message);
-            }
+                        });            
         }
 
-        public void invokeASync(object oLiveObject, MethodInfo methodInfo, Action<object> onMethodExecutionCompletion)
+        public Thread invokeASync(object oLiveObject, MethodInfo methodInfo, Action<object> onMethodExecutionCompletion)
         {
-            invokeASync(oLiveObject, methodInfo, null, onMethodExecutionCompletion);
+            return invokeASync(oLiveObject, methodInfo, null, onMethodExecutionCompletion);
         }
 
-        public void invokeASync(object oLiveObject, MethodInfo methodInfo, object[] methodParameters, Action<object> onMethodExecutionCompletion)
+        public Thread invokeASync(object oLiveObject, MethodInfo methodInfo, object[] methodParameters, Action<object> onMethodExecutionCompletion)
         {
-            O2Kernel_O2Thread.mtaThread(
+            return O2Thread.mtaThread(
                 () =>
                     {
                         try

@@ -10,6 +10,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.O2Misc;
 using O2.DotNetWrappers.Windows;
 using O2.External.SharpDevelop.Ascx;
+using O2.XRules.Database.Utils;
 using O2.Kernel;
 
 namespace O2.Core.XRules.Ascx
@@ -18,7 +19,16 @@ namespace O2.Core.XRules.Ascx
     {
         private bool runOnLoad = true;        
 
-        public Dictionary<string, TabPage> filesLoaded = new Dictionary<string, TabPage>();  
+        public Dictionary<string, TabPage> filesLoaded = new Dictionary<string, TabPage>();
+
+
+        public void extraGuiBits()
+        {
+            this.mainMenu()
+                .add_Menu("REPL")
+                    .add("Script GUI", ()=> this.script_Me());
+        }
+
 
         private void onLoad()
         {
@@ -29,6 +39,7 @@ namespace O2.Core.XRules.Ascx
                 loadXRuleDatabase();                
                 runOnLoad = false;
                 this.Text += " " + clr.details();
+                extraGuiBits();
             }
 
         }

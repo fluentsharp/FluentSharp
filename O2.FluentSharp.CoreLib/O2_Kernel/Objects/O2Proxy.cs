@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using O2.Kernel.CodeUtils;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.DotNetWrappers.DotNet;
 
 namespace O2.Kernel.Objects
 {
@@ -167,13 +168,23 @@ namespace O2.Kernel.Objects
                                 DI.log.error("in instanceInvocation method was null : {0} {1}", type, methodToExecute);
                             else
                             {
+                                object returnValue = null;
                                 if (InvokeInStaThread)
-                                    return O2Kernel_O2Thread.staThread(
-                                        ()=> DI.reflection.invoke(typeObject, method, methodParams));
+                                {
+                                    O2Thread.staThread(() =>
+                                        {
+                                            returnValue = DI.reflection.invoke(typeObject, method, methodParams);
+                                        }).Join();
+                                    return returnValue;
+                                }
                                 if (InvokeInMtaThread)
-                                    return O2Kernel_O2Thread.mtaThread(
-                                        () => DI.reflection.invoke(typeObject, method, methodParams));
-
+                                {
+                                    O2Thread.mtaThread(() =>
+                                        {
+                                            returnValue = DI.reflection.invoke(typeObject, method, methodParams);
+                                        }).Join();
+                                    return returnValue;
+                                }
                                 return DI.reflection.invoke(typeObject, method, methodParams);
                             }
                         }
@@ -218,14 +229,24 @@ namespace O2.Kernel.Objects
                             DI.log.error("in staticInvocation method was null : {0} {1}", type, methodToExecute);
                         else
                         {
+                            object returnValue = null;
                             if (InvokeInStaThread)
-                                O2Kernel_O2Thread.staThread(
-                                    () => DI.reflection.invoke(null, method, methodParams));
-                            else if (InvokeInMtaThread)
-                                O2Kernel_O2Thread.mtaThread(
-                                    () => DI.reflection.invoke(null, method, methodParams));
-                            else
-                                return DI.reflection.invoke(null, method, methodParams);
+                            {
+                                O2Thread.staThread(() =>
+                                    {
+                                        returnValue = DI.reflection.invoke(null, method, methodParams);
+                                    }).Join();
+                                return returnValue;
+                            }
+                            if (InvokeInMtaThread)
+                            {
+                                O2Thread.mtaThread(() =>
+                                    {
+                                        returnValue = DI.reflection.invoke(null, method, methodParams);
+                                    }).Join();
+                                return returnValue;
+                            }                            
+                            return DI.reflection.invoke(null, method, methodParams);
                         }
                     }
                 }

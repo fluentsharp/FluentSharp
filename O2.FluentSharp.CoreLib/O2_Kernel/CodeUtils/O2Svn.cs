@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.DotNetWrappers.DotNet;
 
 namespace O2.Kernel.CodeUtils
 {
@@ -30,7 +31,7 @@ namespace O2.Kernel.CodeUtils
             string localFilePath = "";
             if (assemblyToLoad.contains("".tempDir()))       // don't try to fetch temp assemblies
                 return ;
-            var thread = O2Kernel_O2Thread.mtaThread(
+            var thread = O2Thread.mtaThread(
                 ()=>{
 						downloadThread(assemblyToLoad, ref localFilePath);
 					});

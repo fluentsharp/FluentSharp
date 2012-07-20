@@ -15,6 +15,7 @@ using O2.Views.ASCX.Ascx.MainGUI;
 using System.Diagnostics;
 using System.Reflection;
 using System.IO;
+using System.Threading;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -181,6 +182,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             form.invokeOnThread(() => form.Close());
             return form;
+        }
+        public static T waitForClose<T>(this T control) where T: Control
+        {
+            var form = control.parentForm();
+            var formClosed = new AutoResetEvent(false);
+            form.onClosed(() => formClosed.Set());
+            formClosed.WaitOne();
+            return control;
         }
         public static Form form_Currently_Running(this string titleOrType)
         {
