@@ -72,16 +72,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int       add_Node(this TreeView treeView, TreeNode treeNode)
         {
-            return (int) treeView.invokeOnThread((()=> treeView.Nodes.Add(treeNode)));
+            return (int) treeView.invokeOnThread(()=>{ return treeView.Nodes.Add(treeNode); });
         }
         public static TreeNode  add_Node(this TreeView treeView, string nodeText)
         {
-            return (TreeNode) treeView.invokeOnThread((()
-                                                       => treeView.Nodes.Add(nodeText)));
+            return (TreeNode)treeView.invokeOnThread(() => { return treeView.Nodes.Add(nodeText); });
         }
         public static TreeNode  add_Node(this TreeView treeView, TreeNode treeNode, string nodeText)
         {
-            return (TreeNode) treeView.invokeOnThread((() => O2Forms.newTreeNode(treeNode.Nodes, nodeText, 0, null, false)));
+            return (TreeNode) treeView.invokeOnThread(() => { return O2Forms.newTreeNode(treeNode.Nodes, nodeText, 0, null, false); });
         }
         public static TreeNode  add_Node(this TreeView treeView, TreeNode treeNode, string nodeText, object nodeTag, bool addDummyNode)
         {
