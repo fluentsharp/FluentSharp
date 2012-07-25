@@ -36,13 +36,16 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
       <HintPath>_External_Dlls\Ionic.Zip.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Merlin">
-      <HintPath>_External_Dlls\Merlin.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
@@ -207,23 +210,23 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\Web_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs.txt" />
+    <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Ascx\ascx_XRules_Editor.resx">
       <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="_External_Dlls\Mono.Cecil.dll" />
-    <None Include="_External_Dlls\O2_External_SharpDevelop.dll" />
+    <EmbeddedResource Include="_External_Dlls\O2_External_SharpDevelop.dll" />
     <EmbeddedResource Include="_External_Dlls\QuickGraph.dll" />
   </ItemGroup>
   <ItemGroup>

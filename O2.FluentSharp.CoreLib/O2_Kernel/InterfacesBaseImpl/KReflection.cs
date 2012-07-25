@@ -1132,7 +1132,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public Object createObjectUsingDefaultConstructor(Type tTypeToCreateObject)
         {
             try
-            {				
+            {                
                 return Activator.CreateInstance(tTypeToCreateObject);
             }
             catch (Exception ex)

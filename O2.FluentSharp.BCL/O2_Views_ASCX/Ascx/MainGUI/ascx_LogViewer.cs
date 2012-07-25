@@ -94,19 +94,19 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                 if (false == loadConfigExecuted)
                 {                    
                     loadConfigExecuted = true;
-					updateMemoryUsageLabel();
+                    updateMemoryUsageLabel();
                 }
             }
         }
 
-		public void updateMemoryUsageLabel()
-		{
-			lbMemoryUsed.set_Text("{0:#,###} kb |  {1:#,###} kb".format(Process.GetCurrentProcess().WorkingSet64 / 1024, Process.GetCurrentProcess().PrivateMemorySize64 / 1024));
-		}
+        public void updateMemoryUsageLabel()
+        {
+            lbMemoryUsed.set_Text("{0:#,###} kb |  {1:#,###} kb".format(Process.GetCurrentProcess().WorkingSet64 / 1024, Process.GetCurrentProcess().PrivateMemorySize64 / 1024));
+        }
 
-		private void lbMemoryUsed_Click(object sender, EventArgs e)
-		{
-			updateMemoryUsageLabel();
-		}
+        private void lbMemoryUsed_Click(object sender, EventArgs e)
+        {
+            updateMemoryUsageLabel();
+        }
     }
 }

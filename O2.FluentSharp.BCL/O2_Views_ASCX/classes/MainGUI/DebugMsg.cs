@@ -66,7 +66,8 @@ namespace O2.Views.ASCX.classes.MainGUI
                     setRichTextBoxesText(sbLogCache.ToString());
                     sbLogCache = new StringBuilder();
                 }
-                rtrObject.onHandleCreated(() =>
+
+                /*rtrObject.onHandleCreated(() =>
                     {
                         rtrObject.onClosed(() =>
                         {
@@ -78,7 +79,7 @@ namespace O2.Views.ASCX.classes.MainGUI
                         };
                 rtrObject.Disposed += (sender, e) =>
                 {
-                };
+                };*/
 
                 rtrObject.HandleDestroyed += (sender, e) =>
                 {
@@ -104,7 +105,7 @@ namespace O2.Views.ASCX.classes.MainGUI
 
         public static void showLoop()
         {
-            "[DebugMsg] Starting DebugMsg ShowLoop".info();
+            //"[DebugMsg] Starting DebugMsg ShowLoop".info();
             while (showMessages)
             {                
                 writeMessageToRichTextBoxes(messagesToWrite.next());
@@ -112,7 +113,7 @@ namespace O2.Views.ASCX.classes.MainGUI
                     Thread.Sleep(DebugMsg.DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY);
             }
             activeShowThread = null;
-            "[DebugMsg] Ended DebugMsg ShowLoop".info();
+            //"[DebugMsg] Ended DebugMsg ShowLoop".info();
         }
 
         public static void writeMessageToRichTextBoxes(MessageWithColor messageWithColor)
