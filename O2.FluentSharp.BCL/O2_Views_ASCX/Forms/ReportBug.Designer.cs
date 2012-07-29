@@ -34,7 +34,6 @@ namespace O2.Views.ASCX.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.tBoxFromEmail = new System.Windows.Forms.TextBox();
             this.tbSubject = new System.Windows.Forms.TextBox();
-            this.cbOunceLabsEmail = new System.Windows.Forms.CheckBox();
             this.tbMessage = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbFirstCheckToMailServer = new System.Windows.Forms.Label();
@@ -55,7 +54,7 @@ namespace O2.Views.ASCX.Forms
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            //((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -96,8 +95,8 @@ namespace O2.Views.ASCX.Forms
             // 
             // tbSubject
             // 
-            this.tbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                          | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSubject.BackColor = System.Drawing.Color.Coral;
             this.tbSubject.Location = new System.Drawing.Point(72, 52);
             this.tbSubject.Name = "tbSubject";
@@ -105,21 +104,11 @@ namespace O2.Views.ASCX.Forms
             this.tbSubject.TabIndex = 4;
             this.tbSubject.TextChanged += new System.EventHandler(this.tbSubject_TextChanged);
             // 
-            // cbOunceLabsEmail
-            // 
-            this.cbOunceLabsEmail.AutoSize = true;
-            this.cbOunceLabsEmail.Location = new System.Drawing.Point(336, 33);
-            this.cbOunceLabsEmail.Name = "cbOunceLabsEmail";
-            this.cbOunceLabsEmail.Size = new System.Drawing.Size(131, 17);
-            this.cbOunceLabsEmail.TabIndex = 5;
-            this.cbOunceLabsEmail.Text = "OunceLabs.com email";
-            this.cbOunceLabsEmail.UseVisualStyleBackColor = true;
-            // 
             // tbMessage
             // 
-            this.tbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                           | System.Windows.Forms.AnchorStyles.Left)
-                                                                          | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMessage.BackColor = System.Drawing.Color.Coral;
             this.tbMessage.Location = new System.Drawing.Point(72, 74);
             this.tbMessage.Multiline = true;
@@ -150,7 +139,6 @@ namespace O2.Views.ASCX.Forms
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.tbMessage);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.cbOunceLabsEmail);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.tbSubject);
             this.splitContainer1.Panel1.Controls.Add(this.tBoxFromEmail);
@@ -275,9 +263,9 @@ namespace O2.Views.ASCX.Forms
             // 
             // rtbLogViewContentsToSend
             // 
-            this.rtbLogViewContentsToSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                                          | System.Windows.Forms.AnchorStyles.Left)
-                                                                                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbLogViewContentsToSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbLogViewContentsToSend.Location = new System.Drawing.Point(3, 28);
             this.rtbLogViewContentsToSend.Name = "rtbLogViewContentsToSend";
             this.rtbLogViewContentsToSend.Size = new System.Drawing.Size(408, 166);
@@ -286,9 +274,9 @@ namespace O2.Views.ASCX.Forms
             // 
             // pbScreenShotToSend
             // 
-            this.pbScreenShotToSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                                    | System.Windows.Forms.AnchorStyles.Left)
-                                                                                   | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbScreenShotToSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbScreenShotToSend.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbScreenShotToSend.Location = new System.Drawing.Point(3, 28);
             this.pbScreenShotToSend.Name = "pbScreenShotToSend";
@@ -328,7 +316,7 @@ namespace O2.Views.ASCX.Forms
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             this.splitContainer2.ResumeLayout(false);
-            //((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbScreenShotToSend)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -340,7 +328,6 @@ namespace O2.Views.ASCX.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tBoxFromEmail;
         private System.Windows.Forms.TextBox tbSubject;
-        private System.Windows.Forms.CheckBox cbOunceLabsEmail;
         private System.Windows.Forms.TextBox tbMessage;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btSendMessage;

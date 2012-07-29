@@ -75,6 +75,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>_O2_External_WinFormsUI\_External_Dlls\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ascx\ascx_AssemblyInvoke.Controllers.cs">
@@ -169,6 +173,7 @@
     <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\WinFormsUI_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\XmlToXsd_ExtensionMethods.cs" />
     <Compile Include="O2Scripts.cs" />
     <Compile Include="open.cs" />
@@ -220,6 +225,28 @@
     <Compile Include="_O2_API_AST\Visitors\GetAllINodes.cs" />
     <Compile Include="_O2_API_AST\Visitors\MapAstToDom.cs" />
     <Compile Include="_O2_API_AST\Visitors\MapAstToNRefactory.cs" />
+    <Compile Include="_O2_External_WinFormsUI\Forms\GenericDockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_O2_External_WinFormsUI\Forms\GenericDockContent.Designer.cs">
+      <DependentUpon>GenericDockContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_O2_External_WinFormsUI\Forms\O2AscxGUI.cs" />
+    <Compile Include="_O2_External_WinFormsUI\Forms\O2AscxGUI_Ext.cs" />
+    <Compile Include="_O2_External_WinFormsUI\Forms\O2GuiWithDockPanel.Controllers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_O2_External_WinFormsUI\Forms\O2GuiWithDockPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_O2_External_WinFormsUI\Forms\O2GuiWithDockPanel.Designer.cs">
+      <DependentUpon>O2GuiWithDockPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_O2_External_WinFormsUI\HandleO2MessageOnSD.cs" />
+    <Compile Include="_O2_External_WinFormsUI\O2Environment\O2DockContent.cs" />
+    <Compile Include="_O2_External_WinFormsUI\O2Environment\O2DockPanel.cs" />
+    <Compile Include="_O2_External_WinFormsUI\O2Environment\O2DockUtils.cs" />
+    <Compile Include="_O2_External_WinFormsUI\O2Environment\O2MessagesHandler.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\JSON_ExtensionMethods.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
@@ -227,6 +254,7 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
     <Content Include="H2Logo.ico" />
+    <EmbeddedResource Include="_O2_External_WinFormsUI\_External_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />
@@ -237,12 +265,17 @@
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs.txt" />
+    <EmbeddedResource Include="_O2_External_WinFormsUI\Forms\GenericDockContent.resx">
+      <DependentUpon>GenericDockContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_O2_External_WinFormsUI\Forms\O2GuiWithDockPanel.resx">
+      <DependentUpon>O2GuiWithDockPanel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Ascx\ascx_XRules_Editor.resx">
       <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="_Embedded_Dlls\Mono.Cecil.dll" />
     <EmbeddedResource Include="_Embedded_Dlls\QuickGraph.dll" />
   </ItemGroup>
   <ItemGroup>

@@ -43,12 +43,14 @@ namespace O2.Views.ASCX.Forms
         public void         setSubject(String sSubject)
         {
             tbSubject.Text = sSubject;
-            tbSubject.BackColor = Color.Coral;
+            //tbSubject.BackColor = Color.Coral;
+            tbSubject.BackColor = Color.Azure;
         }
         public void         setMessage(String sMessage)
         {
             tbMessage.Text = sMessage;
-            tbMessage.BackColor = Color.Coral;
+            //tbMessage.BackColor = Color.Coral;
+            tbMessage.BackColor = Color.Azure;
         }
         private void        btSendMessage_Click(object sender, EventArgs e)
         {
@@ -75,9 +77,7 @@ namespace O2.Views.ASCX.Forms
             Close();
         }
         private void        tBoxFromEmail_TextChanged(object sender, EventArgs e)
-        {
-            if (cbOunceLabsEmail.Checked && tBoxFromEmail.Text.IndexOf("@ouncelabs.com") == -1)
-                tBoxFromEmail.Text += "@ouncelabs.com";
+        {            
             tBoxFromEmail.BackColor = Color.LightGreen;
         }
         private void        ReportBug_Load(object sender, EventArgs e)
@@ -100,9 +100,9 @@ namespace O2.Views.ASCX.Forms
                 ()=>{
                         "Checking to see if we are online".info();
                         if (Mail.isMailServerOnline(tbMailServer.Text))
-                            setHostControlsVisibleStatus(false);
-                        else
                             setHostControlsVisibleStatus(true);
+                        else
+                            setHostControlsVisibleStatus(false);
                     });
         }
         private void        emailSentCallback(bool success)
@@ -145,9 +145,9 @@ namespace O2.Views.ASCX.Forms
         {
             tbMailServer.enabled(bVisibleStatus);
             lbMailServerConnectErrorMessage.enabled(bVisibleStatus);
-            lbMailServerLabel.enabled(bVisibleStatus);
-            lbFirstCheckToMailServer.enabled(bVisibleStatus);
+            lbMailServerLabel.enabled(bVisibleStatus);            
             btSendMessage.enabled(bVisibleStatus);
+            lbFirstCheckToMailServer.visible(false);
         }
         /*private void btPingMailServer_Click(object sender, EventArgs e)
         {

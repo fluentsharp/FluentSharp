@@ -1,0 +1,2 @@
+﻿5-Dec-09:
+	* Added support for loading files when dropped in the main document area (although will only work when the SharpDevelop control is Loaded)

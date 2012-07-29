@@ -98,7 +98,7 @@ namespace O2.DotNetWrappers.DotNet
                                 "System.Xml.Linq.dll",                                
                                 "System.dll",
                             //O2Related
-                                "O2_FluentSharp_CoreLib.dll"                                
+                                "O2_FluentSharp_CoreLib.dll",                                
                                 //,
                             //WPF 
 //                                                                                    "PresentationCore.dll",

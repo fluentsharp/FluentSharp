@@ -101,7 +101,8 @@ namespace O2.External.SharpDevelop.AST
             CompileEngine.DefaultReferencedAssemblies
                             .add_OnlyNewItems("O2_FluentSharp_BCL.dll",                                                                
                                               "O2_FluentSharp_REPL.dll",
-                                              "O2_External_SharpDevelop.dll");                                     
+                                              "O2_External_SharpDevelop.dll",
+                                              "WeifenLuo.WinFormsUI.Docking.dll");                                     
         }                		
 
 		public Dictionary<string,object> getDefaultInvocationParameters()

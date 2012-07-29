@@ -172,7 +172,14 @@ namespace O2.XRules.Database
                     "Welcome to O2 :)".info();
                 }
                 else
+                {
                     executeScripts.status("There was an error compiling the new GUI!");
+                   /* if ("There was an error compiling the main O2 Script, do you want to clear the Compiled Cache and try again?".askUserQuestion())
+                    {
+                        CompileEngine.clearCompilationCache();
+                        NEW_GUI_SCRIPT.compile_H2Script().executeFirstMethod();
+                    }*/
+                }
                 //             }
                 var currentWinForms = executeScripts.applicationWinForms();
                 if (currentWinForms.size() == 1)

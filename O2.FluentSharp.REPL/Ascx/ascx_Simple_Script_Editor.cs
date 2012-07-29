@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using O2.Kernel;
 using O2.Kernel.CodeUtils;
-
 using O2.Interfaces.O2Core;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
@@ -607,7 +606,19 @@ namespace O2.XRules.Database.Utils
 
         public void showAutoSavedScripts()
         {
-            "Util - Search AutoSaved Scripts (starting with Today).h2".local().executeH2Script();
+            if ("Util - Search AutoSaved Scripts (starting with Today).h2".local().fileExists())
+                "Util - Search AutoSaved Scripts (starting with Today).h2".local().executeH2Script();
+            else            
+                O2Thread.mtaThread(() =>
+                    {
+                        var panel2 = O2Gui.open<Panel>("Search AutoSaved Scripts", 800, 300);
+                        var autoSaveDir = PublicDI.config.AutoSavedScripts;
+                        var controls = panel2.add_1x1("Files", "Content", true, 200);
+                        var sourceViewer = controls[1].add_SourceCodeViewer();
+                        var directory = controls[0].add_Directory();
+                        directory.afterFileSelect((file) => sourceViewer.open(file));
+                        directory.open(autoSaveDir);
+                    });
         }
 
         public bool handleKeyEventHandler(char key)
