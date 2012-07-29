@@ -396,7 +396,7 @@ namespace O2.Views.ASCX.classes.MainGUI
                     Environment.NewLine + " StackTrace: {2} ", sourceMessage, ex.Message,
                     ex.StackTrace);
 
-            // DI.log.error(errorMessage);
+            // PublicDI.log.error(errorMessage);
             reportCriticalErrorToO2Developers(PublicDI.CurrentGUIHost, "O2 GUI Crash", errorMessage);
             //DebugMsg.showMessageBox(errorMessage + "\n\n" + ex.StackTrace+ "\n\n");
             Application.Exit();
@@ -417,9 +417,9 @@ namespace O2.Views.ASCX.classes.MainGUI
 
         public static List<String> createAttachmentsForRemoteSupport(RichTextBox logViewContentsToSend, PictureBox screenShotToSend)
         {
-            String sFile_LogViews = DI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_LogView;
-            String sFile_LogViewsTxt = DI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_LogView + ".txt";
-            String sFile_ScreenShot = DI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_ScreenShotImage + ".Jpeg";
+            String sFile_LogViews = PublicDI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_LogView;
+            String sFile_LogViewsTxt = PublicDI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_LogView + ".txt";
+            String sFile_ScreenShot = PublicDI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_ScreenShotImage + ".Jpeg";
             return Main_WinForms.createAttachmentsForRemoteSupport(logViewContentsToSend, screenShotToSend, sFile_LogViews, sFile_LogViewsTxt, sFile_ScreenShot);
         }
 

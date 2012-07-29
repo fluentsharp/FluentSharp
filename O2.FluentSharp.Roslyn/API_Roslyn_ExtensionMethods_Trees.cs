@@ -7,7 +7,6 @@ using O2.DotNetWrappers.ExtensionMethods;
 using Roslyn.Services;
 using Roslyn.Services.Formatting;
 using Roslyn.Compilers;
-using Roslyn.Compilers.CSharp;
 using Roslyn.Compilers.Common;
 
 namespace O2.XRules.Database.APIs

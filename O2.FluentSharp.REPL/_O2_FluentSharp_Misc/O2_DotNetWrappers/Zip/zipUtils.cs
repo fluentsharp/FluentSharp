@@ -26,6 +26,8 @@ namespace O2.DotNetWrappers.Zip
 
         public string zipFolder(string strPathOfFolderToZip, string strTargetZipFileName)
         {
+            if (strTargetZipFileName.fileExists())
+                strTargetZipFileName.file_Delete();
             var zpZipFile = new ZipFile(strTargetZipFileName);
             zpZipFile.AddDirectory(strPathOfFolderToZip, "");
             //zpZipFile.TrimVolumeFromFullyQualifiedPaths = true;

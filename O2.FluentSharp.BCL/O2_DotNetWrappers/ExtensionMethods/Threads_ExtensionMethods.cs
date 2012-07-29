@@ -174,7 +174,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (control == null || control.IsDisposed)
             {     
                 // can't send this message here since we create a stack overflow when this happens on the DebugMsg okThread
-                //DI.log.info("in okThread control variable was null or disposed, so returning false");
+                //PublicDI.log.info("in okThread control variable was null or disposed, so returning false");
                 return false;
             }
             try
@@ -198,7 +198,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             if (form == null || form.IsDisposed)
             {
-                //  DI.log.info("in okThread form variable was null or dispose, so returning false");
+                //  PublicDI.log.info("in okThread form variable was null or dispose, so returning false");
                 return false;
             }
             try

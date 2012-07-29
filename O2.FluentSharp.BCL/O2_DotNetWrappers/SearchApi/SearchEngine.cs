@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.SearchApi
 {
@@ -57,7 +58,7 @@ namespace O2.DotNetWrappers.SearchApi
                 loadFile(sFileToLoad);
                 if (iFilesProcessed++ % 100 == 0)
                 {
-                    DI.log.info("Processed files: {0} /{1}", iFilesProcessed, lFilesToLoad.Count);
+                    PublicDI.log.info("Processed files: {0} /{1}", iFilesProcessed, lFilesToLoad.Count);
                     if (onPartialLoad != null)
                         onPartialLoad(iFilesProcessed);
                 }
@@ -65,12 +66,12 @@ namespace O2.DotNetWrappers.SearchApi
 
             // some file stats
 
-            DI.log.debug("Number of Files Currently Loaded: {0}", dLoadedFilesCache.Keys.Count);
+            PublicDI.log.debug("Number of Files Currently Loaded: {0}", dLoadedFilesCache.Keys.Count);
             int iLinesOfCode = 0;
             //int iChars = 0;
             foreach (var lsLines in dLoadedFilesCache.Values)
                 iLinesOfCode += lsLines.Count;
-            DI.log.debug("Number of Lines of Code Currently Loaded: {0}", iLinesOfCode);
+            PublicDI.log.debug("Number of Lines of Code Currently Loaded: {0}", iLinesOfCode);
         }
 
         public void loadFiles(String sTargetDir, String sExtension, bool bRecursive)
@@ -82,12 +83,12 @@ namespace O2.DotNetWrappers.SearchApi
         {
             if (false == Directory.Exists(sTargetDir))
             {
-                DI.log.debug("Directory provide does not exist: {0}", sTargetDir);
+                PublicDI.log.debug("Directory provide does not exist: {0}", sTargetDir);
                 return;
             }
             var lFilesToLoad = new List<string>();
             Files.getListOfAllFilesFromDirectory(lFilesToLoad, sTargetDir, bRecursive, sExtension, false);
-            DI.log.debug("{0} files found, loading them", lFilesToLoad.Count);
+            PublicDI.log.debug("{0} files found, loading them", lFilesToLoad.Count);
             loadFiles(lFilesToLoad);
         }
 
@@ -99,14 +100,14 @@ namespace O2.DotNetWrappers.SearchApi
                 if (false == dLoadedFilesCache.ContainsKey(sFileToLoad))
                 {
                     if (false == File.Exists(sFileToLoad))
-                        DI.log.error("Submited item is not a file: {0}", sFileToLoad);
+                        PublicDI.log.error("Submited item is not a file: {0}", sFileToLoad);
                     else
                         //if (false == bTryToFilesFromAssesmentRun)  // || false == tryToLoadAllFilesFromAssessmentRunFile(sFileToLoad, dLoadedFilesCache))
                     {
                         String sFileContents = Files.getFileContents(sFileToLoad);
                         if (sFileContents.IndexOf('\x00') > -1)
                         {
-                            DI.log.error("Skipping load of file since it has at least one char 0 (zero) on it: {0}", sFileToLoad);
+                            PublicDI.log.error("Skipping load of file since it has at least one char 0 (zero) on it: {0}", sFileToLoad);
                         }
                         else
                         {
@@ -123,7 +124,7 @@ namespace O2.DotNetWrappers.SearchApi
             }
             catch (Exception ex)
             {
-                DI.log.error("In loadFile, error while processing file: {0} : {1}", sFileToLoad, ex.Message);
+                PublicDI.log.error("In loadFile, error while processing file: {0} : {1}", sFileToLoad, ex.Message);
             }
             return false;
 
@@ -167,7 +168,7 @@ namespace O2.DotNetWrappers.SearchApi
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex);
+                PublicDI.log.ex(ex);
             }
             
             return executeSearch(lreSearchRegEx);
@@ -198,12 +199,12 @@ namespace O2.DotNetWrappers.SearchApi
                         //    tsrSearchResults.Add(new textSearchResult(rRegEx,sMatchLine,sFileToSearch)); 
                     }
                 }
-                DI.log.info("Number of search matches: {0}", tsrSearchResults.Count);
+                PublicDI.log.info("Number of search matches: {0}", tsrSearchResults.Count);
                 //tO2Timer.stop();
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex);
+                PublicDI.log.ex(ex);
             }
             return tsrSearchResults;
         }

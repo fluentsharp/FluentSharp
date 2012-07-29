@@ -5,16 +5,23 @@ using System.IO;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.Xsd;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Misc
 {
     public class SourceCodeMappingsUtils  
     {     
+        public static SourceCodeMappings sourceCodeMappings;
+        public static string sourceCodeMappingFileName;
 
+        static SourceCodeMappingsUtils()
+        {
+            sourceCodeMappingFileName = "SourceCodeMappingsFile.xml";			// must be set before the call to getSourceCodeMappings();
+            sourceCodeMappings = SourceCodeMappingsUtils.getSourceCodeMappings();
+        }
         public static void loadSourceCodeMappings(DataGridView targetDataGridView)
         {
             targetDataGridView.invokeOnThread(
@@ -55,7 +62,7 @@ namespace O2.DotNetWrappers.O2Misc
         {
             if (sFileToFind != "")
             {
-                DI.log.info("Asking the user to resolve the file reference: {0}", sFileToFind);
+                PublicDI.log.info("Asking the user to resolve the file reference: {0}", sFileToFind);
                 String sFilename = Path.GetFileName(sFileToFind);
                 var opdOpenFileDialog = new OpenFileDialog();
                 opdOpenFileDialog.Filter = (sFilename + "|" + sFilename);
@@ -68,9 +75,9 @@ namespace O2.DotNetWrappers.O2Misc
 
         public static String getSourceCodeMappingsFile()
         {
-            return Path.Combine(DI.config.O2TempDir, DI.sourceCodeMappingFileName);
+            return Path.Combine(PublicDI.config.O2TempDir, SourceCodeMappingsUtils.sourceCodeMappingFileName);
         }
-
+        
         public static SourceCodeMappings getSourceCodeMappings()
         {
 			try
@@ -98,7 +105,7 @@ namespace O2.DotNetWrappers.O2Misc
         {
             if (dgvDataGridView.Columns.Count != 2)
             {
-                DI.log.error(
+                PublicDI.log.error(
                     "in getSourceCodeMappingsFromDataGridView: invalid DataGridView : dgvDataGridView.Columns.Count != 2 ");
                 return null;
             }
@@ -132,7 +139,7 @@ namespace O2.DotNetWrappers.O2Misc
                                                                        if (resolvedFileMapping.resolveFileMapping())
                                                                            return resolvedFileMapping.sMappedFile;
                                                                        else
-                                                                           DI.log.error(
+                                                                           PublicDI.log.error(
                                                                                "in SourceCodeMappingsUtils.mapFile, could not map file: {0}",
                                                                                fileToMap);
                                                                    }
@@ -148,7 +155,7 @@ namespace O2.DotNetWrappers.O2Misc
             var resolvedFileMapping = new resolvedFileMapping(fileToMap);
             if (resolvedFileMapping.tryToResolveUsingCurrentSourceCodeMappings())
                 return resolvedFileMapping.sMappedFile;
-            DI.log.error("in SourceCodeMappingsUtils.mapFile, could not map file: {0}", fileToMap);
+            PublicDI.log.error("in SourceCodeMappingsUtils.mapFile, could not map file: {0}", fileToMap);
             return fileToMap;
         }
 
@@ -189,21 +196,21 @@ namespace O2.DotNetWrappers.O2Misc
 
             public void addMappingToCurrentListAndSaveIt(string pathToFind, string pathToReplace)
             {
-                var mappings = new List<SourceCodeMappingsMapping>(DI.sourceCodeMappings.Mapping);
+                var mappings = new List<SourceCodeMappingsMapping>(SourceCodeMappingsUtils.sourceCodeMappings.Mapping);
 
 				var sourceCodeMappings = new SourceCodeMappingsMapping();
 				sourceCodeMappings.withThisString = pathToReplace;
 				sourceCodeMappings.replaceThisString = pathToFind;
 				
                 mappings.Add(sourceCodeMappings);
-                DI.sourceCodeMappings.Mapping = mappings.ToArray();
-                saveSourceCodeMappings(DI.sourceCodeMappings);
+                SourceCodeMappingsUtils.sourceCodeMappings.Mapping = mappings.ToArray();
+                saveSourceCodeMappings(SourceCodeMappingsUtils.sourceCodeMappings);
             }
 
             public bool tryToResolveUsingCurrentSourceCodeMappings()
             {
-                if (DI.sourceCodeMappings != null)
-                    foreach(var sourceCodeMapping in DI.sourceCodeMappings.Mapping)
+                if (SourceCodeMappingsUtils.sourceCodeMappings != null)
+                    foreach (var sourceCodeMapping in SourceCodeMappingsUtils.sourceCodeMappings.Mapping)
                     {
                         var mappedFile = (sourceCodeMapping.replaceThisString != "") ?
                             sOriginalFile.Replace(sourceCodeMapping.replaceThisString, sourceCodeMapping.withThisString) :

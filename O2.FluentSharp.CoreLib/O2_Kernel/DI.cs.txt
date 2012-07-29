@@ -18,7 +18,7 @@ using System;
 
 namespace O2.Kernel
 {
-    internal static class DI
+  /*  internal static class DI
     {        
         static DI()
         {               
@@ -56,5 +56,5 @@ namespace O2.Kernel
 
         // local global variables
         public static string O2KernelProcessName { get; set; }
-    }
+    }*/
 }

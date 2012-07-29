@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 using O2.Kernel;
 
-//O2File:../DI.cs
+//O2File:../PublicDI.cs
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {

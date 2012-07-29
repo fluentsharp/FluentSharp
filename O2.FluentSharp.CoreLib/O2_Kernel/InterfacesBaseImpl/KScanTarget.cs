@@ -15,7 +15,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
             missingDependencies = new List<string>();
             useFileNameOnWorkDirecory = true;
-            WorkDirectory = DI.config.O2TempDir;
+            WorkDirectory = PublicDI.config.O2TempDir;
         }
 
         #region IScanTarget Members

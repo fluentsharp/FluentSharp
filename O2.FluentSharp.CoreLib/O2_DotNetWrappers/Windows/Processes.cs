@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using O2.Kernel.CodeUtils;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Windows
 {
@@ -44,7 +45,7 @@ namespace O2.DotNetWrappers.Windows
         {
             try
             {
-                DI.log.debug("Starting process {0} with arguments {1}", sProcessToStart, sArguments);
+                PublicDI.log.debug("Starting process {0} with arguments {1}", sProcessToStart, sArguments);
                 var pProcess = new Process();
                 pProcess.StartInfo = new ProcessStartInfo();
                 pProcess.StartInfo.Arguments = sArguments;
@@ -61,7 +62,7 @@ namespace O2.DotNetWrappers.Windows
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in startProcess");
+                PublicDI.log.ex(ex, "in startProcess");
                 return null;
             }
         }
@@ -108,7 +109,7 @@ namespace O2.DotNetWrappers.Windows
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "In waitForProcessExitAndInvokeCallBankOncompletion:", true);
+                PublicDI.log.ex(ex, "In waitForProcessExitAndInvokeCallBankOncompletion:", true);
             }
         }
 
@@ -138,7 +139,7 @@ namespace O2.DotNetWrappers.Windows
             try
             {
                 if (showProcessDetails)
-                    DI.log.debug("Starting process {0} as a console Application with arguments {1}", processToStart,
+                    PublicDI.log.debug("Starting process {0} as a console Application with arguments {1}", processToStart,
                                  arguments);
                 var pProcess = new Process();
                 pProcess.StartInfo = new ProcessStartInfo();
@@ -158,7 +159,7 @@ namespace O2.DotNetWrappers.Windows
             }
             catch(Exception ex)
             {
-                DI.log.error("in startProcessAsConsoleApplicationAndReturnConsoleOutput failed stating process {0} with parameters {1} . The error was: {1} ",processToStart, ex.Message);
+                PublicDI.log.error("in startProcessAsConsoleApplicationAndReturnConsoleOutput failed stating process {0} with parameters {1} . The error was: {1} ",processToStart, ex.Message);
                 return "";
             }
         }
@@ -179,7 +180,7 @@ namespace O2.DotNetWrappers.Windows
                                                                DataReceivedEventHandler callbackOutputDataReceived,
                                                                DataReceivedEventHandler callbackErrorDataReceived)
         {
-            DI.log.debug("Starting process {0} as a console Application with arguments {1}", sProcessToStart,
+            PublicDI.log.debug("Starting process {0} as a console Application with arguments {1}", sProcessToStart,
                          sArguments);
             var pProcess = new Process();
             pProcess.StartInfo = new ProcessStartInfo();
@@ -259,7 +260,7 @@ namespace O2.DotNetWrappers.Windows
                                                         DataReceivedEventHandler callbackOutputDataReceived,
                                                         DataReceivedEventHandler callbackErrorDataReceived)
         {            
-            DI.log.debug("Starting process {0} as a console Application with IO redirected {1}", processToStart,
+            PublicDI.log.debug("Starting process {0} as a console Application with IO redirected {1}", processToStart,
                          arguments);
             var process = new Process();
             process.StartInfo = new ProcessStartInfo();
@@ -296,14 +297,14 @@ namespace O2.DotNetWrappers.Windows
         public static void pProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data != "")
-                DI.log.info("\t:{0}:", e.Data);
+                PublicDI.log.info("\t:{0}:", e.Data);
             //throw new NotImplementedException();
         }
 
         public static void pProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.Data))
-                DI.log.error("\t:{0}:", e.Data);
+                PublicDI.log.error("\t:{0}:", e.Data);
             //throw new NotImplementedException();
         }
 
@@ -315,20 +316,20 @@ namespace O2.DotNetWrappers.Windows
         public static void killProcess(String sProcessToKill, bool bVerbose)
         {
             //  foreach (Process pProcess in Process.GetProcesses())
-            //      DI.log.debug("Process name :{0}", pProcess.ProcessName);
+            //      PublicDI.log.debug("Process name :{0}", pProcess.ProcessName);
             Process[] pProcessesToKill = Process.GetProcessesByName(sProcessToKill);
             if (pProcessesToKill.Length == 0 && bVerbose)
-                DI.log.error("in killProcess, could not find any proccess with the name: {0}", sProcessToKill);
+                PublicDI.log.error("in killProcess, could not find any proccess with the name: {0}", sProcessToKill);
             foreach (Process pProcess in pProcessesToKill)
             {
-                DI.log.debug("Killing Process {0}", pProcess.ProcessName);
+                PublicDI.log.debug("Killing Process {0}", pProcess.ProcessName);
                 try
                 {
                     pProcess.Kill();
                 }
                 catch (Exception ex)
                 {
-                    DI.log.error("In killProcess: {0}", ex.Message);
+                    PublicDI.log.error("In killProcess: {0}", ex.Message);
                 }
             }
         }
@@ -351,7 +352,7 @@ namespace O2.DotNetWrappers.Windows
 
         public static void resetIIS(bool bWaitForCompletion)
         {
-            DI.log.debug("Reseting IIS");
+            PublicDI.log.debug("Reseting IIS");
             Thread.Sleep(2000); // give the current request some time to complete
             var process = new Process();
             process.StartInfo = new ProcessStartInfo();
@@ -365,7 +366,7 @@ namespace O2.DotNetWrappers.Windows
             if (bWaitForCompletion)
             {
                 process.WaitForExit();
-                DI.log.info("IIS service reset");
+                PublicDI.log.info("IIS service reset");
             }
         }
 
@@ -373,11 +374,11 @@ namespace O2.DotNetWrappers.Windows
         public static void startCurrentProcessInTempFolder()
         {
 
-            String sTargetDirectory = DI.config.TempFolderInTempDirectory + "_" + DI.config.CurrentExecutableFileName;
+            String sTargetDirectory = PublicDI.config.TempFolderInTempDirectory + "_" + PublicDI.config.CurrentExecutableFileName;
             Directory.CreateDirectory(sTargetDirectory);
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
                 if (assembly.Location != "") 
-                    Files.Copy(assembly.Location, sTargetDirectory);                        
+                    Files.copy(assembly.Location, sTargetDirectory);                        
             //String sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             //Files.copyFilesFromDirectoryToDirectory(sCurrentDirectory, sTargetDirectory);
             String sCommandLine = Environment.CommandLine.Replace("\"", "").Replace(".vshost", "");
@@ -386,10 +387,10 @@ namespace O2.DotNetWrappers.Windows
             String sExeInTempDirectory = Path.Combine(sTargetDirectory, sExeName);
             
             //if there is a .config file, copy it to the temp directory
-            var configFile = Path.Combine(DI.config.CurrentExecutableDirectory,
-                                          DI.config.CurrentExecutableFileName + ".exe.config");
+            var configFile = Path.Combine(PublicDI.config.CurrentExecutableDirectory,
+                                          PublicDI.config.CurrentExecutableFileName + ".exe.config");
             if (File.Exists(configFile))
-                Files.Copy(configFile, sTargetDirectory);
+                Files.copy(configFile, sTargetDirectory);
 
             Process.Start(sExeInTempDirectory);
 
@@ -458,7 +459,7 @@ namespace O2.DotNetWrappers.Windows
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex);
+                PublicDI.log.ex(ex);
                 throw;
             }
         }*/
@@ -473,7 +474,7 @@ namespace O2.DotNetWrappers.Windows
             if (miliSecondsToSleep > 0)
             {
                 if (verbose)
-                    DI.log.info("Sleeping for: {0} mili-seconds", miliSecondsToSleep);
+                    PublicDI.log.info("Sleeping for: {0} mili-seconds", miliSecondsToSleep);
                 Thread.Sleep(miliSecondsToSleep);
             }
         }

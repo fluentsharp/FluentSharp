@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -55,7 +56,7 @@ namespace O2.DotNetWrappers.DotNet
         {
             if (oObjectToCheck == null)
             {
-                DI.log.debug("Variable of type {0} was not null!", sObjectType);
+                PublicDI.log.debug("Variable of type {0} was not null!", sObjectType);
                 return false;
             }
             return true;
@@ -63,12 +64,12 @@ namespace O2.DotNetWrappers.DotNet
 
         public static void showListContents(IEnumerable list)
         {
-            DI.log.debug("Showing contents of list of type: {0}\n", list.GetType());
+            PublicDI.log.debug("Showing contents of list of type: {0}\n", list.GetType());
             int itemCount = 0;
             foreach (object item in list)
-                DI.log.info("      [{0}]   {1}", itemCount++, item.ToString());
+                PublicDI.log.info("      [{0}]   {1}", itemCount++, item.ToString());
 
-            DI.log.info("");
+            PublicDI.log.info("");
         }
 
         public static string addSpacesOnUpper(string stringToModify)

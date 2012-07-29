@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using O2.DotNetWrappers.DotNet;
 using O2.Interfaces.O2Findings;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Findings.DotNet
 {
@@ -10,7 +11,7 @@ namespace O2.DotNetWrappers.O2Findings.DotNet
     {
         public static List<String> getAspNetPageFromO2Findings(List<IO2Finding> o2Findings)
         {
-            DI.log.info("in getAspNetPageFromO2Findings");
+            PublicDI.log.info("in getAspNetPageFromO2Findings");
             //var stringToMatch = ".*aspx";
             var findings = new List<String>();
 
@@ -23,9 +24,9 @@ namespace O2.DotNetWrappers.O2Findings.DotNet
                 }
             }
 
-            DI.log.info("Found {0} unique calls with aspx", findings.Count);
+            PublicDI.log.info("Found {0} unique calls with aspx", findings.Count);
             foreach (string finding in findings)
-                DI.log.info("   {0}", finding);
+                PublicDI.log.info("   {0}", finding);
 
             return findings;
         }
@@ -43,9 +44,9 @@ namespace O2.DotNetWrappers.O2Findings.DotNet
                 {
                     if (source.context.Contains("txt"))
                     {
-                        // DI.log.info(source + " -> " + (o2Finding.getSink != null ? o2Finding.getSink.ToString() : ""));
+                        // PublicDI.log.info(source + " -> " + (o2Finding.getSink != null ? o2Finding.getSink.ToString() : ""));
                         string variableName = OzasmtContext.getVariableNameFromThisObject(source);
-                        // DI.log.info(o2Finding.o2Trace + "  :::  " + );// + "    :    " + source.context);
+                        // PublicDI.log.info(o2Finding.o2Trace + "  :::  " + );// + "    :    " + source.context);
                         foreach (IO2Trace o2Trace in o2Finding.o2Traces)
                         {
                             List<string> wordsFromSignature =
@@ -66,7 +67,7 @@ namespace O2.DotNetWrappers.O2Findings.DotNet
                             }
                         }
                     }
-                    // DI.log.info("    " + o2Finding.getSource + " -> " + o2Finding.getSource.context + "\n\n");
+                    // PublicDI.log.info("    " + o2Finding.getSource + " -> " + o2Finding.getSource.context + "\n\n");
                 }
             }
             return results;

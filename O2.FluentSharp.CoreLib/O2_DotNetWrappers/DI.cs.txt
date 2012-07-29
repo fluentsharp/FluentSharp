@@ -15,7 +15,7 @@ using O2.DotNetWrappers.DotNet;
 namespace O2.DotNetWrappers
 {
     // used for direct DI (Dependency Injection) objects and local cache objects
-    internal class DI
+/*    internal class DI
     {
         static DI()
         {
@@ -45,5 +45,5 @@ namespace O2.DotNetWrappers
       
         public static string PathToGac { get; set; }
         
-    }
+    }*/
 }

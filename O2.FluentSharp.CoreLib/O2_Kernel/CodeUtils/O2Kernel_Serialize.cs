@@ -30,7 +30,7 @@ namespace O2.Kernel.CodeUtils
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "In createSerializedXmlStringFromObject");
+                PublicDI.log.ex(ex, "In createSerializedXmlStringFromObject");
                 return false;
             }
             finally
@@ -56,9 +56,9 @@ namespace O2.Kernel.CodeUtils
             }
             catch (Exception eException)
             {
-                DI.log.error("ERROR: {0} ", eException.Message);
+                PublicDI.log.error("ERROR: {0} ", eException.Message);
                 if (eException.InnerException != null)
-                    DI.log.error("   ERROR (InnerException): {0} ", eException.InnerException.Message);
+                    PublicDI.log.error("   ERROR (InnerException): {0} ", eException.InnerException.Message);
             }
             finally
             {

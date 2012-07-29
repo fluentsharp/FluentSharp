@@ -20,11 +20,11 @@ namespace O2.DotNetWrappers.Windows
                 Files.WriteFileContent(file, binaryReader);
                  */
 
-        public static String Copy(String sourceFile, String targetFileOrFolder)
+        public static String copy(String sourceFile, String targetFileOrFolder)
         {
-            return Copy(sourceFile, targetFileOrFolder, false);
+            return copy(sourceFile, targetFileOrFolder, false);
         }
-        public static String Copy(String sSourceFile, String sTargetFileOrFolder, bool overrideFile)
+        public static String copy(String sSourceFile, String sTargetFileOrFolder, bool overrideFile)
         {
             string sTargetFile = sTargetFileOrFolder;            
             if (Directory.Exists(sTargetFile))
@@ -42,15 +42,14 @@ namespace O2.DotNetWrappers.Windows
                 return null;
             }            
         }
-
-        public static string CopyVerbose(string fileToCopy, string targetFolder, bool dontCopyIfTargetFileAlreadyExists)
+        public static string copyVerbose(string fileToCopy, string targetFolder, bool dontCopyIfTargetFileAlreadyExists)
         {
             var fileName = Path.GetFileName(fileToCopy);
             var targetFileLocation = Path.Combine(targetFolder, Path.GetFileName(fileToCopy));
             if (false == File.Exists(targetFileLocation))
             {
                 PublicDI.log.write("copying file {0} to folder {1}", fileName, targetFolder);
-                Copy(fileToCopy, targetFolder);
+                copy(fileToCopy, targetFolder);
             }
             else
                 if (dontCopyIfTargetFileAlreadyExists)
@@ -58,19 +57,18 @@ namespace O2.DotNetWrappers.Windows
                 else
                 {
                     PublicDI.log.write("over-writing file: {0}", fileName);
-                    Copy(fileToCopy, targetFolder);
+                    copy(fileToCopy, targetFolder);
                 }
             return fileToCopy;
         }
-
-        public static String MoveFile(String sSourceFile, String sTargetFileOrDirectory)
+        public static String moveFile(String sSourceFile, String sTargetFileOrDirectory)
         {
             try
             {
                 string copiedFile = null;
                 if (sSourceFile != sTargetFileOrDirectory)
                 {
-                    copiedFile = Copy(sSourceFile, sTargetFileOrDirectory);
+                    copiedFile = copy(sSourceFile, sTargetFileOrDirectory);
                     if (copiedFile != null)
                         deleteFile(sSourceFile);
                     //File.Move(sSourceFile, sTargetFile);
@@ -83,7 +81,6 @@ namespace O2.DotNetWrappers.Windows
             }
             return "";
         }
-
         public static void copyDllAndPdb(String sSourceDll, String sTargetDll, bool bOveride)
         {
             try
@@ -109,9 +106,10 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.error("in copyDllAndPdb:{0}", ex.Message);
             }
         }
-
         public static bool copyFilesFromDirectoryToDirectory(String sSourceDirectory, String sTargetDirectory)
         {
+            return copyFolder(sSourceDirectory, sTargetDirectory);
+            /*
             if (false == Directory.Exists(sSourceDirectory))
             {
                 PublicDI.log.error("Source Directory doesn't exist:{0}", sSourceDirectory);
@@ -127,38 +125,37 @@ namespace O2.DotNetWrappers.Windows
                 }
             }
             foreach (String sFile in Directory.GetFiles(sSourceDirectory))
-                Copy(sFile, Path.Combine(sTargetDirectory, Path.GetFileName(sFile)));
-            return true;
+                copy(sFile, Path.Combine(sTargetDirectory, Path.GetFileName(sFile)));
+            return true;*/
         }
-
         public static string getTempFolderName()
         {
             String sTempFileName = Path.GetTempFileName();
             File.Delete(sTempFileName);
             return Path.GetFileNameWithoutExtension(sTempFileName);
         }
-
         public static string getTempFileName()
         {
             String sTempFileName = Path.GetTempFileName();
             File.Delete(sTempFileName);
             return Path.GetFileName(sTempFileName);
         }
-
         public static bool deleteFile(String fileToDelete)
-        {
+        {            
             return deleteFile(fileToDelete, false);
         }
-
         public static bool deleteFile(String fileToDelete, bool logFileDeletion)
         {
             try
             {
                 if (File.Exists(fileToDelete))
                 {
-                    File.Delete(fileToDelete);
-                    if (logFileDeletion)
-                        PublicDI.log.error("Deleted File :{0}:", fileToDelete);                    
+                    if (fileToDelete.file_WaitFor_CanOpen().notNull())
+                    {
+                        File.Delete(fileToDelete);
+                        if (logFileDeletion)
+                            PublicDI.log.error("Deleted File :{0}:", fileToDelete);
+                    }
                 }
                 return true;
             }
@@ -168,12 +165,10 @@ namespace O2.DotNetWrappers.Windows
             }
             return false;
         }
-
         public static void deleteFolder(String sFolderToDelete)
         {
             deleteFolder(sFolderToDelete, false);
         }
-
         public static bool deleteFolder(String sFolderToDelete, bool bRecursive)
         {
             try
@@ -191,12 +186,10 @@ namespace O2.DotNetWrappers.Windows
             }
             return false;
         }
-
         public static void deleteAllFilesFromDir(String targetDir)
         {
             deleteFilesFromDirThatMatchPattern(targetDir, "*.*");
         }
-
         public static void deleteFilesFromDirThatMatchPattern(String targetDir, String searchPattern)
         {
             List<String> lsFiles = getFilesFromDir_returnFullPath(targetDir, searchPattern);
@@ -210,21 +203,17 @@ namespace O2.DotNetWrappers.Windows
                     PublicDI.log.error("In deleteFilesFromDirThatMatchPattern:{0}:", ex.Message);
                 }
         }
-
-        public static String getFirstFileFromDirThatMatchesPattern_returnFulPath(String sTargetDir,
-                                                                                 String sSearchPattern)
+        public static String getFirstFileFromDirThatMatchesPattern_returnFulPath(String sTargetDir,String sSearchPattern)
         {
             List<String> lsFiles = getFilesFromDir_returnFullPath(sTargetDir, sSearchPattern, true);
             if (lsFiles.Count > 0)
                 return lsFiles[0];
             return "";
         }
-
         public static List<String> getFilesFromDir(String sTargetDir)
         {
             return getFilesFromDir(sTargetDir, "*.*");
         }
-
         public static List<String> getFilesFromDir(String sTargetDir, String sSearchPattern)
         {
             var lsFiles = new List<string>();
@@ -235,28 +224,30 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.error("in getFilesFromDir, sTargetDir doesn't exist: {0}", sTargetDir);
             return lsFiles;
         }
-
         public static List<String> getFilesFromDir_returnFullPath(String sPath)
         {
             return getFilesFromDir_returnFullPath(sPath, "*.*", false);
         }
-
         public static List<String> getFilesFromDir_returnFullPath(String path, String searchPattern)
         {
             return getFilesFromDir_returnFullPath(path, searchPattern, false);
         }
-
-        public static List<String> getFilesFromDir_returnFullPath(String path, List<String> searchPatterns,
-                                                                  bool searchRecursively)        
+        public static List<String> getFilesFromDir_returnFullPath(String path, List<String> searchPatterns,bool searchRecursively)        
         {
             var results = new List<String>();
-            foreach(var searchPattern in searchPatterns)
-                results.AddRange(getFilesFromDir_returnFullPath(path,searchPattern, searchRecursively));
+            try
+            {
+                foreach (var searchPattern in searchPatterns)
+                    results.AddRange(getFilesFromDir_returnFullPath(path, searchPattern, searchRecursively));
+            }
+            catch (Exception ex)
+            {
+                ex.log("[getFilesFromDir_returnFullPath] for path : {0}".format(path));
+            }
             return results;
         }
         // returns full paths instead of just the file names
-        public static List<String> getFilesFromDir_returnFullPath(String path, String searchPattern,
-                                                                  bool searchRecursively)
+        public static List<String> getFilesFromDir_returnFullPath(String path, String searchPattern,bool searchRecursively)
         {
             var results = new List<String>();
             getListOfAllFilesFromDirectory(results, path, searchRecursively, searchPattern, false /*verbose*/);
@@ -265,7 +256,6 @@ namespace O2.DotNetWrappers.Windows
 
             return results;
         }
-
         public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively, O2Thread.FuncVoidT1<List<String>> onComplete)
         {
             var lsFiles = new List<string>();
@@ -277,24 +267,19 @@ namespace O2.DotNetWrappers.Windows
                     });
             return lsFiles;
         }
-
         public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively)
         {
             return getListOfAllFilesFromDirectory(sStartDirectory, bSearchRecursively, "*.*");
         }
-
-        public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively,
-                                                                  String sSearchPattern)
+        public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively,String sSearchPattern)
         {
             var lsFiles = new List<string>();
             //bool bVerbose = false;
             getListOfAllFilesFromDirectory(lsFiles, sStartDirectory, bSearchRecursively, sSearchPattern, false
                 /*bVerbose*/);
             return lsFiles;
-        }
-        
-        public static void getListOfAllFilesFromDirectory(List<String> lsFiles, String sStartDirectory,
-                                                          bool bSearchRecursively, String sSearchPattern, bool bVerbose)
+        }        
+        public static void getListOfAllFilesFromDirectory(List<String> lsFiles, String sStartDirectory,bool bSearchRecursively, String sSearchPattern, bool bVerbose)
         {
         try
             {
@@ -324,24 +309,18 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.debug("Error in getListOfAllFilesFromDirectory {0}", ex.Message);
             }
         }
-
         public static List<String> getListOfAllDirectoriesFromDirectory(String startDirectory, bool searchRecursively)
         {
             return getListOfAllDirectoriesFromDirectory(startDirectory, searchRecursively, "");
         }
-
-        public static List<String> getListOfAllDirectoriesFromDirectory(String sStartDirectory, bool bSearchRecursively,
-                                                                        String sSearchPattern)
+        public static List<String> getListOfAllDirectoriesFromDirectory(String sStartDirectory, bool bSearchRecursively,String sSearchPattern)
         {
             var lsDirectories = new List<string>();
             getListOfAllDirectoriesFromDirectory(lsDirectories, sStartDirectory, bSearchRecursively, sSearchPattern,
                                                  false /*verbose*/);
             return lsDirectories;
         }
-
-        public static void getListOfAllDirectoriesFromDirectory(List<String> lsDirectories, String sStartDirectory,
-                                                                bool bSearchRecursively, String sSearchPattern,
-                                                                bool bVerbose)
+        public static void getListOfAllDirectoriesFromDirectory(List<String> lsDirectories, String sStartDirectory,bool bSearchRecursively, String sSearchPattern,bool bVerbose)
         {
             try
             {
@@ -371,7 +350,6 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.error("Error in getListOfAllDirectoriesFromDirectory {0}", ex.Message);
             }
         }
-
         public static List<String> findFiles(String sPathToFolder, String sFilter)
         {
             PublicDI.log.debug("Discovering all files that match the pattern: {0} in the directory: {1}", sFilter,
@@ -382,7 +360,6 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.info(sFile);
             return lsFiles;
         }
-
         public static void saveAsFile_StringList(String sFileToSave, List<String> lsFileContents)
         {
             try
@@ -397,14 +374,12 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.error("Error in saveAsFile_StringList {0}", ex.Message);
             }
         }
-
         public static List<String> getFiles(String sPath, String sFilter)
         {
             var lsFiles = new List<String>();
             getListOfAllFilesFromDirectory(lsFiles, sPath, true, sFilter, false);
             return lsFiles;
         }
-
         public static List<String> getFileLines(String sFileToOpen)
         {
             FileStream fs = null;
@@ -431,7 +406,6 @@ namespace O2.DotNetWrappers.Windows
                 fs.Close();
             return lsFileLines;
         }
-
         public static byte[] getFileContentsAsByteArray(string sFileToOpen)
         {
             if (false == File.Exists(sFileToOpen))
@@ -439,9 +413,12 @@ namespace O2.DotNetWrappers.Windows
             //StreamReader sr = null;            
             try
             {
-                FileStream fs = File.OpenRead(sFileToOpen);
-                var fileContents = new byte[fs.Length];
-                fs.Read(fileContents, 0, fileContents.Length);
+                var fileSize = sFileToOpen.fileInfo().size();
+                var fileContents = new byte[fileSize];
+                using (FileStream fs = File.OpenRead(sFileToOpen))
+                {                    
+                    fs.Read(fileContents, 0, fileContents.Length);
+                }
                 return fileContents;                
             }
             catch(Exception ex)
@@ -450,7 +427,6 @@ namespace O2.DotNetWrappers.Windows
                 return null;
             }
         }       
-
         public static string getFileContents(string sFileToOpen)
         {
             if (false == File.Exists(sFileToOpen))
@@ -474,12 +450,10 @@ namespace O2.DotNetWrappers.Windows
                 fs.Close();
             return strContent;
         }
-
         public static bool WriteFileContent(string targetFile, string newFileContent)
         {
             return WriteFileContent(targetFile, newFileContent, false);
         }
-
         public static bool WriteFileContent(string targetFile, string newFileContent, bool dontWriteIfTargetFileIsTheSameAsString)
         {
            if (newFileContent.empty())
@@ -492,7 +466,6 @@ namespace O2.DotNetWrappers.Windows
             }
             return WriteFileContent(targetFile, new UTF8Encoding(true).GetBytes(newFileContent));
         }
-
         public static bool WriteFileContent(string strFile, Byte[] abBytes)
         {
             try
@@ -513,8 +486,6 @@ namespace O2.DotNetWrappers.Windows
             }
             return false;
         }
-
-
         public static String checkIfDirectoryExistsAndCreateIfNot(String directory, bool deleteFiles)
         {
             checkIfDirectoryExistsAndCreateIfNot(directory);
@@ -522,7 +493,6 @@ namespace O2.DotNetWrappers.Windows
                 deleteAllFilesFromDir(directory);
             return directory;
         }
-
         public static String checkIfDirectoryExistsAndCreateIfNot(String directory)
         {
             try
@@ -539,7 +509,6 @@ namespace O2.DotNetWrappers.Windows
             }
             return "";
         }
-
         /*   public static List<String> loadSourceFileIntoList(String sPathToSourceCodeFile)
         {
             var lsSourceCode = new List<string>();
@@ -561,48 +530,53 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.error("In getLineFromSourceCode uLineNumeber==0 || uLineNumber >= lsSourceCode.Count");
             return "";
         }
-
-
-        public static void copyFolder(string sourceFolder, string targetFolder)
+        public static bool copyFolder(string sourceFolder, string targetFolder)
         {
-            copyFolder(sourceFolder, targetFolder, true /*copyRecursively*/ , false /*dontCreateSourceFolderInTarget */, "" /*ignoreFolderWith*/);
+            return copyFolder(sourceFolder, targetFolder, true /*copyRecursively*/ , false /*dontCreateSourceFolderInTarget */, "" /*ignoreFolderWith*/);
         }
-
-        public static void copyFolder(string sourceFolder, string targetFolder, bool copyRecursively, bool dontCreateSourceFolderInTarget, string ignoreFolderWith)
+        public static bool copyFolder(string sourceFolder, string targetFolder, bool copyRecursively, bool dontCreateSourceFolderInTarget, string ignoreFolderWith)
         {
-            "Copying folder {0} to  {1}   (copyRecursively: {2} dontCreateSourceFolderInTarget : {3})".format(sourceFolder, targetFolder, copyRecursively, dontCreateSourceFolderInTarget).info() ;
-            if (false == Directory.Exists(sourceFolder))
-                PublicDI.log.error("in copyFolder , sourceFolder doesn't exist: {0}", sourceFolder);
-            else if (false == Directory.Exists(targetFolder))
-                PublicDI.log.error("in copyFolder , targetFolder doesn't exist: {0}", targetFolder);
-            else
+            try
             {
-                List<string> foldersToCreate = getListOfAllDirectoriesFromDirectory(sourceFolder, copyRecursively);
-                foldersToCreate.Add(sourceFolder);
-                //var filesToCopy = getListOfAllFilesFromDirectory(sourceFolder, copyRecursively);
-                var pathReplaceString = (dontCreateSourceFolderInTarget) 
-                                            ? sourceFolder
-                                            :Path.GetDirectoryName(sourceFolder);
-                foreach (string folder in foldersToCreate)
+                "Copying folder {0} to  {1}   (copyRecursively: {2} dontCreateSourceFolderInTarget : {3})".format(sourceFolder, targetFolder, copyRecursively, dontCreateSourceFolderInTarget).info();
+                if (false == Directory.Exists(sourceFolder))
+                    PublicDI.log.error("in copyFolder , sourceFolder doesn't exist: {0}", sourceFolder);
+                else if (false == Directory.Exists(targetFolder))
+                    PublicDI.log.error("in copyFolder , targetFolder doesn't exist: {0}", targetFolder);
+                else
                 {
-                    if (ignoreFolderWith.valid().isFalse() || folder.contains(ignoreFolderWith).isFalse())
+                    List<string> foldersToCreate = getListOfAllDirectoriesFromDirectory(sourceFolder, copyRecursively);
+                    foldersToCreate.Add(sourceFolder);
+                    //var filesToCopy = getListOfAllFilesFromDirectory(sourceFolder, copyRecursively);
+                    var pathReplaceString = (dontCreateSourceFolderInTarget)
+                                                ? sourceFolder
+                                                : Path.GetDirectoryName(sourceFolder);
+                    foreach (string folder in foldersToCreate)
                     {
-                        string folderToCopyFiles = targetFolder.pathCombine(folder.Replace(pathReplaceString, ""));
-                        if (false == Directory.Exists(folderToCopyFiles))
-                            Directory.CreateDirectory(folderToCopyFiles);
-                        if (folderToCopyFiles.dirExists())
+                        if (ignoreFolderWith.valid().isFalse() || folder.contains(ignoreFolderWith).isFalse())
                         {
-                            List<string> filesToCopy = getListOfAllFilesFromDirectory(folder, false /*searchRecursively*/);
-                            foreach (string file in filesToCopy)
-                                Copy(file, folderToCopyFiles);
+                            string folderToCopyFiles = targetFolder.pathCombine(folder.Replace(pathReplaceString, ""));
+                            if (false == Directory.Exists(folderToCopyFiles))
+                                Directory.CreateDirectory(folderToCopyFiles);
+                            if (folderToCopyFiles.dirExists())
+                            {
+                                List<string> filesToCopy = getListOfAllFilesFromDirectory(folder, false /*searchRecursively*/);
+                                foreach (string file in filesToCopy)
+                                    copy(file, folderToCopyFiles);
+                            }
+                            else
+                                "in Files.copyFolder, it was not possible to created folder to copy files: {0}".error(folderToCopyFiles);
                         }
-                        else
-                            "in Files.copyFolder, it was not possible to created folder to copy files: {0}".error(folderToCopyFiles);
                     }
                 }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ex.log("Copy Folder] {0} -> {1}".format(sourceFolder, targetFolder));
+                return false;
             }
         }
-
         public static String getFileSaveDateTime_Now()
         {
             //String sFileSafeNowDateTime = " (" + DateTime.Now.ToShortDateString() + "," +
@@ -611,7 +585,6 @@ namespace O2.DotNetWrappers.Windows
             var sFileSafeNowDateTime = DateTime.Now.ToString(" (HH\\h mm\\s ss\\m\\s , dd-MM-yy)");
             return sFileSafeNowDateTime;
         }
-
         /*public static long getFileSize(string assessmentRunFileToImport)
         {
             if (!File.Exists(assessmentRunFileToImport))
@@ -619,12 +592,10 @@ namespace O2.DotNetWrappers.Windows
             var fileInfo = new FileInfo(assessmentRunFileToImport);
             return fileInfo.Length;
         }*/
-
         public static string getSafeFileNameString(string stringToParse)
         {
             return getSafeFileNameString(stringToParse, false);
         }
-
         public static string getSafeFileNameString(string stringToParse, bool prependBase64EncodedString)
         
         {
@@ -650,8 +621,6 @@ namespace O2.DotNetWrappers.Windows
                 return "{1} - {0}".format(stringToParse.base64Encode(), safeString.ToString());
             return safeString.ToString();
         }
-
-
         public static bool createFile_IfItDoesntExist(string pathToFileToCreate, object fileContents)
         {
             try
@@ -672,7 +641,6 @@ namespace O2.DotNetWrappers.Windows
                 return false;
             }            
         }
-
         public static bool IsExtension(string pathToFile, string extentionToCheck)
         {
             if (String.IsNullOrEmpty(extentionToCheck))
@@ -681,12 +649,10 @@ namespace O2.DotNetWrappers.Windows
                 extentionToCheck = "." + extentionToCheck;
             return Path.GetExtension(pathToFile) == extentionToCheck;            
         }
-
         public static void setCurrentDirectoryToExecutableDirectory()
         {
             Environment.CurrentDirectory = PublicDI.config.CurrentExecutableDirectory;
         }
-
         public static void renameFolder(string oldName, string newName)
         {
             try

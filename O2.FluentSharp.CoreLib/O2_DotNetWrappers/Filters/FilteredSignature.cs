@@ -111,7 +111,7 @@ namespace O2.DotNetWrappers.Filters
             try
             {
                 this.sOriginalSignature = methodInfo.str();
-                //   DI.log.info(" --   :{0}", methodInfo.Name);
+                //   PublicDI.log.info(" --   :{0}", methodInfo.Name);
                 sFunctionName = methodInfo.Name;
                 foreach (ParameterInfo parameter in methodInfo.GetParameters())
                 {
@@ -333,12 +333,12 @@ namespace O2.DotNetWrappers.Filters
         public static String filterSignature(String sStringToFilter, bool bShowParameters, bool bShowReturnClass,
                                              bool bShowNamespace, int iNamespaceDepth)
         {
-            if (DI.dFilteredFuntionSignatures.ContainsKey(sStringToFilter))
-                return DI.dFilteredFuntionSignatures[sStringToFilter].getFilteredSignature(
+            if (PublicDI.dFilteredFuntionSignatures.ContainsKey(sStringToFilter))
+                return PublicDI.dFilteredFuntionSignatures[sStringToFilter].getFilteredSignature(
                     bShowParameters, bShowReturnClass, bShowNamespace, iNamespaceDepth);
 
             var fsFilteredSignature = new FilteredSignature(sStringToFilter);
-            DI.dFilteredFuntionSignatures.Add(sStringToFilter, fsFilteredSignature);
+            PublicDI.dFilteredFuntionSignatures.Add(sStringToFilter, fsFilteredSignature);
             return fsFilteredSignature.getFilteredSignature(bShowParameters, bShowReturnClass, bShowNamespace,
                                                             iNamespaceDepth);
         }
@@ -388,13 +388,13 @@ namespace O2.DotNetWrappers.Filters
 
         public static bool isSignatureCached(string signatureToSearch)
         {
-            return DI.dFilteredFuntionSignatures.ContainsKey(signatureToSearch);
+            return PublicDI.dFilteredFuntionSignatures.ContainsKey(signatureToSearch);
         }
 
         public static FilteredSignature getFromCache(string signatureToGet)
         {
             if (isSignatureCached(signatureToGet))
-                return DI.dFilteredFuntionSignatures[signatureToGet];
+                return PublicDI.dFilteredFuntionSignatures[signatureToGet];
             return null;
         }
 

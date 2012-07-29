@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Windows
 {
@@ -16,11 +17,11 @@ namespace O2.DotNetWrappers.Windows
                 foreach (var directory in pathEnvironmentVariable.Split(';'))
                 {
                     var file = Path.Combine(directory, fileToFind);
-                    DI.log.info(file);
+                    PublicDI.log.info(file);
                     if (File.Exists(file))
                         return file;
                 }
-            DI.log.error("in findFileOnLocalPath, could not find file {0} in environment Path directories: {1}", fileToFind, pathEnvironmentVariable);
+            PublicDI.log.error("in findFileOnLocalPath, could not find file {0} in environment Path directories: {1}", fileToFind, pathEnvironmentVariable);
             return "";
         }
     }

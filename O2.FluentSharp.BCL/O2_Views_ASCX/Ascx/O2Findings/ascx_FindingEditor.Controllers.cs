@@ -10,6 +10,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Interfaces.O2Findings;
 using O2.Interfaces.Views;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.O2Findings
 {
@@ -65,7 +66,7 @@ namespace O2.Views.ASCX.O2Findings
         public void loadO2Finding(object o2Finding)
         {
             if (o2Finding.GetType().Name != "O2Finding")
-                DI.log.error("in loadO2Finding type of value provided was not correct: {0}",
+                PublicDI.log.error("in loadO2Finding type of value provided was not correct: {0}",
                              o2Finding.GetType().FullName);
             else
                 loadO2Finding((O2Finding)o2Finding);
@@ -113,7 +114,7 @@ namespace O2.Views.ASCX.O2Findings
                                                         var cellName = new DataGridViewTextBoxCell();
                                                         cellName.Value = property.Name;
                                                         var cellValue = new DataGridViewTextBoxCell();
-														cellValue.Value = DI.reflection.getProperty(property.Name, currentO2Finding);
+														cellValue.Value = PublicDI.reflection.getProperty(property.Name, currentO2Finding);
 														cellValue.ValueType = property.PropertyType;                                                        
                                                         newRow.Cells.AddRange(new[] {cellName, cellValue});
 
@@ -147,7 +148,7 @@ namespace O2.Views.ASCX.O2Findings
                                                     var cellName = new DataGridViewTextBoxCell();
                                                     cellName.Value = property.Name;
 													var cellValue = new DataGridViewTextBoxCell();
-													cellValue.Value = DI.reflection.getProperty(property.Name, o2Trace);
+													cellValue.Value = PublicDI.reflection.getProperty(property.Name, o2Trace);
 													cellValue.ValueType = property.PropertyType;
 
                                                     newRow.Cells.AddRange(new[] {cellName, cellValue});
@@ -196,24 +197,24 @@ namespace O2.Views.ASCX.O2Findings
 
         public void saveCurrentO2Finding()
         {
-            DI.log.info("Saving changes made to CurrentO2Finding");
+            PublicDI.log.info("Saving changes made to CurrentO2Finding");
             foreach (DataGridViewRow row in dgvFindingsDetails.Rows)
             {
                 object value = getValueFromCell(row.Cells["Value"]);
                 if (value != null)
-                    DI.reflection.setProperty(row.Cells["Name"].Value.ToString(), currentO2Finding, value);
+                    PublicDI.reflection.setProperty(row.Cells["Name"].Value.ToString(), currentO2Finding, value);
                 //currentO2Finding.setField(row.Cells["Name"].Value.ToString(), value);
             }
         }
 
         public void saveCurrentO2Trace()
         {
-            DI.log.info("Saving changes made to CurrentO2Trace");
+            PublicDI.log.info("Saving changes made to CurrentO2Trace");
             foreach (DataGridViewRow row in dgvTraceDetails.Rows)
             {
                 object value = getValueFromCell(row.Cells["Value"]);
                 if (value != null)
-                    DI.reflection.setProperty(row.Cells["Name"].Value.ToString(), currentO2Trace, value);
+                    PublicDI.reflection.setProperty(row.Cells["Name"].Value.ToString(), currentO2Trace, value);
                 //currentO2Trace.setField(row.Cells["Name"].Value.ToString(), value);
             }
             if (getCellWithCurrentO2TraceText("signature").Value.ToString() != "")

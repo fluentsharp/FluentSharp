@@ -20,8 +20,7 @@ namespace O2.DotNetWrappers
             log                         = PublicDI.log;
             config                      = PublicDI.config;
             reflection                  = new O2FormsReflectionASCX();
-			sourceCodeMappingFileName = "SourceCodeMappingsFile.xml";			// must be set before the call to getSourceCodeMappings();
-            sourceCodeMappings          = SourceCodeMappingsUtils.getSourceCodeMappings();
+			
             dFilesLines                 = new Dictionary<string, List<string>>();
             PathToGac                   = Path.Combine(Environment.GetEnvironmentVariable("windir") ?? "", "Assembly");//\\GAC_MSIL");                        
             
@@ -33,8 +32,7 @@ namespace O2.DotNetWrappers
 
         
         // local global variables
-        public static SourceCodeMappings sourceCodeMappings;
-        public static string sourceCodeMappingFileName;        
+        
         public static Dictionary<String, List<String>> dFilesLines;
         public static string PathToGac { get; set; }
     }

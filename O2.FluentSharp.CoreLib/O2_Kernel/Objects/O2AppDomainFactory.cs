@@ -9,7 +9,7 @@ using O2.Kernel.CodeUtils;
 
 using O2.DotNetWrappers.ExtensionMethods;
 
-//O2File:../DI.cs
+//O2File:../PublicDI.cs
 //O2File:../CodeUtils/O2Kernel_Files.cs
 //O2File:../CodeUtils/O2Kernel_Serialize.cs
 //O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
@@ -40,9 +40,9 @@ namespace O2.Kernel.Objects
 
         // if none is provide then create one a tempfolder in the O2 Temp Dir * give it a random name
         public O2AppDomainFactory()
-            : this(DI.config.TempFolderInTempDirectory, Path.GetFileName(DI.config.TempFolderInTempDirectory))
+            : this(PublicDI.config.TempFolderInTempDirectory, Path.GetFileName(PublicDI.config.TempFolderInTempDirectory))
         {
-            /*string appDomainBaseDirectory = DI.config.TempFolderInTempDirectory;
+            /*string appDomainBaseDirectory = PublicDI.config.TempFolderInTempDirectory;
             var appDomainSetup = new AppDomainSetup {ApplicationBase = appDomainBaseDirectory};
             string appDomainName = Path.GetFileName(appDomainBaseDirectory);
             createAppDomain(appDomainName, appDomainSetup);*/
@@ -77,12 +77,12 @@ namespace O2.Kernel.Objects
             try
             {
                 if (AppDomains_ControledByO2Kernel.ContainsKey(appDomainName))
-                    DI.log.error("in createAppDomain, appDomainName provided has already been used, appDomainNames must be unique: {0}", appDomainName);
+                    PublicDI.log.error("in createAppDomain, appDomainName provided has already been used, appDomainNames must be unique: {0}", appDomainName);
                 else
                 {
 
 
-                    DI.log.info("Creating AppDomain {0} with Base Directory {1}", appDomainName,
+                    PublicDI.log.info("Creating AppDomain {0} with Base Directory {1}", appDomainName,
                                 appDomainSetup.ApplicationBase);
                     // ensure target directory exits
                     O2Kernel_Files.checkIfDirectoryExistsAndCreateIfNot(appDomainSetup.ApplicationBase);
@@ -103,7 +103,7 @@ namespace O2.Kernel.Objects
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "could not load createAppDomain: " + appDomainName);
+                PublicDI.log.ex(ex, "could not load createAppDomain: " + appDomainName);
             }
             return null;
         }
@@ -131,7 +131,7 @@ namespace O2.Kernel.Objects
                     }
                     else
                     {
-                        var resolvedName = Path.Combine(DI.config.CurrentExecutableDirectory, assemblyToLoad);
+                        var resolvedName = Path.Combine(PublicDI.config.CurrentExecutableDirectory, assemblyToLoad);
                         if (File.Exists(resolvedName))
                         {
                             var targetFileName = Path.Combine(appDomain.BaseDirectory, Path.GetFileName(resolvedName));
@@ -139,7 +139,7 @@ namespace O2.Kernel.Objects
                             assembliesInNewAppDomain.Add(targetFileName);
                         }
                         else
-                            DI.log.error("in loadAssembliesIntoAppDomain , could not find dll to copy: {0}",
+                            PublicDI.log.error("in loadAssembliesIntoAppDomain , could not find dll to copy: {0}",
                                          assemblyToLoad);
                     }
                 }
@@ -152,7 +152,7 @@ namespace O2.Kernel.Objects
                 }
                 catch (Exception ex)
                 {
-                    DI.log.ex(ex,
+                    PublicDI.log.ex(ex,
                               "in O2AppDomainFactory.loadAssembliesIntoAppDomain, could not load assembly: " +
                               assemblyToLoad);                    
                 }
@@ -192,7 +192,7 @@ namespace O2.Kernel.Objects
             {
                 string[] splitedType = methodToCreate.Split(' ');
                 if (splitedType.Length != 3)
-                    DI.log.error(
+                    PublicDI.log.error(
                         "in getProxyMethod, wrong format provided (syntax:  getProxyMethod({method} {type} {assembly}) ) :  " +
                         methodToCreate);
                 else
@@ -203,14 +203,14 @@ namespace O2.Kernel.Objects
 
                     object proxyObject = appDomain.CreateInstanceAndUnwrap(assemblyName, typeName);
                     if (proxyObject == null)
-                        DI.log.error("in getProxyMethod, could not create proxy:{0} in assembly {1}", typeName,
+                        PublicDI.log.error("in getProxyMethod, could not create proxy:{0} in assembly {1}", typeName,
                                   assemblyName);
                     else
                     {
-                        MethodInfo methodInfo = DI.reflection.getMethod(proxyObject.GetType(), methodName,
+                        MethodInfo methodInfo = PublicDI.reflection.getMethod(proxyObject.GetType(), methodName,
                                                                         methodParameters);
                         if (methodInfo == null)
-                            DI.log.error("in getProxyMethod, could not find method {0} in type {1}", methodName,
+                            PublicDI.log.error("in getProxyMethod, could not find method {0} in type {1}", methodName,
                                       proxyObject.GetType());
 
                         return methodInfo;
@@ -219,7 +219,7 @@ namespace O2.Kernel.Objects
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in getProxyMethod, error creating: " + methodToCreate);
+                PublicDI.log.ex(ex, "in getProxyMethod, error creating: " + methodToCreate);
             }
             return null;
         }
@@ -256,10 +256,10 @@ namespace O2.Kernel.Objects
                     assemblyName = splitedType[1];
                     // check if we can load the assembly and the requested type is there
                     Assembly loadedAssembly = appDomain.Load(assemblyName);
-                    Type foundProxyType = DI.reflection.getType(loadedAssembly, rawTypeOfProxyToCreate);
+                    Type foundProxyType = PublicDI.reflection.getType(loadedAssembly, rawTypeOfProxyToCreate);
                     if (foundProxyType == null)
                     {
-                        DI.log.error("Could not find type {0} in assembly {1}", rawTypeOfProxyToCreate, assemblyName);
+                        PublicDI.log.error("Could not find type {0} in assembly {1}", rawTypeOfProxyToCreate, assemblyName);
                         return null;
                     }
                     typeOfProxyToCreate = foundProxyType.FullName;
@@ -270,7 +270,7 @@ namespace O2.Kernel.Objects
                 // add support for just passing in the simple name of the type to create (this is will use the first one found)
                 foreach (Assembly assembly in appDomain.GetAssemblies())
                 {
-                    Type foundProxyType = DI.reflection.getType(assembly, rawTypeOfProxyToCreate);
+                    Type foundProxyType = PublicDI.reflection.getType(assembly, rawTypeOfProxyToCreate);
                     if (foundProxyType != null && assembly != null && assembly.FullName != null)
                     {
                         assemblyName = assembly.FullName;
@@ -282,9 +282,9 @@ namespace O2.Kernel.Objects
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "error creating: " + typeOfProxyToCreate);
+                PublicDI.log.ex(ex, "error creating: " + typeOfProxyToCreate);
             }
-            DI.log.e("could not create object: " + typeOfProxyToCreate);
+            PublicDI.log.e("could not create object: " + typeOfProxyToCreate);
             return null;
         }
 
@@ -307,11 +307,11 @@ namespace O2.Kernel.Objects
                     if (proxy != null)
                         return proxy;
                 }
-                DI.log.e("could not create object: " + rawTypeOfProxyToCreate);
+                PublicDI.log.e("could not create object: " + rawTypeOfProxyToCreate);
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "error creating object: " + rawTypeOfProxyToCreate);
+                PublicDI.log.ex(ex, "error creating object: " + rawTypeOfProxyToCreate);
             }            
             return null;
             //return appDomain.CreateInstanceAndUnwrap(dllToLoad, typeToCreateAndUnwrap);
@@ -335,7 +335,7 @@ namespace O2.Kernel.Objects
             {
                 string[] splitedType = methodToInvoke.Split(' ');
                 if (splitedType.Length != 3)
-                    DI.log.error(
+                    PublicDI.log.error(
                         "in invokeMethod, wrong format provided (syntax:  getProxyMethod({method} {type} {assembly}) ) :  " +
                         methodToInvoke);
                 else
@@ -347,22 +347,22 @@ namespace O2.Kernel.Objects
 
                     // var proxyObject = appDomain.CreateInstanceAndUnwrap(assemblyName, typeName);
                     if (proxyObject == null)
-                        DI.log.error("in invokeMethod, could not create proxy:{0} in assembly {1}", typeName, assemblyName);
+                        PublicDI.log.error("in invokeMethod, could not create proxy:{0} in assembly {1}", typeName, assemblyName);
                     else
                     {
-                        MethodInfo methodInfo = DI.reflection.getMethod(proxyObject.GetType(), methodName,
+                        MethodInfo methodInfo = PublicDI.reflection.getMethod(proxyObject.GetType(), methodName,
                                                                         methodParameters);
                         if (methodInfo == null)
-                            DI.log.error("in invokeMethod, could not find method {0} in type {1}", methodName,
+                            PublicDI.log.error("in invokeMethod, could not find method {0} in type {1}", methodName,
                                       proxyObject.GetType());
 
-                        return DI.reflection.invoke(proxyObject, methodInfo, methodParameters);
+                        return PublicDI.reflection.invoke(proxyObject, methodInfo, methodParameters);
                     }
                 }
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in invokeMethod, error creating: " + methodToInvoke);
+                PublicDI.log.ex(ex, "in invokeMethod, error creating: " + methodToInvoke);
             }
             return null;
         }
@@ -389,7 +389,7 @@ namespace O2.Kernel.Objects
                         if (File.Exists(pathToAssemblyToLoad))
                             O2Kernel_Files.Copy(pathToAssemblyToLoad, appDomain.BaseDirectory);
                         else
-                            DI.log.error(
+                            PublicDI.log.error(
                                 "copyToAppDomainBaseDirectoryBeforeLoad was set but pathToAssemblyToLoad was set to a file that didn't exist: {0}",
                                 pathToAssemblyToLoad);
                     }
@@ -417,9 +417,9 @@ namespace O2.Kernel.Objects
                     }
                     catch (Exception ex3)
                     {
-                        DI.log.ex(ex1, "could not load assembly (method1): " + fullAssemblyName);
-                        DI.log.ex(ex2, "could not load assembly (method2): " + fullAssemblyName);
-                        DI.log.ex(ex3, "could not load assembly (method3): " + fullAssemblyName);
+                        PublicDI.log.ex(ex1, "could not load assembly (method1): " + fullAssemblyName);
+                        PublicDI.log.ex(ex2, "could not load assembly (method2): " + fullAssemblyName);
+                        PublicDI.log.ex(ex3, "could not load assembly (method3): " + fullAssemblyName);
                         return false;
                     }
                 }
@@ -446,7 +446,7 @@ namespace O2.Kernel.Objects
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex,"in O2AppDomainFactory getAssemblies");
+                PublicDI.log.ex(ex,"in O2AppDomainFactory getAssemblies");
             }
             return assemblies;
         }
@@ -463,14 +463,14 @@ namespace O2.Kernel.Objects
             if (proxyObject is string)
                 proxyObject = getProxyObject((string)proxyObject);
             if (proxyObject == null)
-                DI.log.error("Provided proxyObject variable was null!");
+                PublicDI.log.error("Provided proxyObject variable was null!");
             else
             {
-                MethodInfo methodInfo = DI.reflection.getMethod(proxyObject.GetType(), methodToInvoke, methodParameters);
+                MethodInfo methodInfo = PublicDI.reflection.getMethod(proxyObject.GetType(), methodToInvoke, methodParameters);
                 if (methodInfo == null)
-                    DI.log.error("in invoke, could not find the requested method (please check the method name & provided parameters).  methodInfo == null for proxyObjectTypeAndAssembly:{0} , methodToInvoke {1}", proxyObject.ToString(), methodToInvoke);
+                    PublicDI.log.error("in invoke, could not find the requested method (please check the method name & provided parameters).  methodInfo == null for proxyObjectTypeAndAssembly:{0} , methodToInvoke {1}", proxyObject.ToString(), methodToInvoke);
                 else
-                    return DI.reflection.invoke(proxyObject, methodInfo, methodParameters);
+                    return PublicDI.reflection.invoke(proxyObject, methodInfo, methodParameters);
             }
             return null;
         }
@@ -489,7 +489,7 @@ namespace O2.Kernel.Objects
         /// <returns></returns>
         public static object getProxy(string assemblyName, string typeToCreateSimpleName)
         {
-            string appDomainName = Path.GetFileNameWithoutExtension(DI.config.TempFileNameInTempDirectory) + "_" + typeToCreateSimpleName;        // make sure each appDomainName is unique
+            string appDomainName = Path.GetFileNameWithoutExtension(PublicDI.config.TempFileNameInTempDirectory) + "_" + typeToCreateSimpleName;        // make sure each appDomainName is unique
             var tempAppDomainFactory = new O2AppDomainFactory(appDomainName);
             return tempAppDomainFactory.getProxyObject(typeToCreateSimpleName);
         }
@@ -560,14 +560,14 @@ namespace O2.Kernel.Objects
         {
             try
             {
-                DI.log.info("Forcibly Unloading appDomain: {0}", Name);
+                PublicDI.log.info("Forcibly Unloading appDomain: {0}", Name);
                 //removeDomainFromManagedList();
                 AppDomain.Unload(appDomain);                
                 return true;
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in O2AppDomainFactory.unLoadAppDomain");
+                PublicDI.log.ex(ex, "in O2AppDomainFactory.unLoadAppDomain");
                 return false;
             }            
         }
@@ -579,14 +579,14 @@ namespace O2.Kernel.Objects
                 var appDomainBaseDirectory = appDomain.BaseDirectory;// we need to get this value before we unload the appDomain
                if (unLoadAppDomain())
                 {
-                    DI.log.info("Deleting (recursively) appDomain Base Directory: {0}", appDomainBaseDirectory);
+                    PublicDI.log.info("Deleting (recursively) appDomain Base Directory: {0}", appDomainBaseDirectory);
                     Directory.Delete(appDomainBaseDirectory, true);
                 }
                 return false;
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in O2AppDomainFactory.unLoadAppDomainAndDeleteTempFolder");
+                PublicDI.log.ex(ex, "in O2AppDomainFactory.unLoadAppDomainAndDeleteTempFolder");
                 return false;
             }            
         }

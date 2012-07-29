@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.SearchApi
 {
@@ -49,7 +50,7 @@ namespace O2.DotNetWrappers.SearchApi
                                                               });
                             if (dgvTargetDataGridView.Rows.Count > iMaxRowsToLoad)
                             {
-                                DI.log.error("Aborting, MaxRowsToLoad reached: {0}", iMaxRowsToLoad);
+                                PublicDI.log.error("Aborting, MaxRowsToLoad reached: {0}", iMaxRowsToLoad);
                                 return;
                             }
                         }
@@ -84,7 +85,7 @@ namespace O2.DotNetWrappers.SearchApi
                                                               });
                             if (dgvTargetDataGridView.Rows.Count > iMaxRowsToLoad)
                             {
-                                DI.log.error("Aborting, MaxRowsToLoad reached: {0}", iMaxRowsToLoad);
+                                PublicDI.log.error("Aborting, MaxRowsToLoad reached: {0}", iMaxRowsToLoad);
                                 return;
                             }
 

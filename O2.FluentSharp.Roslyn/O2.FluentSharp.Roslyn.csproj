@@ -74,19 +74,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>O2.FluentSharp.CoreLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="_ExternalDlls\Roslyn.Compilers.CSharp.dll" />
     <EmbeddedResource Include="_ExternalDlls\Roslyn.Compilers.dll" />
     <EmbeddedResource Include="_ExternalDlls\Roslyn.Services.CSharp.dll" />
     <EmbeddedResource Include="_ExternalDlls\Roslyn.Services.dll" />
     <EmbeddedResource Include="_ExternalDlls\Roslyn.Utilities.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>O2.FluentSharp.CoreLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

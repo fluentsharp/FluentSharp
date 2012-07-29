@@ -14,7 +14,7 @@ namespace O2.Kernel
         static PublicDI_BCL()
         {
             o2MessageQueue = KO2MessageQueue.getO2KernelQueue();
-            //o2MessageQueue = (KO2MessageQueue)DI.o2MessageQueue;            
+            //o2MessageQueue = (KO2MessageQueue)PublicDI.o2MessageQueue;            
         }
         public static KO2MessageQueue o2MessageQueue { get; set; }    
     }

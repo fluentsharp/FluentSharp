@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.CoreControls
 {
@@ -162,7 +163,7 @@ namespace O2.Views.ASCX.CoreControls
                 var ddaObjectData = (Dnd.DnDActionObjectData) ddActionObject;
             }
             else*/
-            DI.log.error("DnDAction Not Suported by this host: {0}", ddActionObject.aAction.ToString());
+            PublicDI.log.error("DnDAction Not Suported by this host: {0}", ddActionObject.aAction.ToString());
         }
 
         public void setText(String sText)

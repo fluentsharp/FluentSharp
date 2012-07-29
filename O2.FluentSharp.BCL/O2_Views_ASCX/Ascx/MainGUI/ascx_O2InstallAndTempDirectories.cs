@@ -24,7 +24,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
         private void btChangeTempDir_Click(object sender, EventArgs e)
         {
             PublicDI.config.O2TempDir = tbCurrentO2TempDir.Text;
-            DI.config.O2TempDir = tbCurrentO2TempDir.Text;
+            PublicDI.config.O2TempDir = tbCurrentO2TempDir.Text;
             directoryWithO2TempDir.setDirectory(PublicDI.config.O2TempDir);
         }
 
@@ -32,7 +32,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
         {
             if (DialogResult.Yes ==
                 MessageBox.Show(
-                    "Are you sure you want to delete the entire contents of the folder " + DI.config.O2TempDir + " ?",
+                    "Are you sure you want to delete the entire contents of the folder " + PublicDI.config.O2TempDir + " ?",
                     "Confirm O2 Temp Folder deletion (after deletion, an empty folder will be created)",
                     MessageBoxButtons.YesNo))
             {
@@ -40,8 +40,8 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                     () =>
                         {
                             Threads_ExtensionMethods.invokeOnThread((Control) this, (Func<object>) (() => lbMessage_DeletingTempFolder.Visible = true));
-                            Files.deleteFolder(DI.config.O2TempDir,true);
-                            Files.checkIfDirectoryExistsAndCreateIfNot(DI.config.O2TempDir, true);
+                            Files.deleteFolder(PublicDI.config.O2TempDir,true);
+                            Files.checkIfDirectoryExistsAndCreateIfNot(PublicDI.config.O2TempDir, true);
                             Threads_ExtensionMethods.invokeOnThread((Control) this, (Func<object>) (() => lbMessage_O2TempFolderContentsDeleted.Visible = true));
                         }
                     );
@@ -52,11 +52,11 @@ namespace O2.Views.ASCX.Ascx.MainGUI
         {
             lbMessage_DeletingTempFolder.Visible = false;
             lbMessage_O2TempFolderContentsDeleted.Visible = false;
-            if (PublicDI.config.O2TempDir != DI.config.O2TempDir)
-                //DI.log.showMessageBox("Something wrong with the config files since PublicDI.config.O2TempDir != DI.config.O2TempDir");
-                DI.log.error("Something wrong with the config files since PublicDI.config.O2TempDir != DI.config.O2TempDir");
-            directoryWithO2TempDir.setDirectory(tbCurrentO2TempDir.Text = DI.config.O2TempDir);
-            directoryWithO2Install.setDirectory(tbCurrentO2InstallDirectory.Text = DI.config.CurrentExecutableDirectory);            
+            if (PublicDI.config.O2TempDir != PublicDI.config.O2TempDir)
+                //PublicDI.log.showMessageBox("Something wrong with the config files since PublicDI.config.O2TempDir != PublicDI.config.O2TempDir");
+                PublicDI.log.error("Something wrong with the config files since PublicDI.config.O2TempDir != PublicDI.config.O2TempDir");
+            directoryWithO2TempDir.setDirectory(tbCurrentO2TempDir.Text = PublicDI.config.O2TempDir);
+            directoryWithO2Install.setDirectory(tbCurrentO2InstallDirectory.Text = PublicDI.config.CurrentExecutableDirectory);            
         }
         
         

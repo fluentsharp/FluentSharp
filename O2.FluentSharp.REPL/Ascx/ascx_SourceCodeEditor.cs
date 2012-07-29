@@ -227,7 +227,7 @@ namespace O2.External.SharpDevelop.Ascx
                 {
                     var sourceCodeEditor =
                         (ascx_SourceCodeEditor)
-                        DI.windowsForms.openAscx(typeof (ascx_SourceCodeEditor), false, "Editing: " + file);
+                        PublicDI.windowsForms.openAscx(typeof (ascx_SourceCodeEditor), false, "Editing: " + file);
                     sourceCodeEditor.loadSourceCodeFile(file);
                     return sourceCodeEditor;
                 }*/

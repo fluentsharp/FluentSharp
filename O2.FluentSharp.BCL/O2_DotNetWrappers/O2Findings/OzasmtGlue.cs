@@ -16,7 +16,7 @@ namespace O2.DotNetWrappers.O2Findings
             {
                 results.Add(clickButtonFinding);
                 var sink = OzasmtUtils.getKnownSink(clickButtonFinding.o2Trace);
-                DI.log.debug(sink.signature);
+                PublicDI.log.debug(sink.signature);
                 if (webLayerSources.ContainsKey(sink.signature))
                     foreach (var webLayerSource in webLayerSources[sink.signature])
                     {

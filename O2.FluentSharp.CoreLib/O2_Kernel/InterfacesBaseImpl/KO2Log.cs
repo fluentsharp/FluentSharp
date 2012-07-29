@@ -75,7 +75,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public void error(string errorMessage)
         {
             error("{0}", errorMessage);
-            //DI.log.error(errorMessage);
+            //PublicDI.log.error(errorMessage);
         }
 
         public void error(string errorMessageFormat, params Object[] variables)
@@ -89,19 +89,19 @@ namespace O2.Kernel.InterfacesBaseImpl
         public void ex(Exception exception)
         {
             ex(exception, "", false);
-            //DI.log.ex(ex);
+            //PublicDI.log.ex(ex);
         }
 
         public void ex(Exception exception, string comment)
         {
             ex(exception, comment, false);
-            //DI.log.ex(ex, message);
+            //PublicDI.log.ex(ex, message);
         }
 
         public void ex(Exception exception, bool showStackTrace)
         {
             ex(exception, "", showStackTrace);
-            //DI.log.ex(ex, showStackTrace);
+            //PublicDI.log.ex(ex, showStackTrace);
         }
 
         public void ex(Exception exception, string comment, bool showStackTrace)
@@ -121,7 +121,7 @@ namespace O2.Kernel.InterfacesBaseImpl
                 }
                 writeToDebug(exceptionFormat, exception.Message, comment, exception.StackTrace);
             }
-            //DI.log.ex(ex, message,showStackTrace);
+            //PublicDI.log.ex(ex, message,showStackTrace);
         }
         public void write(string messageFormat, params Object[] variables)
         {

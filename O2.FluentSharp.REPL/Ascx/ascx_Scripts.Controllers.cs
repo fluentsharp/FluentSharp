@@ -6,6 +6,7 @@ using System.Reflection;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.External.SharpDevelop.Ascx
 {
@@ -56,14 +57,14 @@ namespace O2.External.SharpDevelop.Ascx
                 }
                 catch (Exception ex)
                 {
-                    DI.log.error("in controlInitMethods: {0} ", ex.Message);
+                    PublicDI.log.error("in controlInitMethods: {0} ", ex.Message);
                 }
                 
                 // configure assembly  invoke default values
-                assemblyInvoke.setIsDebuggerAvailable(true);
+/*                assemblyInvoke.setIsDebuggerAvailable(true);
                 assemblyInvoke.setExecuteMethodOnDoubleClick(true);
                 assemblyInvoke.setShowAssemblyExecutionPanel(true);
-                assemblyInvoke.setOnlyShowStaticMethods(true);
+                assemblyInvoke.setOnlyShowStaticMethods(true);*/
                 runOnLoad = false;
             }
         }

@@ -7,11 +7,14 @@ using O2.DotNetWrappers.Windows;
 using O2.External.SharpDevelop.ScriptSamples;
 using O2.Kernel.CodeUtils;
 using O2.Views.ASCX.CoreControls;
+using O2.Kernel;
 
 namespace O2.External.SharpDevelop.Ascx
 {
     public partial class ascx_ScriptsFolder
     {
+        public static string sDefaultO2Scripts = @"_o2_Scripts\";
+
         //public event Callbacks.dMethod_String _onSampleScriptsSelect;
         public Dictionary<string, string> sampleScripts;
 
@@ -68,8 +71,8 @@ namespace O2.External.SharpDevelop.Ascx
 
         private void loadDefaultScriptLocation()
         {
-            directoryWithSourceCodeFiles.openDirectory(Path.Combine(DI.config.CurrentExecutableDirectory,
-                                                                    DI.sDefaultO2Scripts));
+            directoryWithSourceCodeFiles.openDirectory(Path.Combine(PublicDI.config.CurrentExecutableDirectory,
+                                                                    ascx_ScriptsFolder.sDefaultO2Scripts));
         }
 
         

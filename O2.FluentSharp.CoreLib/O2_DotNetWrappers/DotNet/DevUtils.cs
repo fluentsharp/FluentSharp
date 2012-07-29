@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -19,7 +20,7 @@ namespace O2.DotNetWrappers.DotNet
         public static Process createCSharpFileFromXsd(String pathToXsd, string targetNamespace)
         {
             if (false == File.Exists(pathToXsd))
-                DI.log.error("in createCSharpFileFromXsd: could not file XSD file to convert:{0}", pathToXsd);
+                PublicDI.log.error("in createCSharpFileFromXsd: could not file XSD file to convert:{0}", pathToXsd);
             else
             {                
                 String xsdExecutable = "";
@@ -29,7 +30,7 @@ namespace O2.DotNetWrappers.DotNet
                 else if (File.Exists(sLocationOfXsdExecutable2))
                     xsdExecutable = sLocationOfXsdExecutable2;
                 if (xsdExecutable == "")
-                    DI.log.error("Could not find xsd.exe on this computer");
+                    PublicDI.log.error("Could not find xsd.exe on this computer");
                 else
                 {
                     String sOutputDir = Path.GetDirectoryName(pathToXsd);
@@ -44,9 +45,9 @@ namespace O2.DotNetWrappers.DotNet
                                                   String sFolderToSaveXSD)
         {
             if (sFolderToSaveXSD == "")
-                sFolderToSaveXSD = DI.config.O2TempDir;
+                sFolderToSaveXSD = PublicDI.config.O2TempDir;
             if (false == File.Exists(sPathToAssemblyToProcess))
-                DI.log.error("in createXSDFileFromClass: could not file Assembly file to process:{0}",
+                PublicDI.log.error("in createXSDFileFromClass: could not file Assembly file to process:{0}",
                              sPathToAssemblyToProcess);
             else
             {
@@ -60,7 +61,7 @@ namespace O2.DotNetWrappers.DotNet
                 else if (File.Exists(sLocationOfXsdExecutable2))
                     XsdExecutable = sLocationOfXsdExecutable2;
                 if (XsdExecutable == "")
-                    DI.log.error("Could not find xsd.exe on this computer");
+                    PublicDI.log.error("Could not find xsd.exe on this computer");
                 else
                 {
                     //String sOutputDir = Path.GetDirectoryName(sPathToXsd);

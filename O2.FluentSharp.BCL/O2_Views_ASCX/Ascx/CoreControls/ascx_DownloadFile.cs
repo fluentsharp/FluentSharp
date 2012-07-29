@@ -9,6 +9,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel.CodeUtils;
 using O2.Views.ASCX;
+using O2.Kernel;
 
 // with code inspired from the sample in : http://www.geekpedia.com/tutorial196_Creating-an-advanced-download-manager-in-Csharp.html
 
@@ -133,9 +134,9 @@ namespace O2.Views.ASCX.CoreControls
                     }
                     catch (Exception)
                     {
-                        string alternativeFileName = DI.config.TempFileNameInTempDirectory + "_" +
+                        string alternativeFileName = PublicDI.config.TempFileNameInTempDirectory + "_" +
                                                      Path.GetFileName(sTargetFile);
-                        DI.log.info("In Donwnload could not create file :{0}, so downloding into {1} instead",
+                        PublicDI.log.info("In Donwnload could not create file :{0}, so downloding into {1} instead",
                                     sTargetFile, alternativeFileName);
                         sTargetFile = alternativeFileName;
                     }
@@ -179,7 +180,7 @@ namespace O2.Views.ASCX.CoreControls
                                                    lblProgress.Text = message;
                                                    lblProgress.ForeColor = Color.Red;
                                                });                                
-                DI.log.error(message);
+                PublicDI.log.error(message);
             }
             finally
             {
@@ -219,7 +220,7 @@ namespace O2.Views.ASCX.CoreControls
             }
             catch (Exception ex)
             {
-                DI.log.error(" in btnStop_Click: {0}", ex.Message);
+                PublicDI.log.error(" in btnStop_Click: {0}", ex.Message);
             }
             btnPauseResume.Enabled = false;
         }

@@ -33,7 +33,7 @@ namespace O2.Views.ASCX.classes.TasksWrappers
                 fileToUnzip = new Web().downloadBinaryFile(fileToUnzip);
             if (!File.Exists(fileToUnzip))
                 return false;
-            folderToUnzipFiles = folderToUnzipFiles ?? DI.config.TempFolderInTempDirectory;
+            folderToUnzipFiles = folderToUnzipFiles ?? PublicDI.config.TempFolderInTempDirectory;
             List<string> unzipedFiles = new zipUtils().unzipFileAndReturnListOfUnzipedFiles(fileToUnzip, folderToUnzipFiles);
             if (unzipedFiles.Count == 0)
                 return false;

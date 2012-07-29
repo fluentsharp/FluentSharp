@@ -51,12 +51,12 @@ namespace O2.Kernel.Objects
             try
             {
                 Assembly assembly = AppDomain.CurrentDomain.Load(assemblyName);
-                foreach (Type type in DI.reflection.getTypes(assembly))
+                foreach (Type type in PublicDI.reflection.getTypes(assembly))
                     types.Add(type.Name);
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in getTypes");
+                PublicDI.log.ex(ex, "in getTypes");
             }
             return types;
         }
@@ -73,15 +73,15 @@ namespace O2.Kernel.Objects
             try
             {
                 Assembly assembly = AppDomain.CurrentDomain.Load(assemblyName);
-                Type type = DI.reflection.getType(assembly, typeName);
-                foreach (MethodInfo method in DI.reflection.getMethods(type))
+                Type type = PublicDI.reflection.getType(assembly, typeName);
+                foreach (MethodInfo method in PublicDI.reflection.getMethods(type))
                     if ((false == onlyReturnStaticMethods || method.IsStatic) &&
                         (false == onlyReturnMethodsWithNoParameters || method.GetParameters().Length == 0))
                         methods.Add(method.Name);
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in getTypes");
+                PublicDI.log.ex(ex, "in getTypes");
             }
             return methods;
         }
@@ -107,27 +107,27 @@ namespace O2.Kernel.Objects
 
         public static void logInfo(string infoMessageToLog)
         {
-            DI.log.info(infoMessageToLog);
+            PublicDI.log.info(infoMessageToLog);
         }
 
         public static void logDebug(string debugMessageToLog)
         {
-            DI.log.debug(debugMessageToLog);
+            PublicDI.log.debug(debugMessageToLog);
         }
         public static void logError(string errorMessageToLog)
         {
-            DI.log.error(errorMessageToLog);
+            PublicDI.log.error(errorMessageToLog);
         }
 
         /*public static void showMessageBox(string messageBoxText)
         {
-            DI.log.showMessageBox(messageBoxText);
+            PublicDI.log.showMessageBox(messageBoxText);
         }
 
         public static DialogResult showMessageBox(string message, string messageBoxTitle,
                                                 MessageBoxButtons messageBoxButtons)
         {
-            return DI.log.showMessageBox(message, messageBoxTitle, messageBoxButtons);
+            return PublicDI.log.showMessageBox(message, messageBoxTitle, messageBoxButtons);
         }*/
         
         #endregion
@@ -147,25 +147,25 @@ namespace O2.Kernel.Objects
             {
                 Assembly assembly = AppDomain.CurrentDomain.Load(assemblyToUse);
                 if (assembly == null)
-                    DI.log.error("in instanceInvocation assembly was null : {0} {1}", assemblyToUse);
+                    PublicDI.log.error("in instanceInvocation assembly was null : {0} {1}", assemblyToUse);
                 else
                 {
-                    Type type = DI.reflection.getType(assembly, typeToLoad);
+                    Type type = PublicDI.reflection.getType(assembly, typeToLoad);
                     if (type == null)
-                        DI.log.error("in instanceInvocation type was null : {0} {1}", assembly, typeToLoad);
+                        PublicDI.log.error("in instanceInvocation type was null : {0} {1}", assembly, typeToLoad);
                     else
                     {
-                        object typeObject = DI.reflection.createObject(assembly, type, methodParams);
+                        object typeObject = PublicDI.reflection.createObject(assembly, type, methodParams);
                         if (typeObject == null)
-                            DI.log.error("in dynamicInvocation typeObject was null : {0} {1}", assembly, type);
+                            PublicDI.log.error("in dynamicInvocation typeObject was null : {0} {1}", assembly, type);
                         else
                         {
                             if (methodToExecute == "")
                                 // means we don't want to execute a method (i.e we called the constructore) so just want the current proxy
                                 return typeObject;
-                            MethodInfo method = DI.reflection.getMethod(type, methodToExecute, methodParams);
+                            MethodInfo method = PublicDI.reflection.getMethod(type, methodToExecute, methodParams);
                             if (method == null)
-                                DI.log.error("in instanceInvocation method was null : {0} {1}", type, methodToExecute);
+                                PublicDI.log.error("in instanceInvocation method was null : {0} {1}", type, methodToExecute);
                             else
                             {
                                 object returnValue = null;
@@ -173,7 +173,7 @@ namespace O2.Kernel.Objects
                                 {
                                     O2Thread.staThread(() =>
                                         {
-                                            returnValue = DI.reflection.invoke(typeObject, method, methodParams);
+                                            returnValue = PublicDI.reflection.invoke(typeObject, method, methodParams);
                                         }).Join();
                                     return returnValue;
                                 }
@@ -181,11 +181,11 @@ namespace O2.Kernel.Objects
                                 {
                                     O2Thread.mtaThread(() =>
                                         {
-                                            returnValue = DI.reflection.invoke(typeObject, method, methodParams);
+                                            returnValue = PublicDI.reflection.invoke(typeObject, method, methodParams);
                                         }).Join();
                                     return returnValue;
                                 }
-                                return DI.reflection.invoke(typeObject, method, methodParams);
+                                return PublicDI.reflection.invoke(typeObject, method, methodParams);
                             }
                         }
                     }
@@ -193,7 +193,7 @@ namespace O2.Kernel.Objects
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in instanceInvocation");
+                PublicDI.log.ex(ex, "in instanceInvocation");
             }
             return null;
         }
@@ -216,17 +216,17 @@ namespace O2.Kernel.Objects
                 //Assembly assembly = AppDomain.CurrentDomain.Load(assemblyToUse);
                 var assembly = assemblyToUse.assembly();
                 if (assembly == null)
-                    DI.log.error("in staticInvocation assembly was null : {0} {1}", assemblyToUse);
+                    PublicDI.log.error("in staticInvocation assembly was null : {0} {1}", assemblyToUse);
                 else
                 {
-                    Type type = DI.reflection.getType(assembly, typeToLoad);
+                    Type type = PublicDI.reflection.getType(assembly, typeToLoad);
                     if (type == null)
-                        DI.log.error("in staticInvocation type was null : {0} {1}", assembly, typeToLoad);
+                        PublicDI.log.error("in staticInvocation type was null : {0} {1}", assembly, typeToLoad);
                     else
                     {
-                        MethodInfo method = DI.reflection.getMethod(type, methodToExecute, methodParams);
+                        MethodInfo method = PublicDI.reflection.getMethod(type, methodToExecute, methodParams);
                         if (method == null)
-                            DI.log.error("in staticInvocation method was null : {0} {1}", type, methodToExecute);
+                            PublicDI.log.error("in staticInvocation method was null : {0} {1}", type, methodToExecute);
                         else
                         {
                             object returnValue = null;
@@ -234,7 +234,7 @@ namespace O2.Kernel.Objects
                             {
                                 O2Thread.staThread(() =>
                                     {
-                                        returnValue = DI.reflection.invoke(null, method, methodParams);
+                                        returnValue = PublicDI.reflection.invoke(null, method, methodParams);
                                     }).Join();
                                 return returnValue;
                             }
@@ -242,18 +242,18 @@ namespace O2.Kernel.Objects
                             {
                                 O2Thread.mtaThread(() =>
                                     {
-                                        returnValue = DI.reflection.invoke(null, method, methodParams);
+                                        returnValue = PublicDI.reflection.invoke(null, method, methodParams);
                                     }).Join();
                                 return returnValue;
                             }                            
-                            return DI.reflection.invoke(null, method, methodParams);
+                            return PublicDI.reflection.invoke(null, method, methodParams);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in instanceInvocation");
+                PublicDI.log.ex(ex, "in instanceInvocation");
             }
             return null;
         }

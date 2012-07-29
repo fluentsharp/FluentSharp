@@ -104,7 +104,7 @@ namespace O2.DotNetWrappers.Windows
                 Messages.sendMessage(String.Format("screenshots.getScreenshotOfFormObjectAndItsControls !{0}",
                                                    sObjectToTakeScreenShot));
             if (oScreenShot == null)
-                DI.log.debug("oScreenShot was NULL");
+                PublicDI.log.debug("oScreenShot was NULL");
             else
                 Messages.sendMessage("test2.ascx_Image.updateImage", new List<Object>(new[] {oScreenShot}));
         }*/

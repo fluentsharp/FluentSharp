@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using System.Windows.Forms;
 using O2.Kernel;
@@ -79,7 +78,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 										: O2Forms.askUserForFileToSave(PublicDI.config.O2TempDir,"*.jpg");
 				if (fileToSave.valid())
 				{
-					Files.MoveFile(clipboardImagePath, fileToSave);
+					Files.moveFile(clipboardImagePath, fileToSave);
 					"Clipboard Image saved to: {0}".info(fileToSave);
 					return fileToSave;
 				}				

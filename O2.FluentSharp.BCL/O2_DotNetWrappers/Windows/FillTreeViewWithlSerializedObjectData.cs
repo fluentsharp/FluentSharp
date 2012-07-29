@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Windows
 {
@@ -56,7 +57,7 @@ namespace O2.DotNetWrappers.Windows
         /// </summary>
         public void refresh()
         {
-            DI.log.debug("Refreshing TreeView");
+            PublicDI.log.debug("Refreshing TreeView");
             loadObjectInTreeView();
         }
 
@@ -89,7 +90,7 @@ namespace O2.DotNetWrappers.Windows
                 //   bAcceptBeforeExpandEvents = true;                
             }
             else
-                DI.log.error("The Object to loaded and the target TreeView have not been defined");
+                PublicDI.log.error("The Object to loaded and the target TreeView have not been defined");
         }
 
         // hack to fix the xsd creation long names (where each name contains all element names up to it (which makes it very hard to read)
@@ -98,7 +99,7 @@ namespace O2.DotNetWrappers.Windows
             if (tncTargetNodeCollection != null)
                 foreach (TreeNode tnNode in tncTargetNodeCollection)
                 {
-                    // DI.log.info(tnNode.Text);
+                    // PublicDI.log.info(tnNode.Text);
                     //if (tnNode.Parent != null && tnNode.Parent.Parent != null)
                     if (sParentText != "")
                     {
@@ -171,7 +172,7 @@ namespace O2.DotNetWrappers.Windows
                                         iObjectImageType = 1; // 'array' icon
                                         int iCount = ((Object[]) oObjectToLoad).Length;
                                         if (iCount > uMaxArrayRecordsToFetch)
-                                            DI.log.error(
+                                            PublicDI.log.error(
                                                 "The number of items in the {0}[{1}] array is bigger than the current uMaxArrayRecordsToFetch: {2}",
                                                 oObjectToLoad.GetType().Name, iCount, uMaxArrayRecordsToFetch);
                                         if (iCount == 0)
@@ -187,7 +188,7 @@ namespace O2.DotNetWrappers.Windows
                                     if (sNewNodeName == "CommonIRDumpCommonIRClassMethodsClassMemberFunctionVariable")
                                     {
                                     }
-                                    DI.log.info("{0}   -   {1}   - {2}   ", sNewNodeName, sParentNodeName,
+                                    PublicDI.log.info("{0}   -   {1}   - {2}   ", sNewNodeName, sParentNodeName,
                                                 sParentParentNodeName);
 
                                     if (sParentParentNodeName != "")
@@ -272,7 +273,7 @@ namespace O2.DotNetWrappers.Windows
                 }
                 catch (Exception e)
                 {
-                    DI.log.error(
+                    PublicDI.log.error(
                         " In loadObjectInTreeNode  foreach (PropertyInfo piProperty in tObjectToLoad.GetProperties()): {0}",
                         e.Message);
                 }
@@ -372,7 +373,7 @@ namespace O2.DotNetWrappers.Windows
             iItems = 0;
             if (pbProgressBar != null)
             {
-                DI.log.debug("calculating size of conversion");
+                PublicDI.log.debug("calculating size of conversion");
                 bSimulateMode = true;
                 // calculate number of items by performing the same actions in bSimulateMode = true
                 loadObjectInTreeNodeCollection(oRootObject, "", "{----}", "{----}", tvTargetTreeView.Nodes,
@@ -384,7 +385,7 @@ namespace O2.DotNetWrappers.Windows
                 pbProgressBar.Maximum = iItems;
             }
             iItems = 0;
-            DI.log.debug("# items to load: {0}", iItems);
+            PublicDI.log.debug("# items to load: {0}", iItems);
         }
 
         private void incProgressbar()
@@ -398,7 +399,7 @@ namespace O2.DotNetWrappers.Windows
                     Application.DoEvents();
                 }
                 //            else
-                //                DI.log.error("Wrong 'items to process' count since Value = pbProgressBar.Maximum : {0} {1} ", pbProgressBar.Value, iItems++);
+                //                PublicDI.log.error("Wrong 'items to process' count since Value = pbProgressBar.Maximum : {0} {1} ", pbProgressBar.Value, iItems++);
             }
         }
 
@@ -426,13 +427,13 @@ namespace O2.DotNetWrappers.Windows
         public void setRecursiveDepth(UInt32 uNewRecursiveDepth)
         {
             uRecursiveDepth = 1 + uNewRecursiveDepth;
-            DI.log.debug("Configured recursive depth to: {0}", uNewRecursiveDepth);
+            PublicDI.log.debug("Configured recursive depth to: {0}", uNewRecursiveDepth);
         }
 
         public void setMaxNumberOfArrayRecordsToFetch(UInt32 uMaxNumber)
         {
             uDefaultMaxArrayRecordsToFetch = uMaxNumber;
-            DI.log.debug("Configured maximum number of array records to fetch to: {0}", uMaxNumber);
+            PublicDI.log.debug("Configured maximum number of array records to fetch to: {0}", uMaxNumber);
         }
 
 

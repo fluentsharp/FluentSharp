@@ -53,7 +53,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
 
         private void btAddNewLineToDebugWindiw_Click(object sender, EventArgs e)
         {
-            DI.log.info("");
+            PublicDI.log.info("");
         }
 
 

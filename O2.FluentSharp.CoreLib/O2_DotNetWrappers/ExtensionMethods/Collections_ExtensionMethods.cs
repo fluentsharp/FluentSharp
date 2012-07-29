@@ -193,12 +193,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return false;
         }
 
-        public static List<T> clear<T>(this List<T> list)
+        public static List<T>           clear<T>(this List<T> list)
         {
             list.Clear();
             return list;
         }
-
+        public static List<string>      add_OnlyNewItems(this List<string> targetList, params string[] itemsToAdd)
+        {
+            return targetList.add_OnlyNewItems(itemsToAdd.toList());
+        }
         public static List<string>      add_OnlyNewItems(this List<string> targetList, List<string> itemsToAdd)
         {
             foreach (var item in itemsToAdd)
@@ -208,7 +211,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<T>           add<T>(this List<T> list, T item)
         {
-            list.Add(item);
+            if (list.notNull())
+                list.Add(item);
             return list;
         }
         public static List<T>           add<T, T1>(this List<T> targetList, List<T1> sourceList) where T1 : T

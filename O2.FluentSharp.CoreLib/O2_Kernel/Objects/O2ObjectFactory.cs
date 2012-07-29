@@ -8,7 +8,7 @@ namespace O2.Kernel.Objects
     {
         public O2ObjectFactory(string assemblyFile)
         {
-            Assembly = DI.reflection.getAssembly(assemblyFile);
+            Assembly = PublicDI.reflection.getAssembly(assemblyFile);
         }
 
         public O2ObjectFactory(Assembly assembly)
@@ -31,7 +31,7 @@ namespace O2.Kernel.Objects
 
         public O2Object ctor(string typeToCreate, object[] constructorArguments)
         {
-            var o2Object = new O2Object(Assembly, typeToCreate, DI.reflection.getRealObjects(constructorArguments));
+            var o2Object = new O2Object(Assembly, typeToCreate, PublicDI.reflection.getRealObjects(constructorArguments));
             if (o2Object.Obj != null)
                 return o2Object;
 
@@ -47,10 +47,10 @@ namespace O2.Kernel.Objects
 
         public O2Object staticTypeGetProperty(string staticTypeName, string property)
         {
-            Type staticType = DI.reflection.getType(Assembly, staticTypeName);
+            Type staticType = PublicDI.reflection.getType(Assembly, staticTypeName);
             if (staticType != null)
             {
-                object obj = DI.reflection.invokeMethod_Static(staticType, "get_" + property, null);
+                object obj = PublicDI.reflection.invokeMethod_Static(staticType, "get_" + property, null);
                 if (obj != null)
                     return new O2Object(Assembly, obj);
             }
@@ -59,10 +59,10 @@ namespace O2.Kernel.Objects
 
         public object call(string staticTypeName, string method, object[] methodParameters)
         {
-            methodParameters = DI.reflection.getRealObjects(methodParameters);
+            methodParameters = PublicDI.reflection.getRealObjects(methodParameters);
 
-            Type staticType = DI.reflection.getType(Assembly, staticTypeName);
-            MethodInfo methodInfo = DI.reflection.getMethod(staticType, method, methodParameters);
+            Type staticType = PublicDI.reflection.getType(Assembly, staticTypeName);
+            MethodInfo methodInfo = PublicDI.reflection.getMethod(staticType, method, methodParameters);
             methodInfo.Invoke(null, methodParameters);
             return null;
         }

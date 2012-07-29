@@ -16,17 +16,17 @@ namespace O2.Kernel.CodeUtils
             var appDomainHelper = new O2AppDomainFactory(appDomain);
             object proxyObject = appDomainHelper.createAndUnWrap(dllWithType, typeToCreateAndUnwrap);
             if (proxyObject == null)
-                DI.log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");            
+                PublicDI.log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");            
                 ///    var proxy = appDomain.CreateInstanceAndUnwrap(dllToLoad, typeToCreateAndUnwrap);
                 //if (proxy == null)
                 //    log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");
             else
             {
-                MethodInfo methodInfo = DI.reflection.getMethod(proxyObject.GetType(), methodToExecute, methodParameters);
+                MethodInfo methodInfo = PublicDI.reflection.getMethod(proxyObject.GetType(), methodToExecute, methodParameters);
                 if (methodInfo == null)
-                    DI.log.error("in loadTypeAndExecuteMethodInAppDomain, methodInfo == null");
+                    PublicDI.log.error("in loadTypeAndExecuteMethodInAppDomain, methodInfo == null");
                 else
-                    return DI.reflection.invoke(proxyObject, methodInfo, methodParameters);
+                    return PublicDI.reflection.invoke(proxyObject, methodInfo, methodParameters);
             }
             return null;
         }

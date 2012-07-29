@@ -39,7 +39,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			if (fileName.valid())
 			{
 				var targetFile = "".tempDir().pathCombine(fileName);
-				if (deleteIfTargetAlreadyExists)
+				if (deleteIfTargetAlreadyExists)                    
 					Files.deleteFile(targetFile);
 				return downloadFile(uri, targetFile);
 			}
@@ -64,14 +64,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return targetFile;
 			}
 			var sync = new System.Threading.AutoResetEvent(false); 
-				var downloadControl = O2Gui.open<ascx_DownloadFile>("Downloading: {0}".format(uri.str()), 455  ,170 );							
-				downloadControl.setAutoCloseOnDownload(true);							
-				downloadControl.setCallBackWhenCompleted((file)=>	downloadControl.parentForm().close());
-				downloadControl.onClosed(()=>sync.Set());
-				downloadControl.setDownloadDetails(uri.str(), targetFile);							
-				downloadControl.downloadFile();
+			var downloadControl = O2Gui.open<ascx_DownloadFile>("Downloading: {0}".format(uri.str()), 455  ,170 );							
+			downloadControl.setAutoCloseOnDownload(true);							
+			downloadControl.setCallBackWhenCompleted((file)=>	downloadControl.parentForm().close());
+			downloadControl.onClosed(()=>sync.Set());
+			downloadControl.setDownloadDetails(uri.str(), targetFile);							
+			downloadControl.downloadFile();
 			sync.WaitOne();					 	// wait for download complete or form to be closed
-			if (targetFile.fileExists())		
+            targetFile.file_WaitFor_CanOpen();
+            if (targetFile.fileExists())		
 				return targetFile;
 			return null;
 		}								

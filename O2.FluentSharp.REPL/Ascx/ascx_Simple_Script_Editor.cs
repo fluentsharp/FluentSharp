@@ -30,6 +30,7 @@ using O2.Views.ASCX.CoreControls;
 using O2.API.AST.ExtensionMethods.CSharp;
 using O2.XRules.Database.APIs;
 using O2.Views.ASCX.Forms;
+using O2.FluentSharp.REPL;
 
 //O2Ref:log4net.dll
 
@@ -274,12 +275,13 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("run in STA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("run in MTA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("clear 'AssembliesCheckedIfExists' cache", (menuitem) => insertCodeSnipptet(menuitem.Text));
-            contextMenu.add_MenuItem("other O2 Scripts")
-                       .add_MenuItem("find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
-                       .add_MenuItem("open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script())
-                       .add_MenuItem("script this Script", (menuitem) => scriptTheCurrentScript())
-                       .add_MenuItem("Find Script to execute", () => "Util - O2 Available scripts.h2".local().executeH2Script())
-                       .add_MenuItem("open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script());
+            contextMenu.add_MenuItem("O2 Scripts")
+                       .add_MenuItem("Download/Update O2 Scripts (via http)", () => O2Scripts.downloadO2Scritps())
+                       .add_MenuItem("O2 Script: find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
+                       .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script())
+                       .add_MenuItem("O2 Script: script this Script", () => scriptTheCurrentScript())
+                       .add_MenuItem("O2 Script: Find Script to execute", () => "Util - O2 Available scripts.h2".local().executeH2Script())
+                       .add_MenuItem("O2 Script: open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script());
 
             contextMenu.add_MenuItem("package current Script as StandAlone Exe", () => packageCurrentScriptAsStandAloneExe());            
             contextMenu.add_MenuItem("show O2 Object Model", () => open.o2ObjectModel());            
@@ -820,7 +822,7 @@ return _script.Code;
 //O2" + @"Tag_DontAddExtraO2Files
 //O2" + @"File:ascx_Simple_Script_Editor.cs.o2
 //O2" + @"File:_Extra_methods_TypeConfusion.cs
-			".trim();
+            ".trim();
 
             scriptHost.set_Script(code);
 

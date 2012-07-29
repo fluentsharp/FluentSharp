@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using O2.DotNetWrappers;
 using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Findings
 {
@@ -61,7 +62,7 @@ namespace O2.DotNetWrappers.O2Findings
                 //O2Timer.stop();
                 //if (findingsCountNative != null)// && findingsCountNlinqQuery is List<object>)
                 //{
-                //DI.log.debug("{0} == {1}", findingsCountNative, findingsCountNlinqQuery.Count);
+                //PublicDI.log.debug("{0} == {1}", findingsCountNative, findingsCountNlinqQuery.Count);
                 //  return (findingsCountNlinqQuery).Count;
 
                 /*var timer2 = new O2Timer("Calculating Findings with NLinqQuery").start();
@@ -75,18 +76,18 @@ namespace O2.DotNetWrappers.O2Findings
                 timer2.stop();
                 if (findingsCountNlinqQuery != null)// && findingsCountNlinqQuery is List<object>)
                 {
-                    DI.log.debug("{0} == {1}", findingsCountNative, findingsCountNlinqQuery.Count);
+                    PublicDI.log.debug("{0} == {1}", findingsCountNative, findingsCountNlinqQuery.Count);
                     return (findingsCountNlinqQuery).Count;
                 }
                 */
                 //foreach (object o in linq.Enumerate())
                 //{
-                //    DI.log.info(o.ToString());
+                //    PublicDI.log.info(o.ToString());
                 //}
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "error execution NLinqQuery");
+                PublicDI.log.ex(ex, "error execution NLinqQuery");
             }
 
 

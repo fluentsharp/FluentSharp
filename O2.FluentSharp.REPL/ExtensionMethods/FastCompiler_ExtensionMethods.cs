@@ -14,6 +14,12 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 {
     public static class FastCompiler_ExtensionMethods
     {
+        static FastCompiler_ExtensionMethods()
+        {
+            CSharp_FastCompiler.setDefaultUsingStatements();        //make sure these are set
+            CSharp_FastCompiler.setDefaultReferencedAssemblies();
+        }
+
         public static string compileScriptFile_into_SeparateFolder(this string scriptFile)
         {
             var assembly = scriptFile.compileScriptFile(true);
@@ -143,7 +149,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         public static Assembly compile(this string pathToFileToCompile, string targetAssembly)
         {
             var assembly = pathToFileToCompile.compile(true);
-            Files.Copy(assembly.Location, targetAssembly);
+            Files.copy(assembly.Location, targetAssembly);
             return assembly;
         }
         /*public static Assembly compile(this string pathToFileToCompile, bool compileToFileAndWithDebugSymbols)

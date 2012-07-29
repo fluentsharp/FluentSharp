@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using O2.DotNetWrappers.DotNet;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2CmdShell
 {
@@ -55,7 +56,7 @@ namespace O2.DotNetWrappers.O2CmdShell
                     O2Cmd.log.error("Error in O2CmdExec.execArgs: {0}\n{1}", ex.InnerException.Message, ex.InnerException.StackTrace);
 
                 }
-                DI.log.ex(ex, "in O2.Cmd.FindingsFilter.Main");
+                PublicDI.log.ex(ex, "in O2.Cmd.FindingsFilter.Main");
             }
         }
 

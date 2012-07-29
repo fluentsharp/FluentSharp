@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using O2.Interfaces.Tasks;
 using O2.Views.ASCX;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.classes.Tasks
 {
@@ -44,7 +45,7 @@ namespace O2.Views.ASCX.classes.Tasks
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex);
+                PublicDI.log.ex(ex);
             }
         }
 

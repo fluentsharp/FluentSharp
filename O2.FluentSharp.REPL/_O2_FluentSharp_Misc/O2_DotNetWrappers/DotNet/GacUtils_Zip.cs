@@ -9,7 +9,6 @@ using O2.DotNetWrappers.Windows;
 using O2.Kernel.InterfacesBaseImpl;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Zip;
-using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.DotNet
 {

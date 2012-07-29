@@ -39,10 +39,12 @@ namespace O2.DotNetWrappers.DotNet
         public string compilationVersion;
         public static bool needCachedCompiledAssembliesSave;
         public static Dictionary<string, string> LocalScriptFileMappings = new Dictionary<string, string>();
-		public static List<string> LocalReferenceFolders				 = new List<string>();
+		public static List<string>               LocalReferenceFolders    = new List<string>();
         public static Dictionary<string, string> CachedCompiledAssemblies = new Dictionary<string, string>();
         public static string					 CachedCompiledAssembliesMappingsFile = PublicDI.config.O2TempDir.pathCombine("..\\CachedCompiledAssembliesMappings.xml");
         public static Dictionary<string,string>  CompilationPathMappings = new Dictionary<string, string>();
+        public static List<string>               DefaultReferencedAssemblies = new List<string>();
+        public static List<string>               DefaultUsingStatements = new List<string>();
 		
 
         // the first time were here, load up the mappings from the CachedCompiledAssembliesMappingsFile
@@ -50,6 +52,8 @@ namespace O2.DotNetWrappers.DotNet
         {
             loadCachedCompiledAssembliesMappings();
             setDefaultLocalReferenceFolders();
+            setDefaultReferencedAssemblies();
+            setDefaultUsingStatements();
             specialO2Tag_ExtraReferences	.add("//O2Tag_AddReferenceFile:")
             						  		.add("//O2Ref:");
             specialO2Tag_Download			.add("//Download:")
@@ -82,9 +86,9 @@ namespace O2.DotNetWrappers.DotNet
         }
 
 
-        public static List<String> get_GACExtraReferencesToAdd()
+        public static void setDefaultReferencedAssemblies()
         {
-            return new [] {
+            DefaultReferencedAssemblies = new[] {
                                 "System.Windows.Forms.dll",
                                 "System.Drawing.dll",
                                 "System.Data.dll",
@@ -94,10 +98,7 @@ namespace O2.DotNetWrappers.DotNet
                                 "System.Xml.Linq.dll",                                
                                 "System.dll",
                             //O2Related
-                                "O2_FluentSharp_CoreLib.dll",
-                                "O2_FluentSharp_BCL.dll",                                                                
-                                "O2_FluentSharp_REPL.dll",
-                                "O2_External_SharpDevelop.dll",
+                                "O2_FluentSharp_CoreLib.dll"                                
                                 //,
                             //WPF 
 //                                                                                    "PresentationCore.dll",
@@ -106,8 +107,34 @@ namespace O2.DotNetWrappers.DotNet
 //                                                                                    "System.Core.dll"
                             // to support the use of dynamic:
                                //"Microsoft.CSharp.dll" 
-                            }.toList();
-        
+                            }.toList();            
+        }
+
+        public static void setDefaultUsingStatements()
+        {
+            DefaultUsingStatements = new List<string>()
+                        .add("System")
+                        .add("System.Drawing")
+                        .add("System.Windows.Forms")
+                        .add("System.Collections.Generic")
+                        .add("System.Xml")
+                        .add("System.Xml.Linq")
+                        .add("System.Linq")
+                        .add("O2.Interfaces")
+                        .add("O2.Kernel")
+                        .add("O2.DotNetWrappers.ExtensionMethods")
+                        .add("O2.DotNetWrappers.Windows")
+                        .add("O2.DotNetWrappers.DotNet")
+                        .add("O2.DotNetWrappers.Network");
+                // .add("O2.External.IE.ExtensionMethods")
+                //.add("O2.XRules.Database.ExtensionMethods")
+                //.add("O2.XRules.Database._Rules._Interfaces")
+                //.add("O2.XRules.Database._Rules.APIs")
+                //.add("O2.XRules.Database.O2Utils")                        
+                //O2 XRules Database
+//                        .add("O2.XRules.Database.APIs")
+                        //.add("O2.XRules.Database.Utils");            
+
         }
         
         public static void loadCachedCompiledAssembliesMappings()
@@ -398,8 +425,8 @@ namespace O2.DotNetWrappers.DotNet
         {
             "Clearing Compilation Cache".debug();
             CachedCompiledAssemblies.Clear();
-            saveCachedCompiledAssembliesMappings();
-            
+            needCachedCompiledAssembliesSave = true;
+            saveCachedCompiledAssembliesMappings();            
              "Deleting Embedded dlls Cache".debug();
              foreach (var file in PublicDI.config.EmbeddedAssemblies.files())             
                  file.file_Delete();             
@@ -640,7 +667,7 @@ namespace O2.DotNetWrappers.DotNet
 //                                Files.Copy(extraReference, PublicDI.config.O2TempDir, true);
                             /*var assembly = PublicDI.reflection.getAssembly(extraReference);
                             if (assembly == null)
-                                DI.log.error("(this could be a problem for execution) in addReferencesIncludedInSourceCode could not load assembly :{0}", extraReference);
+                                PublicDI.log.error("(this could be a problem for execution) in addReferencesIncludedInSourceCode could not load assembly :{0}", extraReference);
                              */
                             referencedAssembliesFileNames.
                                 Add(extraReferenceFileName);
@@ -664,7 +691,7 @@ namespace O2.DotNetWrappers.DotNet
             // let's add everything in the current executabled dir :)
             var referencedAssemblies = new List<string>();
             //referencedAssemblies.add_OnlyNewItems(getListOfO2AssembliesInExecutionDir());
-            referencedAssemblies.add_OnlyNewItems(get_GACExtraReferencesToAdd()); // the a couple from the GAC
+            referencedAssemblies.add_OnlyNewItems(DefaultReferencedAssemblies); // the a couple from the GAC
             return referencedAssemblies;
         }
         
@@ -783,7 +810,7 @@ namespace O2.DotNetWrappers.DotNet
         public static string findFileOnLocalScriptFolder(string file)
         {
             if (file.fileExists())
-                return file;            
+                return file.fullPath();            
             //if (LocalScriptFileMappings.size() == 0)  // if there are no mappings create the cached list
 			if (LocalScriptFileMappings.hasKey("Util - LogViewer.h2".lower()).isFalse()) // this script should be there, if not it means we need to refresh this list
                 resetLocalScriptsFileMappings();
@@ -791,6 +818,13 @@ namespace O2.DotNetWrappers.DotNet
             var key = file.ToLower();
             if (CompileEngine.LocalScriptFileMappings.hasKey(key))
                 return CompileEngine.LocalScriptFileMappings[key];
+            
+            var localFile = file.pathCombine_With_ExecutingAssembly_Folder();
+            if (localFile.fileExists())
+            {
+                CompileEngine.LocalScriptFileMappings.add(file, localFile);
+                return localFile;
+            }
             "in CompileEngine, could NOT map file reference '{0}'".debug(file);
             return "";                    
         }
@@ -942,12 +976,12 @@ namespace O2.DotNetWrappers.DotNet
                     resolvedAssemblies.Add(resolvedAssembly);
                     return;
 
-                    foreach (var referencedAssembly in resolvedAssembly.assembly().GetReferencedAssemblies())
+                    /*foreach (var referencedAssembly in resolvedAssembly.assembly().GetReferencedAssemblies())
                     {
                         var fullName = referencedAssembly.FullName;
                         //var moduleAssembly = module.Assembly.Location;
                         add_Assembly_Resolved_ReferencedAssemblies_List(resolvedAssemblies, fullName, workOffline);
-                    }
+                    }*/
                 }
             }
 			catch (Exception ex)

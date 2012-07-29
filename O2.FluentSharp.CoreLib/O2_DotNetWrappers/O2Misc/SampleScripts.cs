@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Misc
 {
@@ -27,7 +28,7 @@ namespace O2.DotNetWrappers.O2Misc
             try
             {
                 var targetType = (o2SampleScripts is Type) ? ((Type) o2SampleScripts) : o2SampleScripts.GetType();
-                foreach (MethodInfo method in DI.reflection.getMethods(targetType))
+                foreach (MethodInfo method in PublicDI.reflection.getMethods(targetType))
                     if (method.Name.IndexOf("get_") > -1 && (method.Name != "get_ResourceManager" && (method.Name != "get_Culture")))
                     {
                         var scriptName = method.Name.Replace("get_", "");
@@ -41,14 +42,14 @@ namespace O2.DotNetWrappers.O2Misc
                             scriptName += fileExtension;
 
                         //var fixedName = string.Format("get_{0}", sampleScriptName).Replace(".cs", "");
-                        var scriptContent = DI.reflection.invokeMethod_Static(targetType, method.Name, null).ToString();
+                        var scriptContent = PublicDI.reflection.invokeMethod_Static(targetType, method.Name, null).ToString();
                         if (scriptContent != "")
                             sampleScrips.Add(scriptName, scriptContent);
                     }
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in getDictionaryWithSampleScripts");
+                PublicDI.log.ex(ex, "in getDictionaryWithSampleScripts");
             }
             
             return sampleScrips;
@@ -64,7 +65,7 @@ namespace O2.DotNetWrappers.O2Misc
             var sampleScripts = getDictionaryWithSampleScripts(o2SampleScripts,"");
             if (sampleScripts.ContainsKey(scriptToProcess))
             {
-                var tempFileName = (createUniqueName) ? DI.config.TempFileNameInTempDirectory + "_" : DI.config.O2TempDir + "\\";
+                var tempFileName = (createUniqueName) ? PublicDI.config.TempFileNameInTempDirectory + "_" : PublicDI.config.O2TempDir + "\\";
                 tempFileName += scriptToProcess + ((fileExtension.IndexOf('.')>-1)?fileExtension : "." + fileExtension);
                 Files.WriteFileContent(tempFileName, sampleScripts[scriptToProcess]);
                 return tempFileName;

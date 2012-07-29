@@ -8,6 +8,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Interfaces.O2Findings;
 using O2.Kernel.CodeUtils;
 using O2.Views.ASCX;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.O2Findings
 {
@@ -92,7 +93,7 @@ namespace O2.Views.ASCX.O2Findings
                 //Files.getLineFromSourceCode(o2TraceToLoad.file, o2TraceToLoad.lineNumber) :
             }
             else
-                nodeText = DI.reflection.getProperty(tracePropertyToUseAsNodeText, o2TraceToLoad).ToString();
+                nodeText = PublicDI.reflection.getProperty(tracePropertyToUseAsNodeText, o2TraceToLoad).ToString();
             if (nodeText == "")
                 nodeText = (o2TraceToLoad.signature != "") ? o2TraceToLoad.signature : o2TraceToLoad.method;
 
@@ -156,7 +157,7 @@ namespace O2.Views.ASCX.O2Findings
                     var droppedTrace = (IO2Trace)droppedObject;
                     var selectedO2Trace = o2Trace;
                     if (selectedO2Trace == droppedTrace)
-                        DI.log.error("on tvSmartTrace_DragDrop: It is not possible to drop a trace on it seft");
+                        PublicDI.log.error("on tvSmartTrace_DragDrop: It is not possible to drop a trace on it seft");
                     else if (bMoveTraces &&
                              (OzasmtSearch.isO2TraceAChildTraceOfO2Trace(selectedO2Trace, droppedTrace)))
                     {
@@ -168,7 +169,7 @@ namespace O2.Views.ASCX.O2Findings
                     else if (bMoveTraces &&
                              OzasmtSearch.isO2TraceAChildTraceOfO2Trace(droppedTrace, selectedO2Trace))
                     {
-                        DI.log.error(
+                        PublicDI.log.error(
                             "on tvSmartTrace_DragDrop: Could not move trace since it is not possible to drop a trace into its own child node");
                     }
                     else

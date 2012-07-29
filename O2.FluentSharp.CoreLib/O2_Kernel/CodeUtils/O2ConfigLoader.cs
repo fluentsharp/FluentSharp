@@ -32,8 +32,8 @@ namespace O2.Kernel.CodeUtils
             var kO2Config = O2ConfigLoader.loadO2Config(defaultLocationOfO2ConfigXmlFile, true);
             if (kO2Config == null)
             {
-                //DI.log.showMessageBox(string.Format(
-                DI.log.error(string.Format(
+                //PublicDI.log.showMessageBox(string.Format(
+                PublicDI.log.error(string.Format(
                     "CRITICAL ERROR: could not load (or create) default O2 Config file: {0} /n/n aborting O2 execution.",
                     defaultLocationOfO2ConfigXmlFile));
                 //Process.GetCurrentProcess().Kill();
@@ -44,13 +44,13 @@ namespace O2.Kernel.CodeUtils
                 kO2Config.O2ConfigFile = defaultLocationOfO2ConfigXmlFile;
             else if (kO2Config.O2ConfigFile != defaultLocationOfO2ConfigXmlFile)
             {
-                DI.log.info("there was another O2ConfigFile configured, so trying to load it: {0}",
+                PublicDI.log.info("there was another O2ConfigFile configured, so trying to load it: {0}",
                             kO2Config.O2ConfigFile);
                 var otherKO2Config = loadO2Config(kO2Config.O2ConfigFile, false);
                 if (otherKO2Config != null)
                     mergeO2ConfigFiles(otherKO2Config, kO2Config);
                 else
-                    DI.log.error("Could not load the other O2Config fire, returning the default one");
+                    PublicDI.log.error("Could not load the other O2Config fire, returning the default one");
             }                 
             return kO2Config;
  */ 
@@ -61,22 +61,22 @@ namespace O2.Kernel.CodeUtils
 
             if (kO2Config != null && kO2Config.dependenciesInjection != null)
             {
-                DI.log.info("Applying O2Config Depedency Injections");
+                PublicDI.log.info("Applying O2Config Depedency Injections");
                 foreach (var dependency in kO2Config.dependenciesInjection)
                 {
-                    DI.log.debug("[setting dependecy injection]: {0}.{1} = {2}", dependency.Type, dependency.Parameter, dependency.Value);
-                    var targetType = DI.reflection.getType(dependency.Type);
+                    PublicDI.log.debug("[setting dependecy injection]: {0}.{1} = {2}", dependency.Type, dependency.Parameter, dependency.Value);
+                    var targetType = PublicDI.reflection.getType(dependency.Type);
                     if (targetType == null)
-                        DI.log.error(" [in applyO2ConfigDependeciesInjection]  Could not get type: {0}", dependency.Type);
+                        PublicDI.log.error(" [in applyO2ConfigDependeciesInjection]  Could not get type: {0}", dependency.Type);
                     else
                     {
-                        var propertyInfo = DI.reflection.getPropertyInfo(dependency.Parameter, targetType);
+                        var propertyInfo = PublicDI.reflection.getPropertyInfo(dependency.Parameter, targetType);
                         if (propertyInfo == null)
-                            DI.log.error(" [in applyO2ConfigDependeciesInjection]  Could not get property {0} from type: {1}", dependency.Parameter,  dependency.Type);
+                            PublicDI.log.error(" [in applyO2ConfigDependeciesInjection]  Could not get property {0} from type: {1}", dependency.Parameter,  dependency.Type);
                         else
                         {
-                            if (false == DI.reflection.setProperty(propertyInfo, dependency.Value))                             
-                                DI.log.error(" [in applyO2ConfigDependeciesInjection]  Could not set property {0} from type: {1} with value {2}",
+                            if (false == PublicDI.reflection.setProperty(propertyInfo, dependency.Value))                             
+                                PublicDI.log.error(" [in applyO2ConfigDependeciesInjection]  Could not set property {0} from type: {1} with value {2}",
                                      dependency.Parameter,  dependency.Type, dependency.Value);                                                        
                         }
                     }
@@ -102,7 +102,7 @@ namespace O2.Kernel.CodeUtils
                 applyO2ConfigDependeciesInjection(kO2Config);
                 return kO2Config;
             }
-            DI.log.error("in loadO2Config, could not load KO2Config file: {0}", pathToO2ConfigFile);
+            PublicDI.log.error("in loadO2Config, could not load KO2Config file: {0}", pathToO2ConfigFile);
             return null;
         }
 
@@ -120,7 +120,7 @@ namespace O2.Kernel.CodeUtils
 
         private static void saveO2ConfigFile()
         {
-            saveO2ConfigFile((KO2Config)DI.config, defaultLocationOfO2ConfigFile());
+            saveO2ConfigFile((KO2Config)PublicDI.config, defaultLocationOfO2ConfigFile());
         }
 
         private static void saveO2ConfigFile(KO2Config o2ConfigFileToSave, string path)
@@ -132,16 +132,16 @@ namespace O2.Kernel.CodeUtils
         {
             if (File.Exists(pathToLocalConfigFile))
             {
-                DI.config.O2ConfigFile = pathToLocalConfigFile;
+                PublicDI.config.O2ConfigFile = pathToLocalConfigFile;
                 saveO2ConfigFile();                
             }
             else
             {
                 var newO2ConfigDirectory = Path.GetDirectoryName(pathToLocalConfigFile);
                 O2Kernel_Files.checkIfDirectoryExistsAndCreateIfNot(newO2ConfigDirectory);
-                saveO2ConfigFile((KO2Config)DI.config, pathToLocalConfigFile);     // create local config file from current O2Configfile
+                saveO2ConfigFile((KO2Config)PublicDI.config, pathToLocalConfigFile);     // create local config file from current O2Configfile
                 //createO2ConfigFile(pathToLocalConfigFile);
-                DI.config.O2ConfigFile = pathToLocalConfigFile;
+                PublicDI.config.O2ConfigFile = pathToLocalConfigFile;
             }
         }
 
@@ -151,23 +151,23 @@ namespace O2.Kernel.CodeUtils
         {
             if (source!=null & target!=null)
             {
-                foreach (var property in DI.reflection.getProperties(source))
+                foreach (var property in PublicDI.reflection.getProperties(source))
                 {
-                    var sourceValue = DI.reflection.getProperty(property.Name, source,false);
+                    var sourceValue = PublicDI.reflection.getProperty(property.Name, source,false);
                     if (sourceValue != null)
                     {
                         switch (property.Name)
                         {        
                             case "dependenciesInjection":
-                                var sourceDependenciesInjection = (List<DependencyInjection>)DI.reflection.getProperty(property.Name, source);
-                                var targetDependenciesInjection = (List<DependencyInjection>)DI.reflection.getProperty(property.Name, target);
+                                var sourceDependenciesInjection = (List<DependencyInjection>)PublicDI.reflection.getProperty(property.Name, source);
+                                var targetDependenciesInjection = (List<DependencyInjection>)PublicDI.reflection.getProperty(property.Name, target);
                                 targetDependenciesInjection.AddRange(sourceDependenciesInjection);
                                 break;
                             case "dependencyInjectionTest":         // we don't want this to be set from here (and it couldn't be anyway since it is static)
                                 KO2Config.dependencyInjectionTest = "";
                                 break;
                             default:
-                                DI.reflection.setProperty(property.Name, target, sourceValue);
+                                PublicDI.reflection.setProperty(property.Name, target, sourceValue);
                                 break;
                         }
                     }
@@ -175,7 +175,7 @@ namespace O2.Kernel.CodeUtils
 
             }
             else
-                DI.log.error("in mergeO2ConfigFiles false == (source!=null & target!=null)");
+                PublicDI.log.error("in mergeO2ConfigFiles false == (source!=null & target!=null)");
         }
  **/
     }

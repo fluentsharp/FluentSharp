@@ -378,7 +378,7 @@ namespace O2.External.SharpDevelop.Ascx
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbExtraReferencesToAdd;
         private System.Windows.Forms.SplitContainer scTopLevel;
-        private ascx_AssemblyInvoke assemblyInvoke;
+        //private ascx_AssemblyInvoke assemblyInvoke;
         private System.Windows.Forms.SplitContainer scScriptsFolderAndScriptsEditor;
         private ascx_ScriptsFolder scriptsFolder;
 

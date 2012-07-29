@@ -14,6 +14,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Interfaces.O2Findings;
 using O2.Interfaces.Views;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.O2Findings
 {
@@ -53,7 +54,7 @@ namespace O2.Views.ASCX.O2Findings
                                                 (cbFilter2), "");                                   // we can't set the default value here
                                             cbFilter2.Items.Insert(0, noFilterStringTagForFilter2); // since this would push it down
                                             cbFilter2.Text = "vulnName";                            // so we add it here
-                                            tbSavedFileName.Text = DI.config.TempFileNameInTempDirectory + ".ozasmt";
+                                            tbSavedFileName.Text = PublicDI.config.TempFileNameInTempDirectory + ".ozasmt";
                                             maxNumberOfFindingsToLoad = 1000;
                                             tbMaxRecordsToShow.Text = maxNumberOfFindingsToLoad.ToString();
                                             laNoAssessmentLoadEnginesLoaded.Visible = (o2AssessmentLoadEngines.Count == 0);
@@ -65,16 +66,16 @@ namespace O2.Views.ASCX.O2Findings
         
         public Thread loadO2Assessment(string pathToFileToLoad)
         {
-            if (Path.GetExtension(pathToFileToLoad) == DI.config.O2FindingsFileExtension)
+            if (Path.GetExtension(pathToFileToLoad) == PublicDI.config.O2FindingsFileExtension)
             {
                 var o2Assessment = (IO2Assessment)Serialize.getDeSerializedObjectFromBinaryFile(pathToFileToLoad, typeof(O2Assessment));
                 if (o2Assessment != null)
                 {
-                    DI.log.info("Sucessfuly created O2Findings object from file: {0}", pathToFileToLoad);
+                    PublicDI.log.info("Sucessfuly created O2Findings object from file: {0}", pathToFileToLoad);
                     loadO2Assessment(o2Assessment);
                 }
                 else
-                    DI.log.error("There was a problem deserializing O2Findings  object saved to: {0}", pathToFileToLoad);
+                    PublicDI.log.error("There was a problem deserializing O2Findings  object saved to: {0}", pathToFileToLoad);
                 return null;
             }
             else
@@ -104,7 +105,7 @@ namespace O2.Views.ASCX.O2Findings
                                                                           tbSavedFileName.Text =
                                                                               (cbClearOnOzasmtDrop.Checked)
                                                                                   ? pathToFileToLoad
-                                                                                  : DI.config.TempFileNameInTempDirectory + "_" + Path.GetFileName(pathToFileToLoad);
+                                                                                  : PublicDI.config.TempFileNameInTempDirectory + "_" + Path.GetFileName(pathToFileToLoad);
                                                                           laLoadingDroppedFile.Visible = false;
                                                                           sync.Set();
                                                                       });
@@ -141,7 +142,7 @@ namespace O2.Views.ASCX.O2Findings
 
                                         if (o2Findings.Count > 10000)
                                         {
-                                            DI.log.debug( "NOTE: since are more that 10000 findings to load, for performance reasons, the check for duplicated findings objects was disabled");
+                                            PublicDI.log.debug( "NOTE: since are more that 10000 findings to load, for performance reasons, the check for duplicated findings objects was disabled");
                                             currentO2Findings.AddRange(o2Findings);
                                         }
                                         else
@@ -171,7 +172,7 @@ namespace O2.Views.ASCX.O2Findings
             }
             catch (Exception ex)
             {
-                DI.log.error("in addO2Finding: {0}", ex.Message);
+                PublicDI.log.error("in addO2Finding: {0}", ex.Message);
             }
         }
 
@@ -305,7 +306,7 @@ namespace O2.Views.ASCX.O2Findings
                         return (allO2Traces.Keys.Count > 0) ? string.Format("# nodes: {0}", allO2Traces.Keys.Count) : "";
 
                     default:
-                        nodeText = DI.reflection.getProperty(propertyToUse, o2Finding).ToString();
+                        nodeText = PublicDI.reflection.getProperty(propertyToUse, o2Finding).ToString();
                         break;
                 }
                 if (nodeText != "")
@@ -317,7 +318,7 @@ namespace O2.Views.ASCX.O2Findings
             }
             catch (Exception ex)
             {                
-                DI.log.error("in calculateTreeNodeText: {0}", ex.Message);
+                PublicDI.log.error("in calculateTreeNodeText: {0}", ex.Message);
                 return "[O2 Error (check logs for details)]"; 
             }
         }
@@ -380,7 +381,7 @@ namespace O2.Views.ASCX.O2Findings
                 if (rootNode.Tag.GetType().Name == "O2Finding")
                 {
                     var o2Finding = (O2Finding) rootNode.Tag;
-                    DI.reflection.setProperty(rootNode.Name, o2Finding, newText);
+                    PublicDI.reflection.setProperty(rootNode.Name, o2Finding, newText);
                     //o2Finding.setField(rootNode.Name, newText);
                     rootNode.Text = newText;
                 }
@@ -391,9 +392,9 @@ namespace O2.Views.ASCX.O2Findings
                         {                            
                             var o2Finding = (O2Finding)treeNode.Tag;
                             if (rootNode.Name == "confidence" || rootNode.Name == "severity")
-                                DI.reflection.setProperty(rootNode.Name, o2Finding, byte.Parse(newText));
+                                PublicDI.reflection.setProperty(rootNode.Name, o2Finding, byte.Parse(newText));
                             else
-                                DI.reflection.setProperty(rootNode.Name, o2Finding, newText);
+                                PublicDI.reflection.setProperty(rootNode.Name, o2Finding, newText);
                         }
                 }
                 else
@@ -404,7 +405,7 @@ namespace O2.Views.ASCX.O2Findings
                         if (childNode.Tag.GetType().Name == "O2Finding")
                         {
                             var o2Finding = (O2Finding)childNode.Tag;
-                            DI.reflection.setProperty(rootNode.Name, o2Finding, newText);
+                            PublicDI.reflection.setProperty(rootNode.Name, o2Finding, newText);
                             //o2Finding.setField(rootNode.Name, newText);
                         }
                     }
@@ -413,7 +414,7 @@ namespace O2.Views.ASCX.O2Findings
             }
             catch (Exception ex)
             {
-                DI.log.error("in ApplyTextChangeToNode: {0}", ex.Message);
+                PublicDI.log.error("in ApplyTextChangeToNode: {0}", ex.Message);
             }
         }
 
@@ -521,8 +522,8 @@ namespace O2.Views.ASCX.O2Findings
             btSave.Enabled = false;
 
             if (o2AssessmentSave == null)
-                //DI.log.showMessageBox("Aborting save since there is no O2AssessmentSave Engine configured");
-                DI.log.error("Aborting save since there is no O2AssessmentSave Engine configured");
+                //PublicDI.log.showMessageBox("Aborting save since there is no O2AssessmentSave Engine configured");
+                PublicDI.log.error("Aborting save since there is no O2AssessmentSave Engine configured");
             {
 
                 OzasmtCompatibility.makeCompatibleWithOunceV6(o2FindingsToSave);
@@ -533,9 +534,9 @@ namespace O2.Views.ASCX.O2Findings
                 o2Assessment.o2Findings.AddRange(o2FindingsToSave);
                 if (saveIntoO2BinaryFormat)
                 {
-                    if (Path.GetExtension(targetFile) != DI.config.O2FindingsFileExtension)
+                    if (Path.GetExtension(targetFile) != PublicDI.config.O2FindingsFileExtension)
                     {
-                        targetFile += DI.config.O2FindingsFileExtension;
+                        targetFile += PublicDI.config.O2FindingsFileExtension;
                         tbSavedFileName.Text = targetFile;
                     }
                     if (o2Assessment.saveAsO2Format(targetFile))
@@ -603,7 +604,7 @@ namespace O2.Views.ASCX.O2Findings
                 {
                     var sampleO2Finding = (IO2Finding) treeNodes[0].Tag;
                     var currentFilter1 = cbFilter1.Text;
-                    var propertyValue = DI.reflection.getProperty(currentFilter1, sampleO2Finding);
+                    var propertyValue = PublicDI.reflection.getProperty(currentFilter1, sampleO2Finding);
                     return (propertyValue != null) ? propertyValue.ToString() : "";
                 }
             }
@@ -919,7 +920,7 @@ namespace O2.Views.ASCX.O2Findings
                                 //var o2Finding = (IO2Finding) treeNode.Tag;
 
                                 var textToSearch = filteredTextMappings[o2Finding];
-                                // DI.reflection.getProperty(treeNode.Name, (IO2Finding)treeNode.Tag);
+                                // PublicDI.reflection.getProperty(treeNode.Name, (IO2Finding)treeNode.Tag);
                                 if (false == listOfFilteredSignatures.Remove(textToSearch))
                                     //if (false == listOfFilteredSignatures.Contains((string) textToSearch))
                                     nodesToRemove.Add(treeNode);
@@ -945,7 +946,7 @@ namespace O2.Views.ASCX.O2Findings
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "removeFromTreeNodeCollectionOnFilteredSignatures");
+                PublicDI.log.ex(ex, "removeFromTreeNodeCollectionOnFilteredSignatures");
             }
             return nodesToRemove;
         }

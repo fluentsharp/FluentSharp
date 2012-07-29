@@ -36,7 +36,7 @@ namespace O2.DotNetWrappers.O2CmdShell
             foreach(var type in O2CmdApi.typesWithCommands)
             {
                 log.info("\n\ton type: {0}\n", type.Name);
-                foreach (var methodAvailable in DI.reflection.getMethods(type, BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
+                foreach (var methodAvailable in PublicDI.reflection.getMethods(type, BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
                     // make sure the O2CmdHide attribute is not set
                     if (methodAvailable.GetCustomAttributes(typeof(O2CmdHide),false).Length == 0)
                         log.info("\t\t{0}", new FilteredSignature(methodAvailable).sFunctionNameAndParams);                    
@@ -53,7 +53,7 @@ namespace O2.DotNetWrappers.O2CmdShell
         public static void log(string messageFormat, params object[] parameters)
         {
             string message = string.Format(messageFormat, parameters);
-            DI.log.info(message);
+            PublicDI.log.info(message);
             Console.WriteLine(message);
         }*/
 

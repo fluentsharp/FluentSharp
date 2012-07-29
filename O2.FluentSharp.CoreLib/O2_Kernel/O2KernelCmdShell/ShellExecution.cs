@@ -32,7 +32,7 @@ namespace O2.Kernel.O2CmdShell
 
         private void execute(ShellCmdLet shellCmdLet)
         {            
-            var returnData = DI.reflection.invoke(null,shellCmdLet.methodToExecute, shellCmdLet.cmdParameters);
+            var returnData = PublicDI.reflection.invoke(null,shellCmdLet.methodToExecute, shellCmdLet.cmdParameters);
             shellIO.lastExecutionResult = (returnData!=null) ? returnData.ToString() : "";
             if (returnData != null)
                 shellIO.writeLineWithPreAndPostNewLine(returnData.ToString());
@@ -59,7 +59,7 @@ namespace O2.Kernel.O2CmdShell
                         {
                             cmdToExecute = cmdToExecute.Substring(1);
                             var cmdExeParams = new object[] {"cmd.exe", "/c " + cmdToExecute};
-                            var o2MethodThatWillStartTheProcess = DI.reflection.getMethod(typeof (O2Kernel_Processes),
+                            var o2MethodThatWillStartTheProcess = PublicDI.reflection.getMethod(typeof (O2Kernel_Processes),
                                                                                           "startProcessAsConsoleApplicationAndReturnConsoleOutput",
                                                                                           cmdExeParams);
                             return new ShellCmdLet(o2MethodThatWillStartTheProcess, cmdToExecute, cmdExeParams);
@@ -68,7 +68,7 @@ namespace O2.Kernel.O2CmdShell
                         break;
                     default:
                         // if it not one of the above first try to get this from the ShellCommands class
-                        var methodInfo = DI.reflection.getMethod(typeof(ShellCommands), cmdInstruction, cmdParameters);
+                        var methodInfo = PublicDI.reflection.getMethod(typeof(ShellCommands), cmdInstruction, cmdParameters);
                         if (methodInfo != null)
                             return new ShellCmdLet(methodInfo, cmdInstruction, cmdParameters);                        
 
@@ -78,10 +78,10 @@ namespace O2.Kernel.O2CmdShell
                         {
                             var methodTypeName = cmdInstruction.Substring(0,cmdInstruction.LastIndexOf('.'));
                             var methodName = cmdInstruction.Replace(methodTypeName + ".", "");
-                            var methodType = DI.reflection.getType("O2_Kernel.dll", methodTypeName);
+                            var methodType = PublicDI.reflection.getType("O2_Kernel.dll", methodTypeName);
                             if (methodType != null)
                             {
-                                methodInfo = DI.reflection.getMethod(methodType, methodName, cmdParameters);
+                                methodInfo = PublicDI.reflection.getMethod(methodType, methodName, cmdParameters);
                             }
                         }
                         */

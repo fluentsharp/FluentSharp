@@ -10,6 +10,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.Interfaces.Messages;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 
 namespace O2.External.SharpDevelop.Ascx
@@ -92,9 +93,9 @@ namespace O2.External.SharpDevelop.Ascx
                         selectedMethod = (MethodInfo) selectedNode.Tag;
                         raiseO2MessageWithMethodInfo(selectedMethod);
                         lbLastMethodExecuted.Text = selectedMethod.Name;
-                        DI.reflection.loadMethodInfoParametersInDataGridView(selectedMethod, dgvSourceCode_SelectedMethodParameters);
+                        new O2FormsReflectionASCX().loadMethodInfoParametersInDataGridView(selectedMethod, dgvSourceCode_SelectedMethodParameters);
 //                        btSourceCode_executeStaticMethod.Enabled =
-//                            DI.reflection.doesMethodOnlyHasSupportedParameters((MethodInfo)selectedNode.Tag);
+//                            PublicDI.reflection.doesMethodOnlyHasSupportedParameters((MethodInfo)selectedNode.Tag);
                         dgvSourceCode_SelectedMethodParameters.Enabled = true;
                         btDebugMethod.Enabled = O2Messages.isDebuggerAvailable();
                         btExecuteMethodWithoutDebugger.Enabled = true; 
@@ -104,12 +105,12 @@ namespace O2.External.SharpDevelop.Ascx
                             if (childNode.Tag != null && childNode.Tag.GetType().Name == "RuntimeMethodInfo")
                                 raiseO2MessageWithMethodInfo((MethodInfo)childNode.Tag);
                         //var type = (Type) e.Node.Tag;
-                        //foreach (var methodInfo in DI.reflection.getMethods(type))
+                        //foreach (var methodInfo in PublicDI.reflection.getMethods(type))
                         //    raiseO2MessageWithMethodInfo(methodInfo);
                         break;
                     case "Assembly":
                         var assembly = (Assembly)selectedNode.Tag;
-                        foreach (var methodInfo in DI.reflection.getMethods(assembly))
+                        foreach (var methodInfo in PublicDI.reflection.getMethods(assembly))
                             raiseO2MessageWithMethodInfo(methodInfo);
                         break;
                 }
@@ -123,14 +124,14 @@ namespace O2.External.SharpDevelop.Ascx
 
         public void executeInstanceMethod(MethodInfo methodToExecute)
         {
-            DI.log.info("Executing Instance Method:{0}", methodToExecute.Name);
-            var liveObject = DI.reflection.createObjectUsingDefaultConstructor(methodToExecute.DeclaringType);
+            PublicDI.log.info("Executing Instance Method:{0}", methodToExecute.Name);
+            var liveObject = PublicDI.reflection.createObjectUsingDefaultConstructor(methodToExecute.DeclaringType);
             executeMethodOnSeparateThread(methodToExecute, liveObject);
         }
 
         public void executeStaticMethod(MethodInfo methodToExecute)
         {            
-            DI.log.info("Executing Static Method:{0}", methodToExecute.Name);
+            PublicDI.log.info("Executing Static Method:{0}", methodToExecute.Name);
             executeMethodOnSeparateThread(methodToExecute, null);
 /*                raiseO2MessageWithMethodInfo(methodToExecute);
                 currentExecutionThreads.Add(executeMethod(methodToExecute,
@@ -155,12 +156,12 @@ namespace O2.External.SharpDevelop.Ascx
             if (assemblyToLoad is Assembly)
                 loadAssembly((Assembly)assemblyToLoad, false);
             else
-                loadAssembly(DI.reflection.getAssembly(assemblyToLoad.ToString()), false);
+                loadAssembly(PublicDI.reflection.getAssembly(assemblyToLoad.ToString()), false);
         }
 
         public void loadAssembly(string assemblyToLoad)
         {
-            loadAssembly(DI.reflection.getAssembly(assemblyToLoad), false);
+            loadAssembly(PublicDI.reflection.getAssembly(assemblyToLoad), false);
         }
 
         public void loadAssembly(Assembly aCompiledAssembly)
@@ -182,7 +183,7 @@ namespace O2.External.SharpDevelop.Ascx
                     //if (ExtensionMethods.okThread((Control) this, delegate { showDetailsOfLoadedAssembly(_autoExecuteLastMethod); }))
                         {
                             killThreadUsedToPopulateTargetList();
-                            DI.log.info("Loading assembly:{0}", compiledAssembly.Location);
+                            PublicDI.log.info("Loading assembly:{0}", compiledAssembly.Location);
                             autoExecuteLastMethod = _autoExecuteLastMethod;
                             threadUsedToPopulateTargetList =
                                 CompileEngine_WinForms.loadAssesmblyDataIntoTreeView(compiledAssembly,
@@ -212,7 +213,7 @@ namespace O2.External.SharpDevelop.Ascx
             var loadedClasses = new List<String>();
             if (compiledAssembly != null)
             {
-                var types = DI.reflection.getTypes(compiledAssembly );
+                var types = PublicDI.reflection.getTypes(compiledAssembly );
                 foreach(var type in types)
                     loadedClasses.Add(type.FullName);
             }            
@@ -224,7 +225,7 @@ namespace O2.External.SharpDevelop.Ascx
             var loadedMethods = new List<String>();
             if (compiledAssembly != null)
             {
-                var methods = DI.reflection.getMethods(compiledAssembly);
+                var methods = PublicDI.reflection.getMethods(compiledAssembly);
                 foreach (var method in methods)
                     loadedMethods.Add(method.ToString());
             }
@@ -256,7 +257,7 @@ namespace O2.External.SharpDevelop.Ascx
             O2Messages.raiseO2MDbgDebugProcessRequest(compiledAssembly.Location);
 
             //Object[] aoMethodParameters =
-            //    DI.reflection.getParameterObjectsFromDataGridColumn(
+            //    PublicDI.reflection.getParameterObjectsFromDataGridColumn(
             //        dgvSourceCode_SelectedMethodParameters, "Value");
             //executeStaticMethod();
 
@@ -278,9 +279,9 @@ namespace O2.External.SharpDevelop.Ascx
             return O2Thread.mtaThread(mMethodToExecute.Name, () =>
                                    {
                                        Object[] aoMethodParameters =
-                                           DI.reflection.getParameterObjectsFromDataGridColumn(
+                                           new O2FormsReflectionASCX().getParameterObjectsFromDataGridColumn(
                                                dgvSourceCode_SelectedMethodParameters, "Value");
-                                       DI.reflection.executeMethodAndOutputResultInTextBoxOrDataGridView(
+                                       new O2FormsReflectionASCX().executeMethodAndOutputResultInTextBoxOrDataGridView(
                                            mMethodToExecute, aoMethodParameters,
                                            oLiveInstanceOfObject,
                                            tbSourceCode_InvocationResult,
@@ -316,7 +317,7 @@ namespace O2.External.SharpDevelop.Ascx
                 currentExecutionThreads.Clear();
                 foreach (TreeNode executionThread in tvExecutionThreads.Nodes)
                     currentExecutionThreads.Add((Thread)executionThread.Tag);
-                DI.log.info("There are currently {0} active threads", currentExecutionThreads.Count);
+                PublicDI.log.info("There are currently {0} active threads", currentExecutionThreads.Count);
             });
         }
 
@@ -358,9 +359,9 @@ namespace O2.External.SharpDevelop.Ascx
         public void showThreadDetailsOnTreeNode(TreeNode treeNode, ProcessThread processThread)
         {
             treeNode.Nodes.Clear();
-            foreach(var property in DI.reflection.getProperties(processThread))
+            foreach(var property in PublicDI.reflection.getProperties(processThread))
             {
-                var propertyValue = DI.reflection.getProperty(property,processThread);
+                var propertyValue = PublicDI.reflection.getProperty(property,processThread);
                 var nodeText = string.Format("{0} = {1}", property.Name, propertyValue ?? "[null]");
                 O2Forms.newTreeNode(treeNode.Nodes, nodeText);
             }
@@ -370,9 +371,9 @@ namespace O2.External.SharpDevelop.Ascx
         {
             treeNode.Nodes.Clear();
 
-            foreach (var property in DI.reflection.getProperties(thread))
+            foreach (var property in PublicDI.reflection.getProperties(thread))
             {
-                var propertyValue = DI.reflection.getProperty(property, thread);
+                var propertyValue = PublicDI.reflection.getProperty(property, thread);
                 var nodeText = string.Format("{0} = {1}", property.Name, propertyValue ?? "[null]");
                 O2Forms.newTreeNode(treeNode.Nodes, nodeText);
             }

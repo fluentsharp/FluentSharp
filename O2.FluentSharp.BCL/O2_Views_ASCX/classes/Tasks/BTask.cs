@@ -3,6 +3,7 @@ using System;
 using System.Windows.Forms;
 using O2.Interfaces.Tasks;
 using O2.Views.ASCX;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.classes.Tasks
 {
@@ -22,7 +23,7 @@ namespace O2.Views.ASCX.classes.Tasks
 
         public virtual bool execute()
         {
-            DI.log.error("in BTask execute method was invoked and it should had been implemented by current Task");
+            PublicDI.log.error("in BTask execute method was invoked and it should had been implemented by current Task");
             return false;
         }
 

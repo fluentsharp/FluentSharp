@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.Kernel;
 //using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.DotNet
@@ -25,11 +26,11 @@ namespace O2.DotNetWrappers.DotNet
         {
             if (sSource == "")
                 return false;
-            //DI.dRegExes.add(sRegExToFind, createRegEx(sRegExToFind));
-            if (DI.dRegExes.ContainsKey(sRegExToFind) == false)      
-                Collections_ExtensionMethods_Dictionary.add(DI.dRegExes,sRegExToFind, createRegEx(sRegExToFind));
+            //PublicDI.dRegExes.add(sRegExToFind, createRegEx(sRegExToFind));
+            if (PublicDI.dRegExes.ContainsKey(sRegExToFind) == false)
+                Collections_ExtensionMethods_Dictionary.add(PublicDI.dRegExes, sRegExToFind, createRegEx(sRegExToFind));
 
-            return execRegExOnText_hasMatches(DI.dRegExes[sRegExToFind], sSource);
+            return execRegExOnText_hasMatches(PublicDI.dRegExes[sRegExToFind], sSource);
         }
 
         public static Regex createRegEx(String sMatchPattern)
@@ -53,7 +54,7 @@ namespace O2.DotNetWrappers.DotNet
                 }
                 catch (Exception ex)
                 {
-                    DI.log.error("in createRegEx:{0}", ex.Message);
+                    PublicDI.log.error("in createRegEx:{0}", ex.Message);
                 }
             return null;
         }

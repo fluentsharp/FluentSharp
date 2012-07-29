@@ -10,6 +10,7 @@ using O2.Kernel.CodeUtils;
 using O2.Kernel.InterfacesBaseImpl;
 using O2.Views.ASCX;
 using O2.Views.ASCX.SourceCodeEdit;
+using O2.Kernel;
 
 namespace O2.External.SharpDevelop.Ascx
 {
@@ -34,10 +35,10 @@ namespace O2.External.SharpDevelop.Ascx
                     compileSourceCode();
                 }
                 else
-                    DI.log.error("Could no find file: {0}", sFileToOpen);
+                    PublicDI.log.error("Could no find file: {0}", sFileToOpen);
             }
             else
-                DI.log.error("Could no find directory: {0}", sTargetDirectory);
+                PublicDI.log.error("Could no find directory: {0}", sTargetDirectory);
         }
        
       
@@ -82,7 +83,7 @@ namespace O2.External.SharpDevelop.Ascx
 
         private void lbSourceCode_CompilationResult_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DI.log.info(lbSourceCode_CompilationResult.Text);
+            PublicDI.log.info(lbSourceCode_CompilationResult.Text);
             string[] sSplitedLine = lbSourceCode_CompilationResult.Text.Split(':');
             if (sSplitedLine.Length == 4)
             {

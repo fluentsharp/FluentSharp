@@ -7,6 +7,7 @@ using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.O2Findings;
 using O2.Interfaces.O2Findings;
 using O2.Views.ASCX;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.O2Findings
 {
@@ -127,7 +128,7 @@ namespace O2.Views.ASCX.O2Findings
             }
             catch (Exception)
             {
-                DI.log.error("could not convert {0} to an int" + tbMaxRecordsToShow.Text);
+                PublicDI.log.error("could not convert {0} to an int" + tbMaxRecordsToShow.Text);
                 tbMaxRecordsToShow.BackColor = Color.LightPink;
             }
         }
@@ -252,11 +253,11 @@ namespace O2.Views.ASCX.O2Findings
 
         private void btOpenFile_Click(object sender, EventArgs e)
         {
-            DI.log.info("Select file to open");
+            PublicDI.log.info("Select file to open");
             var openFileDialog = new OpenFileDialog();                        
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DI.log.info("Loading file: {0}", openFileDialog.FileName);
+                PublicDI.log.info("Loading file: {0}", openFileDialog.FileName);
                 loadO2Assessment(openFileDialog.FileName);
                 openFileDialog.Dispose();
             }

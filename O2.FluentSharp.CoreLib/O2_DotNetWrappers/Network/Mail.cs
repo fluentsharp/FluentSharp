@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Net.Sockets;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Network
 {    
@@ -35,7 +36,7 @@ namespace O2.DotNetWrappers.Network
             }
             catch (Exception ex)
             {
-                DI.log.error("in isMailServerOnline :{0}", ex.Message);
+                PublicDI.log.error("in isMailServerOnline :{0}", ex.Message);
             }
             return false;
         }
@@ -51,7 +52,7 @@ namespace O2.DotNetWrappers.Network
         {
             try
             {
-                DI.log.info("Sending email:\n" +
+                PublicDI.log.info("Sending email:\n" +
                             "/t/thost:{0}\n" +
                             "/t/tfrom:{1}\n" +
                             "/t/tto:{2}\n" +
@@ -84,7 +85,7 @@ namespace O2.DotNetWrappers.Network
             }
             catch (Exception ex)
             {
-                DI.log.error("In sendMail: {0}", ex.Message);
+                PublicDI.log.error("In sendMail: {0}", ex.Message);
                 callback(false);
                 return false;
             }
@@ -96,12 +97,12 @@ namespace O2.DotNetWrappers.Network
             var sMessageToken = (string) e.UserState;
             bool result = false;
             if (e.Cancelled)
-                DI.log.error("Send message canceled: {0}", sMessageToken);
+                PublicDI.log.error("Send message canceled: {0}", sMessageToken);
             else if (e.Error != null)
-                DI.log.error("Error in sending message '{0}' : {1}", sMessageToken, e.Error.ToString());
+                PublicDI.log.error("Error in sending message '{0}' : {1}", sMessageToken, e.Error.ToString());
             else
             {
-                DI.log.info("Message sent: {0}", sMessageToken);
+                PublicDI.log.info("Message sent: {0}", sMessageToken);
                 result = true;
             }
 
@@ -119,7 +120,7 @@ namespace O2.DotNetWrappers.Network
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in getUserDetailsAsEmailFormat");
+                PublicDI.log.ex(ex, "in getUserDetailsAsEmailFormat");
                 return "o2User@o2-Ounceopen.com";
             }
         }

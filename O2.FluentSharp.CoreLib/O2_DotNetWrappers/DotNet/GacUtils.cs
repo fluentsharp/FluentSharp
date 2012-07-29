@@ -14,11 +14,17 @@ namespace O2.DotNetWrappers.DotNet
 {
     public class GacUtils
     {
+        static GacUtils()
+        {
+            PathToGac = Path.Combine(Environment.GetEnvironmentVariable("windir") ?? "", "Assembly");//\\GAC_MSIL");                        
+        }
+        public static string PathToGac { get; set; }
+
         public static List<string> chachedListOfGacAssembliesNames;
 
         public static string getPathToGac()
         {
-            return DI.PathToGac;
+            return GacUtils.PathToGac;
         }
         public static List<string> assemblyNames()
         {
@@ -39,9 +45,9 @@ namespace O2.DotNetWrappers.DotNet
         public static List<IGacDll> currentGacAssemblies()
         {
             var gacAssemblies = new List<IGacDll>();
-            foreach (var directory in Files.getListOfAllDirectoriesFromDirectory(DI.PathToGac, true))
+            foreach (var directory in Files.getListOfAllDirectoriesFromDirectory(GacUtils.PathToGac, true))
             {
-                if (DI.PathToGac != Path.GetDirectoryName(directory) && directory.contains("NativeImages").isFalse())
+                if (GacUtils.PathToGac != Path.GetDirectoryName(directory) && directory.contains("NativeImages").isFalse())
                 {                    
                     var name = Path.GetFileName(Path.GetDirectoryName(directory));
                     var version = Path.GetFileName(directory);

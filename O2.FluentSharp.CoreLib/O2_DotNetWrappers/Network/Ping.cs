@@ -3,6 +3,7 @@ using System;
 using System.Net.NetworkInformation;
 using System.Threading;
 using O2.DotNetWrappers;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Network
 {
@@ -28,7 +29,7 @@ namespace O2.DotNetWrappers.Network
             }
             catch (Exception ex)
             {
-                DI.log.error("in Ping: {0}", ex.Message);
+                PublicDI.log.error("in Ping: {0}", ex.Message);
                 return false;
             }
         }
@@ -43,16 +44,16 @@ namespace O2.DotNetWrappers.Network
             }
             catch (Exception ex)
             {
-                DI.log.error("in Ping: {0}", ex.Message);
+                PublicDI.log.error("in Ping: {0}", ex.Message);
             }
         }
 
         private void pPing_PingCompleted(object sender, PingCompletedEventArgs e)
         {
             if (e.Error == null)
-                DI.log.info("Ping status: {0}", e.Reply.Status.ToString());
+                PublicDI.log.info("Ping status: {0}", e.Reply.Status.ToString());
             else
-                DI.log.error("in Ping: {0}", e.Error.Message);
+                PublicDI.log.error("in Ping: {0}", e.Error.Message);
             if (ePingCompleted != null)
                 foreach (Delegate dDelegate in ePingCompleted.GetInvocationList())
                     dDelegate.DynamicInvoke(new[] {sender, e});

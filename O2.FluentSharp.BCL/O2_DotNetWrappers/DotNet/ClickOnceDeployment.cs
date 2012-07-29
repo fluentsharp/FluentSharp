@@ -31,7 +31,7 @@ namespace O2.DotNetWrappers.DotNet
             // make sure we are running from a ClickOnce executable			
             if (!isApplicationBeingExecutedViaClickOnceDeployment())
             {
-                DI.log.info("Application was not deployed using ClickOnce so skipping O2 Auto Update Checks");
+                PublicDI.log.info("Application was not deployed using ClickOnce so skipping O2 Auto Update Checks");
                 return;
             }
 
@@ -41,7 +41,7 @@ namespace O2.DotNetWrappers.DotNet
                 {
                     Thread.Sleep(delayBetweenChecks);
                     ApplicationDeployment updateCheck = ApplicationDeployment.CurrentDeployment;
-                    DI.log.info("Checking for Updates to this O2 Module [{0}]", numberOfChecksPerformed++);
+                    PublicDI.log.info("Checking for Updates to this O2 Module [{0}]", numberOfChecksPerformed++);
                     UpdateCheckInfo info = updateCheck.CheckForDetailedUpdate();
 
 
@@ -55,17 +55,17 @@ namespace O2.DotNetWrappers.DotNet
                         DialogResult dialogResult =
                             MessageBox.Show(
                                 "There is an update available for " +
-                                ((DI.windowsFormMainO2Form != null) ? DI.windowsFormMainO2Form.Text : "(HOST FORM)") +
+                                ((PublicDI.windowsFormMainO2Form != null) ? PublicDI.windowsFormMainO2Form.Text : "(HOST FORM)") +
                                 ".\n\n Would you like to download the installer and update this version? \n\n(if you cancel you will not be asked again during this session}\n\n",
                                 "O2 Auto Update", MessageBoxButtons.OKCancel);
                         if (DialogResult.OK == dialogResult)
                         {
-                            DI.log.info("Update is going to be installed");
+                            PublicDI.log.info("Update is going to be installed");
                             updateCheck.Update();
-                            DI.log.info("all done, ready for restart");
-                            DI.log.showMessageBox(
+                            PublicDI.log.info("all done, ready for restart");
+                            PublicDI.log.showMessageBox(
                                 "This O2 module was successfull upgraded, please click OK to restart (note that you will lose any unsaved changes)");
-                            DI.log.info("retarting");
+                            PublicDI.log.info("retarting");
                             Application.Restart();
                         }
                         //                        }
@@ -74,7 +74,7 @@ namespace O2.DotNetWrappers.DotNet
                 }
                 catch (Exception ex)
                 {
-                    DI.log.ex(ex, "in checkForClickOnceUpdatesAndInstall");
+                    PublicDI.log.ex(ex, "in checkForClickOnceUpdatesAndInstall");
                 }
             }
         }
@@ -101,10 +101,10 @@ namespace O2.DotNetWrappers.DotNet
         public static String getFormTitle_forClickOnce(String sFormName)
         {
             var executionMode = "O2 Binaries folder";
-            if (DI.config.CurrentExecutableDirectory.IndexOf("Documents and Settings") > -1)
+            if (PublicDI.config.CurrentExecutableDirectory.IndexOf("Documents and Settings") > -1)
                 executionMode = "ClickOnce install";
             else
-                if (DI.config.CurrentExecutableDirectory.IndexOf(@"Program Files\O2 - Ounce Open") > -1)
+                if (PublicDI.config.CurrentExecutableDirectory.IndexOf(@"Program Files\O2 - Ounce Open") > -1)
                     executionMode = "MSI install";         
             return String.Format("{0}  ({1})", sFormName, executionMode);
             // removing the System.Deployment reference so that we can run this on Mono

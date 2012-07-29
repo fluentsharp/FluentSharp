@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\binaries\</OutputPath>
+    <OutputPath>bin\debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,11 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>TmpKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="O2_DotNetWrappers\DI.cs" />
+    <Content Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
@@ -268,14 +267,13 @@
     </Compile>
     <Compile Include="O2_Views_ASCX\classes\MainGUI\WinForms.cs" />
     <Compile Include="O2_Views_ASCX\classes\MainGUI\WinFormsUILog.cs" />
-    <Compile Include="O2_Views_ASCX\classes\O2CoreResources.Designer.cs" />
     <Compile Include="O2_Views_ASCX\classes\TasksWrappers\Task_LoadAssessmentFiles.cs" />
     <Compile Include="O2_Views_ASCX\classes\TasksWrappers\Task_Unzip.cs" />
     <Compile Include="O2_Views_ASCX\classes\Tasks\BTask.cs" />
     <Compile Include="O2_Views_ASCX\classes\Tasks\TaskThread.cs" />
     <Compile Include="O2_Views_ASCX\classes\Tasks\TaskUtils.cs" />
     <Compile Include="O2_Views_ASCX\classes\WebRequests.cs" />
-    <Compile Include="O2_Views_ASCX\DI.cs" />
+    <None Include="O2_Views_ASCX\DI.cs.tzt" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\CoreControls_ExtensionMethods.cs" />
     <Compile Include="O2_Views_ASCX\ExtensionMethods\WinForms_ExtensionMethods.cs" />
@@ -291,7 +289,6 @@
     <Compile Include="O2_Views_ASCX\Forms\ReportBug.Designer.cs">
       <DependentUpon>ReportBug.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Properties\Resources.Designer.cs" />
     <Compile Include="O2_Views_ASCX\FormImages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -351,14 +348,12 @@
     <EmbeddedResource Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.resx">
       <DependentUpon>ascx_Task.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\classes\O2CoreResources.resx" />
     <EmbeddedResource Include="O2_Views_ASCX\Forms\O2_Main_GUI.resx">
       <DependentUpon>O2_Main_GUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="O2_Views_ASCX\Forms\ReportBug.resx">
       <DependentUpon>ReportBug.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Properties\Resources.resx" />
     <EmbeddedResource Include="O2_Views_ASCX\FormImages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FormImages.Designer.cs</LastGenOutput>
@@ -371,6 +366,7 @@
     <None Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">

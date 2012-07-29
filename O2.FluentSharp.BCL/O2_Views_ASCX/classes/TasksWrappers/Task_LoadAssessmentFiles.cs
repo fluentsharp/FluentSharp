@@ -4,6 +4,7 @@ using O2.DotNetWrappers.O2Findings;
 using O2.Interfaces.O2Findings;
 using O2.Views.ASCX;
 using O2.Views.ASCX.classes.Tasks;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.classes.TasksWrappers
 {
@@ -29,10 +30,10 @@ namespace O2.Views.ASCX.classes.TasksWrappers
         public override bool execute()
         {
             if (sourceObject == null)
-                DI.log.error("source object was null");
+                PublicDI.log.error("source object was null");
             else
                 if (sourceObject.GetType() != sourceType)
-                    DI.log.error("source object type was not List<string> is was " + sourceObject.GetType().FullName);
+                    PublicDI.log.error("source object type was not List<string> is was " + sourceObject.GetType().FullName);
                 else
                 {
                     var filesToProcess = (List<string>) sourceObject;
@@ -42,10 +43,10 @@ namespace O2.Views.ASCX.classes.TasksWrappers
                     var o2Assessment = new O2Assessment();
                     foreach (string file in filesToProcess)
                     {
-                        DI.log.info("Importing file {0}", file);
+                        PublicDI.log.info("Importing file {0}", file);
                         if (false == o2AssessmentLoad.importFile(file, o2Assessment))
                             return false;
-                        DI.log.info("There are {0} Findings loaded ", o2Assessment.o2Findings.Count);
+                        PublicDI.log.info("There are {0} Findings loaded ", o2Assessment.o2Findings.Count);
                         incProgressBarValue();
                     }
                     resultsObject = o2Assessment;

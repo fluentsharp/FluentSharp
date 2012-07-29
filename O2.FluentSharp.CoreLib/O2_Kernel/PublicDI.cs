@@ -6,8 +6,11 @@ using O2.Kernel.InterfacesBaseImpl;
 using O2.Kernel.Objects;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Configuration;
+using O2.DotNetWrappers.Filters;
+using System.Text.RegularExpressions;
+using O2.Kernel.O2CmdShell;
 
-//O2File:DI.cs
+//O2File:PublicDI.cs
 //O2File:InterfacesBaseImpl/KO2Log.cs
 //O2File:InterfacesBaseImpl/KO2Config.cs
 //O2File:InterfacesBaseImpl/KReflection.cs
@@ -28,11 +31,21 @@ namespace O2.Kernel
         {
             loadValuesFromConfigFile();
 
-            log = (KO2Log)DI.log;
-            config = (KO2Config)DI.config;
-            reflection = (KReflection) DI.reflection;
-            
-            O2KernelProcessName = DI.O2KernelProcessName;           
+            log = new KO2Log();
+            config = O2ConfigLoader.getKO2Config();
+            reflection = new KReflection();
+
+            //make sure theses values are set (could be a prob due to changed location of these values)
+            if (config.LocalScriptsFolder == null)
+            {
+                config.LocalScriptsFolder = KO2Config.defaultLocalScriptFolder;
+                config.SvnO2RootFolder = KO2Config.defaultSvnO2RootFolder;
+                config.SvnO2DatabaseRulesFolder = KO2Config.defaultSvnO2DatabaseRulesFolder;
+            }
+
+            O2KernelProcessName = "Generic O2 Kernel Process";
+            AppDomainUtils.registerCurrentAppDomain();
+            O2_at_GitHub.configureReferencesDownloadLocations();
 
             sDefaultFileName_ReportBug_LogView = "ReportBug_LogView.Rtf";
             sDefaultFileName_ReportBug_ScreenShotImage = "ReportBug_ScreenShotImage.bmp";
@@ -42,7 +55,13 @@ namespace O2.Kernel
             sO2Website = "https://ounceopen.squarespace.com";
             LogViewerControlName = "O2 Logs";
 
-            loadValuesFromConfigFile();       
+            loadValuesFromConfigFile();
+            dFilteredFuntionSignatures = new Dictionary<string, FilteredSignature>();
+            dO2Vars = new Dictionary<string, object>();
+            dRegExes = new Dictionary<string, Regex>();
+
+            dFilesLines = new Dictionary<string, List<string>>();
+            
         }
 
         public static void loadValuesFromConfigFile()
@@ -58,10 +77,15 @@ namespace O2.Kernel
             }
         }
 
-        public static KO2Log log { get; set; }
-        public static KO2Config config { get; set; }
-        public static KReflection reflection { get; set; }               
-        public static string O2KernelProcessName { get; set; }
+        public static KO2Log log                                                        { get; set; }
+        public static KO2Config config                                                  { get; set; }
+        public static KReflection reflection                                            { get; set; }
+        public static string O2KernelProcessName                                        { get; set; }
+        public static Dictionary<String, FilteredSignature> dFilteredFuntionSignatures  { get; set; }
+        public static Dictionary<String, Object> dO2Vars                                { get; set; }
+        public static Dictionary<String, Regex> dRegExes                                { get; set; }
+        public static Dictionary<String, List<String>> dFilesLines                      { get; set; }
+        public static O2Shell o2Shell                                                   { get; set; }
 
         // GUI stuff
         public static Object CurrentGUIHost { get; set; } // need to assign the existing GUIs to here
@@ -71,9 +95,8 @@ namespace O2.Kernel
         public static string sEmailDefaultTextFromO2Gui { get; set; }
         public static string sEmailHost { get; set; }
         public static string sEmailToSendBugReportsTo { get; set; }
-        public static string sO2Website { get; set; }
-
-        public static string LogViewerControlName { get; set; }                        
+        public static string sO2Website { get; set; }        
+        public static string LogViewerControlName   { get; set; }                        
 
         // Scripts
         private static string _currentScript = "";

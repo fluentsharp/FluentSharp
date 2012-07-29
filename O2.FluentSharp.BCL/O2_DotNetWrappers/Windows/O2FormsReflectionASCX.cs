@@ -9,6 +9,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Filters;
 using O2.Interfaces.O2Core;
 using O2.Kernel.InterfacesBaseImpl;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Windows
 {
@@ -30,19 +31,19 @@ namespace O2.DotNetWrappers.Windows
             var newNodes = new List<TreeNode>();
             try
             {
-                // DI.log.debug("populating :{0} - {1}", node, tag);                
+                // PublicDI.log.debug("populating :{0} - {1}", node, tag);                
                 if (node != null && tag != null)
                     switch (tag.GetType().Name)
                     {
                             // Reflection objects
                         case "Assembly":
-                            foreach (Module module in DI.reflection.getModules((Assembly) tag))
+                            foreach (Module module in PublicDI.reflection.getModules((Assembly) tag))
                                 newNodes.Add(O2Forms.newTreeNode(node, module.Name, iconIndex_module, module));
                             break;
                         case "Module":
                             // when showing module's contents (i.e. Types) we need to break them by namespace
                             Dictionary<string, List<Type>> reflectionTypesMappedToNamespaces =
-                                DI.reflection.getDictionaryWithTypesMappedToNamespaces((Module) tag);
+                                PublicDI.reflection.getDictionaryWithTypesMappedToNamespaces((Module) tag);
                             foreach (string typeNamespace in reflectionTypesMappedToNamespaces.Keys)
                             {
                                 TreeNode namespaceNode = O2Forms.newTreeNode(node, typeNamespace, iconIndex_namespace,
@@ -55,10 +56,10 @@ namespace O2.DotNetWrappers.Windows
                             break;
                         case "RuntimeType":
                             // add nested types in Type
-                            foreach (Type type in DI.reflection.getTypes((Type) tag))
+                            foreach (Type type in PublicDI.reflection.getTypes((Type) tag))
                                 newNodes.Add(O2Forms.newTreeNode(node, type.Name, iconIndex_type, type));
                             // add methods in Type
-                            foreach (MethodInfo method in DI.reflection.getMethods((Type) tag))
+                            foreach (MethodInfo method in PublicDI.reflection.getMethods((Type) tag))
                                 newNodes.Add(O2Forms.newTreeNode(node, new FilteredSignature(method).getReflectorView(),
                                                                  iconIndex_method, method));
                             break;
@@ -80,7 +81,7 @@ namespace O2.DotNetWrappers.Windows
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in populateTreeNodeWithObjectChilds");
+                PublicDI.log.ex(ex, "in populateTreeNodeWithObjectChilds");
             }
             return newNodes;
         }
@@ -108,7 +109,7 @@ namespace O2.DotNetWrappers.Windows
                 }
                 catch (Exception ex)
                 {
-                    DI.log.error("Reflecting property {0}", ex.Message);
+                    PublicDI.log.error("Reflecting property {0}", ex.Message);
                 }
             }
 
@@ -143,7 +144,7 @@ namespace O2.DotNetWrappers.Windows
                 dgvTargetDataGridView.Rows[iNewRowId].Cells["Type"].Value = piParameter.ParameterType.FullName;
                 if (false == lsSupportParameterTypes.Contains(piParameter.ParameterType.FullName))
                 {
-                    DI.log.error("The parameter type {1} is not supported",
+                    PublicDI.log.error("The parameter type {1} is not supported",
                                  mMethod.ReflectedType + "." + mMethod.Name, piParameter.ParameterType.FullName);
                     dgvTargetDataGridView.Rows[iNewRowId].Cells["Name"].Style.ForeColor = Color.Red;
                     dgvTargetDataGridView.Rows[iNewRowId].Cells["Type"].Style.ForeColor = Color.Red;
@@ -165,7 +166,7 @@ namespace O2.DotNetWrappers.Windows
             if (dgvTargetDataGridView.SelectedRows.Count == 1)
                 dgvTargetDataGridView.SelectedRows[0].Cells["Value"].Selected = true;
 
-            //   DI.log.debug(mMethod.Name);            
+            //   PublicDI.log.debug(mMethod.Name);            
         }
 
         public void loadTypeDataIntoTreeView(Type tTypeToLoad, TreeView tvTargetTreeView,
@@ -182,10 +183,10 @@ namespace O2.DotNetWrappers.Windows
                                              bool bClearTreeView)
         {
             if (sFilter == "")
-                DI.log.debug("Loading '{0}' object data into TreeView", tTypeToLoad.Name);
+                PublicDI.log.debug("Loading '{0}' object data into TreeView", tTypeToLoad.Name);
             else
             {
-                DI.log.debug("Loading '{0}' object data into TreeView using filter {1}", tTypeToLoad.Name, sFilter);
+                PublicDI.log.debug("Loading '{0}' object data into TreeView using filter {1}", tTypeToLoad.Name, sFilter);
                 sFilter = sFilter.ToUpper();
             }
             if (bClearTreeView)
@@ -284,7 +285,7 @@ namespace O2.DotNetWrappers.Windows
                         }
                         catch (Exception ex)
                         {
-                            DI.log.ex(ex, "in getParameterObjectsFromDataGridColumn: {0}");
+                            PublicDI.log.ex(ex, "in getParameterObjectsFromDataGridColumn: {0}");
                         }
                         return aoParams;
                     });
@@ -353,13 +354,13 @@ namespace O2.DotNetWrappers.Windows
                         }
                         catch (Exception ex)
                         {
-                            DI.log.ex(ex,
+                            PublicDI.log.ex(ex,
                                       "Invocaton Error in (GUI thread)executeMethodAndOutputResultInTextBoxOrDataGridView for method: " +
                                       mMethod.Name);
                             tbTextBox_Results.Text = ex.Message;
                             if (ex.InnerException != null)
                             {
-                                DI.log.ex(ex, "   InnerException + " + ex.InnerException.Message);
+                                PublicDI.log.ex(ex, "   InnerException + " + ex.InnerException.Message);
                                 tbTextBox_Results.Text += Environment.NewLine + "    InnerException:" +
                                                           ex.InnerException.Message;
                             }
@@ -368,7 +369,7 @@ namespace O2.DotNetWrappers.Windows
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "Invocaton Error in (MTA thread)executeMethodAndOutputResultInTextBoxOrDataGridView for method: " +
+                PublicDI.log.ex(ex, "Invocaton Error in (MTA thread)executeMethodAndOutputResultInTextBoxOrDataGridView for method: " +
                                                       mMethod.Name);
             }
         }

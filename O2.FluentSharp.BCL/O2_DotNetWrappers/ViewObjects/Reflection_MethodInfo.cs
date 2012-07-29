@@ -6,6 +6,7 @@ using System.Reflection;
 using O2.DotNetWrappers.Filters;
 using O2.DotNetWrappers.DotNet;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.ViewObjects
 {
@@ -32,8 +33,8 @@ namespace O2.DotNetWrappers.ViewObjects
                 O2Thread.mtaThread(
                 () =>
                 {
-                    DI.log.info("executing method: {0}", filteredSignature.sSignature);
-                    DI.reflection.invoke(Method, parameters);
+                    PublicDI.log.info("executing method: {0}", filteredSignature.sSignature);
+                    PublicDI.reflection.invoke(Method, parameters);
                 });
         }
 

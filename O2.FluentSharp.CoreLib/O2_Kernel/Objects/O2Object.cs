@@ -8,8 +8,8 @@ namespace O2.Kernel.Objects
         public O2Object(Assembly assembly, string objectType, object[] constructorArguments)
         {
             Assembly = assembly;
-            Obj = DI.reflection.createObject(Assembly, DI.reflection.getType(Assembly, objectType),
-                                             DI.reflection.getRealObjects(constructorArguments));
+            Obj = PublicDI.reflection.createObject(Assembly, PublicDI.reflection.getType(Assembly, objectType),
+                                             PublicDI.reflection.getRealObjects(constructorArguments));
         }
 
         public O2Object(Assembly assembly, object obj)
@@ -39,9 +39,9 @@ namespace O2.Kernel.Objects
 
         public object call(string methodName, object[] methodParameters)
         {
-            methodParameters = DI.reflection.getRealObjects(methodParameters);
-            MethodInfo methodInfo = DI.reflection.getMethod(Obj.GetType(), methodName, methodParameters);
-            return DI.reflection.invoke(Obj, methodInfo, methodParameters);
+            methodParameters = PublicDI.reflection.getRealObjects(methodParameters);
+            MethodInfo methodInfo = PublicDI.reflection.getMethod(Obj.GetType(), methodName, methodParameters);
+            return PublicDI.reflection.invoke(Obj, methodInfo, methodParameters);
 
 
             //methodInfo.Invoke(Obj, methodParameters);
@@ -56,13 +56,13 @@ namespace O2.Kernel.Objects
         public static O2Object ctor(Assembly assembly, string typeOfObjectToCreate, object[] constructorArguments)
         {
             var o2Object = new O2Object(assembly, typeOfObjectToCreate,
-                                        DI.reflection.getRealObjects(constructorArguments));
+                                        PublicDI.reflection.getRealObjects(constructorArguments));
             return (o2Object.Obj != null) ? o2Object : null;
         }
 
         public O2Object get(string propertyToGet)
         {
-            object value = DI.reflection.getProperty(propertyToGet, Obj);
+            object value = PublicDI.reflection.getProperty(propertyToGet, Obj);
             if (value != null)
                 return new O2Object(Assembly, value);
             return null;

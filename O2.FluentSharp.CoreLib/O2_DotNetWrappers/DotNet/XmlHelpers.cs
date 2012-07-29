@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -30,11 +31,11 @@ namespace O2.DotNetWrappers.DotNet
                     return nextLine; // if not return the 2nd line
                 }
 
-                DI.log.error("in getRootElementText, the file provided did not have <?xml on the first line: {0}   -    {1}", fileToProcess, fileLine);
+                PublicDI.log.error("in getRootElementText, the file provided did not have <?xml on the first line: {0}   -    {1}", fileToProcess, fileLine);
             }
             catch (Exception ex)
             {
-                   DI.log.ex(ex);
+                   PublicDI.log.ex(ex);
             }
             return "";                     
         }

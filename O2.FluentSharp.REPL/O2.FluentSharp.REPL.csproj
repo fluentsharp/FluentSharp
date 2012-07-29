@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2.FluentSharp.REPL</RootNamespace>
     <AssemblyName>O2_FluentSharp_REPL</AssemblyName>
@@ -37,25 +37,29 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>TmpKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>H2Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
-      <HintPath>_External_Dlls\Ionic.Zip.dll</HintPath>
+      <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_External_Dlls\Mono.Cecil.dll</HintPath>
+    <Reference Include="Mono.Cecil">
+      <HintPath>_Embedded_Dlls\Mono.Cecil.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="QuickGraph, Version=3.2.40122.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_External_Dlls\QuickGraph.dll</HintPath>
+    <Reference Include="O2_External_SharpDevelop">
+      <HintPath>..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_External_SharpDevelop.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="QuickGraph">
+      <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,6 +68,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -148,13 +153,24 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
+    <Compile Include="AssemblyResolver.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
-    <Compile Include="DI.cs" />
+    <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_External_SharpDevelop.dll">
+      <Link>_Embedded_Dlls\O2_External_SharpDevelop.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_FluentSharp_BCL.dll">
+      <Link>_Embedded_Dlls\O2_FluentSharp_BCL.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_FluentSharp_CoreLib.dll">
+      <Link>_Embedded_Dlls\O2_FluentSharp_CoreLib.dll</Link>
+    </EmbeddedResource>
+    <Content Include="DI.cs.txt" />
     <Compile Include="ExtensionMethods\EmbeddedResources_Zip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\XmlToXsd_ExtensionMethods.cs" />
+    <Compile Include="O2Scripts.cs" />
     <Compile Include="open.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +226,7 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\Web_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
+    <Content Include="H2Logo.ico" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />
@@ -225,29 +242,26 @@
     <EmbeddedResource Include="Ascx\ascx_XRules_Editor.resx">
       <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="_External_Dlls\Mono.Cecil.dll" />
-    <EmbeddedResource Include="_External_Dlls\O2_External_SharpDevelop.dll" />
-    <EmbeddedResource Include="_External_Dlls\QuickGraph.dll" />
+    <EmbeddedResource Include="_Embedded_Dlls\Mono.Cecil.dll" />
+    <EmbeddedResource Include="_Embedded_Dlls\QuickGraph.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
-      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
-      <Name>O2_External_SharpDevelop</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TmpKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>O2.FluentSharp.CoreLib</Name>
+      <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_External_Dlls\Merlin.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_External_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,6 @@ using O2.Interfaces.O2Core;
 using O2.Interfaces.O2Findings;
 using O2.Kernel;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.DotNetWrappers.ExtensionMethods;
 using System.Windows.Forms;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.DotNetWrappers.DotNet;

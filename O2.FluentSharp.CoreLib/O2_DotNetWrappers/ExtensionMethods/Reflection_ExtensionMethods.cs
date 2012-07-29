@@ -43,9 +43,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			{
 				return new System.Reflection.AssemblyName(_string);
 			}
-			catch(Exception ex)
+			catch//(Exception ex)
 			{
-				"[assemblyName] {0}".error(ex.Message);
+				//"[assemblyName] {0}".error(ex.Message);
 				return null;
 			}
 		}

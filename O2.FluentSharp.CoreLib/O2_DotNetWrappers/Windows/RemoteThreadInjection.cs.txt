@@ -41,7 +41,7 @@ namespace O2.DotNetWrappers.Windows
                 {
                     foreach (ProcessModule module in process.Modules)
                     {
-                     //   DI.log.info(module.ModuleName);
+                     //   PublicDI.log.info(module.ModuleName);
                         if (module.ModuleName == dllToFind)
                             return true;
                     }

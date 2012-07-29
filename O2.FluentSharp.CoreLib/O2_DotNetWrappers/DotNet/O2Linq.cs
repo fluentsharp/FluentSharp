@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using O2.DotNetWrappers.Filters;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -15,7 +16,7 @@ namespace O2.DotNetWrappers.DotNet
             var uniqueList =(from string signature in stringsToFilter select signature).Distinct();
             numberOfUniqueStrings = uniqueList.Count();
             timer.stop();
-            DI.log.info("There are {0} unique signatures", numberOfUniqueStrings);
+            PublicDI.log.info("There are {0} unique signatures", numberOfUniqueStrings);
             return uniqueList;
         }
 
@@ -25,7 +26,7 @@ namespace O2.DotNetWrappers.DotNet
             var uniqueList = (from string signature in stringsToFilter orderby signature select signature).Distinct();
             numberOfUniqueStrings = uniqueList.Count();
             timer.stop();
-            DI.log.info("There are {0} unique signatures", uniqueList.Count());
+            PublicDI.log.info("There are {0} unique signatures", uniqueList.Count());
             return uniqueList;
         }
 

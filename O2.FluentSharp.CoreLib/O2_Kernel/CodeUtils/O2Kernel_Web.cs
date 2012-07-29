@@ -7,7 +7,7 @@ using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Net.NetworkInformation;
 
-//O2File:../DI.cs
+//O2File:../PublicDI.cs
 //O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
 //O2File:../ExtensionMethods/String_ExtensionMethods.cs
 
@@ -102,7 +102,7 @@ namespace O2.Kernel.CodeUtils
             }
             catch (Exception ex)
             {
-                DI.log.error("in Ping: {0}", ex.Message);
+                PublicDI.log.error("in Ping: {0}", ex.Message);
                 return false;
             }
         }

@@ -59,14 +59,27 @@ namespace O2.DotNetWrappers.DotNet
             //"[AssemblyResolve] loadFromDisk : {0}".info(name);
             if (name.valid() && CachedMappedAssemblies.hasKey(name))
                 return CachedMappedAssemblies[name];
-			
+            
+            Assembly assembly = null;
+            if( name.isAssemblyName())
+            {
+                var assemblyName = name.assemblyName();
+                if(CachedMappedAssemblies.hasKey(assemblyName.Name))
+                {
+                    assembly = CachedMappedAssemblies[assemblyName.Name];
+                    "[Assembly Resolved] A different version of an assembly was requested: {0}".debug(name);
+                    "[Assembly Resolved] Returned current loaded version: {0} at {1}".debug(assembly.str(), assembly.location());
+                    return assembly;
+                }
+            }
+
 			var location = NameResolver(name);
 			if (location.valid() && location.fileExists())
 			{
 				if (CachedMappedAssemblies.hasKey(location))
 					return CachedMappedAssemblies[location];
 				//"[AssemblyResolve] found location: {0}".info(location);
-				Assembly assembly = null;
+				
 				assembly = Assembly.LoadFrom(location);
 				if (assembly.isNull())
 					assembly = Assembly.Load(location.fileContents_AsByteArray());

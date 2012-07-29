@@ -18,8 +18,8 @@ namespace O2.DotNetWrappers.Windows
 
         public static List<String> loadSourceFileIntoList(String pathToSourceCodeFile, bool useFileCacheIfPossible)
         {
-            if (useFileCacheIfPossible && DI.dFilesLines.ContainsKey(pathToSourceCodeFile))
-                return DI.dFilesLines[pathToSourceCodeFile];
+            if (useFileCacheIfPossible && PublicDI.dFilesLines.ContainsKey(pathToSourceCodeFile))
+                return PublicDI.dFilesLines[pathToSourceCodeFile];
             // in case the file is a reference, try to map it
             string mappedSourceCodeFile = SourceCodeMappingsUtils.mapFile(pathToSourceCodeFile);
             var lsSourceCode = new List<string>();
@@ -29,10 +29,10 @@ namespace O2.DotNetWrappers.Windows
                 sFileContents = sFileContents.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
                 // fix the files only use \n for line breaks
                 lsSourceCode.AddRange(sFileContents.Split(new[] { Environment.NewLine }, StringSplitOptions.None));
-                if (false == DI.dFilesLines.ContainsKey(pathToSourceCodeFile))
-                    DI.dFilesLines.Add(pathToSourceCodeFile, lsSourceCode);
+                if (false == PublicDI.dFilesLines.ContainsKey(pathToSourceCodeFile))
+                    PublicDI.dFilesLines.Add(pathToSourceCodeFile, lsSourceCode);
                 else
-                    DI.dFilesLines[pathToSourceCodeFile] = lsSourceCode;
+                    PublicDI.dFilesLines[pathToSourceCodeFile] = lsSourceCode;
             }
             return lsSourceCode;
         }
@@ -89,8 +89,8 @@ namespace O2.DotNetWrappers.Windows
 
         public static List<String> loadLargeSourceFileIntoList(String pathToSourceCodeFile, bool useFileCacheIfPossible)
         {
-            if (DI.dFilesLines.ContainsKey(pathToSourceCodeFile))
-                return DI.dFilesLines[pathToSourceCodeFile];
+            if (PublicDI.dFilesLines.ContainsKey(pathToSourceCodeFile))
+                return PublicDI.dFilesLines[pathToSourceCodeFile];
             var lsSourceCode = new List<string>();
             
             TextReader textReader = new StreamReader(pathToSourceCodeFile);
@@ -103,7 +103,7 @@ namespace O2.DotNetWrappers.Windows
             }
             PublicDI.log.info("in loadLargeSourceFileIntoList, total # lines loaded:{0}", itemsProcessed);
             textReader.Close();
-            DI.dFilesLines.Add(pathToSourceCodeFile, lsSourceCode);
+            PublicDI.dFilesLines.Add(pathToSourceCodeFile, lsSourceCode);
             return lsSourceCode;
         }
     }

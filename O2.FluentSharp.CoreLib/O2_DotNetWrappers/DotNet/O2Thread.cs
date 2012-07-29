@@ -3,6 +3,7 @@ using System.Threading;
 using System;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Collections.Generic;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -93,7 +94,7 @@ namespace O2.DotNetWrappers.DotNet
                                             }
                                             catch (Exception ex)
                                             {
-                                                DI.log.ex(ex,"in mtaThread", true);
+                                                PublicDI.log.ex(ex,"in mtaThread", true);
                                             }
                                         });                                         
 			mtaThread.Name =      threadName;                                   

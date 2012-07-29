@@ -244,9 +244,9 @@ namespace O2.Kernel.InterfacesBaseImpl
 
         public bool setDI(Type typeToInjectDependency, string propertyToInject, Object dependencyObject)
         {
-            //var diType = DI.reflection.getType(typeToInjectDependency, "DI");
+            //var diType = PublicDI.reflection.getType(typeToInjectDependency, "DI");
             if (typeToInjectDependency != null)
-                if (DI.reflection.setProperty(propertyToInject, typeToInjectDependency, dependencyObject))
+                if (PublicDI.reflection.setProperty(propertyToInject, typeToInjectDependency, dependencyObject))
                     return true;
             return false;
         }
@@ -254,11 +254,11 @@ namespace O2.Kernel.InterfacesBaseImpl
         public bool setDI(string assemblyName, string typeToInjectDependency, string propertyToInject,
                           Object dependencyObject)
         {
-            Type diType = DI.reflection.getType(assemblyName, typeToInjectDependency);
+            Type diType = PublicDI.reflection.getType(assemblyName, typeToInjectDependency);
             if (diType != null)
-                if (DI.reflection.setProperty(propertyToInject, diType, dependencyObject))
+                if (PublicDI.reflection.setProperty(propertyToInject, diType, dependencyObject))
                 {
-                    DI.log.info("setDI of object {0} into property {1} in Type {2} in Assembly {3}",
+                    PublicDI.log.info("setDI of object {0} into property {1} in Type {2} in Assembly {3}",
                                 dependencyObject.GetType().Name, propertyToInject, typeToInjectDependency, assemblyName);
                     return true;
                 }

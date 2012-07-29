@@ -16,9 +16,9 @@ namespace O2.Kernel.Interfaces.XRules
             XRule = xRule;
             Source = source;
             methods = new Dictionary<XRuleAttribute, MethodInfo>();
-            foreach (var method in DI.reflection.getMethods(XRule.GetType()))
+            foreach (var method in PublicDI.reflection.getMethods(XRule.GetType()))
             {
-                var attribute = (XRuleAttribute)DI.reflection.getAttribute(method, typeof(XRuleAttribute));
+                var attribute = (XRuleAttribute)PublicDI.reflection.getAttribute(method, typeof(XRuleAttribute));
                 if (attribute != null && false == methods.ContainsKey(attribute))
                     methods.Add(attribute, method);
             }

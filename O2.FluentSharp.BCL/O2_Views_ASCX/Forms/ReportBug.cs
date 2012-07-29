@@ -137,7 +137,7 @@ namespace O2.Views.ASCX.Forms
             }
             catch (Exception ex)
             {
-                DI.log.error("in network_ePingCompleted: {0}", ex.Message);
+                PublicDI.log.error("in network_ePingCompleted: {0}", ex.Message);
             }
             btPingMailServer.Enabled = true;
         }*/

@@ -8,6 +8,7 @@ using O2.DotNetWrappers.O2Findings;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Interfaces.O2Findings;
 using O2.Interfaces.Rules;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Findings
 {
@@ -344,7 +345,7 @@ namespace O2.DotNetWrappers.O2Findings
             foreach (IO2AssessmentLoad o2AssessmentLoad in o2AssessmentLoadEngines)
                 if (o2AssessmentLoad.canLoadFile(pathToFileToLoad))
                     return o2AssessmentLoad;
-            DI.log.error("in ozasmtUtils.getO2AssessmentLoadEngine, could not find a load engine for the file :{0}", pathToFileToLoad);
+            PublicDI.log.error("in ozasmtUtils.getO2AssessmentLoadEngine, could not find a load engine for the file :{0}", pathToFileToLoad);
             return null;
         }
 
@@ -362,7 +363,7 @@ namespace O2.DotNetWrappers.O2Findings
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in getO2Finding, while trying to fix the external_source callback generated finding problem");
+                PublicDI.log.ex(ex, "in getO2Finding, while trying to fix the external_source callback generated finding problem");
             }
         }
 
@@ -375,7 +376,7 @@ namespace O2.DotNetWrappers.O2Findings
             }
             catch (Exception ex)
             {
-                DI.log.error("in getListWithAllTraces: {0}", ex.Message);
+                PublicDI.log.error("in getListWithAllTraces: {0}", ex.Message);
             }            
             return allTraces;
         }

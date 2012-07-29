@@ -4,7 +4,7 @@ using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Text;
 
-//O2File:../DI.cs
+//O2File:../PublicDI.cs
 //O2File:../ExtensionMethods/String_ExtensionMethods.cs
 
 namespace O2.Kernel.CodeUtils
@@ -24,7 +24,7 @@ namespace O2.Kernel.CodeUtils
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in O2Kernel_Files.Copy");
+                PublicDI.log.ex(ex, "in O2Kernel_Files.Copy");
             }
             return sTargetFile;
         }
@@ -41,7 +41,7 @@ namespace O2.Kernel.CodeUtils
             }
             catch (Exception e)
             {
-                DI.log.error("Could not create directory: {0} ({1})", directory, e.Message);
+                PublicDI.log.error("Could not create directory: {0} ({1})", directory, e.Message);
             }
             return "";
         }

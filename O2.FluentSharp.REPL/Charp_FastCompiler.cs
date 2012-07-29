@@ -19,14 +19,14 @@ namespace O2.External.SharpDevelop.AST
         public string SourceCode { get; set; }						// I think there is a small race condition with the use of this variable
         public string SourceCodeFile { get; set; }
         //public string OriginalCodeSnippet { get; set; }	
-        public bool         CreatedFromSnipptet             { get; set; }
-        public bool         ResolveInvocationParametersType { get; set; }
-        public bool         UseCachedAssemblyIfAvailable { get; set; }
-        public List<string> ReferencedAssemblies            { get; set; }
+        public bool             CreatedFromSnipptet             { get; set; }
+        public bool             ResolveInvocationParametersType { get; set; }
+        public bool             UseCachedAssemblyIfAvailable { get; set; }
+        public List<string>     ReferencedAssemblies            { get; set; }
         public Dictionary<string, object> InvocationParameters { get; set; }
-        public CompilationUnit CompilationUnit { get; set; }
-        public List<string> ExtraSourceCodeFilesToCompile { get; set; }
-        public AstDetails AstDetails { get; set; }
+        public CompilationUnit  CompilationUnit { get; set; }
+        public List<string>     ExtraSourceCodeFilesToCompile { get; set; }
+        public AstDetails       AstDetails { get; set; }
         public string			AstErrors { get; set; }
         public bool				generateDebugSymbols	{ get; set; }
         
@@ -58,8 +58,14 @@ namespace O2.External.SharpDevelop.AST
         
         public string EXTRA_EXTENSION_METHODS_FILE = "_Extra_methods_To_Add_to_Main_CodeBase.cs";
 
-        public System.Threading.ManualResetEvent FinishedCompilingCode { get;set;} 
-		
+        public System.Threading.ManualResetEvent FinishedCompilingCode { get;set;}
+
+        static CSharp_FastCompiler()
+        {
+            setDefaultUsingStatements();
+            setDefaultReferencedAssemblies();
+        }
+
         public CSharp_FastCompiler()
         {        
         	DebugMode = false;				// set to true to see details about each AstCreation and Compilation stage
@@ -68,7 +74,7 @@ namespace O2.External.SharpDevelop.AST
             UseCachedAssemblyIfAvailable = true;
         	InvocationParameters = new Dictionary<string, object>();
             ExtraSourceCodeFilesToCompile = new List<String>();
-        	ReferencedAssemblies = getDefaultReferencedAssemblies();
+            ReferencedAssemblies = CompileEngine.DefaultReferencedAssemblies;
             default_MethodName = "dynamicMethod";
             default_TypeName = "DynamicType";            
             generateDebugSymbols = false;
@@ -79,56 +85,24 @@ namespace O2.External.SharpDevelop.AST
             // defaults
 
         }
-
-        public List<string> getDefaultUsingStatements()
+        
+        public static void setDefaultUsingStatements()
         {
-            return new List<string>().add("System")
-                                     .add("System.Drawing")
-                                     .add("System.Windows.Forms")
-                                     .add("System.Collections.Generic")
-                                     .add("System.Xml")
-                                     .add("System.Xml.Linq")
-                                     .add("System.Linq")
-                                     .add("O2.Interfaces")
-                                     .add("O2.Kernel")
-                                     .add("O2.Views.ASCX.ExtensionMethods")
-                                     .add("O2.Views.ASCX.CoreControls")
-                                     .add("O2.Views.ASCX.classes.MainGUI")
-                                     .add("O2.DotNetWrappers.ExtensionMethods")
-                                     .add("O2.DotNetWrappers.Windows")
-                                     .add("O2.DotNetWrappers.DotNet")
-                                     .add("O2.DotNetWrappers.Network")
-                // .add("O2.External.IE.ExtensionMethods")
-                //.add("O2.XRules.Database.ExtensionMethods")
-                //.add("O2.XRules.Database._Rules._Interfaces")
-                //.add("O2.XRules.Database._Rules.APIs")
-                //.add("O2.XRules.Database.O2Utils")
-                                     .add("O2.External.SharpDevelop.ExtensionMethods")
-                                     .add("O2.External.SharpDevelop.Ascx")
-                //O2 XRules Database
-                                     .add("O2.XRules.Database.APIs")
-                                     .add("O2.XRules.Database.Utils");                                     
-                //GraphSharp related
-/*                                     //.add("O2.Script")
-                                     .add("GraphSharp.Controls")
-                                     .add("O2.API.Visualization.ExtensionMethods")
-                                     .add("O2.API.AST.Graph")
-                                     .add("O2.API.AST.CSharp")
-                                     .add("O2.API.AST.ExtensionMethods.CSharp")
-                                     .add("O2.API.AST.ExtensionMethods")
-                                     .add("WPF=System.Windows.Controls")
-                                     .add("Media=System.Windows.Media")
-                //Scanning AST Engine related
-                                     .add("ICSharpCode.NRefactory")
-                                     .add("ICSharpCode.NRefactory.Ast")
-                                     .add("ICSharpCode.SharpDevelop.Dom"); */
-           
-
+            CompileEngine.DefaultUsingStatements
+                            .add_OnlyNewItems("O2.External.SharpDevelop.ExtensionMethods",
+                                              "O2.External.SharpDevelop.Ascx",
+                                              "O2.Views.ASCX.classes.MainGUI",
+                                              "O2.Views.ASCX.ExtensionMethods",
+                                              "O2.XRules.Database.APIs",
+                                              "O2.XRules.Database.Utils");                                     
         }
-		public List<string> getDefaultReferencedAssemblies()
+        public static void setDefaultReferencedAssemblies()
         {
-            return CompileEngine.get_GACExtraReferencesToAdd();
-        }
+            CompileEngine.DefaultReferencedAssemblies
+                            .add_OnlyNewItems("O2_FluentSharp_BCL.dll",                                                                
+                                              "O2_FluentSharp_REPL.dll",
+                                              "O2_External_SharpDevelop.dll");                                     
+        }                		
 
 		public Dictionary<string,object> getDefaultInvocationParameters()
 		{
@@ -529,10 +503,10 @@ namespace O2.External.SharpDevelop.AST
 
             if (onlyAddReferencedAssemblies.isFalse())
             {
-                foreach (var defaultRefAssembly in getDefaultReferencedAssemblies())
+                foreach (var defaultRefAssembly in CompileEngine.DefaultReferencedAssemblies)
                     if (ReferencedAssemblies.Contains(defaultRefAssembly).isFalse())
-                        ReferencedAssemblies.add(defaultRefAssembly);            
-                foreach (var usingStatement in getDefaultUsingStatements())
+                        ReferencedAssemblies.add(defaultRefAssembly);
+                foreach (var usingStatement in CompileEngine.DefaultUsingStatements)
                     if (false == currentUsingDeclarations.Contains(usingStatement))
                         compilationUnit.add_Using(usingStatement);
             }
@@ -579,8 +553,10 @@ namespace O2.External.SharpDevelop.AST
                             {
                                 var mappedFile = CompileEngine.findScriptOnLocalScriptFolder(fileToResolve);
                                 if (mappedFile.valid())
-                                    ExtraSourceCodeFilesToCompile[i] = mappedFile;                     
+                                    ExtraSourceCodeFilesToCompile[i] = mappedFile;
                             }
+                            else
+                                ExtraSourceCodeFilesToCompile[i] = ExtraSourceCodeFilesToCompile[i].fullPath();
                         }
                     }
                     //add extra _ExtensionMethods.cs if avaiable

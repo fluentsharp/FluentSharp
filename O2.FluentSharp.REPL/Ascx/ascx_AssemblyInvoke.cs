@@ -7,6 +7,7 @@ using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.InterfacesBaseImpl;
 using O2.External.SharpDevelop.Resources;
+using O2.Kernel;
 
 namespace O2.External.SharpDevelop.Ascx
 {
@@ -42,7 +43,7 @@ namespace O2.External.SharpDevelop.Ascx
         {
             if (autoExecuteLastMethod && lbLastMethodExecuted.Tag != null)
             {
-                DI.log.info("checkAutoExecutionOfLastInvokedMethod not implemented in this version");
+                PublicDI.log.info("checkAutoExecutionOfLastInvokedMethod not implemented in this version");
                 /*         Compile.executeMethod((MethodInfo) lbLastMethodExecuted.Tag, dgvSourceCode_SelectedMethodParameters,
                                       tbSourceCode_InvocationResult, dgvSourceCode_InvocationResult, this);
         */ 

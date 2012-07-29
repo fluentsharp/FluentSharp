@@ -1201,26 +1201,25 @@ namespace O2.API.AST.Visitors // was ICSharpCode.NRefactory.Visitors
                         // CodeDom doesn't support ExclusiveOr
                         op = CodeBinaryOperatorType.BitwiseAnd;
                         break;
-                
-                    if (binaryOperatorExpression.Left.IsNull || binaryOperatorExpression.Right.IsNull)
-                    {
-                        "in VisitBinaryOperatorExpression, one of binaryOperatorExpression operators was null".error();
-                        //return null;
-                    }
-                    //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Left.IsNull);
-                    //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Right.IsNull);
-
-                    var cboe = new CodeBinaryOperatorExpression(
-                        (CodeExpression)binaryOperatorExpression.Left.AcceptVisitor(this, data),
-                        op,
-                        (CodeExpression)binaryOperatorExpression.Right.AcceptVisitor(this, data));
-                    if (binaryOperatorExpression.Op == BinaryOperatorType.InEquality)
-                    {
-                        cboe = new CodeBinaryOperatorExpression(cboe, CodeBinaryOperatorType.ValueEquality, new CodePrimitiveExpression(false));
-                    }
-                    return cboe;
                 }
-                return null;
+                if (binaryOperatorExpression.Left.IsNull || binaryOperatorExpression.Right.IsNull)
+                {
+                    "in VisitBinaryOperatorExpression, one of binaryOperatorExpression operators was null".error();
+                    //return null;
+                }
+                //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Left.IsNull);
+                //System.Diagnostics.Debug.Assert(!binaryOperatorExpression.Right.IsNull);
+
+                var cboe = new CodeBinaryOperatorExpression(
+                    (CodeExpression)binaryOperatorExpression.Left.AcceptVisitor(this, data),
+                    op,
+                    (CodeExpression)binaryOperatorExpression.Right.AcceptVisitor(this, data));
+                if (binaryOperatorExpression.Op == BinaryOperatorType.InEquality)
+                {
+                    cboe = new CodeBinaryOperatorExpression(cboe, CodeBinaryOperatorType.ValueEquality, new CodePrimitiveExpression(false));
+                }
+                return cboe;
+
                 //DC
             }
             catch (Exception ex)

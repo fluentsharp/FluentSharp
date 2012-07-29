@@ -10,6 +10,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Interfaces.Views;
 using O2.Kernel.CodeUtils;
 using O2.Views.ASCX.CoreControls;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.classes
 {
@@ -19,10 +20,10 @@ namespace O2.Views.ASCX.classes
                                                          Callbacks.dMethod_String downloadDemoFileCallback)
         {
             if (String.IsNullOrEmpty(sFileToDownload))
-                DI.log.error("in downloadFileUsingAscxDownload: No file provided");
+                PublicDI.log.error("in downloadFileUsingAscxDownload: No file provided");
             else
             {
-                string sTargetFile = Path.Combine(DI.config.O2TempDir, Path.GetFileName(sFileToDownload));
+                string sTargetFile = Path.Combine(PublicDI.config.O2TempDir, Path.GetFileName(sFileToDownload));
                 downloadFileUsingAscxDownload(sFileToDownload, sTargetFile, downloadDemoFileCallback);
             }
         }
@@ -86,7 +87,7 @@ class webAutomationTest // change this to a unique name
 	{
 		//String sTargetUrl = @"http://www.remotescriptguru.com/springapp/jsp/showSource.jsp?dir=/src/..";		
 		String sTargetUrl = @"http://www.remotescriptguru.com/springapp/jsp/showSource.jsp?dir=/src/../WEB-INF/lib";		
-		DI.log.debug("Downloading all files from : {0}",sTargetUrl);
+		PublicDI.log.debug("Downloading all files from : {0}",sTargetUrl);
 		loadPageAndInvokeCallback(sTargetUrl, javaFileDownloadCallback);
 	}
 	
@@ -101,11 +102,11 @@ class webAutomationTest // change this to a unique name
 				String sFilteredHref = lLink.sHref.Replace(sTextToFilterOut,"");				
 				String sTargetFile = getTargetFilePathAndCreateDirectoriesIfRequired(sTargetFolder, sFilteredHref);				
 				String sTargetLink = lLink.sHref.Replace("name=","name=/src/..");
-				DI.log.debug("Saving  {0} --> {1}", sFilteredHref, sTargetFile);		
+				PublicDI.log.debug("Saving  {0} --> {1}", sFilteredHref, sTargetFile);		
 				String sFileContent = getUrlContents(sTargetLink,true);
 				if (sTargetFile.IndexOf(".jar")>-1)
 				{
-					DI.log.error("Index of <pre>:{0}  of PK: {1}",sFileContent.IndexOf("<pre>"), sFileContent.IndexOf("PK") );
+					PublicDI.log.error("Index of <pre>:{0}  of PK: {1}",sFileContent.IndexOf("<pre>"), sFileContent.IndexOf("PK") );
 					String sJarFileContents = sFileContent.Substring(sFileContent.IndexOf("PK"));
 					sJarFileContents = sJarFileContents.Substring(0,sJarFileContents.IndexOf(@"</pre>"));
 					//sJarFileContents = System.Web.HttpUtility.HtmlDecode(sJarFileContents);
@@ -121,14 +122,14 @@ class webAutomationTest // change this to a unique name
 						String sHtmlCode = sFileContent.Substring(sFileContent.IndexOf("<pre>") + 5);
 						sHtmlCode = sHtmlCode.Substring(0,sHtmlCode.IndexOf(@"</pre>"));
 						sHtmlCode = System.Web.HttpUtility.HtmlDecode(sHtmlCode);
-	//					DI.log.debug("{0}" , sHtmlCode);															
+	//					PublicDI.log.debug("{0}" , sHtmlCode);															
 						files.WriteFileContent(sTargetFile,sHtmlCode);
 					}
 				}
 			}
 			return;
 		}
-		DI.log.debug("Completed processing page");
+		PublicDI.log.debug("Completed processing page");
 	}
 	
 	private static String getTargetFilePathAndCreateDirectoriesIfRequired(String sTarget, String sPathToFileToProcess)
@@ -142,7 +143,7 @@ class webAutomationTest // change this to a unique name
 			else							
 				if (false == Directory.Exists(sTarget))
 				{
-					DI.log.info("creating directory: {0}",sTarget);
+					PublicDI.log.info("creating directory: {0}",sTarget);
 					Directory.CreateDirectory(sTarget);
 				}			
 		}
@@ -166,7 +167,7 @@ class webAutomationTest // change this to a unique name
 
 		//fTargetForm.Text = "aaa";
 		
-	//	DI.log.info("Type {0}", o.GetType()); 
+	//	PublicDI.log.info("Type {0}", o.GetType()); 
 	}
 	
 /*	public static void callback_AfterPageLoad(Object oHtmlPage)
@@ -175,7 +176,7 @@ class webAutomationTest // change this to a unique name
 		{
 			webAutomation.O2HtmlPage hpHtmPage = (webAutomation.O2HtmlPage)oHtmlPage;
 			foreach(webAutomation.O2Link lLink in hpHtmPage.lLinks)
-				DI.log.debug("Link: {0} : {1}", lLink.sText, lLink.sHref);
+				PublicDI.log.debug("Link: {0} : {1}", lLink.sText, lLink.sHref);
 		}
 		
 	}* /

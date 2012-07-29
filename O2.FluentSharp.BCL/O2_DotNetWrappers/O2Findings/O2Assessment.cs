@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using O2.DotNetWrappers.DotNet;
 using O2.Interfaces.O2Findings;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Findings
 {
@@ -48,13 +49,13 @@ namespace O2.DotNetWrappers.O2Findings
 
         public bool saveAsO2Format(string targetFile)
         {
-            if (Path.GetExtension(targetFile) != DI.config.O2FindingsFileExtension)
-                targetFile += DI.config.O2FindingsFileExtension;
+            if (Path.GetExtension(targetFile) != PublicDI.config.O2FindingsFileExtension)
+                targetFile += PublicDI.config.O2FindingsFileExtension;
             var result = Serialize.createSerializedBinaryFileFromObject(this, targetFile);
             if (result)
-                DI.log.info("Serialized Assessment into : {0}", targetFile);
+                PublicDI.log.info("Serialized Assessment into : {0}", targetFile);
             else
-                DI.log.error("There was a problem serializing Struts Mapping object saved to: {0}", targetFile);
+                PublicDI.log.error("There was a problem serializing Struts Mapping object saved to: {0}", targetFile);
             return result;
         }
     }

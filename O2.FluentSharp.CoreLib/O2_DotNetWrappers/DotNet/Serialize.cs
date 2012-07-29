@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml.Serialization;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
 {
@@ -13,7 +14,7 @@ namespace O2.DotNetWrappers.DotNet
     {
         public static string createSerializedXmlFileFromObject(Object oObjectToProcess)
         {
-            var tempFile = DI.config.getTempFileInTempDirectory("xml");
+            var tempFile = PublicDI.config.getTempFileInTempDirectory("xml");
             if(createSerializedXmlFileFromObject(oObjectToProcess, tempFile))
                 return tempFile;
             return "";
@@ -28,7 +29,8 @@ namespace O2.DotNetWrappers.DotNet
         {
             FileStream fileStream = null;
             try
-            {                
+            {
+                sTargetFile.file_WaitFor_CanOpen();
                 var xnsXmlSerializerNamespaces = new XmlSerializerNamespaces();
                 xnsXmlSerializerNamespaces.Add("", "");
                 var xsXmlSerializer = (extraTypes != null)
@@ -41,7 +43,7 @@ namespace O2.DotNetWrappers.DotNet
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "In createSerializedXmlStringFromObject");
+                PublicDI.log.ex(ex, "In createSerializedXmlStringFromObject");
                 return false;
             }
             finally 
@@ -62,7 +64,7 @@ namespace O2.DotNetWrappers.DotNet
         public static String createSerializedXmlStringFromObject(Object oObjectToProcess , Type[] extraTypes)
         {
             if (oObjectToProcess == null)
-                DI.log.error("in createSerializedXmlStringFromObject: oObjectToProcess == null");
+                PublicDI.log.error("in createSerializedXmlStringFromObject: oObjectToProcess == null");
             else
             {
                 try
@@ -71,7 +73,7 @@ namespace O2.DotNetWrappers.DotNet
                     if (sTargetFile.Length > 220)
                     {
                         sTargetFile = sTargetFile.Substring(0, 200) + ".xml";
-                        DI.log.error("sTargetFile.Length was > 200, so renamig it to: {0}", sTargetFile);
+                        PublicDI.log.error("sTargetFile.Length was > 200, so renamig it to: {0}", sTargetFile);
                     }*/
                     var xnsXmlSerializerNamespaces = new XmlSerializerNamespaces();
                     xnsXmlSerializerNamespaces.Add("", "");
@@ -85,7 +87,7 @@ namespace O2.DotNetWrappers.DotNet
                 }
                 catch (Exception ex)
                 {
-                    DI.log.ex(ex,"In createSerializedXmlStringFromObject");
+                    PublicDI.log.ex(ex,"In createSerializedXmlStringFromObject");
                 }
             }
             return "";
@@ -110,9 +112,9 @@ namespace O2.DotNetWrappers.DotNet
             {
                 if (showError)
                 {
-                    DI.log.error("ERROR: {0} ", eException.Message);
+                    PublicDI.log.error("ERROR: {0} ", eException.Message);
                     if (eException.InnerException != null)
-                        DI.log.error("   ERROR (InnerException): {0} ", eException.InnerException.Message);
+                        PublicDI.log.error("   ERROR (InnerException): {0} ", eException.InnerException.Message);
                 }
             }           
             return deserializedObject;
@@ -132,7 +134,7 @@ namespace O2.DotNetWrappers.DotNet
             {                                
                 if (copyBeforeDeserialize)
                 {
-                    String sTempFile = DI.config.TempFileNameInTempDirectory;
+                    String sTempFile = PublicDI.config.TempFileNameInTempDirectory;
                     File.Copy(sFileToProcess, sTempFile);
                     sFileToProcess = sTempFile;
                 }
@@ -143,9 +145,9 @@ namespace O2.DotNetWrappers.DotNet
             }
             catch (Exception eException)
             {
-                DI.log.error("ERROR: {0} ", eException.Message);
+                PublicDI.log.error("ERROR: {0} ", eException.Message);
                 if (eException.InnerException != null)
-                    DI.log.error("   ERROR (InnerException): {0} ", eException.InnerException.Message);
+                    PublicDI.log.error("   ERROR (InnerException): {0} ", eException.InnerException.Message);
             }
             finally
             {
@@ -163,7 +165,7 @@ namespace O2.DotNetWrappers.DotNet
             {
                 FileStream fsFileStream = null;
                 if (sTargetFile == "")
-                    sTargetFile = DI.config.TempFileNameInTempDirectory + ".binary";
+                    sTargetFile = PublicDI.config.TempFileNameInTempDirectory + ".binary";
 
                 try
                 {
@@ -172,12 +174,12 @@ namespace O2.DotNetWrappers.DotNet
                     fsFileStream = new FileStream(sTargetFile, FileMode.Create);
                     bfBinaryFormatter.Serialize(fsFileStream, oObjectToProcess);
                     //fsFileStream.Close();
-                    DI.log.debug("Serialized object saved to: {0}", sTargetFile);
+                    PublicDI.log.debug("Serialized object saved to: {0}", sTargetFile);
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    DI.log.error("In createSerializedBinaryFileFromObject: {0}", ex.Message);
+                    PublicDI.log.error("In createSerializedBinaryFileFromObject: {0}", ex.Message);
                 }
                 finally
                 {
@@ -205,15 +207,15 @@ namespace O2.DotNetWrappers.DotNet
 
                 if (deserializedObject.GetType().FullName == tTypeToProcess.FullName)
                 {
-                    DI.log.info("sucessfully deserialized file {0} into type {1}", fileToProcess, tTypeToProcess.FullName);
+                    PublicDI.log.info("sucessfully deserialized file {0} into type {1}", fileToProcess, tTypeToProcess.FullName);
                     return deserializedObject;
                 }
-                DI.log.error("Could not deserialize file {0} into type {1}", fileToProcess, tTypeToProcess.FullName);
+                PublicDI.log.error("Could not deserialize file {0} into type {1}", fileToProcess, tTypeToProcess.FullName);
                 return null;
             }
             catch (Exception ex)
             {
-                DI.log.error("In loadSerializedO2CirDataObject: {0}", ex.Message);
+                PublicDI.log.error("In loadSerializedO2CirDataObject: {0}", ex.Message);
                 return null;
             }
             finally

@@ -63,12 +63,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {                
                 if (line.starts(tag))
                 {
-                    var file = line.remove(tag).local();
-                    if (file.fileExists())
+                    var file = line.remove(tag);
+                    if (file.local().fileExists())
                     {
                         "[mapExtraEmbebbedResources] found To Embed reference: {0} -> targetFolder: {1}".debug(file, targetFolder);
                         //file.file_Copy(targetFolder);
-                        extraEmbebbedResources.add(file);
+                        extraEmbebbedResources.add(file.local());
+                    }
+                    else if (file.assembly_Location().fileExists())
+                    {
+                        extraEmbebbedResources.add(file.assembly_Location()); 
                     }
                     else
                         "[mapExtraEmbebbedResources] could not find Embedded reference: {0}".error(file);
@@ -84,8 +88,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                                           : fileToParse.local().fileContents().fixCRLF();
             foreach (var line in sourceCode.lines())
                 if (line.starts(tag))
-                {
+                {                    
                     var item = line.remove(tag);
+                    if (item == "ALL_SCRIPTS")      //special tag to indicate that we want to copy all scripts
+                    {
+                        O2.DotNetWrappers.Windows.Files.copyFolder(O2.Kernel.PublicDI.config.LocalScriptsFolder, targetFolder, true, true, ".git");                        
+                        continue;
+                    }                    
                     foreach (var file in item.split(","))
                     //var file = .local();
                     {

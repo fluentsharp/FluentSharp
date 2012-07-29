@@ -34,7 +34,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					"no compiled assembly object created for: {0}".error(fileToCompile);
 				else
 				{ 
-					Files.Copy(assembly.Location, compiledDll);
+					Files.copy(assembly.Location, compiledDll);
 					"Copied: {0} to {1}".info(assembly.Location, compiledDll);
 					if (compiledDll.fileExists().isFalse())
 						"compiled file not created in: {0}".error(compiledDll);
@@ -78,7 +78,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 {
                 	if (compiledDll.fileExists())
                 		compiledDll.deleteFile();                		
-                    Files.Copy(assembly.Location, compiledDll);
+                    Files.copy(assembly.Location, compiledDll);
                     "Copied: {0} to {1}".info(assembly.Location, compiledDll);
                     if (compiledDll.fileExists().isFalse())
                         "compiled file not created in: {0}".error(compiledDll);
@@ -117,7 +117,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 								"[copyReferencesToTargetFolder] skipping copy since it already exists in target folder: {0}".info(targetFile);
 							else
 							{
-								Files.Copy(location, targetFile);
+								Files.copy(location, targetFile);
 								"[copyReferencesToTargetFolder] copied '{0}' to '{1}'".info(location, targetFile);
 							}
 							assembliesCopied.Add(assembly);

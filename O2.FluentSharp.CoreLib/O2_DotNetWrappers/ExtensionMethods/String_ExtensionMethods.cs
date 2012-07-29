@@ -6,7 +6,7 @@ using O2.Kernel.CodeUtils;
 using System.Net;
 using O2.Kernel;
 
-//O2File:../DI.cs
+//O2File:../PublicDI.cs
 //O2File:../PublicDI.cs
 //O2File:../CodeUtils/O2Kernel_Processes.cs
 

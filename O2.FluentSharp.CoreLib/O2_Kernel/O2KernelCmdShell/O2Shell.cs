@@ -18,7 +18,7 @@ namespace O2.Kernel.O2CmdShell
             shellExecution = new ShellExecution(shellIO);
             shellIO.writeLine("Welcome to O2's Kernel shell.\n");
             shellIO.writeLine("This is an interactive command prompt into O2's world\n");
-            shellIO.writeLine("O2Kernel Process Name: {0}\n\n",DI.O2KernelProcessName);
+            shellIO.writeLine("O2Kernel Process Name: {0}\n\n",PublicDI.O2KernelProcessName);
         }    
 
         public void startShell()

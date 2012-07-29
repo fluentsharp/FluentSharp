@@ -2,6 +2,7 @@
 using System;
 using System.Text;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2Misc
 {
@@ -14,10 +15,10 @@ namespace O2.DotNetWrappers.O2Misc
             if (sVarKey.Length > 0 && sVarKey[0] == '$')
             {
                 String sResolvedVarKey = sVarKey.Substring(1);
-                if (DI.dO2Vars.ContainsKey(sResolvedVarKey))
-                    return DI.dO2Vars[sResolvedVarKey];
+                if (PublicDI.dO2Vars.ContainsKey(sResolvedVarKey))
+                    return PublicDI.dO2Vars[sResolvedVarKey];
 
-                DI.log.error("In vars.resolveVar, variable does not exist in cache {0}", sResolvedVarKey);
+                PublicDI.log.error("In vars.resolveVar, variable does not exist in cache {0}", sResolvedVarKey);
             }
             return sVarKey;
         }
@@ -29,10 +30,10 @@ namespace O2.DotNetWrappers.O2Misc
 
         public static Object get(String sVarKey)
         {
-            if (DI.dO2Vars.ContainsKey(sVarKey))
-                return DI.dO2Vars[sVarKey];
+            if (PublicDI.dO2Vars.ContainsKey(sVarKey))
+                return PublicDI.dO2Vars[sVarKey];
 
-            DI.log.info("In vars.get, variable does not exist in cache {0}", sVarKey);
+            PublicDI.log.info("In vars.get, variable does not exist in cache {0}", sVarKey);
             return null;
         }
 
@@ -43,27 +44,27 @@ namespace O2.DotNetWrappers.O2Misc
 
         public static String set(String sKey, String sValue) // Set a String or a var
         {
-            if (DI.dO2Vars.ContainsKey(sKey))
-                DI.dO2Vars[sKey] = resolveVar(sValue);
+            if (PublicDI.dO2Vars.ContainsKey(sKey))
+                PublicDI.dO2Vars[sKey] = resolveVar(sValue);
             else // add if doesn't exit            
-                DI.dO2Vars.Add(sKey, resolveVar(sValue));
+                PublicDI.dO2Vars.Add(sKey, resolveVar(sValue));
             fireOnChangeEvent();
             return list();
         }
 
         public static String set_(String sKey, Object oValue) // set an Object
         {
-            if (DI.dO2Vars.ContainsKey(sKey))
-                DI.dO2Vars[sKey] = oValue;
+            if (PublicDI.dO2Vars.ContainsKey(sKey))
+                PublicDI.dO2Vars[sKey] = oValue;
             else // add if doesn't exit
-                DI.dO2Vars.Add(sKey, oValue);
+                PublicDI.dO2Vars.Add(sKey, oValue);
             fireOnChangeEvent();
             return list();
         }
 
         public static void addtestData()
         {
-            DI.dO2Vars.Add("Hello", "World");
+            PublicDI.dO2Vars.Add("Hello", "World");
 //            GlobalStaticVars.dO2Vars.Add("Macros dir", "config.getDefaultDir_O2Macros()");
 //            GlobalStaticVars.dO2Vars.Add("Files in macro dir", Files.getFilesFromDir(Config.getDefaultDir_O2Macros()));
         }
@@ -74,16 +75,16 @@ namespace O2.DotNetWrappers.O2Misc
             {
                 var sbData = new StringBuilder();
                 sbData.AppendLine("Current variable list" + Environment.NewLine);
-                foreach (string sVar in DI.dO2Vars.Keys)
+                foreach (string sVar in PublicDI.dO2Vars.Keys)
                 {
                     String sVarData;
-                    if (DI.dO2Vars[sVar] == null)
+                    if (PublicDI.dO2Vars[sVar] == null)
                         sVarData = "[NULL VALUE]";
                     else
                     {
                         try
                         {
-                            sVarData = DI.dO2Vars[sVar].ToString();
+                            sVarData = PublicDI.dO2Vars[sVar].ToString();
                         }
                         catch
                         {
@@ -100,7 +101,7 @@ namespace O2.DotNetWrappers.O2Misc
             }
             catch (Exception ex)
             {
-                DI.log.error(" list : {0}", ex.Message);
+                PublicDI.log.error(" list : {0}", ex.Message);
                 return null;
             }
         }

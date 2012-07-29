@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.NetSDK
 {
@@ -19,7 +20,7 @@ namespace O2.DotNetWrappers.NetSDK
 		{
 			possibleILdasmLocations.add(@"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\Ildasm.exe")
 								   .add(@"C:\Program Files\Microsoft SDKs\Windows\v6.0A\bin\ildasm.exe")
-								   .add(DI.config.CurrentExecutableDirectory + "\\Ildasm.exe");                                                           
+                                   .add(PublicDI.config.CurrentExecutableDirectory + "\\Ildasm.exe");                                                           
 		}
 		
         public static string getILAsmExe()
@@ -39,7 +40,7 @@ namespace O2.DotNetWrappers.NetSDK
 
         public static string createILforAssembly(string targetAssembly)
         {
-            var targetDirectory = Path.GetDirectoryName(targetAssembly); //DI.config.TempFolderInTempDirectory;
+            var targetDirectory = Path.GetDirectoryName(targetAssembly); //PublicDI.config.TempFolderInTempDirectory;
             var ilFileToCreate = Path.Combine(targetDirectory, Path.GetFileNameWithoutExtension(targetAssembly) + ".il");
             var arguments = string.Format("\"{0}\" /OUT=\"{1}\"", targetAssembly, ilFileToCreate);
             var process = Processes.startProcessAsConsoleApplication(getILDasmExe(), arguments);

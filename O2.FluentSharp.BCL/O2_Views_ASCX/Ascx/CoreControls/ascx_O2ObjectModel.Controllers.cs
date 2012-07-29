@@ -335,7 +335,7 @@ namespace O2.Views.ASCX.CoreControls
 
         public void addAssemblyFile(string file, bool refreshGUI)
         {
-            var assembly = DI.reflection.getAssembly(file);
+            var assembly = PublicDI.reflection.getAssembly(file);
             if (assembly != null)
             {
                 assembliesLoaded.Add(assembly);

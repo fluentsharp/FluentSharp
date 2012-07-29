@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\binaries\</OutputPath>
+    <OutputPath>bin\debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET_4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,11 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>TmpKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="O2_DotNetWrappers\DI.cs" />
+    <Content Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DevUtils.cs" />
@@ -168,7 +167,7 @@
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Web.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Svn.cs" />
     <Compile Include="O2_Kernel\debug.cs" />
-    <Compile Include="O2_Kernel\DI.cs" />
+    <Content Include="O2_Kernel\DI.cs.txt" />
     <Compile Include="O2_Kernel\exec.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Logging_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Object_ExtensionMethods.cs" />
@@ -203,6 +202,7 @@
     <None Include="O2_DotNetWrappers\Windows\Mdi.cs.txt" />
     <None Include="O2_DotNetWrappers\Windows\RemoteThreadInjection.cs.txt" />
     <None Include="O2_Interfaces\O2Tools\ISearchEngine.cs.txt" />
+    <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="O2.FluentSharp.CoreLib.nuspec">

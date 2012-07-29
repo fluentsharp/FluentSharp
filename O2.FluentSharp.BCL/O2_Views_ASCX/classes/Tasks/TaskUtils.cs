@@ -17,7 +17,7 @@ namespace O2.Views.ASCX.classes.Tasks
 /*        public static void unzipFileAndInvokeCallback(string assessmentFile, FlowLayoutPanel taskHostControl,
                                                       Callbacks.dMethod_String callbackToInvokeForEachUnzippedFile)
         {
-            executeTask(new Task_Unzip(assessmentFile, DI.config.TempFolderInTempDirectory),
+            executeTask(new Task_Unzip(assessmentFile, PublicDI.config.TempFolderInTempDirectory),
                         taskHostControl,
                         resultObject =>
                             {

@@ -64,7 +64,7 @@ namespace O2.DotNetWrappers.Windows
                                     lmbMdiButton.Add(mbMdiButton);
                                 }
                                 else
-                                    DI.log.error("in populateViewDictionary, could not resolve provided ascx type name: {0} :  {1} ",mcvbMdiButton.name, mcvbMdiButton.type);
+                                    PublicDI.log.error("in populateViewDictionary, could not resolve provided ascx type name: {0} :  {1} ",mcvbMdiButton.name, mcvbMdiButton.type);
                             }
                 }
                 dViews.Add(sAllControlsFromXmlFile, lmbMdiButton);
@@ -166,7 +166,7 @@ namespace O2.DotNetWrappers.Windows
             {
                 if (mbMdiButton.tType == null)
                 {
-                    DI.log.error("The selected mbMdiButton.tType was null, aborting ascx load");
+                    PublicDI.log.error("The selected mbMdiButton.tType was null, aborting ascx load");
                     return;
                 }
 
@@ -178,7 +178,7 @@ namespace O2.DotNetWrappers.Windows
                     }
                     catch (Exception ex)
                     {
-                        DI.log.error("In load: {0}", ex.Message);
+                        PublicDI.log.error("In load: {0}", ex.Message);
                     }
                 }
                 else
@@ -189,7 +189,7 @@ namespace O2.DotNetWrappers.Windows
                     {
                         fLoadedForm.FormClosed += fFormWithFocus_FormClosed;
                         dMdiParent_LoadedForms.Add(mbMdiButton.sName, fLoadedForm);
-                        DI.log.debug("Form of type {0} sucessfully loaded", mbMdiButton.tType.FullName);
+                        PublicDI.log.debug("Form of type {0} sucessfully loaded", mbMdiButton.tType.FullName);
                     }
                 }
             }
@@ -203,7 +203,7 @@ namespace O2.DotNetWrappers.Windows
                     dMdiParent_LoadedForms.Remove(sAscxType);
                     // ascx_O2FormControl1.updateFormManagementPanel(fFormWithFocus, dLoadedForms);
                 }
-                DI.log.debug("Form closed");
+                PublicDI.log.debug("Form closed");
             }
 
             public void addToFlowLayoutPanel(FlowLayoutPanel flpTargetFlowLayoutPanel)

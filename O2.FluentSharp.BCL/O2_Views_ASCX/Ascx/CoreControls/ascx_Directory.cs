@@ -7,10 +7,10 @@ using System.Threading;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel.CodeUtils;
 using O2.Views.ASCX;
+using O2.Kernel;
 
 namespace O2.Views.ASCX.CoreControls
 {
@@ -59,8 +59,8 @@ namespace O2.Views.ASCX.CoreControls
             _ShowFileSize = false;
             _ShowLinkToUpperFolder = true;
             _FileFilter = "*.*";
-            if (DI.config!=null)
-                openDirectory(DI.config.O2TempDir); // if not specified one, open the temp directory
+            if (PublicDI.config!=null)
+                openDirectory(PublicDI.config.O2TempDir); // if not specified one, open the temp directory
 
 			//tvDirectory.showToolTip();
 
@@ -213,7 +213,7 @@ namespace O2.Views.ASCX.CoreControls
             }
             catch (Exception ex)
             {
-                DI.log.error("in openDirectory: {0}", ex.Message);
+                PublicDI.log.error("in openDirectory: {0}", ex.Message);
             }
         }
 
@@ -251,7 +251,7 @@ namespace O2.Views.ASCX.CoreControls
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in btDeleteFile_Click");
+                PublicDI.log.ex(ex, "in btDeleteFile_Click");
             }
         }
 
@@ -305,25 +305,25 @@ namespace O2.Views.ASCX.CoreControls
         private void btCreateDirectory_Click(object sender, EventArgs e)
         {
             if (tbCurrentDirectoryName.Text == "")
-                DI.log.error("in btCreateFile_Click, tbCurrentDirectoryName.Text == \"\"");
+                PublicDI.log.error("in btCreateFile_Click, tbCurrentDirectoryName.Text == \"\"");
             else
             {
                 String sNewDirectoryName = Path.Combine(tbCurrentDirectoryName.Text, tbNewDirectoryName.Text);
                 Directory.CreateDirectory(sNewDirectoryName);
                 if (Directory.Exists(sNewDirectoryName))
                 {
-                    DI.log.debug("Directory created: {0}", sNewDirectoryName);
+                    PublicDI.log.debug("Directory created: {0}", sNewDirectoryName);
                     refreshDirectoryView();
                 }
                 else
-                    DI.log.error("Directory not created : {0}", sNewDirectoryName);
+                    PublicDI.log.error("Directory not created : {0}", sNewDirectoryName);
             }
         }
 
         private void btCreateFile_Click(object sender, EventArgs e)
         {
             if (tbCurrentDirectoryName.Text == "")
-                DI.log.error("in btCreateFile_Click, tbCurrentDirectoryName.Text == \"\"");
+                PublicDI.log.error("in btCreateFile_Click, tbCurrentDirectoryName.Text == \"\"");
             else
             {
                 if (tbNewFileName.Text != "")
@@ -333,14 +333,14 @@ namespace O2.Views.ASCX.CoreControls
                     fsNewFile.Close();
                     if (File.Exists(sNewFileName))
                     {
-                        DI.log.debug("File created: {0}", sNewFileName);
+                        PublicDI.log.debug("File created: {0}", sNewFileName);
                         refreshDirectoryView();
                     }
                     else
-                        DI.log.error("File not created : {0}", sNewFileName);
+                        PublicDI.log.error("File not created : {0}", sNewFileName);
                 }
                 else
-                    DI.log.error("New file name not provided");
+                    PublicDI.log.error("New file name not provided");
             }
         }
 
@@ -512,7 +512,7 @@ namespace O2.Views.ASCX.CoreControls
         private void btSelectDirectory_Click(object sender, EventArgs e)
         {
             tbCurrentDirectoryName.Text = tbCurrentDirectoryName.Text != "..."
-                                              ? O2Forms.askUserForDirectory(DI.config.CurrentExecutableDirectory)
+                                              ? O2Forms.askUserForDirectory(PublicDI.config.CurrentExecutableDirectory)
                                               : O2Forms.askUserForDirectory(tbCurrentDirectoryName.Text);
 
             refreshDirectoryView();
@@ -563,10 +563,10 @@ namespace O2.Views.ASCX.CoreControls
                 if (File.Exists(fileOrFolder) && Path.GetDirectoryName(fileOrFolder) != getCurrentDirectory())
                 {
                     var fileName = "";
-                    if (Path.GetDirectoryName(fileOrFolder) + '\\' == DI.config.O2TempDir)
-                        fileName = Files.MoveFile(fileOrFolder, getCurrentDirectory());
+                    if (Path.GetDirectoryName(fileOrFolder) + '\\' == PublicDI.config.O2TempDir)
+                        fileName = Files.moveFile(fileOrFolder, getCurrentDirectory());
                     else
-                        fileName = Files.Copy(fileOrFolder, getCurrentDirectory());
+                        fileName = Files.copy(fileOrFolder, getCurrentDirectory());
                     if (fileName != "")
                         _onDirectoryDoubleClick(fileName);
                 }
@@ -630,7 +630,7 @@ namespace O2.Views.ASCX.CoreControls
                     string targetfile = (string)((ToolStripControlHost)sender).Text;
                     if (originalFile != targetfile && File.Exists(originalFile))
                     {
-                        Files.MoveFile(originalFile, targetfile);
+                        Files.moveFile(originalFile, targetfile);
                     }
                 }
                 directoryMenu.Close();
@@ -674,7 +674,7 @@ namespace O2.Views.ASCX.CoreControls
             if (currentNode != null)
             {
                 setNodeTagToFileContents(currentNode);
-                //DI.log.info(currentNode.Text);
+                //PublicDI.log.info(currentNode.Text);
             }
         }*/
 

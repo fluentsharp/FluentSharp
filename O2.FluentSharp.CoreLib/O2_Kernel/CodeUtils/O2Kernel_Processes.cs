@@ -11,7 +11,7 @@ namespace O2.Kernel.CodeUtils
         public static String startProcessAsConsoleApplicationAndReturnConsoleOutput(String sProcessToStart,
                                                                                     String sArguments)
         {
-            DI.log.debug("Starting process {0} as a console Application with arguments {1}", sProcessToStart,
+            PublicDI.log.debug("Starting process {0} as a console Application with arguments {1}", sProcessToStart,
                          sArguments);
             try
             {
@@ -29,7 +29,7 @@ namespace O2.Kernel.CodeUtils
             }
             catch (Exception ex)
             {
-                DI.log.ex(ex, "in startProcessAsConsoleApplicationAndReturnConsoleOutput", true);
+                PublicDI.log.ex(ex, "in startProcessAsConsoleApplicationAndReturnConsoleOutput", true);
                 return null;
             }
         }
@@ -39,7 +39,7 @@ namespace O2.Kernel.CodeUtils
             return O2Thread.mtaThread(() =>
             {
                 Thread.Sleep(delayBeforeProcessKill);
-                DI.log.info("KillCurrentO2Process was invoked, so current process will be killed");                
+                PublicDI.log.info("KillCurrentO2Process was invoked, so current process will be killed");                
                 Process.GetCurrentProcess().Kill();    
             });            
         }

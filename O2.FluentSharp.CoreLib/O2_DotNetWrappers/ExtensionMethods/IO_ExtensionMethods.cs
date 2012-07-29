@@ -6,6 +6,7 @@ using O2.DotNetWrappers.Windows;
 
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
+using System.Reflection;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -367,7 +368,36 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return Files.getFileContentsAsByteArray(file);
             return null;
         }
-
+        public static bool          file_CanOpen(this string file)
+        {
+            try
+            {
+                using (File.OpenWrite(file))
+                {
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static string        file_WaitFor_CanOpen(this string file)
+        {
+            if (file.isFile())
+            {
+                int maxWait = 10;
+                for (int i = 0; i < maxWait; i++)
+                {
+                    if (file.file_CanOpen())
+                        return file;
+                    "[file_WaitFor_CanOpen] Trying to get lock into file #{0}: {1} ".info(i, file);
+                    file.wait(500, false);
+                }
+                "[file_WaitFor_CanOpen] After #{0} tried, Could not get lock into file: {1} ".info(maxWait, file);
+            }
+            return null;
+        }
         public static string        file(this string folder, string virtualFilePath)
 		{
 			var mappedFile = folder.pathCombine(virtualFilePath);
@@ -396,7 +426,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return path.files(searchPatterns.toList(), recursive);
         }
         public static List<string>  files(this string path, List<string> searchPatterns, bool recursive)
-        {
+        {            
             return (path.isFolder()) 
                 ? Files.getFilesFromDir_returnFullPath(path, searchPatterns, recursive)
                 : new List<string>();
@@ -448,10 +478,23 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             return Path.Combine(folder, path).fullPath();
 		}
-
+        public static string        pathCombine_With_ExecutingAssembly_Folder(this string path)
+        {
+            if (Assembly.GetExecutingAssembly().notNull() && Assembly.GetExecutingAssembly().location().notNull())
+                return Assembly.GetExecutingAssembly().location().parentFolder().pathCombine(path);
+            return null;
+        }
         public static string        fullPath(this string path)
         {
-            return Path.GetFullPath(path);
+            try
+            {
+                return Path.GetFullPath(path);
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in fullPath] for: {0}".format(path));
+                return path;
+            }
         }
         public static bool          fileContains(this string pathToFileToCompile, string textToFind)
         {
@@ -555,7 +598,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<string>  files_Copy(this List<string> files, string targetFolder)
         {
             foreach (var file in files)
-                Files.Copy(file, targetFolder);
+                Files.copy(file, targetFolder);
             return files;
         }
 
@@ -594,7 +637,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				"[file_CopyFileToFolder] fileToCopy doesn't exist: {0}".error(fileToCopy);
 			else
 				if (targetFolderOrFile.dirExists() ||  targetFolderOrFile.parentFolder().dirExists())
-					return Files.Copy(fileToCopy,targetFolderOrFile);
+					return Files.copy(fileToCopy,targetFolderOrFile);
 				else
 					"[file_CopyFileToFolder]..targetFolder or its parent doesn't exist: {0}".error(targetFolderOrFile);					
 			return null;			
@@ -608,6 +651,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
+                path.file_WaitFor_CanOpen();
                 File.Delete(path);
                 "Deleted file: {0}".info(path);
             }
@@ -615,7 +659,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {
                 ex.log();
             }
-            return path.fileExists();
+            return path.fileExists().isFalse();
         }
         public static bool folder_Delete(this string path)
         {

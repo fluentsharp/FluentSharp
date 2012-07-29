@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.O2CmdShell
 {
@@ -13,7 +14,7 @@ namespace O2.DotNetWrappers.O2CmdShell
         {
             foreach (Type type in typesWithCommands)
             {
-                MethodInfo methodToexecute = DI.reflection.getMethod(type, methodName, methodParameter);
+                MethodInfo methodToexecute = PublicDI.reflection.getMethod(type, methodName, methodParameter);
                 if (methodToexecute != null)
                     return methodToexecute;
             }

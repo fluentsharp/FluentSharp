@@ -12,7 +12,6 @@ using O2.DotNetWrappers.Filters;
 using O2.DotNetWrappers.O2Misc;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.Objects;
 using System.Windows.Forms;

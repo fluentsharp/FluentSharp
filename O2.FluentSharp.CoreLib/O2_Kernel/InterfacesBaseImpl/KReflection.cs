@@ -893,8 +893,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         public object invoke(object oLiveObject, MethodInfo methodInfo, object[] methodParameters)
         {
             try
-            {                
-                return methodInfo.Invoke(oLiveObject,BindingFlags.OptionalParamBinding, null, methodParameters,null);
+            {
+                return methodInfo.Invoke(oLiveObject, BindingFlags.OptionalParamBinding , null, methodParameters, null);
             }
             catch (Exception ex)
             {

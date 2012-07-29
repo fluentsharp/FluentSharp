@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Threading;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.Windows
 {
@@ -66,11 +67,11 @@ namespace O2.DotNetWrappers.Windows
                     enabled = true;
                 }
                 else
-                    DI.log.error("Directory to watch does not exist: {0}", folderWatched);
+                    PublicDI.log.error("Directory to watch does not exist: {0}", folderWatched);
             }
             catch (Exception ex)
             {
-                DI.log.error("in startFolderWatcher :{0}", ex.Message);
+                PublicDI.log.error("in startFolderWatcher :{0}", ex.Message);
             }
         }
 
@@ -143,14 +144,14 @@ namespace O2.DotNetWrappers.Windows
                         {
                             fileStream.Close();
                         }
-                    //     DI.log.info("in checkIfFileCanBeOpened {0}, fileOpen ok , {1}", numberOfAttempts, fileToTest);
+                    //     PublicDI.log.info("in checkIfFileCanBeOpened {0}, fileOpen ok , {1}", numberOfAttempts, fileToTest);
                     return true;
                 }
                 catch
                 {
                     Thread.Sleep(500);
                 }
-            DI.log.info("in checkIfFileCanBeOpened, could not open file , {0}", fileToTest);
+            PublicDI.log.info("in checkIfFileCanBeOpened, could not open file , {0}", fileToTest);
             return false;
         }
     }
