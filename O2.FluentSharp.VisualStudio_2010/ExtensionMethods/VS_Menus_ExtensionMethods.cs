@@ -16,68 +16,99 @@ namespace O2.DotNetWrappers.ExtensionMethods
     public static class VS_Menus_ExtensionMethods
     {
         public static CommandBarPopup add_TopMenu(this DTE2 dte, string text = "New Top Menu", string addAfterMenu = "Help")
-        {            
+        {
+            if (dte.isNull())
+            {
+                "[VS_Menus_ExtensionMethods][add_TopMenu] DTE object is null, so can't create Top Menu".error();
+                return null;
+            }
+            var existingMenu = dte.get_Menu(text);
+            if (existingMenu.notNull())
+            {
+                "[VS_Menus_ExtensionMethods] add_TopMenu: there was already a menu called '{0}' so returning it".debug(text);
+                return existingMenu;
+            }
+            "[VS_Menus_ExtensionMethods] Creating new Top Menu called: {0}".info(text);
             dynamic commandBars = dte.CommandBars;
             var menuCommandBar = commandBars["MenuBar"];
-            var position = (commandBars[addAfterMenu].Parent as CommandBarControl).Index;            
-            var newMenu = (CommandBarPopup)menuCommandBar.Controls.Add(MsoControlType.msoControlPopup, 
-                                                                       System.Type.Missing, 
-                                                                       System.Type.Missing, 
-                                                                       ++position, 
+            var position = (commandBars[addAfterMenu].Parent as CommandBarControl).Index;
+            var newMenu = (CommandBarPopup)menuCommandBar.Controls.Add(MsoControlType.msoControlPopup,
+                                                                       System.Type.Missing,
+                                                                       System.Type.Missing,
+                                                                       ++position,
                                                                        true);
             newMenu.Caption = text;
             newMenu.Enabled = true;
-            return newMenu;            
+            return newMenu;
         }
-        
+
         public static CommandBarButton add(this CommandBarPopup topMenu, string text, Action onClick)
         {
-        	return topMenu.add_Button(text, onClick);
+            return topMenu.add_Menu_Button(text, onClick);
         }
-        public static CommandBarButton add_Button(this CommandBarPopup topMenu, string text = "New Button", Action onClick = null , int before = 1)
-        {    	
-			var  button = (CommandBarButton)topMenu.Controls.Add(MsoControlType.msoControlButton, // type
-																 System.Type.Missing, 			  // id
-																 System.Type.Missing, 			  // parameter
-																 before,								  // before
-																 false);						  // temporary
+        public static CommandBarButton add_Menu_Button(this CommandBarPopup topMenu, string text = "New Button", Action onClick = null, int before = 0)
+        {
+            if (topMenu.isNull())
+            {
+                "[VS_Menus_ExtensionMethods][add_Menu_Button] provided topMenu was null so can create menu button: {0}".error(text);
+                return null;
+            }
+            if (before == 0)            
+                before = topMenu.Controls.Count + 1; // to put it at the end
+            var button = (CommandBarButton)topMenu.Controls.Add(MsoControlType.msoControlButton, // type
+                                                                 System.Type.Missing, 			  // id
+                                                                 System.Type.Missing, 			  // parameter
+                                                                 before,						  // before
+                                                                 false);						  // temporary
 
-			button.Click += (CommandBarButton sender, ref bool CancelDefault) => onClick.invoke();
-			button.Caption = text;
-			button.Enabled = true;
-			return button;
-		}
-        
-               	
+            button.Click += (CommandBarButton sender, ref bool CancelDefault) => onClick.invoke();
+            button.Caption = text;
+            button.Enabled = true;
+            return button;
+        }
+
+
         public static CommandBar get_CommandBar(this DTE2 dte2, string commandBarName)
-		{
-			var commandBars = (CommandBars)dte2.CommandBars;			
-			return commandBars[commandBarName];			
-		}				
-       	
-		public static CommandBarControl get_CommandBarMenu(this DTE2 dte2, string menuName)
-		{
-			return dte2.get_CommandBarMenu<CommandBarControl>(menuName);
-		}
+        {
+            try
+            {
+                var commandBars = (CommandBars)dte2.CommandBars;
+                return commandBars[commandBarName];
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
-		public static T get_CommandBarMenu<T>(this DTE2 dte2, string menuName)
-			where T : CommandBarControl		
-		{
-			var menuBarCommandBar = dte2.get_CommandBar("MenuBar");
-			var menu = menuBarCommandBar.Controls[menuName];
-			if(menu is T)
-				return (T)menu;
-			return default(T);
-		}
-		
-		public static CommandBarPopup get_CommandBarPopup(this DTE2 dte2, string menuName)
-		{
-			return dte2.get_CommandBarMenu<CommandBarPopup>(menuName);
-		}
-		
-		public static CommandBarPopup get_Menu(this DTE2 dte2, string menuName)
-       	{
-       		return dte2.get_CommandBarPopup(menuName);
-       	}
+        public static CommandBarControl get_CommandBarMenu(this DTE2 dte2, string menuName)
+        {
+            return dte2.get_CommandBarMenu<CommandBarControl>(menuName);
+        }
+
+        public static T get_CommandBarMenu<T>(this DTE2 dte2, string menuName)
+            where T : CommandBarControl
+        {
+            var menuBarCommandBar = dte2.get_CommandBar("MenuBar");
+            //if (menuBarCommandBar.Controls.ContainsKey(menuName))
+            try
+            {
+                var menu = menuBarCommandBar.Controls[menuName];
+                if (menu is T)
+                    return (T)menu;
+            }
+            catch { }
+            return default(T);
+        }
+
+        public static CommandBarPopup get_CommandBarPopup(this DTE2 dte2, string menuName)
+        {
+            return dte2.get_CommandBarMenu<CommandBarPopup>(menuName);
+        }
+
+        public static CommandBarPopup get_Menu(this DTE2 dte2, string menuName)
+        {
+            return dte2.get_CommandBarPopup(menuName);
+        }
     }
 }

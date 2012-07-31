@@ -12,22 +12,25 @@ namespace O2.DotNetWrappers.DotNet
     public class StringsAndLists
     {
         public static List<String> fromStringList_getListWithUniqueItems(List<String> lsListToFilter)
-        {
-            lsListToFilter.Sort();
+        {            
             var lsNewList = new List<string>();
-            foreach (String sItem in lsListToFilter)
-                if (false == lsNewList.Contains(sItem))
-                    lsNewList.Add(sItem);
-            lsNewList.Sort();
+            if (lsListToFilter.notNull())
+            {
+                lsListToFilter.Sort();
+                foreach (String sItem in lsListToFilter)
+                    if (false == lsNewList.Contains(sItem))
+                        lsNewList.Add(sItem);
+                lsNewList.Sort();
+            }
             return lsNewList;
         }
 
         public static String fromStringList_getText(List<String> lsListToProcess)
         {
             var sbText = new StringBuilder();
-            //var lsNewList = new List<string>();
-            foreach (String sItem in lsListToProcess)
-                sbText.AppendLine(sItem);
+            if (lsListToProcess.notNull())            
+                foreach (String sItem in lsListToProcess)
+                 sbText.AppendLine(sItem);
             return sbText.ToString();
         }
 
@@ -44,11 +47,9 @@ namespace O2.DotNetWrappers.DotNet
         public static List<String> getStringListFromList(object listToConvert)
         {
             var results = new List<String>();
-
-            foreach (object item in (IEnumerable) listToConvert)
-            {
-                results.Add(item.ToString());
-            }
+            if (listToConvert.notNull() && listToConvert is IEnumerable)
+            foreach (object item in (IEnumerable) listToConvert)            
+                    results.Add(item.ToString());            
             return results;
         }
 

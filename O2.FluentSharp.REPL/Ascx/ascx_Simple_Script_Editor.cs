@@ -275,7 +275,7 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("run in MTA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("clear 'AssembliesCheckedIfExists' cache", (menuitem) => insertCodeSnipptet(menuitem.Text));
             contextMenu.add_MenuItem("O2 Scripts")
-                       .add_MenuItem("Download/Update O2 Scripts (via http)", () => O2Scripts.downloadO2Scritps())
+                       .add_MenuItem("Download/Update O2 Scripts (via http)", () => O2Scripts.downloadO2Scripts())
                        .add_MenuItem("O2 Script: find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
                        .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script())
                        .add_MenuItem("O2 Script: script this Script", () => scriptTheCurrentScript())

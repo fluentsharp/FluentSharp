@@ -6,6 +6,9 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using O2.FluentSharp;
 
+//O2File:VisualStudio_2010_ExtensionMethods.cs
+//O2Ref:EnvDTE.dll
+
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class VS_ExtensionMethods
@@ -31,9 +34,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return VisualStudio_2010.ErrorListProvider.add_Error(text);
         }
 
-        public static ErrorTask add_Error(this ErrorListProvider errorListProvider, string text, int line = 1, int column= 1)
+        public static ErrorTask add_Error(this ErrorListProvider errorListProvider, string text, string file = null,  int line = 1, int column= 1)
         {
-            return errorListProvider.add_Task(TaskErrorCategory.Error, text, line, column);
+            return errorListProvider.add_Task(TaskErrorCategory.Error, text,file, line, column);
         }
 
         public static ErrorTask add_Warning(this string text)
@@ -54,19 +57,23 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return errorListProvider.add_Task(TaskErrorCategory.Message, text);
         }
-        public static ErrorTask add_Task(this ErrorListProvider errorListProvider, TaskErrorCategory errorCategory, string text, int line = 1, int column= 1)
+        public static ErrorTask add_Task(this ErrorListProvider errorListProvider, TaskErrorCategory errorCategory, string text, string file = null, int line = 1, int column= 1)
         {
             var errorTask = new ErrorTask()
             {
                 ErrorCategory = errorCategory,
                 Category = TaskCategory.BuildCompile,
                 Text = text,
-                //Document 	 = firstFileInProject, 
+                Document 	 = file, 
                 Line = line -1,
                 Column = column -1,
                 //HierarchyItem = hierarchyItem			
             };
             errorListProvider.Tasks.Add(errorTask);
+            errorTask.Navigate += (sender,e)=> {
+            										file.open_Document();
+            										(VisualStudio_2010.DTE2.ActiveDocument.Selection as EnvDTE.TextSelection).GotoLine(line, true);
+            									};
             return errorTask;
         }
     }

@@ -12,16 +12,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace O2.FluentSharp
+namespace O2.API.Visualization.Xaml
 {
     /// <summary>
-    /// Interaction logic for MyControl.xaml
+    /// Interaction logic for Blank.xaml
     /// </summary>
-    public partial class Control_WinForms : UserControl
+    public partial class Blank : UserControl
     {
-        public Control_WinForms()
+        public Blank()
         {
             InitializeComponent();
-        }       
+        }
     }
 }

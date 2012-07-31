@@ -323,13 +323,17 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         }
         public static ascx_SourceCodeEditor     set_Text(this ascx_SourceCodeEditor codeEditor, string text, string highlightForExtension)
         {
-            codeEditor.set_Text(text);
-            codeEditor.setDocumentHighlightingStrategy(highlightForExtension);
+            if(codeEditor.notNull())
+            {
+                codeEditor.set_Text(text);
+                codeEditor.setDocumentHighlightingStrategy(highlightForExtension);
+            }
             return codeEditor;
         }
         public static ascx_SourceCodeEditor     set_Text(this ascx_SourceCodeEditor codeEditor, string text)
         {
-            codeEditor.setDocumentContents(text);
+            if(codeEditor.notNull())
+                codeEditor.setDocumentContents(text);
             return codeEditor;
         }
         public static ascx_SourceCodeViewer     load(this ascx_SourceCodeViewer codeViewer, string fileOrCode)

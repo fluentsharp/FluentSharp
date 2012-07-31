@@ -50,10 +50,6 @@
       <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>_Embedded_Dlls\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="O2_External_SharpDevelop">
       <HintPath>..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_External_SharpDevelop.dll</HintPath>
       <Private>False</Private>
@@ -282,6 +278,7 @@
     <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>

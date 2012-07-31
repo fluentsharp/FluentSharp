@@ -184,7 +184,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T[]               array<T>(this List<T> list)
         {
-            return list.ToArray();
+            if (list.notNull())
+                return list.ToArray();
+            return null;
         }
         public static bool              contains(this List<String> list, string text)
         {
@@ -195,7 +197,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static List<T>           clear<T>(this List<T> list)
         {
-            list.Clear();
+            if (list.notNull())
+                list.Clear();
             return list;
         }
         public static List<string>      add_OnlyNewItems(this List<string> targetList, params string[] itemsToAdd)
@@ -204,9 +207,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<string>      add_OnlyNewItems(this List<string> targetList, List<string> itemsToAdd)
         {
-            foreach (var item in itemsToAdd)
-                if (targetList.Contains(item).isFalse())
-                    targetList.add(item);
+            if (targetList.notNull())
+                foreach (var item in itemsToAdd)
+                    if (targetList.Contains(item).isFalse())
+                        targetList.add(item);
             return targetList;
         }
         public static List<T>           add<T>(this List<T> list, T item)

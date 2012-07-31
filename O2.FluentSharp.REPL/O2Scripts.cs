@@ -38,7 +38,7 @@ namespace O2.FluentSharp.REPL
 
             return zipFile;
         }
-        public static void downloadO2Scritps()
+        public static void downloadO2Scripts()
         {
             downloadO2Scripts((message)=>message.info());
         }
@@ -50,10 +50,16 @@ namespace O2.FluentSharp.REPL
 						
 			statusMessage("Unziping files into temp folder");
 			var targetFolder = @"_Downloaded_O2Scripts".tempDir(false).fullPath();
+            if (targetFolder.size() > 120)
+            {
+                "[downloadO2Scripts] targetFolder path was more than 120 chars: {0}".error(targetFolder);
+                targetFolder = System.IO.Path.GetTempPath().pathCombine(targetFolder.fileName());
+                "[downloadO2Scripts] set targetFolder to: {0}".info(targetFolder);
+            }
 			zipFile.unzip_File(targetFolder);
 						
 			statusMessage("Copying files into scripts folder");
-			var baseDir = targetFolder.folders().first();
+			var baseDir = targetFolder.folders().first();            
 			var scriptsFolder = PublicDI.config.LocalScriptsFolder;
 			var filesCopied = 0;
 			foreach(var file in baseDir.files(true))

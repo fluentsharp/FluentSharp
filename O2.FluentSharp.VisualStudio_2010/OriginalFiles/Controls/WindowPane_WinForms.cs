@@ -8,10 +8,9 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 
-namespace O2.FluentSharp.VSIX
+namespace O2.FluentSharp
 {
-
-    [Guid("bbe3bf58-0000-4e05-ac03-d00f1dedc3e5")]
+    [Guid("bbe3bf58-0000-4e05-ac03-d00f1dedc3e6")]
     public class WindowPane_WinForms : ToolWindowPane
     {
         /// <summary>
@@ -25,6 +24,7 @@ namespace O2.FluentSharp.VSIX
             //this.BitmapIndex = 1;
 
             base.Content = new Control_WinForms();
+            VisualStudio_2010.CreatedToolWindows_WinForms.Add(this);
         }
     }
 }

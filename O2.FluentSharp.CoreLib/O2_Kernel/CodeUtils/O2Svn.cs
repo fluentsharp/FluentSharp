@@ -84,11 +84,14 @@ namespace O2.Kernel.CodeUtils
 				else
 				{
 					var webLocation2 = "{0}{1}".format(PublicDI.config.O2GitHub_Binaries, assemblyToLoad).trim();
+
+                    //new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
+                    
 					if (new O2Kernel_Web().httpFileExists(webLocation2))
 					{
 						new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
 					}
-					else
+					else 
 					{
 						var webLocation3 = "{0}{1}".format(PublicDI.config.O2GitHub_FilesWithNoCode, assemblyToLoad).trim();
 						if (new O2Kernel_Web().httpFileExists(webLocation3))

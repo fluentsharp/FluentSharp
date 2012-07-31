@@ -590,62 +590,135 @@ namespace O2.DotNetWrappers.ExtensionMethods
     }
 
     public static class Reflection_ExtensionMethods_Invoke
-    { 
-        public static void      invoke(this Action action)
+    {
+        public static List<Action>          invoke(this List<Action> actions)
         {
-            if (action.notNull())
-                action();
+            if (actions.notNull())
+                foreach (var action in actions)
+                    action.invoke();
+            return actions;
         }
-        public static void      invoke<T>(this Action<T> action, T param)
+        public static List<Action<T>>       invoke<T>(this List<Action<T>> actions, T param1)
         {
-            if (action.notNull())
-                action(param);
+            if (actions.notNull())
+                foreach (var action in actions)
+                    action.invoke(param1);
+            return actions;
         }
-        public static T         invoke<T>(this Func<T> action)
+        public static List<Action<T1,T2>>   invoke<T1, T2>(this List<Action<T1, T2>> actions, T1 param1, T2 param2)
+        {
+            if (actions.notNull())
+                foreach (var action in actions)
+                    action.invoke(param1, param2);
+            return actions;
+        }
+        public static Action                invoke(this Action action)
         {
             if (action.notNull())
-                return action();
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in Action.invoke]");
+                }
+            }
+            return action;
+        }
+        public static Action<T>             invoke<T>(this Action<T> action, T param)
+        {
+            if (action.notNull())
+                try
+                {
+                    action(param);
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in Action.invoke<T>]");
+                }
+            return action;
+        }
+        public static Action<T1,T2>         invoke<T1,T2>(this Action<T1,T2> action, T1 param1, T2 param2)
+        {
+            if (action.notNull())
+                try
+                {
+                    action(param1, param2);
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in Action.invoke<T>]");
+                }
+            return action;
+        }
+        public static T                     invoke<T>(this Func<T> func)
+        {
+            if (func.notNull())            
+                try
+                {
+                    return func();
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in Func.invoke<T>]");
+                }
+            
             return default(T);
         }
-        public static T2        invoke<T1,T2>(this Func<T1,T2> action, T1 param)
+        public static T2                    invoke<T1,T2>(this Func<T1,T2> func, T1 param)
         {
-            if (action.notNull())
-                return action(param);
+            if (func.notNull())
+                try
+                {
+                    return func(param);
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in Func.invoke<T1,T2>]");
+                }
             return default(T2);
         }
-        public static object    invoke(this object liveObject, string methodName)
+        public static object                invoke(this object liveObject, string methodName)
         {
             return liveObject.invoke(methodName, new object[] { });
         }
-
-        public static object invoke(this object liveObject, MethodInfo methodInfo, params object[] parameters)
+        public static object                invoke(this object liveObject, MethodInfo methodInfo, params object[] parameters)
         {
             return methodInfo.invoke_on_LiveObject(liveObject, parameters);
         }
-
-        public static object    invoke(this object liveObject, string methodName, params object[] parameters)
+        public static object                invoke(this object liveObject, string methodName, params object[] parameters)
         {
             return PublicDI.reflection.invoke(liveObject, methodName, parameters);
         }
-        public static object    invokeStatic(this Type type, string methodName, params object[] parameters)
+        public static object                invokeStatic(this Type type, string methodName, params object[] parameters)
         {
             return PublicDI.reflection.invokeMethod_Static(type, methodName, parameters);
-        }        
-        public static void      invoke(this object _object, Action methodInvoker)
-        {
-            if (methodInvoker != null)
-                methodInvoker();
         }
-        public static object    invoke(this MethodInfo methodInfo)
+        //TOFIX: this method doens't make a lot of sense since the _object value is not used (callers should use action.invoke() directly))
+        public static void                  invoke(this object _object, Action action)
+        {
+            if (action != null)
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in object.Action.invoke()");
+                }
+        }
+        public static object                invoke(this MethodInfo methodInfo)
         {
             return PublicDI.reflection.invoke(methodInfo);
         }
-        public static object    invoke(this MethodInfo methodInfo, params object[] parameters)
+        public static object                invoke(this MethodInfo methodInfo, params object[] parameters)
         {
             return PublicDI.reflection.invoke(methodInfo, parameters);
         }        
 
-        public static object invoke_on_LiveObject(this MethodInfo methodInfo, object liveObject, object[] parameters)
+        public static object                invoke_on_LiveObject(this MethodInfo methodInfo, object liveObject, object[] parameters)
         {         
             return PublicDI.reflection.invoke(liveObject, methodInfo, parameters);            
         }

@@ -18,7 +18,7 @@ namespace O2.External.SharpDevelop.Ascx
         //public event Callbacks.dMethod_String _onSampleScriptsSelect;
         public Dictionary<string, string> sampleScripts;
 
-        readonly O2SampleScripts o2SampleScripts = new O2SampleScripts();
+        //readonly O2SampleScripts o2SampleScripts = new O2SampleScripts();
 
         public ascx_SourceCodeEditor sourceCodeEditor { get; set;}           // External DI property
 
@@ -79,7 +79,8 @@ namespace O2.External.SharpDevelop.Ascx
 
         public void loadSampleScripts()
         {
-            loadSampleScripts(o2SampleScripts, true);
+            "[loadSampleScripts] REMOVED DUE to bug in O2SampleScripts ctor".error();
+          //  loadSampleScripts(o2SampleScripts, true);
         }
 
         public void loadSampleScripts(object referenceObjectWithSampleScripts, bool clearLoadedScriptsList)

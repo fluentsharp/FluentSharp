@@ -38,6 +38,7 @@ namespace O2.Kernel.CodeUtils
         public bool httpFileExists(string url, bool showError)
         {
             var webRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            webRequest.Timeout = 2000;
             webRequest.Method = "HEAD";
             try
             {

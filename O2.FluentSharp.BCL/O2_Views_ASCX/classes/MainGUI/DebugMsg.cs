@@ -213,7 +213,7 @@ namespace O2.Views.ASCX.classes.MainGUI
 
         public static void stopShowThread()
         {
-            "[DebugMsg] stopShowThread received".error();
+            //"[DebugMsg] stopShowThread received".error();
             showMessages= false;
         }
         private static void setRichTextBoxesText(string text)

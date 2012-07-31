@@ -13,6 +13,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>O2PlatformKey.pfx</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,29 +34,29 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
-    <Reference Include="Microsoft.VisualStudio.Shell.10.0">
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
-    <Reference Include="System.Xaml" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
@@ -123,26 +124,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Compile Include="OriginalFiles\Controls\Control_WinForms.xaml.cs">
-      <DependentUpon>Control_WinForms.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OriginalFiles\Controls\Control_WPF.xaml.cs">
-      <DependentUpon>Control_WPF.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OriginalFiles\Controls\TaskProvider\ITaskProvider.cs" />
-    <Compile Include="OriginalFiles\Controls\TaskProvider\Task.cs" />
-    <Compile Include="OriginalFiles\Controls\TaskProvider\TaskEnumerator.cs" />
-    <Compile Include="OriginalFiles\Controls\WindowPane_Default.cs" />
-    <Compile Include="OriginalFiles\Controls\WindowPane_WinForms.cs" />
-    <Compile Include="OriginalFiles\Controls\WindowPane_WPF.cs" />
-    <Compile Include="OriginalFiles\Guids.cs" />
-    <Compile Include="OriginalFiles\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="OriginalFiles\GlobalSuppressions.cs" />
-    <Compile Include="OriginalFiles\O2.FluentSharp.VSIXPackage.cs" />
+    <Content Include="VS_Scripts\O2_Menus_In_VisualStudio.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Apache.2.0.license.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -155,24 +140,20 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Compile Include="OriginalFiles\Controls\Control_WinForms.xaml.cs">
+      <DependentUpon>Control_WinForms.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OriginalFiles\Controls\Control_WPF.xaml.cs">
+      <DependentUpon>Control_WPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OriginalFiles\Controls\WindowPane_WinForms.cs" />
+    <Compile Include="OriginalFiles\Controls\WindowPane_WPF.cs" />
+    <Compile Include="Packages\Packages_for_ProvideAutoLoads.cs" />
+    <Compile Include="Packages\Package_IWpfTextViewCreationListener.cs" />
+    <Compile Include="Packages\Package_IWpfTextViewMarginProvider.cs" />
     <Compile Include="VisualStudio_O2_Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="OriginalFiles\PkgCmdID.cs" />
-    <Compile Include="OriginalFiles\Controls\TaskProvider\TaskProvider.cs" />
     <Compile Include="VisualStudio_2010.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="OriginalFiles\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>O2.FluentSharp.VSIX</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OriginalFiles\VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="O2PlatformKey.pfx" />
@@ -181,53 +162,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="OriginalFiles\O2.FluentSharp.VSIX.vsct">
-      <ResourceName>Menus.ctmenu</ResourceName>
-    </VSCTCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="OriginalFiles\Resources\Images_32bit.bmp" />
-    <None Include="OriginalFiles\Resources\Images_24bit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="OriginalFiles\Resources\O2Logo.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="OriginalFiles\Resources\Package.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="OriginalFiles\Controls\Control_WinForms.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <CustomToolNamespace>O2.FluentSharp.VSIX</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="OriginalFiles\Controls\Control_WPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CustomToolNamespace>O2.FluentSharp.VSIX</CustomToolNamespace>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
-      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
-      <Name>O2_External_SharpDevelop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>O2.FluentSharp.CoreLib</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.REPL\O2.FluentSharp.REPL.csproj">
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
       <Name>O2.FluentSharp.REPL</Name>
+      <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\O2.FluentSharp.WPF\O2.FluentSharp.WPF.csproj">
+      <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
+      <Name>O2.FluentSharp.WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="OriginalFiles\Controls\Control_WinForms.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OriginalFiles\Controls\Control_WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

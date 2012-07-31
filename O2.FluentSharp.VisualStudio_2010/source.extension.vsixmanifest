@@ -3,7 +3,7 @@
   <Identifier Id="F886416F-3DBF-4DEE-9578-E7692FC59871">
     <Name>O2 Platform for VisualStudio 2010</Name>
     <Author>OWASP O2 Platform</Author>
-    <Version>1.2</Version>
+    <Version>1.4</Version>
     <Description xml:space="preserve">VisualStudio Add-In to launch O2 Platform's Fluent# REPL Script Editor</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>http://o2platform.com</MoreInfoUrl>
@@ -26,5 +26,6 @@
   </References>
   <Content>
     <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
+    <MefComponent>|%CurrentProject%|</MefComponent>
   </Content>
 </Vsix>

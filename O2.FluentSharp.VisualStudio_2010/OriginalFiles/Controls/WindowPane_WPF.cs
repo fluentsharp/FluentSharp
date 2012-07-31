@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 
-namespace O2.FluentSharp.VSIX
+namespace O2.FluentSharp
 {
 
     [Guid("bbe3bf58-bd64-4e05-ac03-d00f1dedc3e5")]
@@ -25,6 +25,7 @@ namespace O2.FluentSharp.VSIX
             //this.BitmapIndex = 1;
 
             base.Content = new Control_WPF();
+            VisualStudio_2010.CreatedToolWindows_WPF.Add(this);
         }
     }
 }
