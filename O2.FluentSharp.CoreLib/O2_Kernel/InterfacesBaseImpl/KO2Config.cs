@@ -15,17 +15,18 @@ namespace O2.Kernel.InterfacesBaseImpl
 {
     public class KO2Config : IO2Config
     {
+        public static string O2Version                              = "4_2";
         //public static string defaultLocalScriptFolder = @"C:\O2\O2Scripts_Database\_Scripts";
         public static string defaultLocalScriptName                 = "O2.Platform.Scripts";
-        public static string defaultO2LocalTempName                 = @"_O2_V4_TempDir";
+        public static string defaultO2LocalTempName                 = @"_TempDir_v" + O2Version;
 		public static string defaultLocalScriptFolder				= "";	
         public static string defaultLocallyDevelopedScriptsFolder	= "_XRules_Local";        
-        public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
-        public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
-        public static string defaultO2GitHub_ExternalDlls				= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/";
-        public static string defaultO2GitHub_FilesWithNoCode			= "http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/FilesWithNoCode/";
-        public static string defaultO2GitHub_Binaries					= "http://o2platform.googlecode.com/svn/trunk/O2_Binaries/";
-        public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
+        //public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
+        //public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
+        public static string defaultO2GitHub_ExternalDlls				= ""; //"http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/";
+        public static string defaultO2GitHub_FilesWithNoCode			= ""; // http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/FilesWithNoCode/";
+        public static string defaultO2GitHub_Binaries					= ""; //http://o2platform.googlecode.com/svn/trunk/O2_Binaries/";
+        //public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
         public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
 
         public string  defaultO2LocalTempFolder = @"";
@@ -71,13 +72,13 @@ namespace O2.Kernel.InterfacesBaseImpl
             dependenciesInjection = new List<DependencyInjection>();
             setLocalScriptsFolder(defaultLocalScriptFolder);            
             ScriptsTemplatesFolder = defaultLocalScriptFolder + @"\_Templates"; ;            
-            SvnO2RootFolder = defaultSvnO2RootFolder;
-            SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
+            //SvnO2RootFolder = defaultSvnO2RootFolder;
+            //SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
             O2GitHub_ExternalDlls = defaultO2GitHub_ExternalDlls;
             O2GitHub_Binaries = defaultO2GitHub_Binaries;
             O2GitHub_FilesWithNoCode = defaultO2GitHub_FilesWithNoCode;
             ZipppedScriptsFile = defaultZippedScriptsFile;
-            O2DownloadLocation = defaultO2DownloadLocation;
+            //O2DownloadLocation = defaultO2DownloadLocation;
 
             AutoSavedScripts = o2TempDir.pathCombine(@"../_AutoSavedScripts")
                                         .pathCombine(DateTime.Now.ToShortDateString().Replace("/","_")); // can't used safeFileName() here because the DI object is not created
@@ -143,6 +144,14 @@ namespace O2.Kernel.InterfacesBaseImpl
             get
             {
                 return O2TempDir.pathCombine("..//_ToolsOrApis");
+            }
+        }
+
+        public string EmbededLibrariesFolder
+        {
+            get 
+            {
+                return defaultO2LocalTempFolder.pathCombine(@"_EmbeddedAssemblies");
             }
         }
 

@@ -32,32 +32,29 @@ namespace O2.FluentSharp
             "[VisualStudio_O2_Utils]: compileAndExecuteScript: {0}!{1}.{2}".debug(scriptFile, type, method);
             addVisualStudioReferencesForCompilation();
             return O2Thread.mtaThread(() =>
-            {
-                if (waitForDTEObject())
+            {                
+                "[compileAndExecuteScript] Got DTE object".info();
+                var file =scriptFile.local(); //pathCombine_With_ExecutingAssembly_Folder();
+                if (file.fileExists().isFalse())
+                    "[compileAndExecuteScript] could not find script with O2 Platform menu: {0}".error(file);
+                else
                 {
-                    "[compileAndExecuteScript] Got DTE object".info();
-                    var file =scriptFile.local(); //pathCombine_With_ExecutingAssembly_Folder();
-                    if (file.fileExists().isFalse())
-                        "[compileAndExecuteScript] could not find script with O2 Platform menu: {0}".error(file);
+                    "[compileAndExecuteScript] compiling {0}".info(file);
+                    var assembly = file.compile();
+                    if (assembly.notNull())
+                    {
+                        "[compileAndExecuteScript] executing {0}.{1} method".info(type, method);
+                        assembly.type(type)
+                        .method(method)
+                        .invoke();
+                    }
                     else
                     {
-                        "[compileAndExecuteScript] compiling {0}".info(file);
-                        var assembly = file.compile();
-                        if (assembly.notNull())
-                        {
-                            "[compileAndExecuteScript] executing {0}.{1} method".info(type, method);
-                            assembly.type(type)
-                            .method(method)
-                            .invoke();
-                        }
-                        else
-                        {
-                            "[compileAndExecuteScript] failed to compile file: {0}".error(file);
-                            "[compileAndExecuteScript] opening an o2 Script editor to help debugging the issue".info();
-                            file.script_Me("file");
-                        }
+                        "[compileAndExecuteScript] failed to compile file: {0}".error(file);
+                        "[compileAndExecuteScript] opening an o2 Script editor to help debugging the issue".info();
+                        file.script_Me("file");
                     }
-                }
+                }                
             });
         }
         public static void createO2PlatformMenu()
@@ -69,7 +66,7 @@ namespace O2.FluentSharp
         {
             compileAndExecuteScript(@"VS_Scripts\O2_Menus_In_VisualStudio.cs", "O2_Menus_In_VisualStudio", "createDocWindow");
         }*/
-        public static bool waitForDTEObject()
+        /*public static bool waitForDTEObject()
         {
             var maxWaitLoops = 10;
             while (maxWaitLoops-- > 0)
@@ -81,7 +78,7 @@ namespace O2.FluentSharp
             }
             "[waitForDTEObject] failed to get DTE object after {0} attempts".error(maxWaitLoops);
             return false;
-        }
+        }*/
         public static void addVisualStudioReferencesForCompilation()
         {
             CompileEngine.DefaultReferencedAssemblies

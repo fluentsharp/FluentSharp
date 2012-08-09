@@ -14,7 +14,17 @@ using EnvDTE80;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
-    public static class VS_Menus_ExtensionMethods
+    public static class VisualStudio_Menus_ExtensionMethods
+    {
+        public static List<CommandBar> menus(this VisualStudio_2010 visualStudio)
+        {
+            var menus = new List<CommandBar>();
+            foreach (CommandBar commandBar in (CommandBars)visualStudio.dte().CommandBars)
+                menus.Add(commandBar);
+            return menus;
+        }
+    }
+    public static class VS_Menus_ExtensionMethods_DTE
     {
         public static CommandBarPopup add_TopMenu(this DTE2 dte, string text = "New Top Menu", string addAfterMenu = "Help")
         {
@@ -51,7 +61,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             o2Timer.stop();
             return newMenu;
         }
-
         public static CommandBarPopup add(this CommandBarPopup topMenu, string text, Action onClick)
         {
             return topMenu.add_Menu_Button(text, onClick);
@@ -76,8 +85,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             button.Enabled = true;
             return topMenu;
         }
-
-
         public static CommandBar get_CommandBar(this DTE2 dte2, string commandBarName)
         {
             try
@@ -90,14 +97,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return null;
             }
         } 
-
         public static CommandBarControl get_CommandBarMenu(this DTE2 dte2, string menuName)
         {
             return dte2.get_CommandBarMenu<CommandBarControl>(menuName);
         }
-
-        public static T get_CommandBarMenu<T>(this DTE2 dte2, string menuName)
-            where T : CommandBarControl
+        public static T get_CommandBarMenu<T>(this DTE2 dte2, string menuName) where T : CommandBarControl
         {
             var menuBarCommandBar = dte2.get_CommandBar("MenuBar");
             //if (menuBarCommandBar.Controls.ContainsKey(menuName))
@@ -110,15 +114,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
             catch { }
             return default(T);
         }
-
         public static CommandBarPopup get_CommandBarPopup(this DTE2 dte2, string menuName)
         {
             return dte2.get_CommandBarMenu<CommandBarPopup>(menuName);
         }
-
         public static CommandBarPopup get_Menu(this DTE2 dte2, string menuName)
         {
             return dte2.get_CommandBarPopup(menuName);
         }
     }
+
+    
 }

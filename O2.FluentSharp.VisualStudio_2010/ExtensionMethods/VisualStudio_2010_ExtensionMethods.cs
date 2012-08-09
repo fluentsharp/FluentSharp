@@ -75,7 +75,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 ex.log("[in file.open_Document]");
             }
             return null;
-        }
+        } 
     }
     
     public static class VisualStudio_2010_ExtensionMethods_DTE_Projects
@@ -237,6 +237,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				});			
 			return _panel;
     	}
+        public static System.Windows.Forms.Panel create_WinForms_Window_Float(this string title, int width, int height)
+        {
+            var panel = title.create_WinForms_Window_Float();
+            panel.dte_Window().width(width).height(height);
+            return panel;
+        }
         public static System.Windows.Forms.Panel create_WinForms_Window_Float(this string title)
         {                        
             return title.create_WinForms_Window(VSFRAMEMODE.VSFM_Float);                        
@@ -657,7 +663,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static O2.XRules.Database.Utils.ascx_Simple_Script_Editor open_ScriptEditor(this VisualStudio_2010 visualStudio)
         {
-            return "O2 REPL Script".create_WinForms_Window_Float().add_Script(true);            
+            return "C# REPL Script".create_WinForms_Window_Float(800,400).add_Script(true);            
         }
+
+        public static O2.XRules.Database.Utils.ascx_Simple_Script_Editor open_ScriptEditor_With_VisualStudio_CodeSample(this VisualStudio_2010 visualStudio)
+        {
+            var defaultCode = 
+@"var visualStudio = new VisualStudio_2010();
+visualStudio.mainWindow().title(""Hello World"");
+return visualStudio;
+//O2" + @"File:ExtensionMethods\VisualStudio_2010_ExtensionMethods.cs";
+            return visualStudio.open_ScriptEditor().set_Code(defaultCode);            
+        }
+        
+
+
     } 
 }

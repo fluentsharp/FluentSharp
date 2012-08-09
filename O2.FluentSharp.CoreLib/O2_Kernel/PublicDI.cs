@@ -29,21 +29,13 @@ namespace O2.Kernel
 
         static PublicDI()
         {            
-            loadValuesFromConfigFile();
+            //loadValuesFromConfigFile();
 
             O2Kernel_Web.ApplyNetworkConnectionHack();
 
             log = new KO2Log();
             config = O2ConfigLoader.getKO2Config();
-            reflection = new KReflection();
-
-            //make sure theses values are set (could be a prob due to changed location of these values)
-            if (config.LocalScriptsFolder == null)
-            {
-                config.LocalScriptsFolder = KO2Config.defaultLocalScriptFolder;
-                config.SvnO2RootFolder = KO2Config.defaultSvnO2RootFolder;
-                config.SvnO2DatabaseRulesFolder = KO2Config.defaultSvnO2DatabaseRulesFolder;
-            }
+            reflection = new KReflection();            
 
             O2KernelProcessName = "Generic O2 Kernel Process";
             AppDomainUtils.registerCurrentAppDomain();
@@ -57,7 +49,7 @@ namespace O2.Kernel
             sO2Website = "https://ounceopen.squarespace.com";
             LogViewerControlName = "O2 Logs";
 
-            loadValuesFromConfigFile();
+            //loadValuesFromConfigFile();
             dFilteredFuntionSignatures = new Dictionary<string, FilteredSignature>();
             dO2Vars = new Dictionary<string, object>();
             dRegExes = new Dictionary<string, Regex>();
@@ -66,7 +58,7 @@ namespace O2.Kernel
             
         }
 
-        public static void loadValuesFromConfigFile()
+        /*public static void loadValuesFromConfigFile()
         {
             try
             {
@@ -77,7 +69,7 @@ namespace O2.Kernel
             {
                 
             }
-        }
+        }*/
 
         public static KO2Log log                                                        { get; set; }
         public static KO2Config config                                                  { get; set; }

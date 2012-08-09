@@ -163,8 +163,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TextBox   append_Line(this TextBox textBox, string text)
         {
-            textBox.append_Text(text + Environment.NewLine);
-            return textBox;
+            return textBox.append_Text(text.line());            
         }
         public static TextBox   append_Text(this TextBox textBox, string text)
         {
@@ -176,6 +175,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         return textBox;
                     });
         }
+        public static TextBox insert_Line(this TextBox textBox, string text)
+        {
+            return textBox.insert_Text(text.line());
+        }
+        public static TextBox insert_Text(this TextBox textBox, string text)
+        {
+            return textBox.invokeOnThread(
+                () =>
+                {
+                    textBox.Text = text + textBox.Text;
+                    textBox.goToStart();
+                    return textBox;
+                });
+        }
         public static TextBox   goToEnd(this TextBox textBox)
         {
             return textBox.invokeOnThread(() =>
@@ -184,6 +197,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                            textBox.ScrollToCaret();
                                            return textBox;
                                        });
+        }
+        public static TextBox goToStart(this TextBox textBox)
+        {
+            return textBox.invokeOnThread(() =>
+            {
+                textBox.Select(0, 0);
+                textBox.ScrollToCaret();
+                return textBox;
+            });
         }
         public static TextBox   onTextChange(this TextBox textBox, Action<string> callback)
         {

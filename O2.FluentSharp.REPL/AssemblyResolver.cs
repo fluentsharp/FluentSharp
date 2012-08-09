@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.IO;
+using O2.Kernel;
 
 namespace O2.FluentSharp.REPL
 {
     public class AssemblyResolver
     {
-        public static bool saveEmbededLibrariesToDisk = true;
-        public static string saveEmbededLibrariesToFolder = @"_O2_V4_TempDir\_EmbeddedAssemblies";
+        public static bool saveEmbededLibrariesToDisk = true;        
 
         public static void setAssemblyResolver()
         {
@@ -41,8 +41,9 @@ namespace O2.FluentSharp.REPL
                     byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
                     if (saveToDisk)
                     {
-                        var targetDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                        targetDir = Path.Combine(targetDir, saveEmbededLibrariesToFolder);
+                        //var targetDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                        //targetDir = Path.Combine(targetDir, saveEmbededLibrariesToFolder);
+                        var targetDir = PublicDI.config.EmbededLibrariesFolder;
                         if (Directory.Exists(targetDir) == false)
                             Directory.CreateDirectory(targetDir);
                         var targetFile = Path.Combine(targetDir, nameToFind + (resourceName.Contains(".dll") ? ".dll" : ".exe"));

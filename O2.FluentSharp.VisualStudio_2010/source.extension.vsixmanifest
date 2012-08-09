@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="F886416F-3DBF-4DEE-9578-E7692FC59871">
-    <Name>O2 Platform for VisualStudio 2010 v1.5</Name>
+    <Name>O2 Platform for VisualStudio 2010 v1.5.1</Name>
     <Author>OWASP O2 Platform</Author>
-    <Version>1.5</Version>
+    <Version>1.5.1</Version>
     <Description xml:space="preserve">VisualStudio Add-In to launch O2 Platform's Fluent# REPL Script Editor</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>http://o2platform.com</MoreInfoUrl>

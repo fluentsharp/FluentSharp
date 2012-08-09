@@ -8,9 +8,12 @@ var textArea = panel.add_TextArea().insert_LogViewer().wordWrap(false);
 VisualStudio_2010.on_DocumentSaved.clear().add(
 	(document)=&gt;{
 					var fileToCompile = document.FullName;
-					textArea.append_Line("After save, Compiling file: {0}".format(fileToCompile));					
+					textArea.insert_Line("After save, Compiling file: {0}".format(fileToCompile));					
 					var assembly = new CompileEngine().compileSourceFile(fileToCompile);					
-					textArea.append_Line("Compile " + ((assembly.notNull()) ? "OK" : "Failed"));
+					if (assembly.notNull())
+						textArea.insert_Line("Compile OK").green();
+					else
+						textArea.insert_Line("Compile Failed").pink();
 				});
 
 //O2File:E:\O2_V4\O2.FluentSharp\O2.FluentSharp.VisualStudio_2010\ExtensionMethods\VisualStudio_2010_ExtensionMethods.cs</SourceCode>
