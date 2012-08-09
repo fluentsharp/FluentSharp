@@ -10,22 +10,21 @@ using Microsoft.VisualStudio.Shell;
 
 namespace O2.FluentSharp
 {
-
-    [Guid("bbe3bf58-bd64-4e05-ac03-d00f1dedc3e5")]
-    public class WindowPane_WPF : ToolWindowPane
+    [Guid("bbe3bf58-0000-4e05-ac03-d00f1dedc3e6")]
+    public class WindowPane_WinForms : ToolWindowPane
     {
         /// <summary>
         /// Standard constructor for the tool window.
         /// </summary>
-        public WindowPane_WPF() :
+        public WindowPane_WinForms() :
             base(null)
         {
-            this.Caption = "Window WPF";            
+            this.Caption = "ToolWindowPane WinForms";            
             //this.BitmapResourceID = 301;
             //this.BitmapIndex = 1;
-
-            base.Content = new Control_WPF();
-            VisualStudio_2010.CreatedToolWindows_WPF.Add(this);
+            var userControl = new Control_WinForms();
+            base.Content = userControl;
+            VisualStudio_2010.ToolWindowPanes.Add(userControl, this);
         }
     }
 }

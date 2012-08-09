@@ -8,21 +8,24 @@ using System.Drawing;
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Misc_GUI_Helpers
-    {
-    	public static TreeView insert_FolderViewer_Simple(this Control targetPanel, Action<string> openFile) 	
+    {           
+    	public static Action<string> insert_FolderViewer_Simple(this Control targetPanel, Action<string> openFile) 	
     	{
-    		Action<string> openFolder = null;
-    		
-			var treeVIew = targetPanel.insert_FolderViewer_Simple(openFile, ref openFolder);
-			
-			var startFolder = "".tempDir().parentFolder();
+            var startFolder = "".tempDir().parentFolder();
+            return targetPanel.insert_FolderViewer_Simple(openFile, startFolder);            
+        }
+        public static Action<string> insert_FolderViewer_Simple(this Control targetPanel, Action<string> openFile, string startFolder) 	
+        {
+            Action<string> openFolder = null;
+
+            var treeVIew = targetPanel.insert_FolderViewer_Simple(openFile, ref openFolder);
 			openFolder(startFolder);
-			return treeVIew;;
+            return openFolder;
 		}
     	public static TreeView insert_FolderViewer_Simple(this Control targetPanel, Action<string> openFile, ref Action<string> _openFolder)
     	{
     		return targetPanel.insert_Left()
-    						     .add_FolderViewer_Simple(openFile, ref _openFolder, true);
+    						     .add_FolderViewer_Simple(openFile, ref _openFolder, false);
     	}    	
     	public static TreeView add_FolderViewer_Simple<T>(this T targetPanel, Action<string> openFile, ref Action<string> _openFolder, bool addFileMenu)  		where T : Control    		
     	{

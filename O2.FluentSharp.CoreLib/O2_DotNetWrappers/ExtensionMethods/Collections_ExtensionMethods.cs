@@ -143,6 +143,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return results;
         }
 
+        public static List<T>       unique<T>(this IEnumerable<T> list)
+        {
+            return list.distinct();
+        }
+        public static List<T>       distinct<T>(this IEnumerable<T> list)
+        {
+            return list.Distinct().toList();
+        }
+
     }
 
     public static class Collections_ExtensionMethods_List
@@ -307,7 +316,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static List<T>   where<T>(this List<T> list, Func<T,bool> query)
 		{
 			return list.Where<T>(query).toList();
-		}		
+		}        		
 		public static T         first<T>(this List<T> list, Func<T,bool> query)
 		{
 			var results = list.Where<T>(query).toList();
@@ -320,7 +329,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			if (list.notNull() && list.size()>1)
 				return list[1];		
 			return default(T);
-		}		
+		}
+        public static T         third<T>(this List<T> list)
+        {
+            if (list.notNull() && list.size() > 2)
+                return list[2];
+            return default(T);
+        }
+        public static T         fourth<T>(this List<T> list)
+        {
+            if (list.notNull() && list.size() > 3)
+                return list[3];
+            return default(T);
+        }
+        public static T         fifth<T>(this List<T> list)
+        {
+            if (list.notNull() && list.size() > 4)
+                return list[4];
+            return default(T);
+        }		
 		public static List<T>   removeRange<T>(this List<T> list, int start, int end)
 		{
 			list.RemoveRange(start,end);
@@ -457,15 +484,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static Dictionary<T, T1>         add<T, T1>(this Dictionary<T, T1> dictionary, T key, T1 value)
         {
-			if (dictionary.isNull ())
-			    "[Dictionary<T, T1> add] dictionary object was null".error ();
-			else
-			{
-            	if (dictionary.hasKey(key))
-            	    dictionary[key] = value;
-            	else
-            	    dictionary.Add(key, value);
-			}
+            try
+            {
+                if (dictionary.isNull())
+                    "[Dictionary<T, T1> add] dictionary object was null".error();
+                else
+                {
+                    lock (dictionary)
+                    {
+                        if (dictionary.hasKey(key))
+                            dictionary[key] = value;
+                        else
+                            dictionary.Add(key, value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in Dictionary<T, T1> .add) key = {0}  , value = {1}".format(key, value));
+            }
             return dictionary;
         }
         public static Dictionary<T, List<T1>>   add<T, T1>(this Dictionary<T, List<T1>> dictionary, T key, T1 value)

@@ -9,6 +9,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.External.SharpDevelop.ExtensionMethods;
 using O2.FluentSharp.REPL;
 using O2.Views.ASCX.Ascx.MainGUI;
+using System.Threading;
 
 namespace O2.FluentSharp
 {
@@ -25,51 +26,49 @@ namespace O2.FluentSharp
                            .ctor();*/
             }
         
-        }
-         
-        public static void compileAndExecuteScript(string scriptFile, string type, string method)
+        }         
+        public static Thread compileAndExecuteScript(string scriptFile, string type, string method)
         {
+            "[VisualStudio_O2_Utils]: compileAndExecuteScript: {0}!{1}.{2}".debug(scriptFile, type, method);
             addVisualStudioReferencesForCompilation();
-            O2Thread.mtaThread(() =>
+            return O2Thread.mtaThread(() =>
             {
                 if (waitForDTEObject())
                 {
-                    "[createO2PlatformMenu] Got DTE object".info();
-                    var file =scriptFile.pathCombine_With_ExecutingAssembly_Folder();
+                    "[compileAndExecuteScript] Got DTE object".info();
+                    var file =scriptFile.local(); //pathCombine_With_ExecutingAssembly_Folder();
                     if (file.fileExists().isFalse())
-                        "[createO2PlatformMenu] could not find script with O2 Platform menu: {0}".error(file);
+                        "[compileAndExecuteScript] could not find script with O2 Platform menu: {0}".error(file);
                     else
                     {
-                        "[createO2PlatformMenu] compiling {0}".info(file);
+                        "[compileAndExecuteScript] compiling {0}".info(file);
                         var assembly = file.compile();
                         if (assembly.notNull())
                         {
-                            "[createO2PlatformMenu] executing {0}.{1} method".info(type,method);
+                            "[compileAndExecuteScript] executing {0}.{1} method".info(type, method);
                             assembly.type(type)
                             .method(method)
                             .invoke();
                         }
                         else
                         {
-                            "[createO2PlatformMenu] failed to compile file: {0}".error(file);
-                            "[createO2PlatformMenu] opening an o2 Script editor to help debugging the issue".info();
+                            "[compileAndExecuteScript] failed to compile file: {0}".error(file);
+                            "[compileAndExecuteScript] opening an o2 Script editor to help debugging the issue".info();
                             file.script_Me("file");
                         }
                     }
                 }
             });
         }
-
         public static void createO2PlatformMenu()
         {
-            compileAndExecuteScript(@"VS_Scripts\O2_Menus_In_VisualStudio.cs", "O2_Menus_In_VisualStudio" ,"buildMenus");
+            compileAndExecuteScript(@"VS_Scripts\O2_Menus_In_VisualStudio.cs", "O2_Menus_In_VisualStudio" ,"buildMenus")
+                .Join();
         }
-
-        public static void createO2PlatformDockWindow()
+        /*public static void createO2PlatformDockWindow()
         {
             compileAndExecuteScript(@"VS_Scripts\O2_Menus_In_VisualStudio.cs", "O2_Menus_In_VisualStudio", "createDocWindow");
-        }
-
+        }*/
         public static bool waitForDTEObject()
         {
             var maxWaitLoops = 10;
@@ -83,7 +82,6 @@ namespace O2.FluentSharp
             "[waitForDTEObject] failed to get DTE object after {0} attempts".error(maxWaitLoops);
             return false;
         }
-
         public static void addVisualStudioReferencesForCompilation()
         {
             CompileEngine.DefaultReferencedAssemblies
@@ -97,6 +95,7 @@ namespace O2.FluentSharp
                                               "Microsoft.VisualStudio.Shell.UI.Internal.dll",
                                               "Microsoft.VisualStudio.OLE.Interop.dll",
                                               "Microsoft.VisualStudio.CommandBars.dll",
+                                              "Microsoft.VisualStudio.Platform.WindowManagement.dll",
                                               "EnvDTE.dll",
                                               "EnvDTE80.dll",                                              
                                               //needed for WPF manipulation

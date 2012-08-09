@@ -19,7 +19,7 @@ namespace O2.Kernel
 
         public static void o2Gui(string[] args)
         {
-            var assembly = "O2_FluentSharp_REPL.dll".assembly();
+            var assembly = "O2_FluentSharp_REPL.exe".assembly();
             var type = assembly.type("ascx_Execute_Scripts");
             type.invokeStatic("startControl_With_Args",new object[] { args});
         }

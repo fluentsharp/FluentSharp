@@ -184,4 +184,44 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return dockContent.dockTo(DockStyle.Right);
         }
     }
+
+
+    public static class WinFormsUI_ExtensionMethods_GUI_Helpers
+    {
+        public static DockPanel open_Script_Viewer_GUI(this string startFolder)
+        {            
+            var winFormsUI = "Script Viewer".winFormsUI(1000, 600);
+            winFormsUI.add_DockContent("Test Script").add_Script();
+            winFormsUI.dock_Bottom("Log Viewer").add_LogViewer();
+
+            Action<string> openFile =
+                (file) =>
+                {
+                    winFormsUI.add_DockContent(file.fileName())
+                              .add_Script()
+                              .openFile(file);
+                };
+            Action<string> openFolder = null;
+
+            var treeView = winFormsUI.dock_Left("Available Scripts").add_FolderViewer_Simple((file) => { }, ref openFolder, false);
+            treeView.onDoubleClick<string>(openFile)
+                    .add_ContextMenu()
+                    .add_MenuItem("Open in Script Editor", true, () => openFile(treeView.selected().tag<string>()))
+                    .add_MenuItem("New Script File",
+                        () =>
+                        {
+                            var name = "What is the name of he new Script?".askUser();
+                            if (name.valid())
+                            {
+                                var fileName = startFolder.pathCombine(name + ".h2");
+                                "return \"Hello World\";".h2().saveAs(fileName);
+                                openFile(fileName);
+                                openFolder(startFolder);
+                            }
+                        });                     
+            winFormsUI.splitterDistance(400);
+            openFolder(startFolder);   
+            return winFormsUI;
+        }
+    }
 }

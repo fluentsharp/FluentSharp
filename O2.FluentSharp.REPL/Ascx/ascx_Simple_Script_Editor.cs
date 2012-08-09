@@ -264,7 +264,7 @@ namespace O2.XRules.Database.Utils
             contextMenu.add_MenuItem("code snippets (helper)")
                        .add_MenuItem("when compiling: Dont use Cached Assembly if available", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("when compiling: remove all auto references to O2 scripts and dlls (same as next two options)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("when compiling: don't include extra cs file (with extension methods)", (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       //.add_MenuItem("when compiling: don't include extra cs file (with extension methods)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("when compiling, only add referenced assemblies", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("when compiling, set InvocationParameters to dynamic", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("generate debug symbols (and create temp assembly)", (menuitem) => insertCodeSnipptet(menuitem.Text))
@@ -323,9 +323,9 @@ namespace O2.XRules.Database.Utils
                 case "when compiling: remove all auto references to O2 scripts and dlls (same as next two options)":
                     commandsToExecute.insert_Text("".line() + "//O2Tag_CleanCompilation".line());
                     break;
-                case "when compiling: don't include extra cs file (with extension methods)":
-                    commandsToExecute.insert_Text("".line() + "//O2Tag_DontAddExtraO2Files".line());
-                    break;
+//                case "when compiling: don't include extra cs file (with extension methods)":
+//                  commandsToExecute.insert_Text("".line() + "//O2Tag_DontAddExtraO2Files".line());
+//                    break;
                 case "when compiling, only add referenced assemblies":
                     commandsToExecute.insert_Text("".line() + "//O2Tag_OnlyAddReferencedAssemblies".line());
                     break;
@@ -465,7 +465,7 @@ namespace O2.XRules.Database.Utils
                    if (this.commandsToExecute.editor().o2CodeCompletion.notNull())
                        this.commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
 
-                   add_ExtraMethodsFile();									// restore previous mappings here
+                   //add_ExtraMethodsFile();									// restore previous mappings here
 
                    //register cacheAssmbly
                    var codeMd5 = previousCompiledCodeText.md5Hash();
@@ -483,13 +483,13 @@ namespace O2.XRules.Database.Utils
         public string handleExtraO2TagsInSourceCode(string codeToCompile)
         {
             if (codeToCompile.contains("O2Tag_CleanCompilation"))
-                codeToCompile = codeToCompile.insertAfter("".line() + "//O2Tag_DontAddExtraO2Files" +
+                codeToCompile = codeToCompile.insertAfter( // "".line() + "//O2Tag_DontAddExtraO2Files" +
                                                           "".line() + " //O2Tag_OnlyAddReferencedAssemblies");
 
-            if (codeToCompile.contains("//O2Tag_DontAddExtraO2Files"))
+           /* if (codeToCompile.contains("//O2Tag_DontAddExtraO2Files"))
                 add_No_ExtraMethodsFile();
             else
-                add_ExtraMethodsFile();
+                add_ExtraMethodsFile();*/
 
             this.csharpCompiler.ResolveInvocationParametersType = codeToCompile.contains("//O2Tag_SetInvocationParametersToDynamic")
                                                                                .isFalse();
@@ -500,7 +500,7 @@ namespace O2.XRules.Database.Utils
         }
 
         //these two next methods are a hack to handle the problem caused by EXTRA_EXTENSION_METHODS_FILE being a constant
-        public void add_ExtraMethodsFile()
+/*        public void add_ExtraMethodsFile()
         {
             //"HACK: add_ExtraMethodsFile".error();
             var extraMethodsFile = PublicDI.config.LocalScriptsFolder.pathCombine(@"Utils\ExtensionMethods\_Extra_methods_To_Add_to_Main_CodeBase.cs");
@@ -512,7 +512,7 @@ namespace O2.XRules.Database.Utils
             //"HACK: add_No_ExtraMethodsFile".error();
             var noExtraMethodsFile = PublicDI.config.LocalScriptsFolder.pathCombine(@"Utils\ExtensionMethods\_No_Extra_methods.cs");
             CompileEngine.LocalScriptFileMappings["_Extra_methods_To_Add_to_Main_CodeBase.cs"] = noExtraMethodsFile;
-        }
+        }*/
 
         public void triggerCompilation()
         {
@@ -830,8 +830,6 @@ return _script.Code;
   
 //O2" + @"Tag_SetInvocationParametersToDynamic
 //O2" + @"Tag_DontUseCachedAssemblyIfAvailable
-//O2" + @"Tag_DontAddExtraO2Files
-//O2" + @"File:ascx_Simple_Script_Editor.cs.o2
 //O2" + @"File:_Extra_methods_TypeConfusion.cs
             ".trim();
 

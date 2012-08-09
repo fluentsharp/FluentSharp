@@ -138,8 +138,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string        fileName(this string file)
         {
-            if (file.valid())
-                return Path.GetFileName(file);
+            try
+            {
+                if (file.valid())
+                    return Path.GetFileName(file);
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in fileName] for file: {0}".format(file));
+            }
             return "";
         }
         public static List<string>  fileNames(this List<string> files)
@@ -255,7 +262,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static string        parentFolder(this string path)
 		{
-			return path.directoryName();
+            if (path.valid())
+			    return path.directoryName();
+            return null;
 		}
         public static List<string>  folders(this string path)
         {
@@ -291,6 +300,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return ""; 
         }
         public static bool          isFolder(this string path)
+        {
+            return path.dirExists();
+        }
+        public static bool          folderExists(this string path)
         {
             return path.dirExists();
         }
@@ -457,11 +470,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		
         public static string        pathCombine(this string folder, string path)
-        {
+        {            
             return pathCombine_MaxSize(folder, path);
         }
         public static string        pathCombine_MaxSize(this string folder, string path )
-		{			
+		{
+            if (folder.notValid() || path.notValid())
+                return null;
 			var maxLength = 256 - folder.size();
 			if(maxLength < 10)
 				throw new Exception("in pathCombine_MaxSize folder name is too large: {0}".format(folder.size()));
@@ -478,12 +493,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             return Path.Combine(folder, path).fullPath();
 		}
-        public static string        pathCombine_With_ExecutingAssembly_Folder(this string path)
+
+       /* public static string        pathCombine_With_ExecutingAssembly_Folder(this string path)
         {
-            if (Assembly.GetExecutingAssembly().notNull() && Assembly.GetExecutingAssembly().location().notNull())
+            try
+            {
                 return Assembly.GetExecutingAssembly().location().parentFolder().pathCombine(path);
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in pathCombine_With_ExecutingAssembly_Folder]")
+            }
             return null;
-        }
+        }*/
         public static string        fullPath(this string path)
         {
             try
@@ -511,6 +533,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (from file in files
                     where file.fileExists()
                     select file).toList();
+        }
+        public static List<string> onlyValidFolders(this List<string> folders)
+        {
+            return (from folder in folders
+                    where folder.folderExists()
+                    select folder).toList();
         }
         public static List<string>  lines(this string text, bool removeEmptyLines)
 		{
@@ -649,9 +677,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static bool delete_File(this string path)
         {
+            return path.delete_File(true);
+        }
+        public static bool delete_File(this string path, bool waitForCanOpen)
+        {
             try
             {
-                path.file_WaitFor_CanOpen();
+                if (waitForCanOpen)
+                    path.file_WaitFor_CanOpen();
                 File.Delete(path);
                 "Deleted file: {0}".info(path);
             }

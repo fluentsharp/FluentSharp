@@ -28,8 +28,10 @@ namespace O2.Kernel
         public static bool Offline { get; set; }
 
         static PublicDI()
-        {
+        {            
             loadValuesFromConfigFile();
+
+            O2Kernel_Web.ApplyNetworkConnectionHack();
 
             log = new KO2Log();
             config = O2ConfigLoader.getKO2Config();

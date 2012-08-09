@@ -102,7 +102,7 @@ namespace O2.DotNetWrappers.DotNet
             
             var nameToFind = (name.isAssemblyName())
                     ? name.assemblyName().Name
-                    : name.lower();
+                    : name;
 
             foreach (var currentAssembly in AppDomain.CurrentDomain.GetAssemblies())      
             {

@@ -39,13 +39,14 @@ namespace O2.DotNetWrappers.DotNet
         public string compilationVersion;
         public static bool needCachedCompiledAssembliesSave;
         public static Dictionary<string, string> LocalScriptFileMappings = new Dictionary<string, string>();
-		public static List<string>               LocalReferenceFolders    = new List<string>();
+        public static List<string>               LocalReferenceFolders    = new List<string>();
+        public static List<string>               LocalFoldersToSearchForCodeFiles = new List<string>();
         public static Dictionary<string, string> CachedCompiledAssemblies = new Dictionary<string, string>();
         public static string					 CachedCompiledAssembliesMappingsFile = PublicDI.config.O2TempDir.pathCombine("..\\CachedCompiledAssembliesMappings.xml");
         public static Dictionary<string,string>  CompilationPathMappings = new Dictionary<string, string>();
         public static List<string>               DefaultReferencedAssemblies = new List<string>();
         public static List<string>               DefaultUsingStatements = new List<string>();
-		
+        
 
         // the first time were here, load up the mappings from the CachedCompiledAssembliesMappingsFile
         static CompileEngine() 
@@ -55,16 +56,16 @@ namespace O2.DotNetWrappers.DotNet
             setDefaultReferencedAssemblies();
             setDefaultUsingStatements();
             specialO2Tag_ExtraReferences	.add("//O2Tag_AddReferenceFile:")
-            						  		.add("//O2Ref:");
+                                            .add("//O2Ref:");
             specialO2Tag_Download			.add("//Download:")
-            								.add("//O2Download:");
+                                            .add("//O2Download:");
             specialO2Tag_PathMapping 		.add("//PathMapping:")
-            								.add("//O2PathMapping:");
+                                            .add("//O2PathMapping:");
             specialO2Tag_ExtraSourceFile  	.add("//O2Tag_AddSourceFile:")
-            								.add("//O2File:");
+                                            .add("//O2File:");
             specialO2Tag_ExtraFolder		.add("//O2Tag_AddSourceFolder:")
-                        					.add("//O2Folder:")
-                        					.add("//O2Dir:");
+                                            .add("//O2Folder:")
+                                            .add("//O2Dir:");
             specialO2Tag_DontCompile   		.add("//O2NoCompile");
         }
 
@@ -151,8 +152,8 @@ namespace O2.DotNetWrappers.DotNet
             {
                 ex.log("in loadCachedCompiledAssembliesMappings");
             }
-			if (CachedCompiledAssemblies.isNull())
-				CachedCompiledAssemblies = new Dictionary<string, string>();
+            if (CachedCompiledAssemblies.isNull())
+                CachedCompiledAssemblies = new Dictionary<string, string>();
         }
 
         public static void saveCachedCompiledAssembliesMappings()
@@ -190,8 +191,8 @@ namespace O2.DotNetWrappers.DotNet
             var tempSourceCodeFile = PublicDI.config.getTempFileInTempDirectory("_" +outputAssemblyName + ".cs");
             Files.WriteFileContent(tempSourceCodeFile, sourceCodeFile);
             return compileSourceFiles(new List<string>().add(tempSourceCodeFile)
-            											.add(mainClass)
-            											.add(outputAssemblyName));
+                                                        .add(mainClass)
+                                                        .add(outputAssemblyName));
         }
 
         public Assembly compileSourceFile(String sourceCodeFile)
@@ -267,15 +268,15 @@ namespace O2.DotNetWrappers.DotNet
             return null;
         }
 
-		public static bool loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
-		{
+        public static bool loadReferencedAssembliesIntoMemory(Assembly targetAssembly)
+        {
             var referencedAssemblies = targetAssembly.GetReferencedAssemblies();
             "loading ReferencedAssembliesIntoMemory: {0}".info(referencedAssemblies.size());
             foreach (var assemblyName in referencedAssemblies)
-			{
-				Assembly assembly = null;
-				try
-				{
+            {
+                Assembly assembly = null;
+                try
+                {
                     if (CachedCompiledAssemblies.ContainsKey(assemblyName.Name))
                         assembly = CachedCompiledAssemblies[assemblyName.Name].assembly();
                     else
@@ -286,20 +287,20 @@ namespace O2.DotNetWrappers.DotNet
                         else
                             assembly = Assembly.Load(assemblyName);
                     }
-				}
-				catch
-				{
-					assembly = assemblyName.Name.assembly();
-					
-				}
-				if (assembly.isNull())
-				{
-					"[loadReferencedAssembliesIntoMemory] failed to load assembly".error();
-					return false;
-				}
-			}            
-			return true;
-		}
+                }
+                catch
+                {
+                    assembly = assemblyName.Name.assembly();
+                    
+                }
+                if (assembly.isNull())
+                {
+                    "[loadReferencedAssembliesIntoMemory] failed to load assembly".error();
+                    return false;
+                }
+            }            
+            return true;
+        }
 
         public static void setCachedCompiledAssembly(List<string> sourceCodeFiles, Assembly compiledAssembly)
         {
@@ -351,7 +352,7 @@ namespace O2.DotNetWrappers.DotNet
             return getCachedCompiledAssembly_MD5(filesMd5);
         }
 
-		public static Assembly getCachedCompiledAssembly_MD5(string key)
+        public static Assembly getCachedCompiledAssembly_MD5(string key)
         {
             if (CachedCompiledAssemblies.hasKey(key))
             {
@@ -361,13 +362,18 @@ namespace O2.DotNetWrappers.DotNet
                     "found cached compiled assembly: {0}".info(cachedAssembly);
                     var assembly = cachedAssembly.assembly();
 
-                    if (assembly.notNull() && Assembly.GetEntryAssembly().notNull())
-                        if (assembly.ImageRuntimeVersion == Assembly.GetEntryAssembly().imageRuntimeVersion())
+                    if (assembly.notNull())
+                    {
+                        if (Assembly.GetEntryAssembly().notNull())
                         {
-                            return assembly;
+                            if (assembly.ImageRuntimeVersion == Assembly.GetEntryAssembly().imageRuntimeVersion())
+                                return assembly;
+                            else
+                                CachedCompiledAssemblies.Remove(key);
                         }
                         else
-                            CachedCompiledAssemblies.Remove(key);
+                            return assembly;    //happens when runing these scripts from inside visualstudio
+                    }
                 }
             }
             return null;
@@ -387,13 +393,14 @@ namespace O2.DotNetWrappers.DotNet
         {
             var sourceCodeFiles = new List<string>();
             sourceCodeFiles.add(sourceCodeFile);
-			addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, new List<string>());
+            addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, new List<string>());
             addReferencesIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
             
         }
 
         public void mapReferencesIncludedInSourceCode(List<string> sourceCodeFiles, List<string> referencedAssemblies)
         {
+            var o2Timer = new O2Timer("mapReferencesIncludedInSourceCode").start();
             addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, new List<string>());
             addReferencesIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
 
@@ -411,7 +418,7 @@ namespace O2.DotNetWrappers.DotNet
                     foreach (var referencedAssembly in referencedAssemblies)
                         PublicDI.log.debug("   {0}", referencedAssembly);
             }
-            
+            o2Timer.stop();
         }
 
         public static Dictionary<string,string> clearCompilationPathMappings()
@@ -426,12 +433,17 @@ namespace O2.DotNetWrappers.DotNet
             "Clearing Compilation Cache".debug();
             CachedCompiledAssemblies.Clear();
             needCachedCompiledAssembliesSave = true;
-            saveCachedCompiledAssembliesMappings();            
-             "Deleting Embedded dlls Cache".debug();
-             foreach (var file in PublicDI.config.EmbeddedAssemblies.files())             
-                 file.file_Delete();             
+            saveCachedCompiledAssembliesMappings();
+            clearEmbeddedAssemblies();
             return CachedCompiledAssemblies;
         }
+        public static void clearEmbeddedAssemblies()
+        {
+            "Deleting Embedded dlls Cache".debug();
+            foreach (var file in PublicDI.config.EmbeddedAssemblies.files())
+                file.delete_File(false);             
+        }
+
         public static Dictionary<string, string> clearLocalScriptFileMappings()
         {
             "in clearLocalScriptFileMappings".info();
@@ -496,33 +508,33 @@ namespace O2.DotNetWrappers.DotNet
         public static void addSourceFileOrFolderIncludedInSourceCode(List<string> sourceCodeFiles, List<string> referencedAssemblies ,List<string> resolvedFiles)
         {
             var currentSourceDirectories = new List<string>(); // in case we need to resolve file names below
-			foreach (var sourceCodeFile in sourceCodeFiles)
+            foreach (var sourceCodeFile in sourceCodeFiles)
             {
-				if (sourceCodeFile.valid())
+                if (sourceCodeFile.valid())
                 {
-					if (resolvedFiles.contains(sourceCodeFile))
-						continue;
-					var directory = Path.GetDirectoryName(sourceCodeFile);
+                    if (resolvedFiles.contains(sourceCodeFile))
+                        continue;
+                    var directory = Path.GetDirectoryName(sourceCodeFile);
                     if (false == currentSourceDirectories.Contains(directory))
                         currentSourceDirectories.Add(directory);
                 }
             }
 
             var filesToLoad = new List<string>();
-			Action<string,string> add_to_FilesToLoad = 
-				(original,mapped) =>
-					{
-						resolvedFiles.add(original);
-						filesToLoad.add(mapped);
+            Action<string,string> add_to_FilesToLoad = 
+                (original,mapped) =>
+                    {
+                        resolvedFiles.add(original);
+                        filesToLoad.add(mapped);
 
-						"Found reference '{0}' in '{1}".debug(mapped.fileName(), original.fileName());
-					};
+                        "Found reference '{0}' in '{1}".debug(mapped.fileName(), original.fileName());
+                    };
 
             // find the extra files to add
             foreach (var sourceCodeFile in sourceCodeFiles)
             {
-				if (resolvedFiles.contains(sourceCodeFile))
-					continue;
+                if (resolvedFiles.contains(sourceCodeFile))
+                    continue;
                 if (sourceCodeFile.valid() && sourceCodeFile.extension(".h2").isFalse())
                 {
                     var fileLines = Files.getFileLines(sourceCodeFile);
@@ -533,12 +545,12 @@ namespace O2.DotNetWrappers.DotNet
                         {
                             //   var file = fileLine.Replace(specialO2Tag_ExtraSourceFile, "").Trim();
                             var file = fileLine.Replace(match, "").Trim();
-							if (false == sourceCodeFiles.Contains(file) && false == filesToLoad.Contains(file))
+                            if (false == sourceCodeFiles.Contains(file) && false == filesToLoad.Contains(file))
                             {
                                 //handle the File:xxx:Ref:xxx case
-                                if (CompileEngine.isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(file, referencedAssemblies)
-                                                 .isFalse())
-									add_to_FilesToLoad(sourceCodeFile, file);
+                               // if (CompileEngine.isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(file, referencedAssemblies)
+                                //                 .isFalse())
+                                add_to_FilesToLoad(sourceCodeFile, file);
                             }
                         }
                         //else if (fileLine.StartsWith(specialO2Tag_ExtraFolder))
@@ -556,8 +568,8 @@ namespace O2.DotNetWrappers.DotNet
                                             break;
                                         }
                                 foreach (var file in Files.getFilesFromDir_returnFullPath(folder, "*.cs", true))
-									if (false == sourceCodeFiles.Contains(file) && false == filesToLoad.Contains(file))
-										add_to_FilesToLoad(sourceCodeFile, file);
+                                    if (false == sourceCodeFiles.Contains(file) && false == filesToLoad.Contains(file))
+                                        add_to_FilesToLoad(sourceCodeFile, file);
                             }
 
                             else
@@ -574,11 +586,11 @@ namespace O2.DotNetWrappers.DotNet
             
 
             // add them to the list (checking if the file exist)
-			if (filesToLoad.Count > 0)
+            if (filesToLoad.Count > 0)
             {
-				applyCompilationPathMappings(filesToLoad);
-				PublicDI.log.info("There are {0} extra files to add to the list of source code files to compile: {0}", filesToLoad.Count);
-				foreach (var file in filesToLoad)
+                applyCompilationPathMappings(filesToLoad);
+                PublicDI.log.info("There are {0} extra files to add to the list of source code files to compile: {1}", filesToLoad.Count, sourceCodeFiles.size());
+                foreach (var file in filesToLoad)
                 {                    
                     var filePath = "";
                     if (File.Exists(file))
@@ -593,13 +605,13 @@ namespace O2.DotNetWrappers.DotNet
                                 break;
                             }							
                         //then look in the O2 Scripts folder
-						if (filePath == "" && file.local().fileExists())
-							filePath = file.local();						
-						if (filePath == "")
-						{
-							PublicDI.log.error("in addSourceFileOrFolderIncludedInSourceCode, could not file file to add: {0}", file);
-							//filesToLoad.add(file);
-						}
+                        if (filePath == "" && file.local().fileExists())
+                            filePath = file.local();						
+                        if (filePath == "")
+                        {
+                            PublicDI.log.error("in addSourceFileOrFolderIncludedInSourceCode, could not file file to add: {0}", file);
+                            //filesToLoad.add(file);
+                        }
                     }
                     if (filePath != "" )
                     {
@@ -607,7 +619,7 @@ namespace O2.DotNetWrappers.DotNet
                         if (false == sourceCodeFiles.lower().Contains(filePath.lower()))
                         {
                             sourceCodeFiles.Add(filePath);
-							addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, resolvedFiles); // we need to recursively add new new dependencies 
+                            addSourceFileOrFolderIncludedInSourceCode(sourceCodeFiles, referencedAssemblies, resolvedFiles); // we need to recursively add new new dependencies 
                         }
                     }
                 }               
@@ -724,10 +736,10 @@ namespace O2.DotNetWrappers.DotNet
                                                    IncludeDebugInformation = true,
                                                    OutputAssembly = outputAssemblyName
                                                };*/  // Object contstuctors are not supported by Roslyn CTP 2002
-				cpCompilerParameters.GenerateInMemory = false;
-				cpCompilerParameters.IncludeDebugInformation = true;
-				cpCompilerParameters.OutputAssembly = outputAssemblyName;
-				
+                cpCompilerParameters.GenerateInMemory = false;
+                cpCompilerParameters.IncludeDebugInformation = true;
+                cpCompilerParameters.OutputAssembly = outputAssemblyName;
+                
                 if (exeMainClass == "")
                     cpCompilerParameters.OutputAssembly += ".dll";
                 else
@@ -747,8 +759,8 @@ namespace O2.DotNetWrappers.DotNet
                 if (null != sReferenceAssembliesToAdd)
                     foreach (String sReferenceAssembly in sReferenceAssembliesToAdd)
                     {
-						if (File.Exists(sReferenceAssembly))
-							cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
+                        if (File.Exists(sReferenceAssembly))
+                            cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
                     }
                 crCompilerResults = cscpCSharpCodeProvider.CompileAssemblyFromFile(cpCompilerParameters, sourceCodeFiles.ToArray());
                 
@@ -809,29 +821,47 @@ namespace O2.DotNetWrappers.DotNet
         }
         public static string findFileOnLocalScriptFolder(string file)
         {
-            if (file.fileExists())
-                return file.fullPath();            
-            //if (LocalScriptFileMappings.size() == 0)  // if there are no mappings create the cached list
-			if (LocalScriptFileMappings.hasKey("Util - LogViewer.h2".lower()).isFalse()) // this script should be there, if not it means we need to refresh this list
-                resetLocalScriptsFileMappings();
+            try
+            {               
+                //if (LocalScriptFileMappings.size() == 0)  // if there are no mappings create the cached list
+                if (LocalScriptFileMappings.hasKey("Util - LogViewer.h2".lower()).isFalse()) // this script should be there, if not it means we need to refresh this list
+                    resetLocalScriptsFileMappings();
 
-            var key = file.ToLower();
-            if (CompileEngine.LocalScriptFileMappings.hasKey(key))
-                return CompileEngine.LocalScriptFileMappings[key];
-            
-            var localFile = file.pathCombine_With_ExecutingAssembly_Folder();
-            if (localFile.fileExists())
-            {
-                CompileEngine.LocalScriptFileMappings.add(file, localFile);
-                return localFile;
+                var key = file.ToLower();
+                if (CompileEngine.LocalScriptFileMappings.hasKey(key))
+                    return CompileEngine.LocalScriptFileMappings[key];
+                //var localFile = file.pathCombine_With_ExecutingAssembly_Folder();
+
+                var extraFoldersToFindFile = CompileEngine.LocalFoldersToSearchForCodeFiles.toList()
+                                                          .add(Environment.CurrentDirectory)
+                                                          .add(Assembly.GetExecutingAssembly().location().parentFolder())
+                                                          .add(Assembly.GetCallingAssembly().location().parentFolder())
+                                                          .add(Assembly.GetEntryAssembly().location().parentFolder())
+                                                          .onlyValidFolders()
+                                                          .unique();
+
+                foreach (var extraFolder in extraFoldersToFindFile)
+                {
+                    var mapping = extraFolder.pathCombine(file);
+                    if (mapping.fileExists())
+                    {
+                        "[findFileOnLocalScriptFolder] mapped '{0}' to file '{1}".info(file, mapping);
+                        CompileEngine.LocalScriptFileMappings.add(file, mapping);
+                        return mapping;
+                    }
+                }
             }
-            "in CompileEngine, could NOT map file reference '{0}'".debug(file);
+            catch (Exception ex)
+            {
+                ex.log();
+            }
+            "[findFileOnLocalScriptFolder]in CompileEngine, could NOT map file reference '{0}'".debug(file);
             return "";                    
         }
 
         public static string findScriptOnLocalScriptFolder(string file)
         {
-			return findFileOnLocalScriptFolder(file);
+            return findFileOnLocalScriptFolder(file);
 
            /* if (file.contains("/", @"\"))       // currenlty relative paths are not supported
                 return "";
@@ -857,7 +887,7 @@ namespace O2.DotNetWrappers.DotNet
             if (mappedFilePath.valid())
                 LocalScriptFileMappings.add(file, mappedFilePath);
             return mappedFilePath;
-		    * */
+            * */
         }
 
         public static string getCachedCompiledAssembly(string scriptOrFile)
@@ -895,36 +925,36 @@ namespace O2.DotNetWrappers.DotNet
             return "";
         }
 
-		public static string resolveCompilationReferencePath(string reference)
-		{			
+        public static string resolveCompilationReferencePath(string reference)
+        {			
             if (CachedCompiledAssemblies.ContainsKey(reference))    // check in CachedCompiledAssemblies first
                 return  CachedCompiledAssemblies[reference];
-			if (reference.fileExists().isFalse())
-			{
-				if (reference.IndexOf(",") > 0)
-					reference = reference.split(",").first();
-				/*var resolvedFile = PublicDI.config.ReferencesDownloadLocation.pathCombine(reference);
-				if (resolvedFile.fileExists())
-					return resolvedFile;*/
+            if (reference.fileExists().isFalse())
+            {
+                if (reference.IndexOf(",") > 0)
+                    reference = reference.split(",").first();
+                /*var resolvedFile = PublicDI.config.ReferencesDownloadLocation.pathCombine(reference);
+                if (resolvedFile.fileExists())
+                    return resolvedFile;*/
                 var resolvedFile = PublicDI.CurrentScript.directoryName().pathCombine(reference);   
                 if (resolvedFile.fileExists())
-					return resolvedFile;
-				foreach (var localReferenceFolder in LocalReferenceFolders)
-				{
-					resolvedFile = localReferenceFolder.pathCombine(reference);
-					if (resolvedFile.fileExists())
-						return resolvedFile;                    
+                    return resolvedFile;
+                foreach (var localReferenceFolder in LocalReferenceFolders)
+                {
+                    resolvedFile = localReferenceFolder.pathCombine(reference);
+                    if (resolvedFile.fileExists())
+                        return resolvedFile;                    
                     resolvedFile = localReferenceFolder.pathCombine(reference + ".dll");
                     if (resolvedFile.fileExists())
                         return resolvedFile;
                     resolvedFile = localReferenceFolder.pathCombine(reference + ".exe");
                     if (resolvedFile.fileExists())
                             return resolvedFile;                    
-				}
+                }
                 
-			}
-			return reference;
-		}
+            }
+            return reference;
+        }
 
         public static string resolve_Assembly_ToAddTo_ReferencedAssemblies_List(string originalReference, bool workOffline)
         {            
@@ -966,7 +996,7 @@ namespace O2.DotNetWrappers.DotNet
         public static void add_Assembly_Resolved_ReferencedAssemblies_List(List<string> resolvedAssemblies, string originalReference, bool workOffline)
         {
             try
-			{  
+            {  
                 if (resolvedAssemblies.contains(originalReference))
                     return;
                 var resolvedAssembly = resolve_Assembly_ToAddTo_ReferencedAssemblies_List(originalReference, workOffline);
@@ -984,10 +1014,10 @@ namespace O2.DotNetWrappers.DotNet
                     }*/
                 }
             }
-			catch (Exception ex)
-			{
+            catch (Exception ex)
+            {
                 "[tryToResolveReferencesForCompilation][resolve_Assembly_ToAddTo_ReferencedAssemblies_List]  {0} for '{1}'".error(ex.Message, originalReference);
-			}
+            }
         }
 
         public static void tryToResolveReferencesForCompilation(List<string> referencedAssemblies, bool workOffline)
@@ -995,7 +1025,7 @@ namespace O2.DotNetWrappers.DotNet
             var o2Timer = new O2Timer("tryToResolveReferencesForCompilation").start();
             var currentExecutablePath = PublicDI.config.CurrentExecutableDirectory;
             var resolvedAssemblies = new List<string>();
-			for (int i = 0; i < referencedAssemblies.size(); i++)
+            for (int i = 0; i < referencedAssemblies.size(); i++)
             {
                 add_Assembly_Resolved_ReferencedAssemblies_List(resolvedAssemblies, referencedAssemblies[i].trim(), workOffline);			
             }
@@ -1017,7 +1047,7 @@ namespace O2.DotNetWrappers.DotNet
             }
         }
 
-        public static bool isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(string fileToResolve, List<string> ReferencedAssemblies)
+/*        public static bool isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(string fileToResolve, List<string> ReferencedAssemblies)
         {
             if (fileToResolve.starts("Ref:"))
             {
@@ -1033,6 +1063,6 @@ namespace O2.DotNetWrappers.DotNet
             }
             else
                 return false;
-        }
+        }*/
     }
 }

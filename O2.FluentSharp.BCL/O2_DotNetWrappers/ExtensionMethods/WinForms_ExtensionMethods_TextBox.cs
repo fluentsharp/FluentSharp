@@ -119,7 +119,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return textBox;
         }
-        public static string     get_Text(this TextBox textBox)
+        public static string    get_Text(this TextBox textBox)
         {
             return (string)textBox.invokeOnThread(
                 () =>
@@ -156,29 +156,33 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return textBox;
                 });
         }
-        public static void      append_Line(this TextBox textBox, string textFormat, params object[] parameters)
+        public static TextBox   append_Line(this TextBox textBox, string textFormat, params object[] parameters)
         {
             textBox.append_Line(string.Format(textFormat, parameters));
+            return textBox;
         }
-        public static void      append_Line(this TextBox textBox, string text)
+        public static TextBox   append_Line(this TextBox textBox, string text)
         {
             textBox.append_Text(text + Environment.NewLine);
+            return textBox;
         }
-        public static void      append_Text(this TextBox textBox, string text)
+        public static TextBox   append_Text(this TextBox textBox, string text)
         {
-            textBox.invokeOnThread(
+            return textBox.invokeOnThread(
                 () =>
                     {
                         textBox.Text += text;
                         textBox.goToEnd();
+                        return textBox;
                     });
         }
-        public static void      goToEnd(this TextBox textBox)
+        public static TextBox   goToEnd(this TextBox textBox)
         {
-            textBox.invokeOnThread(() =>
+            return textBox.invokeOnThread(() =>
                                        {
                                            textBox.Select(textBox.Text.Length, 0);
                                            textBox.ScrollToCaret();
+                                           return textBox;
                                        });
         }
         public static TextBox   onTextChange(this TextBox textBox, Action<string> callback)
@@ -340,20 +344,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return targetTextBox;
 		}
 
-        public static TextBox unlimitedSize(this TextBox textBox)
+        public static TextBox   unlimitedSize(this TextBox textBox)
         {
             return textBox.maxLength(0);
         }
-        public static TextBox noMaxLength(this TextBox textBox)
+        public static TextBox   noMaxLength(this TextBox textBox)
         {
             return textBox.maxLength(0);
         }
-        public static TextBox maxLength(this TextBox textBox, int value)
+        public static TextBox   maxLength(this TextBox textBox, int value)
         {
             return textBox.invokeOnThread(() => { textBox.MaxLength = value; return textBox; });
         }
 
-        public static TextBox show_in_TextArea(this string text)
+        public static TextBox   show_in_TextArea(this string text)
         {
             return "Viewing String with size: {0}".format(text.size())
                         .popupWindow()

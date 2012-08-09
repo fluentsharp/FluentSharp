@@ -56,7 +56,7 @@ namespace O2.External.SharpDevelop.AST
 		bool creatingAst;
 		bool compiling;
         
-        public string EXTRA_EXTENSION_METHODS_FILE = "_Extra_methods_To_Add_to_Main_CodeBase.cs";
+        //public string EXTRA_EXTENSION_METHODS_FILE = "_Extra_methods_To_Add_to_Main_CodeBase.cs";
 
         public System.Threading.ManualResetEvent FinishedCompilingCode { get;set;}
 
@@ -100,7 +100,7 @@ namespace O2.External.SharpDevelop.AST
         {
             CompileEngine.DefaultReferencedAssemblies
                             .add_OnlyNewItems("O2_FluentSharp_BCL.dll",                                                                
-                                              "O2_FluentSharp_REPL.dll",
+                                              "O2_FluentSharp_REPL.exe",
                                               "O2_External_SharpDevelop.dll",
                                               "WeifenLuo.WinFormsUI.Docking.dll");                                     
         }                		
@@ -460,7 +460,7 @@ namespace O2.External.SharpDevelop.AST
         public void mapCodeO2References(Ast_CSharp astCSharp)
         {            
             bool onlyAddReferencedAssemblies = false;
-			bool addExtraLocalO2ScriptFiles = true;
+			//bool addExtraLocalO2ScriptFiles = true;
 //            generateDebugSymbols = false; // default to not generating debug symbols and creating the assembly only in memory
             ExtraSourceCodeFilesToCompile = new List<string>();                                
         	var compilationUnit = astCSharp.CompilationUnit;
@@ -475,7 +475,7 @@ namespace O2.External.SharpDevelop.AST
             foreach (var comment in astCSharp.AstDetails.Comments)
             {
                 comment.Text.eq("O2Tag_OnlyAddReferencedAssemblies", () => onlyAddReferencedAssemblies = true);
-				comment.Text.eq("O2Tag_DontAddExtraO2Files", () => addExtraLocalO2ScriptFiles = false);
+				//comment.Text.eq("O2Tag_DontAddExtraO2Files", () => addExtraLocalO2ScriptFiles = false);
                 comment.Text.starts("using ", false, value => astCSharp.CompilationUnit.add_Using(value));
                 comment.Text.starts(new [] {"ref ", "O2Ref:"}, false,  value => ReferencedAssemblies.Add(value));
                 comment.Text.starts(new[] { "Download:","download:", "O2Download:" }, false, value => FilesToDownload.Add(value));
@@ -493,8 +493,8 @@ namespace O2.External.SharpDevelop.AST
                 //comment.Text.eq("ClearAssembliesCheckedIfExists", () => { O2.Kernel.CodeUtils.O2GitHub.clear_AssembliesCheckedIfExists(); });  
             }
 
-			if (addExtraLocalO2ScriptFiles)
-				ExtraSourceCodeFilesToCompile.Add(EXTRA_EXTENSION_METHODS_FILE); // add this one by default to make it easy to add new extension methods to the O2 Scripts
+//			if (addExtraLocalO2ScriptFiles)
+//				ExtraSourceCodeFilesToCompile.Add(EXTRA_EXTENSION_METHODS_FILE); // add this one by default to make it easy to add new extension methods to the O2 Scripts
             //resolve location of ExtraSourceCodeFilesToCompile
 
             resolveFileLocationsOfExtraSourceCodeFilesToCompile();                        
@@ -533,32 +533,32 @@ namespace O2.External.SharpDevelop.AST
                         var fileToResolve = ExtraSourceCodeFilesToCompile[i].trim();
 
                         //handle the File:xxx:Ref:xxx case
-                        if (CompileEngine.isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(fileToResolve,ReferencedAssemblies))
-                            ExtraSourceCodeFilesToCompile[i] = "";
-                        else
-                        {
-                            var resolved = false;
-                            // try using SourceCodeFile.directoryName()
-                            if (fileToResolve.fileExists().isFalse())
-                                if (SourceCodeFile.valid() && SourceCodeFile.isFile())
-                                {
-                                    var resolvedFile = SourceCodeFile.directoryName().pathCombine(fileToResolve);
-                                    if (resolvedFile.fileExists())
-                                    {
-                                        ExtraSourceCodeFilesToCompile[i] = resolvedFile;
-                                        resolved = true;
-                                    }
-                                }    
-                            // try using the localscripts folders                    
-                            if (resolved.isFalse() && fileToResolve.fileExists().isFalse())
+                        //if (CompileEngine.isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(fileToResolve,ReferencedAssemblies))
+                        //    ExtraSourceCodeFilesToCompile[i] = "";
+                        //else
+                        //{
+                        var resolved = false;
+                        // try using SourceCodeFile.directoryName()
+                        if (fileToResolve.fileExists().isFalse())
+                            if (SourceCodeFile.valid() && SourceCodeFile.isFile())
                             {
-                                var mappedFile = CompileEngine.findScriptOnLocalScriptFolder(fileToResolve);
-                                if (mappedFile.valid())
-                                    ExtraSourceCodeFilesToCompile[i] = mappedFile;
-                            }
-                            else
-                                ExtraSourceCodeFilesToCompile[i] = ExtraSourceCodeFilesToCompile[i].fullPath();
+                                var resolvedFile = SourceCodeFile.directoryName().pathCombine(fileToResolve);
+                                if (resolvedFile.fileExists())
+                                {
+                                    ExtraSourceCodeFilesToCompile[i] = resolvedFile;
+                                    resolved = true;
+                                }
+                            }    
+                        // try using the localscripts folders                    
+                        if (resolved.isFalse() && fileToResolve.fileExists().isFalse())
+                        {
+                            var mappedFile = CompileEngine.findScriptOnLocalScriptFolder(fileToResolve);
+                            if (mappedFile.valid())
+                                ExtraSourceCodeFilesToCompile[i] = mappedFile;
                         }
+                        else
+                            ExtraSourceCodeFilesToCompile[i] = ExtraSourceCodeFilesToCompile[i].fullPath();
+                        //}
                     }
                     //add extra _ExtensionMethods.cs if avaiable
 /*                    for (int i = 0; i < ExtraSourceCodeFilesToCompile.size(); i++)

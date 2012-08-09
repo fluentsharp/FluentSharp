@@ -17,8 +17,6 @@ using O2.External.SharpDevelop.Ascx;
 
 using O2.XRules.Database.Utils;
 
-//O2File:_Extra_methods_WinForms_TreeView.cs
-
 namespace O2.XRules.Database.Utils
 {
     public class test_ascx_FolderView : ContainerControl

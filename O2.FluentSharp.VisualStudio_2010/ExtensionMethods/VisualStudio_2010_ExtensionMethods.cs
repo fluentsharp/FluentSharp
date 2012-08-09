@@ -7,14 +7,20 @@ using System.Windows.Controls;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.PlatformUI; 
+using Microsoft.VisualStudio.Platform.WindowManagement; 
+using Microsoft.VisualStudio.Platform.WindowManagement.DTE;
+using System.Windows.Forms.Integration;
+using WinForms = System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
+using O2.DotNetWrappers.DotNet;
 using O2.FluentSharp;
 //O2File:VS_ErrorListProvider_ExtensionMethods.cs
 //O2File:VS_Menus_ExtensionMethods.cs
 //O2Ref:Microsoft.VisualStudio.Shell.UI.Internal.dll
 //O2Ref:WindowsFormsIntegration.dll
+//O2Ref:Microsoft.VisualStudio.Platform.WindowManagement.dll
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -204,24 +210,23 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return grid;
     	}
     	public static System.Windows.Forms.Panel create_WinForms_Window(this string title)
-    	{
-    		ToolWindowPane toolWindow = null;
-    		return title.create_WinForms_Window(ref toolWindow);
+    	{    		
+            return title.create_WinForms_Window(VSFRAMEMODE.VSFM_Dock);
     	}
-    	public static System.Windows.Forms.Panel create_WinForms_Window(this string title, ref ToolWindowPane toolWindow)
+
+        public static System.Windows.Forms.Panel create_WinForms_Window(this string title, VSFRAMEMODE frameMode)
     	{
-    		var visualStudio = new VisualStudio_2010();
-    		ToolWindowPane window = null;    		
+    		var visualStudio = new VisualStudio_2010();    				
 			var _panel = visualStudio.invokeOnThread(
 			()=>{					
 					var type = typeof(O2.FluentSharp.WindowPane_WinForms);
-					window = (ToolWindowPane)visualStudio.package().invoke("CreateToolWindow", type, 64000.random());			
-					
+					var window = (ToolWindowPane)visualStudio.package().invoke("CreateToolWindow", type, 64000.random());			
+			        		
 					window.Caption = title;
 					IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;					
-					
-					//windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Dock);
-					
+					//if(floating)
+                    //    windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Float);
+                    windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, frameMode);					
 					windowFrame.Show();				
 					var content= (Control_WinForms)window.Content;
 					var windowsFormHost = (System.Windows.Forms.Integration.WindowsFormsHost)content.Content;			
@@ -229,24 +234,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					panel.backColor("Control");
 					windowsFormHost.Child = panel;					
 					return panel;					
-				});
-			toolWindow = window;
+				});			
 			return _panel;
     	}
-
         public static System.Windows.Forms.Panel create_WinForms_Window_Float(this string title)
-        {
-            ToolWindowPane toolWindow = null;
-            var panel = title.create_WinForms_Window(ref toolWindow);
-            toolWindow.as_Float();
-            return panel;
+        {                        
+            return title.create_WinForms_Window(VSFRAMEMODE.VSFM_Float);                        
         }
-        
+        public static System.Windows.Forms.Panel create_WinForms_Window_MdiChild(this string title)
+        {
+            return title.create_WinForms_Window(VSFRAMEMODE.VSFM_MdiChild);
+        }
         public static System.Windows.Forms.Panel create_WinForms_Window(this VisualStudio_2010 visualStudio, string title)
         {
         	return title.create_WinForms_Window();
-        }
-        
+        }        
         public static System.Windows.Forms.Panel create_WinForms_Window_Float(this VisualStudio_2010 visualStudio, string title)
         {
         	return title.create_WinForms_Window_Float();
@@ -270,7 +272,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return toolWindow;
         }
-
         public static ToolWindowPane as_Float(this ToolWindowPane toolWindow)
         {
             if (toolWindow.notNull())
@@ -280,7 +281,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return toolWindow;
         }
-
         public static ToolWindowPane as_Dock(this ToolWindowPane toolWindow)
         {
             if (toolWindow.notNull())
@@ -289,6 +289,375 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Dock);
             }
             return toolWindow;
+        }                                        
+    }
+    public static class VisualStudio_2010_ExtensionMethods_WindowBase
+    {
+        public static WindowBase windowBase(this WinForms.Control control)
+        {
+            try
+            {
+                return (WindowBase)control.dte_Window();
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in control.windowBase]");
+                return null;
+            }
+        }
+        public static List<WindowBase> windows(this VisualStudio_2010 visualStudio)
+        {
+            var windows = new List<WindowBase>();
+            foreach (WindowBase window in visualStudio.dte().Windows)
+                windows.Add(window);
+            return windows;
+        }
+
+        public static WindowBase    window(this VisualStudio_2010 visualStudio, string caption)
+        {
+            return visualStudio.windows().Where((window) => window.Caption == caption).first();
+        }
+        public static WindowBase    get_Window(this VisualStudio_2010 visualStudio, string caption)
+        {
+            return visualStudio.window(caption);
+        }
+        public static List<string>  names(this List<WindowBase> windows)
+        {
+            return windows.captions();
+        }
+        public static List<string>  titles(this List<WindowBase> windows)
+        {
+            return windows.captions();
+        }
+        public static List<string>  captions(this List<WindowBase> windows)
+        {
+            return windows.Select((window) => window.Caption).toList();
+        }
+        public static WindowBase    floating(this WindowBase window, bool value)
+        {
+            try
+            {
+                window.IsFloating = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.floating]");
+            }
+            return window;
+        }
+        public static WindowBase    linkable(this WindowBase window, bool value)
+        {
+            try
+            {
+                window.Linkable = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.linkable]");
+            }
+            return window; 
+        }
+        public static WindowBase    autoHide(this WindowBase window, bool value)
+        {
+            try
+            {
+                window.AutoHides = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.autoHide]");
+            }
+            return window;
+        }
+        public static WindowBase    visible(this WindowBase window, bool value)
+        {
+            try
+            {
+                window.Visible = value;                
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.visible]");
+            }
+            return window;
+        }
+        public static WindowBase    title(this WindowBase window, string value)
+        {    
+            try
+            {
+                window.Caption = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.title]");
+            }
+            return window;            
+        }
+        public static WindowBase    left(this WindowBase window, int value)
+        {
+            try
+            {
+                window.Left = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.left]");
+            }
+            return window;
+        }
+        public static WindowBase    top(this WindowBase window, int value)
+        {
+            try
+            {
+                window.Top = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.top]");
+            }
+            return window;
+        }
+        public static WindowBase    width(this WindowBase window, int value)
+        {
+            try
+            {
+                window.Width = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.width]");
+            }
+            return window;
+        }
+        public static WindowBase    height(this WindowBase window, int value)
+        {
+            try
+            {
+                window.Height = value;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.height]");
+            }
+            return window;
+        }
+        public static WindowBase    focus(this WindowBase window)
+        {
+            return window.show();
+        }  
+        public static WindowBase    show(this WindowBase window)
+        {
+            try
+            {
+                window.visible(true);
+                window.Activate();
+            }
+            catch (Exception ex)
+            {
+                ex.log("[window.show]");
+            }
+            return window;
+        }
+        public static WindowBase    hide(this WindowBase window)
+        {
+            window.visible(false);
+            return window;
+        }
+    }
+    public static class VisualStudio_2010_ExtensionMethods_DTE_Documents
+    {
+        public static List<EnvDTE.Document> documents(this VisualStudio_2010 visualStudio)
+        {
+            return (from window in visualStudio.windows()
+                    where window.Document.notNull()
+                    select window.Document).toList();
+        }
+        public static EnvDTE.Document document(this VisualStudio_2010 visualStudio, string path)
+        {
+            //first search by fullpath
+            var match = (EnvDTE.Document)(from document in visualStudio.documents()
+                                          where document.FullName == path
+                                          select document).first(); 
+            if (match.notNull())
+                return match;
+            
+            //then by filename
+            return (EnvDTE.Document)(from document in visualStudio.documents()
+                                     where document.FullName.fileName() == path
+                                     select document).first(); 
+            
+        }
+    }
+    public static class VisualStudio_2010_ExtensionMethods_DTE_Window
+    {
+        public static EnvDTE.Window     dte_Window(this System.Windows.Forms.Control control)
+        {
+            return control.toolWindowPane().dte_Window();
+        }
+        public static EnvDTE.Window     dte_Window(this ToolWindowPane toolWindowPane)
+        {        	
+            return new VisualStudio_2010().invokeOnThread(
+                ()=>{	 
+		                IVsWindowFrame windowFrame = (IVsWindowFrame)toolWindowPane.Frame;						
+		                return VsShellUtilities.GetWindowObject(windowFrame);
+                    });
+        }
+        public static string            title(this EnvDTE.Window window)
+        { 
+            return new VisualStudio_2010().invokeOnThread(
+                ()=> window.Caption);
+        }
+        public static EnvDTE.Window     title(this EnvDTE.Window window, string value)
+        {
+            return new VisualStudio_2010().invokeOnThread(() =>
+                {
+                    window.Caption = value;
+                    return window;
+                });
+        }
+        public static EnvDTE.Window     width(this EnvDTE.Window window, int value)
+        {
+            return new VisualStudio_2010().invokeOnThread(() =>
+            {
+                window.Width = value;
+                return window;
+            });
+        }
+        public static EnvDTE.Window     height(this EnvDTE.Window window, int value)
+        {
+            return new VisualStudio_2010().invokeOnThread(() =>
+            {
+                window.Height = value;
+                return window;
+            });
+        }
+        public static bool              close(this EnvDTE.Window window)
+        {
+            try
+            {
+                window.Close(); //will throw exeption if window has been closed
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in EnvDTE.window.close]");
+                return false;
+            }
+        }        
+        public static bool              visible(this EnvDTE.Window window)
+        {
+            try
+            {
+                return window.Visible; //will throw exeption if window has been closed
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in EnvDTE.window.visible]");
+                return false;
+            }
+        }
+        public static EnvDTE.Window     visible(this EnvDTE.Window window, bool value)
+        {
+            try
+            {
+                window.Visible = value; //will throw exeption if window has been closed                
+                return window;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in EnvDTE.window.visible]");
+                return null;
+            }
+        }
+        public static T close_in_NSeconds<T>(this T window, int seconds) where T : EnvDTE.Window
+        {
+            O2Thread.mtaThread(() => window.wait(seconds * 1000).close());
+            return window;
         }        
     }
+    public static class VisualStudio_2010_ExtensionMethods_WinFormsIntegration
+    { 
+    	public static WindowsFormsHost  windowsFormHost(this System.Windows.Forms.Control control)
+    	{
+    		try
+    		{                
+	    		var containerControl = control.parent<System.Windows.Forms.ContainerControl>();                
+                if (containerControl.isNull()) 
+                    return null;
+	    		if (containerControl.typeName() == "WinFormsAdapter")
+	    			return (WindowsFormsHost)containerControl.field("_host");
+                return containerControl.windowsFormHost();
+	    	}
+	    	catch(Exception ex)
+	    	{
+	    		ex.log("[in windowsFormHost(this Control control]");	    		
+	    	}
+	    	return null;    			
+    	}
+        public static UserControl       userControl(this WindowsFormsHost windowsFormsHost)
+        {
+            return windowsFormsHost.userControl<UserControl>();
+        }
+    	public static T                 userControl<T>(this WindowsFormsHost windowsFormsHost) where T :  UserControl
+    	{
+    		try
+    		{
+    			return (T)windowsFormsHost.Parent;
+    		}
+    		catch(Exception ex)
+    		{
+    			ex.log();
+    			return null;
+    		}
+    		
+    	}
+        public static ToolWindowPane    toolWindowPane(this UserControl userControl)
+        {
+            if (VisualStudio_2010.ToolWindowPanes.hasKey(userControl))
+                return VisualStudio_2010.ToolWindowPanes[userControl];
+            return null;
+        }
+        public static ToolWindowPane    toolWindowPane(this System.Windows.Forms.Control control)
+        {
+            return control.windowsFormHost()
+                          .userControl()
+                          .toolWindowPane();
+        }
+    }
+
+
+    public static class VisualStudio_2010_ExtensionMethods_Multiple_Guis
+    {
+        public static T                     open_Control<T>(this VisualStudio_2010 visualStudio) where T : WinForms.Control
+        {
+            return visualStudio.open_Control<T>("{0}".format(typeof(T).Name));
+        }         
+        public static T                     open_Control<T>(this VisualStudio_2010 visualStudio, string title) where T : WinForms.Control
+        {
+            var panel =title.create_WinForms_Window_Float();
+            return panel.add_Control<T>();                        
+        }
+        public static WinForms.Panel        open_Panel(this VisualStudio_2010 visualStudio, string title = "Title")
+        {
+            return visualStudio.open_Control<WinForms.Panel>(title);
+        }
+        public static WinForms.TreeView     open_TreeView(this VisualStudio_2010 visualStudio)
+        {
+            return visualStudio.open_Control<WinForms.TreeView>();
+        }
+        public static IVsWindowFrame        open_Document(this VisualStudio_2010 visualStudio, string file)
+        {
+            return file.open_Document();
+        }
+        
+        public static O2.Views.ASCX.Ascx.MainGUI.ascx_LogViewer open_LogViewer(this VisualStudio_2010 visualStudio)
+        {
+            var logViewer = "O2 LogViewer".create_WinForms_Window_Float().add_LogViewer();
+            return logViewer;
+        }
+        public static O2.XRules.Database.Utils.ascx_Simple_Script_Editor open_ScriptEditor(this VisualStudio_2010 visualStudio)
+        {
+            return "O2 REPL Script".create_WinForms_Window_Float().add_Script(true);            
+        }
+    } 
 }

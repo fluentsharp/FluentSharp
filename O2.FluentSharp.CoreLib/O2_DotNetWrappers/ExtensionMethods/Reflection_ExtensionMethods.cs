@@ -22,7 +22,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (type.isNull())
                 return null;
             return type.Assembly.Location;
-        }
+        }        
         public static string                version(this Assembly assembly)
         {
             if (assembly.notNull())
@@ -49,11 +49,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return null;
 			}
 		}
-        public static bool isDynamic(this Assembly assembly)
+        public static bool                  isDynamic(this Assembly assembly)
         {
             return assembly.prop<bool>("IsDynamic");
         }
-        public static List<Assembly> notDynamic(this List<Assembly> assemblies)
+        public static List<Assembly>        notDynamic(this List<Assembly> assemblies)
         {
             return (from assembly in assemblies                    
                     where assembly.isDynamic().isFalse()

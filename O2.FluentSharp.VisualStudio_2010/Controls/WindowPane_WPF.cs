@@ -8,23 +8,24 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 
-namespace O2.FluentSharp.VSIX
+namespace O2.FluentSharp
 {
 
-    [Guid("bbe3bf58-0000-4e05-ac03-d00f1dedc3e5")]
-    public class WindowPane_Default : ToolWindowPane
+    [Guid("bbe3bf58-bd64-4e05-ac03-d00f1dedc3e5")]
+    public class WindowPane_WPF : ToolWindowPane
     {
         /// <summary>
         /// Standard constructor for the tool window.
         /// </summary>
-        public WindowPane_Default() :
+        public WindowPane_WPF() :
             base(null)
         {
             this.Caption = "Window WPF";            
             //this.BitmapResourceID = 301;
             //this.BitmapIndex = 1;
-
-            base.Content = null;
+            var userControl = new Control_WPF();
+            base.Content = userControl;
+            VisualStudio_2010.ToolWindowPanes.Add(userControl, this);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using O2.FluentSharp;
+using O2.DotNetWrappers.DotNet;
 using Microsoft.VisualStudio.CommandBars;
 using EnvDTE80;
 //O2Ref:Microsoft.CSharp.dll
@@ -17,6 +18,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {
         public static CommandBarPopup add_TopMenu(this DTE2 dte, string text = "New Top Menu", string addAfterMenu = "Help")
         {
+            var o2Timer = new O2Timer("Adding TopMenu").start();
             if (dte.isNull())
             {
                 "[VS_Menus_ExtensionMethods][add_TopMenu] DTE object is null, so can't create Top Menu".error();
@@ -29,9 +31,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return existingMenu;
             }
             "[VS_Menus_ExtensionMethods] Creating new Top Menu called: {0}".info(text);
-            dynamic commandBars = dte.CommandBars;
-            var menuCommandBar = commandBars["MenuBar"];
-            var position = (commandBars[addAfterMenu].Parent as CommandBarControl).Index;
+            //dynamic commandBars = dte.CommandBars;
+            //var menuCommandBar = commandBars["MenuBar"];  
+            //get_CommandBarMenu
+            //var position = (commandBars[addAfterMenu].Parent as CommandBarControl).Index;
+            
+            //The two lines above (using dynamic) has much worse performace then the ones below (from 1.8 sec to .1 sec)
+            var menuCommandBar = dte.get_CommandBar("MenuBar");
+            var position = dte.get_CommandBarMenu(addAfterMenu).Index;
+            
+
             var newMenu = (CommandBarPopup)menuCommandBar.Controls.Add(MsoControlType.msoControlPopup,
                                                                        System.Type.Missing,
                                                                        System.Type.Missing,
@@ -39,14 +48,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                                                        true);
             newMenu.Caption = text;
             newMenu.Enabled = true;
+            o2Timer.stop();
             return newMenu;
         }
 
-        public static CommandBarButton add(this CommandBarPopup topMenu, string text, Action onClick)
+        public static CommandBarPopup add(this CommandBarPopup topMenu, string text, Action onClick)
         {
             return topMenu.add_Menu_Button(text, onClick);
         }
-        public static CommandBarButton add_Menu_Button(this CommandBarPopup topMenu, string text = "New Button", Action onClick = null, int before = 0)
+        public static CommandBarPopup add_Menu_Button(this CommandBarPopup topMenu, string text = "New Button", Action onClick = null, int before = 0)
         {
             if (topMenu.isNull())
             {
@@ -64,7 +74,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             button.Click += (CommandBarButton sender, ref bool CancelDefault) => onClick.invoke();
             button.Caption = text;
             button.Enabled = true;
-            return button;
+            return topMenu;
         }
 
 
@@ -79,7 +89,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {
                 return null;
             }
-        }
+        } 
 
         public static CommandBarControl get_CommandBarMenu(this DTE2 dte2, string menuName)
         {

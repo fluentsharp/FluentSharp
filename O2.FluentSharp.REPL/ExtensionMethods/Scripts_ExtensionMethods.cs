@@ -35,12 +35,23 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return scriptControl;
                 });
         }
+        public static ascx_Simple_Script_Editor add_Script_With_FolderViewer(this Control hostControl, string startFolder)
+        {
+            var script = hostControl.add_Script();
+            Action<string> openFile = (file) => script.openFile(file);            
+            hostControl.insert_FolderViewer_Simple(openFile, startFolder);
+            return script;
+        }
+        public static ascx_Simple_Script_Editor set_Code(this ascx_Simple_Script_Editor scriptEditor, string code)
+        {
+            return scriptEditor.set_Command(code);
+        }
         public static ascx_Simple_Script_Editor set_Command(this ascx_Simple_Script_Editor scriptEditor, string commandText)
         {
             return (ascx_Simple_Script_Editor)scriptEditor.invokeOnThread(
                 () =>
                 {
-                    scriptEditor.commandsToExecute.set_Text(commandText);
+                    scriptEditor.Code = commandText;
                     return scriptEditor;
                 });
         }
@@ -119,7 +130,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var objectName = objectToScript.typeName().lowerCaseFirstLetter();
             return objectToScript.script_Me(objectName, topPanel);
         }
-
         public static ascx_Simple_Script_Editor script_Me(this object objectToScript, string objectName, Panel topPanel)
         {
             var scriptHost = topPanel.add_Script(true);             //enable autocomplete by default
@@ -128,13 +138,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var code =
 @"return {0};
 
-//" + @"O2Ref:{1}
-//O2" + @"Tag_DontAddExtraO2Files";
+//" + @"O2Ref:{1}";
             scriptHost.Code = code.format(objectName, objectToScript.type().assemblyLocation().fileName()); ;
             if (objectToScript.isNull())
                 "[script_Me] provided objectToScript was null".error();
             return scriptHost;
         }
+
         //"test".popupWindow().add_Script().InvocationParameters.add("mdbgShell", mdbgShell);        
     }
 }
