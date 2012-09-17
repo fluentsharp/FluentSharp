@@ -242,8 +242,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     while ((browser.readyState() != WebBrowserReadyState.Complete || 
                            browser.isBusy().isTrue())  && abortThread.isFalse())
                         browser.wait(100, false);
-                    "Waited for completed for: {0} : {1}".debug(url, browser.url());
-                    o2Timer.stop();
+					if (url.str() != "about:blank")
+					{
+						"Waited for completed for: {0} : {1}".debug(url, browser.url());
+						o2Timer.stop();
+					}
                     sync.Set();
                 });
             if (sync.WaitOne(maxWait).isFalse())
@@ -402,12 +405,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static WebBrowser    set_Html(this WebBrowser browser, string text)
         {
-            return browser.invokeOnThread(
+            browser.invokeOnThread(
                     () =>
                     {                        
-                        browser.DocumentText = text;
+                        browser.DocumentText = text;						
                         return browser;
                     });
+			browser.waitForCompleted();
+			return browser;
         }
         public static string        get_Text(this WebBrowser browser)
         {
@@ -689,6 +694,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		    return browser;
 		}
 		
+		//this is a massive hack because IE doesn't seem to like the dynamic creation of style elements (we get the error: "Property is not supported on this type of HtmlElement.") when trying to set the style element value
+		public static WebBrowser add_Style_To_Body(this WebBrowser browser, string styleText)
+		{
+			browser.body().innerHtml_Append("<span style='block:hidden'>&nbsp</span>" + // need to add some html so that IE accepts the style command below (no idea why we need this, but it works)
+											"<style>" + styleText + "</style>");
+			return browser;
+		}
 	
 	
 		public static HtmlElement activeElement(this WebBrowser browser)
@@ -791,9 +803,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
 		//actions
 
-		public static HtmlElement createElement(this WebBrowser browser, string element)
+		public static HtmlElement createElement(this WebBrowser browser, string tagName , HtmlElement targetElement)
 		{
-			return browser.invokeOnThread(()=> browser.document().CreateElement(element));
+			var newElement = browser.createElement(tagName);
+			targetElement.appendChild(newElement);
+			return newElement;
+		}
+		public static HtmlElement createElement(this WebBrowser browser, string tagName)
+		{
+			return browser.invokeOnThread(() => browser.document().CreateElement(tagName));
 		}
 		
 		public static WebBrowser createElement(this WebBrowser browser, string command, bool showUI, object value)
@@ -880,7 +898,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return htmlElement.attribute("value", value);
         }
-
+		
         public static HtmlElement appendChild(this HtmlElement htmlElement, HtmlElement newElement)
         {
             htmlElement.AppendChild(newElement);
@@ -925,6 +943,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return htmlElement.InnerHtml;
         }
+		
         public static string outerText(this HtmlElement htmlElement)
         {
             return htmlElement.OuterText;
@@ -933,6 +952,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return htmlElement.OuterHtml;
         }
+
+		public static HtmlElement innerHtml_Append(this HtmlElement htmlElement, string value)
+		{
+			var currentValue = htmlElement.InnerHtml ?? "";
+			htmlElement.innerHtml(currentValue + value);
+			return htmlElement;
+		}
 
         public static HtmlElement innerText(this HtmlElement htmlElement, string value)
         {
@@ -950,7 +976,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                htmlElement.InnerHtml = value;
+                htmlElement.InnerHtml = value;				
             }
             catch (Exception ex)
             {
