@@ -14,19 +14,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_WebBrowser_Add_Control
     {
-        public static WebBrowser add_WebBrowser(this Control control)
+        public static WebBrowser    add_WebBrowser(this Control control)
         {
             return control.add_WebBrowser_Control();
         }
-        public static WebBrowser add_WebBrowser_Control<T>(this T control) where T : Control
+        public static WebBrowser    add_WebBrowser_Control<T>(this T control) where T : Control
         {
             return control.add_Control<WebBrowser>();
         }        
-        public static WebBrowser add_WebBrowser_with_NavigationBar(this Control control)
+        public static WebBrowser    add_WebBrowser_with_NavigationBar(this Control control)
         {
             return control.add_WebBrowser_Control().add_NavigationBar();
         }
-        public static WebBrowser add_NavigationBar(this WebBrowser webBrowser)
+        public static WebBrowser    add_NavigationBar(this WebBrowser webBrowser)
         {
             Action<string> openUrl =
                 (url) =>
@@ -50,11 +50,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             return webBrowser;
         }
-        public static WebBrowser show_in_Browser(this string url)
+        public static WebBrowser    show_in_Browser(this string url)
         {
             return url.uri().show_in_Browser();
         }
-        public static WebBrowser show_in_Browser(this Uri uri)
+        public static WebBrowser    show_in_Browser(this Uri uri)
         {
             return "Web Brower for: {0}".format(uri.str())
                                         .popupWindow()
@@ -62,14 +62,31 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                         .open(uri.str());
 
         }
-        public static WebBrowser view_Html(this string html)
+        public static WebBrowser    view_Html(this string html)
         {
             return html.view_Html("View Html in Browser".popupWindow());
         }
-        public static WebBrowser view_Html(this string html, Control control)
+        public static WebBrowser    view_Html(this string html, Control control)
         {
             return control.clear().add_WebBrowser().set_Text(html);
-        }   
+        }
+        public static HtmlElement   id(this WebBrowser webBrowser, string id)
+        {
+            return webBrowser.getElementById(id);
+        }
+        public static List<string>  ids(this WebBrowser webBrowser)
+        {
+            return webBrowser.all().where((htmlElement) => htmlElement.Id.valid())
+                                   .Select((htmlElement) => htmlElement.Id).toList();
+        }
+        public static List<HtmlElement> names(this WebBrowser webBrowser)
+        {
+            return webBrowser.all().where((htmlElement) => htmlElement.Name.valid());
+        }
+        public static string            html(this HtmlElement htmlElement)
+        {
+            return htmlElement.outerHtml();
+        }
     }
 
     public static class WinForms_ExtensionMethods_WebBrowser_Open

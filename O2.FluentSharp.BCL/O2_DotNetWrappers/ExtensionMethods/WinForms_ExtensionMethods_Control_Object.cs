@@ -843,6 +843,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
             control.invokeOnThread(() => control.SendToBack());
             return control;
         }
+        public static T hide<T>(this T control) where T : Control
+        {
+            return control.visible(false);
+        }
+        public static T show<T>(this T control) where T : Control
+        {
+            return control.visible(true);
+        }
 
         //events 
         public static T onDrop<T, T1>(this T control, Action<T1> onDrop) where T : Control
@@ -1601,6 +1609,48 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
 
         //misc to place in correct location 
+        public static List<T> action<T>(this List<T> controls, Action<T> action) where T : Control
+        {
+            foreach (var control in controls)
+                action(control);
+            return controls;
+        }
+        public static List<T> color<T>(this List<T> controls, Color color) where T : Control
+        {
+            return controls.action((control) => control.color(color));
+        }
+        public static T color<T>(this T control, Color color) where T : Control
+        {
+            return control.backColor(color);
+        }
+        public static List<T> color<T>(this List<T> controls, string colorName) where T : Control
+        {
+            return controls.color(Color.FromName(colorName));
+        }
+        public static List<T> pink<T>(this List<T> controls) where T : Control
+        {
+            return controls.color(Color.LightPink);
+        }
+        public static List<T> red<T>(this List<T> controls) where T : Control
+        {
+            return controls.color(Color.Red);
+        }
+        public static List<T> green<T>(this List<T> controls) where T : Control
+        {
+            return controls.color(Color.LightGreen);
+        }
+        public static List<T> azure<T>(this List<T> controls) where T : Control
+        {
+            return controls.color(Color.Azure);
+        }
+        public static List<T> white<T>(this List<T> controls) where T : Control
+        {
+            return controls.color(Color.White);
+        }
+        public static List<T> blue<T>(this List<T> controls) where T : Control
+        {
+            return controls.color(Color.LightBlue);
+        }
         public static T white<T>(this T control)			where T : Control
 		{
 			return control.backColor(Color.White);
@@ -1612,6 +1662,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static T red<T>(this T control)              where T : Control
         {
             return control.backColor(Color.Red);
+        }
+        public static T blue<T>(this T control) where T : Control
+        {
+            return control.backColor(Color.LightBlue);
         }		
 		public static T green<T>(this T control)			where T : Control
 		{

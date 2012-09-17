@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -153,7 +153,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
-    <Compile Include="AssemblyResolver.cs" />
+    <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
     <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_External_SharpDevelop.dll">
       <Link>_Embedded_Dlls\O2_External_SharpDevelop.dll</Link>
@@ -163,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_FluentSharp_CoreLib.dll">
       <Link>_Embedded_Dlls\O2_FluentSharp_CoreLib.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\binaries\O2_FluentSharp_WPF.dll">
+      <Link>_Embedded_Dlls\O2_FluentSharp_WPF.dll</Link>
     </EmbeddedResource>
     <Content Include="DI.cs.txt" />
     <Compile Include="ExtensionMethods\EmbeddedResources_Zip_ExtensionMethods.cs" />
@@ -250,7 +253,7 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
     <Content Include="H2Logo.ico" />
-    <EmbeddedResource Include="_O2_External_WinFormsUI\_External_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
+    <EmbeddedResource Include="_O2_External_WinFormsUI\_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />

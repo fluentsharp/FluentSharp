@@ -261,35 +261,29 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 list.Remove(itemToRemove);
             return list;
         }
-        public static string            tabRight(this string targetString)
+        public static List<T>           remove_Containing<T>(this List<T> list, string text)
         {
-            var newLines = new List<string>();
-            foreach (var line in targetString.lines())
-                newLines.Add("\t{0}".format(line));
-            return StringsAndLists.fromStringList_getText(newLines);
-
-        }
+            return list.where((value) => value.str().contains(text).isFalse());
+        }        
+        public static List<string>      removeEmpty(this List<string> list)
+		{
+			return (from item in list
+					where item.valid()
+					select item).toList();
+		}				
+		public static List<string>      add_If_Not_There(this List<string> list, string item)
+		{
+			if (item.notNull())
+				if (list.contains(item).isFalse())
+					list.add(item);
+			return list;
+		}        
         public static List<T>           wrapOnList<T>(this T item)
         {
             var list = new List<T>();
             list.add(item);
             return list;
         }        
-
-        public static List<string> removeEmpty(this List<string> list)
-		{
-			return (from item in list
-					where item.valid()
-					select item).toList();
-		}
-				
-		public static List<string> add_If_Not_There(this List<string> list, string item)
-		{
-			if (item.notNull())
-				if (list.contains(item).isFalse())
-					list.add(item);
-			return list;
-		}
 
 		public static string    join(this List<string> list)
 		{
@@ -710,7 +704,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			{
 				action();
 				if (delay > 0)
-					count.sleep(delay);
+					count.sleep(delay,false);
 			}
 			return action;
 		}		

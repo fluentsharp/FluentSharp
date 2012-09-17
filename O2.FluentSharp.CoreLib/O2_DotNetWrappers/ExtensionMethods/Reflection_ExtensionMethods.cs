@@ -97,16 +97,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return assembly.Location;
 			return null;
 		}
-        public static List<AssemblyName> referencedAssemblies(this AssemblyName assemblyName)
+        public static List<AssemblyName>    referencedAssemblies(this AssemblyName assemblyName)
         {
             return assemblyName.assembly().referencedAssemblies();
         }
 
-        public static List<AssemblyName> referencedAssemblies(this Assembly assembly, bool recursiveSearch)
+        public static List<AssemblyName>    referencedAssemblies(this Assembly assembly, bool recursiveSearch)
         {
             return assembly.referencedAssemblies(recursiveSearch, true);
         }
-        public static List<AssemblyName> referencedAssemblies(this Assembly assembly, bool recursiveSearch, bool removeGacEntries)
+        public static List<AssemblyName>    referencedAssemblies(this Assembly assembly, bool recursiveSearch, bool removeGacEntries)
         {
             var mappedReferences = new List<string>();
             var resolvedAssemblies = new List<AssemblyName>();
@@ -136,7 +136,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return resolvedAssemblies;
         }
 
-        public static List<AssemblyName> removeGacAssemblies(this List<AssemblyName> assemblyNames)
+        public static List<AssemblyName>    removeGacAssemblies(this List<AssemblyName> assemblyNames)
         {
             var systemRoot = Environment.GetEnvironmentVariable("SystemRoot");
             return (from assemblyName in assemblyNames
@@ -144,8 +144,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     where assembly.notNull() && assembly.Location.starts(systemRoot).isFalse()
                     select assemblyName).toList();
         }
-
-        public static List<string> locations(this List<AssemblyName> assemblyNames)
+        public static List<Assembly>        removeAssembliesSignedByMicrosoft(this IEnumerable<Assembly> assemblies)
+        {
+            return (from assembly in assemblies
+                    where assembly.isDynamic().isFalse()
+                    where assembly.FullName.contains("PublicKeyToken=b03f5f7f11d50a3a",         //need to identify other public keys used by Microsoft
+                                                     "PublicKeyToken=b77a5c561934e089", 
+                                                     "PublicKeyToken=31bf3856ad364e35").isFalse()
+                    select assembly).toList();
+        }
+        
+        public static List<string>          locations(this List<AssemblyName> assemblyNames)
         {
 
             var locations = new List<string>();
@@ -163,7 +172,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return locations;
         }
-        public static string imageRuntimeVersion(this Assembly assembly)
+        public static string                imageRuntimeVersion(this Assembly assembly)
         {
             if (assembly.notNull())
                 return assembly.ImageRuntimeVersion;

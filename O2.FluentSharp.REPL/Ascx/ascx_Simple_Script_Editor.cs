@@ -817,7 +817,10 @@ namespace O2.XRules.Database.Utils
 
         public void scriptTheCurrentScript()
         {
-            var topPanel = "PoC - Script the Script".popupWindow(700, 400);
+            var code = "return script.Code;";
+            this.script_Me("script").set_Code(code);
+
+            /*var topPanel = "PoC - Script the Script".popupWindow(700, 400);
 
             var scriptHost = topPanel.title("Script").add_Script(false);
             scriptHost.onCompileExecuteOnce();
@@ -826,7 +829,7 @@ namespace O2.XRules.Database.Utils
 var _script = (script as object).castViaTypeConfusion<ascx_Simple_Script_Editor>();
 //_script.execute();
 return _script.Code;
-
+            
   
 //O2" + @"Tag_SetInvocationParametersToDynamic
 //O2" + @"Tag_DontUseCachedAssemblyIfAvailable
@@ -837,7 +840,7 @@ return _script.Code;
 
             scriptHost//.compile()
                       .execute();
-
+            */
         }
     }
 }

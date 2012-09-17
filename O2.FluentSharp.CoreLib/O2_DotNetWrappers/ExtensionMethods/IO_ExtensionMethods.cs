@@ -38,7 +38,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static string    saveWithName(this string contents, string fileName)
         {
             return contents.saveAs(PublicDI.config.O2TempDir.pathCombine(fileName));
-        }
+        }        
         public static string    saveAs(this string contents, string targetFileName)
         {
             Files.WriteFileContent(targetFileName, contents);
@@ -56,6 +56,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (targetFileName.fileExists())
                 return targetFileName;
             return "";
+        }
+        public static bool      createEmptyFile(this string targetFileName)
+        {
+            Files.WriteFileContent(targetFileName, new byte[] { });
+            if (targetFileName.fileExists() && targetFileName.fileContents().empty())
+                return true;
+            return false;
         }
 		public static bool      canSaveToFile(this string targetFileName)
 		{
@@ -249,6 +256,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static bool          isBinaryFormat(this string file)
         {
             return file.fileContents().Contains("\0");
+        }
+        public static bool          fileName_Is(this string file, params string[] values)
+        {
+            var fileName = file.fileName();
+            return fileName.eq(values);
+        }
+        public static bool          fileName_Contains(this string file, params string[] values)
+        {
+            var fileName = file.fileName();
+            return fileName.contains(values);
         }
     }
 

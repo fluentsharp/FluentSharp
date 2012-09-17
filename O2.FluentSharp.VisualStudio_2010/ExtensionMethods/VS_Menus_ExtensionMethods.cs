@@ -16,12 +16,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class VisualStudio_Menus_ExtensionMethods
     {
+        //This doesn't have a good performance and returns all controls (400+ of them)
         public static List<CommandBar> menus(this VisualStudio_2010 visualStudio)
         {
             var menus = new List<CommandBar>();
             foreach (CommandBar commandBar in (CommandBars)visualStudio.dte().CommandBars)
                 menus.Add(commandBar);
             return menus;
+        }
+        public static CommandBarPopup menu(this VisualStudio_2010 visualStudio, string menuName)
+        {
+            return visualStudio.dte().get_CommandBarPopup(menuName);
         }
     }
     public static class VS_Menus_ExtensionMethods_DTE
@@ -69,7 +74,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             if (topMenu.isNull())
             {
-                "[VS_Menus_ExtensionMethods][add_Menu_Button] provided topMenu was null so can create menu button: {0}".error(text);
+                "[VS_Menus_ExtensionMethods][add_Menu_Button] provided topMenu was null so can't create menu button: {0}".error(text);
                 return null;
             }
             if (before == 0)            
@@ -84,6 +89,27 @@ namespace O2.DotNetWrappers.ExtensionMethods
             button.Caption = text;
             button.Enabled = true;
             return topMenu;
+        }
+
+        public static CommandBarPopup add_SubMenu(this CommandBarPopup topMenu, string text = "New Menu Item", int before = 0)
+        {
+            if (topMenu.isNull())
+            {
+                "[VS_Menus_ExtensionMethods][add_Menu_Popup] provided topMenu was null so can't create menu: {0}".error(text);
+                return null;
+            }
+            if (before == 0)            
+                before = topMenu.Controls.Count + 1; // to put it at the end
+            var menuItem = (CommandBarPopup)topMenu.Controls.Add(MsoControlType.msoControlPopup, // type
+                                                                 System.Type.Missing, 			  // id
+                                                                 System.Type.Missing, 			  // parameter
+                                                                 before,						  // before
+                                                                 false);						  // temporary
+
+
+            menuItem.Caption = text;
+            menuItem.Enabled = true;
+            return menuItem;
         }
         public static CommandBar get_CommandBar(this DTE2 dte2, string commandBarName)
         {

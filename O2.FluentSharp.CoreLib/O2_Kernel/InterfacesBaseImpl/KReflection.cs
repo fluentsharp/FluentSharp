@@ -712,14 +712,18 @@ namespace O2.Kernel.InterfacesBaseImpl
 					return assembly;
 				}
 
-				// try with load method #1
+				// try with load method #1                
 #pragma warning disable 618
-				assembly = Assembly.LoadWithPartialName(assemblyToLoad);
+                try
+                {
+                    assembly = Assembly.LoadWithPartialName(assemblyToLoad);
 
-				if (assembly.isNull() && assemblyToLoad.lower().ends(".dll") || assemblyToLoad.lower().ends(".exe"))
-				{
-					assembly = Assembly.LoadWithPartialName(Path.GetFileNameWithoutExtension(assemblyToLoad));
-				}
+                    if (assembly.isNull() && assemblyToLoad.lower().ends(".dll") || assemblyToLoad.lower().ends(".exe"))
+                    {
+                        assembly = Assembly.LoadWithPartialName(Path.GetFileNameWithoutExtension(assemblyToLoad));
+                    }
+                }
+                catch { }
 #pragma warning restore 618
 				if (assembly.isNull())
 				{

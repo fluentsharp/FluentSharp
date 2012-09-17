@@ -48,11 +48,11 @@ namespace O2.Core.XRules.Ascx
             this.directoryWithXRulesDatabase = new O2.Views.ASCX.CoreControls.ascx_Directory();
             this.tabPage_WithSearchForScript = new System.Windows.Forms.TabPage();
             this.scRightPanel = new System.Windows.Forms.SplitContainer();
+            this.llReloadSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
+            this.llRemoveSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
             this.tcTabControlWithRulesSource = new System.Windows.Forms.TabControl();
             this.tpNoRulesLoaded = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.llReloadSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
-            this.llRemoveSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
             this.scTopLevel.Panel1.SuspendLayout();
             this.scTopLevel.Panel2.SuspendLayout();
             this.scTopLevel.SuspendLayout();
@@ -87,7 +87,7 @@ namespace O2.Core.XRules.Ascx
             // scTopLevel.Panel2
             // 
             this.scTopLevel.Panel2.Controls.Add(this.scRightPanel);
-            this.scTopLevel.Size = new System.Drawing.Size(812, 460);
+            this.scTopLevel.Size = new System.Drawing.Size(897, 460);
             this.scTopLevel.SplitterDistance = 410;
             this.scTopLevel.TabIndex = 10;
             // 
@@ -147,6 +147,7 @@ namespace O2.Core.XRules.Ascx
             this.toolStrip2.Size = new System.Drawing.Size(405, 25);
             this.toolStrip2.TabIndex = 6;
             this.toolStrip2.Text = "toolStrip2";
+            this.toolStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip2_ItemClicked);
             // 
             // toolStripLabel2
             // 
@@ -311,51 +312,20 @@ namespace O2.Core.XRules.Ascx
             // 
             // scRightPanel.Panel1
             // 
-            this.scRightPanel.Panel1.Controls.Add(this.tcTabControlWithRulesSource);
             this.scRightPanel.Panel1.Controls.Add(this.llReloadSelectedSourceCodeFile);
             this.scRightPanel.Panel1.Controls.Add(this.llRemoveSelectedSourceCodeFile);
+            this.scRightPanel.Panel1.Controls.Add(this.tcTabControlWithRulesSource);
             this.scRightPanel.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
-            this.scRightPanel.Size = new System.Drawing.Size(394, 456);
+            this.scRightPanel.Panel2Collapsed = true;
+            this.scRightPanel.Size = new System.Drawing.Size(479, 456);
             this.scRightPanel.SplitterDistance = 406;
             this.scRightPanel.TabIndex = 0;
-            // 
-            // tcTabControlWithRulesSource
-            // 
-            this.tcTabControlWithRulesSource.Controls.Add(this.tpNoRulesLoaded);
-            this.tcTabControlWithRulesSource.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcTabControlWithRulesSource.Location = new System.Drawing.Point(0, 0);
-            this.tcTabControlWithRulesSource.Name = "tcTabControlWithRulesSource";
-            this.tcTabControlWithRulesSource.SelectedIndex = 0;
-            this.tcTabControlWithRulesSource.Size = new System.Drawing.Size(394, 406);
-            this.tcTabControlWithRulesSource.TabIndex = 0;
-            // 
-            // tpNoRulesLoaded
-            // 
-            this.tpNoRulesLoaded.Controls.Add(this.label1);
-            this.tpNoRulesLoaded.Location = new System.Drawing.Point(4, 22);
-            this.tpNoRulesLoaded.Name = "tpNoRulesLoaded";
-            this.tpNoRulesLoaded.Padding = new System.Windows.Forms.Padding(3);
-            this.tpNoRulesLoaded.Size = new System.Drawing.Size(386, 380);
-            this.tpNoRulesLoaded.TabIndex = 0;
-            this.tpNoRulesLoaded.Text = "no rules loaded";
-            this.tpNoRulesLoaded.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(143, 128);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 96);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Choose rule to edit from XRules Database";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // llReloadSelectedSourceCodeFile
             // 
             this.llReloadSelectedSourceCodeFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.llReloadSelectedSourceCodeFile.AutoSize = true;
-            this.llReloadSelectedSourceCodeFile.Location = new System.Drawing.Point(433, 2);
+            this.llReloadSelectedSourceCodeFile.Location = new System.Drawing.Point(518, 2);
             this.llReloadSelectedSourceCodeFile.Name = "llReloadSelectedSourceCodeFile";
             this.llReloadSelectedSourceCodeFile.Size = new System.Drawing.Size(95, 13);
             this.llReloadSelectedSourceCodeFile.TabIndex = 2;
@@ -367,7 +337,7 @@ namespace O2.Core.XRules.Ascx
             // 
             this.llRemoveSelectedSourceCodeFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.llRemoveSelectedSourceCodeFile.AutoSize = true;
-            this.llRemoveSelectedSourceCodeFile.Location = new System.Drawing.Point(534, 2);
+            this.llRemoveSelectedSourceCodeFile.Location = new System.Drawing.Point(370, 4);
             this.llRemoveSelectedSourceCodeFile.Name = "llRemoveSelectedSourceCodeFile";
             this.llRemoveSelectedSourceCodeFile.Size = new System.Drawing.Size(101, 13);
             this.llRemoveSelectedSourceCodeFile.TabIndex = 1;
@@ -375,13 +345,45 @@ namespace O2.Core.XRules.Ascx
             this.llRemoveSelectedSourceCodeFile.Text = "remove selected file";
             this.llRemoveSelectedSourceCodeFile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveSelectedSourceCodeFile_LinkClicked);
             // 
+            // tcTabControlWithRulesSource
+            // 
+            this.tcTabControlWithRulesSource.Controls.Add(this.tpNoRulesLoaded);
+            this.tcTabControlWithRulesSource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcTabControlWithRulesSource.Location = new System.Drawing.Point(0, 0);
+            this.tcTabControlWithRulesSource.Name = "tcTabControlWithRulesSource";
+            this.tcTabControlWithRulesSource.SelectedIndex = 0;
+            this.tcTabControlWithRulesSource.Size = new System.Drawing.Size(479, 456);
+            this.tcTabControlWithRulesSource.TabIndex = 0;
+            // 
+            // tpNoRulesLoaded
+            // 
+            this.tpNoRulesLoaded.Controls.Add(this.label1);
+            this.tpNoRulesLoaded.Location = new System.Drawing.Point(4, 22);
+            this.tpNoRulesLoaded.Name = "tpNoRulesLoaded";
+            this.tpNoRulesLoaded.Padding = new System.Windows.Forms.Padding(3);
+            this.tpNoRulesLoaded.Size = new System.Drawing.Size(471, 430);
+            this.tpNoRulesLoaded.TabIndex = 0;
+            this.tpNoRulesLoaded.Text = "no rules loaded";
+            this.tpNoRulesLoaded.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(185, 153);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 96);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Choose rule to edit from XRules Database";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ascx_XRules_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scTopLevel);
             this.Name = "ascx_XRules_Editor";
-            this.Size = new System.Drawing.Size(812, 460);
+            this.Size = new System.Drawing.Size(897, 460);
             this.Load += new System.EventHandler(this.ascx_XRules_Editor_Load);
             this.scTopLevel.Panel1.ResumeLayout(false);
             this.scTopLevel.Panel1.PerformLayout();

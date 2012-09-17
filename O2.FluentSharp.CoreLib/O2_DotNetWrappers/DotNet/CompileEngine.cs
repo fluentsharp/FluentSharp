@@ -243,6 +243,9 @@ namespace O2.DotNetWrappers.DotNet
                 string errorMessages = "";
                 compiledAssembly = null;
                 var referencedAssemblies = getListOfReferencedAssembliesToUse();
+
+                //handle cases where an install script needs to be executed
+                handleReferencedAssembliesInstallRequirements(sourceCodeFiles);
                 // see if there are any extra DLL references in the code
 
                 mapReferencesIncludedInSourceCode(sourceCodeFiles, referencedAssemblies);
@@ -428,20 +431,35 @@ namespace O2.DotNetWrappers.DotNet
             return CompilationPathMappings;
         }
 
+        public static void clearAllCompilationRelatedDownloadsAndCaches()
+        {
+            "Clearing All Compilation Related Downloads and Caches".info();
+            clearDownloadedReferences();
+            clearEmbeddedAssemblies();
+            clearCompilationCache();
+        }
+
         public static Dictionary<string, string> clearCompilationCache()
         {
             "Clearing Compilation Cache".debug();
             CachedCompiledAssemblies.Clear();
             needCachedCompiledAssembliesSave = true;
-            saveCachedCompiledAssembliesMappings();
-            clearEmbeddedAssemblies();
+            saveCachedCompiledAssembliesMappings();            
             return CachedCompiledAssemblies;
         }
+
         public static void clearEmbeddedAssemblies()
         {
             "Deleting Embedded dlls Cache".debug();
             foreach (var file in PublicDI.config.EmbeddedAssemblies.files())
                 file.delete_File(false);             
+        }
+
+        public static void clearDownloadedReferences()
+        {
+            "Deleting Downloaded References Dlls and Exes".debug();
+            foreach (var file in PublicDI.config.ReferencesDownloadLocation.files())
+                file.delete_File(false);
         }
 
         public static Dictionary<string, string> clearLocalScriptFileMappings()
@@ -926,9 +944,14 @@ namespace O2.DotNetWrappers.DotNet
         }
 
         public static string resolveCompilationReferencePath(string reference)
-        {			
+        {
             if (CachedCompiledAssemblies.ContainsKey(reference))    // check in CachedCompiledAssemblies first
-                return  CachedCompiledAssemblies[reference];
+            {
+                var resolvedRefernece = CachedCompiledAssemblies[reference];
+                if (resolvedRefernece.fileExists())               // ensure the file is still there
+                    return resolvedRefernece;
+                CachedCompiledAssemblies.remove(reference);
+            }
             if (reference.fileExists().isFalse())
             {
                 if (reference.IndexOf(",") > 0)
@@ -1064,5 +1087,49 @@ namespace O2.DotNetWrappers.DotNet
             else
                 return false;
         }*/
+        public static void handleReferencedAssembliesInstallRequirements(List<string> files)
+        {
+            foreach (var file in files)
+                handleReferencedAssembliesInstallRequirements(file);
+        }
+        public static void handleReferencedAssembliesInstallRequirements(string fileOrCode)
+        {
+            var specialTag = "//Installer:";
+            var code = (fileOrCode.isFile()) ? fileOrCode.fileContents() : fileOrCode;
+            if (code.contains(specialTag))
+            {
+                foreach (var line in code.lines().containing(specialTag))
+                {
+                    var refs = line.remove(specialTag).split("!");
+                    if (refs.size() != 2)
+                        "[handleReferencedAssembliesInstallRequirements] there should be two values in the {0} reference (1st O2 script, 2nd: expected dll".error(specialTag);
+                    else 
+                    {
+                        var o2Script = refs.first();
+                        var expectedDll = refs.second();
+                        if (expectedDll.assembly().isNull())
+                        {
+                            "[handleReferencedAssembliesInstallRequirements] expected assembly not found ('{0}'), so running installer script: '{1}'".info(expectedDll, o2Script);
+                            var assembly = new CompileEngine().compileSourceFile(o2Script.local());
+                            if (assembly.notNull())
+                            {
+                                var installType = assembly.type(o2Script.fileName_WithoutExtension());
+                                if (installType.isNull())
+                                    "[handleReferencedAssembliesInstallRequirements] could not find expected type: {0}".error(o2Script.fileName_WithoutExtension());
+                                else
+                                {
+                                    installType.ctor(); // the installer is supposed to be triggered by the  constructor
+                                    if (expectedDll.assembly().isNull())
+                                        "[handleReferencedAssembliesInstallRequirements] after install requested assembly still not found: '{0}'".error(expectedDll);
+                                    else
+                                        "[handleReferencedAssembliesInstallRequirements] after install requested assembly is now available: '{0}'".info(expectedDll);
+                                }
+                            }
+                        }
+                    }
+                
+                }
+            }
+        }
     }
 }

@@ -106,6 +106,11 @@ namespace O2.Core.XRules.Ascx
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
         {
                 
+        }
+
+        private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }      
     }
 }

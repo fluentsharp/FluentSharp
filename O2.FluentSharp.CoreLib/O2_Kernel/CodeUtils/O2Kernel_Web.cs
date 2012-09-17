@@ -56,6 +56,18 @@ namespace O2.Kernel.CodeUtils
 
         public string downloadBinaryFile(string urlOfFileToFetch, string targetFileOrFolder)
         {
+            var attempts = 5;
+            while (attempts-- > 0)
+            {
+                var file = downloadBinaryFile_Action(urlOfFileToFetch, targetFileOrFolder);
+                if (file.notNull())
+                    return file;
+                "[downloadBinaryFile] didn't so trying {0} more times".info(attempts);
+            }
+            return null;
+        }
+        public string downloadBinaryFile_Action(string urlOfFileToFetch, string targetFileOrFolder)
+        {
             var targetFile = targetFileOrFolder;
             if (Directory.Exists(targetFileOrFolder))
                 targetFile = Path.Combine(targetFileOrFolder, Path.GetFileName(urlOfFileToFetch));

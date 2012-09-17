@@ -83,32 +83,26 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 		
 		
-		public static T popupWindow<T>(this string title)
-			where T : Control
+		public static T     popupWindow<T>(this string title)			where T : Control
         {
         	//title+=" - test" ;
             return title.showAsForm().add_Control<T>();
-        }
-        
-        public static T popupWindow<T>(this string title, int width, int height)
-        	where T : Control
+        }        
+        public static T     popupWindow<T>(this string title, int width, int height) where T : Control
         {
             return title.showAsForm(width, height)
             			.add_Control<T>();
-        }
-        
+        }       
         public static Panel popupWindow(this string title)
         {
         	//title+=" - test" ;
             return title.showAsForm();
-        }
-        
+        }        
         public static Panel popupWindow(this string title, int width, int height)
         {
             return title.showAsForm(width, height);
         }
-        
-        
+                
         public static Panel createForm(this string title)
         {
             return title.showAsForm();
@@ -132,12 +126,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                             .add_H2Icon();
         }
 
-        public static T closeForm<T>(this T control) where T : Control
+        public static T         closeForm<T>(this T control) where T : Control
         {
             control.parentForm().close();
             return control;
         }
-        public static T closeForm_InNSeconds<T>(this T control, int seconds) where T : Control
+        public static T         closeForm_InNSeconds<T>(this T control, int seconds) where T : Control
         {
             O2Thread.mtaThread(
                 () =>
@@ -147,7 +141,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return control;
         }
-        public static T resizeFormToControlSize<T>(this T control, Control controlToSync) where T : Control
+        public static T         resizeFormToControlSize<T>(this T control, Control controlToSync) where T : Control
         {
             if (controlToSync.notNull())
             {
@@ -167,7 +161,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return control;
         }
-        public static Form onClosed<T>(this Form form, MethodInvoker onClosed)
+        public static Form      onClosed<T>(this Form form, MethodInvoker onClosed)
         {
             if (form == null)
             {
@@ -177,12 +171,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             form.Closed += (sender, e) => onClosed();
             return form;
         }
-        public static Form close(this Form form)
+        public static Form      close(this Form form)
         {
             form.invokeOnThread(() => form.Close());
             return form;
         }
-        public static T waitForClose<T>(this T control) where T: Control
+        public static T         waitForClose<T>(this T control) where T: Control
         {
             var form = control.parentForm();
             var formClosed = new AutoResetEvent(false);
@@ -190,11 +184,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             formClosed.WaitOne();
             return control;
         }
-        public static Form form_Currently_Running(this string titleOrType)
+        public static Form      form_Currently_Running(this string titleOrType)
         {
             return titleOrType.applicationWinForm();
         }
-        public static Form applicationWinForm(this string titleOrType)
+        public static Form      applicationWinForm(this string titleOrType)
         {
             return titleOrType.applicationWinForms().first();
         }
@@ -209,7 +203,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 }
             return forms;
         }
-        public static Form maximized(this Form form)
+        public static Form      maximized(this Form form)
         {
             return (Form)form.invokeOnThread(
                 () =>
@@ -218,19 +212,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return form;
                 });
         }
-        public static T minimized<T>(this T control)            where T : Control
+        public static T         minimized<T>(this T control)            where T : Control
         {
             return control.windowState(FormWindowState.Minimized);
         }
-        public static T maximized<T>(this T control)            where T : Control
+        public static T         maximized<T>(this T control)            where T : Control
         {
             return control.windowState(FormWindowState.Maximized);
         }
-        public static T normal<T>(this T control)            where T : Control
+        public static T         normal<T>(this T control)            where T : Control
         {
             return control.windowState(FormWindowState.Normal);
         }
-        public static T windowState<T>(this T control, FormWindowState state)            where T : Control
+        public static T         windowState<T>(this T control, FormWindowState state)            where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -239,16 +233,39 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return control;
                 });
         }
-        public static T parentForm_AlwaysOnTop<T>(this T control)			where T : Control
+        public static T         parentForm_AlwaysOnTop<T>(this T control)			where T : Control
 		{
 			control.parentForm().alwaysOnTop();
 			return control;
 		}				
-		public static T alwaysOnTop<T>(this T form)			where T : Form
+		public static T         alwaysOnTop<T>(this T form)			where T : Form
 		{
 			form.invokeOnThread(()=> form.TopMost= true);
 			return form;
 		}
+        public static Form      title(this Form form, string title)
+        {
+            return form.set_Text(title);
+        }
+        public static Form      fadeOutIn(this Form form)
+        {
+            form.fadeOut();
+            return form.fadeIn();
+        }
+        public static Form      fadeOut(this Form form)
+        {
+            "Fading Out Form: {0}".info(form);
+            var value = 1.0;
+            10.loop(100, () => form.opacity(value -= 0.1));
+            return form;
+        }
+        public static Form      fadeIn(this Form form)
+        {
+            "Fading In Form: {0}".info(form);
+            var value = 0.0;
+            10.loop(100, () => form.opacity(value += 0.1));
+            return form;
+        }
 
         //Icons
         public static Icon set_As_Default_Form_Icon(this Icon icon)

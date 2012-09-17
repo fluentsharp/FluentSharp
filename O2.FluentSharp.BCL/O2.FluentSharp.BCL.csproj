@@ -73,6 +73,7 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\XElement_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Network\Main_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\Network\WebEncoding.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\DotNet\AspNetAnalysis.cs" />

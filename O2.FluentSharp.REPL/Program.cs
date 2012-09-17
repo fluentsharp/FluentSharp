@@ -11,7 +11,7 @@ namespace O2.FluentSharp.REPL
     {
         public static void Main(string[] args)
         {
-            AssemblyResolver.setAssemblyResolver();     
+            ResolveO2CoreLib.resolve();
             start(args);
         }
 

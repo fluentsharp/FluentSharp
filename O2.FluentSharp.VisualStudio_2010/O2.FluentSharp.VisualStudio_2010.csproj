@@ -11,7 +11,7 @@
     <RootNamespace>O2.FluentSharp</RootNamespace>
     <AssemblyName>O2_FluentSharp_VisualStudio_2010</AssemblyName>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>O2PlatformKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Resources\O2PlatformKey.pfx</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -121,28 +121,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExtensionMethods\VS_ErrorListProvider_ExtensionMethods.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ExtensionMethods\VS_Menus_ExtensionMethods.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="VS_Scripts\O2_Menus_In_VisualStudio.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Apache.2.0.license.txt">
+    <Content Include="Resources\Apache.2.0.license.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="O2Logo.ico">
+    <Content Include="Resources\O2Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="AddIn_Test.cs" />
     <Compile Include="Controls\Control_WinForms.xaml.cs">
@@ -153,6 +149,11 @@
     </Compile>
     <Compile Include="Controls\WindowPane_WinForms.cs" />
     <Compile Include="Controls\WindowPane_WPF.cs" />
+    <Content Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods_IVsUIShell.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="NoSolution_Package.cs" />
     <Compile Include="Packages\Packages_for_ProvideAutoLoads.cs" />
     <Compile Include="Packages\Package_IWpfTextViewCreationListener.cs" />
     <Compile Include="Packages\Package_IWpfTextViewMarginProvider.cs" />
@@ -161,20 +162,16 @@
     <Compile Include="VisualStudio_2010.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="O2PlatformKey.pfx" />
+    <None Include="Resources\O2PlatformKey.pfx" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="VS_O2_PlugIns\On Save - Compile File.h2">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
@@ -189,6 +186,7 @@
     <ProjectReference Include="..\O2.FluentSharp.WPF\O2.FluentSharp.WPF.csproj">
       <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
       <Name>O2.FluentSharp.WPF</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

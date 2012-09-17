@@ -708,5 +708,15 @@ namespace O2.Views.ASCX.CoreControls
         {
             tvDirectory.AllowDrop = true;            
         }
+
+        private void createFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileName = "What is the filename?".askUser();
+            if (fileName.valid())
+            {
+                var fullPath = getCurrentDirectory().pathCombine(fileName);
+                fullPath.createEmptyFile();                
+            }
+        }
     }
 }

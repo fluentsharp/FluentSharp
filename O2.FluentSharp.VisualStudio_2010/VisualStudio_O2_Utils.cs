@@ -20,10 +20,6 @@ namespace O2.FluentSharp
             if (PublicDI.config.LocalScriptsFolder.dirExists().isFalse())
             {
                 O2Scripts.downloadO2Scripts();
-/*                "CatNet.cs".local()
-                           .compile()
-                           .type("CatNet")
-                           .ctor();*/
             }
         
         }         
@@ -116,11 +112,11 @@ namespace O2.FluentSharp
                                               "WPF_Controls = System.Windows.Controls");
         }
 
-        public static ascx_LogViewer open_LogViewer()
+        public static void open_LogViewer()
         {
-            return open.logViewer();  
+            open.logViewer();  
         }
-        public static ascx_Simple_Script_Editor open_ScriptEditor()
+        public static void open_ScriptEditor()
         {
             addVisualStudioReferencesForCompilation();
 
@@ -130,9 +126,7 @@ namespace O2.FluentSharp
 
 //            var scriptEditor = open.scriptEditor();
             
-//            scriptEditor.inspector.Code = @"return VisualStudio_2010.Package;";
-
-            return scriptEditor;            
+//            scriptEditor.inspector.Code = @"return VisualStudio_2010.Package;";            
         }
     }
 

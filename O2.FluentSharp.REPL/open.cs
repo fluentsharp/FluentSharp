@@ -71,12 +71,12 @@ namespace O2.Kernel
                         .load(imageToLoad);
         }
 
-        public static object web()
+        public static WebBrowser web()
         {
             return webBrowser("");
         }
 
-        public static object web(string url)
+        public static WebBrowser web(string url)
         {
             return webBrowser(url);
         }
@@ -86,27 +86,30 @@ namespace O2.Kernel
             return webBrowser(url);
         }
 
-        public static object browser()
+        public static WebBrowser browser()
         {
             return webBrowser("");
         }
 
-        public static object browser(string url)
+        public static WebBrowser browser(string url)
         {
             return webBrowser(url);
         }
 
-        public static object webBrowser()
+        public static WebBrowser webBrowser()
         {
             return webBrowser("");
         }
 
-        public static object webBrowser(string url)
+        public static WebBrowser webBrowser(string url)
         {
-            var browser = "O2_External_IE.dll".type("O2BrowserIE").invokeStatic("openAsForm");
-            if (url.valid())
+			var browser = "Web Browser for: {0}".format(url).popupWindow().add_WebBrowser_with_NavigationBar();
+			browser.open_ASync(url);
+			return browser;
+            /*var browser = "O2_External_IE.dll".type("O2BrowserIE").invokeStatic("openAsForm");
+            //if (url.valid())
                 return browser.invoke("openSync", url);
-            return browser;
+            return browser;*/
         }
 
         public static ascx_O2ObjectModel o2ObjectModel()

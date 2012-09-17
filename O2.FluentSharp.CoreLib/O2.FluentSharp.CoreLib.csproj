@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="O2_DotNetWrappers\DI.cs.txt" />
+    <Compile Include="O2ConfigSettings.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DevUtils.cs" />

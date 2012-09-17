@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FluentSharp.CoreLib</id>
-    <version>4.0.0.1</version>
+    <version>4.3.0.0</version>
     <title>Fluent# - CoreLib</title>
     <authors>O2 Platform</authors>
     <owners>O2 Platform</owners>

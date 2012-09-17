@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using O2.Interfaces.O2Core;
 using O2.Kernel.CodeUtils;
+using O2.Kernel;
 
 using O2.DotNetWrappers.ExtensionMethods;
 
@@ -15,33 +16,27 @@ namespace O2.Kernel.InterfacesBaseImpl
 {
     public class KO2Config : IO2Config
     {
-        public static string O2Version                              = "4_2";
-        //public static string defaultLocalScriptFolder = @"C:\O2\O2Scripts_Database\_Scripts";
-        public static string defaultLocalScriptName                 = "O2.Platform.Scripts";
-        public static string defaultO2LocalTempName                 = @"_TempDir_v" + O2Version;
-		public static string defaultLocalScriptFolder				= "";	
-        public static string defaultLocallyDevelopedScriptsFolder	= "_XRules_Local";        
+                
         //public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
         //public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
-        public static string defaultO2GitHub_ExternalDlls				= ""; //"http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/";
-        public static string defaultO2GitHub_FilesWithNoCode			= ""; // http://o2platform.googlecode.com/svn/trunk/O2 - All Active Projects/_3rdPartyDlls/FilesWithNoCode/";
-        public static string defaultO2GitHub_Binaries					= ""; //http://o2platform.googlecode.com/svn/trunk/O2_Binaries/";
+        
         //public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
-        public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
+        //public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
 
         public string  defaultO2LocalTempFolder = @"";
+        public static string defaultLocalScriptFolder = "";
 
         public KO2Config()
         {
-            defaultO2LocalTempFolder = defaultO2LocalTempName;
-            defaultLocalScriptFolder = defaultLocalScriptName;
+            defaultO2LocalTempFolder = O2ConfigSettings.defaultO2LocalTempName;
+            defaultLocalScriptFolder = O2ConfigSettings.defaultLocalScriptName;
             //detect if we are running O2 as a stand alone exe
             if (Assembly.GetEntryAssembly().isNull() || Assembly.GetEntryAssembly().name().starts("O2 Platform"))
             {
-                if (CurrentExecutableDirectory.pathCombine(@"..\..\" + defaultLocalScriptName).dirExists()) // check if the GitHub synced Scripts Folder exists
+                if (CurrentExecutableDirectory.pathCombine(@"..\..\" + O2ConfigSettings.defaultLocalScriptName).dirExists()) // check if the GitHub synced Scripts Folder exists
                 {
-                    defaultO2LocalTempFolder = @"..\..\" + defaultO2LocalTempName;
-                    defaultLocalScriptFolder = @"..\..\" + defaultLocalScriptName;
+                    defaultO2LocalTempFolder = @"..\..\" + O2ConfigSettings.defaultO2LocalTempName;
+                    defaultLocalScriptFolder = @"..\..\" + O2ConfigSettings.defaultLocalScriptName;
                 }
             }            
 
@@ -52,13 +47,15 @@ namespace O2.Kernel.InterfacesBaseImpl
             if (defaultLocalScriptFolder.size() > 120)
             {
                 "[downloadO2Scripts] defaultLocalScriptFolder path was more than 120 chars: {0}".error(defaultLocalScriptFolder);
-                defaultLocalScriptFolder = System.IO.Path.GetTempPath().pathCombine("O2").pathCombine(defaultLocalScriptName);
-                defaultO2LocalTempFolder = System.IO.Path.GetTempPath().pathCombine("O2").pathCombine(defaultO2LocalTempName);
+                var baseTempFolder = System.IO.Path.GetTempPath().pathCombine("O2_" + O2ConfigSettings.O2Version);
+                "[downloadO2Scripts] using as baseTempFolder: {0}".error(baseTempFolder);
+                defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
+                defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);
                 "[downloadO2Scripts] set LocalScriptsFolder to: {0}".info(defaultLocalScriptFolder);
             }
 
 
-            defaultLocallyDevelopedScriptsFolder = defaultO2LocalTempFolder.pathCombine(defaultLocallyDevelopedScriptsFolder);
+            O2ConfigSettings.defaultLocallyDevelopedScriptsFolder = defaultO2LocalTempFolder.pathCombine(O2ConfigSettings.defaultLocallyDevelopedScriptsFolder);
             
             hardCodedO2LocalTempFolder = Path.Combine(defaultO2LocalTempFolder, DateTime.Now.ToShortDateString().Replace("/", "_")); ;
             var o2TempDir = hardCodedO2LocalTempFolder; // so that we don't trigger the auto creation of the tempDir
@@ -74,10 +71,10 @@ namespace O2.Kernel.InterfacesBaseImpl
             ScriptsTemplatesFolder = defaultLocalScriptFolder + @"\_Templates"; ;            
             //SvnO2RootFolder = defaultSvnO2RootFolder;
             //SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
-            O2GitHub_ExternalDlls = defaultO2GitHub_ExternalDlls;
-            O2GitHub_Binaries = defaultO2GitHub_Binaries;
-            O2GitHub_FilesWithNoCode = defaultO2GitHub_FilesWithNoCode;
-            ZipppedScriptsFile = defaultZippedScriptsFile;
+            O2GitHub_ExternalDlls = O2ConfigSettings.defaultO2GitHub_ExternalDlls;
+            O2GitHub_Binaries = O2ConfigSettings.defaultO2GitHub_Binaries;
+            O2GitHub_FilesWithNoCode = O2ConfigSettings.defaultO2GitHub_FilesWithNoCode;
+            //ZipppedScriptsFile = O2ConfigSettings.defaultZippedScriptsFile;
             //O2DownloadLocation = defaultO2DownloadLocation;
 
             AutoSavedScripts = o2TempDir.pathCombine(@"../_AutoSavedScripts")
@@ -127,7 +124,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         }
 
         public string AutoSavedScripts { get; set; }
-        public string ZipppedScriptsFile { get; set; }
+        //public string ZipppedScriptsFile { get; set; }
         public string LocalScriptsFolder { get; set; }
         public string LocallyDevelopedScriptsFolder { get; set; }
         public string ScriptsTemplatesFolder { get; set; }
@@ -166,7 +163,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public void setLocalScriptsFolder(string newLocalScriptsFolder)
         {           
             LocalScriptsFolder = newLocalScriptsFolder;
-            LocallyDevelopedScriptsFolder = defaultLocallyDevelopedScriptsFolder;
+            LocallyDevelopedScriptsFolder = O2ConfigSettings.defaultLocallyDevelopedScriptsFolder;
         }
 
 		public string ReferencesDownloadLocation

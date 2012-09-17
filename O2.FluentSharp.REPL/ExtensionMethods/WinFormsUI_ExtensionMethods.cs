@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.ExtensionMethods;
+using O2.XRules.Database.Utils;
 
 
 namespace O2.DotNetWrappers.ExtensionMethods
@@ -183,12 +184,51 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return dockContent.dockTo(DockStyle.Right);
         }
+        public static T           dock_Left<T>(this T control) where T : Control
+        {
+            WinFormsUI_ExtensionMethods_DockContent.dock_Left(control.dockContent());
+            return control;
+        }
+        public static T           dock_Right<T>(this T control) where T : Control
+        {
+            WinFormsUI_ExtensionMethods_DockContent.dock_Right(control.dockContent());
+            return control;
+        }
+        public static T           dock_Top<T>(this T control) where T : Control
+        {
+            WinFormsUI_ExtensionMethods_DockContent.dock_Top(control.dockContent());
+            return control;
+        }
+        public static T           dock_Bottom<T>(this T control) where T : Control
+        {
+            WinFormsUI_ExtensionMethods_DockContent.dock_Bottom(control.dockContent());
+            return control;
+        }
     }
 
+    public static class WinFormsUI_ExtensionMethods_DockPanel
+    {   
+        public static DockPanel dockPanel(this Control control)
+        {
+            return control.dockContent().DockPanel;
+        }
+    }
 
     public static class WinFormsUI_ExtensionMethods_GUI_Helpers
     {
-        public static DockPanel open_Script_Viewer_GUI(this string startFolder)
+        public static WebBrowser                add_Document_WebBrowser(this DockPanel dockPanel)
+        {
+            return dockPanel.dock_Middle<WebBrowser>("Web Browser");
+        }
+        public static ascx_Simple_Script_Editor add_Document_Script(this DockPanel dockPanel)
+        {
+            return dockPanel.dock_Middle("C# REPL Script").add_Script();
+        }
+        public static ascx_Simple_Script_Editor script_Me_in_Dock(this Control control)
+        {
+            return control.dockPanel().dock_Bottom("Script").add_Script_Me(control);
+        }
+        public static DockPanel                 open_Script_Viewer_GUI(this string startFolder)
         {            
             var winFormsUI = "Script Viewer".winFormsUI(1000, 600);
             winFormsUI.add_DockContent("Test Script").add_Script();

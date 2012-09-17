@@ -1101,11 +1101,12 @@ namespace O2.External.SharpDevelop.Ascx
         }
 
         public void showLogViewerControl()
-        {                       
-			int splitterLocation = (int)(150); 
+        {
+            this.insert_LogViewer();
+			/*int splitterLocation = (int)(150); 
             var logViewer = this.add_Control<ascx_LogViewer>();
             this.insert_Right(logViewer, splitterLocation);
-			btShowLogs.visible(false);            
+			btShowLogs.visible(false);            */
         }
 
         public void hideButton(string buttonId)

@@ -497,8 +497,9 @@ namespace O2.External.SharpDevelop.AST
 //				ExtraSourceCodeFilesToCompile.Add(EXTRA_EXTENSION_METHODS_FILE); // add this one by default to make it easy to add new extension methods to the O2 Scripts
             //resolve location of ExtraSourceCodeFilesToCompile
 
-            resolveFileLocationsOfExtraSourceCodeFilesToCompile();                        
-                
+            resolveFileLocationsOfExtraSourceCodeFilesToCompile();
+
+            CompileEngine.handleReferencedAssembliesInstallRequirements(astCSharp.AstDetails.CSharpCode);
             //use the same technique to download files that are needed for this script (for example *.zip files or other unmanaged/support files)
             CompileEngine.tryToResolveReferencesForCompilation(FilesToDownload, WorkOffline);            
 
@@ -549,16 +550,16 @@ namespace O2.External.SharpDevelop.AST
                                     resolved = true;
                                 }
                             }    
-                        // try using the localscripts folders                    
-                        if (resolved.isFalse() && fileToResolve.fileExists().isFalse())
+                        // try using the localscripts folders                                            
+                        var localMapping = fileToResolve.local();
+                        if (localMapping.valid())
                         {
-                            var mappedFile = CompileEngine.findScriptOnLocalScriptFolder(fileToResolve);
-                            if (mappedFile.valid())
-                                ExtraSourceCodeFilesToCompile[i] = mappedFile;
+                            ExtraSourceCodeFilesToCompile[i] = localMapping;
+                            resolved = true;
                         }
-                        else
-                            ExtraSourceCodeFilesToCompile[i] = ExtraSourceCodeFilesToCompile[i].fullPath();
-                        //}
+                        
+                        if (resolved.isFalse() && fileToResolve.fileExists().isFalse())
+                            ExtraSourceCodeFilesToCompile[i] = ExtraSourceCodeFilesToCompile[i].fullPath();                        
                     }
                     //add extra _ExtensionMethods.cs if avaiable
 /*                    for (int i = 0; i < ExtraSourceCodeFilesToCompile.size(); i++)

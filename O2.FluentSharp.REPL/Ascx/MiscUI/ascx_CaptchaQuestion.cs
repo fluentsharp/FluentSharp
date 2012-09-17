@@ -10,7 +10,6 @@ using O2.Kernel;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Views.ASCX.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
-//O2Ref:O2_External_IE.dll
  
 namespace O2.XRules.Database.Utils
 {

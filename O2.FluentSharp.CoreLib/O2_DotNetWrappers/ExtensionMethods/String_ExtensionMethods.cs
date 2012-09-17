@@ -5,6 +5,7 @@ using System.IO;
 using O2.Kernel.CodeUtils;
 using System.Net;
 using O2.Kernel;
+using O2.DotNetWrappers.DotNet;
 
 //O2File:../PublicDI.cs
 //O2File:../PublicDI.cs
@@ -22,11 +23,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return value ? trueValue : falseValue;
         }
-        
-        public static bool      eq(this string string1, string string2)
+        public static bool      eq(this string _string, params string[] values)
         {
-            return (string1 == string2);
-        }
+            if (_string.isNull() || values.isNull())
+                return false;
+            foreach (var value in values)
+                if (_string == value)
+                    return true;
+            return false;
+        }        
         public static void      eq(this string string1, string stringToFind, Action onMatch)
         {
             string1.eq(new [] {stringToFind}, onMatch);
@@ -48,7 +53,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (string1 != string2);
         }        
-
         public static bool      contains(this string targetString, string stringToFind)
         {
             return (stringToFind != null)
@@ -126,16 +130,27 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return string1.EndsWith(string2);
         }
 
+        public static List<string> containing(this List<string> strings, string stringToFind)
+        {
+            return strings.where((_string) => _string.contains(stringToFind));
+        }
+        public static List<string> starting(this List<string> strings, string stringToFind)
+        {
+            return strings.where((_string) => _string.starts(stringToFind));
+        }
+        public static List<string> ending(this List<string> strings, string stringToFind)
+        {
+            return strings.where((_string) => _string.ends(stringToFind));
+        }
+
         public static bool      inValid(this string _string)
         {
             return !_string.valid();
         }
-
-        public static bool notValid(this string _string)
+        public static bool      notValid(this string _string)
         {
             return !_string.valid();
         }
-
         public static bool      valid(this string _string)
         {
             if (_string != null && false == string.IsNullOrEmpty(_string))
@@ -353,7 +368,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return "{0} {1}".format(_string, Guid.NewGuid());
         }
 
-        public static string  trim(this string _string)
+        public static string    trim(this string _string)
         {           
             if (_string.valid())
                 return _string.Trim();
@@ -367,7 +382,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return targetString.IndexOf(stringToFind);
         }
+        public static string    tabLeft(this string targetString)
+        {
+            var newLines = new List<string>();
+            foreach (var line in targetString.lines())
+                newLines.Add("\t{0}".format(line));
+            return StringsAndLists.fromStringList_getText(newLines);
 
+        }
         public static int       indexLast(this string targetString, string stringToFind)
         {
             return targetString.LastIndexOf(stringToFind);
@@ -488,8 +510,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			}
 			return "";
 		}
+        public static string    subString_After_Last(this string _string, string _stringToFind)
+        {
+            var index = _string.LastIndexOf(_stringToFind);
+            if (index > 0)
+            {
+                return _string.subString(index + _stringToFind.size());
+            }
+            return "";
+        }
 
-        public static string subString_Before(this string stringToProcess, string untilString)
+        public static string    subString_Before(this string stringToProcess, string untilString)
         {
             var lastIndex = stringToProcess.indexLast(untilString);
             return (lastIndex > 0)
