@@ -111,16 +111,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					{
 						//if (onlyCopyReferencesInO2ExecutionDir.isFalse() || 
 						//	location.parentFolder() == PublicDI.config.CurrentExecutableDirectory)
-						//{
-							var targetFile = targetFolder.pathCombine(location.fileName());
-							if (targetFile.fileExists())
-								"[copyReferencesToTargetFolder] skipping copy since it already exists in target folder: {0}".info(targetFile);
-							else
-							{
-								Files.copy(location, targetFile);
-								"[copyReferencesToTargetFolder] copied '{0}' to '{1}'".info(location, targetFile);
-							}
-							assembliesCopied.Add(assembly);
+						//{							
+						var targetFileName = location.fileName();
+						if (targetFileName.isAssemblyName())
+							targetFileName = "{0}.dll".format(targetFileName.assemblyName().Name);
+						var targetFile = targetFolder.pathCombine(targetFileName);											
+						if (targetFile.fileExists())
+							"[copyReferencesToTargetFolder] skipping copy since it already exists in target folder: {0}".info(targetFile);
+						else
+						{
+							Files.copy(location, targetFile);
+							"[copyReferencesToTargetFolder] copied '{0}' to '{1}'".info(location, targetFile);
+						}
+						assembliesCopied.Add(assembly);
 						//}
 					}																
 				}

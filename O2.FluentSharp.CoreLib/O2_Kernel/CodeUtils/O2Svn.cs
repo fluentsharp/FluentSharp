@@ -33,7 +33,7 @@ namespace O2.Kernel.CodeUtils
                 return ;
             var thread = O2Thread.mtaThread(
                 ()=>{
-						downloadThread(assemblyToLoad, ref localFilePath);
+					downloadThread(assemblyToLoad, ref localFilePath, useCacheInfo);
 					});
             var maxWait = 60;
             if (thread.Join(maxWait * 1000) == false)
@@ -48,18 +48,18 @@ namespace O2.Kernel.CodeUtils
             //return false;
         }
 
-		public static void downloadThread(string assemblyToLoad, ref string localFilePath)
+		public static void downloadThread(string assemblyToLoad, ref string localFilePath, bool useCacheInfo)
 		{
 			try
 			{
 				if (Path.GetExtension(assemblyToLoad) != ".dll" && Path.GetExtension(assemblyToLoad) != ".exe")
 					assemblyToLoad += ".dll";
-
-				if (AssembliesCheckedIfExists.Contains(assemblyToLoad) || AssembliesCheckedIfExists.Contains(Path.GetFileNameWithoutExtension(assemblyToLoad)))     // for performace reasons only check this once                           
-					return;
+				if (useCacheInfo)
+					if (AssembliesCheckedIfExists.Contains(assemblyToLoad) || AssembliesCheckedIfExists.Contains(Path.GetFileNameWithoutExtension(assemblyToLoad)))     // for performace reasons only check this once                           
+						return;
 				assemblyToLoad = assemblyToLoad.remove(NO_GAC_TAG); // special tag to allow force downloads
 				"Trying to fetch assembly from O2's SVN repository: {0}".info(assemblyToLoad);
-				AssembliesCheckedIfExists.Add(assemblyToLoad);
+				AssembliesCheckedIfExists.add(assemblyToLoad);
 				if (O2Kernel_Web.SkipOnlineCheck.isFalse() && new O2Kernel_Web().online() == false)
 				{
 					"We are currently offline, skipping the check".debug();

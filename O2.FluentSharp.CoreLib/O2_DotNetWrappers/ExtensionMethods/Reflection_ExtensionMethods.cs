@@ -35,7 +35,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static bool                  isAssemblyName(this string _string)
 		{
-			return _string.assemblyName().notNull();
+			return _string.contains("PublicKeyToken") &&   // ensure these exists since .assemblyName() will work for simple filenames
+				   _string.assemblyName().notNull();
 		}		
 		public static AssemblyName          assemblyName(this string _string)
 		{

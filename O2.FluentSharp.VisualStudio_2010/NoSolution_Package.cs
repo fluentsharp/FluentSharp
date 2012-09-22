@@ -28,7 +28,8 @@ namespace O2.FluentSharp
 
         public NoSolution_Package()
         {
-            Trace.WriteLine("In NoSolution_Package ctor");
+			O2ConfigSettings.O2Version = "VisualStudio_v1.5.3";
+            //Trace.WriteLine("In NoSolution_Package ctor");
         }
 
         /*public void showErrorInOutputWindow(Exception exToShow)
@@ -48,7 +49,7 @@ namespace O2.FluentSharp
         protected override void Initialize()
         {
             try
-            {
+            {				
                 //These two assemblies must be on the localPath
                 if (Assembly.Load("O2_FluentSharp_CoreLib") == null || Assembly.Load("O2_FluentSharp_REPL") == null)
                 {

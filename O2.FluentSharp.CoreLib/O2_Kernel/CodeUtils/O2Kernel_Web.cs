@@ -38,7 +38,7 @@ namespace O2.Kernel.CodeUtils
         public bool httpFileExists(string url, bool showError)
         {
             var webRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            webRequest.Timeout = 2000;
+            webRequest.Timeout = 10000;
             webRequest.Method = "HEAD";
             try
             {
@@ -46,10 +46,12 @@ namespace O2.Kernel.CodeUtils
                 return (webResponse.StatusCode == HttpStatusCode.OK && 
                         webResponse.ResponseUri.str() == url);
             }
-            catch (Exception ex)
+            catch (Exception ex )
             {
                 if (showError)
                     ex.log("in Web.httpFileExists");
+				if (ex.Message.contains("SSL"))
+					ex.log("in Web.httpFileExists ({0}) got SSL error: {1}".format(url, ex.Message));
                 return false;
             }
         }
