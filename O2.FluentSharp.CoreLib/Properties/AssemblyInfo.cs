@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Fluent# - Base Library")]
+[assembly: AssemblyTitle("FluentSharp - CoreLib")]
 [assembly: AssemblyDescription("FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. It makes extensive use of .NET ExtensionMethods and it reduces the amount of code required (while making it more readable)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("O2 Platform")]
-[assembly: AssemblyProduct("Fluent#")]
+[assembly: AssemblyProduct("FluentSharp")]
 [assembly: AssemblyCopyright("O2 Platform")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("4.3.0")]
-[assembly: AssemblyFileVersion("4.3.0")]
+[assembly: AssemblyVersion("4.4.0")]
+[assembly: AssemblyFileVersion("4.4.0")]

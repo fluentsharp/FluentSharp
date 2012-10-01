@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Windows.Controls;
 
-namespace O2.FluentSharp.Packages
+namespace O2.FluentSharp.VisualStudio.Packages
 {
     [Export(typeof(IWpfTextViewMarginProvider))]
     [Name(EditorMargin.MarginName)]

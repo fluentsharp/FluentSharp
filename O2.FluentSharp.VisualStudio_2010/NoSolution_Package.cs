@@ -15,7 +15,7 @@ using O2.Views.ASCX.Ascx.MainGUI;
 using O2.DotNetWrappers.DotNet;
 using System.Reflection;
 
-namespace O2.FluentSharp
+namespace O2.FluentSharp.VisualStudio
 {
     [Guid(VisualStudio_2010.PackageGUID)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
@@ -28,7 +28,7 @@ namespace O2.FluentSharp
 
         public NoSolution_Package()
         {
-			O2ConfigSettings.O2Version = "VisualStudio_v1.5.3";
+			//O2ConfigSettings.O2Version = "VisualStudio_v1.5.4";
             //Trace.WriteLine("In NoSolution_Package ctor");
         }
 
@@ -76,7 +76,7 @@ namespace O2.FluentSharp
                 {
                     if (Control.ModifierKeys == Keys.Shift)
                         VisualStudio_O2_Utils.open_LogViewer();
-
+					
                     populateDefaultVSComObjects();
                     VisualStudio_2010.Initialized = true;
                     //VisualStudio_O2_Utils.compileAndExecuteScript(@"VS_Scripts\O2_Platform_Gui.cs", "O2_Platform_Gui", "buildGui");

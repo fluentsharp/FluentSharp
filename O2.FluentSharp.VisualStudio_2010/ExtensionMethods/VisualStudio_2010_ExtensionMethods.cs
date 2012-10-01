@@ -15,15 +15,11 @@ using WinForms = System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using O2.DotNetWrappers.DotNet;
-using O2.FluentSharp;
+using O2.DotNetWrappers.ExtensionMethods;
+using O2.FluentSharp.VisualStudio;
 
-//O2File:VS_ErrorListProvider_ExtensionMethods.cs
-//O2File:VS_Menus_ExtensionMethods.cs
-//O2Ref:Microsoft.VisualStudio.Shell.UI.Internal.dll
-//O2Ref:WindowsFormsIntegration.dll
-//O2Ref:Microsoft.VisualStudio.Platform.WindowManagement.dll
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace O2.FluentSharp.VisualStudio.ExtensionMethods
 {
     public static class VisualStudio_2010_ExtensionMethods
     {        
@@ -197,7 +193,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
     		ToolWindowPane window = null;
 			var grid = visualStudio.invokeOnThread(
 			()=>{					
-					var type = typeof(O2.FluentSharp.WindowPane_WPF);
+					var type = typeof(O2.FluentSharp.VisualStudio.WindowPane_WPF);
 					window = (ToolWindowPane)visualStudio.package().invoke("CreateToolWindow", type, ++lastWindowId);			
 					window.Caption = title;
 					IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;					
@@ -219,7 +215,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
     		var visualStudio = new VisualStudio_2010();    				
 			var _panel = visualStudio.invokeOnThread(
 			()=>{					
-					var type = typeof(O2.FluentSharp.WindowPane_WinForms);
+					var type = typeof(O2.FluentSharp.VisualStudio.WindowPane_WinForms);
 					var window = (ToolWindowPane)visualStudio.package().invoke("CreateToolWindow", type, 64000.random());			
 			        		
 					window.Caption = title;
@@ -710,53 +706,5 @@ namespace O2.DotNetWrappers.ExtensionMethods
                           .toolWindowPane();
         }
     }
-
-
-    public static class VisualStudio_2010_ExtensionMethods_Multiple_Guis
-    {
-        public static T                     open_Control<T>(this VisualStudio_2010 visualStudio) where T : WinForms.Control
-        {
-            return visualStudio.open_Control<T>("{0}".format(typeof(T).Name));
-        }         
-        public static T                     open_Control<T>(this VisualStudio_2010 visualStudio, string title) where T : WinForms.Control
-        {
-            var panel =title.create_WinForms_Window_Float();
-            return panel.add_Control<T>();                        
-        }
-        public static WinForms.Panel        open_Panel(this VisualStudio_2010 visualStudio, string title = "Title")
-        {
-            return visualStudio.open_Control<WinForms.Panel>(title);
-        }
-        public static WinForms.TreeView     open_TreeView(this VisualStudio_2010 visualStudio)
-        {
-            return visualStudio.open_Control<WinForms.TreeView>();
-        }
-        public static IVsWindowFrame        open_Document(this VisualStudio_2010 visualStudio, string file)
-        {
-            return file.open_Document();
-        }
-        
-        public static O2.Views.ASCX.Ascx.MainGUI.ascx_LogViewer open_LogViewer(this VisualStudio_2010 visualStudio)
-        {
-            var logViewer = "O2 LogViewer".create_WinForms_Window_Float().add_LogViewer();
-            return logViewer;
-        }
-        public static O2.XRules.Database.Utils.ascx_Simple_Script_Editor open_ScriptEditor(this VisualStudio_2010 visualStudio)
-        {
-            return "C# REPL Script".create_WinForms_Window_Float(800,400).add_Script(true);            
-        }
-
-        public static O2.XRules.Database.Utils.ascx_Simple_Script_Editor open_ScriptEditor_With_VisualStudio_CodeSample(this VisualStudio_2010 visualStudio)
-        {
-            var defaultCode = 
-@"var visualStudio = new VisualStudio_2010();
-visualStudio.mainWindow().title(""Hello World"");
-return visualStudio;
-//O2" + @"File:ExtensionMethods\VisualStudio_2010_ExtensionMethods.cs";
-            return visualStudio.open_ScriptEditor().set_Code(defaultCode);            
-        }
-        
-
-
-    } 
+ 
 }

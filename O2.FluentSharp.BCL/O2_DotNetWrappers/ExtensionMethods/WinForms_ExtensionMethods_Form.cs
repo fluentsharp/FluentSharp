@@ -115,12 +115,24 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return O2Gui.open<Panel>(title, width, height);
         }
-
-        public static T showAsForm<T>(this string title) where T : Control
+		public static T	    openForm<T>(this string textToAppendToFormTitle) where T : Form
+		{
+			T form = null;
+			O2Thread.staThread(
+						() =>
+						{
+							form = (T)typeof(T).ctor();
+							form.Text += textToAppendToFormTitle.valid() ? " - {0}".format(textToAppendToFormTitle) : "";
+							form.ShowDialog();
+						});
+			Utils.waitForNotNull(ref form);
+			return form;
+		} 
+        public static T		showAsForm<T>(this string title) where T : Control
         {
             return title.showAsForm<T>(600, 400);
         }
-        public static T showAsForm<T>(this string title, int width, int height) where T : Control
+        public static T		showAsForm<T>(this string title, int width, int height) where T : Control
         {
             return (T)O2Gui.open<T>(title, width, height)
                             .add_H2Icon();

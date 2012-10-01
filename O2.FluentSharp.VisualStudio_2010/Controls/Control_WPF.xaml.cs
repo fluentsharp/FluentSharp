@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace O2.FluentSharp
+namespace O2.FluentSharp.VisualStudio
 {
     /// <summary>
     /// Interaction logic for MyControl.xaml

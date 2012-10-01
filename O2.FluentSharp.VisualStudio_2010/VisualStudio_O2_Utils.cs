@@ -11,7 +11,7 @@ using O2.FluentSharp.REPL;
 using O2.Views.ASCX.Ascx.MainGUI;
 using System.Threading;
 
-namespace O2.FluentSharp
+namespace O2.FluentSharp.VisualStudio
 {
     public class VisualStudio_O2_Utils
     {
@@ -62,19 +62,19 @@ namespace O2.FluentSharp
         {
             compileAndExecuteScript(@"VS_Scripts\O2_Menus_In_VisualStudio.cs", "O2_Menus_In_VisualStudio", "createDocWindow");
         }*/
-        /*public static bool waitForDTEObject()
+        public static bool waitForDTEObject()
         {
             var maxWaitLoops = 10;
             while (maxWaitLoops-- > 0)
             {
                 if (VisualStudio_2010.DTE2.notNull())
                     return true;
-                "[waitForDTEObject] waiting 500 ms".info();
-                500.sleep();
+                "[waitForDTEObject] waiting 500 ms".info()
+						.wait(500,false);                
             }
             "[waitForDTEObject] failed to get DTE object after {0} attempts".error(maxWaitLoops);
             return false;
-        }*/
+        }
         public static void addVisualStudioReferencesForCompilation()
         {
             CompileEngine.DefaultReferencedAssemblies
@@ -106,8 +106,9 @@ namespace O2.FluentSharp
                                               "System.Xaml.dll"
                                               );
             CompileEngine.DefaultUsingStatements
-                            .add_OnlyNewItems("O2.FluentSharp",
-                                              "O2.FluentSharp.Packages",
+                            .add_OnlyNewItems("O2.FluentSharp.VisualStudio",
+											  "O2.FluentSharp.VisualStudio.ExtensionMethods",
+											  "O2.FluentSharp.VisualStudio.Packages",
                                               "WPF_Media = System.Windows.Media",
                                               "WPF_Controls = System.Windows.Controls");
         }

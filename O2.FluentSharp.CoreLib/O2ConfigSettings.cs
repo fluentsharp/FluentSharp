@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel
 {
     public class O2ConfigSettings
     {
-        public static string O2Version = "4_3";
+		public static string O2Version = Assembly.GetExecutingAssembly().version();
         //public static string defaultLocalScriptFolder = @"C:\O2\O2Scripts_Database\_Scripts";
         public static string defaultLocalScriptName = "O2.Platform.Scripts";
         public static string defaultO2LocalTempName = @"_TempDir_v" + O2Version;        

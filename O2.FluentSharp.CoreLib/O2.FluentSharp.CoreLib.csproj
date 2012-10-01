@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\debug\</OutputPath>
+    <OutputPath>..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET_4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -59,6 +59,7 @@
     <Compile Include="O2_DotNetWrappers\DotNet\Serialize.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\StringsAndLists.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\TypeConfusion.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\Utils.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\XmlHelpers.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\AppDomain_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Collections_ExtensionMethods.cs" />
@@ -206,9 +207,6 @@
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="O2.FluentSharp.CoreLib.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.xsd">
       <SubType>Designer</SubType>
     </None>

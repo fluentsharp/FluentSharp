@@ -151,7 +151,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return list.Distinct().toList();
         }
-
+		public static List<T> take<T>(this IEnumerable<T> data, int count)
+		{			
+			if (count == -1)
+				return data.toList();
+			return data.Take(count).toList();
+		}
     }
 
     public static class Collections_ExtensionMethods_List

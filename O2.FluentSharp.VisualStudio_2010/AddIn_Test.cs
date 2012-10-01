@@ -5,7 +5,7 @@ using System.Text;
 using Extensibility;
 using EnvDTE;
 
-namespace O2.FluentSharp
+namespace O2.FluentSharp.VisualStudio
 {
     public class VsConnect_AddIn_Test : IDTExtensibility2, IDTCommandTarget
     {

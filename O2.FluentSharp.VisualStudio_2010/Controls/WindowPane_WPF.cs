@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 
-namespace O2.FluentSharp
+namespace O2.FluentSharp.VisualStudio
 {
 
     [Guid("bbe3bf58-bd64-4e05-ac03-d00f1dedc3e5")]

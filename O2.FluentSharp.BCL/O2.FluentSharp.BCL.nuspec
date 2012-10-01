@@ -18,8 +18,5 @@
     <dependencies>
       <dependency id="FluentSharp.CoreLib" />
     </dependencies>    
-  </metadata>
-  <files>
-    <file src="_External_Dlls\*.dll" target="lib\net40" />
-  </files>
+  </metadata>  
 </package>

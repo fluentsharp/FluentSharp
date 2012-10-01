@@ -15,13 +15,10 @@ using WinForms = System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using O2.DotNetWrappers.DotNet;
-using O2.FluentSharp;
-//O2File:VisualStudio_2010_ExtensionMethods.cs
-//O2Ref:Microsoft.VisualStudio.Shell.UI.Internal.dll
-//O2Ref:WindowsFormsIntegration.dll
-//O2Ref:Microsoft.VisualStudio.Platform.WindowManagement.dll
+using O2.FluentSharp.VisualStudio;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+
+namespace O2.FluentSharp.VisualStudio.ExtensionMethods
 {
     public static class VisualStudio_2010_ExtensionMethods_IVsUIShell
     {   

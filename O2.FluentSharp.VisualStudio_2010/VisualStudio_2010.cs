@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 //using O2.Views.ASCX.Ascx.MainGUI;
 
 
-namespace O2.FluentSharp
+namespace O2.FluentSharp.VisualStudio
 {
     /// <summary>
     /// Wrapper class for a number of VisualStudio Objects and methods that have to be created via MEF Extensions

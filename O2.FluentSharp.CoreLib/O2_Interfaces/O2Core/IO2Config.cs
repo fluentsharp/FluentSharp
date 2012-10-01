@@ -33,14 +33,14 @@ namespace O2.Interfaces.O2Core
 		string ReferencesDownloadLocation       { get; }
         string ToolsOrApis                      { get; }        
         
-        //String setDefaultDir_TempFolder();
+        
+		void calculate_O2TempDir();
 
         void setLocalScriptsFolder(string newLocalScriptsFolder);
         string getTempFileInTempDirectory(string extension);
         string getTempFolderInTempDirectory(string stringToAddToTempDirectoryName);
 
-        void closeO2Process();            
-
+        void closeO2Process();
         // DI helper
         bool setDI(Type typeToInjectDependency, string propertyToInject, Object dependencyObject);
         bool setDI(string assemblyName, string typeToInjectDependency, string propertyToInject, Object dependencyObject);

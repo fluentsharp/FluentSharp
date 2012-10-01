@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Utilities;
 using Microsoft.VisualStudio.Text.Editor;
 using O2.DotNetWrappers.ExtensionMethods;
 
-namespace O2.FluentSharp.Packages
+namespace O2.FluentSharp.VisualStudio.Packages
 {
     [Export(typeof(IWpfTextViewCreationListener))]
     [ContentType("text")]

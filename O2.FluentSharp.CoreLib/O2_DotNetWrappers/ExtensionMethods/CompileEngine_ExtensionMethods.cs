@@ -17,12 +17,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return fileName.localScript();
         }
-
         public static string localScript(this string fileName)
         {
             return CompileEngine.findFileOnLocalScriptFolder(fileName.trim());
         }
-
 		public static Assembly download_Assembly_From_O2_GitHub(this string assemblyName)
 		{
 			return assemblyName.download_Assembly_From_O2_GitHub(false);
@@ -41,5 +39,80 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			}
 			return assemblyName.assembly();
 		}
+
+		public static object compileAndExecuteCodeSnippet(this string snippet)
+		{
+			return snippet.compileAndExecuteCodeSnippet((msg) => msg.info(), (msg) => msg.error());
+		}
+		public static object compileAndExecuteCodeSnippet(this string snippet, Action<string> onCompileOk, Action<string> onCompileFail)
+		{
+			var assembly = snippet.compileCodeSnippet(onCompileOk, onCompileFail);
+			if (assembly.notNull())
+				return assembly.type("DynamicType").ctor().invoke("dynamicMethod");
+			return null;
+		}
+		public static Assembly compileCodeSnippet(this string snippet)
+		{
+			return snippet.compileCodeSnippet((msg) => msg.info(), (msg) => msg.error());
+		}
+		public static Assembly compileCodeSnippet(this string snippet, Action<string> onCompileOk, Action<string> onCompileFail)
+		{
+			try
+			{
+				"[compileAndExecuteCodeSnippet] Compiling code with size: {0}".info(snippet.size());
+
+				var codeTemplate = @"using O2.DotNetWrappers.Network;
+using O2.DotNetWrappers.DotNet;
+using O2.DotNetWrappers.Windows;
+using O2.DotNetWrappers.ExtensionMethods;
+using O2.Kernel;
+using O2.Interfaces;
+using System.Linq;
+using System.Xml.Linq;
+using System.Xml;
+using System.Collections.Generic;
+using System;
+%%EXTRA_USING%%
+
+public class DynamicType
+{
+	public object dynamicMethod()
+	{
+//*** Code Start	
+
+%%CODE%%
+
+//*** Code Ends
+		//return null;
+	}
+}";
+
+				//extra extra usings
+				var extraUsing = "";
+				foreach (var usingStatement in snippet.lines().starting("//using"))
+					extraUsing += usingStatement.subString(2).line();
+				//do replacements	
+				var code = codeTemplate.replace("%%EXTRA_USING%%", extraUsing)
+										.replace("%%CODE%%", snippet);
+				
+				var codeFile = code.saveAs(".cs".tempFile());
+				"Snippet code saved to : {0}".info(codeFile);
+
+				var compileEngine = new CompileEngine();
+				var assembly = compileEngine.compileSourceFile(codeFile);
+				if (assembly.notNull())
+				{
+					onCompileOk("[compileAndExecuteCodeSnippet] Snippet assembly created OK: {0}".format(assembly.location()));
+					return assembly;
+				}
+				onCompileFail("[compileAndExecuteCodeSnippet] Compilation failed: ".line() + compileEngine.sbErrorMessage.str());
+			}
+			catch (Exception ex)
+			{
+				ex.log("[compileAndExecuteCodeSnippet]");
+			}
+			return null;
+		}
+
     }
 }

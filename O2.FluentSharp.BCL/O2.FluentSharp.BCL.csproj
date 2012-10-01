@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\debug\</OutputPath>
+    <OutputPath>..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -237,6 +237,7 @@
     <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.Designer.cs">
       <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\REPL_Gui.cs" />
     <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui.cs">
       <SubType>Component</SubType>
     </Compile>
