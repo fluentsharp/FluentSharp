@@ -157,7 +157,7 @@ namespace O2.External.SharpDevelop.AST
 
 				if (CompileEngine.loadReferencedAssembliesIntoMemory(this.CompiledAssembly))
 				{
-					this.invoke(this.onCompileOK);				
+					this.onCompileOK.invoke();				
 					FinishedCompilingCode.Set();
 					return true;
 				}
@@ -181,7 +181,7 @@ namespace O2.External.SharpDevelop.AST
                         createAstStack.Clear();
 
                         InvocationParameters = getDefaultInvocationParameters();
-                        this.invoke(beforeSnippetAst);
+                        beforeSnippetAst.invoke();
                         DebugMode.ifInfo("Compiling Source Snippet (Size: {0})", codeSnippet.size());
                         var sourceCode = createCSharpCodeWith_Class_Method_WithMethodText(codeSnippet);
                         if (UseCachedAssemblyIfAvailable && getCachedAssemblyForCode_and_RaiseEvents(sourceCode))   // see if we have already compiled this snippet before
@@ -245,7 +245,7 @@ namespace O2.External.SharpDevelop.AST
                                    			                		
                     Environment.CurrentDirectory = PublicDI.config.CurrentExecutableDirectory;
                     
-                    this.invoke(beforeCompile);
+                    beforeCompile.invoke();
                     DebugMode.ifInfo("Compiling Source Code (Size: {0})", sourceCode.size());
                     SourceCode = sourceCode;
                     var providerOptions = new Dictionary<string, string>().add("CompilerVersion", CompilationVersion);
@@ -276,7 +276,7 @@ namespace O2.External.SharpDevelop.AST
                             "[CSharp_FastCompiler] Compilation Error: {0}".error(errorMessage);
                         }
                         DebugMode.ifError("Compilation failed");
-                        this.invoke(onCompileFail);
+                        onCompileFail.invoke();
                     }
                     else
                     {
@@ -284,7 +284,7 @@ namespace O2.External.SharpDevelop.AST
                         if (CompiledAssembly.Location.fileExists())
                             CompileEngine.setCachedCompiledAssembly_toMD5(sourceCode, CompiledAssembly);
                         DebugMode.ifDebug("Compilation was OK");
-                        this.invoke(onCompileOK);
+						onCompileOK.invoke();
                     }
                     compiling = false;
                     FinishedCompilingCode.Set();
@@ -327,7 +327,7 @@ namespace O2.External.SharpDevelop.AST
             if (parsedCode == null)
             {
                 DebugMode.ifError("Ast parsing Failed");
-                this.invoke(onAstFail);
+                onAstFail.invoke();
             }
             return parsedCode;
         }
@@ -413,7 +413,7 @@ namespace O2.External.SharpDevelop.AST
                         CreatedFromSnipptet = true;
                         DebugMode.ifDebug("Ast parsing was OK");
                         SourceCode = csharpCode;
-                        this.invoke(onAstOK);
+                        onAstOK.invoke();
                         
                         return csharpCode;
                     }
@@ -445,7 +445,7 @@ namespace O2.External.SharpDevelop.AST
                         //note we should try to add back the specials here (so that comments make it to the generated code
                         AstDetails = tempAstDetails;
 	                    DebugMode.ifDebug("Ast parsing was OK");
-	                    this.invoke(onAstOK);
+	                    onAstOK.invoke();
 	                    return SourceCode;
                     }
                 }            

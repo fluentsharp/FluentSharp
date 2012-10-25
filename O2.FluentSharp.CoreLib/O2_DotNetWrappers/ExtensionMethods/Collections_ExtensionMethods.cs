@@ -227,6 +227,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         targetList.add(item);
             return targetList;
         }
+		public static List<string>		replace(this List<String> targetList, string textToFind, string textToReplace)
+		{
+			if (targetList.notNull())
+				for (int i = 0; i < targetList.size(); i++)
+					targetList[i] = targetList[i].replace(textToFind, textToReplace);
+			return targetList;
+		}
         public static List<T>           add<T>(this List<T> list, T item)
         {
             if (list.notNull())
@@ -608,8 +615,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static Dictionary<string,string>     remove(this Dictionary<string,string> dictionary, Func<KeyValuePair<string,string>, bool> filter)
 		{
-			var itemsToRemove = dictionary.Where(filter).toList();
-			//var itemsToRemove = CompileEngine.CachedCompiledAssemblies.Where((item)=>item.Value.str().contains("O2_TeamMentor_AspNet"));  
+			var itemsToRemove = dictionary.Where(filter).toList();			
 			foreach(var itemToRemove in itemsToRemove)
 				dictionary.Remove(itemToRemove.Key);    
 			return dictionary;

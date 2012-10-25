@@ -492,7 +492,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string        pathCombine_MaxSize(this string folder, string path )
 		{
-            if (folder.notValid() || path.notValid())
+			if (path.notValid())
+				return folder;
+            if (folder.notValid())
                 return null;
 			var maxLength = 256 - folder.size();
 			if(maxLength < 10)

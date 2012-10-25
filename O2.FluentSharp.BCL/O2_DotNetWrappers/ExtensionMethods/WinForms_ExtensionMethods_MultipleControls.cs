@@ -10,6 +10,7 @@ using O2.DotNetWrappers.DotNet;
 using System.ComponentModel;
 using O2.Views.ASCX.O2Findings;
 using O2.Views.ASCX.DataViewers;
+using O2.Platform.BCL.O2_Views_ASCX;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -872,28 +873,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_ToolStrip
     {
-        public static T item<T>(this ToolStrip toolStrip)
-            where T : ToolStripItem
+        public static T						item<T>(this ToolStrip toolStrip)				where T : ToolStripItem
         {
             foreach (var item in toolStrip.items())
                 if (item is T)
                     return (T)item;
             return null;
         }
-        public static T item<T>(this ToolStrip toolStrip, string text)
-            where T : ToolStripItem
+        public static T						item<T>(this ToolStrip toolStrip, string text)	where T : ToolStripItem
         {
             var item = toolStrip.item(text);
             if (item.notNull() && item is T)
                 return (T)item;
             return null;
         }
-
-        public static ToolStrip add_ToolStrip(this Control control)
+        public static ToolStrip				add_ToolStrip(this Control control)
         {
             return control.add_Control<ToolStrip>();
         }
-        public static ToolStrip toolStrip(this ToolStripItem toolStripItem)
+        public static ToolStrip				toolStrip(this ToolStripItem toolStripItem)
         {
             if (toolStripItem.isNull())
             {
@@ -903,11 +901,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return toolStripItem.Owner;
         }
-        public static ToolStripItem item(this ToolStrip toolStrip, string text)
+        public static ToolStripItem			item(this ToolStrip toolStrip, string text)
         {
             return toolStrip.items().where((item) => item.str() == text).first();
         }
-        public static List<ToolStripItem> items(this ToolStrip toolStrip)
+        public static List<ToolStripItem>	items(this ToolStrip toolStrip)
         {
             //return (from item in toolStrip.Items			//doesn't work
             //		select item).toList();
@@ -916,7 +914,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 items.add(item);
             return items;
         }
-        public static ToolStrip clearItems(this ToolStrip toolStrip)
+        public static ToolStrip				clearItems(this ToolStrip toolStrip)
         {
             return (ToolStrip)toolStrip.invokeOnThread(
                 () =>
@@ -925,23 +923,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return toolStrip;
                 });
         }
-        public static T add_Control<T>(this ToolStripItem toolStripItem)
-            where T : ToolStripItem
+        public static T						add_Control<T>(this ToolStripItem toolStripItem)					where T : ToolStripItem
         {
             return toolStripItem.add_Control(default(Action<T>));
         }
-        public static T add_Control<T>(this ToolStripItem toolStripItem, Action<T> onCtor)
-            where T : ToolStripItem
+        public static T						add_Control<T>(this ToolStripItem toolStripItem, Action<T> onCtor)  where T : ToolStripItem
         {
             return toolStripItem.toolStrip().add_Control(onCtor);
         }
-        public static T add_Control<T>(this ToolStrip toolStrip)
-            where T : ToolStripItem
+        public static T						add_Control<T>(this ToolStrip toolStrip)							where T : ToolStripItem
         {
             return toolStrip.add_Control(default(Action<T>));
         }
-        public static T add_Control<T>(this ToolStrip toolStrip, Action<T> onCtor)
-            where T : ToolStripItem
+        public static T						add_Control<T>(this ToolStrip toolStrip, Action<T> onCtor)          where T : ToolStripItem
         {
             return (T)toolStrip.invokeOnThread(
                 () =>
@@ -961,46 +955,51 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     }
                 });
         }
-        public static ToolStripSeparator add_Separator(this ToolStripItem toolStripItem)
+        public static ToolStripSeparator	add_Separator(this ToolStripItem toolStripItem)
         {
             return toolStripItem.toolStrip().add_Control<ToolStripSeparator>();
         }
-        public static ToolStripLabel add_Label(this ToolStripItem toolStripItem, string text)
+        public static ToolStripLabel		add_Label(this ToolStripItem toolStripItem, string text)
         {
             return toolStripItem.toolStrip().add_Label(text);
         }
-
-        public static ToolStripLabel add_Label(this ToolStrip toolStrip, string text)
+        public static ToolStripLabel		add_Label(this ToolStrip toolStrip, string text)
         {
             return toolStrip.add_Control<ToolStripLabel>((label) => label.Text = text);
         }
-
-        public static ToolStripButton add_Button_Open(this ToolStripItem toolStripItem, Action onClick)
+        public static ToolStripButton		add_Button_Open(this ToolStripItem toolStripItem, Action onClick)
         {
             return toolStripItem.add_Button_Open("open", onClick);
         }
-
-        public static ToolStripButton add_Button_Open(this ToolStripItem toolStripItem, string text, Action onClick)
+        public static ToolStripButton		add_Button_Open(this ToolStripItem toolStripItem, string text, Action onClick)
         {
             return toolStripItem.add_Button(text, onClick).with_Icon_Open();
         }
-
-        public static ToolStripButton add_Button(this ToolStripItem toolStrip, string text, Action onClick)
+        public static ToolStripButton		add_Button(this ToolStripItem toolStrip, string text, Action onClick)
         {
-            return toolStrip.add_Button(text, null, onClick);
+            return toolStrip.add_Button(text, "", onClick);
         }
-
-        public static ToolStripButton add_Button(this ToolStrip toolStrip, string text, Action onClick)
+		public static ToolStripButton		add_Button(this ToolStripItem toolStrip, string text, Bitmap image, Action onClick)
+		{
+			return toolStrip.add_Button(text, image, onClick);
+		}
+        public static ToolStripButton		add_Button(this ToolStrip toolStrip, string text, Action onClick)
         {
-            return toolStrip.add_Button(text, null, onClick);
-        }
-
-        public static ToolStripButton add_Button(this ToolStripItem toolStripItem, string text, string resourceName, Action onClick)
+            return toolStrip.add_Button(text, "", onClick);
+        }		
+        public static ToolStripButton		add_Button(this ToolStripItem toolStripItem, string text, string resourceName, Action onClick)
         {
             return toolStripItem.toolStrip().add_Button(text, resourceName, onClick);
         }
-
-        public static ToolStripButton add_Button(this ToolStrip toolStrip, string text, string resourceName, Action onClick)
+		public static ToolStripButton		add_Button(this ToolStrip toolStrip, string text, Bitmap image, Action onClick)
+		{
+			return toolStrip.add_Button(text, null, image, onClick);
+		}
+		public static ToolStripButton		add_Button(this ToolStrip toolStrip, string text, string resourceName, Action onClick)
+		{
+			return toolStrip.add_Button(text, resourceName, null, onClick);
+		}
+        public static ToolStripButton		add_Button(this ToolStrip toolStrip, string text, string resourceName, Bitmap image, Action onClick)
         {
             if (toolStrip.isNull())
             {
@@ -1019,6 +1018,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                             button.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
                             button.applyResources(resourceName);
                         }
+						if (image.notNull())
+							button.Image = image;
                         if (text.valid())
                             button.Text = text;
 
@@ -1042,12 +1043,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return button;
                 });
         }
-        public static ToolStripTextBox add_TextBox(this ToolStripItem toolStripItem, string text)
+        public static ToolStripTextBox		add_TextBox(this ToolStripItem toolStripItem, string text)
         {
             return toolStripItem.toolStrip().add_TextBox(text);
         }
-
-        public static ToolStripTextBox add_TextBox(this ToolStrip toolStrip, string text)
+        public static ToolStripTextBox		add_TextBox(this ToolStrip toolStrip, string text)
         {
             return (ToolStripTextBox)toolStrip.invokeOnThread(
                 () =>
@@ -1057,12 +1057,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     textBox.Text = text;
                     return textBox;
                 });
-        }
-
-        //public static ToolStripButton add_Link(this ToolStrip toolStrip, string text, string resourceName = null, Action onClick = null)
-
-        //Events
-        public static ToolStripButton click(this ToolStripButton button)
+        }                
+        public static ToolStripButton		click(this ToolStripButton button)
         {
             return (ToolStripButton)button.toolStrip().invokeOnThread(
                 () =>
@@ -1071,14 +1067,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return button;
                 });
         }
-
-        public static string get_Text(this ToolStripControlHost toolStripControlHost)
+        public static string				get_Text(this ToolStripControlHost toolStripControlHost)
         {
             return (string)toolStripControlHost.toolStrip().invokeOnThread(() => toolStripControlHost.Text);
         }
-
-
-
         //Prob:
         // if I use the original: 
         //   	public static T onKeyPress<T>(this T control, Keys onlyFireOnKey, Action<String> callback) where T : Control
@@ -1090,13 +1082,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         //    [12:04:09 PM] ERROR: [CSharp_FastCompiler] Compilation Error: 32::3::CS0121::The call is ambiguous between the following methods or properties: 'O2.DotNetWrappers.ExtensionMethods.WinForms_ExtensionMethods_Control_Object.onKeyPress<System.Windows.Forms.ToolStripTextBox>(System.Windows.Forms.ToolStripTextBox, System.Windows.Forms.Keys, System.Action<string>)' and 'O2.XRules.Database.Utils._Extra_extensionMethods_ToolStrip.onKeyPress<System.Windows.Forms.ToolStripTextBox>(System.Windows.Forms.ToolStripTextBox, System.Windows.Forms.Keys, System.Action<string>)'::c:\Users\o2\AppData\Local\Temp\pgzwszmn.0.cs
         //
         // so the solution is to hard-code the onEnter and onKeyPress calls to ToolStripTextBox (which is not ideal)
-
-        public static ToolStripTextBox onEnter(this ToolStripTextBox toolStripTextBox, Action<String> callback)
+        public static ToolStripTextBox		onEnter(this ToolStripTextBox toolStripTextBox, Action<String> callback)
         {
             return toolStripTextBox.onKeyPress(Keys.Enter, callback);
         }
-
-        public static ToolStripTextBox onKeyPress(this ToolStripTextBox toolStripTextBox, Keys onlyFireOnKey, Action<String> callback)
+        public static ToolStripTextBox		onKeyPress(this ToolStripTextBox toolStripTextBox, Keys onlyFireOnKey, Action<String> callback)
         {
 
             toolStripTextBox.KeyDown += (sender, e) =>
@@ -1109,16 +1099,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             };
             return toolStripTextBox;
         }	
-
-        public static T applyResources<T>(this T toolStripItem, string name)
-            where T : ToolStripItem
+        public static T						applyResources<T>(this T toolStripItem, string name)            where T : ToolStripItem
         {
             toolStripItem.toolStrip().applyResources(toolStripItem, name);
             return (T)toolStripItem;
         }
-
-        public static T applyResources<T>(this T control, ToolStripItem toolStripItem, string name)
-            where T : Control
+        public static T						applyResources<T>(this T control, ToolStripItem toolStripItem, string name)            where T : Control
         {
             if (control.isNull())
                 return control;
@@ -1133,18 +1119,27 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return (T)control;
         }
-
-        public static T with_Icon_Open<T>(this T toolStripItem) where T : ToolStripItem
+        public static T						with_Icon_Open<T>(this T toolStripItem) where T : ToolStripItem
         {
             return toolStripItem.with_Icon(typeof(ascx_FindingsViewer), "btOpenFile");
         }
-
-        public static T with_Icon_Save<T>(this T toolStripItem) where T : ToolStripItem
+		public static T						with_Icon_New<T>(this T toolStripItem) where T : ToolStripItem
+		{
+			return toolStripItem.with_Icon(FormImages.document_new); 
+		}
+        public static T						with_Icon_Save<T>(this T toolStripItem) where T : ToolStripItem
         {
             return toolStripItem.with_Icon(typeof(ascx_FindingsViewer), "btSave");
         }
-
-        public static T with_Icon<T>(this T toolStripItem, Type hostType, string name) where T : ToolStripItem
+		public static T						with_Icon<T>(this T toolStripItem, Bitmap bitmap) where T : ToolStripItem
+		{
+			if (toolStripItem.isNull())
+				"[toolStripItem][with_Icon]: provided toolStripItem value was null".error();
+			else
+				toolStripItem.toolStrip().invokeOnThread(() => { toolStripItem.Image = bitmap; });
+			return toolStripItem;
+		}
+        public static T						with_Icon<T>(this T toolStripItem, Type hostType, string name) where T : ToolStripItem
         {
             if (toolStripItem.isNull())
                 "[toolStripItem][with_Icon]: provided toolStripItem value was null".error();
@@ -1152,8 +1147,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 hostType.componentResourceManager().ApplyResources(toolStripItem, name);
             return toolStripItem;
         }
-
-        public static ToolStripLabel visible(this ToolStripLabel toolStripLabel, bool value) 
+        public static ToolStripLabel		visible(this ToolStripLabel toolStripLabel, bool value) 
         {
             return toolStripLabel.toolStrip().invokeOnThread(() =>
                 {
@@ -1161,6 +1155,35 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         return toolStripLabel;
                 });
         }
+		public static ToolStrip				layoutStyle(this ToolStrip toolStrip, ToolStripLayoutStyle layoutStyle)
+		{
+			return toolStrip.invokeOnThread(
+				() =>
+				{
+					toolStrip.LayoutStyle = layoutStyle;
+					return toolStrip;
+				});
+		}
+		public static ToolStrip				layout_Flow(this ToolStrip toolStrip)
+		{
+			return toolStrip.layoutStyle(ToolStripLayoutStyle.Flow);
+		}
+		public static ToolStrip				layout_HorizontalStackWithOverflow(this ToolStrip toolStrip)
+		{
+			return toolStrip.layoutStyle(ToolStripLayoutStyle.HorizontalStackWithOverflow);
+		}
+		public static ToolStrip				layout_VerticalStackWithOverflow(this ToolStrip toolStrip)
+		{
+			return toolStrip.layoutStyle(ToolStripLayoutStyle.VerticalStackWithOverflow);
+		}
+		public static ToolStrip				layout_Table(this ToolStrip toolStrip)
+		{
+			return toolStrip.layoutStyle(ToolStripLayoutStyle.Table);
+		}
+		public static ToolStrip				layout_StackWithOverflow(this ToolStrip toolStrip)
+		{
+			return toolStrip.layoutStyle(ToolStripLayoutStyle.StackWithOverflow);
+		}	
     }
 
     public static class WinForms_ExtensionMethods_ListBox

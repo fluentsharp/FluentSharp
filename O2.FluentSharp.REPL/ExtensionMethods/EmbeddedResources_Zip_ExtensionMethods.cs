@@ -11,19 +11,17 @@ using System.Reflection;
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public class O2Setup
-    {
-        public static string Data_Name { get; set;} 
+    {        
         public static string Scripts_Name { get; set;} 
 
         static O2Setup()
-        {
-            Data_Name = PublicDI.config.CurrentExecutableFileName + ".Data";
+        {            
             Scripts_Name = "O2.Platform.Scripts";
         }
         public static void extractEmbededConfigZips()
         {
-            Data_Name.extract_EmbeddedResource_into_O2RootDir();
-            Scripts_Name.extract_EmbeddedResource_into_O2RootDir();
+			Scripts_Name.extract_EmbeddedResource_into_O2RootFolder();
+			"_ToolsOrApis".extract_EmbeddedResource_into_Folder(PublicDI.config.ToolsOrApis);
         }
 
         public static string createEmbeddedFolder_Scripts(string targetDir)
@@ -33,28 +31,33 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return o2ScriptsFolder;
         }
 
-        public static string createEmbeddedFolder_Data(string targetDir, string name)
-        {
-            var dataFolder = targetDir.pathCombine(name + ".Data").createDir();
-            "O2_Logo.gif".local().file_Copy(dataFolder);
-            return dataFolder;
-        }
     }
 
     public static class EmbeddedResources_Zip_ExtensionMethods
     {
-        public static string extract_EmbeddedResource_into_O2RootDir(this string resourceName)
+		public static string extract_EmbeddedResource_into_O2RootFolder(this string resourceName)
 		{
+			if (resourceName.notValid())
+				return resourceName;
+			var targetFolder = PublicDI.config.O2TempDir.pathCombine("..\\..\\" + resourceName);
+			return resourceName.extract_EmbeddedResource_into_Folder(targetFolder);
+		}
+
+		public static string extract_EmbeddedResource_into_Folder(this string resourceName, string targetFolder)
+		{
+			if (resourceName.notValid() || targetFolder.notValid())
+				return null;
 			var sourceZip = resourceName + ".Zip";
 			try
-			{
-				var targetFolder = PublicDI.config.O2TempDir.pathCombine("..\\..\\" + resourceName);
+			{				
 				if (targetFolder.dirExists())
 					"[Embedded resources extraction] targetFolder already existed, skipping extration: {0}".info(targetFolder);
 				else
 				{
 					var stream = sourceZip.resourceStream();
-					if (stream.notNull())
+					if (stream.isNull())
+						"[Embedded resources extraction] failed to find sourceZip embeded reference: {0} ".info(sourceZip);
+					else
 					{
 						var zipFile = stream.bytes().saveAs(sourceZip.tempFile());													  					
 						zipFile.unzip(targetFolder);

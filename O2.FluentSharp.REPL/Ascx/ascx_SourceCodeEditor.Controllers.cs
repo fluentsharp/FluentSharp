@@ -441,10 +441,19 @@ namespace O2.External.SharpDevelop.Ascx
                 });
         }
 
+		public void newFile()
+		{
+			"Creating a new Script".info();
+			setPathToFileLoaded(null);
+			setDocumentContents("",".cs");
+		}
         public bool loadSourceCodeFile(String pathToSourceCodeFileToLoad)
         {
-            if (pathToSourceCodeFileToLoad == "")
-                return false;
+			if (pathToSourceCodeFileToLoad.notValid())
+			{
+				newFile();
+				return false;
+			}
 
             pathToSourceCodeFileToLoad = tryToResolveFileLocation(pathToSourceCodeFileToLoad, this);
 
@@ -499,14 +508,21 @@ namespace O2.External.SharpDevelop.Ascx
 
         private void setPathToFileLoaded(string pathToSourceCodeFileToLoad)
         {
-            tbSourceCode_DirectoryOfFileLoaded.invokeOnThread(
-                () =>
-                {
-                    sDirectoryOfFileLoaded = Path.GetDirectoryName(pathToSourceCodeFileToLoad);
-                    tbSourceCode_DirectoryOfFileLoaded.Text = sDirectoryOfFileLoaded;
-                    tbSourceCode_FileLoaded.Text = Path.GetFileName(pathToSourceCodeFileToLoad);
-                    sPathToFileLoaded = pathToSourceCodeFileToLoad;
-                });
+			if (pathToSourceCodeFileToLoad.notValid())
+			{
+				sDirectoryOfFileLoaded = "";
+				tbSourceCode_DirectoryOfFileLoaded.set_Text("");
+				tbSourceCode_FileLoaded.set_Text("");
+				sPathToFileLoaded ="";
+			}
+			else
+				tbSourceCode_DirectoryOfFileLoaded.invokeOnThread(
+					() =>{
+							sDirectoryOfFileLoaded = Path.GetDirectoryName(pathToSourceCodeFileToLoad);
+							tbSourceCode_DirectoryOfFileLoaded.Text = sDirectoryOfFileLoaded;
+							tbSourceCode_FileLoaded.Text = Path.GetFileName(pathToSourceCodeFileToLoad);
+							sPathToFileLoaded = pathToSourceCodeFileToLoad;
+						 });
         }
 
         private bool hasNonRendredChars(string pathToSourceCodeFileToLoad)
@@ -1102,7 +1118,11 @@ namespace O2.External.SharpDevelop.Ascx
 
         public void showLogViewerControl()
         {
-            this.insert_LogViewer();
+			var tabControl = this.parent<TabControl>();
+			if (tabControl.notNull())
+				tabControl.insert_LogViewer();
+			else
+				this.insert_LogViewer();
 			/*int splitterLocation = (int)(150); 
             var logViewer = this.add_Control<ascx_LogViewer>();
             this.insert_Right(logViewer, splitterLocation);

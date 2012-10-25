@@ -1136,11 +1136,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {
                 if (controlToWrap == null || controlToInject == null)
                     return new List<Control>();
-                return (List<Control>)controlToWrap.invokeOnThread(
-                    () =>
+				return (List<Control>)controlToWrap.invokeOnThread(() =>
                     {
-                        var parentControl = controlToWrap.Parent;
-                        parentControl.clear();
+						var childControls = new List<Control>();
+                        var parentControl = controlToWrap.parent();
+						if (parentControl.isNull())	//means we will need to add to the current one (or the parent control is a a Form)
+						{
+							childControls.add(controlToWrap.controls());
+							parentControl = controlToWrap;
+						}
+						else
+						{
+							childControls.add(controlToWrap);							
+						}
+						foreach (var childControl in childControls)
+							parentControl.remove(childControl);
+
                         var controls = new List<Control>();
                         SplitContainer splitContainer = parentControl.add_SplitContainer();
                         splitContainer.fill();
@@ -1151,7 +1162,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                             case AnchorStyles.Top:
                             case AnchorStyles.Left:
                                 splitContainer.Panel1.add(controlToInject);
-                                splitContainer.Panel2.add(controlToWrap);
+								splitContainer.Panel2.Controls.AddRange(childControls.ToArray());
                                 splitContainer.FixedPanel = FixedPanel.Panel1;
                                 try
                                 {
@@ -1171,8 +1182,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
                             case AnchorStyles.Bottom:
                             case AnchorStyles.Right:
-                                splitContainer.Panel1.add(controlToWrap);
-                                splitContainer.Panel2.add(controlToInject);
+								splitContainer.Panel1.Controls.AddRange(childControls.ToArray());
+								splitContainer.Panel2.add(controlToInject);
+								
+                                //splitContainer.Panel1.add(controlToWrap);
+                                //splitContainer.Panel2.add(controlToInject);
                                 splitContainer.Orientation = (location == AnchorStyles.Bottom) ? Orientation.Horizontal : Orientation.Vertical;
                                 splitContainer.FixedPanel = FixedPanel.Panel2;
 
@@ -1229,7 +1243,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (T)control.invokeOnThread(
                 () =>
                 {
-                    var newControl = control.add_Control<T>();
+                    //var newControl = control.add_Control<T>();
+					var newControl = control.newInThread<T>();
                     newControl.fill();
                     control.insert_Right(newControl, distance);
                     return newControl;
@@ -1289,7 +1304,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (T)control.invokeOnThread(
                 () =>
                 {
-                    var newControl = control.add_Control<T>();
+                    //var newControl = control.add_Control<T>();
+					var newControl = control.newInThread<T>();
                     newControl.fill();
                     control.insert_Left(newControl, distance);
                     var splitContainer = control.parent<SplitContainer>();
@@ -1376,7 +1392,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (T)control.invokeOnThread(
                 () =>
                 {
-                    var newControl = control.add_Control<T>();
+                    //var newControl = control.add_Control<T>();
+					var newControl = control.newInThread<T>();
                     if (newControl == null)
                         return null;
                     newControl.fill();

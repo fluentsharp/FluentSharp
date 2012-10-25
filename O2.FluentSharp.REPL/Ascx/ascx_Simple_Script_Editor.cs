@@ -241,7 +241,7 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("clear LocalScriptFileMappings list", (menuitem) => CompileEngine.clearLocalScriptFileMappings())
                        .add_MenuItem("clear CompilationPathMappings list", (menuitem) => CompileEngine.clearCompilationPathMappings());
 
-            contextMenu.add_MenuItem("clipboard & selected text")
+            contextMenu.add_MenuItem("selected text")
                        .add_MenuItem("cut", () => commandsToExecute.editor().clipboard_Cut())
                        .add_MenuItem("copy", () => commandsToExecute.editor().clipboard_Copy())
                        .add_MenuItem("paste", () => commandsToExecute.editor().clipboard_Paste())
@@ -362,8 +362,9 @@ namespace O2.XRules.Database.Utils
             this.ToolStrip = this.commandsToExecute.insert_Below(30).add_Control<ToolStrip>();
             try
             {
-                ToolStrip.add_Button("open", () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
-                         .add_Button("save as", () => { this.saveAsScript(); }).with_Icon_Save()
+                ToolStrip.add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
+					     .add_Button("open"		, () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
+                         .add_Button("save as"	, () => { this.saveAsScript(); }).with_Icon_Save()
                          .add_Label("search:").add_TextBox("").onEnter(searchInText)
                          ;
             }

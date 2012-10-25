@@ -810,6 +810,7 @@ namespace O2.DotNetWrappers.DotNet
                                                           .add(Assembly.GetExecutingAssembly().location().parentFolder())
                                                           .add(Assembly.GetCallingAssembly().location().parentFolder())
                                                           .add(Assembly.GetEntryAssembly().location().parentFolder())
+														  .add(O2.Kernel.PublicDI.config.ToolsOrApis)
                                                           .onlyValidFolders()
                                                           .unique();
 
@@ -1052,10 +1053,11 @@ namespace O2.DotNetWrappers.DotNet
                     else 
                     {
                         var o2Script = refs.first();
-                        var expectedDll = refs.second();
-                        if (expectedDll.assembly().isNull())
+                        var expectedFile = refs.second();
+                        //if (expectedDll.assembly().isNull())
+						if (expectedFile.local().fileExists().isFalse()) //mapping it to the file instead of an assembly (to support unmanaged exes)
                         {
-                            "[handleReferencedAssembliesInstallRequirements] expected assembly not found ('{0}'), so running installer script: '{1}'".info(expectedDll, o2Script);
+							"[handleReferencedAssembliesInstallRequirements] expected assembly not found ('{0}'), so running installer script: '{1}'".info(expectedFile, o2Script);
                             var assembly = new CompileEngine().compileSourceFile(o2Script.local());
                             if (assembly.notNull())
                             {
@@ -1065,10 +1067,11 @@ namespace O2.DotNetWrappers.DotNet
                                 else
                                 {
                                     installType.ctor(); // the installer is supposed to be triggered by the  constructor
-                                    if (expectedDll.assembly().isNull())
-                                        "[handleReferencedAssembliesInstallRequirements] after install requested assembly still not found: '{0}'".error(expectedDll);
+									//if (expectedFile.assembly().isNull())
+									if (expectedFile.local().fileExists().isFalse())
+										"[handleReferencedAssembliesInstallRequirements] after install requested assembly still not found: '{0}'".error(expectedFile);
                                     else
-                                        "[handleReferencedAssembliesInstallRequirements] after install requested assembly is now available: '{0}'".info(expectedDll);
+										"[handleReferencedAssembliesInstallRequirements] after install requested assembly is now available: '{0}'".info(expectedFile);
                                 }
                             }
                         }

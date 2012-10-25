@@ -28,6 +28,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 
         public KO2Config()
         {
+			
 
 			this.calculate_O2TempDir();
 

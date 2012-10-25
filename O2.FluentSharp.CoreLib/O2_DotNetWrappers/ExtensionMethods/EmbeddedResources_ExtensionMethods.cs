@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using O2.DotNetWrappers.Windows;
+using O2.Kernel;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -50,64 +52,103 @@ namespace O2.DotNetWrappers.ExtensionMethods
             "[EmbededResources]resource_GetFile failed for resourceName :{0}".error(resourceName);
             return null;
         }
+
         public static List<string> mapExtraEmbebbedResources(this string targetFolder, string fileToParse)
         {
             var extraEmbebbedResources = new List<string>();
-            var sourceCode = fileToParse.local().contents();
+            var sourceCode = fileToParse.local().contents().fixCRLF();
             if (sourceCode.notValid())
             {
                 "[mapExtraEmbebbedResources] could not get source code for file: {0}".format(fileToParse);
+				return extraEmbebbedResources;
             }
+			//Embed File or Assembly
             var tag = "//O2Embed:";
-            foreach (var line in sourceCode.fixCRLF().lines())
-            {                
-                if (line.starts(tag))
+            foreach (var file in sourceCode.lines().starting(tag).replace(tag,""))
+            {                                
+                if (file.local().fileExists())
                 {
-                    var file = line.remove(tag);
-                    if (file.local().fileExists())
-                    {
-                        "[mapExtraEmbebbedResources] found To Embed reference: {0} -> targetFolder: {1}".debug(file, targetFolder);
-                        //file.file_Copy(targetFolder);
-                        extraEmbebbedResources.add(file.local());
-                    }
-                    else if (file.assembly_Location().fileExists())
-                    {
-                        extraEmbebbedResources.add(file.assembly_Location()); 
-                    }
-                    else
-                        "[mapExtraEmbebbedResources] could not find Embedded reference: {0}".error(file);
+                    "[mapExtraEmbebbedResources] found To Embed reference: {0} -> targetFolder: {1}".debug(file, targetFolder);                        
+                    extraEmbebbedResources.add(file.local());
                 }
-            }
+				else if (file.assembly_Location().fileExists())
+				{
+					"[mapExtraEmbebbedResources] found Assembly To Embed reference: {0} -> targetFolder: {1}".debug(file.assembly_Location(), targetFolder);                        
+					extraEmbebbedResources.add(file.assembly_Location());
+				}
+				else
+				{						
+					"[mapExtraEmbebbedResources] could not find Embedded reference: {0}".error(file);
+				}                
+            }			
             return extraEmbebbedResources;
         }
-        public static string copyFileReferencesToEmbeddedFolder(this string targetFolder, string fileToParse)
+
+/*		//Embed Zip with ToolOrAPI
+			tag = "//O2EmbedTool:";
+			foreach (var file in sourceCode.lines().starting(tag).remove(tag))
+			{
+				var toolFolder = file.folderExists() ?  file : O2.Kernel.PublicDI.config.ToolsOrApis.pathCombine(file);				
+				if (toolFolder.folderExists())
+				{
+					"[mapExtraEmbebbedResources] found To EmbedTool reference: {0} -> targetFolder: {1}".debug(toolFolder, targetFolder);
+					var zippedTool = toolFolder.zip()
+					"[mapExtraEmbebbedResources] found To EmbedTool reference: {0} -> targetFolder: {1}".debug(toolFolder, targetFolder);
+					extraEmbebbedResources.add(file.local());
+				}
+				else if (file.assembly_Location().fileExists())
+				{
+					"[mapExtraEmbebbedResources] found Assembly To Embed reference: {0} -> targetFolder: {1}".debug(file.assembly_Location(), targetFolder);
+					extraEmbebbedResources.add(file.assembly_Location());
+				}
+				else
+				{
+					"[mapExtraEmbebbedResources] could not find Embedded reference: {0}".error(file);
+				}
+			}
+*/
+		public static string copyToolReferencesToFolder(this string targetFolder, string fileToParse)
+		{
+			var sourceCode = fileToParse.local().contents().fixCRLF();
+			var tag = "//O2EmbedTool:";
+			foreach (var folder in sourceCode.lines().starting(tag).replace(tag,""))
+			{
+				var toolFolder = folder.folderExists() ? folder : PublicDI.config.ToolsOrApis.pathCombine(folder);
+				if (toolFolder.folderExists())
+				{
+					"[mapExtraEmbebbedResources] found To EmbedTool reference: {0} -> targetFolder: {1}".debug(toolFolder, targetFolder);
+					Files.copyFolder(toolFolder, targetFolder.createDir(), true, false,"");
+				}
+			}
+			return targetFolder;
+		}
+        public static string copyFileReferencesToFolder(this string targetFolder, string fileToParse)
         {
-            //"[copyFileReferencesToEmbeddedFolder] analyzing file: {0} with {1} lines".error(sourceToParse.local(), sourceToParse.local().lines().size());
-            var tag = "//O2Package:";
-            var sourceCode = fileToParse.extension(".h2") ? fileToParse.local().h2_SourceCode().fixCRLF()
-                                                          : fileToParse.local().fileContents().fixCRLF();
-            foreach (var line in sourceCode.lines())
-                if (line.starts(tag))
-                {                    
-                    var item = line.remove(tag);
-                    if (item == "ALL_SCRIPTS")      //special tag to indicate that we want to copy all scripts
-                    {
-                        O2.DotNetWrappers.Windows.Files.copyFolder(O2.Kernel.PublicDI.config.LocalScriptsFolder, targetFolder, true, true, ".git");                        
-                        continue;
-                    }                    
-                    foreach (var file in item.split(","))
-                    //var file = .local();
-                    {
-                        var mappedFile = file.local();
-                        if (mappedFile.fileExists())
-                        {
-                            "[copyFileReferencesToEmbeddedFolder] found Package reference: {0}".debug(file);
-                            mappedFile.file_Copy(targetFolder);
-                        }
-                        else
-                            "[copyFileReferencesToEmbeddedFolder] couldn't find Package reference: {0}".debug(file);
-                    }
-                }
+
+			var sourceCode = fileToParse.local().contents().fixCRLF(); 
+							/*fileToParse.extension(".h2") ? fileToParse.local().h2_SourceCode().fixCRLF()
+                                                          : fileToParse.local().fileContents().fixCRLF();*/
+			var tag = "//O2Package:";
+			foreach (var item in sourceCode.lines().starting(tag).replace(tag, ""))
+			{
+				if (item == "ALL_SCRIPTS")      //special tag to indicate that we want to copy all scripts
+				{
+					Files.copyFolder(PublicDI.config.LocalScriptsFolder, targetFolder, true, true, ".git");
+					continue;
+				}
+				foreach (var file in item.split(","))
+				//var file = .local();
+				{
+					var mappedFile = file.local();
+					if (mappedFile.fileExists())
+					{
+						"[copyFileReferencesToEmbeddedFolder] found Package reference: {0}".debug(file);
+						mappedFile.file_Copy(targetFolder);
+					}
+					else
+						"[copyFileReferencesToEmbeddedFolder] couldn't find Package reference: {0}".debug(file);
+				}
+			}		
             return targetFolder;
         }
     }    

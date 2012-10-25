@@ -33,7 +33,7 @@ namespace O2.Kernel
 
             O2Kernel_Web.ApplyNetworkConnectionHack();
 
-            log = new KO2Log();
+            log = new KO2Log();			
             config = O2ConfigLoader.getKO2Config();
             reflection = new KReflection();            
 

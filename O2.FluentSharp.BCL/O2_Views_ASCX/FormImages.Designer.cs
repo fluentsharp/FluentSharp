@@ -59,5 +59,1608 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
                 resourceCulture = value;
             }
         }
+        
+        public static System.Drawing.Bitmap accessories_calculator {
+            get {
+                object obj = ResourceManager.GetObject("accessories_calculator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap accessories_character_map {
+            get {
+                object obj = ResourceManager.GetObject("accessories_character_map", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap accessories_text_editor {
+            get {
+                object obj = ResourceManager.GetObject("accessories_text_editor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap address_book_new {
+            get {
+                object obj = ResourceManager.GetObject("address_book_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap application_certificate {
+            get {
+                object obj = ResourceManager.GetObject("application_certificate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap application_x_executable {
+            get {
+                object obj = ResourceManager.GetObject("application_x_executable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_accessories {
+            get {
+                object obj = ResourceManager.GetObject("applications_accessories", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_development {
+            get {
+                object obj = ResourceManager.GetObject("applications_development", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_games {
+            get {
+                object obj = ResourceManager.GetObject("applications_games", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_graphics {
+            get {
+                object obj = ResourceManager.GetObject("applications_graphics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_internet {
+            get {
+                object obj = ResourceManager.GetObject("applications_internet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_multimedia {
+            get {
+                object obj = ResourceManager.GetObject("applications_multimedia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_office {
+            get {
+                object obj = ResourceManager.GetObject("applications_office", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_other {
+            get {
+                object obj = ResourceManager.GetObject("applications_other", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap applications_system {
+            get {
+                object obj = ResourceManager.GetObject("applications_system", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap appointment_new {
+            get {
+                object obj = ResourceManager.GetObject("appointment_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_card {
+            get {
+                object obj = ResourceManager.GetObject("audio_card", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_input_microphone {
+            get {
+                object obj = ResourceManager.GetObject("audio_input_microphone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_volume_high {
+            get {
+                object obj = ResourceManager.GetObject("audio_volume_high", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_volume_low {
+            get {
+                object obj = ResourceManager.GetObject("audio_volume_low", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_volume_medium {
+            get {
+                object obj = ResourceManager.GetObject("audio_volume_medium", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_volume_muted {
+            get {
+                object obj = ResourceManager.GetObject("audio_volume_muted", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap audio_x_generic {
+            get {
+                object obj = ResourceManager.GetObject("audio_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap battery {
+            get {
+                object obj = ResourceManager.GetObject("battery", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap battery_caution {
+            get {
+                object obj = ResourceManager.GetObject("battery_caution", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap bookmark_new {
+            get {
+                object obj = ResourceManager.GetObject("bookmark_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btCompileCode_Image {
+            get {
+                object obj = ResourceManager.GetObject("btCompileCode_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btDebugMethod_Image {
+            get {
+                object obj = ResourceManager.GetObject("btDebugMethod_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btDragAssemblyCreated_Image {
+            get {
+                object obj = ResourceManager.GetObject("btDragAssemblyCreated_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btExecuteOnExternalEngine_Image {
+            get {
+                object obj = ResourceManager.GetObject("btExecuteOnExternalEngine_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btExecuteSelectedMethod_Image {
+            get {
+                object obj = ResourceManager.GetObject("btExecuteSelectedMethod_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btOpenFile_Image {
+            get {
+                object obj = ResourceManager.GetObject("btOpenFile_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btSaveFile_Image {
+            get {
+                object obj = ResourceManager.GetObject("btSaveFile_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btSeachAndViewAst_Image {
+            get {
+                object obj = ResourceManager.GetObject("btSeachAndViewAst_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btSelectedLineHistory_Image {
+            get {
+                object obj = ResourceManager.GetObject("btSelectedLineHistory_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btSettings_Image {
+            get {
+                object obj = ResourceManager.GetObject("btSettings_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btShowHideCompilationErrors_Image {
+            get {
+                object obj = ResourceManager.GetObject("btShowHideCompilationErrors_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btShowHidePythonLogExecutionOutputData_Image {
+            get {
+                object obj = ResourceManager.GetObject("btShowHidePythonLogExecutionOutputData_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap btShowLogs_Image {
+            get {
+                object obj = ResourceManager.GetObject("btShowLogs_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap camera_photo {
+            get {
+                object obj = ResourceManager.GetObject("camera_photo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap camera_video {
+            get {
+                object obj = ResourceManager.GetObject("camera_video", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap computer {
+            get {
+                object obj = ResourceManager.GetObject("computer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap contact_new {
+            get {
+                object obj = ResourceManager.GetObject("contact_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap dialog_error {
+            get {
+                object obj = ResourceManager.GetObject("dialog_error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap dialog_information {
+            get {
+                object obj = ResourceManager.GetObject("dialog_information", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap dialog_warning {
+            get {
+                object obj = ResourceManager.GetObject("dialog_warning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_new {
+            get {
+                object obj = ResourceManager.GetObject("document_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_open {
+            get {
+                object obj = ResourceManager.GetObject("document_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_print {
+            get {
+                object obj = ResourceManager.GetObject("document_print", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_print_preview {
+            get {
+                object obj = ResourceManager.GetObject("document_print_preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_properties {
+            get {
+                object obj = ResourceManager.GetObject("document_properties", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_save {
+            get {
+                object obj = ResourceManager.GetObject("document_save", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap document_save_as {
+            get {
+                object obj = ResourceManager.GetObject("document_save_as", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap drive_harddisk {
+            get {
+                object obj = ResourceManager.GetObject("drive_harddisk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap drive_optical {
+            get {
+                object obj = ResourceManager.GetObject("drive_optical", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap drive_removable_media {
+            get {
+                object obj = ResourceManager.GetObject("drive_removable_media", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_clear {
+            get {
+                object obj = ResourceManager.GetObject("edit_clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_copy {
+            get {
+                object obj = ResourceManager.GetObject("edit_copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_cut {
+            get {
+                object obj = ResourceManager.GetObject("edit_cut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_delete {
+            get {
+                object obj = ResourceManager.GetObject("edit_delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_find {
+            get {
+                object obj = ResourceManager.GetObject("edit_find", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_find_replace {
+            get {
+                object obj = ResourceManager.GetObject("edit_find_replace", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_paste {
+            get {
+                object obj = ResourceManager.GetObject("edit_paste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_redo {
+            get {
+                object obj = ResourceManager.GetObject("edit_redo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_select_all {
+            get {
+                object obj = ResourceManager.GetObject("edit_select_all", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap edit_undo {
+            get {
+                object obj = ResourceManager.GetObject("edit_undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_favorite {
+            get {
+                object obj = ResourceManager.GetObject("emblem_favorite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_important {
+            get {
+                object obj = ResourceManager.GetObject("emblem_important", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_photos {
+            get {
+                object obj = ResourceManager.GetObject("emblem_photos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_readonly {
+            get {
+                object obj = ResourceManager.GetObject("emblem_readonly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_symbolic_link {
+            get {
+                object obj = ResourceManager.GetObject("emblem_symbolic_link", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_system {
+            get {
+                object obj = ResourceManager.GetObject("emblem_system", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap emblem_unreadable {
+            get {
+                object obj = ResourceManager.GetObject("emblem_unreadable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_angel {
+            get {
+                object obj = ResourceManager.GetObject("face_angel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_crying {
+            get {
+                object obj = ResourceManager.GetObject("face_crying", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_devilish {
+            get {
+                object obj = ResourceManager.GetObject("face_devilish", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_glasses {
+            get {
+                object obj = ResourceManager.GetObject("face_glasses", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_grin {
+            get {
+                object obj = ResourceManager.GetObject("face_grin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_kiss {
+            get {
+                object obj = ResourceManager.GetObject("face_kiss", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_monkey {
+            get {
+                object obj = ResourceManager.GetObject("face_monkey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_plain {
+            get {
+                object obj = ResourceManager.GetObject("face_plain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_sad {
+            get {
+                object obj = ResourceManager.GetObject("face_sad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_smile {
+            get {
+                object obj = ResourceManager.GetObject("face_smile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_smile_big {
+            get {
+                object obj = ResourceManager.GetObject("face_smile_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_surprise {
+            get {
+                object obj = ResourceManager.GetObject("face_surprise", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap face_wink {
+            get {
+                object obj = ResourceManager.GetObject("face_wink", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder {
+            get {
+                object obj = ResourceManager.GetObject("folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder_drag_accept {
+            get {
+                object obj = ResourceManager.GetObject("folder_drag_accept", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder_new {
+            get {
+                object obj = ResourceManager.GetObject("folder_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder_open {
+            get {
+                object obj = ResourceManager.GetObject("folder_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder_remote {
+            get {
+                object obj = ResourceManager.GetObject("folder_remote", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder_saved_search {
+            get {
+                object obj = ResourceManager.GetObject("folder_saved_search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap folder_visiting {
+            get {
+                object obj = ResourceManager.GetObject("folder_visiting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap font_x_generic {
+            get {
+                object obj = ResourceManager.GetObject("font_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_indent_less {
+            get {
+                object obj = ResourceManager.GetObject("format_indent_less", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_indent_more {
+            get {
+                object obj = ResourceManager.GetObject("format_indent_more", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_justify_center {
+            get {
+                object obj = ResourceManager.GetObject("format_justify_center", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_justify_fill {
+            get {
+                object obj = ResourceManager.GetObject("format_justify_fill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_justify_left {
+            get {
+                object obj = ResourceManager.GetObject("format_justify_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_justify_right {
+            get {
+                object obj = ResourceManager.GetObject("format_justify_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_text_bold {
+            get {
+                object obj = ResourceManager.GetObject("format_text_bold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_text_italic {
+            get {
+                object obj = ResourceManager.GetObject("format_text_italic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_text_strikethrough {
+            get {
+                object obj = ResourceManager.GetObject("format_text_strikethrough", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap format_text_underline {
+            get {
+                object obj = ResourceManager.GetObject("format_text_underline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_bottom {
+            get {
+                object obj = ResourceManager.GetObject("go_bottom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_down {
+            get {
+                object obj = ResourceManager.GetObject("go_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_first {
+            get {
+                object obj = ResourceManager.GetObject("go_first", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_home {
+            get {
+                object obj = ResourceManager.GetObject("go_home", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_jump {
+            get {
+                object obj = ResourceManager.GetObject("go_jump", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_last {
+            get {
+                object obj = ResourceManager.GetObject("go_last", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_next {
+            get {
+                object obj = ResourceManager.GetObject("go_next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_previous {
+            get {
+                object obj = ResourceManager.GetObject("go_previous", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_top {
+            get {
+                object obj = ResourceManager.GetObject("go_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap go_up {
+            get {
+                object obj = ResourceManager.GetObject("go_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap help_browser {
+            get {
+                object obj = ResourceManager.GetObject("help_browser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap image_loading {
+            get {
+                object obj = ResourceManager.GetObject("image_loading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap image_missing {
+            get {
+                object obj = ResourceManager.GetObject("image_missing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap image_x_generic {
+            get {
+                object obj = ResourceManager.GetObject("image_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap input_gaming {
+            get {
+                object obj = ResourceManager.GetObject("input_gaming", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap input_keyboard {
+            get {
+                object obj = ResourceManager.GetObject("input_keyboard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap input_mouse {
+            get {
+                object obj = ResourceManager.GetObject("input_mouse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap internet_group_chat {
+            get {
+                object obj = ResourceManager.GetObject("internet_group_chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap internet_mail {
+            get {
+                object obj = ResourceManager.GetObject("internet_mail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap internet_news_reader {
+            get {
+                object obj = ResourceManager.GetObject("internet_news_reader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap internet_web_browser {
+            get {
+                object obj = ResourceManager.GetObject("internet_web_browser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap list_add {
+            get {
+                object obj = ResourceManager.GetObject("list_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap list_remove {
+            get {
+                object obj = ResourceManager.GetObject("list_remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_attachment {
+            get {
+                object obj = ResourceManager.GetObject("mail_attachment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_forward {
+            get {
+                object obj = ResourceManager.GetObject("mail_forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_mark_junk {
+            get {
+                object obj = ResourceManager.GetObject("mail_mark_junk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_mark_not_junk {
+            get {
+                object obj = ResourceManager.GetObject("mail_mark_not_junk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_message_new {
+            get {
+                object obj = ResourceManager.GetObject("mail_message_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_reply_all {
+            get {
+                object obj = ResourceManager.GetObject("mail_reply_all", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_reply_sender {
+            get {
+                object obj = ResourceManager.GetObject("mail_reply_sender", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mail_send_receive {
+            get {
+                object obj = ResourceManager.GetObject("mail_send_receive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_eject {
+            get {
+                object obj = ResourceManager.GetObject("media_eject", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_flash {
+            get {
+                object obj = ResourceManager.GetObject("media_flash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_floppy {
+            get {
+                object obj = ResourceManager.GetObject("media_floppy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_optical {
+            get {
+                object obj = ResourceManager.GetObject("media_optical", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_playback_pause {
+            get {
+                object obj = ResourceManager.GetObject("media_playback_pause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_playback_start {
+            get {
+                object obj = ResourceManager.GetObject("media_playback_start", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_playback_stop {
+            get {
+                object obj = ResourceManager.GetObject("media_playback_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_record {
+            get {
+                object obj = ResourceManager.GetObject("media_record", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_seek_backward {
+            get {
+                object obj = ResourceManager.GetObject("media_seek_backward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_seek_forward {
+            get {
+                object obj = ResourceManager.GetObject("media_seek_forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_skip_backward {
+            get {
+                object obj = ResourceManager.GetObject("media_skip_backward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap media_skip_forward {
+            get {
+                object obj = ResourceManager.GetObject("media_skip_forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap multimedia_player {
+            get {
+                object obj = ResourceManager.GetObject("multimedia_player", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_error {
+            get {
+                object obj = ResourceManager.GetObject("network_error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_idle {
+            get {
+                object obj = ResourceManager.GetObject("network_idle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_offline {
+            get {
+                object obj = ResourceManager.GetObject("network_offline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_receive {
+            get {
+                object obj = ResourceManager.GetObject("network_receive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_server {
+            get {
+                object obj = ResourceManager.GetObject("network_server", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_transmit {
+            get {
+                object obj = ResourceManager.GetObject("network_transmit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_transmit_receive {
+            get {
+                object obj = ResourceManager.GetObject("network_transmit_receive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_wired {
+            get {
+                object obj = ResourceManager.GetObject("network_wired", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_wireless {
+            get {
+                object obj = ResourceManager.GetObject("network_wireless", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_wireless_encrypted {
+            get {
+                object obj = ResourceManager.GetObject("network_wireless_encrypted", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap network_workgroup {
+            get {
+                object obj = ResourceManager.GetObject("network_workgroup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap office_calendar {
+            get {
+                object obj = ResourceManager.GetObject("office_calendar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap package_x_generic {
+            get {
+                object obj = ResourceManager.GetObject("package_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_accessibility {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_accessibility", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_assistive_technology {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_assistive_technology", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_font {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_keyboard_shortcuts {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_keyboard_shortcuts", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_locale {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_locale", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_multimedia {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_multimedia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_peripherals {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_peripherals", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_remote_desktop {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_remote_desktop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_screensaver {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_screensaver", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_theme {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_theme", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_desktop_wallpaper {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_wallpaper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_system {
+            get {
+                object obj = ResourceManager.GetObject("preferences_system", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_system_network_proxy {
+            get {
+                object obj = ResourceManager.GetObject("preferences_system_network_proxy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_system_session {
+            get {
+                object obj = ResourceManager.GetObject("preferences_system_session", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap preferences_system_windows {
+            get {
+                object obj = ResourceManager.GetObject("preferences_system_windows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap printer {
+            get {
+                object obj = ResourceManager.GetObject("printer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap printer_error {
+            get {
+                object obj = ResourceManager.GetObject("printer_error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap process_stop {
+            get {
+                object obj = ResourceManager.GetObject("process_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap process_working {
+            get {
+                object obj = ResourceManager.GetObject("process_working", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap software_update_available {
+            get {
+                object obj = ResourceManager.GetObject("software_update_available", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap software_update_urgent {
+            get {
+                object obj = ResourceManager.GetObject("software_update_urgent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap start_here {
+            get {
+                object obj = ResourceManager.GetObject("start_here", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_file_manager {
+            get {
+                object obj = ResourceManager.GetObject("system_file_manager", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_installer {
+            get {
+                object obj = ResourceManager.GetObject("system_installer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_lock_screen {
+            get {
+                object obj = ResourceManager.GetObject("system_lock_screen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_log_out {
+            get {
+                object obj = ResourceManager.GetObject("system_log_out", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_search {
+            get {
+                object obj = ResourceManager.GetObject("system_search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_shutdown {
+            get {
+                object obj = ResourceManager.GetObject("system_shutdown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_software_update {
+            get {
+                object obj = ResourceManager.GetObject("system_software_update", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap system_users {
+            get {
+                object obj = ResourceManager.GetObject("system_users", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap tab_new {
+            get {
+                object obj = ResourceManager.GetObject("tab_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap tbShowO2ObjectModel_Image {
+            get {
+                object obj = ResourceManager.GetObject("tbShowO2ObjectModel_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap text_html {
+            get {
+                object obj = ResourceManager.GetObject("text_html", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap text_x_generic {
+            get {
+                object obj = ResourceManager.GetObject("text_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap text_x_generic_template {
+            get {
+                object obj = ResourceManager.GetObject("text_x_generic_template", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap text_x_script {
+            get {
+                object obj = ResourceManager.GetObject("text_x_script", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap user_desktop {
+            get {
+                object obj = ResourceManager.GetObject("user_desktop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap user_home {
+            get {
+                object obj = ResourceManager.GetObject("user_home", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap user_trash {
+            get {
+                object obj = ResourceManager.GetObject("user_trash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap user_trash_full {
+            get {
+                object obj = ResourceManager.GetObject("user_trash_full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap utilities_system_monitor {
+            get {
+                object obj = ResourceManager.GetObject("utilities_system_monitor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap utilities_terminal {
+            get {
+                object obj = ResourceManager.GetObject("utilities_terminal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap video_display {
+            get {
+                object obj = ResourceManager.GetObject("video_display", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap video_x_generic {
+            get {
+                object obj = ResourceManager.GetObject("video_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap view_fullscreen {
+            get {
+                object obj = ResourceManager.GetObject("view_fullscreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap view_refresh {
+            get {
+                object obj = ResourceManager.GetObject("view_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_clear {
+            get {
+                object obj = ResourceManager.GetObject("weather_clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_clear_night {
+            get {
+                object obj = ResourceManager.GetObject("weather_clear_night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_few_clouds {
+            get {
+                object obj = ResourceManager.GetObject("weather_few_clouds", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_few_clouds_night {
+            get {
+                object obj = ResourceManager.GetObject("weather_few_clouds_night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_overcast {
+            get {
+                object obj = ResourceManager.GetObject("weather_overcast", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_severe_alert {
+            get {
+                object obj = ResourceManager.GetObject("weather_severe_alert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_showers {
+            get {
+                object obj = ResourceManager.GetObject("weather_showers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_showers_scattered {
+            get {
+                object obj = ResourceManager.GetObject("weather_showers_scattered", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_snow {
+            get {
+                object obj = ResourceManager.GetObject("weather_snow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap weather_storm {
+            get {
+                object obj = ResourceManager.GetObject("weather_storm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap window_new {
+            get {
+                object obj = ResourceManager.GetObject("window_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_address_book {
+            get {
+                object obj = ResourceManager.GetObject("x_office_address_book", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_calendar {
+            get {
+                object obj = ResourceManager.GetObject("x_office_calendar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_document {
+            get {
+                object obj = ResourceManager.GetObject("x_office_document", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_document_template {
+            get {
+                object obj = ResourceManager.GetObject("x_office_document_template", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_drawing {
+            get {
+                object obj = ResourceManager.GetObject("x_office_drawing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_drawing_template {
+            get {
+                object obj = ResourceManager.GetObject("x_office_drawing_template", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_presentation {
+            get {
+                object obj = ResourceManager.GetObject("x_office_presentation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_presentation_template {
+            get {
+                object obj = ResourceManager.GetObject("x_office_presentation_template", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_spreadsheet {
+            get {
+                object obj = ResourceManager.GetObject("x_office_spreadsheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap x_office_spreadsheet_template {
+            get {
+                object obj = ResourceManager.GetObject("x_office_spreadsheet_template", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

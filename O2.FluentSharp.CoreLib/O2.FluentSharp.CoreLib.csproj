@@ -180,6 +180,7 @@
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2Log.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KReflection.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KScanTarget.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\MemoryLogger.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2Rule.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2RulePack.cs" />
     <Compile Include="O2_Kernel\launch.cs" />

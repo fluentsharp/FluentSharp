@@ -79,7 +79,7 @@ namespace O2.External.WinFormsUI.Forms
                         Screenshots.getScreenshotOfFormObjectAndItsControls(this)
                 };
                 PublicDI.log.debug("Sending email to O2 Support with: " + text);
-                Mail.sendMail(PublicDI.sEmailHost, "O2User@ouncelabs.com",
+                Mail.sendMail(PublicDI.sEmailHost, "O2User@o2platform.com",
                               PublicDI.sEmailToSendBugReportsTo, "",
                               "Email from O2 User - " + subject,
                               Mail.getUserDetailsAsEmailFormat() + Environment.NewLine + text,

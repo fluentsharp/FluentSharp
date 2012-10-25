@@ -19,8 +19,8 @@ namespace O2.Views.ASCX.Ascx.MainGUI
             {
                 InitializeComponent();
                 if (false == DesignMode)
-                {      
-                    if (PublicDI.log.LogRedirectionTarget == null)
+                {
+					if (PublicDI.log.LogRedirectionTarget == null || (PublicDI.log.LogRedirectionTarget is WinFormsUILog).isFalse())
                         PublicDI.log.LogRedirectionTarget = new WinFormsUILog();
 
                     cbErrorMessages.Checked = true;

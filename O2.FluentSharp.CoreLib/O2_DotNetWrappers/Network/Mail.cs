@@ -59,7 +59,7 @@ namespace O2.DotNetWrappers.Network
                             "/t/tcc:{3}\n" +
                             "/t/tSubject:{4}\n" +
                             "/t/t# attachments:{5}",
-                            sHost, sFrom, sTo, sFrom, sCC, sSubject, lsAttachmentFiles.Count);
+                            sHost, sFrom, sTo, sCC, sSubject, lsAttachmentFiles.Count);
                 var mmMailMessage = new MailMessage(new MailAddress(sFrom), new MailAddress(sTo));
                 mmMailMessage.From = new MailAddress(sFrom);
                 
