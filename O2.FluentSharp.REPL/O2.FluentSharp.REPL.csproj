@@ -155,16 +155,16 @@
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
     <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
-    <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_External_SharpDevelop.dll">
+    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_External_SharpDevelop.dll">
       <Link>_Embedded_Dlls\O2_External_SharpDevelop.dll</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_FluentSharp_BCL.dll">
+    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_FluentSharp_BCL.dll">
       <Link>_Embedded_Dlls\O2_FluentSharp_BCL.dll</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_FluentSharp_CoreLib.dll">
+    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_FluentSharp_CoreLib.dll">
       <Link>_Embedded_Dlls\O2_FluentSharp_CoreLib.dll</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\binaries\O2_FluentSharp_WPF.dll">
+    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_FluentSharp_WPF.dll">
       <Link>_Embedded_Dlls\O2_FluentSharp_WPF.dll</Link>
     </EmbeddedResource>
     <Content Include="DI.cs.txt" />

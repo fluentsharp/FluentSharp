@@ -15,10 +15,10 @@ namespace O2.External.SharpDevelop.Ascx
     {
 
         public ascx_SourceCodeEditor()
-        {
+        {			
             setDefaultValues();
             InitializeComponent();
-
+			
             setControlImages();
         }
 

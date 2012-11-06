@@ -30,6 +30,7 @@ using O2.API.AST.ExtensionMethods.CSharp;
 using O2.XRules.Database.APIs;
 using O2.Views.ASCX.Forms;
 using O2.FluentSharp.REPL;
+using O2.Platform.BCL.O2_Views_ASCX;
 
 //O2Ref:log4net.dll
 
@@ -39,7 +40,7 @@ namespace O2.XRules.Database.Utils
     public class ascx_Simple_Script_Editor_Test
     {
         public void testGui()
-        {
+        {			
             //DebugMsg.debugBreak();
             //ascx_Simple_Script_Editor.startControl();
             ascx_Simple_Script_Editor.startControl_NoCodeComplete();
@@ -113,11 +114,9 @@ namespace O2.XRules.Database.Utils
                     return scriptEditor;
                 });
         }
-
-        public ascx_Simple_Script_Editor()
-            : this(true)
-        {
-
+		 
+        public ascx_Simple_Script_Editor() : this(true)
+        {			
         }
 
         public ascx_Simple_Script_Editor(bool codeCompleteSupport)
@@ -359,18 +358,19 @@ namespace O2.XRules.Database.Utils
 
         public void addToolStrip()
         {
-            this.ToolStrip = this.commandsToExecute.insert_Below(30).add_Control<ToolStrip>();
+			this.ToolStrip = this.insert_Above(30).add_Control<ToolStrip>();
+            //this.ToolStrip = this.commandsToExecute.insert_Below(30).add_Control<ToolStrip>();
             try
             {
-                ToolStrip.add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
+				ToolStrip.add_Button("run"	    , () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
+						 .add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
 					     .add_Button("open"		, () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
                          .add_Button("save as"	, () => { this.saveAsScript(); }).with_Icon_Save()
                          .add_Label("search:").add_TextBox("").onEnter(searchInText)
                          ;
             }
             catch (Exception ex)
-            {
-                //debug.@break();
+            {                
                 ex.log().logStackTrace();
             }
         }

@@ -1183,7 +1183,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStrip				layout_StackWithOverflow(this ToolStrip toolStrip)
 		{
 			return toolStrip.layoutStyle(ToolStripLayoutStyle.StackWithOverflow);
-		}	
+		}
     }
 
     public static class WinForms_ExtensionMethods_ListBox

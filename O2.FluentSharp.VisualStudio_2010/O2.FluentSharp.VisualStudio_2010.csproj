@@ -51,6 +51,19 @@
     <Reference Include="Microsoft.VisualStudio.Text.UI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
+    <Reference Include="O2_FluentSharp_BCL, Version=4.4.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.4.4.2.0\lib\net35\O2_FluentSharp_BCL.dll</HintPath>
+    </Reference>
+    <Reference Include="O2_FluentSharp_CoreLib, Version=4.4.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.CoreLib.4.4.2.0\lib\net35\O2_FluentSharp_CoreLib.dll</HintPath>
+    </Reference>
+    <Reference Include="O2_FluentSharp_REPL, Version=4.4.3.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=x86">
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.REPL.4.4.3.0\lib\net35\O2_FluentSharp_REPL.exe</HintPath>
+    </Reference>
+    <Reference Include="O2_FluentSharp_WPF, Version=4.4.0.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.WPF.4.4.0.0\lib\net40\O2_FluentSharp_WPF.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -155,32 +168,12 @@
     <Compile Include="VisualStudio_2010.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Resources\O2PlatformKey.pfx" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>O2.FluentSharp.BCL</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>O2.FluentSharp.CoreLib</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\O2.FluentSharp.REPL\O2.FluentSharp.REPL.csproj">
-      <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
-      <Name>O2.FluentSharp.REPL</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\O2.FluentSharp.WPF\O2.FluentSharp.WPF.csproj">
-      <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
-      <Name>O2.FluentSharp.WPF</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\Control_WinForms.xaml">
