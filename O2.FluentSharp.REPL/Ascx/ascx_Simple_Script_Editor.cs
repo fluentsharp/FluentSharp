@@ -359,13 +359,16 @@ namespace O2.XRules.Database.Utils
         public void addToolStrip()
         {
 			this.ToolStrip = this.insert_Above(30).add_Control<ToolStrip>();
-            //this.ToolStrip = this.commandsToExecute.insert_Below(30).add_Control<ToolStrip>();
+			//this.ToolStrip = this.insert_Below(30).add_Control<ToolStrip>();
+			this.ToolStrip.splitContainerFixed();			
+            
             try
-            {
-				ToolStrip.add_Button("run"	    , () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
+            { 
+				ToolStrip.add_Button("run", () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
 						 .add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
 					     .add_Button("open"		, () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
                          .add_Button("save as"	, () => { this.saveAsScript(); }).with_Icon_Save()
+						 //.add_Button("log viewer", () => { this.showLogViewer(); })
                          .add_Label("search:").add_TextBox("").onEnter(searchInText)
                          ;
             }

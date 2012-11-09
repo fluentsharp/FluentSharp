@@ -765,9 +765,13 @@ namespace O2.Views.ASCX.O2Findings
             o2AssessmentSave = _o2AssessmentSave;
         }
         
-        public static void addO2AssessmentLoadEngine_static(IO2AssessmentLoad o2AssessmentLoad)
+        public static bool addO2AssessmentLoadEngine_static(IO2AssessmentLoad o2AssessmentLoad)
         {
+			foreach (var loadedEngine in o2AssessmentLoadEngines)
+				if (loadedEngine.typeFullName() == o2AssessmentLoad.typeFullName())
+					return false;
             o2AssessmentLoadEngines.Add(o2AssessmentLoad);
+			return true;
         }
 
         public void addO2AssessmentLoadEngine(IO2AssessmentLoad o2AssessmentLoad)
