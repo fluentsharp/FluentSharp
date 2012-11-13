@@ -380,6 +380,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int       index(this string targetString, string stringToFind)
         {
+			if (targetString.notValid() || stringToFind.notValid())
+				return -1;
             return targetString.IndexOf(stringToFind);
         }
         public static string    tabLeft(this string targetString)
@@ -392,6 +394,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int       indexLast(this string targetString, string stringToFind)
         {
+			if (targetString.notValid() || stringToFind.notValid())
+				return -1;
             return targetString.LastIndexOf(stringToFind);
         }
         

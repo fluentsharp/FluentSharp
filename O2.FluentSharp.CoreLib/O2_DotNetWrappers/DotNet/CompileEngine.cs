@@ -79,12 +79,18 @@ namespace O2.DotNetWrappers.DotNet
             UseCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
             compilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
         }
-
-        public CompileEngine(string _compilationVersion) : this (true)
-        { 
-            if (_compilationVersion.notNull())
-                compilationVersion = _compilationVersion;
+		
+        public CompileEngine(string _compilationVersion) 
+        {             
+			compilationVersion = _compilationVersion;
+			UseCachedAssemblyIfAvailable = true;            
         }
+
+		public CompileEngine(string _compilationVersion, bool useCachedAssemblyIfAvailable)
+		{
+			compilationVersion = _compilationVersion;
+			UseCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
+		}
 
         public static void setDefaultReferencedAssemblies()
         {
@@ -251,7 +257,7 @@ namespace O2.DotNetWrappers.DotNet
             }
             catch (Exception ex)
             {
-                ex.log();
+				ex.logWithStackTrace("in CompileEngine.compileSourceFiles(...)");
             }
             
             return null;
@@ -734,8 +740,14 @@ namespace O2.DotNetWrappers.DotNet
                 if (null != sReferenceAssembliesToAdd)
                     foreach (String sReferenceAssembly in sReferenceAssembliesToAdd)
                     {
-                        if (File.Exists(sReferenceAssembly))
-                            cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
+						//HACK to deal with the fact that we are passing 4.0 assemblies as references
+						if (compilationVersion == "v3.5" && sReferenceAssembly.contains("v4.0"))
+						{
+							cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly.fileName());
+						}
+						else 
+							if (File.Exists(sReferenceAssembly))
+								cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
                     }
                 crCompilerResults = cscpCSharpCodeProvider.CompileAssemblyFromFile(cpCompilerParameters, sourceCodeFiles.ToArray());
                 
