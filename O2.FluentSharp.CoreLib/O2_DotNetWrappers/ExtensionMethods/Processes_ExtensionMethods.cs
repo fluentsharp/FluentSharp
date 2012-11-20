@@ -7,6 +7,7 @@ using O2.DotNetWrappers.Windows;
 using System.IO;
 using O2.DotNetWrappers.DotNet;
 using O2.Kernel;
+using System.Runtime.InteropServices;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -142,19 +143,151 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return process;
 		}
 
-        public static Process with_Name(this List<Process> processes, string name)
+        public static Process               with_Name(this List<Process> processes, string name)
         {
             return (from process in processes
                     where process.ProcessName == name
                     select process).first();
         }
-
-        public static Process with_Id(this List<Process> processes, int id)
+        public static Process               with_Id(this List<Process> processes, int id)
         {
             return (from process in processes
                     where process.Id == id
                     select process).first();
+        }        
+		public static List<string>          names(this List<ProcessModule> modules)
+		{
+			return modules.Select((module)=> module.ModuleName).toList();
+		}		
+		public static Process               process_WithId(this int id)
+		{
+			return Processes.getProcess(id);
+		}
+		public static Process               process_WithName(this string name)
+		{
+			return Processes.getProcessCalled(name);
+		}
+		public static Process               process_MainWindow_BringToFront(this Process process)
+		{
+			if (process.MainWindowHandle != IntPtr.Zero)
+				"WindowsBase.dll".assembly()
+							 	.type("UnsafeNativeMethods")					 
+							 	.invokeStatic("SetForegroundWindow",new HandleRef(null, process.MainWindowHandle)) ;
+			else
+				"[process_MainWindow_BringToFront] provided process has no main Window".error();
+			return process;
+		}
+
+        public static bool                              doWeHaveAccess(this Process process)
+        {
+            try
+            {
+                var m = process.Modules;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
+        public static List<ProcessModule>               modules(this Process process)
+		{
+			var modules = new List<ProcessModule>();
+			try
+			{		
+				foreach(ProcessModule module in process.Modules)
+					modules.Add(module);				
+			}
+			catch(Exception ex)
+			{
+				ex.log();				
+			}
+			return modules;
+		}
+        public static Dictionary<string,ProcessModule>  modules_Indexed_by_ModuleName(this Process process)
+		{
+			//return process.modules().ToDictionary((module)=> module.ModuleName.lower());;		 //doesn't handle duplicate names
+			var modulesIndexed = new Dictionary<string,ProcessModule>();
+			foreach(var module in process.modules())
+				modulesIndexed.add(module.ModuleName.lower(), module);
+			return modulesIndexed;
+		}		
+		public static Dictionary<string,ProcessModule>  modules_Indexed_by_FileName(this Process process)
+		{			
+			var modulesIndexed = new Dictionary<string,ProcessModule>();
+			foreach(var module in process.modules())
+				modulesIndexed.add(module.FileName.lower(), module);
+			return modulesIndexed;
+		}		
+        public static bool                              processHasModule(this Process process, string moduleName)
+        {
+            if (process.doWeHaveAccess().isFalse())
+            {
+                "A call was made to processHasModule for the process {0} which the current user doesn't have access to".error(process.ProcessName);
+                return false;
+            }
+            
+            foreach (ProcessModule module in process.Modules)
+                if (module.ModuleName.fileName().contains(moduleName))
+                    return true;        
+            return false;
+        }       
+        public static Process                           startProcess_AsAdmin(this string pathToExe)
+        {
+             
+            var process = new Process();
+            process.StartInfo.FileName  = pathToExe;          
+            process.StartInfo.Verb = "runas";
+            process.Start();
+            return process;
+        }
+
+        public static string    process_Id_and_Name(this Process process)
+	    {
+	    	return "{0} : {1}".format(process.Id, process.ProcessName);
+	    }	    
+	    public static Process   waitFor_MainWindowHandle(this Process process)
+	    {
+	    	"Waiting for MainWindowHandle for process: {0}".info(process.process_Id_and_Name());
+	    	250.sleep_While(()=> process.refresh().MainWindowHandle == IntPtr.Zero);
+			
+			"Got for MainWindowHandle: {0}".info(process.MainWindowHandle);
+			return process;
+	    }	    
+	    public static Process   waitFor_2nd_MainWindowHandle(this Process process)
+	    {
+	    	var firstMainWindowHandle = process.waitFor_MainWindowHandle()
+	    									    .MainWindowHandle;
+	    	"Waiting for 2nd MainWindowHandle for process: {0}".info(process.process_Id_and_Name());
+	    	250.sleep_While(()=>process.refresh().MainWindowHandle == firstMainWindowHandle);
+			"Got 2nd MainWindowHandle: {0}".info(process.MainWindowHandle);
+			return process;
+	    }
+	    public static Process   refresh(this Process process)
+	    {
+	    	process.Refresh();
+	    	return process;
+	    }
+	    public static Process   end(this Process process)
+	    {
+	    	process.Kill();
+	    	return process;
+	    }
+	    public static Process   stop_in_NSeconds(this Process process, int seconds)
+	    {
+	    	O2Thread.mtaThread(
+	    		()=>{
+	    				"Stopping process {0} in {1} seconds".debug(process.process_Id_and_Name(), seconds);
+	    				(seconds * 1000).sleep();
+	    				process.stop();
+	    			});
+	    	return process;
+	    }    	    	    	
+    	public static void      sleep_While(this int miliseconds, Func<bool> whileCondition)
+    	{
+    		while(whileCondition())
+    			miliseconds.sleep();
+    	}
     }
 
     public static class Console_ExtensionMethods

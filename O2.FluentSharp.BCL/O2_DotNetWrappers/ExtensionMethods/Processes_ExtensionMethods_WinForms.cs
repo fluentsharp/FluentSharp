@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel;
@@ -72,6 +73,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
             process.Start();
             return process;
 
+        }
+
+        public static TreeView add_ProcessModules(this TreeView treeView, Process process)  
+        {
+            treeView.clear();
+            if (process.doWeHaveAccess())
+                treeView.add_Nodes(process.Modules.toList<ProcessModule>().Select((m)=>m.ModuleName))
+                        .white();
+            else
+                treeView.pink().add_Node("No Access to Process modules");
+            return treeView;
         }
     }
 }

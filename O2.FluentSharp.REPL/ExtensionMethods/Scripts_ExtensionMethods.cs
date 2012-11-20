@@ -144,7 +144,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 "[script_Me] provided objectToScript was null".error();
             return scriptHost;
         }
-
+        public static ascx_Simple_Script_Editor add_InvocationParameter(this ascx_Simple_Script_Editor scriptEditor, string parameterName, object parameterObject)
+		{
+			scriptEditor.InvocationParameters.add(parameterName,parameterObject);
+			return scriptEditor;
+		}
+		public static ascx_Simple_Script_Editor code_Insert(this ascx_Simple_Script_Editor scriptEditor, string textToInsert)
+		{
+			scriptEditor.Code = textToInsert.line() + scriptEditor.Code;
+			return scriptEditor;
+		}
+		public static ascx_Simple_Script_Editor code_Append(this ascx_Simple_Script_Editor scriptEditor, string textToInsert)
+		{
+			scriptEditor.Code = scriptEditor.Code.line() +  scriptEditor.Code;
+			return scriptEditor;
+		}
         //"test".popupWindow().add_Script().InvocationParameters.add("mdbgShell", mdbgShell);        
     }
 }

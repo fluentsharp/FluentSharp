@@ -871,6 +871,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}
     }
 
+    public class ToolStripCheckBox : ToolStripControlHost
+    {
+        public ToolStripCheckBox()
+            : base(new CheckBox())
+        {
+			this.BackColor = Color.Transparent;
+			this.Margin = new Padding(1,3,1,1);			
+        }
+    }
+
     public static class WinForms_ExtensionMethods_ToolStrip
     {
         public static T						item<T>(this ToolStrip toolStrip)				where T : ToolStripItem
@@ -979,6 +989,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return toolStrip.add_Button(text, "", onClick);
         }
+        
 		public static ToolStripButton		add_Button(this ToolStripItem toolStrip, string text, Bitmap image, Action onClick)
 		{
 			return toolStrip.add_Button(text, image, onClick);
@@ -999,7 +1010,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return toolStrip.add_Button(text, resourceName, null, onClick);
 		}
-        public static ToolStripButton		add_Button(this ToolStrip toolStrip, string text, string resourceName, Bitmap image, Action onClick)
+        //Todo: refactor with one below
+        public static ToolStrip             add_Button(this ToolStrip toolStrip, string text, Image image, Action onClick)
+		{
+			return toolStrip.invokeOnThread(
+				()=>{
+						var newButton = new ToolStripButton(text);
+						newButton.Image = image;
+						newButton.Click += (sender,e)=> O2Thread.mtaThread(()=> onClick());
+						toolStrip.Items.Add(newButton);
+						return toolStrip;
+					});
+		}		
+        public static ToolStripButton		add_Button(this ToolStrip toolStrip, string text, string resourceName, Bitmap image, Action onClick)        
         {
             if (toolStrip.isNull())
             {
@@ -1183,6 +1206,76 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStrip				layout_StackWithOverflow(this ToolStrip toolStrip)
 		{
 			return toolStrip.layoutStyle(ToolStripLayoutStyle.StackWithOverflow);
+		}
+
+        public static ToolStrip insert_ToolStrip(this Control control)
+		{
+			var panel = control.insert_Above(30);
+			panel.splitContainer().fixedPanel1().@fixed(true);;
+			return panel.add_ToolStrip();
+		}
+		public static ToolStrip insert_Below_ToolStrip(this Control control)
+		{
+			var panel = control.insert_Below(30);
+			panel.splitContainer().fixedPanel2().@fixed(true);;
+			return panel.add_ToolStrip();
+		}
+		public static ToolStrip add_CheckBox(this ToolStrip toolStrip, string text, Action<bool> onValueChange)
+		{
+			CheckBox checkBox_Ref = null;
+			return toolStrip.add_CheckBox(text, ref checkBox_Ref, onValueChange);
+		}
+		public static ToolStrip add_CheckBox(this ToolStrip toolStrip, string text, ref CheckBox checkBox_Ref)
+		{
+			return toolStrip.add_CheckBox(text, ref checkBox_Ref, (value)=> {});
+		}
+		public static ToolStrip add_CheckBox(this ToolStrip toolStrip, string text, ref CheckBox checkBox_Ref, Action<bool> onValueChange)
+		{
+			return toolStrip.add_CheckBox(text, null, ref checkBox_Ref, onValueChange);
+		}		
+		public static ToolStrip add_CheckBox(this ToolStrip toolStrip, string text, Image image, ref CheckBox checkBox_Ref, Action<bool> onValueChange)		
+		{
+			var checkBox = toolStrip.add_Control<ToolStripCheckBox>().Control as CheckBox;											
+			checkBox_Ref = checkBox;		// need to do this because we can't use the ref object inside the lambda method below
+			return toolStrip.invokeOnThread(
+				()=>{						
+						checkBox.Text = text;
+						checkBox.Image = image;						
+						checkBox.CheckedChanged += (sender,e)=> 
+							O2Thread.mtaThread(()=> onValueChange(checkBox.value()));						
+						return toolStrip;
+					});
+			
+		}				
+		public static ToolStripDropDown add_DropDown(this ToolStrip toolStrip, string text)
+		{
+			return toolStrip.add_DropDown(text,null);
+		}
+		public static ToolStripDropDown add_DropDown(this ToolStrip toolStrip, string text,  Image image)
+		{
+			return toolStrip.invokeOnThread(
+				()=>{
+						var dropDown = new ToolStripDropDown();
+						var menuButton = new ToolStripDropDownButton(text);
+						menuButton.Image = image;
+						menuButton.DropDown = dropDown;
+						toolStrip.Items.Add(menuButton);
+						return dropDown;			
+					});
+		}				
+		public static ToolStripDropDown add_DropDown_Button(this ToolStripDropDown dropDown, string text, Action onClick)
+		{
+			return dropDown.add_DropDown_Button(text, null, onClick);
+		}		
+		public static ToolStripDropDown add_DropDown_Button(this ToolStripDropDown dropDown, string text, Image image, Action onClick)
+		{
+			return dropDown.invokeOnThread(
+				()=>{
+						var newButton = new ToolStripButton(text);
+						newButton.Click += (sender,e)=>  O2Thread.mtaThread(()=> onClick());
+						dropDown.Items.Add(newButton);
+						return dropDown;
+					});
 		}
     }
 

@@ -69,7 +69,9 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Threads_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
@@ -275,6 +277,16 @@
     <Compile Include="O2_Views_ASCX\classes\Tasks\TaskThread.cs" />
     <Compile Include="O2_Views_ASCX\classes\Tasks\TaskUtils.cs" />
     <Compile Include="O2_Views_ASCX\classes\WebRequests.cs" />
+    <Content Include="Resources\Nov_2012\blogs-stack.ico" />
+    <Content Include="Resources\Nov_2012\execute.ico" />
+    <Content Include="Resources\Nov_2012\Eye.cur" />
+    <Content Include="Resources\Nov_2012\H2Logo.ico" />
+    <Content Include="Resources\Nov_2012\java.ico" />
+    <Content Include="Resources\Nov_2012\O2Logo.ico" />
+    <Content Include="Resources\Nov_2012\O2_Logo_no_Shadow.jpg" />
+    <Content Include="Resources\Nov_2012\owasp.ico" />
+    <Content Include="Resources\Nov_2012\scripts.ico" />
+    <Content Include="Resources\Nov_2012\target.ico" />
     <None Include="Resources\battery-caution.png" />
     <None Include="Resources\battery.png" />
     <None Include="Resources\audio-x-generic.png" />

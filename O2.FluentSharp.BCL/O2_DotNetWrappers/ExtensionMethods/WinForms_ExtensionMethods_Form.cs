@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using System.Threading;
+using O2.Platform.BCL.O2_Views_ASCX;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -375,8 +376,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return form;
                 });
         }
-
-
+        public static Image formImage(this string imageKey)
+		{
+			return (Image)typeof(FormImages).prop(imageKey);
+		}
     }
 
     public static class WinForms_ExtensionMethods_MDIForms

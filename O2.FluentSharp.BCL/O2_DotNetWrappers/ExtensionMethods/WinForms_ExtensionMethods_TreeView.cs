@@ -573,8 +573,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (recursive)
                 return treeView.allNodes();
             return treeView.nodes();
-        }
-                      
+        }              
+        public static List<TreeNode>    colorNodes(this List<TreeNode> nodes, Color color)
+		{
+			if (nodes.notNull() && nodes.size()>0)
+			{
+				var treeView = nodes.first().treeView();
+				treeView.beginUpdate();
+				foreach(var node in nodes)
+					node.foreColor(color);
+				treeView.endUpdate();
+			}
+			return nodes;
+		}
+
         public static TreeView  sort(this TreeView treeView)
         {
             treeView.invokeOnThread(() => treeView.Sort());
