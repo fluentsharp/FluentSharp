@@ -40,6 +40,8 @@ namespace O2.FluentSharp.VisualStudio
         public static List<Action<EnvDTE.Document>>  on_DocumentClosing { get; set; }
         public static List<Action<EnvDTE.Document>>  on_DocumentSaved { get; set; }
         public static List<Action<string, bool>>     on_DocumentOpening { get; set; }
+		public static List<Action<EnvDTE.Document>>  on_ActiveDocumentChange { get; set; }
+		
         public static List<Action<EnvDTE.TextPoint, EnvDTE.TextPoint>> on_LineChanged { get; set; }
 
         //public static Form O2_LogViewer { get; set; }
@@ -59,7 +61,7 @@ namespace O2.FluentSharp.VisualStudio
             on_DocumentSaved = new List<Action<EnvDTE.Document>>();
             on_DocumentOpening = new List<Action<string, bool>>();
             on_LineChanged = new List<Action<EnvDTE.TextPoint, EnvDTE.TextPoint>>();
-
+			on_ActiveDocumentChange = new List<Action<EnvDTE.Document>>();
             ToolWindowPanes = new Dictionary<WPF_UserControl, ToolWindowPane>();            
         }
     }

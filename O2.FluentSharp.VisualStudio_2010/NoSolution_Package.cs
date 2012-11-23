@@ -154,6 +154,12 @@ namespace O2.FluentSharp.VisualStudio
             DocumentEvents.DocumentSaved += (document) => VisualStudio_2010.on_DocumentSaved.invoke(document);
             DocumentEvents.DocumentOpening += (documentPath, readOnly) => VisualStudio_2010.on_DocumentOpening.invoke(documentPath, readOnly);
             TextEditorEvents.LineChanged += (startPoint, endPoint, hInt) => VisualStudio_2010.on_LineChanged.invoke(startPoint, endPoint);
+
+			WindowEvents.WindowActivated += (windowGotFocus, windowLostFocus) => {
+																					if (windowGotFocus.Document.notNull())
+																						VisualStudio_2010.on_ActiveDocumentChange.invoke(windowGotFocus.Document);
+																				 };
+
         }
 
         protected override int QueryClose(out bool canClose)

@@ -158,7 +158,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return data.Take(count).toList();
 		}
     }
-
     public static class Collections_ExtensionMethods_List
     {        
         public static List<string>          split_onLines(this string targetString)
@@ -439,7 +438,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return colection.size() == value;
         }       
     }
-
     public static class Collections_ExtensionMethods_Dictionary
     {
         public static List<T>       keys<T, T1>(this Dictionary<T, T1> dictionary)
@@ -653,8 +651,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (index < keyValuePairs.size())
                 return keyValuePairs[index].Key;
             return default(T);
-        }        
-
+        }
+		public static T1		value<T, T1>(this NameValuePair<T, T1> nameValuePair)
+		{
+			if (nameValuePair.notNull())
+				return nameValuePair.Value;
+			return default(T1);
+		}
         public static List<KeyValuePair<T, T1>> add<T, T1>(this List<KeyValuePair<T, T1>> valuePairList, T key, T1 value)
         {
             valuePairList.Add(new KeyValuePair<T, T1>(key, value));

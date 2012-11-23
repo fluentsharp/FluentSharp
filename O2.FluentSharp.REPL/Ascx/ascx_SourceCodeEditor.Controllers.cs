@@ -106,9 +106,17 @@ namespace O2.External.SharpDevelop.Ascx
 
                 mapExternalExecutionEngines();
                 //this.onCaretMove(caretMoved);
+				extraGuiChanges();
                 runOnLoad = false;
             }
         }
+
+		public void extraGuiChanges() // starting to move this code into O2's more explicit code
+		{
+			this.menuStripForSourceEdition.add_MenuItem("Open C# REPL Script", () => open.scriptEditor());
+		}
+
+
 
 
 		// reason from commment:

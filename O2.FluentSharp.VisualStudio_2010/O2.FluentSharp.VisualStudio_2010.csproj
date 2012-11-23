@@ -51,18 +51,18 @@
     <Reference Include="Microsoft.VisualStudio.Text.UI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
-    <Reference Include="O2_FluentSharp_BCL, Version=4.4.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.4.4.2.0\lib\net35\O2_FluentSharp_BCL.dll</HintPath>
+    <Reference Include="O2_FluentSharp_BCL, Version=4.5.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.4.5.2.0\lib\net35\O2_FluentSharp_BCL.dll</HintPath>
     </Reference>
-    <Reference Include="O2_FluentSharp_CoreLib, Version=4.4.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.CoreLib.4.4.2.0\lib\net35\O2_FluentSharp_CoreLib.dll</HintPath>
+    <Reference Include="O2_FluentSharp_CoreLib, Version=4.5.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.CoreLib.4.5.2.0\lib\net35\O2_FluentSharp_CoreLib.dll</HintPath>
     </Reference>
-    <Reference Include="O2_FluentSharp_REPL, Version=4.4.3.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=x86">
+    <Reference Include="O2_FluentSharp_REPL, Version=4.5.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
       <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.REPL.4.4.3.0\lib\net35\O2_FluentSharp_REPL.exe</HintPath>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.REPL.4.5.2.0\lib\net35\O2_FluentSharp_REPL.exe</HintPath>
     </Reference>
-    <Reference Include="O2_FluentSharp_WPF, Version=4.4.0.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.WPF.4.4.0.0\lib\net40\O2_FluentSharp_WPF.dll</HintPath>
+    <Reference Include="O2_FluentSharp_WPF, Version=4.5.2.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.WPF.4.5.2.0\lib\net40\O2_FluentSharp_WPF.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -77,6 +77,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UIAutomationProvider" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
@@ -137,6 +140,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods_Document.cs" />
+    <Compile Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods_Projects.cs" />
     <Compile Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods_Multiple_Guis.cs" />
     <Compile Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods_ErrorList.cs" />
     <Compile Include="ExtensionMethods\VisualStudio_2010_ExtensionMethods_Menus.cs" />

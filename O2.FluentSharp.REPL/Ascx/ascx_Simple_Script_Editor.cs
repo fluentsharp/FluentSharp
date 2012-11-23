@@ -276,10 +276,11 @@ namespace O2.XRules.Database.Utils
             contextMenu.add_MenuItem("O2 Scripts")
                        .add_MenuItem("Download/Update O2 Scripts (via http)", () => O2Scripts.downloadO2Scripts())
                        .add_MenuItem("O2 Script: find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
-                       .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script())
+					   .add_MenuItem("O2 Script: new C# Script Editor", () => open.scriptEditor())                       
                        .add_MenuItem("O2 Script: script this Script", () => scriptTheCurrentScript())
                        .add_MenuItem("O2 Script: Find Script to execute", () => "Util - O2 Available scripts.h2".local().executeH2Script())
-                       .add_MenuItem("O2 Script: open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script());
+                       .add_MenuItem("O2 Script: open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script())
+					   .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script());
 
             contextMenu.add_MenuItem("package current Script as StandAlone Exe", () => packageCurrentScriptAsStandAloneExe());            
             contextMenu.add_MenuItem("show O2 Object Model", () => open.o2ObjectModel());            
@@ -364,7 +365,7 @@ namespace O2.XRules.Database.Utils
             
             try
             { 
-				ToolStrip.add_Button("run", () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
+				ToolStrip.add_Button("run"		, () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
 						 .add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
 					     .add_Button("open"		, () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
                          .add_Button("save as"	, () => { this.saveAsScript(); }).with_Icon_Save()

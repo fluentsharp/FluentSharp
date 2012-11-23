@@ -20,7 +20,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class _Extra_AppDomain_ExtensionMethods
     {
-        public static O2AppDomainFactory appDomain(this string appDomainName)
+        public static O2AppDomainFactory appDomain_New(this string appDomainName)
         {
             var appDomain = new O2AppDomainFactory(appDomainName);
             return appDomain;

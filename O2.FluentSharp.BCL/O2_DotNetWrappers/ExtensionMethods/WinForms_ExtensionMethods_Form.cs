@@ -288,7 +288,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Icon asIcon(this Bitmap bitmap)
         {
-            return Icon.FromHandle(bitmap.GetHicon());
+			try
+			{
+				return Icon.FromHandle(bitmap.GetHicon());
+			}
+			catch (Exception ex)
+			{
+				ex.log();
+				return null;
+			}
+            
         }
         public static Icon icon(this string iconFile)
 		{

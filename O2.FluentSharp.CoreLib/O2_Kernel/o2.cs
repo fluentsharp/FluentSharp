@@ -20,7 +20,7 @@ namespace O2.Kernel
 
         public static string version()
         {             
-            return "4.1";
+            return O2ConfigSettings.O2Version;
         } 
         
         public static string test()

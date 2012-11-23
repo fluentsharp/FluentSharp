@@ -107,10 +107,17 @@ namespace O2.Views.ASCX.classes.MainGUI
         {
             //"[DebugMsg] Starting DebugMsg ShowLoop".info();
             while (showMessages)
-            {                
-                writeMessageToRichTextBoxes(messagesToWrite.next());
-                if (messagesToWrite.empty())                
-                    Thread.Sleep(DebugMsg.DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY);
+            {
+				
+				if (messagesToWrite.empty())
+					Thread.Sleep(DebugMsg.DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY);
+				else
+				{
+					var nextMessage = messagesToWrite.next();
+					if (bShowDebug || bShowError || bShowDebug)
+						writeMessageToRichTextBoxes(nextMessage);
+				}
+				                
             }
             activeShowThread = null;
             //"[DebugMsg] Ended DebugMsg ShowLoop".info();
@@ -213,7 +220,7 @@ namespace O2.Views.ASCX.classes.MainGUI
 
         public static void stopShowThread()
         {
-            //"[DebugMsg] stopShowThread received".error();
+            //"[DebugMsg] stopShowThread received".error();			
             showMessages= false;
         }
         private static void setRichTextBoxesText(string text)

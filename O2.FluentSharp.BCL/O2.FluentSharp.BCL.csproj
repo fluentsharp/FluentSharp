@@ -52,6 +52,9 @@
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_ToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Misc_GUI_Helpers.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_WebBrowser.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Clipboard_ExtensionMethods.cs" />
@@ -69,9 +72,7 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Threads_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
@@ -131,6 +132,9 @@
     <Compile Include="O2_DotNetWrappers\Windows\Screenshots.cs" />
     <Compile Include="O2_Interfaces\O2Core\IReflectionASCX.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Messages.cs" />
+    <Compile Include="O2_Views_ASCX\APIs\API_ConsoleOut.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_Directory.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -599,12 +603,6 @@
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>O2.FluentSharp.CoreLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="O2.FluentSharp.BCL.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -651,6 +649,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\btDebugMethod.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>O2.FluentSharp.CoreLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

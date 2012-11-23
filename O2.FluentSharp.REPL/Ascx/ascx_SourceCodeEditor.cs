@@ -181,10 +181,14 @@ namespace O2.External.SharpDevelop.Ascx
             O2Thread.mtaThread(() =>
                 {
                     var droppedObject = (O2.DotNetWrappers.Filters.FilteredSignature)Dnd.tryToGetObjectFromDroppedObject(e, typeof(O2.DotNetWrappers.Filters.FilteredSignature));
-                    if (droppedObject != null)
-                        tbTextSearch.set_Text(droppedObject.sSignature);
-                    else
-                        loadSourceCodeFile(Dnd.tryToGetFileOrDirectoryFromDroppedObject(e));
+					if (droppedObject != null)
+						tbTextSearch.set_Text(droppedObject.sSignature);
+					else
+					{
+						var fileOrFolder = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e);
+						if (fileOrFolder.fileExists())
+							loadSourceCodeFile(fileOrFolder);
+					}
                 });
         }
 

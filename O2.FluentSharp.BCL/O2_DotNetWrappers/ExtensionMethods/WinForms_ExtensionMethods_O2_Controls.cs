@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 //using O2.Views.ASCX.ExtensionMethods;
 using O2.Views.ASCX.Ascx.MainGUI;
+using O2.Views.ASCX.classes.MainGUI;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -13,7 +14,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static ascx_LogViewer add_LogViewer<T>(this T control)
             where T : Control
         {            
-            var logControl = control.add_Control<ascx_LogViewer>();            
+            var logControl = control.add_Control<ascx_LogViewer>();
+			DebugMsg.startShowThread();			//ensure the show thread is started
             return logControl;
         }
 

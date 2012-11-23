@@ -39,8 +39,7 @@ namespace O2.Kernel.Objects
         }
 
         // if none is provide then create one a tempfolder in the O2 Temp Dir * give it a random name
-        public O2AppDomainFactory()
-            : this(PublicDI.config.TempFolderInTempDirectory, Path.GetFileName(PublicDI.config.TempFolderInTempDirectory))
+        public O2AppDomainFactory() : this(PublicDI.config.TempFolderInTempDirectory, Path.GetFileName(PublicDI.config.TempFolderInTempDirectory))
         {
             /*string appDomainBaseDirectory = PublicDI.config.TempFolderInTempDirectory;
             var appDomainSetup = new AppDomainSetup {ApplicationBase = appDomainBaseDirectory};
@@ -61,8 +60,7 @@ namespace O2.Kernel.Objects
             createAppDomain(appDomainName, appDomainSetup);            
         }
 
-        public O2AppDomainFactory(string appDomainName, string baseDirectory, List<string> assembliesToLoadInNewAppDomain)
-            : this(appDomainName, baseDirectory)
+        public O2AppDomainFactory(string appDomainName, string baseDirectory, List<string> assembliesToLoadInNewAppDomain) : this(appDomainName, baseDirectory)
         {
             loadAssembliesIntoAppDomain(assembliesToLoadInNewAppDomain);
         }               
@@ -126,7 +124,8 @@ namespace O2.Kernel.Objects
                     if (File.Exists(assemblyToLoad))
                     {
                         var targetFileName = Path.Combine(appDomain.BaseDirectory, Path.GetFileName(assemblyToLoad));
-                        O2Kernel_Files.Copy(assemblyToLoad, targetFileName);
+						if (targetFileName.fileExists().isFalse())
+							O2Kernel_Files.Copy(assemblyToLoad, targetFileName);
                         assembliesInNewAppDomain.Add(targetFileName);
                     }
                     else
@@ -135,7 +134,8 @@ namespace O2.Kernel.Objects
                         if (File.Exists(resolvedName))
                         {
                             var targetFileName = Path.Combine(appDomain.BaseDirectory, Path.GetFileName(resolvedName));
-                            O2Kernel_Files.Copy(resolvedName, targetFileName);
+							if (targetFileName.fileExists().isFalse())
+								O2Kernel_Files.Copy(resolvedName, targetFileName);
                             assembliesInNewAppDomain.Add(targetFileName);
                         }
                         else
@@ -164,7 +164,6 @@ namespace O2.Kernel.Objects
             get { return appDomain.notNull() ? appDomain.FriendlyName : ""; }
         }
 
-
         public List<string> FilesInAppDomainBaseDirectory
         {
             get
@@ -173,19 +172,13 @@ namespace O2.Kernel.Objects
                     return new List<string>(Directory.GetFiles(BaseDirectory));
                 return new List<string>();
             }
-        }
-
-        /// <summary>
+        }        
         /// Syntax: getProxyMethod({method} {type} {assembly})
-        /// </summary>        
         public object getProxyMethod(string methodToCreate)
         {
             return getProxyMethod(methodToCreate, new object[0]);
-        }
-
-        /// <summary>
-        /// Syntax: getProxyMethod({method} {type} {assembly})
-        /// </summary>                
+        }        
+        /// Syntax: getProxyMethod({method} {type} {assembly})        
         public object getProxyMethod(string methodToCreate, object[] methodParameters)
         {
             try
@@ -222,29 +215,17 @@ namespace O2.Kernel.Objects
                 PublicDI.log.ex(ex, "in getProxyMethod, error creating: " + methodToCreate);
             }
             return null;
-        }
-
-        /// <summary>
-        /// Syntax:   getProxyType({type} {assembly})  or getProxyType({type}}
-        /// Use this one for the cases where only the Type is needed
-        /// </summary>
-        /// <param name="rawTypeOfProxyToCreate"></param>
-        /// <returns></returns>
+        }        
+		/// Syntax:   getProxyType({type} {assembly})  or getProxyType({type}}    // Use this one for the cases where only the Type is needed
         public Type getProxyType(string rawTypeOfProxyToCreate)
         {
             string assemblyName = "";
             string typeOfProxyToCreate = "";
             return getProxyType(rawTypeOfProxyToCreate, ref assemblyName, ref typeOfProxyToCreate); 
         }
-
-        /// <summary>
-        /// Syntax:   getProxyType({type} {assembly})  or getProxyType({type}}
-        /// </summary>
-        /// <param name="rawTypeOfProxyToCreate"></param>
-        /// <param name="assemblyName"></param>
-        /// <param name="typeOfProxyToCreate"></param>
-        /// <returns></returns> 
-        public Type getProxyType(string rawTypeOfProxyToCreate, ref string assemblyName, ref string typeOfProxyToCreate)
+        
+        /// Syntax:   getProxyType({type} {assembly})  or getProxyType({type}}        
+        public Type		getProxyType(string rawTypeOfProxyToCreate, ref string assemblyName, ref string typeOfProxyToCreate)
         {
             try
             {
@@ -286,14 +267,9 @@ namespace O2.Kernel.Objects
             }
             PublicDI.log.e("could not create object: " + typeOfProxyToCreate);
             return null;
-        }
-
-        /// <summary>
-        /// Syntax:   getProxyObject({type} {assembly})  or getProxyType({type}}
-        /// </summary>
-        /// <param name="rawTypeOfProxyToCreate"></param>
-        /// <returns></returns> 
-        public object getProxyObject(string rawTypeOfProxyToCreate)
+        }        
+        /// Syntax:   getProxyObject({type} {assembly})  or getProxyType({type}}        
+        public object		getProxyObject(string rawTypeOfProxyToCreate)
         {
 
             string assemblyName = "";
@@ -315,21 +291,14 @@ namespace O2.Kernel.Objects
             }            
             return null;
             //return appDomain.CreateInstanceAndUnwrap(dllToLoad, typeToCreateAndUnwrap);
-        }
-
-
-        /// <summary>
-        /// Syntax: invokeMethod({method} {type} {assembly})
-        /// </summary>        
-        public object invokeMethod(string methodToInvoke)
+        }        
+        /// Syntax: invokeMethod({method} {type} {assembly})=        
+        public object		invokeMethod(string methodToInvoke)
         {
             return invokeMethod(methodToInvoke, new object[0]);
         }
-
-        /// <summary>
-        /// Syntax: getProxyMethod({method} {type} {assembly})
-        /// </summary>                
-        public object invokeMethod(string methodToInvoke, object[] methodParameters)
+		/// Syntax: getProxyMethod({method} {type} {assembly})
+        public object		invokeMethod(string methodToInvoke, object[] methodParameters)
         {
             try
             {
@@ -366,19 +335,15 @@ namespace O2.Kernel.Objects
             }
             return null;
         }
-
-        public bool load(string assemblyName)
+        public bool			load(string assemblyName)
         {
             return load(assemblyName, false);
         }
-
-        public bool load(string assemblyName, bool copyToAppDomainBaseDirectoryBeforeLoad)
+        public bool			load(string assemblyName, bool copyToAppDomainBaseDirectoryBeforeLoad)
         {
             return load(assemblyName, assemblyName, copyToAppDomainBaseDirectoryBeforeLoad);
         }
-
-        public bool load(string fullAssemblyName, string pathToAssemblyToLoad,
-                         bool copyToAppDomainBaseDirectoryBeforeLoad)
+        public bool			load(string fullAssemblyName, string pathToAssemblyToLoad,bool copyToAppDomainBaseDirectoryBeforeLoad)
         {
             try
             {
@@ -426,12 +391,10 @@ namespace O2.Kernel.Objects
             }
             return true;
         }
-
-        public object createAndUnWrap(string dllWithType, string typeToCreateAndUnwrap)
+        public object		createAndUnWrap(string dllWithType, string typeToCreateAndUnwrap)
         {
             return appDomain.CreateInstanceAndUnwrap(dllWithType, typeToCreateAndUnwrap);
         }
-
         public List<String> getAssemblies(bool showFulName)
         {
             var assemblies = new List<String>();
@@ -450,13 +413,11 @@ namespace O2.Kernel.Objects
             }
             return assemblies;
         }
-
-        public object invoke(string proxyObjectTypeAndAssembly, string methodToInvoke, object[] methodParameters)
+        public object		invoke(string proxyObjectTypeAndAssembly, string methodToInvoke, object[] methodParameters)
         {
             var proxyObject = getProxyObject(proxyObjectTypeAndAssembly);
             return invoke(proxyObject, methodToInvoke, methodParameters);
         }
-
         public object invoke(object proxyObject, string methodToInvoke, object[] methodParameters)
         {
             // if the proxyObject is a string we need to resolve it into its final O2 object
@@ -474,7 +435,6 @@ namespace O2.Kernel.Objects
             }
             return null;
         }
-
         public object invoke(object proxyObject, string methodToInvoke)
         {
             return invoke(proxyObject, methodToInvoke, new object[0]);

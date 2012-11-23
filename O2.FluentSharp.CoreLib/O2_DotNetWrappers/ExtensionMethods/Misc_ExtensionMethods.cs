@@ -160,5 +160,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return default(T);			
 		}
+		public static T			o2Cache<T>(this string key, bool resetValue, Func<T> ctor)
+		{
+			if (resetValue)
+				key.o2Cache(null);
+			return key.o2Cache<T>(ctor);
+		}
     }
 }

@@ -281,7 +281,6 @@
     <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
