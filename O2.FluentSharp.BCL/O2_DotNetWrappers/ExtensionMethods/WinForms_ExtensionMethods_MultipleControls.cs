@@ -629,11 +629,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_Label
     { 
-        public static Label add_Label(this Control control, string text, int top)
+        public static Label add_Label		(this Control control, string text, int top)
         {
             return control.add_Label(text, top, -1);
         }
-        public static Label add_Label(this Control control, string text, int top, int left)
+        public static Label add_Label		(this Control control, string text, int top, int left)
         {
             Label label = control.add_Label(text);
             label.invokeOnThread(() =>
@@ -645,7 +645,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return label;
         }
-        public static Label add_Label(this Control control, string labelText)
+        public static Label add_Label		(this Control control, string labelText)
         {
             return (Label) control.invokeOnThread(
                                ()=>{
@@ -656,13 +656,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                        	return label;
                                    });
         }
-        public static System.Windows.Forms.Label append_Label<T>(this T control, string text)            where T : Control
+		public static Label add_Label		(this Control control, string text, ref Label label)
+		{
+			return label = control.add_Label(text);
+		}
+		public static Label append_Label<T>(this T control, string text, ref Label label) where T : Control
+		{
+			return label = control.append_Label(text);
+		}
+		public static Label append_Label<T>	(this T control, string text) where T : Control
         {
             return control.append_Control<System.Windows.Forms.Label>()
                           .set_Text(text)
                           .autoSize();
         }
-        public static Label set_Text(this Label label, string text)
+        public static Label set_Text		(this Label label, string text)
         {
             return (Label)label.invokeOnThread(
                                     () =>
@@ -671,7 +679,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                         return label;
                                     });
         }
-        public static Label append_Text(this Label label, string text)
+        public static Label append_Text		(this Label label, string text)
         {
             return (System.Windows.Forms.Label)label.invokeOnThread(
                 () =>
@@ -681,7 +689,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
 
         }
-        public static string get_Text(this Label label)
+        public static string get_Text		(this Label label)
         {
             return (string)label.invokeOnThread(
                 () =>
@@ -689,7 +697,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return label.Text;
                 });
         }
-        public static Label textColor(this Label label, Color color)
+        public static Label textColor		(this Label label, Color color)
         {
             return (Label)label.invokeOnThread(
                 () =>
@@ -698,12 +706,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return label;
                 });
         }
-        public static Label autoSize(this Label label)
+        public static Label autoSize		(this Label label)
         {
             label.invokeOnThread(() => label.AutoSize = true);
             return label;
         }        
-        public static Label autoSize(this Label label, bool value)
+        public static Label autoSize		(this Label label, bool value)
 		{
 			label.invokeOnThread(
 				()=>{						
@@ -711,7 +719,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					});
 			return label;
 		}		
-		public static Label text_Center(this Label label)			
+		public static Label text_Center		(this Label label)			
 		{			
 			label.invokeOnThread(
 				()=>{						
@@ -872,25 +880,29 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                            	return pictureBox;
                                         });
         }
-        public static PictureBox load(this PictureBox pictureBox, Image image)
-        {
-            if (pictureBox.notNull())
-                pictureBox.BackgroundImage = image;
-            return pictureBox;
-        }
+		public static PictureBox add_PictureBox(this Control hostControl, ref PictureBox pictureBox)
+		{
+			return pictureBox = hostControl.add_PictureBox();
+		}		        
         public static PictureBox add_PictureBox(this Control control, string pathToImage)
         {
             var pictureBox = control.add_PictureBox();
             return pictureBox.load(pathToImage);
-        }
-        public static PictureBox show(this PictureBox pictureBox, string pathToImage)
-        {
-            return pictureBox.load(pathToImage);
-        }
+        }        
         public static PictureBox open(this PictureBox pictureBox, string pathToImage)
         {
             return pictureBox.load(pathToImage);
         }
+		public static PictureBox open(this PictureBox pictureBox, Bitmap bitmap)
+		{
+			return pictureBox.load(bitmap);
+		}
+		public static PictureBox load(this PictureBox pictureBox, Image image)
+		{
+			if (pictureBox.notNull())
+				pictureBox.BackgroundImage = image;
+			return pictureBox;
+		}
         public static PictureBox load(this PictureBox pictureBox, string pathToImage)
         {
             if (pathToImage.fileExists())
@@ -901,25 +913,60 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return null;
         }
+		public static PictureBox show(this PictureBox pictureBox, string pathToImage)
+		{
+			return pictureBox.load(pathToImage);
+		}
+		public static PictureBox show(this PictureBox pictureBox, Bitmap bitmap)
+		{
+			return pictureBox.load(bitmap);
+		}
         public static PictureBox loadFromUri(this PictureBox pictureBox, Uri uri)
         {
             "loading image from Uri into PictureBox".debug();
             pictureBox.Image = uri.getImageAsBitmap();
             return pictureBox;
         }
-
         public static PictureBox onClick(this PictureBox pictureBox, Action callback)
         {
             pictureBox.Click += (sender, e) => callback();
             return pictureBox;
         }
-
         public static PictureBox onDoubleClick(this PictureBox pictureBox, Action callback)
         {
             if (pictureBox.notNull())
                 pictureBox.DoubleClick += (sender, e) => callback();
             return pictureBox;
         }
+		public static PictureBox layout(this PictureBox pictureBox, ImageLayout imageLayout)
+		{
+			return pictureBox.invokeOnThread(
+				() =>
+				{
+					pictureBox.BackgroundImageLayout = imageLayout;
+					return pictureBox;
+				});
+		}
+		public static PictureBox layout_Center(this PictureBox pictureBox)
+		{
+			return pictureBox.layout(ImageLayout.Center);
+		}
+		public static PictureBox layout_None(this PictureBox pictureBox)
+		{
+			return pictureBox.layout(ImageLayout.None);
+		}
+		public static PictureBox layout_Stretch(this PictureBox pictureBox)
+		{
+			return pictureBox.layout(ImageLayout.Stretch);
+		}
+		public static PictureBox layout_Tile(this PictureBox pictureBox)
+		{
+			return pictureBox.layout(ImageLayout.Tile);
+		}
+		public static PictureBox layout_Zoom(this PictureBox pictureBox)
+		{
+			return pictureBox.layout(ImageLayout.Zoom);
+		}
     }
 
     public static class WinForms_ExtensionMethods_ProgressBar
@@ -959,6 +1006,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                            .add_Control<ascx_ShowInfo>().show(_object);            
         }
 
+		public static PropertyGrid add_PropertyGrid(this Control control, bool helpVisible)
+		{
+			return control.add_PropertyGrid().helpVisible(helpVisible);
+		}
         public static PropertyGrid add_PropertyGrid(this Control control)
         {
             return control.add_Control<PropertyGrid>();
@@ -1296,12 +1347,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static SplitContainer splitterWidth(this SplitContainer splitContainer, int value)
 		{
-			splitContainer.invokeOnThread(()=> splitContainer.SplitterWidth = value);
+			if (splitContainer.notNull())
+				splitContainer.invokeOnThread(()=> splitContainer.SplitterWidth = value);
 			return splitContainer;
-		}		
-		public static SplitContainer splitContainerFixed(this Control control)
+		}
+		public static T splitterWidth<T>(this T control, int value) where T : Control
 		{
-			return control.splitContainer().isFixed(true);
+			var splitContainer = control.splitContainer();
+			WinForms_ExtensionMethods_SplitContainer.splitterWidth(splitContainer, value);
+			return control;
+		}
+		public static T splitContainerFixed<T>(this T control) where T : Control
+		{
+			control.splitContainer().isFixed(true);
+			return control;
 		}		
 		public static SplitContainer @fixed(this SplitContainer splitContainer, bool value)
 		{
@@ -1309,7 +1368,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static SplitContainer isFixed(this SplitContainer splitContainer, bool value)
 		{
-			splitContainer.invokeOnThread(()=> splitContainer.IsSplitterFixed = value);
+			splitContainer.invokeOnThread(
+					()=>{
+							splitContainer.IsSplitterFixed = value;
+							splitContainer.SplitterWidth = 1;
+						});
 			return splitContainer;
 		}
 

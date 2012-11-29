@@ -99,6 +99,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return null;
                 });
         }
+		public static T add_Control<T>(this Control hostControl, ref T controlAdded) where T : Control
+		{
+			return controlAdded = hostControl.add_Control<T>();
+		}
         public static List<T> add_Controls<T>(this Control control, List<T> controlsToAdd) where T : Control
         {
             foreach (var controlToAdd in controlsToAdd)
@@ -412,14 +416,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T parent<T>(this Control control) where T : Control
         {
-            if (control != null && control.Parent != null)
+			if (control != null && control.Parent != null)
             {
                 var parent = control.Parent;
-                if (parent is T)
-                    return (T)parent;
-                var match = parent.parent<T>();
-                if (match != null)
-                    return (T)match;
+				if (control == parent)
+					"[in parent<T>] the control == control.Parent!! {0}".error(control);
+				else
+				{
+					if (parent is T)
+						return (T)parent;
+					var match = parent.parent<T>();
+					if (match != null)
+						return (T)match;
+				}
             }
             return null;
         }
@@ -1354,6 +1363,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return newControl;
                 });
         }
+		public static T					insert_Above<T>(this Control hostControl, int topPanelSize, ref T controlAdded) where T : Control
+		{
+			return controlAdded = hostControl.insert_Above<T>(topPanelSize);
+		}
+		public static T					insert_Above<T>(this Control hostControl, ref T controlAdded) where T : Control
+		{
+			return controlAdded = hostControl.insert_Above<T>();
+		}
         public static Panel             insert_Above(this Control control)
 		{			
 			return control.insert_Above<Panel>(control.height()/2);

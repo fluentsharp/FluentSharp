@@ -32,5 +32,31 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return default(T);
         }
 
+		public static T backTo<T>(this object _hostObject, T objectToGoBackTo)
+		{
+			return objectToGoBackTo;
+		}
+		public static T backTo<T, K>(this K hostObject, T objectToGoBackTo, ref K hostObjectRef)
+		{
+			hostObjectRef = hostObject;
+			return objectToGoBackTo;
+		}
+		public static T log_Info<T>(this T _hostObject, string infoMessage, params string[] messageParams)
+		{
+			infoMessage.info(messageParams);
+			return _hostObject;
+		}
+
+		public static T log_Debug<T>(this T _hostObject, string debugMessage, params string[] messageParams)
+		{
+			debugMessage.info(messageParams);
+			return _hostObject;
+		}
+		public static T log_Error<T>(this T _hostObject, string errprMessage, params string[] messageParams)
+		{
+			errprMessage.info(messageParams);
+			return _hostObject;
+		}
+
     }
 }

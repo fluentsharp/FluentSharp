@@ -77,7 +77,9 @@ namespace O2.Views.ASCX.DataViewers
                     var contextMenu = treeView.add_ContextMenu();
                     contextMenu.add_MenuItem("Copy To Clipboard: Selected Node Text", (item) => { treeView.SelectedNode.Text.toClipboard(); });
                     var items = (_object as IEnumerable).toList();
-                    treeView.add_Nodes(items).sort();
+                    treeView.beginUpdate()
+								.add_Nodes(items).sort()
+							.endUpdate();
                 });
             }
             else

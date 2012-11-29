@@ -28,7 +28,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return default(T);
             }                                                 
         }
-        public static T invokeOnThread<T>(this Control control, Func<T> codeToInvoke)
+		public static T invokeOnThread<T>(this Control control, Func<T> codeToInvoke)
+		{
+			return control.invokeOnThread(-1, codeToInvoke);
+		}
+		public static T invokeOnThread<T>(this Control control,int maxInvokeWait, Func<T> codeToInvoke)
         {            
             try
             {
@@ -46,12 +50,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                 returnData = invokeThread(codeToInvoke);
                             sync.Set();
                         }));
-                    sync.WaitOne();
-                    /*if (sync.WaitOne(20000).isFalse())
-                    {
-                        "[in invokeOnThread] Func<T> codeToInvoke took more than 2s to execute"
-                        return default(T);
-                    } */
+					if (maxInvokeWait == -1)
+						sync.WaitOne();
+					else
+						if (sync.WaitOne(maxInvokeWait).isFalse())
+						{
+							"[in invokeOnThread] Func<T> codeToInvoke took more than {0}s to execute".error(maxInvokeWait);
+							return default(T);
+						}                                        
                     return returnData;
                 }
                 return codeToInvoke();

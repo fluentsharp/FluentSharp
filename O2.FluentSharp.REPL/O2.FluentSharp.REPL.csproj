@@ -50,10 +50,6 @@
       <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="O2_External_SharpDevelop">
-      <HintPath>..\..\O2.Platform.Projects\O2_External_SharpDevelop\bin\debug\O2_External_SharpDevelop.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="QuickGraph">
       <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
       <Private>False</Private>
@@ -284,6 +280,10 @@
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
+      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
+      <Name>O2_External_SharpDevelop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>

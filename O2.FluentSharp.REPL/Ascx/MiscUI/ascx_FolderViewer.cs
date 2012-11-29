@@ -102,7 +102,8 @@ namespace O2.XRules.Database.Utils
 		{
 			"Loading Folder: {0}".info(path);
 			if (path.valid())
-			{  
+			{
+				FolderView.beginUpdate();
 				path = Environment.ExpandEnvironmentVariables(path);  // in case there are Environment variables like %SystemDrive%
 				//"There are {0} files {0}".info(path.files().size());
 				//"There are {0} folders {0}".info(path.folder.folders().size());
@@ -112,6 +113,7 @@ namespace O2.XRules.Database.Utils
 							.color(Color.DarkOrange);
 				var files = path.files();
 				treeNode.add_Nodes(files, (file)=> file.fileName(), (file)=>file, (file)=>false,(file)=>Color.DarkBlue);
+				FolderView.endUpdate();
 			}
 			return this;
 		}

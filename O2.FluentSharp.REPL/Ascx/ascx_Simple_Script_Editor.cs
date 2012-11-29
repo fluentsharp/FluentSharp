@@ -359,9 +359,8 @@ namespace O2.XRules.Database.Utils
 
         public void addToolStrip()
         {
-			this.ToolStrip = this.insert_Above(30).add_Control<ToolStrip>();
-			//this.ToolStrip = this.insert_Below(30).add_Control<ToolStrip>();
-			this.ToolStrip.splitContainerFixed();			
+			this.ToolStrip = this.insert_Above(30).add_Control<ToolStrip>()
+												  .splitContainerFixed();			
             
             try
             { 

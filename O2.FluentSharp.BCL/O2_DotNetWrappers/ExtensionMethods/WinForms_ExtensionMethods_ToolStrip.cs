@@ -112,11 +112,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStripLabel add_Label(this ToolStripItem toolStripItem, string text)
 		{
 			return toolStripItem.toolStrip().add_Label(text);
-		}
+		}		
 		public static ToolStripLabel add_Label(this ToolStrip toolStrip, string text)
 		{
 			return toolStrip.add_Control<ToolStripLabel>((label) => label.Text = text);
 		}
+		public static ToolStrip		 add_Label(this ToolStrip toolStrip, string text, ref ToolStripLabel label)
+		{
+			label = toolStrip.add_Label(text);
+			return toolStrip;
+		}
+
 		public static ToolStripButton add_Button_Open(this ToolStripItem toolStripItem, Action onClick)
 		{
 			return toolStripItem.add_Button_Open("open", onClick);
@@ -149,9 +155,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStripButton add_Button(this ToolStrip toolStrip, string text, string resourceName, Action onClick)
 		{
 			return toolStrip.add_Button(text, resourceName, null, onClick);
-		}
-		//Todo: refactor with one below
-		public static ToolStrip add_Button(this ToolStrip toolStrip, string text, Image image, Action onClick)
+		}		
+		public static ToolStripButton add_Button(this ToolStrip toolStrip, string text, Image image, Action onClick)
 		{
 			return toolStrip.invokeOnThread(
 				() =>
@@ -160,9 +165,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 					newButton.Image = image;
 					newButton.Click += (sender, e) => O2Thread.mtaThread(() => onClick());
 					toolStrip.Items.Add(newButton);
-					return toolStrip;
+					return newButton;
 				});
-		}
+		}		//Todo: refactor with one below
 		public static ToolStripButton add_Button(this ToolStrip toolStrip, string text, string resourceName, Bitmap image, Action onClick)
 		{
 			if (toolStrip.isNull())
@@ -352,8 +357,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStrip insert_ToolStrip(this Control control)
 		{
 			var tooStrip = control.insert_Above(30).add_ToolStrip();
-			tooStrip.splitContainerFixed().splitterWidth(1); ;
-			return tooStrip;
+			return tooStrip.splitContainerFixed();			
 		}
 		public static ToolStrip insert_Above_ToolStrip(this Control control)
 		{
@@ -362,22 +366,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStrip insert_Below_ToolStrip(this Control control)
 		{
 			var tooStrip = control.insert_Below(30).add_ToolStrip();
-			tooStrip.splitContainerFixed().splitterWidth(1); ;
-			return tooStrip;			
+			return tooStrip.splitContainerFixed();
 		}		
 		public static ToolStrip insert_Left_ToolStrip(this Control control)
 		{
 			var tooStrip = control.insert_Left(40).add_ToolStrip()
 								  .layout_VerticalStackWithOverflow();
-			tooStrip.splitContainerFixed().splitterWidth(1);
-			return tooStrip;
+			return tooStrip.splitContainerFixed();
 		}
 		public static ToolStrip insert_Right_ToolStrip(this Control control)
 		{
 			var tooStrip = control.insert_Right(40).add_ToolStrip()
 								  .layout_VerticalStackWithOverflow();
-			tooStrip.splitContainerFixed().splitterWidth(1); ;
-			return tooStrip;
+			return tooStrip.splitContainerFixed();
 		}
 
 		public static ToolStrip add_CheckBox(this ToolStrip toolStrip, string text, Action<bool> onValueChange)
@@ -480,12 +481,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}
 		public static ToolStrip add(this ToolStrip toolStrip, string text, Action onClick)
 		{
-			toolStrip.add_Button(text, onClick);
+			ToolStripButton button = null;
+			return toolStrip.add(text, ref button, onClick);
+		}
+		public static ToolStrip add(this ToolStrip toolStrip, string text, ref ToolStripButton button, Action onClick)
+		{
+			button = toolStrip.add_Button(text, onClick);
 			return toolStrip;
 		}
 		public static ToolStrip add(this ToolStrip toolStrip, Image image, Action onClick)
 		{
-			return toolStrip.add("", image, onClick);
+			ToolStripButton button = null;
+			return toolStrip.add(image, ref button, onClick);
+		}
+		public static ToolStrip add(this ToolStrip toolStrip, Image image,  ref ToolStripButton button, Action onClick)
+		{
+			return toolStrip.add("", image, ref button, onClick);
 		}
 		public static ToolStrip add(this ToolStrip toolStrip, string text, string imageKey, Action onClick)
 		{
@@ -493,9 +504,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}
 		public static ToolStrip add(this ToolStrip toolStrip, string text, Image image, Action onClick)
 		{
-			toolStrip.add_Button(text, image, onClick);
+			ToolStripButton button = null;
+			return toolStrip.add(text, image, ref button, onClick);
+		}
+		public static ToolStrip add(this ToolStrip toolStrip, string text, Image image, ref ToolStripButton button, Action onClick)
+		{
+			button = toolStrip.add_Button(text, image, onClick);
 			return toolStrip;
 		}
+
 		public static ToolStrip add_New(this ToolStrip toolStrip, Action onClick)
 		{
 			toolStrip.add_Button("New", onClick).with_Icon_New();
@@ -511,6 +528,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			toolStrip.add_Button("Save", onClick).with_Icon_Save();
 			return toolStrip;
 		}
+		public static ToolStrip add_Save(this ToolStrip toolStrip, string text, Action onClick)
+		{
+			toolStrip.add_Button(text, onClick).with_Icon_Save();
+			return toolStrip;
+		}
 		public static ToolStrip add_Play(this ToolStrip toolStrip, Action onClick)
 		{
 			return toolStrip.add("Play", "btExecuteSelectedMethod_Image".formImage(), onClick);
@@ -522,6 +544,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static ToolStrip add_Stop(this ToolStrip toolStrip, Action onClick)
 		{
 			return toolStrip.add("Stop", "process_stop".formImage(), onClick);
+		}
+		public static ToolStrip add_Copy(this ToolStrip toolStrip, Action onClick)
+		{
+			return toolStrip.add("Copy", "edit_copy".formImage(), onClick);
 		}
 		public static ToolStrip add_Cut(this ToolStrip toolStrip, Action onClick)
 		{

@@ -28,6 +28,7 @@ namespace O2.Views.ASCX.classes.MainGUI
 
         #endregion*/
         public static int DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY = 20;
+		public static int DEBUG_MSG_TIMEOUT_THREAD_WRITE_ = 3 * 1000;
         //internal static bool bAlsoSendMessageToDebugView;
 
         public static bool bLogCache; // use when we want to keep a log of particular errors
@@ -164,40 +165,43 @@ namespace O2.Views.ASCX.classes.MainGUI
                      //       continue;                        
                         var richTextBox = richTextBoxToUpdate;                        
                         try
-                        {                            
-                            richTextBox.invokeOnThread(() =>
-                                {                                    
-                                    if (richTextBox.IsDisposed)
-                                    {
-                                        removeRtbObject(richTextBox);
-                                        return "...";
-                                    }
-                                    try
-                                    {
-                                        if (bLogCache)
-                                        {
-                                            sbLogCache.Insert(0, sText + Environment.NewLine);
-                                        }
+                        {
+							richTextBox.invokeOnThread(DEBUG_MSG_TIMEOUT_THREAD_WRITE_, () =>
+                                {
+									lock (richTextBox)
+									{
+										if (richTextBox.IsDisposed)
+										{
+											removeRtbObject(richTextBox);
+											return "...";
+										}
+										try
+										{
+											if (bLogCache)
+											{
+												sbLogCache.Insert(0, sText + Environment.NewLine);
+											}
 
-                                        if (bShowMessages)
-                                        {
-                                            richTextBox.SelectionStart = 0;
-                                            richTextBox.SelectedText = sText + Environment.NewLine +
-                                                                        richTextBox.SelectedText;
-                                            richTextBox.SelectionStart = 0;
-                                            richTextBox.SelectionLength = sText.Length;
-                                            richTextBox.SelectionColor = cColour;
-                                            //Application.DoEvents();
-                                            // PublicDI.log.error(sText);                              
-                                            //if (bAlsoSendMessageToDebugView)
-                                            //    Debug.WriteLine(sText);
-                                        }                                     
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Debug.WriteLine("ERROR Inside DebugMsg" + ex.Message);
-                                    }
-                                    return "done"; //make this sync
+											if (bShowMessages)
+											{
+												richTextBox.SelectionStart = 0;
+												richTextBox.SelectedText = sText + Environment.NewLine +
+																			richTextBox.SelectedText;
+												richTextBox.SelectionStart = 0;
+												richTextBox.SelectionLength = sText.Length;
+												richTextBox.SelectionColor = cColour;
+												//Application.DoEvents();
+												// PublicDI.log.error(sText);                              
+												//if (bAlsoSendMessageToDebugView)
+												//    Debug.WriteLine(sText);
+											}
+										}
+										catch (Exception ex)
+										{
+											Debug.WriteLine("ERROR Inside DebugMsg" + ex.Message);
+										}
+										return "done"; //make this sync
+									}
                                 });
                         }
                         catch (Exception ex)

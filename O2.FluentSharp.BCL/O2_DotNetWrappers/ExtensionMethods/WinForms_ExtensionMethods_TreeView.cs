@@ -39,6 +39,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                           	return treeView;
                                       	});
         }
+		public static TreeView	add_TreeView(this Control control, ref TreeView treeView)
+		{
+			return treeView = control.add_TreeView();
+		}
 
         public static TreeNode  add_Node(this TreeView treeView, TreeNode rootNode, string nodeText, Color textColor)
         {
@@ -483,6 +487,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return treeView;
         }
+		public static TreeView	selectSecond(this TreeView treeView)
+		{
+			treeView.nodes().second().selected();
+			return treeView;
+		}
+		public static TreeView	selectThird(this TreeView treeView)
+		{
+			treeView.nodes().third().selected();
+			return treeView;
+		}
         public static TreeView  selectNode(this TreeView treeView, TreeNode treeNode)
         {
             return (TreeView)treeView.invokeOnThread(
@@ -939,11 +953,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 (text) =>
                 {
                     var skipRegexFilter = text.valid().isFalse();
-                    treeView.clear();
+                    treeView.beginUpdate()
+							.clear();
                     foreach (var item in itemsToShow)
                         if (skipRegexFilter || item.Key.regEx(text))
                             treeView.add_Node(item.Key, item.Value, addDummyNode);
-					treeView.applyPatchFor_1NodeMissingNodeBug();
+					treeView.endUpdate()
+							.applyPatchFor_1NodeMissingNodeBug();
                 });
 
             var textBoxValue = textBoxKey.insert_Right<TextBox>(textBoxKey.width() / 2).onEnter(

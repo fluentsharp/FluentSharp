@@ -96,6 +96,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             textBox.set_Text(text);
             return textBox;
         }
+		public static TextBox	append_TextBox(this Control hostControl, ref TextBox textBox)
+		{
+			return textBox = hostControl.append_TextBox("");
+		}
         public static TreeNode  select(this TreeView treeView, string text)
         {
             foreach (var treeNode in treeView.nodes())

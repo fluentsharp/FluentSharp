@@ -20,30 +20,44 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class _Extra_AppDomain_ExtensionMethods
     {
-        public static O2AppDomainFactory appDomain_New(this string appDomainName)
+		public static O2AppDomainFactory	appDomain(this string name)
+		{
+			return name.appDomain_Get();
+		}
+		public static O2AppDomainFactory	appDomain_Get(this string name)
+		{
+			if (O2AppDomainFactory.AppDomains_ControledByO2Kernel.hasKey(name))
+				return O2AppDomainFactory.AppDomains_ControledByO2Kernel[name];
+			return null;
+		}
+		public static bool					isNotCurrentAppDomain(this O2AppDomainFactory appDomainFactory)
+		{
+			return appDomainFactory.isCurrentAppDomain().isFalse();
+		}
+		public static bool					isCurrentAppDomain(this O2AppDomainFactory appDomainFactory)
+		{
+			return appDomainFactory.appDomain != AppDomain.CurrentDomain;
+		}
+        public static O2AppDomainFactory	appDomain_New(this string appDomainName)
         {
             var appDomain = new O2AppDomainFactory(appDomainName);
             return appDomain;
         }
-
-        public static O2AppDomainFactory loadMainO2Dlls(this O2AppDomainFactory o2AppDomain)
+        public static O2AppDomainFactory	loadMainO2Dlls(this O2AppDomainFactory o2AppDomain)
         {
             o2AppDomain.load("O2_FluentSharp_CoreLib.dll");
             o2AppDomain.load("O2_FluentSharp_BCL.dll");
             return o2AppDomain;
         }
-
-        public static string executeCodeSnippet_InSeparateAppDomain(this string scriptToExecute)
+        public static string				executeCodeSnippet_InSeparateAppDomain(this string scriptToExecute)
         {
             return scriptToExecute.executeScriptInSeparateAppDomain(true, false);
         }
-
-        public static string executeScriptInSeparateAppDomain(this string scriptToExecute)
+        public static string				executeScriptInSeparateAppDomain(this string scriptToExecute)
         {
             return scriptToExecute.executeScriptInSeparateAppDomain(true, false);
         }
-
-        public static string executeScriptInSeparateAppDomain(this string scriptToExecute, bool showLogViewer, bool openScriptGui)
+        public static string				executeScriptInSeparateAppDomain(this string scriptToExecute, bool showLogViewer, bool openScriptGui)
         {
             var o2AppDomain =  12.randomLetters().createAppDomain();            
 
@@ -54,17 +68,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
             //o2AppDomain.unLoadAppDomain();
             return scriptToExecute;
         }
-
-        public static O2AppDomainFactory createAppDomain(this string appDomainName)
+        public static O2AppDomainFactory	createAppDomain(this string appDomainName)
         {
             return new O2AppDomainFactory(appDomainName).loadMainO2Dlls();
         }
-        public static O2Proxy executeScriptInAppDomain(this O2AppDomainFactory o2AppDomain, string scriptToExecute)
+        public static O2Proxy				executeScriptInAppDomain(this O2AppDomainFactory o2AppDomain, string scriptToExecute)
         {
             return o2AppDomain.executeScriptInAppDomain(scriptToExecute, false, false);
         }
-
-        public static O2Proxy executeScriptInAppDomain(this O2AppDomainFactory o2AppDomain, string scriptToExecute, bool showLogViewer, bool openScriptGui)
+        public static O2Proxy				executeScriptInAppDomain(this O2AppDomainFactory o2AppDomain, string scriptToExecute, bool showLogViewer, bool openScriptGui)
         {
             var o2Proxy = (O2Proxy)o2AppDomain.getProxyObject("O2Proxy");
             if (o2Proxy.isNull())
@@ -81,14 +93,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             o2Proxy.executeScript(scriptToExecute);
             return o2Proxy;
         }
-
-        public static O2Proxy executeScript(this O2Proxy o2Proxy, string scriptToExecute)
+        public static O2Proxy				executeScript(this O2Proxy o2Proxy, string scriptToExecute)
         {
             o2Proxy.staticInvocation("O2_FluentSharp_REPL", "FastCompiler_ExtensionMethods", "executeSourceCode", new object[] { scriptToExecute });
             return o2Proxy;
         }
-
-        public static string execute_InScriptEditor_InSeparateAppDomain(this string scriptToExecute)
+        public static string				execute_InScriptEditor_InSeparateAppDomain(this string scriptToExecute)
         {
             var script_Base64Encoded = scriptToExecute.base64Encode();
             var scriptLauncher = "open.scriptEditor().inspector.set_Script(\"{0}\".base64Decode()).waitForClose();".line().format(script_Base64Encoded);
@@ -101,8 +111,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             scriptLauncher.executeScriptInSeparateAppDomain(false, false);
             return scriptLauncher;
         }
-
-        public static string localExeFolder(this string fileName)
+        public static string				localExeFolder(this string fileName)
         {
             var mappedFile = PublicDI.config.CurrentExecutableDirectory.pathCombine(fileName);
             return (mappedFile.fileExists())
