@@ -8,7 +8,7 @@
     <ProjectGuid>{1D5E7298-537E-409B-8059-2040CA60B55A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>O2.FluentSharp.Roslyn</RootNamespace>
+    <RootNamespace>O2.FluentSharp</RootNamespace>
     <AssemblyName>O2_FluentSharp_Roslyn</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,30 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Roslyn.Compilers, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_ExternalDlls\Roslyn.Compilers.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>_EmbededDlls\Roslyn.Compilers.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Compilers.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_ExternalDlls\Roslyn.Compilers.CSharp.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>_EmbededDlls\Roslyn.Compilers.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Services, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_ExternalDlls\Roslyn.Services.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Roslyn.Services">
+      <HintPath>_EmbededDlls\Roslyn.Services.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Services.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_ExternalDlls\Roslyn.Services.CSharp.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Roslyn.Services.CSharp">
+      <HintPath>_EmbededDlls\Roslyn.Services.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Roslyn.Utilities, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>_ExternalDlls\Roslyn.Utilities.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Roslyn.Utilities">
+      <HintPath>_EmbededDlls\Roslyn.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -79,11 +69,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_ExternalDlls\Roslyn.Compilers.CSharp.dll" />
-    <EmbeddedResource Include="_ExternalDlls\Roslyn.Compilers.dll" />
-    <EmbeddedResource Include="_ExternalDlls\Roslyn.Services.CSharp.dll" />
-    <EmbeddedResource Include="_ExternalDlls\Roslyn.Services.dll" />
-    <EmbeddedResource Include="_ExternalDlls\Roslyn.Utilities.dll" />
+    <EmbeddedResource Include="_EmbededDlls\Roslyn.Compilers.CSharp.dll" />
+    <EmbeddedResource Include="_EmbededDlls\Roslyn.Compilers.dll" />
+    <EmbeddedResource Include="_EmbededDlls\Roslyn.Services.CSharp.dll" />
+    <EmbeddedResource Include="_EmbededDlls\Roslyn.Services.dll" />
+    <EmbeddedResource Include="_EmbededDlls\Roslyn.Utilities.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj">
