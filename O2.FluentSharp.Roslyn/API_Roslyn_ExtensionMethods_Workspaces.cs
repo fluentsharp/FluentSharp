@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using Roslyn.Services;
 
-namespace O2.XRules.Database.APIs
+namespace O2.FluentSharp
 {
     public static class API_Roslyn_ExtensionMethods_Workspaces
     {
         public static IWorkspace workspace(this string solutionFile)
         {
-            return Workspace.LoadSolution(solutionFile);
+            return Workspace.LoadSolution(solutionFile,null,null,false);
         }
     }
 }

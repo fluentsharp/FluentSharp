@@ -9,17 +9,22 @@ using System.Reflection;
 using System.IO;
 using O2.Kernel;
 using O2.DotNetWrappers.ExtensionMethods;
+using System.Threading;
 
-namespace O2.XRules.Database.APIs
+namespace O2.FluentSharp
 {
     public static class API_Roslyn_ExtensionMethods_Compilation
     {
+		public static Compilation compiler(this SyntaxTree tree, string assemblyName)
+		{
+			return tree.compiler(assemblyName, true);
+		}
 
-        public static Compilation compiler(this SyntaxTree tree, string assemblyName, bool compileIntoDll = true)
+        public static Compilation compiler(this SyntaxTree tree, string assemblyName, bool compileIntoDll)
         {
             var compilationOptions = new CompilationOptions(compileIntoDll ? OutputKind.DynamicallyLinkedLibrary
                                                                            : OutputKind.ConsoleApplication);
-            return Compilation.Create(assemblyName, compilationOptions)
+            return Compilation.Create(assemblyName, compilationOptions,null,null,null,null)
                              .add_Reference("mscorlib")
                               .AddSyntaxTrees(tree);
         }
@@ -47,12 +52,12 @@ namespace O2.XRules.Database.APIs
 
         public static AssemblyFileReference assemblyReference(this string assemblyName)
         {
-            return new AssemblyFileReference(assemblyName.assembly_Location());
+            return new AssemblyFileReference(assemblyName.assembly_Location(),null,false);
         }
         
         public static List<Roslyn.Compilers.Common.CommonDiagnostic> errors(this CommonCompilation compilation)
         {
-            return compilation.GetDiagnostics().errors();
+            return compilation.GetDiagnostics(default(CancellationToken)).errors();
         }
 
         public static List<CommonDiagnostic> errors(this CommonEmitResult emitResult)
@@ -85,7 +90,7 @@ namespace O2.XRules.Database.APIs
         {
             var ilStream = new MemoryStream();
 
-            var result = compilation.Emit(ilStream);
+			var result = compilation.Emit(ilStream, null, null, null, default(CancellationToken), null, null, null);
             if (result.Success)
             {
                 "create_Assembly was ok".info();
@@ -120,7 +125,7 @@ namespace O2.XRules.Database.APIs
             using (var ilStream = new FileStream(fileToCreate, FileMode.OpenOrCreate))
             using (var pdbStream = new FileStream(pdbFilename, FileMode.OpenOrCreate))
             {
-                emitResult = compilation.Emit(ilStream, pdbFilename, pdbStream);
+				emitResult = compilation.Emit(ilStream, pdbFilename, pdbStream, null,default(CancellationToken),null,null,null);
                 if (emitResult.Success && fileToCreate.fileExists())
                 {
                     "[create_Assembly] created assembly: {0}".info(fileToCreate);

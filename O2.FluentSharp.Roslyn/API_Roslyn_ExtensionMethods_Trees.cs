@@ -5,11 +5,11 @@ using System.Text;
 using Roslyn.Compilers.CSharp;
 using O2.DotNetWrappers.ExtensionMethods;
 using Roslyn.Services;
-using Roslyn.Services.Formatting;
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;
+using System.Threading;
 
-namespace O2.XRules.Database.APIs
+namespace O2.FluentSharp
 {
     public static class API_Roslyn_ExtensionMethods_Trees
 	{
@@ -20,18 +20,17 @@ namespace O2.XRules.Database.APIs
 		
 		public static SyntaxTree parse(this string code)
 		{
-			return SyntaxTree.ParseCompilationUnit(code);			
+			return SyntaxTree.ParseCompilationUnit(code,null,null,default(CancellationToken));			
 		}
-		
+
 		public static StatementSyntax parse_Statement(this string code)
 		{
-			return Syntax.ParseStatement(code);
+			return Syntax.ParseStatement(code,0,null);
 		}
-		
-		
+				
 		public static List<Diagnostic> errors(this SyntaxTree tree)
 		{
-			return (from diagnostic in tree.GetDiagnostics()
+			return (from diagnostic in tree.GetDiagnostics(default(CancellationToken))
 					where diagnostic.Info.Severity == DiagnosticSeverity.Error
 					select diagnostic).toList();
 		}
@@ -56,8 +55,8 @@ namespace O2.XRules.Database.APIs
 
         public static string formatedCode(this CommonSyntaxNode tree)
         {
-            return tree.Format()
-                       .GetFormattedRoot()
+			return tree.Format(null, null, default(CancellationToken))
+					   .GetFormattedRoot(default(CancellationToken))
                        .GetFullText();
         }
 	}    
