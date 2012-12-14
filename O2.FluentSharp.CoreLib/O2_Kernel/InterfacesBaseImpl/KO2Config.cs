@@ -21,45 +21,58 @@ namespace O2.Kernel.InterfacesBaseImpl
         //public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
         
         //public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
-        //public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";
+        //public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";		
+	    public int MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE = 120;
 
-        public string  defaultO2LocalTempFolder = @"";
-        public static string defaultLocalScriptFolder = "";
+		public string hardCodedO2LocalTempFolder { get; set; }
+
+		public static string defaultLocalScriptFolder = "";		
+        public string  defaultO2LocalTempFolder = @"";        
 
         public KO2Config()
         {
-			
+	        try
+	        {		        
+			    this.calculate_O2TempDir();
 
-			this.calculate_O2TempDir();
+			    O2ConfigSettings.defaultLocallyDevelopedScriptsFolder =
+				    defaultO2LocalTempFolder.pathCombine(O2ConfigSettings.defaultLocallyDevelopedScriptsFolder);
 
-            O2ConfigSettings.defaultLocallyDevelopedScriptsFolder = defaultO2LocalTempFolder.pathCombine(O2ConfigSettings.defaultLocallyDevelopedScriptsFolder);
-            
-            hardCodedO2LocalTempFolder = Path.Combine(defaultO2LocalTempFolder, DateTime.Now.ToShortDateString().Replace("/", "_")); ;
-            var o2TempDir = hardCodedO2LocalTempFolder; // so that we don't trigger the auto creation of the tempDir
-                       
-            UserData = defaultO2LocalTempFolder.pathCombine("_USERDATA"); //"C:\\O2\\_USERDATA"
+			    hardCodedO2LocalTempFolder =
+				    defaultO2LocalTempFolder.pathCombine(DateTime.Now.ToShortDateString().Replace("/", "_"));
+		    
+		        var o2TempDir = hardCodedO2LocalTempFolder; // so that we don't trigger the auto creation of the tempDir
 
-//            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
-//            hardCodedO2LocalSourceCodeDir = @"E:\O2\_SourceCode_O2";            
-            O2FindingsFileExtension = ".O2Findings";
-            extraSettings = new List<Setting>();
-            dependenciesInjection = new List<DependencyInjection>();
-            setLocalScriptsFolder(defaultLocalScriptFolder);            
-            ScriptsTemplatesFolder = defaultLocalScriptFolder + @"\_Templates"; ;            
-            //SvnO2RootFolder = defaultSvnO2RootFolder;
-            //SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
-            O2GitHub_ExternalDlls = O2ConfigSettings.defaultO2GitHub_ExternalDlls;
-            O2GitHub_Binaries = O2ConfigSettings.defaultO2GitHub_Binaries;
-            O2GitHub_FilesWithNoCode = O2ConfigSettings.defaultO2GitHub_FilesWithNoCode;
-            //ZipppedScriptsFile = O2ConfigSettings.defaultZippedScriptsFile;
-            //O2DownloadLocation = defaultO2DownloadLocation;
+		        UserData = defaultO2LocalTempFolder.pathCombine("_USERDATA"); //"C:\\O2\\_USERDATA"
 
-            AutoSavedScripts = o2TempDir.pathCombine(@"../_AutoSavedScripts")
-                                        .pathCombine(DateTime.Now.ToShortDateString().Replace("/","_")); // can't used safeFileName() here because the DI object is not created
-            ReferencesDownloadLocation = o2TempDir.pathCombine(@"../_ReferencesDownloaded");
-            EmbeddedAssemblies = o2TempDir.pathCombine(@"../_EmbeddedAssemblies");
+		        //            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
+		        //            hardCodedO2LocalSourceCodeDir = @"E:\O2\_SourceCode_O2";            
+		        O2FindingsFileExtension = ".O2Findings";
+		        extraSettings = new List<Setting>();
+		        dependenciesInjection = new List<DependencyInjection>();
+		        setLocalScriptsFolder(defaultLocalScriptFolder);
+		        ScriptsTemplatesFolder = defaultLocalScriptFolder + @"\_Templates";
+		        ;
+		        //SvnO2RootFolder = defaultSvnO2RootFolder;
+		        //SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
+		        O2GitHub_ExternalDlls = O2ConfigSettings.defaultO2GitHub_ExternalDlls;
+		        O2GitHub_Binaries = O2ConfigSettings.defaultO2GitHub_Binaries;
+		        O2GitHub_FilesWithNoCode = O2ConfigSettings.defaultO2GitHub_FilesWithNoCode;
+		        //ZipppedScriptsFile = O2ConfigSettings.defaultZippedScriptsFile;
+		        //O2DownloadLocation = defaultO2DownloadLocation;
 
-            O2.DotNetWrappers.DotNet.AssemblyResolver.Init();            
+		        AutoSavedScripts = o2TempDir.pathCombine(@"../_AutoSavedScripts")
+		                                    .pathCombine(DateTime.Now.ToShortDateString().Replace("/", "_"));
+		        // can't used safeFileName() here because the DI object is not created
+		        ReferencesDownloadLocation = o2TempDir.pathCombine(@"../_ReferencesDownloaded");
+		        EmbeddedAssemblies = o2TempDir.pathCombine(@"../_EmbeddedAssemblies");
+
+		        O2.DotNetWrappers.DotNet.AssemblyResolver.Init();
+	        }
+	        catch (Exception ex)
+	        {
+				ex.logWithStackTrace("in KO2Config.ctor");
+	        }
         }
 
 		public void calculate_O2TempDir()
@@ -80,16 +93,31 @@ namespace O2.Kernel.InterfacesBaseImpl
 			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
 			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
 
-			if (defaultLocalScriptFolder.size() > 120)
+			if (defaultLocalScriptFolder.size() > MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE)
 			{
 				"[downloadO2Scripts] defaultLocalScriptFolder path was more than 120 chars: {0}".error(defaultLocalScriptFolder);
-				var applicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				var applicationData = getValidLocalSystemTempFolder();
 				var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.O2Version);
 				"[downloadO2Scripts] using as baseTempFolder: {0}".error(baseTempFolder);
 				defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
 				defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);
 				"[downloadO2Scripts] set LocalScriptsFolder to: {0}".info(defaultLocalScriptFolder);
 			}
+		}
+
+		public string getValidLocalSystemTempFolder()
+		{
+			var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			if (folder.dirExists())
+				return folder;
+			folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			if (folder.dirExists())
+				return folder;
+			folder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+			if (folder.dirExists())
+				return folder;
+			"in getValidLocalSystemTempFolder could not find a valid folder".error();
+			return null;
 		}
                        
         public KO2Config(string o2ConfigFile) :this ()
@@ -103,8 +131,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 
         // non-interface properties
         public string O2ConfigFile { get; set; }        
-        public string O2FindingsFileExtension { get; set; }        
-        public string hardCodedO2LocalTempFolder { get; set; }
+        public string O2FindingsFileExtension { get; set; }                
 //        public string hardCodedO2LocalBuildDir { get; set; }
 //        public string hardCodedO2LocalSourceCodeDir { get; set; }
         public static string dependencyInjectionTest { get; set; }
@@ -219,7 +246,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 
         public string TempFileNameInTempDirectory
         {
-            get { return Path.Combine(O2TempDir, O2Kernel_Files.getTempFileName()); }
+			get { return O2TempDir.pathCombine(O2Kernel_Files.getTempFileName()); }
             set { }
         }
 
@@ -227,7 +254,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
             get
             {
-                string tempFolder = Path.Combine(O2TempDir, O2Kernel_Files.getTempFolderName());
+				string tempFolder = O2TempDir.pathCombine(O2Kernel_Files.getTempFolderName());
                 Directory.CreateDirectory(tempFolder);
                 return tempFolder;
             }
@@ -257,7 +284,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         public string getTempFolderInTempDirectory(string stringToAddToTempDirectoryName)
         {
             var tempFolder = TempFolderInTempDirectory;
-            var tempFolderWithExtraString = Path.Combine(Path.GetDirectoryName(tempFolder), stringToAddToTempDirectoryName+ "_" + Path.GetFileName(tempFolder));
+			var tempFolderWithExtraString = Path.GetDirectoryName(tempFolder).pathCombine(stringToAddToTempDirectoryName + "_" + Path.GetFileName(tempFolder));
             Directory.CreateDirectory(tempFolderWithExtraString);
             Directory.Delete(tempFolder);
             return tempFolderWithExtraString;

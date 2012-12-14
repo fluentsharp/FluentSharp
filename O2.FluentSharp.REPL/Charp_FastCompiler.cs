@@ -94,14 +94,15 @@ namespace O2.External.SharpDevelop.AST
                                               "O2.Views.ASCX.classes.MainGUI",
                                               "O2.Views.ASCX.ExtensionMethods",
                                               "O2.XRules.Database.APIs",
-                                              "O2.XRules.Database.Utils");                                     
+                                              "O2.XRules.Database.Utils",
+											  "O2.FluentSharp");                                     
         }
         public static void setDefaultReferencedAssemblies()
         {
             CompileEngine.DefaultReferencedAssemblies
                             .add_OnlyNewItems("O2_FluentSharp_BCL.dll",                                                                
                                               "O2_FluentSharp_REPL.exe",
-                                              "O2_External_SharpDevelop.dll",
+											  "O2_Platform_External_SharpDevelop.dll",
                                               "WeifenLuo.WinFormsUI.Docking.dll");                                     
         }                		
 

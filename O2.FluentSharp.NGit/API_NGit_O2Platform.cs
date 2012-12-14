@@ -10,7 +10,7 @@ using O2.DotNetWrappers.ExtensionMethods;
 
 //O2File:API_NGit.cs
 
-namespace O2.XRules.Database.APIs
+namespace O2.FluentSharp
 {
     public class API_NGit_O2Platform : API_NGit
     {

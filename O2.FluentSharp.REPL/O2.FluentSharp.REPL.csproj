@@ -13,6 +13,14 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +57,10 @@
     <Reference Include="Ionic.Zip">
       <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="O2_Platform_External_SharpDevelop, Version=5.0.3.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\O2.Platform.External.SharpDevelop.5.0.3.0\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
     </Reference>
     <Reference Include="QuickGraph">
       <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
@@ -150,18 +162,6 @@
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
     <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
-    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_External_SharpDevelop.dll">
-      <Link>_Embedded_Dlls\O2_External_SharpDevelop.dll</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_FluentSharp_BCL.dll">
-      <Link>_Embedded_Dlls\O2_FluentSharp_BCL.dll</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_FluentSharp_CoreLib.dll">
-      <Link>_Embedded_Dlls\O2_FluentSharp_CoreLib.dll</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\O2_Platform_ReferencedAssemblies\O2_Assemblies\O2_FluentSharp_WPF.dll">
-      <Link>_Embedded_Dlls\O2_FluentSharp_WPF.dll</Link>
-    </EmbeddedResource>
     <Content Include="DI.cs.txt" />
     <Compile Include="ExtensionMethods\EmbeddedResources_Zip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
@@ -250,6 +250,7 @@
     <Content Include="H2Logo.ico" />
     <EmbeddedResource Include="_O2_External_WinFormsUI\_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <EmbeddedResource Include="_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
+    <Content Include="_Embedded_Dlls\O2_Platform_External_SharpDevelop.dll" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />
@@ -277,13 +278,10 @@
     <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
-      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
-      <Name>O2_External_SharpDevelop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>

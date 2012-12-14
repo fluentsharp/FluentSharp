@@ -16,7 +16,7 @@ using O2.XRules.Database.Utils;
 
 using System.Runtime.InteropServices;
 
-namespace O2.XRules.Database.APIs
+namespace O2.FluentSharp
 {
 	public class API_ConsoleOut_Test
 	{
