@@ -33,18 +33,23 @@
   <ItemGroup>
     <Reference Include="Roslyn.Compilers">
       <HintPath>_EmbededDlls\Roslyn.Compilers.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Roslyn.Compilers.CSharp">
       <HintPath>_EmbededDlls\Roslyn.Compilers.CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Roslyn.Services">
       <HintPath>_EmbededDlls\Roslyn.Services.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Roslyn.Services.CSharp">
       <HintPath>_EmbededDlls\Roslyn.Services.CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Roslyn.Utilities">
       <HintPath>_EmbededDlls\Roslyn.Utilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -58,10 +58,6 @@
       <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="O2_Platform_External_SharpDevelop, Version=5.0.3.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\O2.Platform.External.SharpDevelop.5.0.3.0\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
-    </Reference>
     <Reference Include="QuickGraph">
       <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
       <Private>False</Private>
@@ -81,6 +77,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.6.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <HintPath>_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -250,7 +247,6 @@
     <Content Include="H2Logo.ico" />
     <EmbeddedResource Include="_O2_External_WinFormsUI\_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <EmbeddedResource Include="_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
-    <Content Include="_Embedded_Dlls\O2_Platform_External_SharpDevelop.dll" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
     <Content Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />
@@ -278,10 +274,13 @@
     <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
+      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
+      <Name>O2_External_SharpDevelop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>

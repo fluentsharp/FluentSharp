@@ -125,8 +125,8 @@ namespace O2.XRules.Database.Utils
             this.Width = width;
             this.Height = height;
             previousCompiledCodeText = "";
-            InvocationParameters = new Dictionary<string, object>();
-            AutoCompileOnCodeChange = true;
+            InvocationParameters = new Dictionary<string, object>(); 
+            AutoCompileOnCodeChange = true; 
             AutoSaveOnCompileSuccess = true; //  false;  // for now default to true
             AutoSaveDir = PublicDI.config.AutoSavedScripts;
             setCompilerEnvironment();
@@ -148,10 +148,11 @@ namespace O2.XRules.Database.Utils
             O2Thread.mtaThread(
                 () =>
                 {
-                    this.sleep(2000, false);
+                    this.sleep(500, false);
                     "Loading Code Complete data".info();
                     commandsToExecute.enableCodeComplete();
                     commandsToExecute.editor().o2CodeCompletion.UseParseCodeThread = false;
+					commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
                 });
         }
 
@@ -466,8 +467,8 @@ namespace O2.XRules.Database.Utils
 
                    onCompileOK.invoke();
                    // once all is done update the codeComplete information
-                   if (this.commandsToExecute.editor().o2CodeCompletion.notNull())
-                       this.commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+//                   if (this.commandsToExecute.editor().o2CodeCompletion.notNull())
+//                     this.commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
 
                    //add_ExtraMethodsFile();									// restore previous mappings here
 
@@ -479,7 +480,7 @@ namespace O2.XRules.Database.Utils
 
                    if (ExecuteOnCompile)
                        execute();
-               };
+               };		
 
         }
 
@@ -785,6 +786,7 @@ namespace O2.XRules.Database.Utils
         {
             commandsToExecute.enableCodeComplete();
             commandsToExecute.editor().o2CodeCompletion.UseParseCodeThread = false;
+			commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
         }
 
         public void enableDisableFullCodeComplete()

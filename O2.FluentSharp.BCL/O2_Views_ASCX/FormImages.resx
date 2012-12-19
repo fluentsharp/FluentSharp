@@ -805,7 +805,6 @@
   <data name="x_office_spreadsheet_template" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\x-office-spreadsheet-template.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="blogs_stack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\nov_2012\blogs-stack.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -835,5 +834,171 @@
   </data>
   <data name="target" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\nov_2012\target.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Assembly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\assembly.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssemblyList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\assemblylist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssemblyWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\assemblywarning.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\back.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Breakpoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\breakpoint.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Class" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\class.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClearSearch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\clearsearch.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Constructor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\constructor.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CurrentLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\currentline.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DisabledBreakpoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\disabledbreakpoint.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EnumValue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\enumvalue.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Event" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\event.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExtensionMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\extensionmethod.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Field" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\field.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FieldReadOnly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\fieldreadonly.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\find.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FindAssembly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\findassembly.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder_Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\folder.closed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder_Open1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\folder.open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\forward.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Indexer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\indexer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Interface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\interface.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Library" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\library.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Literal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\literal.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Method" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\method.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NameSpace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\namespace.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\ok.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Operator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\operator.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverlayCompilerControlled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\overlaycompilercontrolled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverlayInternal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\overlayinternal.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverlayPrivate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\overlayprivate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverlayProtected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\overlayprotected.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverlayProtectedInternal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\overlayprotectedinternal.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverlayStatic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\overlaystatic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PInvokeMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\pinvokemethod.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PrivateInternal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\privateinternal.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Property" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\property.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReferenceFolder_Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\referencefolder.closed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReferenceFolder_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\referencefolder.open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Resource" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\resource.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResourceImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\resourceimage.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResourceXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\resourcexml.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\savefile.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\search.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StaticClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\staticclass.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Struct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\struct.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubTypes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\subtypes.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SuperTypes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\supertypes.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ViewCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\viewcode.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VirtualMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\fromilspy\virtualmethod.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="O2Logo_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\o2_related\o2logo_small.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O2_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\o2_related\o2_logo.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

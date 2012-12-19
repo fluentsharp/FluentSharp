@@ -21,7 +21,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return control.insert_Below().add_Script();
         }
         public static ascx_Simple_Script_Editor add_Script(this Control hostControl)
-        {
+        {	        
             return hostControl.add<ascx_Simple_Script_Editor>();
         }
         public static ascx_Simple_Script_Editor add_Script(this Control hostControl, bool codeCompleteSupport)

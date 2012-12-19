@@ -1471,7 +1471,9 @@ namespace O2.External.SharpDevelop.Ascx
             //else
             //{
                // o2CodeCompletion.OnlyShowCodeCompleteResulstFromO2Namespace = false;
-                compile_Click(null, null);
+                //compile_Click(null, null);
+				// once all is done update the codeComplete information									
+
             }
             return o2CodeCompletion;
         }        

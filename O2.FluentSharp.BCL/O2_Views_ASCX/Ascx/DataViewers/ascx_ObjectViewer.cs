@@ -180,9 +180,21 @@ namespace O2.XRules.Database.Utils
             guiReady = true;
         }
 
-        public void addObjectPropertyAndFields(TreeNode targetNode, object targetObject)
-        {
-            if (targetObject is String)  // skip strings
+	    public void addObjectPropertyAndFields(TreeNode targetNode, object targetObject)
+	    {
+			if (targetObject is Control)
+			{
+					(targetObject as Control).invokeOnThread(()=>{
+																	addObjectPropertyAndFields_Thread(targetNode, targetObject);
+																	return targetObject; // make this sync
+																 });
+			}
+			else
+				addObjectPropertyAndFields_Thread(targetNode, targetObject);
+	    }
+		public void addObjectPropertyAndFields_Thread(TreeNode targetNode, object targetObject)
+		{
+			if (targetObject is String)  // skip strings
                 return;
 
             if (targetObject is IDictionary)
@@ -294,7 +306,7 @@ namespace O2.XRules.Database.Utils
         public void addFirstObject(object targetObject)
         {
             if (targetObject.notNull())
-            {
+            {								
                 var objectNode = treeView.rootNode().add_Node(targetObject.str(), targetObject);
                 addObjectPropertyAndFields(objectNode, targetObject);
                 objectNode.expand();

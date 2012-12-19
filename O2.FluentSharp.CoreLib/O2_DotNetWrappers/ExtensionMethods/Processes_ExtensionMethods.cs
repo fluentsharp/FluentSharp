@@ -244,7 +244,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static string    process_Id_and_Name(this Process process)
 	    {
-	    	return "{0} : {1}".format(process.Id, process.ProcessName);
+	    	return (process.notNull())
+				? "{0} : {1}".format(process.Id, process.ProcessName)
+				: "";
 	    }	    
 	    public static Process   waitFor_MainWindowHandle(this Process process)
 	    {
@@ -265,7 +267,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 	    }
 	    public static Process   refresh(this Process process)
 	    {
-	    	process.Refresh();
+			if (process.notNull())
+	    		process.Refresh();
 	    	return process;
 	    }
 	    public static Process   end(this Process process)

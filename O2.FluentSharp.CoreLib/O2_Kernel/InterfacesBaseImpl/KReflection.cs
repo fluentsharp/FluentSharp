@@ -83,8 +83,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         public Object getProperty(PropertyInfo propertyInfo, object liveObject)
         {
             try
-            {
-                return propertyInfo.GetValue(liveObject,
+            {	            
+	            return propertyInfo.GetValue(liveObject,
                                                    BindingFlags.GetProperty |
                                                    BindingFlags.Public | BindingFlags.NonPublic |
                                                    BindingFlags.Instance | BindingFlags.Static, null,

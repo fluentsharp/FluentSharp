@@ -172,6 +172,27 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Assembly {
+            get {
+                object obj = ResourceManager.GetObject("Assembly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap AssemblyList {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyList", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap AssemblyWarning {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyWarning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap audio_card {
             get {
                 object obj = ResourceManager.GetObject("audio_card", resourceCulture);
@@ -221,6 +242,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Back {
+            get {
+                object obj = ResourceManager.GetObject("Back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap battery {
             get {
                 object obj = ResourceManager.GetObject("battery", resourceCulture);
@@ -245,6 +273,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap bookmark_new {
             get {
                 object obj = ResourceManager.GetObject("bookmark_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Breakpoint {
+            get {
+                object obj = ResourceManager.GetObject("Breakpoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -354,6 +389,20 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Class {
+            get {
+                object obj = ResourceManager.GetObject("Class", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ClearSearch {
+            get {
+                object obj = ResourceManager.GetObject("ClearSearch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap computer {
             get {
                 object obj = ResourceManager.GetObject("computer", resourceCulture);
@@ -361,9 +410,30 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Constructor {
+            get {
+                object obj = ResourceManager.GetObject("Constructor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap contact_new {
             get {
                 object obj = ResourceManager.GetObject("contact_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap CurrentLine {
+            get {
+                object obj = ResourceManager.GetObject("CurrentLine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Delete {
+            get {
+                object obj = ResourceManager.GetObject("Delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -385,6 +455,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap dialog_warning {
             get {
                 object obj = ResourceManager.GetObject("dialog_warning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap DisabledBreakpoint {
+            get {
+                object obj = ResourceManager.GetObject("DisabledBreakpoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -578,10 +655,31 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap EnumValue {
+            get {
+                object obj = ResourceManager.GetObject("EnumValue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Event {
+            get {
+                object obj = ResourceManager.GetObject("Event", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Icon execute {
             get {
                 object obj = ResourceManager.GetObject("execute", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ExtensionMethod {
+            get {
+                object obj = ResourceManager.GetObject("ExtensionMethod", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -683,9 +781,44 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Field {
+            get {
+                object obj = ResourceManager.GetObject("Field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap FieldReadOnly {
+            get {
+                object obj = ResourceManager.GetObject("FieldReadOnly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Find {
+            get {
+                object obj = ResourceManager.GetObject("Find", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap FindAssembly {
+            get {
+                object obj = ResourceManager.GetObject("FindAssembly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Folder_Closed {
+            get {
+                object obj = ResourceManager.GetObject("Folder_Closed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -707,6 +840,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap folder_open {
             get {
                 object obj = ResourceManager.GetObject("folder_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Folder_Open1 {
+            get {
+                object obj = ResourceManager.GetObject("Folder_Open1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -805,6 +945,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap format_text_underline {
             get {
                 object obj = ResourceManager.GetObject("format_text_underline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Forward {
+            get {
+                object obj = ResourceManager.GetObject("Forward", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -914,6 +1061,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Indexer {
+            get {
+                object obj = ResourceManager.GetObject("Indexer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap input_gaming {
             get {
                 object obj = ResourceManager.GetObject("input_gaming", resourceCulture);
@@ -931,6 +1085,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap input_mouse {
             get {
                 object obj = ResourceManager.GetObject("input_mouse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Interface {
+            get {
+                object obj = ResourceManager.GetObject("Interface", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -970,6 +1131,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Library {
+            get {
+                object obj = ResourceManager.GetObject("Library", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap list_add {
             get {
                 object obj = ResourceManager.GetObject("list_add", resourceCulture);
@@ -980,6 +1148,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap list_remove {
             get {
                 object obj = ResourceManager.GetObject("list_remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Literal {
+            get {
+                object obj = ResourceManager.GetObject("Literal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1124,9 +1299,23 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Method {
+            get {
+                object obj = ResourceManager.GetObject("Method", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap multimedia_player {
             get {
                 object obj = ResourceManager.GetObject("multimedia_player", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap NameSpace {
+            get {
+                object obj = ResourceManager.GetObject("NameSpace", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1208,6 +1397,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap O2_Logo {
+            get {
+                object obj = ResourceManager.GetObject("O2_Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap O2_Logo_no_Shadow {
             get {
                 object obj = ResourceManager.GetObject("O2_Logo_no_Shadow", resourceCulture);
@@ -1222,9 +1418,79 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap O2Logo_Small {
+            get {
+                object obj = ResourceManager.GetObject("O2Logo_Small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap office_calendar {
             get {
                 object obj = ResourceManager.GetObject("office_calendar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OK {
+            get {
+                object obj = ResourceManager.GetObject("OK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Open {
+            get {
+                object obj = ResourceManager.GetObject("Open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Operator {
+            get {
+                object obj = ResourceManager.GetObject("Operator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OverlayCompilerControlled {
+            get {
+                object obj = ResourceManager.GetObject("OverlayCompilerControlled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OverlayInternal {
+            get {
+                object obj = ResourceManager.GetObject("OverlayInternal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OverlayPrivate {
+            get {
+                object obj = ResourceManager.GetObject("OverlayPrivate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OverlayProtected {
+            get {
+                object obj = ResourceManager.GetObject("OverlayProtected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OverlayProtectedInternal {
+            get {
+                object obj = ResourceManager.GetObject("OverlayProtectedInternal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap OverlayStatic {
+            get {
+                object obj = ResourceManager.GetObject("OverlayStatic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1239,6 +1505,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap package_x_generic {
             get {
                 object obj = ResourceManager.GetObject("package_x_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap PInvokeMethod {
+            get {
+                object obj = ResourceManager.GetObject("PInvokeMethod", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1369,6 +1642,13 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap PrivateInternal {
+            get {
+                object obj = ResourceManager.GetObject("PrivateInternal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap process_stop {
             get {
                 object obj = ResourceManager.GetObject("process_stop", resourceCulture);
@@ -1383,10 +1663,73 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
             }
         }
         
+        public static System.Drawing.Bitmap Property {
+            get {
+                object obj = ResourceManager.GetObject("Property", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ReferenceFolder_Closed {
+            get {
+                object obj = ResourceManager.GetObject("ReferenceFolder_Closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ReferenceFolder_Open {
+            get {
+                object obj = ResourceManager.GetObject("ReferenceFolder_Open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Refresh {
+            get {
+                object obj = ResourceManager.GetObject("Refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Resource {
+            get {
+                object obj = ResourceManager.GetObject("Resource", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ResourceImage {
+            get {
+                object obj = ResourceManager.GetObject("ResourceImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ResourceXml {
+            get {
+                object obj = ResourceManager.GetObject("ResourceXml", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap SaveFile {
+            get {
+                object obj = ResourceManager.GetObject("SaveFile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Icon scripts {
             get {
                 object obj = ResourceManager.GetObject("scripts", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Search {
+            get {
+                object obj = ResourceManager.GetObject("Search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1407,6 +1750,34 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap start_here {
             get {
                 object obj = ResourceManager.GetObject("start_here", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap StaticClass {
+            get {
+                object obj = ResourceManager.GetObject("StaticClass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Struct {
+            get {
+                object obj = ResourceManager.GetObject("Struct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap SubTypes {
+            get {
+                object obj = ResourceManager.GetObject("SubTypes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap SuperTypes {
+            get {
+                object obj = ResourceManager.GetObject("SuperTypes", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1582,6 +1953,20 @@ namespace O2.Platform.BCL.O2_Views_ASCX {
         public static System.Drawing.Bitmap view_refresh {
             get {
                 object obj = ResourceManager.GetObject("view_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap ViewCode {
+            get {
+                object obj = ResourceManager.GetObject("ViewCode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap VirtualMethod {
+            get {
+                object obj = ResourceManager.GetObject("VirtualMethod", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
