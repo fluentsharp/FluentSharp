@@ -22,6 +22,6 @@
         <tags>Fluent OWASP O2Platform Security</tags>
     </metadata>
     <files>
-        <file src="O2.FluentSharp.CoreLib\bin\Release\\O2_FluentSharp_CoreLib.dll" target="lib\net35\O2_FluentSharp_CoreLib.dll" />
+        <file src="bin\release\\O2_FluentSharp_CoreLib.dll" target="lib\net35\O2_FluentSharp_CoreLib.dll" />
     </files>
 </package>
