@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>FluentSharp.CoreLib</id>
-        
+        <version>4.5.4.0</version>
         <title>FluentSharp - CoreLib</title>
         <authors>O2 Platform</authors>
         <owners>O2 Platform</owners>
