@@ -11,3 +11,4 @@ UpgradeLog.xml
 *.pidb
 *.userprefs
 /TestResults
+binaries

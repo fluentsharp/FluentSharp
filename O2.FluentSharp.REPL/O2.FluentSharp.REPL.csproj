@@ -26,7 +26,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>binaries\</OutputPath>
+    <OutputPath>..\binaries\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,6 +57,9 @@
     <Reference Include="Ionic.Zip">
       <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="O2_Platform_External_SharpDevelop">
+      <HintPath>..\packages\O2.Platform.External.SharpDevelop.5.0.3.0\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
     </Reference>
     <Reference Include="QuickGraph">
       <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
@@ -274,13 +277,10 @@
     <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
-      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
-      <Name>O2_External_SharpDevelop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>O2.FluentSharp.BCL</Name>

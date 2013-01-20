@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.CoreLib", "UnitTests\UnitTests.O2.FluentSharp.CoreLib\UnitTests.O2.FluentSharp.CoreLib.csproj", "{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other Projects", "Other Projects", "{F434D791-89C5-4664-9563-19C435D5A9DE}"
-EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = O2.FluentSharp.Main.vsmdi
