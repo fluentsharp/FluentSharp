@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2</RootNamespace>
-    <AssemblyName>O2_FluentSharp_CoreLib</AssemblyName>
+    <AssemblyName>FluentSharp.CoreLib</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FluentSharp.CoreLib..nuspec" />
     <None Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="O2ConfigSettings.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
