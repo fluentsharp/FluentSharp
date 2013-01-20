@@ -11,14 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FluentSharp - Main", "Fluen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{511DAB39-29D4-4D73-8164-931A7C8330E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.CoreLib", "UnitTests\UnitTests.O2.FluentSharp.CoreLib\UnitTests.O2.FluentSharp.CoreLib.csproj", "{5C8AA820-1F4A-4536-9205-5CB79C0F1AC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.CoreLib", "UnitTests\UnitTests.O2.FluentSharp.CoreLib\UnitTests.O2.FluentSharp.CoreLib.csproj", "{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F9878660-30AD-494A-AE52-7DBED67BC053}"
-	ProjectSection(SolutionItems) = preProject
-		UnitTests\Local.testsettings = UnitTests\Local.testsettings
-		O2.FluentSharp.Main.vsmdi = O2.FluentSharp.Main.vsmdi
-		UnitTests\TraceAndTestImpact.testsettings = UnitTests\TraceAndTestImpact.testsettings
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other Projects", "Other Projects", "{F434D791-89C5-4664-9563-19C435D5A9DE}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -41,10 +36,10 @@ Global
 		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C8AA820-1F4A-4536-9205-5CB79C0F1AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C8AA820-1F4A-4536-9205-5CB79C0F1AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C8AA820-1F4A-4536-9205-5CB79C0F1AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C8AA820-1F4A-4536-9205-5CB79C0F1AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,7 +48,6 @@ Global
 		{0A7CE0E0-B092-43B5-AB80-99BA909019C9} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
 		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
 		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
-		{5C8AA820-1F4A-4536-9205-5CB79C0F1AC2} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
-		{F9878660-30AD-494A-AE52-7DBED67BC053} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
 	EndGlobalSection
 EndGlobal
