@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2.Platform.BCL</RootNamespace>
-    <AssemblyName>O2_FluentSharp_BCL</AssemblyName>
+    <AssemblyName>FluentSharp.BCL</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
