@@ -8,6 +8,8 @@ using System.IO;
 
 using System.Reflection;
 using System.Xml.Schema;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -82,15 +84,35 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         public static List<XmlAttribute>    add_XmlAttribute(this List<XmlAttribute> xmlAttributes, string name, string value)
-		{
-			var xmlDocument = (xmlAttributes.size() > 0) 
-									?  xmlAttributes[0].OwnerDocument
-									: new XmlDocument();						
-			var newAttribute = xmlDocument.CreateAttribute(name);
-			newAttribute.Value = value;
-			xmlAttributes.add(newAttribute);
-			return xmlAttributes;
-		}		
+        {
+            var xmlDocument = (xmlAttributes.size() > 0) 
+                                    ?  xmlAttributes[0].OwnerDocument
+                                    : new XmlDocument();						
+            var newAttribute = xmlDocument.CreateAttribute(name);
+            newAttribute.Value = value;
+            xmlAttributes.add(newAttribute);
+            return xmlAttributes;
+        }		
+        public static string                xsl_Transform(this string xmlContent, string xstlFile)
+        {
+            try
+            {
+                var xslTransform = new XslCompiledTransform();
 
+                xslTransform.Load(xstlFile);
+
+                var xmlReader = new XmlTextReader(new StringReader(xmlContent));
+                var xpathNavigator = new XPathDocument(xmlReader);
+                var stringWriter = new StringWriter();
+
+                xslTransform.Transform(xpathNavigator, new XsltArgumentList(), stringWriter);
+                return stringWriter.str();
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in xsl_Transform]");
+                return "";
+            }
+        }
     }
 }

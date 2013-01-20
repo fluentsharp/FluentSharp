@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using O2.DotNetWrappers.Windows;
 
 using O2.Kernel;
@@ -64,30 +65,56 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return true;
             return false;
         }
-		public static bool      canSaveToFile(this string targetFileName)
-		{
-			var fileExisted = targetFileName.fileExists();
-			var originalFileContents = (fileExisted)
-											? targetFileName.fileContents()
-											: null;
-			try
-			{
-				var testContent = "This is a test content";
-				testContent.saveAs(targetFileName);
-				if (testContent != targetFileName.fileContents())
-					return false;
-				if (fileExisted)
-					originalFileContents.saveAs(targetFileName);
-				else
-					File.Delete(targetFileName);
-				return true;
-			}
-			catch
-			{
-				return false;
-			}
+        public static bool      canSaveToFile(this string targetFileName)
+        {
+            var fileExisted = targetFileName.fileExists();
+            var originalFileContents = (fileExisted)
+                                            ? targetFileName.fileContents()
+                                            : null;
+            try
+            {
+                var testContent = "This is a test content";
+                testContent.saveAs(targetFileName);
+                if (testContent != targetFileName.fileContents())
+                    return false;
+                if (fileExisted)
+                    originalFileContents.saveAs(targetFileName);
+                else
+                    File.Delete(targetFileName);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
 
-		}
+        }
+        public static bool      canWriteToPath(this string path)
+        {
+            try
+            {
+                //var files = path.files();
+                var tempFile = path.pathCombine("tempFile".add_RandomLetters());
+                "test content".saveAs(tempFile);
+                if (tempFile.fileExists())
+                {
+                    File.Delete(tempFile);
+                    if (tempFile.fileExists().isFalse())
+                        return true;
+                }
+                "[in canWriteToPath] test failed for for path: {0}".error(path);
+            }
+            catch (Exception ex)
+            {
+                ex.log("[in canWriteToPath] for path: {0} : {1}", path, ex.Message);
+            }
+            return false;
+        }        
+        public static bool      canNotWriteToPath(this string path)
+        {
+            return path.canWriteToPath().isFalse();
+        }
+        
         public static string    fileTrimContents(this string filePath)
         {
             var fileContents = filePath.fileContents();
@@ -163,9 +190,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return fileNames.toList();
         }   
         public static string        fileName_WithoutExtension(this string filePath)
-		{
-			return Path.GetFileNameWithoutExtension(filePath);
-		}
+        {
+            return Path.GetFileNameWithoutExtension(filePath);
+        }
         public static string        extension(this string file)
         {
             try
@@ -244,13 +271,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static bool          fileExists(this string file)
         {
-			try
-			{
-				if (file.valid() && file.size() < 256)
-					return File.Exists(file);
-			}
-			catch
-			{ }
+            try
+            {
+                if (file.valid() && file.size() < 256)
+                    return File.Exists(file);
+            }
+            catch
+            { }
             return false;
         }        
         public static bool          isBinaryFormat(this string file)
@@ -272,17 +299,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
     public static class IO_ExtensionMethods_Folders
     {
         public static string        folderName(this string folder)
-		{
-			if (folder.isFolder())
-				return folder.fileName();
-			return null;
-		}		
-		public static string        parentFolder(this string path)
-		{
-            if (path.valid())
-			    return path.directoryName();
+        {
+            if (folder.isFolder())
+                return folder.fileName();
             return null;
-		}
+        }		
+        public static string        parentFolder(this string path)
+        {
+            if (path.valid())
+                return path.directoryName();
+            return null;
+        }
         public static List<string>  folders(this string path)
         {
             return path.folders(false);
@@ -429,12 +456,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return null;
         }
         public static string        file(this string folder, string virtualFilePath)
-		{
-			var mappedFile = folder.pathCombine(virtualFilePath);
-			if (mappedFile.fileExists())
-				return mappedFile; 
-			return null;
-		}	
+        {
+            var mappedFile = folder.pathCombine(virtualFilePath);
+            if (mappedFile.fileExists())
+                return mappedFile; 
+            return null;
+        }	
         public static List<string>  files(this string path)
         {
             return path.files("", false);
@@ -470,35 +497,35 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return Files.getFilesFromDir_returnFullPath(folder, filter, recursiveSearch);
         }  
         
-		public static List<string>  files(this List<string> folders)
-		{
-			return folders.files("*.*");
-		}		
-		public static List<string>  files(this List<string> folders, string filter)
-		{
-			return folders.files(filter,false);
-		}		
-		public static List<string>  files(this List<string> folders, string filter, bool recursive)
-		{
-			var files = new List<string>();
-			foreach(var folder in folders)
-				files.AddRange(folder.files(filter, recursive));
-			return files;
-		}		
-		
+        public static List<string>  files(this List<string> folders)
+        {
+            return folders.files("*.*");
+        }		
+        public static List<string>  files(this List<string> folders, string filter)
+        {
+            return folders.files(filter,false);
+        }		
+        public static List<string>  files(this List<string> folders, string filter, bool recursive)
+        {
+            var files = new List<string>();
+            foreach(var folder in folders)
+                files.AddRange(folder.files(filter, recursive));
+            return files;
+        }		
+        
         public static string        pathCombine(this string folder, string path)
         {            
             return pathCombine_MaxSize(folder, path);
         }
         public static string        pathCombine_MaxSize(this string folder, string path )
-		{
-			if (path.notValid())
-				return folder;
+        {
+            if (path.notValid())
+                return folder;
             if (folder.notValid())
                 return null;
-			var maxLength = 256 - folder.size();
-			if(maxLength < 10)
-				throw new Exception("in pathCombine_MaxSize folder name is too large: {0}".format(folder.size()));
+            var maxLength = 256 - folder.size();
+            if(maxLength < 10)
+                throw new Exception("in pathCombine_MaxSize folder name is too large: {0}".format(folder.size()));
 
             // add the file hash if too big
             if (path.size() > maxLength)
@@ -511,7 +538,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 path = path.Substring(1);
 
             return Path.Combine(folder, path).fullPath();
-		}
+        }
 
        /* public static string        pathCombine_With_ExecutingAssembly_Folder(this string path)
         {
@@ -560,84 +587,84 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     select folder).toList();
         }
         public static List<string>  lines(this string text, bool removeEmptyLines)
-		{
-			if (removeEmptyLines)
-				return text.lines();
-			return text.fixCRLF()
-					   .Split(new string[] { Environment.NewLine }, System.StringSplitOptions.None )
-					   .toList();
-		}
+        {
+            if (removeEmptyLines)
+                return text.lines();
+            return text.fixCRLF()
+                       .Split(new string[] { Environment.NewLine }, System.StringSplitOptions.None )
+                       .toList();
+        }
         public static List<string>  filesContains(this List<string> files, string textToSearch)
-		{
-			return (from file in files
-					where file.fileContents().contains(textToSearch)
-					select file).toList();
-		}		
-		public static List<string>  filesContains_RegEx(this List<string> files, string regExToSearch)
-		{
-			return (from file in files
-					where file.fileContents().regEx(regExToSearch)
-					select file).toList();
-		}		
-		public static string        fromLines_getText(this List<string> lines)
-		{
-			return StringsAndLists.fromStringList_getText(lines);
-		}
-		
+        {
+            return (from file in files
+                    where file.fileContents().contains(textToSearch)
+                    select file).toList();
+        }		
+        public static List<string>  filesContains_RegEx(this List<string> files, string regExToSearch)
+        {
+            return (from file in files
+                    where file.fileContents().regEx(regExToSearch)
+                    select file).toList();
+        }		
+        public static string        fromLines_getText(this List<string> lines)
+        {
+            return StringsAndLists.fromStringList_getText(lines);
+        }
+        
         public static Dictionary<string,string>         files_Indexed_by_FileName(this string path)
-		{
-			return	 path.files().files_Indexed_by_FileName();
-		}		
-		public static Dictionary<string,string>         add_Files_Indexed_by_FileName(this Dictionary<string,string> mappedFiles, string path)
-		{
-			foreach(var item in path.files_Indexed_by_FileName())
-				mappedFiles.add(item.Key, item.Value);
-			return mappedFiles;
-		}		
-		public static Dictionary<string,string>         files_Indexed_by_FileName(this List<string> files)
-		{
-			var files_Indexed_by_FileName = new Dictionary<string,string>();
-			foreach(var file in files)			
-				files_Indexed_by_FileName.add(file.fileName(), file);
-			return files_Indexed_by_FileName;
-		}		
-		public static Dictionary<string,List<string>>   files_Mapped_by_Extension(this List<string> files)
-		{
-			var files_Indexed_by_FileName = new Dictionary<string,List<string>>();
-			foreach(var file in files)			
-				files_Indexed_by_FileName.add(file.extension(), file);
-			return files_Indexed_by_FileName;
-		}
+        {
+            return	 path.files().files_Indexed_by_FileName();
+        }		
+        public static Dictionary<string,string>         add_Files_Indexed_by_FileName(this Dictionary<string,string> mappedFiles, string path)
+        {
+            foreach(var item in path.files_Indexed_by_FileName())
+                mappedFiles.add(item.Key, item.Value);
+            return mappedFiles;
+        }		
+        public static Dictionary<string,string>         files_Indexed_by_FileName(this List<string> files)
+        {
+            var files_Indexed_by_FileName = new Dictionary<string,string>();
+            foreach(var file in files)			
+                files_Indexed_by_FileName.add(file.fileName(), file);
+            return files_Indexed_by_FileName;
+        }		
+        public static Dictionary<string,List<string>>   files_Mapped_by_Extension(this List<string> files)
+        {
+            var files_Indexed_by_FileName = new Dictionary<string,List<string>>();
+            foreach(var file in files)			
+                files_Indexed_by_FileName.add(file.extension(), file);
+            return files_Indexed_by_FileName;
+        }
 
         public static string        find_File_in_List(this List<string> files, params string[] fileNames)
-		{
-			foreach(var file in files)
-				foreach(var fileName in fileNames)		
-					if (file.fileName() == fileName)
-						return file;
-			return null;
-		}		
-		public static string        findFilesInFolder(this string folder, params string[] fileNames)
-		{
-			foreach(var fileName in fileNames)
-			{
-				var resolvedPath = folder.pathCombine(fileName);
-				if (resolvedPath.fileExists())
-					return resolvedPath;
-			}
-			return null;
-		}		
-		public static string        findParentFolderCalled(this string fullPath, string folderToFind)
-		{
-			var parentFolder = fullPath.directoryName();
-			if (folderToFind.valid() && parentFolder.notNull())
-			{
-				if (parentFolder.fileName() == folderToFind)
-					return parentFolder;
-				return findParentFolderCalled(parentFolder,folderToFind);
-			}
-			return null;
-		}
+        {
+            foreach(var file in files)
+                foreach(var fileName in fileNames)		
+                    if (file.fileName() == fileName)
+                        return file;
+            return null;
+        }		
+        public static string        findFilesInFolder(this string folder, params string[] fileNames)
+        {
+            foreach(var fileName in fileNames)
+            {
+                var resolvedPath = folder.pathCombine(fileName);
+                if (resolvedPath.fileExists())
+                    return resolvedPath;
+            }
+            return null;
+        }		
+        public static string        findParentFolderCalled(this string fullPath, string folderToFind)
+        {
+            var parentFolder = fullPath.directoryName();
+            if (folderToFind.valid() && parentFolder.notNull())
+            {
+                if (parentFolder.fileName() == folderToFind)
+                    return parentFolder;
+                return findParentFolderCalled(parentFolder,folderToFind);
+            }
+            return null;
+        }
         public static string        file_Copy(this string file, string folder)
         {
             return file.file_CopyToFolder(folder);
@@ -654,41 +681,41 @@ namespace O2.DotNetWrappers.ExtensionMethods
     public static class IO_ExtensionMethods_Delete_or_Copy
     { 
         public static bool          deleteFile(this string file)
-		{
-			return Files.deleteFile(file);
-		}		
-		public static List<string>  deleteFiles(this List<string> files)
-		{
-			foreach(var file in files)
-				Files.deleteFile(file);
-			return files;
-		}
+        {
+            return Files.deleteFile(file);
+        }		
+        public static List<string>  deleteFiles(this List<string> files)
+        {
+            foreach(var file in files)
+                Files.deleteFile(file);
+            return files;
+        }
         public static bool          deleteIfExists(this string file)
-		{
-			try
-			{
-				if (file.fileExists())
-					Files.deleteFile(file);
-				return true;
-			}
-			catch(Exception ex)
-			{
-				"[deleteIfExists] : {0}".error(ex.Message);
-				return false;
-			}
-			
-		}
+        {
+            try
+            {
+                if (file.fileExists())
+                    Files.deleteFile(file);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                "[deleteIfExists] : {0}".error(ex.Message);
+                return false;
+            }
+            
+        }
         public static string        file_CopyToFolder(this string fileToCopy, string targetFolderOrFile)
-		{
-			if (fileToCopy.fileExists().isFalse())
-				"[file_CopyFileToFolder] fileToCopy doesn't exist: {0}".error(fileToCopy);
-			else
-				if (targetFolderOrFile.dirExists() ||  targetFolderOrFile.parentFolder().dirExists())
-					return Files.copy(fileToCopy,targetFolderOrFile);
-				else
-					"[file_CopyFileToFolder]..targetFolder or its parent doesn't exist: {0}".error(targetFolderOrFile);					
-			return null;			
-		}
+        {
+            if (fileToCopy.fileExists().isFalse())
+                "[file_CopyFileToFolder] fileToCopy doesn't exist: {0}".error(fileToCopy);
+            else
+                if (targetFolderOrFile.dirExists() ||  targetFolderOrFile.parentFolder().dirExists())
+                    return Files.copy(fileToCopy,targetFolderOrFile);
+                else
+                    "[file_CopyFileToFolder]..targetFolder or its parent doesn't exist: {0}".error(targetFolderOrFile);					
+            return null;			
+        }
 
         public static bool file_Delete(this string path)
         {
@@ -774,6 +801,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return memoryStream.ToArray().ascii();
         }
+        public static MemoryStream  stream_UFT8(this string text)
+		{
+			var memoryStream = text.valid()
+				       ? new MemoryStream(Encoding.UTF8.GetBytes(text))
+				       : new MemoryStream();
+			memoryStream.Flush();
+			return memoryStream;
+		}
     }
     
 }
