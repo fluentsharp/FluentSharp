@@ -7,13 +7,13 @@ using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.InterfacesBaseImpl
 {
-    public class MemoryLogger : IO2Log
+    public class Logger_Memory : IO2Log
     {
         public StringBuilder LogData         { get ; set;}     
         public IO2Log LogRedirectionTarget   { get ; set;}
         public bool alsoShowInConsole        { get ; set;}
 
-        public MemoryLogger()
+        public Logger_Memory()
         {
             LogData = new StringBuilder();
         }

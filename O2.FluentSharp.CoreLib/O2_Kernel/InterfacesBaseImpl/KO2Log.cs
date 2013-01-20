@@ -16,7 +16,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         
         public KO2Log()
         {
-			LogRedirectionTarget = new MemoryLogger();		// default to Log to memory
+			LogRedirectionTarget = new Logger_Memory();		// default to Log to memory
         }
 
         public KO2Log(string _logHost)

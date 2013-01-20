@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="O2_DotNetWrappers\DI.cs.txt" />
+    <None Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="O2ConfigSettings.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine.cs" />
@@ -170,25 +170,26 @@
     <Compile Include="O2_Kernel\CodeUtils\LoadTypes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2ConfigLoader.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Files.cs" />
-    <Content Include="Apache.2.0.license.txt" />
-    <Content Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs.txt" />
+    <None Include="Apache.2.0.license.txt" />
+    <None Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Processes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Serialize.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Web.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Svn.cs" />
     <Compile Include="O2_Kernel\debug.cs" />
-    <Content Include="O2_Kernel\DI.cs.txt" />
+    <None Include="O2_Kernel\DI.cs.txt" />
     <Compile Include="O2_Kernel\exec.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Logging_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Object_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\String_ExtensionMethods.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\Logger_DiagnosticsDebug.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KGacDll.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KLoadedXRule.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2Config.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2Log.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KReflection.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KScanTarget.cs" />
-    <Compile Include="O2_Kernel\InterfacesBaseImpl\MemoryLogger.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\Logger_Memory.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2Rule.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\O2RulePack.cs" />
     <Compile Include="O2_Kernel\launch.cs" />
