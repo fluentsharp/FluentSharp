@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FluentSharp - Main", "Fluen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{511DAB39-29D4-4D73-8164-931A7C8330E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.CoreLib", "UnitTests\UnitTests.O2.FluentSharp.CoreLib\UnitTests.O2.FluentSharp.CoreLib.csproj", "{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.CoreLib", "UnitTests\UnitTests.FluentSharp.CoreLib\UnitTests.O2.FluentSharp.CoreLib.csproj", "{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.REPL", "UnitTests\UnitTests.O2.FluentSharp.REPL\UnitTests.O2.FluentSharp.REPL.csproj", "{EF0BBE23-9379-4595-B7E9-3496A70262FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2.FluentSharp.REPL", "UnitTests\UnitTests.FluentSharp.REPL\UnitTests.O2.FluentSharp.REPL.csproj", "{EF0BBE23-9379-4595-B7E9-3496A70262FE}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
