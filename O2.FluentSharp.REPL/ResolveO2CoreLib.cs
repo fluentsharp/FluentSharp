@@ -20,14 +20,14 @@ namespace O2.FluentSharp.REPL
             Assembly assembly = null;
             try
             {
-                assembly = Assembly.Load("O2_FluentSharp_CoreLib");
+                assembly = Assembly.Load("FluentSharp.CoreLib");
             }
             catch(Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
             if (assembly == null)
-                assembly = getAssemblyfromResources("O2_FluentSharp_CoreLib.dll");
+                assembly = getAssemblyfromResources("FluentSharp.CoreLib.dll");
           //  assembly = Assembly.Load("O2_FluentSharp_CoreLib");
         }
         

@@ -45,7 +45,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static O2AppDomainFactory	loadMainO2Dlls(this O2AppDomainFactory o2AppDomain)
         {
-            o2AppDomain.load("O2_FluentSharp_CoreLib.dll");
+            o2AppDomain.load("FluentSharp.CoreLib.dll");
             o2AppDomain.load("O2_FluentSharp_BCL.dll");
             return o2AppDomain;
         }
