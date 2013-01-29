@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>O2.Platform.BCL</RootNamespace>
+    <AssemblyName>FluentSharp.BCL</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>TmpKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="O2_DotNetWrappers\DI.cs.txt" />
+    <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_ToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Misc_GUI_Helpers.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_WebBrowser.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Clipboard_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\ComObjects_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Compilation_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\ConfigFiles_ExtensionMethods_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Data_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Download_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Linq_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Control_Object.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_DataGridView.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Form.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\IO_ExtensionMethods_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\O2Controls_ExtensioMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Threads_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\XElement_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\Network\Main_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\Network\WebEncoding.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\DotNet\AspNetAnalysis.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\O2Assessment.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\O2Finding.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\O2Trace.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtCompatibility.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtContext.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtCopy.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtDiff.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtFilter.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtGlue.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtMappedToWindowsForms.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtNew.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtSearch.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtStats.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtUtils.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\FileCache.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\SourceCodeMappingsUtils.cs" />
+    <Compile Include="O2_DotNetWrappers\SearchApi\SearchEngine.cs" />
+    <Compile Include="O2_DotNetWrappers\SearchApi\SearchUtils.cs" />
+    <Compile Include="O2_DotNetWrappers\SearchApi\TextSearchResult.cs" />
+    <Compile Include="O2_DotNetWrappers\ViewObjects\Reflection_MethodInfo.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\Files_WinForms.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\FillTreeViewWithlSerializedObjectData.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\RegisterWindowsExtension.cs" />
+    <Compile Include="O2_Interfaces\Controllers\IAssemblyAnalysis.cs" />
+    <Compile Include="O2_Interfaces\Messages\IM_CirAction.cs" />
+    <Compile Include="O2_Interfaces\Messages\IM_DotNetAssemblyAvailable.cs" />
+    <Compile Include="O2_Interfaces\Messages\IM_FileOrFolderSelected.cs" />
+    <Compile Include="O2_Interfaces\Messages\IM_GUIAction.cs" />
+    <Compile Include="O2_Interfaces\Messages\IM_O2MdbgAction.cs" />
+    <Compile Include="O2_Interfaces\Messages\IM_SelectedTypeOrMethod.cs" />
+    <Compile Include="O2_Interfaces\Messages\IO2Message.cs" />
+    <Compile Include="O2_Interfaces\Messages\IO2MessageQueue.cs" />
+    <None Include="O2_Kernel\DI.cs.txt" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_CirAction.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_DotNetAssemblyAvailable .cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_FileOrFolderSelected.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_GUIAction.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_O2MdbgAction.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KM_SelectedTypeOrMethod.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2GenericMessage.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2Message.cs" />
+    <Compile Include="O2_Kernel\InterfacesBaseImpl\KO2MessageQueue.cs" />
+    <Compile Include="O2_Kernel\PublicDI_BCL.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\Controls.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\O2Forms.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\O2FormsReflectionASCX.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\O2Forms_ThreadSafe_ProgressBar.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\O2Forms_ThreadSafe_ToolStrip.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\Screenshots.cs" />
+    <Compile Include="O2_Interfaces\O2Core\IReflectionASCX.cs" />
+    <Compile Include="O2_Kernel\CodeUtils\O2Messages.cs" />
+    <Compile Include="O2_Views_ASCX\APIs\API_ConsoleOut.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_Directory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_Directory.Designer.cs">
+      <DependentUpon>ascx_Directory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DownloadFile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DownloadFile.Designer.cs">
+      <DependentUpon>ascx_DownloadFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DropObject.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DropObject.Designer.cs">
+      <DependentUpon>ascx_DropObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_FileMappings.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_FileMappings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_FileMappings.Designer.cs">
+      <DependentUpon>ascx_FileMappings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_O2ObjectModel.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_O2ObjectModel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_O2ObjectModel.Designer.cs">
+      <DependentUpon>ascx_O2ObjectModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_SelectVisiblePanels.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\ascx_SelectVisiblePanels.Designer.cs">
+      <DependentUpon>ascx_SelectVisiblePanels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.Designer.cs">
+      <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_ObjectViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_ShowInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_TableList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_TableList.Designer.cs">
+      <DependentUpon>ascx_TableList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_LogViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_LogViewer.Designer.cs">
+      <DependentUpon>ascx_LogViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.Designer.cs">
+      <DependentUpon>ascx_O2InstallAndTempDirectories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_WorkingOnTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_WorkingOnTask.Designer.cs">
+      <DependentUpon>ascx_WorkingOnTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.Designer.cs">
+      <DependentUpon>ascx_FindingEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.Designer.cs">
+      <DependentUpon>ascx_FindingsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.Controllers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.Designer.cs">
+      <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\REPL_Gui.cs" />
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui_ExtensionMethods.cs" />
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.Designer.cs">
+      <DependentUpon>ascx_Task.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_Ping.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_WebGet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_WebPost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Ascx\Web\O2WebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\classes\Ascx_ExtensionMethods.cs" />
+    <Compile Include="O2_Views_ASCX\classes\CreateDataTable.cs" />
+    <Compile Include="O2_Views_ASCX\classes\ImagesLists.cs" />
+    <Compile Include="O2_Views_ASCX\classes\MainGUI\DebugMsg.cs" />
+    <Compile Include="O2_Views_ASCX\classes\MainGUI\O2Gui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\classes\MainGUI\WinForms.cs" />
+    <Compile Include="O2_Views_ASCX\classes\MainGUI\WinFormsUILog.cs" />
+    <Compile Include="O2_Views_ASCX\classes\TasksWrappers\Task_LoadAssessmentFiles.cs" />
+    <Compile Include="O2_Views_ASCX\classes\TasksWrappers\Task_Unzip.cs" />
+    <Compile Include="O2_Views_ASCX\classes\Tasks\BTask.cs" />
+    <Compile Include="O2_Views_ASCX\classes\Tasks\TaskThread.cs" />
+    <Compile Include="O2_Views_ASCX\classes\Tasks\TaskUtils.cs" />
+    <Compile Include="O2_Views_ASCX\classes\WebRequests.cs" />
+    <None Include="Resources\fromILSpy\Assembly.png" />
+    <None Include="Resources\fromILSpy\AssemblyList.png" />
+    <None Include="Resources\fromILSpy\AssemblyWarning.png" />
+    <None Include="Resources\fromILSpy\Back.png" />
+    <None Include="Resources\fromILSpy\Breakpoint.png" />
+    <None Include="Resources\fromILSpy\Class.png" />
+    <None Include="Resources\fromILSpy\ClearSearch.png" />
+    <None Include="Resources\fromILSpy\Constructor.png" />
+    <None Include="Resources\fromILSpy\CurrentLine.png" />
+    <None Include="Resources\fromILSpy\Delete.png" />
+    <None Include="Resources\fromILSpy\DisabledBreakpoint.png" />
+    <None Include="Resources\fromILSpy\EnumValue.png" />
+    <None Include="Resources\fromILSpy\Event.png" />
+    <None Include="Resources\fromILSpy\ExtensionMethod.png" />
+    <None Include="Resources\fromILSpy\Field.png" />
+    <None Include="Resources\fromILSpy\FieldReadOnly.png" />
+    <None Include="Resources\fromILSpy\Find.png" />
+    <None Include="Resources\fromILSpy\FindAssembly.png" />
+    <None Include="Resources\fromILSpy\Folder.Closed.png" />
+    <None Include="Resources\fromILSpy\Folder.Open.png" />
+    <None Include="Resources\fromILSpy\Forward.png" />
+    <None Include="Resources\fromILSpy\Indexer.png" />
+    <None Include="Resources\fromILSpy\Interface.png" />
+    <None Include="Resources\fromILSpy\Library.png" />
+    <None Include="Resources\fromILSpy\Literal.png" />
+    <None Include="Resources\fromILSpy\Method.png" />
+    <None Include="Resources\fromILSpy\NameSpace.png" />
+    <None Include="Resources\fromILSpy\OK.png" />
+    <None Include="Resources\fromILSpy\Open.png" />
+    <None Include="Resources\fromILSpy\Operator.png" />
+    <None Include="Resources\fromILSpy\OverlayCompilerControlled.png" />
+    <None Include="Resources\fromILSpy\OverlayInternal.png" />
+    <None Include="Resources\fromILSpy\OverlayPrivate.png" />
+    <None Include="Resources\fromILSpy\OverlayProtected.png" />
+    <None Include="Resources\fromILSpy\OverlayProtectedInternal.png" />
+    <None Include="Resources\fromILSpy\OverlayStatic.png" />
+    <None Include="Resources\fromILSpy\PInvokeMethod.png" />
+    <None Include="Resources\fromILSpy\PrivateInternal.png" />
+    <None Include="Resources\fromILSpy\Property.png" />
+    <None Include="Resources\fromILSpy\ReferenceFolder.Closed.png" />
+    <None Include="Resources\fromILSpy\ReferenceFolder.Open.png" />
+    <None Include="Resources\fromILSpy\Refresh.png" />
+    <None Include="Resources\fromILSpy\Resource.png" />
+    <None Include="Resources\fromILSpy\ResourceImage.png" />
+    <None Include="Resources\fromILSpy\ResourceXml.png" />
+    <None Include="Resources\fromILSpy\SaveFile.png" />
+    <None Include="Resources\fromILSpy\Search.png" />
+    <None Include="Resources\fromILSpy\StaticClass.png" />
+    <None Include="Resources\fromILSpy\Struct.png" />
+    <None Include="Resources\fromILSpy\SubTypes.png" />
+    <None Include="Resources\fromILSpy\SuperTypes.png" />
+    <None Include="Resources\fromILSpy\ViewCode.png" />
+    <None Include="Resources\fromILSpy\VirtualMethod.png" />
+    <None Include="Resources\Nov_2012\blogs-stack.ico" />
+    <None Include="Resources\Nov_2012\execute.ico" />
+    <None Include="Resources\Nov_2012\Eye.cur" />
+    <None Include="Resources\Nov_2012\H2Logo.ico" />
+    <None Include="Resources\Nov_2012\java.ico" />
+    <None Include="Resources\Nov_2012\O2Logo.ico" />
+    <None Include="Resources\Nov_2012\O2_Logo_no_Shadow.jpg" />
+    <None Include="Resources\Nov_2012\owasp.ico" />
+    <None Include="Resources\Nov_2012\scripts.ico" />
+    <None Include="Resources\Nov_2012\target.ico" />
+    <None Include="Resources\O2_Related\O2Logo_Small.gif" />
+    <None Include="Resources\O2_Related\O2_Logo.gif" />
+    <None Include="Resources\battery-caution.png" />
+    <None Include="Resources\battery.png" />
+    <None Include="Resources\audio-x-generic.png" />
+    <None Include="Resources\audio-volume-muted.png" />
+    <None Include="Resources\audio-volume-medium.png" />
+    <None Include="Resources\audio-volume-low.png" />
+    <None Include="Resources\audio-volume-high.png" />
+    <None Include="Resources\audio-input-microphone.png" />
+    <None Include="Resources\audio-card.png" />
+    <None Include="Resources\appointment-new.png" />
+    <None Include="Resources\application-x-executable.png" />
+    <None Include="Resources\applications-system.png" />
+    <None Include="Resources\applications-other.png" />
+    <None Include="Resources\applications-office.png" />
+    <None Include="Resources\applications-multimedia.png" />
+    <None Include="Resources\applications-internet.png" />
+    <None Include="Resources\applications-graphics.png" />
+    <None Include="Resources\applications-games.png" />
+    <None Include="Resources\applications-development.png" />
+    <None Include="Resources\applications-accessories.png" />
+    <None Include="Resources\application-certificate.png" />
+    <None Include="Resources\address-book-new.png" />
+    <None Include="Resources\accessories-text-editor.png" />
+    <None Include="Resources\accessories-character-map.png" />
+    <None Include="Resources\accessories-calculator.png" />
+    <None Include="Resources\x-office-spreadsheet-template.png" />
+    <None Include="Resources\x-office-spreadsheet.png" />
+    <None Include="Resources\x-office-presentation-template.png" />
+    <None Include="Resources\x-office-presentation.png" />
+    <None Include="Resources\x-office-drawing-template.png" />
+    <None Include="Resources\x-office-drawing.png" />
+    <None Include="Resources\x-office-document-template.png" />
+    <None Include="Resources\x-office-document.png" />
+    <None Include="Resources\x-office-calendar.png" />
+    <None Include="Resources\x-office-address-book.png" />
+    <None Include="Resources\window-new.png" />
+    <None Include="Resources\weather-storm.png" />
+    <None Include="Resources\weather-snow.png" />
+    <None Include="Resources\weather-showers-scattered.png" />
+    <None Include="Resources\weather-showers.png" />
+    <None Include="Resources\weather-severe-alert.png" />
+    <None Include="Resources\weather-overcast.png" />
+    <None Include="Resources\weather-few-clouds-night.png" />
+    <None Include="Resources\weather-few-clouds.png" />
+    <None Include="Resources\weather-clear-night.png" />
+    <None Include="Resources\weather-clear.png" />
+    <None Include="Resources\view-refresh.png" />
+    <None Include="Resources\view-fullscreen.png" />
+    <None Include="Resources\video-x-generic.png" />
+    <None Include="Resources\video-display.png" />
+    <None Include="Resources\utilities-terminal.png" />
+    <None Include="Resources\utilities-system-monitor.png" />
+    <None Include="Resources\user-trash-full.png" />
+    <None Include="Resources\user-trash.png" />
+    <None Include="Resources\user-home.png" />
+    <None Include="Resources\user-desktop.png" />
+    <None Include="Resources\text-x-script.png" />
+    <None Include="Resources\text-x-generic-template.png" />
+    <None Include="Resources\text-x-generic.png" />
+    <None Include="Resources\text-html.png" />
+    <None Include="Resources\tab-new.png" />
+    <None Include="Resources\system-users.png" />
+    <None Include="Resources\system-software-update.png" />
+    <None Include="Resources\system-shutdown.png" />
+    <None Include="Resources\system-search.png" />
+    <None Include="Resources\system-log-out.png" />
+    <None Include="Resources\system-lock-screen.png" />
+    <None Include="Resources\system-installer.png" />
+    <None Include="Resources\system-file-manager.png" />
+    <None Include="Resources\start-here.png" />
+    <None Include="Resources\software-update-urgent.png" />
+    <None Include="Resources\software-update-available.png" />
+    <None Include="Resources\process-working.png" />
+    <None Include="Resources\process-stop.png" />
+    <None Include="Resources\printer-error.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\preferences-system-windows.png" />
+    <None Include="Resources\preferences-system-session.png" />
+    <None Include="Resources\preferences-system-network-proxy.png" />
+    <None Include="Resources\preferences-system.png" />
+    <None Include="Resources\preferences-desktop-wallpaper.png" />
+    <None Include="Resources\preferences-desktop-theme.png" />
+    <None Include="Resources\preferences-desktop-screensaver.png" />
+    <None Include="Resources\preferences-desktop-remote-desktop.png" />
+    <None Include="Resources\preferences-desktop-peripherals.png" />
+    <None Include="Resources\preferences-desktop-multimedia.png" />
+    <None Include="Resources\preferences-desktop-locale.png" />
+    <None Include="Resources\preferences-desktop-keyboard-shortcuts.png" />
+    <None Include="Resources\preferences-desktop-font.png" />
+    <None Include="Resources\preferences-desktop-assistive-technology.png" />
+    <None Include="Resources\preferences-desktop-accessibility.png" />
+    <None Include="Resources\preferences-desktop.png" />
+    <None Include="Resources\package-x-generic.png" />
+    <None Include="Resources\office-calendar.png" />
+    <None Include="Resources\network-workgroup.png" />
+    <None Include="Resources\network-wireless-encrypted.png" />
+    <None Include="Resources\network-wireless.png" />
+    <None Include="Resources\network-wired.png" />
+    <None Include="Resources\network-transmit-receive.png" />
+    <None Include="Resources\network-transmit.png" />
+    <None Include="Resources\network-server.png" />
+    <None Include="Resources\network-receive.png" />
+    <None Include="Resources\network-offline.png" />
+    <None Include="Resources\network-idle.png" />
+    <None Include="Resources\network-error.png" />
+    <None Include="Resources\multimedia-player.png" />
+    <None Include="Resources\media-skip-forward.png" />
+    <None Include="Resources\media-skip-backward.png" />
+    <None Include="Resources\media-seek-forward.png" />
+    <None Include="Resources\media-seek-backward.png" />
+    <None Include="Resources\media-record.png" />
+    <None Include="Resources\media-playback-stop.png" />
+    <None Include="Resources\media-playback-start.png" />
+    <None Include="Resources\media-playback-pause.png" />
+    <None Include="Resources\media-optical.png" />
+    <None Include="Resources\media-floppy.png" />
+    <None Include="Resources\media-flash.png" />
+    <None Include="Resources\media-eject.png" />
+    <None Include="Resources\mail-send-receive.png" />
+    <None Include="Resources\mail-reply-sender.png" />
+    <None Include="Resources\mail-reply-all.png" />
+    <None Include="Resources\mail-message-new.png" />
+    <None Include="Resources\mail-mark-not-junk.png" />
+    <None Include="Resources\mail-mark-junk.png" />
+    <None Include="Resources\mail-forward.png" />
+    <None Include="Resources\mail-attachment.png" />
+    <None Include="Resources\list-remove.png" />
+    <None Include="Resources\list-add.png" />
+    <None Include="Resources\internet-web-browser.png" />
+    <None Include="Resources\internet-news-reader.png" />
+    <None Include="Resources\internet-mail.png" />
+    <None Include="Resources\internet-group-chat.png" />
+    <None Include="Resources\input-mouse.png" />
+    <None Include="Resources\input-keyboard.png" />
+    <None Include="Resources\input-gaming.png" />
+    <None Include="Resources\image-x-generic.png" />
+    <None Include="Resources\image-missing.png" />
+    <None Include="Resources\image-loading.png" />
+    <None Include="Resources\help-browser.png" />
+    <None Include="Resources\go-up.png" />
+    <None Include="Resources\go-top.png" />
+    <None Include="Resources\go-previous.png" />
+    <None Include="Resources\go-next.png" />
+    <None Include="Resources\go-last.png" />
+    <None Include="Resources\go-jump.png" />
+    <None Include="Resources\go-home.png" />
+    <None Include="Resources\go-first.png" />
+    <None Include="Resources\go-down.png" />
+    <None Include="Resources\go-bottom.png" />
+    <None Include="Resources\format-text-underline.png" />
+    <None Include="Resources\format-text-strikethrough.png" />
+    <None Include="Resources\format-text-italic.png" />
+    <None Include="Resources\format-text-bold.png" />
+    <None Include="Resources\format-justify-right.png" />
+    <None Include="Resources\format-justify-left.png" />
+    <None Include="Resources\format-justify-fill.png" />
+    <None Include="Resources\format-justify-center.png" />
+    <None Include="Resources\format-indent-more.png" />
+    <None Include="Resources\format-indent-less.png" />
+    <None Include="Resources\font-x-generic.png" />
+    <None Include="Resources\folder-visiting.png" />
+    <None Include="Resources\folder-saved-search.png" />
+    <None Include="Resources\folder-remote.png" />
+    <None Include="Resources\folder-open.png" />
+    <None Include="Resources\folder-new.png" />
+    <None Include="Resources\folder-drag-accept.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\face-wink.png" />
+    <None Include="Resources\face-surprise.png" />
+    <None Include="Resources\face-smile-big.png" />
+    <None Include="Resources\face-smile.png" />
+    <None Include="Resources\face-sad.png" />
+    <None Include="Resources\face-plain.png" />
+    <None Include="Resources\face-monkey.png" />
+    <None Include="Resources\face-kiss.png" />
+    <None Include="Resources\face-grin.png" />
+    <None Include="Resources\face-glasses.png" />
+    <None Include="Resources\face-devilish.png" />
+    <None Include="Resources\face-crying.png" />
+    <None Include="Resources\face-angel.png" />
+    <None Include="Resources\emblem-unreadable.png" />
+    <None Include="Resources\emblem-system.png" />
+    <None Include="Resources\emblem-symbolic-link.png" />
+    <None Include="Resources\emblem-readonly.png" />
+    <None Include="Resources\emblem-photos.png" />
+    <None Include="Resources\emblem-important.png" />
+    <None Include="Resources\emblem-favorite.png" />
+    <None Include="Resources\edit-undo.png" />
+    <None Include="Resources\edit-select-all.png" />
+    <None Include="Resources\edit-redo.png" />
+    <None Include="Resources\edit-paste.png" />
+    <None Include="Resources\edit-find-replace.png" />
+    <None Include="Resources\edit-find.png" />
+    <None Include="Resources\edit-delete.png" />
+    <None Include="Resources\edit-cut.png" />
+    <None Include="Resources\edit-copy.png" />
+    <None Include="Resources\edit-clear.png" />
+    <None Include="Resources\drive-removable-media.png" />
+    <None Include="Resources\drive-optical.png" />
+    <None Include="Resources\drive-harddisk.png" />
+    <None Include="Resources\document-save-as.png" />
+    <None Include="Resources\document-save.png" />
+    <None Include="Resources\document-properties.png" />
+    <None Include="Resources\document-print-preview.png" />
+    <None Include="Resources\document-print.png" />
+    <None Include="Resources\document-open.png" />
+    <None Include="Resources\document-new.png" />
+    <None Include="Resources\dialog-warning.png" />
+    <None Include="Resources\dialog-information.png" />
+    <None Include="Resources\dialog-error.png" />
+    <None Include="Resources\contact-new.png" />
+    <None Include="Resources\computer.png" />
+    <None Include="Resources\camera-video.png" />
+    <None Include="Resources\camera-photo.png" />
+    <None Include="Resources\bookmark-new.png" />
+    <None Include="O2_Views_ASCX\DI.cs.tzt" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
+    <Compile Include="O2_Views_ASCX\ExtensionMethods\CoreControls_ExtensionMethods.cs" />
+    <Compile Include="O2_Views_ASCX\ExtensionMethods\WinForms_ExtensionMethods.cs" />
+    <Compile Include="O2_Views_ASCX\Forms\O2_Main_GUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Forms\O2_Main_GUI.Designer.cs">
+      <DependentUpon>O2_Main_GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Forms\ReportBug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\Forms\ReportBug.Designer.cs">
+      <DependentUpon>ReportBug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="O2_Views_ASCX\FormImages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormImages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\ISecretData.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\SecretData_ExtensionMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Start_O2.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_Directory.resx">
+      <DependentUpon>ascx_Directory.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DownloadFile.resx">
+      <DependentUpon>ascx_DownloadFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_DropObject.resx">
+      <DependentUpon>ascx_DropObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_FileMappings.resx">
+      <DependentUpon>ascx_FileMappings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_O2ObjectModel.resx">
+      <DependentUpon>ascx_O2ObjectModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\ascx_SelectVisiblePanels.resx">
+      <DependentUpon>ascx_SelectVisiblePanels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.resx">
+      <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\DataViewers\ascx_TableList.resx">
+      <DependentUpon>ascx_TableList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\MainGUI\ascx_LogViewer.resx">
+      <DependentUpon>ascx_LogViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.resx">
+      <DependentUpon>ascx_O2InstallAndTempDirectories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\MainGUI\ascx_WorkingOnTask.resx">
+      <DependentUpon>ascx_WorkingOnTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.resx">
+      <DependentUpon>ascx_FindingEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.resx">
+      <DependentUpon>ascx_FindingsViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.resx">
+      <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.resx">
+      <DependentUpon>ascx_Task.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Forms\O2_Main_GUI.resx">
+      <DependentUpon>O2_Main_GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\Forms\ReportBug.resx">
+      <DependentUpon>ReportBug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="O2_Views_ASCX\FormImages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FormImages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="O2_Interfaces\Messages\IM_OpenControlInGUI.cs.txt" />
+    <None Include="O2_Kernel\InterfacesBaseImpl\KM_OpenControlInGUI.cs.txt" />
+    <None Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TmpKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="O2.FluentSharp.BCL.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\SecretDataEditor.cs" />
+    <None Include="Resources\btDragAssemblyCreated.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btExecuteOnExternalEngine.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btExecuteSelectedMethod.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btOpenFile.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSaveFile.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSeachAndViewAst.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSelectedLineHistory.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btSettings.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btShowHideCompilationErrors.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btShowHidePythonLogExecutionOutputData.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btShowLogs.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tbShowO2ObjectModel.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btCompileCode.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btDebugMethod.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

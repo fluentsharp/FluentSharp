@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.BCL", "O2.FluentSharp.BCL\O2.FluentSharp.BCL.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.BCL", "O2.FluentSharp.BCL\FluentSharp.BCL.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.CoreLib", "O2.FluentSharp.CoreLib\O2.FluentSharp.CoreLib.csproj", "{0A7CE0E0-B092-43B5-AB80-99BA909019C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.CoreLib", "O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj", "{0A7CE0E0-B092-43B5-AB80-99BA909019C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2.FluentSharp.REPL", "O2.FluentSharp.REPL\O2.FluentSharp.REPL.csproj", "{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.REPL", "O2.FluentSharp.REPL\FluentSharp.REPL.csproj", "{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FluentSharp - Main", "FluentSharp - Main", "{D6F3850C-4B6A-4BC3-A568-1D522A72B027}"
 EndProject
