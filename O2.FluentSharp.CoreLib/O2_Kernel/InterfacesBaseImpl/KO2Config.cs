@@ -216,7 +216,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 				try
 				{
 					var entryAssembly = Assembly.GetEntryAssembly();
-					if (entryAssembly.isNull() || entryAssembly.GetName().Name.contains("O2").isFalse()) // if the main Assembly is not called O2 (for example under VisualStudio), then use the location of this assembly (O2_FluentSharp_BCL) 
+					if (entryAssembly.isNull() || entryAssembly.GetName().Name.contains("O2").isFalse()) // if the main Assembly is not called O2 (for example under VisualStudio), then use the location of this assembly (FluentSharp.BCL) 
 						entryAssembly = Assembly.GetExecutingAssembly();
 					if (entryAssembly != null)
 					{

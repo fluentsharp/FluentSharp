@@ -30,7 +30,7 @@ namespace O2.Platform.BCL
             try
             {               
 
-                /*var o2Bcl = load_O2_Assembly("O2_FluentSharp_BCL.dll");
+                /*var o2Bcl = load_O2_Assembly("FluentSharp.BCL.dll");
                 var startO2_Type = o2Bcl.GetType("O2.Platform.BCL.Start_O2");
 
                 var startO2 = Activator.CreateInstance(startO2_Type);

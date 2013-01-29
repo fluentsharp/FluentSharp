@@ -100,8 +100,8 @@ namespace O2.External.SharpDevelop.AST
         public static void setDefaultReferencedAssemblies()
         {
             CompileEngine.DefaultReferencedAssemblies
-                            .add_OnlyNewItems("O2_FluentSharp_BCL.dll",                                                                
-                                              "O2_FluentSharp_REPL.exe",
+                            .add_OnlyNewItems("FluentSharp.BCL.dll",                                                                
+                                              "FluentSharp.REPL.exe",
 											  "O2_Platform_External_SharpDevelop.dll",
                                               "WeifenLuo.WinFormsUI.Docking.dll");                                     
         }                		
