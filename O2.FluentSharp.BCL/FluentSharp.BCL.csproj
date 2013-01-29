@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FluentSharp.BCL.nuspec" />
     <None Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
@@ -666,11 +667,6 @@
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="O2.FluentSharp.BCL.nuspec">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\SecretDataEditor.cs" />
     <None Include="Resources\btDragAssemblyCreated.Image.png" />
   </ItemGroup>
@@ -716,7 +712,7 @@
   <ItemGroup>
     <ProjectReference Include="..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>FluentSharp.CoreLib</Name>
+      <Name>O2.FluentSharp.CoreLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
