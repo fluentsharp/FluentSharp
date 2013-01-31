@@ -26,7 +26,7 @@ This is the FluentSharp REPL which provides a C# REPL enviroment (REPL is Read E
             <group targetFramework=".NETFramework3.5">
                 <dependency id="FluentSharp.BCL" />
                 <dependency id="FluentSharp.CoreLib"/>
-                <dependency id="O2_Platform_External_SharpDevelop"/>
+                <dependency id="O2.Platform.External.SharpDevelop"/>
             </group>
         </dependencies>
     </metadata>    
