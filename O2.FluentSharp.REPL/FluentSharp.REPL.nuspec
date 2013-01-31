@@ -27,6 +27,7 @@ This is the FluentSharp REPL which provides a C# REPL enviroment (REPL is Read E
                 <dependency id="FluentSharp.BCL" />
                 <dependency id="FluentSharp.CoreLib"/>
                 <dependency id="O2.Platform.External.SharpDevelop"/>
+                <dependency id="System.Windows.Forms"/>
             </group>
         </dependencies>
     </metadata>    
