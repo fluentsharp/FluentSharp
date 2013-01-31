@@ -92,17 +92,17 @@ namespace O2.Kernel.InterfacesBaseImpl
 
 			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
 			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
-
-			if (defaultLocalScriptFolder.size() > MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE)
-			{
-				"[downloadO2Scripts] defaultLocalScriptFolder path was more than 120 chars: {0}".error(defaultLocalScriptFolder);
-				var applicationData = getValidLocalSystemTempFolder();
-				var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.O2Version);
-				"[downloadO2Scripts] using as baseTempFolder: {0}".error(baseTempFolder);
-				defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
-				defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);
-				"[downloadO2Scripts] set LocalScriptsFolder to: {0}".info(defaultLocalScriptFolder);
-			}
+            if (O2ConfigSettings.checkForTempDirMaxSizeCheck)            
+			    if (defaultLocalScriptFolder.size() > MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE)
+			    {
+				    "[o2setup] defaultLocalScriptFolder path was more than 120 chars: {0}".debug(defaultLocalScriptFolder);
+				    var applicationData = getValidLocalSystemTempFolder();
+				    var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.o2Version);
+				    "[o2setup] using as baseTempFolder: {0}".debug(baseTempFolder);
+				    defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
+				    defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);
+				    //"[o2setup] set LocalScriptsFolder to: {0}".debug(defaultLocalScriptFolder);
+			    }
 		}
 
 		public string getValidLocalSystemTempFolder()

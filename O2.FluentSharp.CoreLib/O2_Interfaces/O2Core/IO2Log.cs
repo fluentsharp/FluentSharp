@@ -6,25 +6,15 @@ namespace O2.Interfaces.O2Core
     public interface IO2Log
     {
         IO2Log LogRedirectionTarget { get; set; }
-        bool alsoShowInConsole { get; set; }       
-        void i(string infoMessage);
-        void info(string infoMessage);
-        void info(string infoMessageFormat, params Object[] variables);
-        void d(string debugMessage);
-        void debug(string debugMessage);
-        void debug(string debugMessageFormat, params Object[] variables);
-        void e(string errorMessage);
-        void error(string errorMessage);
+        bool alsoShowInConsole { get; set; }                       
+        void info(string infoMessageFormat, params Object[] variables);                
+        void debug(string debugMessageFormat, params Object[] variables);                
         void error(string errorMessageFormat, params Object[] variables);
         void ex(Exception ex);
         void ex(Exception ex, string comment);
         void ex(Exception ex, bool showStackTrace);
-        void ex(Exception ex, string comment, bool showStackTrace);
-        void write(string message);
+        void ex(Exception ex, string comment, bool showStackTrace);        
         void write(string messageFormat, params Object[] variables);
-        //void showMessageBox(string message);        
-        //DialogResult showMessageBox(string message, string messageBoxTitle, MessageBoxButtons messageBoxButtons);
-        //void reportCriticalErrorToO2Developers(object currentObject, Exception ex, String sourceMessage);
         void logToChache(string text);
         
     }

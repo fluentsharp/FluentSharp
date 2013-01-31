@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Interfaces.O2Core;
 
 namespace O2.Kernel.InterfacesBaseImpl
@@ -16,7 +17,8 @@ namespace O2.Kernel.InterfacesBaseImpl
         
         public KO2Log()
         {
-			LogRedirectionTarget = new Logger_Memory();		// default to Log to memory
+			//LogRedirectionTarget = new Logger_Memory();		  // default to Log to memory
+            LogRedirectionTarget = new Logger_DiagnosticsDebug(); // log to diagnostics
         }
 
         public KO2Log(string _logHost)
@@ -28,20 +30,6 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
             LogRedirectionTarget = _logRedirectionTarget;
         }
-
-        #region IO2Log Members
-
-        public void i(string infoMessage)
-        {
-            info(infoMessage);
-        }
-
-        public void info(string infoMessage)
-        {
-            info("{0}", infoMessage);
-            //Debug._Info(infoMessage);            
-        }
-
         public void info(string infoMessageFormat, params Object[] variables)
         {
             if (LogRedirectionTarget != null)
@@ -49,17 +37,6 @@ namespace O2.Kernel.InterfacesBaseImpl
             else
                 writeToDebug("[Info]: " + infoMessageFormat, variables);            
         }
-
-        public void d(string debugMessage)
-        {
-            debug(debugMessage);
-        }
-
-        public void debug(string debugMessage)
-        {
-            debug("{0}", debugMessage);            
-        }
-
         public void debug(string debugMessageFormat, params Object[] variables)
         {
             if (LogRedirectionTarget != null)
@@ -67,18 +44,6 @@ namespace O2.Kernel.InterfacesBaseImpl
             else
                 writeToDebug("[Debug]: " + debugMessageFormat, variables);            
         }
-
-        public void e(string errorMessage)
-        {
-            error(errorMessage);
-        }
-
-        public void error(string errorMessage)
-        {
-            error("{0}", errorMessage);
-            //PublicDI.log.error(errorMessage);
-        }
-
         public void error(string errorMessageFormat, params Object[] variables)
         {
             if (LogRedirectionTarget != null)
@@ -86,25 +51,21 @@ namespace O2.Kernel.InterfacesBaseImpl
             else
                 writeToDebug("[Error]: " + errorMessageFormat, variables);            
         }
-
         public void ex(Exception exception)
         {
             ex(exception, "", false);
             //PublicDI.log.ex(ex);
         }
-
         public void ex(Exception exception, string comment)
         {
             ex(exception, comment, false);
             //PublicDI.log.ex(ex, message);
         }
-
         public void ex(Exception exception, bool showStackTrace)
         {
             ex(exception, "", showStackTrace);
             //PublicDI.log.ex(ex, showStackTrace);
         }
-
         public void ex(Exception exception, string comment, bool showStackTrace)
         {
             if (LogRedirectionTarget != null)
@@ -131,64 +92,13 @@ namespace O2.Kernel.InterfacesBaseImpl
             else
                 writeToDebug(messageFormat, variables);
         }
-
-        public void write(string message)
-        {
-            if (LogRedirectionTarget != null)
-                LogRedirectionTarget.write(message);
-            else
-                writeToDebug("{0}", message);
-        }
-
-/*        public virtual void showMessageBox(string message)
-        {
-            if (LogRedirectionTarget != null)
-                LogRedirectionTarget.showMessageBox(message);
-            else
-                showMessageBox(message, "O2 Kernel Error", MessageBoxButtons.OK);                
-        }
-
-        public DialogResult showMessageBox(string message, string messageBoxTitle,
-                                                  MessageBoxButtons messageBoxButtons)
-        {
-            if (LogRedirectionTarget != null)
-                return LogRedirectionTarget.showMessageBox(message, messageBoxTitle, messageBoxButtons);
-
-            return MessageBox.Show(message, messageBoxTitle, messageBoxButtons); 
-        }*/
-
-/*        public virtual void reportCriticalErrorToO2Developers(object currentObject, Exception ex, string sourceMessage)
-        {
-            if (LogRedirectionTarget != null)
-                LogRedirectionTarget.reportCriticalErrorToO2Developers(currentObject, ex, sourceMessage);
-            else
-            {
-                var errorMessage = new StringBuilder();
-                errorMessage.AppendLine("KLOG ERROR: in reportCriticalErrorToO2Developers: " + sourceMessage + " \n\n");
-                if (currentObject != null)
-                    errorMessage.AppendFormat("current Object: {0}\n\n", currentObject);
-                error("source message {0}", sourceMessage);
-                if (ex != null)
-                {
-                    errorMessage.AppendFormat("Exception message: {0}\n\n", ex.Message);
-                    errorMessage.AppendFormat("Exception StackTrace: {0}\n\n", ex.StackTrace);
-                    if (ex.InnerException != null)
-                        errorMessage.AppendFormat("   Inner Exception message: {0}\n\n", ex.InnerException.Message);
-                }
-                showMessageBox(errorMessage.ToString());
-            }
-        }*/
-
         public void logToChache(string text)
         {
             info("[logToChache] {0}",text);
         }
-
-        #endregion
-
         private void writeToDebug(string messageFormat, params Object[] variables)
         {
-            var message = string.Format(messageFormat, variables);
+            var message = messageFormat.format(variables);
             if (messageFormat.IndexOf("[Error]") > -1)
                 Debug.WriteLine("[O2 Kernel msg][ERROR RECEIVED]*******:");
             Debug.WriteLine("[O2 Kernel msg]" + message);

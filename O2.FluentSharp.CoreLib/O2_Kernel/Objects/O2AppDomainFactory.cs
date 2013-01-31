@@ -263,9 +263,9 @@ namespace O2.Kernel.Objects
             }
             catch (Exception ex)
             {
-                PublicDI.log.ex(ex, "error creating: " + typeOfProxyToCreate);
+                ex.log("error creating: " + typeOfProxyToCreate);
             }
-            PublicDI.log.e("could not create object: " + typeOfProxyToCreate);
+            "could not create object: ".error(typeOfProxyToCreate);
             return null;
         }        
         /// Syntax:   getProxyObject({type} {assembly})  or getProxyType({type}}        
@@ -283,7 +283,7 @@ namespace O2.Kernel.Objects
                     if (proxy != null)
                         return proxy;
                 }
-                PublicDI.log.e("could not create object: " + rawTypeOfProxyToCreate);
+                "could not create object: ".error(rawTypeOfProxyToCreate);
             }
             catch (Exception ex)
             {

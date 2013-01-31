@@ -38,8 +38,7 @@ namespace O2.Kernel
             reflection = new KReflection();            
 
             O2KernelProcessName = "Generic O2 Kernel Process";
-            AppDomainUtils.registerCurrentAppDomain();
-            O2_at_GitHub.configureReferencesDownloadLocations();
+            AppDomainUtils.registerCurrentAppDomain();            
 
             sDefaultFileName_ReportBug_LogView = "ReportBug_LogView.Rtf";
             sDefaultFileName_ReportBug_ScreenShotImage = "ReportBug_ScreenShotImage.bmp";
