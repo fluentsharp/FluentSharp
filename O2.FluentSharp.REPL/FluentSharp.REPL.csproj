@@ -55,12 +55,19 @@
     <ApplicationIcon>H2Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentSharp.BCL, Version=5.0.1.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.5.0.44\lib\net35\FluentSharp.BCL.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentSharp.CoreLib, Version=5.0.1.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.CoreLib.5.0.44\lib\net35\FluentSharp.CoreLib.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="O2_Platform_External_SharpDevelop">
-      <HintPath>..\packages\O2.Platform.External.SharpDevelop.5.0.3.0\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
+    <Reference Include="O2_Platform_External_SharpDevelop, Version=5.0.4.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\O2.Platform.External.SharpDevelop.5.0.8\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
     </Reference>
     <Reference Include="QuickGraph">
       <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
@@ -282,18 +289,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TmpKey.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>FluentSharp.BCL</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>FluentSharp.CoreLib</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
