@@ -161,6 +161,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
+    <Compile Include="launch.cs" />
     <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
     <None Include="DI.cs.txt" />

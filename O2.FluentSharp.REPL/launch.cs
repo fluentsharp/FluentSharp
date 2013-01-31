@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
-using O2.DotNetWrappers.ExtensionMethods;
+﻿using O2.XRules.Database;
 
-namespace O2.Kernel
+namespace O2.FluentSharp.REPL
 {
-    public class launch
+    public class O2Launch
     {
-        public static string O2_Execution_Folder { get; set; }
+        //public static string O2_Execution_Folder { get; set; }
 
-        static launch()
+        /*static O2Launch()
         {
             O2_Execution_Folder = AppDomain.CurrentDomain.BaseDirectory;
-        }
+        }*/
 
         public static void o2Gui(string[] args)
         {
-            var assembly = "O2_FluentSharp_REPL.exe".assembly();
-            var type = assembly.type("ascx_Execute_Scripts");
-            type.invokeStatic("startControl_With_Args",new object[] { args});
+            //var assembly = "O2_FluentSharp_REPL.exe".assembly();
+            //var type = assembly.type("ascx_Execute_Scripts");
+            //type.invokeStatic("startControl_With_Args",new object[] { args});
+            ascx_Execute_Scripts.startControl_With_Args(args);
         }
 
 /*        public static Assembly load_O2_Assembly(string assemblyName)

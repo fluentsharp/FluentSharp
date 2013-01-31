@@ -19,7 +19,7 @@ namespace O2.FluentSharp.REPL
         public static void start(string[] args)
         {
             if (args.size() > 0)
-                launch.o2Gui(args);
+                O2Launch.o2Gui(args);
             else
                 open.scriptEditor();
             
