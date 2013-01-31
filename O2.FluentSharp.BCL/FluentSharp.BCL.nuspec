@@ -17,6 +17,9 @@
     <tags>Fluent OWASP O2Platform Security</tags>
     <dependencies>
       <dependency id="FluentSharp.CoreLib" />
-    </dependencies>    
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework="" />
+    </frameworkAssemblies>
   </metadata>  
 </package>
