@@ -95,7 +95,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static O2Proxy				executeScript(this O2Proxy o2Proxy, string scriptToExecute)
         {
-            o2Proxy.staticInvocation("O2_FluentSharp_REPL", "FastCompiler_ExtensionMethods", "executeSourceCode", new object[] { scriptToExecute });
+            o2Proxy.staticInvocation("FluentSharp.REPL", "FastCompiler_ExtensionMethods", "executeSourceCode", new object[] { scriptToExecute });
             return o2Proxy;
         }
         public static string				execute_InScriptEditor_InSeparateAppDomain(this string scriptToExecute)

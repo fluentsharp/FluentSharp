@@ -106,7 +106,7 @@ namespace O2.DotNetWrappers.DotNet
             else
                 if (PublicDI.config.CurrentExecutableDirectory.IndexOf(@"Program Files\O2 - Ounce Open") > -1)
                     executionMode = "MSI install";         
-            return String.Format("{0}  ({1})", sFormName, executionMode);
+            return "{0}  ({1})".format(sFormName, executionMode);
             // removing the System.Deployment reference so that we can run this on Mono
             // need to find another way to detect ClickOnce deployment and the current version (above is a sort of hacked way)
             //   if (ApplicationDeployment.IsNetworkDeployed)

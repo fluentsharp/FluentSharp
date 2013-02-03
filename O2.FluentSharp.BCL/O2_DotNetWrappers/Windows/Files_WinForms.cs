@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.O2Misc;
 using O2.Kernel;
 using System.Windows.Forms;
@@ -76,7 +77,7 @@ namespace O2.DotNetWrappers.Windows
         public static bool deleteFiles(List<string> filesToDelete, bool askUserForConfirmation)
         {
             if (DialogResult.Yes == MessageBox.Show(
-                                        String.Format("Are you sure you want to delete {0} file(s)", filesToDelete.Count),
+                                        "Are you sure you want to delete {0} file(s)".format(filesToDelete.Count),
                                         "Delete Files", MessageBoxButtons.YesNo))
             {
                 PublicDI.log.debug("Deleting {0} files", filesToDelete.Count);

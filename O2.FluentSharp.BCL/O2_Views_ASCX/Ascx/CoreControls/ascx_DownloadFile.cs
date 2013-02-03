@@ -174,7 +174,7 @@ namespace O2.Views.ASCX.CoreControls
             }
             catch (Exception ex)
             {
-                string message = string.Format("in Download: {0} (for request:{1})", ex.Message, txtUrl.Text);
+                string message = "in Download: {0} (for request:{1})".format(ex.Message, txtUrl.Text);
                 lblProgress.invokeOnThread(() =>
                                                {
                                                    lblProgress.Text = message;

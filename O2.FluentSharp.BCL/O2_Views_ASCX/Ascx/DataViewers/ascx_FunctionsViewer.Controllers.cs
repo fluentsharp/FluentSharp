@@ -514,7 +514,7 @@ namespace O2.Views.ASCX.DataViewers
                         var numberOfUniqueStrings = lsList.Count();
                         if (numberOfUniqueStrings > iMaxItemsToShow)
                         {
-                            var message = string.Format("This view has more items that the current MaxToView. only showing the first {0} out of {1}", iMaxItemsToShow, numberOfUniqueStrings);
+                            var message = "This view has more items that the current MaxToView. only showing the first {0} out of {1}".format(iMaxItemsToShow, numberOfUniqueStrings);
                             PublicDI.log.error(message);
                             targetTreeView.add_Node(message);                            
                         }

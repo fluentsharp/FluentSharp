@@ -178,8 +178,7 @@ namespace O2.Views.ASCX.CoreControls
                                     if (viewFilter == "" || RegEx.findStringInString(file, viewFilter))
                                     {
                                         var fileSize = (cbShowFileSizes.Checked)
-                                                           ? string.Format("  :  {0:#,###,###.0} kb",
-                                                                           (Files_WinForms.getFileSize(file) / (double)1024))
+                                                           ? "  :  {0:#,###,###.0} kb".format(Files_WinForms.getFileSize(file) / (double)1024)
                                                            : "";
                                         var nodeText = Path.GetFileName(file) + fileSize;
                                         var newNode = O2Forms.newTreeNode(nodeText, file, fileIcon, file);
@@ -195,10 +194,10 @@ namespace O2.Views.ASCX.CoreControls
                                 totalFilesSizeInMb += filesSizeInMb;
 
                                 var filesSizeText = (cbShowFileSizes.Checked)
-                                                        ? string.Format("  :  {0:#,###,###.0} Mb", filesSizeInMb)
+                                                        ? "  :  {0:#,###,###.0} Mb".format(filesSizeInMb)
                                                         : "";
 
-                                extensionNode.Text = string.Format("{0}  ({1} files) {2}", extension,
+                                extensionNode.Text = "{0}  ({1} files) {2}".format(extension,
                                                                    mappingsOfLoadedFiles[extension].Count, filesSizeText);
                                 //tvFileMappings.Nodes.Add(extensionNode);                            
                                 tempTreeNodeCollection.Add(extensionNode);
@@ -222,8 +221,7 @@ namespace O2.Views.ASCX.CoreControls
                                               tvFileMappings.Nodes.AddRange(tempTreeNodeCollection.ToArray());
                                               applyColorsToRootNodes();
                                               tvFileMappings.Visible = true;
-                                              lbSelectedFile.Text = string.Format("Size:  {0:#,###,###.0} Mb",
-                                                                                  totalFilesSizeInMb);
+                                              lbSelectedFile.Text = "Size:  {0:#,###,###.0} Mb".format(totalFilesSizeInMb);
                                               lbStatus.Text = "Load Complete";
 
                                               setLbNumberOfFilesSelectedText();

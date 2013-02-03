@@ -1,6 +1,5 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,7 +10,6 @@ using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Network;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
-using O2.Views.ASCX.Forms;
 using O2.DotNetWrappers.DotNet;
 using System.Threading;
 
@@ -22,17 +20,9 @@ namespace O2.Views.ASCX.classes.MainGUI
     /// </summary>    
     public class DebugMsg
     {
-        /*#region Delegates
-
-        public delegate void dDelegateForInsertText(String sText, Color cColour);
-
-        #endregion*/
         public static int DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY = 20;
-		public static int DEBUG_MSG_TIMEOUT_THREAD_WRITE_ = 3 * 1000;
-        //internal static bool bAlsoSendMessageToDebugView;
-
+		public static int DEBUG_MSG_TIMEOUT_THREAD_WRITE_   = 3 * 1000;        
         public static bool bLogCache; // use when we want to keep a log of particular errors
-
         public static bool bShowDebug = true;
         public static bool bShowError = true;
         public static bool bShowInfo = true;
@@ -41,22 +31,12 @@ namespace O2.Views.ASCX.classes.MainGUI
         public static bool bUseShortTimeFormat = false;
         public static bool showMessages = true;
         public static bool criticalErrorHasBeenHandled;
-
-        public static StringBuilder sbLogCache = new StringBuilder();
-        // use for errors thrown before the richtextbox is loaded
-
+        public static StringBuilder sbLogCache = new StringBuilder();        // use for errors thrown before the richtextbox is loaded
         public static Stream sOutputStream;
         public static bool sShowStreamWithHtmlFormating;
         public static List<RichTextBox> targetRichTextBoxes = new List<RichTextBox>();
         public static Queue<MessageWithColor> messagesToWrite = new Queue<MessageWithColor>();
         public static Thread activeShowThread; 
-        
-
-        /// <summary>
-        /// use to set the RichTextObject to use when displaying log messages
-        /// </summary>
-        /// <see cref="http://www.o--2.org"/>
-        /// <param name="rtrObject"></param>
         public static void setRtbObject(RichTextBox rtrObject)
         {
             try
@@ -82,19 +62,14 @@ namespace O2.Views.ASCX.classes.MainGUI
                 {
                 };*/
 
-                rtrObject.HandleDestroyed += (sender, e) =>
-                {
-                    DebugMsg.removeRtbObject(rtrObject);
-                };
+                rtrObject.HandleDestroyed += (sender, e) => removeRtbObject(rtrObject);
                 startShowThread();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("[DebugMsg] error in setRtbObject: {0}".format(ex.Message));
             }
-        }
-
-        
+        }        
         public static void startShowThread()
         {
             if (targetRichTextBoxes.notEmpty() && activeShowThread.isNull())
@@ -103,7 +78,6 @@ namespace O2.Views.ASCX.classes.MainGUI
                 activeShowThread = O2Thread.mtaThread(showLoop); 
             }
         }
-
         public static void showLoop()
         {
             //"[DebugMsg] Starting DebugMsg ShowLoop".info();
@@ -111,7 +85,7 @@ namespace O2.Views.ASCX.classes.MainGUI
             {
 				
 				if (messagesToWrite.empty())
-					Thread.Sleep(DebugMsg.DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY);
+					Thread.Sleep(DEBUG_MSG_WAIT_FOR_MESSAGES_DELAY);
 				else
 				{
 					var nextMessage = messagesToWrite.next();
@@ -123,7 +97,6 @@ namespace O2.Views.ASCX.classes.MainGUI
             activeShowThread = null;
             //"[DebugMsg] Ended DebugMsg ShowLoop".info();
         }
-
         public static void writeMessageToRichTextBoxes(MessageWithColor messageWithColor)
         {
             if(messageWithColor.notNull())
@@ -147,13 +120,12 @@ namespace O2.Views.ASCX.classes.MainGUI
                         if (sOutputStream != null)
                         {
                             if (sShowStreamWithHtmlFormating)
-                                sText = String.Format("<span style=\"color: {0}\">{1}</text><br/>", cColour.Name, sText);
-                            byte[] bASCIIString = Encoding.ASCII.GetBytes(sText);
-                            sOutputStream.Write(bASCIIString, 0, bASCIIString.Length);
+                                sText = "<span style=\"color: {0}\">{1}</text><br/>".format(cColour.Name, sText);
+                            var bAsciiString = Encoding.ASCII.GetBytes(sText);
+                            sOutputStream.Write(bAsciiString, 0, bAsciiString.Length);
                         }
                         return;
-                    }
-                    string sText1 = sText;
+                    }                    
                     if (bShowTimeStamp)
                         if (bUseShortTimeFormat)
                             sText = "[" + DateTime.Now.ToShortTimeString() + "] " + sText;
@@ -219,9 +191,7 @@ namespace O2.Views.ASCX.classes.MainGUI
                 Debug.WriteLine("ERROR IN DebugMsg (2/3): original message: " + sText);
                 Debug.WriteLine("ERROR IN DebugMsg (2/3): Stack Trace" + ex.StackTrace);
             }
-        }
-    
-
+        }    
         public static void stopShowThread()
         {
             //"[DebugMsg] stopShowThread received".error();			
@@ -232,48 +202,26 @@ namespace O2.Views.ASCX.classes.MainGUI
             foreach (RichTextBox richTextBox in targetRichTextBoxes)
                 richTextBox.set_Text(text);
         }
-
         public static List<RichTextBox> getRtbObject()
         {
             return targetRichTextBoxes;
-        }
-
-        public static void _Info(String sInfoMessage)
-        {
-            if (bShowInfo)
-                insertText("INFO: " + sInfoMessage, Color.Black);
-        }
-
+        }        
         public static void _Info(String sFormat, params Object[] oArgs)
         {
             if (bShowInfo)
-                    insertText("INFO: " + String.Format(sFormat, oArgs), Color.Black);
+                    insertText("INFO: " + sFormat.format(oArgs), Color.Black);
         }
-
-        public static void _Debug(String sInfoMessage)
-        {
-            if (bShowDebug)
-                insertText("DEBUG: " + sInfoMessage, Color.Green);
-        }
-
         public static void _Debug(String sFormat, params Object[] oArgs)
         {
             if (bShowDebug)
-                insertText("DEBUG: " + String.Format(sFormat, oArgs), Color.Green);
+                insertText("DEBUG: " + sFormat.format(oArgs), Color.Green);
         }
-
-        public static void _Error(String sInfoMessage)
-        {
-            if (bShowError)
-                insertText("ERROR: " + sInfoMessage, Color.Red);
-        }
-
         public static void _Error(String sFormat, params Object[] oArgs)
         {
             try
             {
                 if (bShowError)
-                    insertText("ERROR: " + String.Format(sFormat, oArgs), Color.Red);
+                    insertText("ERROR: " + sFormat.format(oArgs), Color.Red);
             }
             catch 
             {
@@ -283,43 +231,27 @@ namespace O2.Views.ASCX.classes.MainGUI
                     insertText("ERROR: in _Error function", Color.Red);
             }
         }
-        /// <summary>
-        /// add to messagesToWrite which will be handled by a separate thread
-        /// </summary>
-        /// <param name="sText"></param>
-        /// <param name="cColour"></param>
         public static void insertText(String sText, Color cColour)
         {
             messagesToWrite.add(new MessageWithColor { message = sText, color = cColour });
         }
-
         public static void showNow(String sMessage)
         {
             _Info("{0} {1}", sMessage, DateTime.Now.ToLongTimeString());
             Application.DoEvents();
         }
-
         public static void clearText()
         {
             setRichTextBoxesText("");
         }
-
         public static RichTextBox getFirstRtbObject()
         {
             return (targetRichTextBoxes.Count == 0) ? null : targetRichTextBoxes[0];
         }
-
-        /*public static String getText()
-        {
-            return rtbDebugMsg.Text;
-        }*/
-
-
         public static void setLogCacheStatus(bool bNewLogCacheStatus)
         {
             bLogCache = bNewLogCacheStatus;
         }
-
         public static String getLogCacheContents(bool bClearIt)
         {
             String sLogCacheContents = sbLogCache.ToString();
@@ -327,7 +259,6 @@ namespace O2.Views.ASCX.classes.MainGUI
                 sbLogCache = new StringBuilder();
             return sLogCacheContents;
         }
-
         public static void saveLogIntoFile(String sFileToSave)
         {
             if (sbLogCache.Length == 0)
@@ -339,38 +270,30 @@ namespace O2.Views.ASCX.classes.MainGUI
                 sbLogCache = new StringBuilder();
             }
         }
-
         public static DialogResult showMessageBox(string message)
         {
             return showMessageBox(message, "O2 Message", MessageBoxButtons.OK);
         }
-
-        public static DialogResult showMessageBox(string message, string messageBoxTitle,
-                                                  MessageBoxButtons messageBoxButtons)
+        public static DialogResult showMessageBox(string message, string messageBoxTitle, MessageBoxButtons messageBoxButtons)
         {
             return MessageBox.Show(message, messageBoxTitle, messageBoxButtons);
         }
-
         public static void debugBreak()
         {
             Debugger.Break();
         }
-
         public static void LogException(Exception ex)
         {
             LogException(ex, false);
         }
-
         public static void LogException(Exception ex, bool showStackTrace)
         {
             LogException(ex, "Exception:", showStackTrace);
         }
-
         public static void LogException(Exception ex, String text)
         {
             LogException(ex, text, false);
         }
-
         public static void LogException(Exception ex, String text, bool showStackTrace)
         {
             if (ex != null)
@@ -382,50 +305,13 @@ namespace O2.Views.ASCX.classes.MainGUI
             }
             //_Error("     InnerException: {0}", ex.InnerException.Message);            
         }      
-
         public static void removeRtbObject(RichTextBox rtbToRemove)
         {
             if (targetRichTextBoxes.Contains(rtbToRemove))
                 targetRichTextBoxes.Remove(rtbToRemove);
             if (targetRichTextBoxes.empty())
                 stopShowThread();
-        }
-
-/*        public static void reportCriticalErrorToO2Developers(object currentObject, Exception ex, String sourceMessage)
-        {
-            if (criticalErrorHasBeenHandled) // since we only want to this for the first critical error that we get
-                return;
-            criticalErrorHasBeenHandled = true;
-            showMessageBox(
-                "We sorry but a critical error has occured and O2 will have to close now :( . " + Environment.NewLine +
-                Environment.NewLine +
-                " Please use the next form to report this bug and explain as much as possible what youdid that (may have) caused this problem. \n\nThanks");
-            String errorMessage =
-                String.Format(
-                    "Critial error in O2 Main Form : " + Environment.NewLine + Environment.NewLine + " Message: {0} " +
-                    Environment.NewLine + Environment.NewLine + " Exception: {1}" + Environment.NewLine +
-                    Environment.NewLine + " StackTrace: {2} ", sourceMessage, ex.Message,
-                    ex.StackTrace);
-
-            // PublicDI.log.error(errorMessage);
-            reportCriticalErrorToO2Developers(PublicDI.CurrentGUIHost, "O2 GUI Crash", errorMessage);
-            //DebugMsg.showMessageBox(errorMessage + "\n\n" + ex.StackTrace+ "\n\n");
-            Application.Exit();
-        }
-
-
-        public static DialogResult reportCriticalErrorToO2Developers(object currentObject, string subject,
-                                                                     string message)
-        {
-            var rpReportBug = new ReportBug();
-            rpReportBug.setFromEmail("o2User@ouncelabs.com");
-            rpReportBug.setSubject("[CRITICAL O2 ERROR] " + currentObject);
-            rpReportBug.setMessage(Mail.getUserDetailsAsEmailFormat() + " says:" + Environment.NewLine + subject +
-                                   Environment.NewLine + Environment.NewLine + message);
-            return rpReportBug.ShowDialog();         
-        }*/
-        
-
+        }      
         public static List<String> createAttachmentsForRemoteSupport(RichTextBox logViewContentsToSend, PictureBox screenShotToSend)
         {
             String sFile_LogViews = PublicDI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_LogView;
@@ -433,9 +319,6 @@ namespace O2.Views.ASCX.classes.MainGUI
             String sFile_ScreenShot = PublicDI.config.TempFileNameInTempDirectory + "_" + PublicDI.sDefaultFileName_ReportBug_ScreenShotImage + ".Jpeg";
             return Main_WinForms.createAttachmentsForRemoteSupport(logViewContentsToSend, screenShotToSend, sFile_LogViews, sFile_LogViewsTxt, sFile_ScreenShot);
         }
-
-
-
         public static bool IsDebuggerAttached()
         {
             return Debugger.IsAttached;

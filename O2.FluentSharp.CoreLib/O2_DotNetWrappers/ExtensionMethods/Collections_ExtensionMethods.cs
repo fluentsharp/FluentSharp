@@ -414,6 +414,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static bool      empty(this ICollection colection)
         {
+            if (colection.isNull())
+                return true;
             return colection.size() < 1;
         }
         public static bool      notEmpty(this ICollection colection)

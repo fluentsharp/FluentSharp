@@ -162,7 +162,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static TextBox   append_Line(this TextBox textBox, string textFormat, params object[] parameters)
         {
-            textBox.append_Line(string.Format(textFormat, parameters));
+            textBox.append_Line(textFormat.line().format(parameters));
             return textBox;
         }
         public static TextBox   append_Line(this TextBox textBox, string text)

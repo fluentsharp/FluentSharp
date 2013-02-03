@@ -39,7 +39,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                               timeElapsed += 1;                              
                               Threads_ExtensionMethods.invokeOnThread(progressBar, () =>
                                                                                {
-                                                                                   lbTimeElapsed.Text = String.Format("{0} Sec", timeElapsed);
+                                                                                   lbTimeElapsed.Text = "{0} Sec".format(timeElapsed);
                                                                                    progressBar.Value++;                                                                                    
                                                                                    if (progressBar.Value >= progressBar.Maximum)
                                                                                        progressBar.Value = 0;

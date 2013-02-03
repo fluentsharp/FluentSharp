@@ -27,8 +27,7 @@ namespace O2.FluentSharp.REPL
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
             if (assembly == null)
-                assembly = getAssemblyfromResources("FluentSharp.CoreLib.dll");
-          //  assembly = Assembly.Load("O2_FluentSharp_CoreLib");
+                assembly = getAssemblyfromResources("FluentSharp.CoreLib.dll");          
         }
         
 

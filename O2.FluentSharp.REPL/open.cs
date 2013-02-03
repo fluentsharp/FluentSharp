@@ -115,11 +115,7 @@ namespace O2.Kernel
         public static ascx_O2ObjectModel o2ObjectModel()
         {
             return "O2 Object Model".popupWindow(500, 400)
-                                    .add_Control<ascx_O2ObjectModel>();
-
-			//var graphControlType = "O2_FluentSharp_BCL.dll".type("ascx_O2ObjectModel");
-            //return graphControlType.openControlAsForm("O2 Object Model", 500, 400);
-        
+                                    .add_Control<ascx_O2ObjectModel>();        
         }
 
         public static ascx_Panel_With_Inspector scriptEditor()

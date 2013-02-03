@@ -314,8 +314,7 @@ namespace O2.DotNetWrappers.Windows
                                 dgvDataGridView_Results.Visible = false;
                             if (null == oInvocationResult)
                             {
-                                tbTextBox_Results.Text = String.Format("Info: Method {0} executed sucessfull",
-                                                                       mMethod.Name);
+                                tbTextBox_Results.Text = "Info: Method {0} executed sucessfull".format(mMethod.Name);
                                 tbTextBox_Results.Visible = true;
                             }
                             else
@@ -335,7 +334,7 @@ namespace O2.DotNetWrappers.Windows
                                         :
                                         var lResults = (List<String>) oInvocationResult;
                                         if (lResults.Count == 0)
-                                            String.Format("Info: the List<String> returned had no items");
+                                            "Info: the List<String> returned had no items".format();
                                         else
                                         {
                                             tbTextBox_Results.Text = "";

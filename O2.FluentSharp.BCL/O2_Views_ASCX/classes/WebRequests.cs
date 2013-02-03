@@ -34,7 +34,7 @@ namespace O2.Views.ASCX.classes
             O2Thread.mtaThread(
                 () =>
                     {
-                        var windowTitle = string.Format("{0} : {1}", "Download File", sFileToDownload);
+                        var windowTitle = "{0} : {1}".format("Download File", sFileToDownload);
                         O2Messages.openControlInGUISync(typeof (ascx_DownloadFile), O2DockState.Float, windowTitle);
 
                         O2Messages.getAscx(windowTitle,

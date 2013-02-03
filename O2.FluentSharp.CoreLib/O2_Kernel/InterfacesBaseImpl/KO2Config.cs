@@ -97,7 +97,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 			    {
 				    "[o2setup] defaultLocalScriptFolder path was more than 120 chars: {0}".debug(defaultLocalScriptFolder);
 				    var applicationData = getValidLocalSystemTempFolder();
-				    var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.o2Version);
+				    var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.O2Version);
 				    "[o2setup] using as baseTempFolder: {0}".debug(baseTempFolder);
 				    defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
 				    defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);

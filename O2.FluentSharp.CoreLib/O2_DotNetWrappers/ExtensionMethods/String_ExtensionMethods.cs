@@ -171,7 +171,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             if (format == null)
                 return "";
-            if (parameters == null)
+            if (parameters.empty())
                 return format;
             try
             {
@@ -179,7 +179,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             catch (Exception ex)
             {
-                ex.log("error applying string format: " + format ?? "[null]");
+                ex.log("error applying string format: " + format);
                 return "";
             }
         }
@@ -215,18 +215,26 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static string    line(this string firstString, string secondString)
         {
+            if (firstString.isNull())
+                return secondString;
             return firstString.line() + secondString;
         }
         public static string    line(this string firstString)
         {
+            if (firstString.isNull())
+                return Environment.NewLine;
             return firstString + Environment.NewLine;
         }
         public static string    lineBefore(this string targetString)
         {
+            if (targetString.isNull())
+                return Environment.NewLine;
             return Environment.NewLine + targetString;
         }
         public static string    lineBeforeAndAfter(this string targetString)
         {
+            if (targetString.isNull())
+                return Environment.NewLine;
             return Environment.NewLine + targetString + Environment.NewLine;
         }
 

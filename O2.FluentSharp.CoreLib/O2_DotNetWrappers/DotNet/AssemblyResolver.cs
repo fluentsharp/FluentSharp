@@ -121,8 +121,8 @@ namespace O2.DotNetWrappers.DotNet
                         // if(currentAssembly.name().starts("O2"))                               // it shouldn't have a big performance hit to look in all assemblies
                     foreach (var resourceName in currentAssembly.GetManifestResourceNames())
                     {
-                        if (resourceName.lower().contains(nameToFind.lower()) &&
-                            (resourceName.extension(".dll") || resourceName.extension(".exe")))
+                        if (resourceName.lower().contains(nameToFind.lower() + ".dll") || 
+                            resourceName.lower().contains(nameToFind.lower() + ".exe"))                            
                         {
                             "Found resource for {0} at {1} in {2}".info(name, resourceName, currentAssembly.name());
                             var assemblyStream = currentAssembly.GetManifestResourceStream(resourceName);

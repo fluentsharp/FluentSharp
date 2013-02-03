@@ -13,7 +13,7 @@ namespace O2.FluentSharp.REPL
 
         public static void o2Gui(string[] args)
         {
-            //var assembly = "O2_FluentSharp_REPL.exe".assembly();
+            //var assembly = "FluentSharp.REPL.exe".assembly();
             //var type = assembly.type("ascx_Execute_Scripts");
             //type.invokeStatic("startControl_With_Args",new object[] { args});
             ascx_Execute_Scripts.startControl_With_Args(args);

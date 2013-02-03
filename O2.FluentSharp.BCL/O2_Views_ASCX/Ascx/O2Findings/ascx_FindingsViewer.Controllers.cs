@@ -212,7 +212,7 @@ namespace O2.Views.ASCX.O2Findings
                 if (o2Finding.o2Traces.Count > 0)
                     numberOfTraces++;
             //timer.stop();
-            return string.Format("loaded:{0}, after text filter:{1} ({2} traces) ", numberOfFindingsLoaded, numberOfFindingsInTreeView,numberOfTraces);
+            return "loaded:{0}, after text filter:{1} ({2} traces) ".format(numberOfFindingsLoaded, numberOfFindingsInTreeView,numberOfTraces);
         }
         
 
@@ -256,7 +256,7 @@ namespace O2.Views.ASCX.O2Findings
                 // add child node count
                 if (childNodes.Count > 0)
                 {
-                    treeNode.Text += string.Format("  ({0})", childNodes.Count);
+                    treeNode.Text += "  ({0})".format(childNodes.Count);
                     treeNode.Nodes.Add("Dummy node"); // so that we get the + sign
                     tvFindings.Nodes.Add(treeNode);
                 }
@@ -303,14 +303,14 @@ namespace O2.Views.ASCX.O2Findings
 
                     case "o2Traces":
                         var allO2Traces = OzasmtUtils.getAllTraces(o2Finding.o2Traces);
-                        return (allO2Traces.Keys.Count > 0) ? string.Format("# nodes: {0}", allO2Traces.Keys.Count) : "";
+                        return (allO2Traces.Keys.Count > 0) ? "# nodes: {0}".format(allO2Traces.Keys.Count) : "";
 
                     default:
                         nodeText = PublicDI.reflection.getProperty(propertyToUse, o2Finding).ToString();
                         break;
                 }
                 if (nodeText != "")
-                    if (RegEx.findStringInString(nodeText, filterToUse) || nodeText.IndexOf(filterToUse) > -1)
+                    if (RegEx.findStringInString(nodeText, filterToUse) || nodeText.index(filterToUse) > -1)
                         return nodeText;
                     else
                         return "";

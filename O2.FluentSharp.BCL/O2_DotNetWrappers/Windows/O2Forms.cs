@@ -367,9 +367,8 @@ namespace O2.DotNetWrappers.Windows
                             {
                                 if (bShowFileSize)
                                     tvTargetTreeView.Nodes.Add(
-                                        newTreeNode(
-                                            String.Format("{0}     :     {1}k", Path.GetFileName(sFile),
-                                                          Files_WinForms.getFileSize(Path.Combine(sDirectoryToProcess, sFile)) / 1024),
+                                        newTreeNode("{0}     :     {1}k".format(Path.GetFileName(sFile),
+                                                                                Files_WinForms.getFileSize(Path.Combine(sDirectoryToProcess, sFile)) / 1024),
                                             sFile, 1, sFile));
                                 else
                                     tvTargetTreeView.Nodes.Add(newTreeNode(Path.GetFileName(sFile), sFile, 1, sFile));
@@ -707,7 +706,7 @@ namespace O2.DotNetWrappers.Windows
             {
                 string extension = Path.GetExtension(proposedFile);
                	var openFileDialog = new SaveFileDialog();
-				openFileDialog.Filter = string.Format("{0} files (*{0})|*{0}", extension);
+				openFileDialog.Filter = "{0} files (*{0})|*{0}".format(extension);
 				openFileDialog.FileName = proposedFile;
 				openFileDialog.InitialDirectory = proposedFolder;
                 DialogResult drDialogResult = openFileDialog.ShowDialog();

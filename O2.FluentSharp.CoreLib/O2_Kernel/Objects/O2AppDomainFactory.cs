@@ -118,7 +118,7 @@ namespace O2.Kernel.Objects
             var assembliesInNewAppDomain = new List<String>();
             // first copy the assemblies
             foreach(var assemblyToLoad in assembliesToLoad)
-            {
+            {                
                 if (Path.GetExtension(assemblyToLoad).ToLower() == ".dll" || Path.GetExtension(assemblyToLoad).ToLower() == ".exe") // since other wise these might be GAC assemblies
                 {
                     if (File.Exists(assemblyToLoad))

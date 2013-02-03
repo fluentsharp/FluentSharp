@@ -51,9 +51,9 @@ namespace O2.FluentSharp.VisualStudio
             try
             {				
                 //These two assemblies must be on the localPath
-                if (Assembly.Load("O2_FluentSharp_CoreLib") == null || Assembly.Load("O2_FluentSharp_REPL") == null)
+                if (Assembly.Load("FluentSharp.CoreLib") == null || Assembly.Load("FluentSharp.REPL") == null)
                 {
-                    Debug.WriteLine("[O2.FLuentSharp.VisualStudio] Error in loading O2_FluentSharp_CoreLib.exe or O2_FluentSharp_REPL.exe assemblies");
+                    Debug.WriteLine("[O2.FLuentSharp.VisualStudio] Error in loading FluentSharp.CoreLib.dll or FluentSharp.REPL.dll assemblies");
                     return;
                 }
                 AssemblyResolver.Init();    //set's up assembly resolver (the O2.FluentSharp.CoreLib.dll must be on local path);
