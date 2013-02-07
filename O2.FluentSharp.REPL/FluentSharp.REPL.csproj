@@ -252,7 +252,6 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
     <None Include="FluentSharp.REPL.nuspec" />
     <None Include="H2Logo.ico" />
-    <EmbeddedResource Include="_O2_External_WinFormsUI\_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <EmbeddedResource Include="_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
     <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
