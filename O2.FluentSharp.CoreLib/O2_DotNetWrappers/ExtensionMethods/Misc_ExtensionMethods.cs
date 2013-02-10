@@ -1,10 +1,7 @@
 using System;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
+using JetBrains.Annotations;
 using O2.Kernel;
-
 using System.Drawing;
-using O2.DotNetWrappers.DotNet;
 using System.Threading;
 
 namespace O2.DotNetWrappers.ExtensionMethods
@@ -65,13 +62,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class Misc_ExtensionMethods_Bool
     {        
+        [ContractAnnotation("false => true ; true => false")]
         public static bool      isFalse(this bool value)
         {
             return value == false;
         }
+        [ContractAnnotation("true => true ; false => false")]
         public static bool      isTrue(this bool value)
         {
-            return value == true;
+            return value;
         }
         public static bool      and(this bool leftOperand, bool rightOperand)
         {
@@ -150,7 +149,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 if (key.o2Cache<T>().isNull())
                 {
                     "there was no o2Chache object for type '{0}' so invoking the contructor callback".info(typeof(T));
-                    key.o2Cache<T>(ctor());
+                    key.o2Cache(ctor());
                 }
                 return key.o2Cache<T>();
             }
@@ -164,7 +163,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			if (resetValue)
 				key.o2Cache(null);
-			return key.o2Cache<T>(ctor);
+			return key.o2Cache(ctor);
 		}
     }
 }

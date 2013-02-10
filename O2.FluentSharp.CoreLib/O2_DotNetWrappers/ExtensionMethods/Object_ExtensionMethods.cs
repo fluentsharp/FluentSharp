@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using JetBrains.Annotations;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -17,10 +14,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return _object.GetHashCode();
             return default(int);
         }
-        public static bool  isNull(this object _object)
+
+        [ContractAnnotation("_object:null => true")]
+        public static bool  isNull( this object _object)
         {
             return _object == null;
         }
+        [ContractAnnotation("null => false")]
+        public static bool  isNotNull(this object _object)
+        {
+            return _object != null;
+        }
+        [ContractAnnotation("null => false")]
         public static bool  notNull(this object _object)
         {
             return _object != null;
@@ -32,30 +37,32 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return default(T);
         }
 
-		public static T backTo<T>(this object _hostObject, T objectToGoBackTo)
+		public static T backTo<T>(this object hostObject, T objectToGoBackTo)
 		{
 			return objectToGoBackTo;
 		}
-		public static T backTo<T, K>(this K hostObject, T objectToGoBackTo, ref K hostObjectRef)
+        // ReSharper disable RedundantAssignment
+		public static T backTo<T, TK>(this TK hostObject, T objectToGoBackTo, ref TK hostObjectRef)         
 		{
 			hostObjectRef = hostObject;
 			return objectToGoBackTo;
 		}
-		public static T log_Info<T>(this T _hostObject, string infoMessage, params string[] messageParams)
+        // ReSharper restore RedundantAssignment
+		public static T log_Info<T>(this T hostObject, string infoMessage, params object[] messageParams)
 		{
 			infoMessage.info(messageParams);
-			return _hostObject;
+			return hostObject;
 		}
 
-		public static T log_Debug<T>(this T _hostObject, string debugMessage, params string[] messageParams)
+		public static T log_Debug<T>(this T hostObject, string debugMessage, params object[] messageParams)
 		{
 			debugMessage.info(messageParams);
-			return _hostObject;
+			return hostObject;
 		}
-		public static T log_Error<T>(this T _hostObject, string errprMessage, params string[] messageParams)
+		public static T log_Error<T>(this T hostObject, string errprMessage, params object[] messageParams)
 		{
 			errprMessage.info(messageParams);
-			return _hostObject;
+			return hostObject;
 		}
 
     }

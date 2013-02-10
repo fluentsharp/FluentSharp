@@ -7,20 +7,20 @@ using O2.Kernel.InterfacesBaseImpl;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
-	public static class Extra_Extensionmethods_IO2Log
-	{
-		public static IO2Log writeToDebug(this IO2Log log)
-		{
-			return log.writeToDebug(false);
-		}
+    public static class Extra_Extensionmethods_IO2Log
+    {
+        public static IO2Log writeToDebug(this IO2Log log)
+        {
+            return log.writeToDebug(false);
+        }
 
-	
-		public static IO2Log writeToDebug(this IO2Log log, bool alsoShowInConsole)
-		{
-			log.LogRedirectionTarget = new Logger_DiagnosticsDebug {alsoShowInConsole = alsoShowInConsole};			
-			return log;
-		}
-	}
+    
+        public static IO2Log writeToDebug(this IO2Log log, bool alsoShowInConsole)
+        {
+            log.LogRedirectionTarget = new Logger_DiagnosticsDebug {alsoShowInConsole = alsoShowInConsole};			
+            return log;
+        }
+    }
 }
 
 namespace O2.Kernel.InterfacesBaseImpl
@@ -29,37 +29,37 @@ namespace O2.Kernel.InterfacesBaseImpl
     {        
         public IO2Log           LogRedirectionTarget   { get ; set;}
         public bool             alsoShowInConsole      { get ; set;}
-	    public StringBuilder    LogData                { get ; set;}     
+        public StringBuilder    LogData                { get ; set;}     
 
-	    public Logger_DiagnosticsDebug()
+        public Logger_DiagnosticsDebug()
         {
             LogData = new StringBuilder();
         }
 
         private void writeLine(string message)
-		{
-			write(message.line());
-		}
-		public void write(string messageFormat, params object[] variables)
-		{
-		    try
-		    {
+        {
+            write(message.line());
+        }
+        public void write(string messageFormat, params object[] variables)
+        {
+            try
+            {
                 var message = variables.isNull()
-				              ? messageFormat
-				              : messageFormat.format(variables);
-			    Debug.Write(message);
-			    if (alsoShowInConsole)
-				    Console.WriteLine(message);
-		        LogData.AppendLine(message);
-		    }
-		    catch (Exception ex)
-		    {
-		        Debug.Write("[FluentSharp][ERROR IN Logger_DiagnosticsDebug] " + ex.Message);		        
-		    }			
-		}
+                              ? messageFormat
+                              : messageFormat.format(variables);
+                Debug.Write(message);
+                if (alsoShowInConsole)
+                    Console.WriteLine(message);
+                LogData.AppendLine(message);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write("[FluentSharp][ERROR IN Logger_DiagnosticsDebug] " + ex.Message);		        
+            }			
+        }
         public void debug(string debugMessageFormat, params object[] variables)
         {
-			writeLine("DEBUG: " + debugMessageFormat.format(variables));
+            writeLine("DEBUG: " + debugMessageFormat.format(variables));
         }
         public void error(string errorMessageFormat, params object[] variables)
         {

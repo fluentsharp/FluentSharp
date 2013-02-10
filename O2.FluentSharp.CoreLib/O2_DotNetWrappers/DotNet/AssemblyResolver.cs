@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 using O2.DotNetWrappers.ExtensionMethods;
@@ -21,12 +19,7 @@ namespace O2.DotNetWrappers.DotNet
             enable_AssemblyResolve();			
             NameResolver = resolve_using_CompilationReferencePath;
             CachedMappedAssemblies = new Dictionary<string, Assembly>();
-        }
-
-        public AssemblyResolver()
-        {						
-            
-        }
+        }        
 
         public static string resolve_using_CompilationReferencePath(string file)
         {
@@ -59,8 +52,7 @@ namespace O2.DotNetWrappers.DotNet
             //"[AssemblyResolve] loadFromDisk : {0}".info(name);
             if (name.valid() && CachedMappedAssemblies.hasKey(name))
                 return CachedMappedAssemblies[name];
-            
-            Assembly assembly = null;
+                        
             /*if( name.isAssemblyName())
             {
                 var assemblyName = name.assemblyName();
@@ -80,20 +72,17 @@ namespace O2.DotNetWrappers.DotNet
                     return CachedMappedAssemblies[location];
                 //"[AssemblyResolve] found location: {0}".info(location);
                 
-                assembly = Assembly.LoadFrom(location);
+                var assembly = Assembly.LoadFrom(location);
                 if (assembly.isNull())
                     assembly = Assembly.Load(location.fileContents_AsByteArray());
                 if (assembly.notNull())
-                {
-                    //"[AssemblyResolve] loaded Assembly: {0}".info(assembly.FullName);
+                {                    
                     CachedMappedAssemblies.add(location, assembly);
                     return assembly;
                 }
-                else
-                    "[AssemblyResolve] failed to load Assembly from location: {0}".error(location);
-            }
-            //else
-            //	"[AssemblyResolve] could not find a location for assembly with name: {0}".error(name);
+                
+                "[AssemblyResolve] failed to load Assembly from location: {0}".error(location);
+            }            
             return null;
         }
 
@@ -115,28 +104,12 @@ namespace O2.DotNetWrappers.DotNet
             {
                 try
                 {
-                   // var isDynamic = currentAssembly.prop("IsDynamic");
-                    //if (isDynamic.str() == "True")
-                    //    continue;                    
-                        // if(currentAssembly.name().starts("O2"))                               // it shouldn't have a big performance hit to look in all assemblies
                     foreach (var resourceName in currentAssembly.GetManifestResourceNames())
                     {
                         if (resourceName.lower().contains(nameToFind.lower() + ".dll") || 
                             resourceName.lower().contains(nameToFind.lower() + ".exe"))                            
                         {
-                            "Found resource for {0} at {1} in {2}".info(name, resourceName, currentAssembly.name());
-                            var assemblyStream = currentAssembly.GetManifestResourceStream(resourceName);
-                            byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
-                            if (resourceName.contains(".gz"))
-                                data = data.gzip_Decompress();
-                            var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(name);//nameToFind);
-                           // if ((saveAssemblyTo.extension(".dll") || saveAssemblyTo.extension(".exe")).isFalse())
-                           //     saveAssemblyTo += ".dll";
-                            if (saveAssemblyTo.fileExists())
-                                "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);
-                            else
-                                O2.DotNetWrappers.Windows.Files.WriteFileContent(saveAssemblyTo, data);
-                            return loadFromDisk(saveAssemblyTo);
+                            return saveResourceAsAssembly(name, resourceName, currentAssembly);
                         }
                     }
                 }
@@ -147,15 +120,49 @@ namespace O2.DotNetWrappers.DotNet
             }
             return null;            
         }
-        
+
+        public static Assembly loadResourceAsAssembly(string name, string resourceName, Assembly currentAssembly)
+        {
+            var assemblyBytes = getAssemblyAsBytesFromResource(name, resourceName, currentAssembly);
+            if (assemblyBytes == null) 
+                return null;
+            return Assembly.Load(assemblyBytes);
+        }
+
+        public static Assembly saveResourceAsAssembly(string name, string resourceName, Assembly currentAssembly)
+        {
+            var assemblyBytes = getAssemblyAsBytesFromResource(name, resourceName, currentAssembly);
+            if (assemblyBytes == null) 
+                return null;
+            var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(name); //nameToFind);
+            
+            if (saveAssemblyTo.fileExists() && saveAssemblyTo.fileContents_AsByteArray() == assemblyBytes)
+                "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);
+            else
+                Windows.Files.WriteFileContent(saveAssemblyTo, assemblyBytes);
+            return loadFromDisk(saveAssemblyTo);
+        }
+
+        private static byte[] getAssemblyAsBytesFromResource(string name, string resourceName, Assembly currentAssembly)
+        {
+            "Found resource for {0} at {1} in {2}".info(name, resourceName, currentAssembly.name());
+            var assemblyStream = currentAssembly.GetManifestResourceStream(resourceName);
+            if (assemblyStream.isNull())
+                return null;
+            var data = new BinaryReader(assemblyStream).ReadBytes((int) assemblyStream.Length);
+            if (resourceName.contains(".gz"))
+                data = data.gzip_Decompress();
+            return data;
+        }
+
         public static void enable_AssemblyResolve()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolve);			
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolve;			
         }
 
         public static void disable_AssemblyResolve()
         {
-            AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(AssemblyResolve);			
+            AppDomain.CurrentDomain.AssemblyResolve -= AssemblyResolve;
         }
 
 

@@ -1,6 +1,5 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +7,6 @@ using System.Reflection;
 using System.Xml.Serialization;
 using O2.Interfaces.O2Core;
 using O2.Kernel.CodeUtils;
-using O2.Kernel;
 
 using O2.DotNetWrappers.ExtensionMethods;
 
@@ -17,11 +15,6 @@ namespace O2.Kernel.InterfacesBaseImpl
     public class KO2Config : IO2Config
     {
                 
-        //public static string defaultSvnO2RootFolder					= @"http://o2platform.googlecode.com/svn/trunk/";
-        //public static string defaultSvnO2DatabaseRulesFolder		= @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/";
-        
-        //public static string defaultO2DownloadLocation				= "http://code.google.com/p/o2platform/downloads/list";
-        //public static string defaultZippedScriptsFile				= "_Scripts v1.x.zip";		
 	    public int MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE = 120;
 
 		public string hardCodedO2LocalTempFolder { get; set; }
@@ -44,22 +37,16 @@ namespace O2.Kernel.InterfacesBaseImpl
 		        var o2TempDir = hardCodedO2LocalTempFolder; // so that we don't trigger the auto creation of the tempDir
 
 		        UserData = defaultO2LocalTempFolder.pathCombine("_USERDATA"); //"C:\\O2\\_USERDATA"
-
-		        //            hardCodedO2LocalBuildDir = @"E:\O2\_Bin_(O2_Binaries)\";
-		        //            hardCodedO2LocalSourceCodeDir = @"E:\O2\_SourceCode_O2";            
+		        
 		        O2FindingsFileExtension = ".O2Findings";
 		        extraSettings = new List<Setting>();
 		        dependenciesInjection = new List<DependencyInjection>();
 		        setLocalScriptsFolder(defaultLocalScriptFolder);
 		        ScriptsTemplatesFolder = defaultLocalScriptFolder + @"\_Templates";
-		        ;
-		        //SvnO2RootFolder = defaultSvnO2RootFolder;
-		        //SvnO2DatabaseRulesFolder = defaultSvnO2DatabaseRulesFolder;
+		        		        
 		        O2GitHub_ExternalDlls = O2ConfigSettings.defaultO2GitHub_ExternalDlls;
 		        O2GitHub_Binaries = O2ConfigSettings.defaultO2GitHub_Binaries;
 		        O2GitHub_FilesWithNoCode = O2ConfigSettings.defaultO2GitHub_FilesWithNoCode;
-		        //ZipppedScriptsFile = O2ConfigSettings.defaultZippedScriptsFile;
-		        //O2DownloadLocation = defaultO2DownloadLocation;
 
 		        AutoSavedScripts = o2TempDir.pathCombine(@"../_AutoSavedScripts")
 		                                    .pathCombine(DateTime.Now.ToShortDateString().Replace("/", "_"));
@@ -153,13 +140,10 @@ namespace O2.Kernel.InterfacesBaseImpl
             }
         }
 
-        public string AutoSavedScripts { get; set; }
-        //public string ZipppedScriptsFile { get; set; }
+        public string AutoSavedScripts { get; set; }        
         public string LocalScriptsFolder { get; set; }
         public string LocallyDevelopedScriptsFolder { get; set; }
-        public string ScriptsTemplatesFolder { get; set; }
-        public string SvnO2RootFolder { get; set; }
-        public string SvnO2DatabaseRulesFolder { get; set; }
+        public string ScriptsTemplatesFolder { get; set; }        
         public string O2GitHub_ExternalDlls		{ get; set; }
         public string O2GitHub_Binaries			{ get; set; }
         public string O2GitHub_FilesWithNoCode  { get; set; }

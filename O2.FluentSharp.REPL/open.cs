@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.External.SharpDevelop.ExtensionMethods;
 using O2.Kernel.CodeUtils;
-using System.Drawing;
 using O2.Views.ASCX.CoreControls;
 using O2.XRules.Database.Utils;
 using O2.Core.XRules.Ascx;
@@ -29,9 +23,6 @@ namespace O2.Kernel
             return "Directory Viewer".popupWindow(300,300)    
                                     .add_Control< ascx_Directory>()
                                     .simpleMode_withAddressBar();
-            /*var directory = viewAscx("ascx_Directory");
-            directory.invoke("simpleMode_withAddressBar");
-            return directory;*/
         }
 
         public static Control directory(string startDir)
@@ -106,10 +97,6 @@ namespace O2.Kernel
 			var browser = "Web Browser for: {0}".format(url).popupWindow().add_WebBrowser_with_NavigationBar();
 			browser.open_ASync(url);
 			return browser;
-            /*var browser = "O2_External_IE.dll".type("O2BrowserIE").invokeStatic("openAsForm");
-            //if (url.valid())
-                return browser.invoke("openSync", url);
-            return browser;*/
         }
 
         public static ascx_O2ObjectModel o2ObjectModel()
@@ -150,20 +137,5 @@ namespace O2.Kernel
             return O2Gui.open<ascx_LogViewer>();
 
         }
-        /*
-        public static Control viewAscx(string controlName)
-        {
-            return controlName.viewsAscxControl();
-        }
-
-        public static Control viewAscx(string controlName, string title, int width, int height)
-        {
-            return controlName.viewsAscxControl(title, width, height);
-        }
-
-        public static T asForm<T>() where T : Control
-        {
-            return typeof(T).openControlAsForm<T>(typeof(T).Name,500,400);
-        }*/
     }
 }

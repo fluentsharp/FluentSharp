@@ -58,7 +58,7 @@ namespace O2.Kernel.CodeUtils
 					if (AssembliesCheckedIfExists.Contains(assemblyToLoad) || AssembliesCheckedIfExists.Contains(Path.GetFileNameWithoutExtension(assemblyToLoad)))     // for performace reasons only check this once                           
 						return;
 				assemblyToLoad = assemblyToLoad.remove(NO_GAC_TAG); // special tag to allow force downloads
-				"Trying to fetch assembly from O2's SVN repository: {0}".info(assemblyToLoad);
+				"Trying to fetch assembly from O2's GitHub repository: {0}".info(assemblyToLoad);
 				AssembliesCheckedIfExists.add(assemblyToLoad);
 				if (O2Kernel_Web.SkipOnlineCheck.isFalse() && new O2Kernel_Web().online() == false)
 				{

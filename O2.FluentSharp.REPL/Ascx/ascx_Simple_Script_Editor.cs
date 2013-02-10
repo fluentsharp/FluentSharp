@@ -245,11 +245,7 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("cut", () => commandsToExecute.editor().clipboard_Cut())
                        .add_MenuItem("copy", () => commandsToExecute.editor().clipboard_Copy())
                        .add_MenuItem("paste", () => commandsToExecute.editor().clipboard_Paste())
-                       .add_MenuItem("(if a local file) open selected text in code Editor", () => openSelectedTextInCodeEditor());
-                       
-            //.add_MenuItem("clear CachedCompiledAssemblies list", (menuitem) => CompileEngine.clear.Clear());
-            //.add_MenuItem("[Internal Debugging]",false, (menuitem) => swapGeneratedCodeViewMode())
-            //.add_MenuItem("reset assembly  download list", () => {  new O2.Kernel.CodeUtils.O2Svn.clear_AssembliesCheckedIfExists();  }); 
+                       .add_MenuItem("(if a local file) open selected text in code Editor", () => openSelectedTextInCodeEditor());                                   
             contextMenu.add_MenuItem("execution options")
                        .add_MenuItem("execute", (menuitem) => execute())
                        .add_MenuItem("enable /disable Execute on compile", (menuitem) => ExecuteOnCompile = !ExecuteOnCompile)

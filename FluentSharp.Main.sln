@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.CoreL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.REPL", "UnitTests\UnitTests.FluentSharp.REPL\UnitTests.FluentSharp.REPL.csproj", "{EF0BBE23-9379-4595-B7E9-3496A70262FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.BCL", "UnitTests\UnitTests.FluentSharp.BCL\UnitTests.FluentSharp.BCL.csproj", "{15ABA7E8-436C-4D60-97CA-E63D221FC09C}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = O2.FluentSharp.Main.vsmdi
@@ -48,6 +50,10 @@ Global
 		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
 		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
 		{EF0BBE23-9379-4595-B7E9-3496A70262FE} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
 	EndGlobalSection
 EndGlobal

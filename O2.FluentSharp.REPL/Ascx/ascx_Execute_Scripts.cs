@@ -1,19 +1,13 @@
 ﻿// This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.Threading;
 using System.Drawing;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 using O2.Kernel;
-
-using O2.Interfaces.O2Core;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.ExtensionMethods;
+using O2.Platform.BCL.O2_Views_ASCX;
 using O2.Views.ASCX.classes.MainGUI;
-using O2.Views.ASCX;
 using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.AST;
 using O2.External.SharpDevelop.ExtensionMethods;
@@ -25,18 +19,14 @@ using O2.Views.ASCX.ExtensionMethods;
 namespace O2.XRules.Database
 {
     public class ascx_Execute_Scripts : UserControl
-    {
-        public static AutoResetEvent svnSyncComplete = new AutoResetEvent(false);
-        //public static bool msiExecution = false;
-
-        public string welcomeMessage = "Hello! To start right-click on the logo";
-        public string pathToPictureBox = "";
+    {        
+        public string welcomeMessage = "Hello! To start right-click on the logo";        
         public string currentScript = "";
         public CSharp_FastCompiler csharpCompiler;
-        public Action csharpCompiler_onAstFail;
-        public Action csharpCompiler_onAstOK;
-        public Action csharpCompiler_onCompileFail;
-        public Action csharpCompiler_onCompileOK;
+        public Action csharpCompiler_OnAstFail;
+        public Action csharpCompiler_OnAstOk;
+        public Action csharpCompiler_OnCompileFail;
+        public Action csharpCompiler_OnCompileOk;
 
         //public Label statusLabel;
         public RichTextBox results_RichTextBox;
@@ -78,25 +68,7 @@ namespace O2.XRules.Database
             if (scriptToExecute.valid() && scriptToExecute.fileExists())
                 executeScripts.runScriptAndCloseGui(scriptToExecute);
             else
-            {
-                //.. then via Clickonce invoke
-                /*                scriptToExecute = ClickOnceDeployment.getClickOnceScriptPath();
-                                if (scriptToExecute.fileExists())
-                                    executeScripts.runScriptAndCloseGui(scriptToExecute);
-                                else
-                                // ... if there is no script to execute: check for SVN updates and Start the new GUI
-                                {                    
-                                    if (ClickOnceDeployment.isClickOnceDeployment())
-                                    {
-                                        executeScripts.checkForClickOnceUpdates();
-                                        executeScripts.syncO2ViaSvn();
-                                    }
-                                    else
-                                        svnSyncComplete.Set();
-
-                                    svnSyncComplete.WaitOne();
-
-                                 */
+            {                
                 // load new gui       
                 var newGuiScript = NEW_GUI_SCRIPT.local();
                 if (newGuiScript.fileExists())
@@ -131,7 +103,7 @@ namespace O2.XRules.Database
         {
             "Found startup script (for execution): ".info(scriptToExecute);
             this.loadFile(scriptToExecute);
-            this.csharpCompiler_onCompileOK = () => { this.close(); };
+            this.csharpCompiler_OnCompileOk = () => { this.close(); };
         }
         private static void loadNewGui(ascx_Execute_Scripts executeScripts)
         {
@@ -205,15 +177,7 @@ namespace O2.XRules.Database
 
         public ascx_Execute_Scripts()
         {
-            handleSpecialControlKeys();
-            //var logoFile = "..\\O2_Logo.gif";
-            //var tempPath = "".tempDir(false).pathCombine(logoFile);
-            pathToPictureBox = "O2_Logo.gif".local();
-            if (!pathToPictureBox.fileExists())
-                pathToPictureBox = new Web_Zip().checkIfFileExistsAndDownloadIfNot(pathToPictureBox, @"http://o2platform.googlecode.com/svn/trunk/O2_Scripts/_DataFiles/_Images/O2_Logo.gif");
-            //else
-            //	pathToPictureBox = tempPath;		    
-            "pathToPictureBox: {0}".debug(pathToPictureBox);
+            handleSpecialControlKeys();                        
         }
 
         public bool is32Bit()
@@ -241,19 +205,9 @@ namespace O2.XRules.Database
                     "Buliding Gui for ascx_ExecuteScripts.cs.o2".info();
                     // add controls    
                     statusLabel = this.parentForm().add_StatusStrip(Color.White);
-                    this.BackColor = Color.White;
+                    BackColor = Color.White;
                     var topPanel = this.add_Panel();
-                    var pictureBox = (PictureBox)topPanel.add_PictureBox();
-                    //.location(20,20)
-                    //.align_Bottom(this, 50)
-                    //.align_Right(this,20);        	
-
-                    /*statusLabel = (Label)topPanel.add_Label("Drop script on logo")
-                                                 .location(this.Height - 40,60)
-                                                 .anchor()
-                                                 .bottom();*/
-
-                    //statusLabel.Font = new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Regular);
+                    var pictureBox = topPanel.add_PictureBox();                    
                     statusLabel.IsLink = true;
                     statusLabel.LinkBehavior = LinkBehavior.NeverUnderline;
                     statusLabel.set_Text(welcomeMessage).textColor(this, Color.Black);
@@ -267,14 +221,7 @@ namespace O2.XRules.Database
 
                     setupPictureBoxContextMenu(pictureBox);
 
-
-                    // load data map actions
-                    if (pathToPictureBox.fileExists())
-                        pictureBox.load(pathToPictureBox);
-                    else
-                        "in ascx_Execute_Scripts.buildGui, could not find pathToPictureBox:{0}".error(pathToPictureBox);
-
-
+                    pictureBox.load(FormImages.O2_Logo_no_Shadow);
                     this.onDrop((file) => loadFile(file));
 
                     statusLabel.Click += (sender, e) => openSimpleScriptEditor();
@@ -282,8 +229,7 @@ namespace O2.XRules.Database
 
                     // put this on menu item
                     //this.add_Link("reload",10,2,()=>loadH2Script());                    
-                    "Buliding Gui complete".info();
-                    return;         // to make this run in sync mode
+                    "Buliding Gui complete".info();                    
                 });
         }
 
@@ -305,7 +251,7 @@ namespace O2.XRules.Database
                        .add_MenuItem("Show O2 Executable Directry", () => open.directory(PublicDI.config.CurrentExecutableDirectory, true))
                        .add_MenuItem("Current Script", false)
                                     .add_MenuItem("View loaded script source Code", () => showLoadedScriptSourceCode())
-                                    .add_MenuItem("Execute Again", () => executeCompiledCode());
+                                    .add_MenuItem("Execute Again", executeCompiledCode);
             contextMenu.add_MenuItem("Tools")
                 //.add_MenuItem("Image Screenshot tool", () => screenShotTool())
                        .add_MenuItem("MediaWiki Editor", () => executeScript("Opening MediaWiki Client)", "MediaWikiEditor.cs.o2"))
@@ -314,12 +260,7 @@ namespace O2.XRules.Database
                        .add_MenuItem("O2 'Secret Data' Editor", () => executeScript("Opening 'Secret Data Editor'", "SecretDataEditor.cs.o2"));
             //.add_MenuItem("O2 'Secret Data' Editor", () => new SecretDataEditor().showGui());
 
-            contextMenu.add_MenuItem("SVN O2 Scripts")
-                        .add_MenuItem("ReSync Scripts from O2's Svn (using SVN client)", () => execute("ReSync SVN Rules", () => syncO2ViaSvn()))
-                //.add_MenuItem("Manual Sync Scripts from O2's Svn (using HTTP) ", ()=> execute("Trying Manual SVN Sync via HTTP",() => new Wizard_SyncViaSvn().runWizard()))
-                        .add_MenuItem(@"Delete local O2 Scripts folder ({0})".format(PublicDI.config.LocalScriptsFolder), deleteLocalScriptsFolder);
-
-            contextMenu.add_MenuItem("Open O2 Log Viewer", () => openO2LogViewer());
+            contextMenu.add_MenuItem("Open O2 Log Viewer", openO2LogViewer);
             contextMenu.add_MenuItem("Exit Application (and close all windows)", () => PublicDI.config.closeO2Process());
         }
 
@@ -338,21 +279,6 @@ namespace O2.XRules.Database
             scriptToExecute.executeFirstMethod();
             return this;
         }
-
-        private void deleteLocalScriptsFolder()
-        {
-            var userQuestion = "Are you sure you want to deleted the local scripts folder: " + PublicDI.config.LocalScriptsFolder;
-            if (userQuestion.askUserQuestion())
-            {
-                "Deleting Folder: ".debug(PublicDI.config.LocalScriptsFolder);
-                Files.deleteFolder(PublicDI.config.LocalScriptsFolder, true);
-            }
-        }
-
-        /*private void screenShotTool()
-        {
-            O2Thread.staThread(Fusion8.Cropper.Program.Main);            
-        } */
 
         public void loadH2Script()
         {
@@ -398,28 +324,28 @@ namespace O2.XRules.Database
                     () =>
                     {
                         showError("Ast creation failed", csharpCompiler.AstErrors);
-                        csharpCompiler_onAstFail.invoke();
+                        csharpCompiler_OnAstFail.invoke();
                     };
 
                 csharpCompiler.onAstOK =
                     () =>
                     {
                         showInfo("Ast creation Ok");
-                        csharpCompiler_onAstOK.invoke();
+                        csharpCompiler_OnAstOk.invoke();
                     };
 
                 csharpCompiler.onCompileFail =
                     () =>
                     {
                         showError("Compilation failed", csharpCompiler.CompilationErrors);
-                        csharpCompiler_onCompileFail.invoke();
+                        csharpCompiler_OnCompileFail.invoke();
                     };
 
                 csharpCompiler.onCompileOK =
                     () =>
                     {
                         showInfo("Compilation Ok: Executing 1st method");
-                        csharpCompiler_onCompileOK.invoke();
+                        csharpCompiler_OnCompileOk.invoke();
                         executeCompiledCode();
                     };
 
@@ -454,43 +380,46 @@ namespace O2.XRules.Database
             }
         }
 
+        public void mapFoldersAndFiles(TreeView targetTreeView, TreeNode treeNode)
+        {    
+            targetTreeView.clear(treeNode);
+            var folder = treeNode.Tag.ToString();
+            foreach (var dir in folder.dirs())
+                if (dir.contains(".git").isFalse())
+                    targetTreeView.add_Node(treeNode, dir.fileName(), dir, true)
+                        .ForeColor = Color.SaddleBrown;
+            foreach (var file in folder.files())
+                targetTreeView.add_Node(treeNode, file.fileName(), file, false)
+                    .ForeColor = Color.DarkBlue;
+        }
+
         public void showAvailableScripts()
         {
             status("Showing available scripts");
             //var path = XRules_Config.PathTo_XRulesDatabase_fromO2;
             var path = PublicDI.config.LocalScriptsFolder;
-
-            Action<TreeView, TreeNode> mapFoldersAndFiles =
-                (targetTreeView, treeNode) =>
-                {
-                    targetTreeView.clear(treeNode);
-                    var folder = treeNode.Tag.ToString();
-                    foreach (var dir in folder.dirs())
-                        if (dir.contains(".svn").isFalse())
-                            targetTreeView.add_Node(treeNode, dir.fileName(), dir, true)
-                                .ForeColor = Color.SaddleBrown;
-                    foreach (var file in folder.files())
-                        targetTreeView.add_Node(treeNode, file.fileName(), file, false)
-                            .ForeColor = Color.DarkBlue;
-                };
+            
             //var treeView = new TreeView();
             var treeView = (TreeView)WinForms.showAscxInForm(typeof(TreeView), "O2 - Available scripts", 300, 300);
-            treeView.BeforeExpand += (sender, e) => { mapFoldersAndFiles(treeView, e.Node); };
-            treeView.NodeMouseDoubleClick += (sender, e) =>
-            {
-                var target = e.Node.Tag.ToString();
-                if (target.isFile())
-                    loadFile(target);
-            };
-            treeView.ItemDrag += (sender, e) =>
-            {
-                var node = (TreeNode)e.Item;
-                treeView.SelectedNode = node;
-                var target = node.Tag.ToString();
-                if (target.isFile())
-                    treeView.DoDragDrop(target, DragDropEffects.Copy);
-            };
 
+            treeView.BeforeExpand += (sender, e) => mapFoldersAndFiles(treeView, e.Node);
+
+            treeView.NodeMouseDoubleClick += (sender, e) =>
+                {
+                    var target = e.Node.Tag.ToString();
+                    if (target.isFile())
+                        loadFile(target);
+                };
+            // ReSharper disable ImplicitlyCapturedClosure
+            treeView.ItemDrag += (sender, e) =>
+                {                    
+                    var node = (TreeNode)e.Item;
+                    treeView.SelectedNode = node;
+                    var target = node.Tag.ToString();
+                    if (target.isFile())
+                        treeView.DoDragDrop(target, DragDropEffects.Copy);
+                };
+            // ReSharper restore ImplicitlyCapturedClosure
             var rootNode = treeView.add_Node("Scripts in: " + path + "", path, true);
             mapFoldersAndFiles(treeView, rootNode);
             treeView.expand(rootNode);
@@ -515,71 +444,7 @@ namespace O2.XRules.Database
             //executeScript("Showing Simple Script Editor", "ascx_Simple_Script_Editor.cs.o2");
             //typeof(ascx_Simple_Script_Editor).showAsForm("Simple Script Editor", 600,400);     		
         }
-
-        public void syncO2ViaSvn()
-        {
-            O2Thread.mtaThread(() =>
-            {
-                /*                    try
-                                    {
-                                        showInfo("Updating Scripts via SVN");
-                                        if (is32Bit())
-                                        {
-                                            "32bit mode, sync using SvnClient".info();
-                                            SvnApi.SyncLocalFolderWithO2XRulesDatabase();
-                                        }
-                                        else
-                                        {
-                                            "64bit mode, sync using http svn access".info();
-                                            if (("Do you want to update the SVN rules via HTTP? ".line() + "(You are not running on a 32 bit box, so the built-in 32bit SvnClient can not be used)").askUserQuestion())
-                                                O2Thread.staThread(
-                                                            () => new Wizard_SyncViaSvn().runWizard().Join())
-                                                        .Join();
-                                        }
-                                        showInfo("SVN XRules updated Update completed");                        
-                                        1000.sleep();                        
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        ex.log("in syncO2ViaSvn");
-                                    }
-                */
-                showInfo(welcomeMessage);
-                svnSyncComplete.Set();
-            });
-            //new Wizard_SyncXRulesViaSvn().runWizard();
-        }
-
-        public void checkForClickOnceUpdates()
-        {
-            try
-            {
-                if (ClickOnceDeployment.isClickOnceDeployment())
-                {
-                    var h2Script = "AutoUpdate - Using Reflection.h2";
-                    showInfo("Checking for ClickOnce updates");
-                    if (h2Script.local().fileExists())
-                    {
-                        h2Script.executeFirstMethod();
-                        /* var XRulesWithUpdateCheckScript = XRules_Config.PathTo_XRulesDatabase_fromO2.pathCombine(@"\O2 Utils\AutoUpdate - Using Reflection.h2");
-                         if (XRulesWithUpdateCheckScript.fileExists().isFalse())
-                             "[in checkForClickOnceUpdates]: could not find H2 script to execute: {0}".error(XRulesWithUpdateCheckScript);
-                         else
-                         {
-                             XRulesWithUpdateCheckScript.executeH2Script();
-                         }*/
-                        showInfo("Check for ClickOnce updates completed");
-                    }
-                    else
-                        "Could not check for ClickOnce updates because the H2Script did not exist: {0}".error(h2Script);
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.log("in checkForClickOnceUpdates");
-            }
-
-        }
+   
         public void openO2LogViewer()
         {
             O2Gui.open<ascx_LogViewer>();
@@ -628,7 +493,7 @@ namespace O2.XRules.Database
                 var data = details.ToString();
                 if (data.valid())
                 {
-                    results_RichTextBox.textColor(Color.Black).set_Text(data.ToString());
+                    results_RichTextBox.textColor(Color.Black).set_Text(data);
                     mainSplitContainer.panel2Collapsed(false);
                     return;
                 }

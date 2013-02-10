@@ -15,9 +15,7 @@ namespace O2.Interfaces.O2Core
         string LocalScriptsFolder               { get; set; }        
         string LocallyDevelopedScriptsFolder    { get; set; }
         string AutoSavedScripts                 { get; set;}
-        string ScriptsTemplatesFolder           { get; set; }        
-        string SvnO2RootFolder                  { get; set; }
-        string SvnO2DatabaseRulesFolder         { get; set; }
+        string ScriptsTemplatesFolder           { get; set; }                
         string O2GitHub_ExternalDlls            { get; set; }
         string O2GitHub_Binaries                { get; set; }
         string O2GitHub_FilesWithNoCode         { get; set; }
