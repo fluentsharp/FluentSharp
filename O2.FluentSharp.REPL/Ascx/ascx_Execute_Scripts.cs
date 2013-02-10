@@ -12,7 +12,6 @@ using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.AST;
 using O2.External.SharpDevelop.ExtensionMethods;
 using O2.DotNetWrappers.H2Scripts;
-using O2.DotNetWrappers.Network;
 using O2.Views.ASCX.Ascx.MainGUI;
 using O2.Views.ASCX.ExtensionMethods;
 
@@ -221,7 +220,7 @@ namespace O2.XRules.Database
 
                     setupPictureBoxContextMenu(pictureBox);
 
-                    pictureBox.load(FormImages.O2_Logo_no_Shadow);
+                    pictureBox.load(FormImages.O2_Logo);
                     this.onDrop((file) => loadFile(file));
 
                     statusLabel.Click += (sender, e) => openSimpleScriptEditor();

@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
@@ -12,8 +9,13 @@ namespace O2.Kernel.CodeUtils
     //need to change this text (it is using GIT now)
     public class O2GitHub
     {
-        public const string NO_GAC_TAG = "__NoGAC__";
-        public static List<string> AssembliesCheckedIfExists = new List<string>().add("System.Deployment");
+        public static string        NO_GAC_TAG = "__NoGAC__";
+        public static List<string>  AssembliesCheckedIfExists { get; set; }
+
+        static O2GitHub()
+        {
+             AssembliesCheckedIfExists = new List<string>().add("System.Deployment");
+        }
 
         public static void clear_AssembliesCheckedIfExists()
         {
@@ -31,21 +33,15 @@ namespace O2.Kernel.CodeUtils
             string localFilePath = "";
             if (assemblyToLoad.contains("".tempDir()))       // don't try to fetch temp assemblies
                 return ;
-            var thread = O2Thread.mtaThread(
-                ()=>{
-					downloadThread(assemblyToLoad, ref localFilePath, useCacheInfo);
-					});
+            var thread = O2Thread.mtaThread(()=> downloadThread(assemblyToLoad, ref localFilePath, useCacheInfo));
             var maxWait = 60;
             if (thread.Join(maxWait * 1000) == false)
             {
                 if (File.Exists(localFilePath))                
                     "TimeOut (of {1} secs) was reached, but Assembly was sucessfully fetched from O2GitHub: {0}".info(maxWait,localFilePath);                                    
                 else
-                    "error while tring to fetchAssembly: {0} (max wait of {1} seconds reached)".error(assemblyToLoad, maxWait);
-                return;
-            }
-            //var localPath = Path.Combine
-            //return false;
+                    "error while tring to fetchAssembly: {0} (max wait of {1} seconds reached)".error(assemblyToLoad, maxWait);                
+            }            
         }
 
 		public static void downloadThread(string assemblyToLoad, ref string localFilePath, bool useCacheInfo)
@@ -68,8 +64,8 @@ namespace O2.Kernel.CodeUtils
 
 				var referencesDownloadLocation = PublicDI.config.ReferencesDownloadLocation.createDir();
 				localFilePath = (assemblyToLoad.contains("/", "\\"))
-									? Path.Combine(referencesDownloadLocation, Path.GetFileName(assemblyToLoad))
-									: Path.Combine(referencesDownloadLocation, assemblyToLoad);
+									? referencesDownloadLocation.pathCombine(assemblyToLoad.fileName())
+									: referencesDownloadLocation.pathCombine(assemblyToLoad);
 
 				if (File.Exists(localFilePath))
 				{
@@ -103,8 +99,7 @@ namespace O2.Kernel.CodeUtils
 				if (File.Exists(localFilePath))
 				{
 					"Assembly sucessfully fetched from O2GitHub: {0}".info(localFilePath);
-					localFilePath.assembly();		// load it
-					return;
+					localFilePath.assembly();		// load it					
 				}
 			}
 			catch (Exception ex)

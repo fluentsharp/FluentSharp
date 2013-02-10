@@ -141,9 +141,9 @@
     <Compile Include="O2_Interfaces\FrameworkSupport\J2EE\ITilesDefinition.cs" />
     <Compile Include="O2_Interfaces\FrameworkSupport\J2EE\IValidationXml.cs" />
     <Compile Include="O2_Interfaces\FrameworkSupport\J2EE\IWebXml.cs" />
-    <Compile Include="O2_Interfaces\O2Core\IO2Config.cs" />
+    <Content Include="O2_Interfaces\O2Core\IO2Config.cs.txt" />
     <Compile Include="O2_Interfaces\O2Core\IO2Log.cs" />
-    <Compile Include="O2_Interfaces\O2Core\IReflection.cs" />
+    <Content Include="O2_Interfaces\O2Core\IReflection.cs.txt" />
     <Compile Include="O2_Interfaces\O2Findings\IO2Assessment.cs" />
     <Compile Include="O2_Interfaces\O2Findings\IO2AssessmentLoad.cs" />
     <Compile Include="O2_Interfaces\O2Findings\IO2AssessmentSave.cs" />

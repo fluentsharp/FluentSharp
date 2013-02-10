@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
-using System.Collections;
 using O2.DotNetWrappers.DotNet;
 using System.ComponentModel;
-using O2.Views.ASCX.O2Findings;
 using O2.Views.ASCX.DataViewers;
-using O2.Platform.BCL.O2_Views_ASCX;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -48,11 +43,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Button add_Button(this Control control, string text, int top, int left, int height, int width, MethodInvoker onClick)
         {
-            return (Button)control.invokeOnThread(
+            return control.invokeOnThread(
                                () =>
                                    {
-                                       var button = new Button();
-										button.Text = text;
+                                       var button = new Button {Text = text};
                                        if (top > -1)
                                            button.Top = top;
                                        if (left > -1)
@@ -96,15 +90,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static Button click(this Button button)
         {            
             O2Thread.mtaThread(
-                () =>
-                {
-                    button.invokeOnThread(() => button.PerformClick());
-                });
+                () => button.invokeOnThread(button.PerformClick));
             return button;
         }
         public static Button set_Text(this Button button, string text)
         {
-            return (Button)button.invokeOnThread(
+            return button.invokeOnThread(
                 () =>
                 {
                     button.Text = text;
@@ -118,23 +109,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Button button(this Control control, string text)
         {
-            foreach (var button in control.buttons())
-                if (button.get_Text() == text)
-                    return button;
-            return null;
+            return control.buttons().FirstOrDefault(button => button.get_Text() == text);
         }
-
     }
 
     public static class WinForms_ExtensionMethods_CheckBox
     {             
         public static CheckBox add_CheckBox(this Control control, string text, int top, int left, Action<bool> onChecked)
         {
-            return (CheckBox) control.invokeOnThread(
+            return control.invokeOnThread(
                                   () =>{
-											var checkBox = new CheckBox();
-											checkBox.Text = text;
-                                          	checkBox.CheckedChanged += (sender, e) => onChecked(checkBox.Checked);
+											var checkBox = new CheckBox {Text = text};
+                                           checkBox.CheckedChanged += (sender, e) => onChecked(checkBox.Checked);
                                           	if (top > -1)
                                               	checkBox.Top = top;
                                           	if (left > -1)
@@ -158,11 +144,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static bool value(this CheckBox checkBox)
         {
-            return (bool)checkBox.invokeOnThread(
-                () =>
-                {
-                    return checkBox.Checked;
-                });
+            return checkBox.invokeOnThread(
+                () => checkBox.Checked);
         }
         public static CheckBox @checked(this CheckBox checkBox, bool value)
         {
@@ -170,7 +153,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static CheckBox value(this CheckBox checkBox, bool value)
         {
-            return (CheckBox)checkBox.invokeOnThread(
+            return checkBox.invokeOnThread(
                 () =>
                 {
                     checkBox.Checked = value;
@@ -220,7 +203,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static CheckBox checkedChanged(this CheckBox checkBox, Action<bool> action)
 		{
 			checkBox.invokeOnThread(
-				()=> checkBox.CheckedChanged+= (sender,e) => {action(checkBox.value());});
+				()=> checkBox.CheckedChanged+= (sender,e) => action(checkBox.value()));
 			return checkBox;
 		}
 
@@ -258,7 +241,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static ComboBox set_Text(this ComboBox comboBox, string text)
         {
-            return (ComboBox)comboBox.invokeOnThread(
+            return comboBox.invokeOnThread(
                 () =>
                 {
                     comboBox.Text = text;
@@ -356,7 +339,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<object> items(this ComboBox comboBox)
         {
-            return (List<object>)comboBox.invokeOnThread(
+            return comboBox.invokeOnThread(
                 () =>
                 {
                     var items = new List<object>();

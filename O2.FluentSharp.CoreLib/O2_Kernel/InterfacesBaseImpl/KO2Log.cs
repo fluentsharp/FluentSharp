@@ -1,7 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Diagnostics;
-using System.Text;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Interfaces.O2Core;
 
@@ -9,7 +8,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 {
     public class KO2Log : IO2Log
     {
-        public static string logHost = "";
+        public static string LogHost { get; set; }
 
         public bool alsoShowInConsole { get; set; }
 
@@ -19,16 +18,18 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
 			//LogRedirectionTarget = new Logger_Memory();		  // default to Log to memory
             LogRedirectionTarget = new Logger_DiagnosticsDebug(); // log to diagnostics
+            LogHost = "";
         }
 
-        public KO2Log(string _logHost)
+        public KO2Log(string logHost)
         {
-            logHost = _logHost;
+            if (logHost.notNull())
+                LogHost = logHost;
         }
 
-        public void setLogRedirection(IO2Log _logRedirectionTarget)
+        public void setLogRedirection(IO2Log logRedirectionTarget)
         {
-            LogRedirectionTarget = _logRedirectionTarget;
+            LogRedirectionTarget = logRedirectionTarget;
         }
         public void info(string infoMessageFormat, params Object[] variables)
         {
@@ -99,13 +100,13 @@ namespace O2.Kernel.InterfacesBaseImpl
         private void writeToDebug(string messageFormat, params Object[] variables)
         {
             var message = messageFormat.format(variables);
-            if (messageFormat.IndexOf("[Error]") > -1)
+            if (messageFormat.index("[Error]") > -1)
                 Debug.WriteLine("[O2 Kernel msg][ERROR RECEIVED]*******:");
             Debug.WriteLine("[O2 Kernel msg]" + message);
 
             if (alsoShowInConsole)
                 Console.WriteLine(message);
-                //+((logHost != "") ? "                             ... in " + logHost : ""));
+                //+((LogHost != "") ? "                             ... in " + LogHost : ""));
         }
     }
 }

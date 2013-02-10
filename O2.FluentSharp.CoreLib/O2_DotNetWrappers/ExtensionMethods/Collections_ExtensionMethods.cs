@@ -28,16 +28,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
             value = "{{ {0} }}".format(value);
             return value;
         }
-        public static void      ForEach<T>(this IEnumerable<T> sequence, Action<T> action)
+        public static IEnumerable<T> forEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
-            foreach (T item in sequence)
-                action(item);
+            var enumerable = collection as T[] ?? collection.ToArray();
+            if(collection.notNull() && action.notNull())
+                foreach (T item in enumerable)
+                    action(item);
+            return enumerable;
         }
-        public static void      forEach<T>(this IEnumerable collection, Action<T> action)
+        public static IEnumerable forEach<T>(this IEnumerable collection, Action<T> action)
         {
-            foreach (var item in collection)
-                if (item is T)
-                    action((T)item);
+            var enumerable = collection as object[] ?? collection.Cast<object>().ToArray();
+            if(collection.notNull() && action.notNull())
+                foreach (var item in enumerable)
+                    if (item is T)
+                        action((T)item);
+            return enumerable;
         }
         
         public static bool      isIEnumerable(this object list)
@@ -62,16 +68,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{			
 			var count = 0;
 			if (list.notNull())
-				foreach(var item in list)
-					count++;
-			return count;
+			    count += list.Cast<object>().Count();
+		    return count;
 		}		
 		public static object    first(this IEnumerable list)
 		{
 			if(list.notNull())
-				foreach(var item in list)
-					return item;
-			return null;
+			    return list.Cast<object>().FirstOrDefault();
+		    return null;
 		}		
 		public static T         first<T>(this IEnumerable<T> list)
 		{
@@ -130,17 +134,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<T>       toList<T>(this IEnumerable list)
         {
-            var results = new List<T>();
-            foreach (var item in list)
-                results.Add((T)item);
-            return results;
+            return (from object item in list select (T) item).ToList();
         }
+
         public static List<string>  toList(this StringCollection stringCollection)
         {
-            var results = new List<string>();
-            foreach (var item in stringCollection)
-                results.Add(item);
-            return results;
+            return stringCollection.Cast<string>().ToList();
         }
 
         public static List<T>       unique<T>(this IEnumerable<T> list)
@@ -181,12 +180,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<List<string>>    split(this List<string> list, string splitString)
         {
-            var result = new List<List<string>>();
-            foreach (var item in list)
-                result.Add(item.split(splitString));
-            return result;
+            return list.Select(item => item.split(splitString)).ToList();
         }
-        
+
         public static List<string>      lines(this string targetString)
         {
             return StringsAndLists.fromTextGetLines(targetString);
@@ -241,10 +237,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<T>           add<T, T1>(this List<T> targetList, List<T1> sourceList) where T1 : T
         {
-            foreach (var item in sourceList)
-                targetList.Add(item);
+            targetList.AddRange(sourceList.Select(item => (T) item));
             return targetList;
         }
+
         public static List<String>      sort(this List<String> list)
         {
             list.Sort();
@@ -320,11 +316,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static List<T>   where<T>(this List<T> list, Func<T,bool> query)
 		{
-			return list.Where<T>(query).toList();
-		}        		
-		public static T         first<T>(this List<T> list, Func<T,bool> query)
+			return list.Where(query).toList();
+		}
+
+        public static List<TK> select<T,TK>(this List<T> list, Func<T, TK> query)
+        {
+            return list.Select(query).toList();
+        }
+
+        public static T         first<T>(this List<T> list, Func<T,bool> query)
 		{
-			var results = list.Where<T>(query).toList();
+			var results = list.Where(query).toList();
 			if (results.size()>0)
 				return results.First();
 			return default(T);
@@ -360,7 +362,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}	
 		public static List<T>   list<T>(this T item)
 		{
-			return item.wrapOnList<T>();
+			return item.wrapOnList();
 		}		
 		public static List<T>   push<T>(this List<T> list, T value)
 		{
@@ -423,16 +425,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return colection.empty().isFalse();
         }
         public static T         first<T>(this ICollection<T> collection)
-        {
-            //collection.GetEnumerator().Reset();
+        {            
             try
             {
-                var enumerator = collection.GetEnumerator();
-                enumerator.Reset();
-                if (enumerator.MoveNext())
-                    return enumerator.Current;
+                if (collection.size() > 0)
+                {
+                    var enumerator = collection.GetEnumerator();
+                    enumerator.Reset();
+                    if (enumerator.MoveNext())
+                        return enumerator.Current;
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                ex.log();
+            }
             return default(T);
         }        
         public static bool      size(this ICollection colection, int value)
@@ -465,8 +472,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return items[keyToAdd];
         }
         public static bool          hasKey<T, T1>(this Dictionary<T, T1> dictionary, T key)
-        {
-            if (dictionary != null && key != null)
+        {            
+            if (dictionary != null && !Equals(key, default(T)))
                 return dictionary.ContainsKey(key);
             return false;
         }
@@ -550,7 +557,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var result = new Dictionary<string, List<T>>();
             foreach (var item in items)
             {
-                if (item != null)
+                if (item.notNull())
                 {
                     var str = item.str();
                     if (string_RegExFilter.valid().isFalse() || str.regEx(string_RegExFilter))
@@ -564,11 +571,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var result = new Dictionary<string, List<T>>();
             foreach (var item in items)
             {
-                if (item != null)
+                if (item.notNull())
                 {
                     var propertyValue = item.prop(propertyName);
 
-                    if (propertyValue != null)
+                    if (propertyValue.notNull())
                     {
                         var str = propertyValue.str();
                         if (string_RegExFilter.valid().isFalse() || str.regEx(string_RegExFilter))
@@ -627,11 +634,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {        
         public static int       totalValueSize(this List<KeyValuePair<string, string>> keyValuePairs)
         {
-            var total = 0;
-            foreach (var item in keyValuePairs)
-                total += item.Value.size();
-            return total;
+            return keyValuePairs.Sum(item => item.Value.size());
         }
+
         public static List<T1>  values<T, T1>(this List<KeyValuePair<T, T1>> keyValuePairs)
         {
             return (from item in keyValuePairs
@@ -774,7 +779,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Stack<T>      push<T>(this Stack<T> stack, T item)
         {
-            if (item == null)
+            if (item.notNull())
                 "in Stack push, provided value was null)".error();
             else if (stack.isNull())
                 "in Stack push, stack value was null)".error();
@@ -821,7 +826,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Queue<T>      push<T>(this Queue<T> queue, T item)
         {
-            if (item == null)
+            if (item.notNull())
                 "in Queue  push, provided value was null)".error();
             else if (queue.isNull())
                 "in Queue  push, stack value was null)".error();

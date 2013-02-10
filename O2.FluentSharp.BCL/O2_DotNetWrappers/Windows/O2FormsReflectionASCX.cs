@@ -7,19 +7,18 @@ using System.Reflection;
 using System.Windows.Forms;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Filters;
-using O2.Interfaces.O2Core;
 using O2.Kernel.InterfacesBaseImpl;
 using O2.Kernel;
 
 namespace O2.DotNetWrappers.Windows
 {
-    public class O2FormsReflectionASCX : KReflection, IReflectionASCX
+    public class O2FormsReflectionASCX : KReflection
     {
         // todo: duplicate defintions (they are also at O2.External.O2Mono.ViewHelpers.CecilASCX)
-        private const int iconIndex_method = 4;
-        private const int iconIndex_module = 1;
-        private const int iconIndex_namespace = 2;
-        private const int iconIndex_type = 3;
+        public int iconIndex_Method = 4;
+        public int iconIndex_Module = 1;
+        public int iconIndex_Namespace = 2;
+        public int iconIndex_Type = 3;
 
         public List<String> lsSupportParameterTypes =
             new List<string>(new[] {"System.Boolean", "System.String", "System.Int32", "System.UInt32"});
@@ -38,7 +37,7 @@ namespace O2.DotNetWrappers.Windows
                             // Reflection objects
                         case "Assembly":
                             foreach (Module module in PublicDI.reflection.getModules((Assembly) tag))
-                                newNodes.Add(O2Forms.newTreeNode(node, module.Name, iconIndex_module, module));
+                                newNodes.Add(O2Forms.newTreeNode(node, module.Name, iconIndex_Module, module));
                             break;
                         case "Module":
                             // when showing module's contents (i.e. Types) we need to break them by namespace
@@ -46,22 +45,22 @@ namespace O2.DotNetWrappers.Windows
                                 PublicDI.reflection.getDictionaryWithTypesMappedToNamespaces((Module) tag);
                             foreach (string typeNamespace in reflectionTypesMappedToNamespaces.Keys)
                             {
-                                TreeNode namespaceNode = O2Forms.newTreeNode(node, typeNamespace, iconIndex_namespace,
+                                TreeNode namespaceNode = O2Forms.newTreeNode(node, typeNamespace, iconIndex_Namespace,
                                                                              reflectionTypesMappedToNamespaces[
                                                                                  typeNamespace]);
                                 foreach (Type type in reflectionTypesMappedToNamespaces[typeNamespace])
-                                    O2Forms.newTreeNode(namespaceNode, type.Name, iconIndex_type, type);
+                                    O2Forms.newTreeNode(namespaceNode, type.Name, iconIndex_Type, type);
                                 newNodes.Add(namespaceNode);
                             }
                             break;
                         case "RuntimeType":
                             // add nested types in Type
                             foreach (Type type in PublicDI.reflection.getTypes((Type) tag))
-                                newNodes.Add(O2Forms.newTreeNode(node, type.Name, iconIndex_type, type));
+                                newNodes.Add(O2Forms.newTreeNode(node, type.Name, iconIndex_Type, type));
                             // add methods in Type
                             foreach (MethodInfo method in PublicDI.reflection.getMethods((Type) tag))
                                 newNodes.Add(O2Forms.newTreeNode(node, new FilteredSignature(method).getReflectorView(),
-                                                                 iconIndex_method, method));
+                                                                 iconIndex_Method, method));
                             break;
                         case "RuntimeMethodInfo":
                             //     newNodes.Add(O2Forms.newTreeNode(node, node.Text, iconIndex_method, tag));
@@ -72,7 +71,7 @@ namespace O2.DotNetWrappers.Windows
                                 switch (item.GetType().Name)
                                 {
                                     case "RuntimeType":
-                                        newNodes.Add(O2Forms.newTreeNode(node, ((Type) item).Name, iconIndex_type, item));
+                                        newNodes.Add(O2Forms.newTreeNode(node, ((Type) item).Name, iconIndex_Type, item));
                                         break;
                                 }
                             }
@@ -139,7 +138,10 @@ namespace O2.DotNetWrappers.Windows
             ParameterInfo[] apiParameters = mMethod.GetParameters();
             foreach (ParameterInfo piParameter in apiParameters)
             {
-                Int32 iNewRowId = dgvTargetDataGridView.Rows.Add(dgvTargetDataGridView.RowTemplate.Clone());
+                var newRow = dgvTargetDataGridView.RowTemplate.Clone() as DataGridViewRow; 
+                if (newRow.isNull())
+                    continue;
+                var iNewRowId = dgvTargetDataGridView.Rows.Add(newRow);
                 dgvTargetDataGridView.Rows[iNewRowId].Cells["Name"].Value = piParameter.Name;
                 dgvTargetDataGridView.Rows[iNewRowId].Cells["Type"].Value = piParameter.ParameterType.FullName;
                 if (false == lsSupportParameterTypes.Contains(piParameter.ParameterType.FullName))
@@ -198,15 +200,14 @@ namespace O2.DotNetWrappers.Windows
                 {
                     TreeNode tnType = O2Forms.newTreeNode(tTypeToLoad.Name, oCustomAttribute.GetType().Name, 1,
                                                           oCustomAttribute);
-                    foreach (
-                        MethodInfo mMethod in
-                            tTypeToLoad.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static |
-                                                   BindingFlags.DeclaredOnly))
+                    foreach (MethodInfo mMethod in
+                             tTypeToLoad.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static |
+                                                    BindingFlags.DeclaredOnly))
                     {
-                        if (sFilter == "" || (sFilter != "" && mMethod.Name.ToUpper().IndexOf(sFilter) > -1))
+                        if (sFilter == "" || (sFilter != "" && mMethod.Name.upper().index(sFilter) > -1))
                             if (bViewAllMethods_IncludingOnesWithNotSupportedParams)
                             {
-                                int iNewNode = addMethodInfoToTreeNode(tnType, mMethod, bShowArguments,
+                                var iNewNode = addMethodInfoToTreeNode(tnType, mMethod, bShowArguments,
                                                                        bShowReturnParameter);
                                 //TreeNode tnMethod = O2Forms.newTreeNode(mMethod.Name, "", 2, mMethod);
                                 if (false == doesMethodOnlyHasSupportedParameters(mMethod))
@@ -249,7 +250,7 @@ namespace O2.DotNetWrappers.Windows
         public Object[] getParameterObjectsFromDataGridColumn(DataGridView dgvDataGridViewWithData,
                                                               String sColumnWithParameters)
         {
-            return (object[])dgvDataGridViewWithData.invokeOnThread(
+            return dgvDataGridViewWithData.invokeOnThread(
                 () =>
                     {
                         var aoParams = new Object[dgvDataGridViewWithData.Rows.Count];
@@ -360,8 +361,7 @@ namespace O2.DotNetWrappers.Windows
                             if (ex.InnerException != null)
                             {
                                 PublicDI.log.ex(ex, "   InnerException + " + ex.InnerException.Message);
-                                tbTextBox_Results.Text += Environment.NewLine + "    InnerException:" +
-                                                          ex.InnerException.Message;
+                                tbTextBox_Results.Text += "    InnerException:".lineBefore() + ex.InnerException.Message;
                             }
                         }
                     });

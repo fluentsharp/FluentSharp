@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
+using O2.Kernel.InterfacesBaseImpl;
 
 namespace O2.Interfaces.O2Core
 {
-    public interface IReflectionASCX : IReflection
+    public interface IReflectionASCX : KReflection
     {
         List<TreeNode> populateTreeNodeWithObjectChilds(TreeNode node, object tag, bool populateFirstChildNodes);
 

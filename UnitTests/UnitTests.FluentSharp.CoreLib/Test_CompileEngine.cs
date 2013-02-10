@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using O2.DotNetWrappers.ExtensionMethods;
 
-namespace UnitTests.FluentSharp.CoreLib
+namespace UnitTests.FluentSharp_CoreLib
 {
     [TestFixture]
     public class Test_CompileEngine

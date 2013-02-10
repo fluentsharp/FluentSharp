@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.IO;
 using System.Diagnostics;
@@ -24,10 +21,10 @@ namespace O2.FluentSharp.REPL
             }
             catch(Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
             if (assembly == null)
-                assembly = getAssemblyfromResources("FluentSharp.CoreLib.dll");          
+                getAssemblyfromResources("FluentSharp.CoreLib.dll");          
         }
         
 
@@ -36,24 +33,30 @@ namespace O2.FluentSharp.REPL
             try
             {
                 var targetAssembly = Assembly.GetExecutingAssembly();
-                var test = targetAssembly.GetManifestResourceStream(nameToFind);
+                //var test = targetAssembly.GetManifestResourceStream(nameToFind);
                 var nameToFind_Lower = nameToFind.ToLower();
                 foreach (var resourceName in targetAssembly.GetManifestResourceNames())
                 {
                     if (resourceName.ToLower().Contains(nameToFind_Lower))
                     {
-                        var name = resourceName;
+                        //var name = resourceName;
                         var assemblyStream = targetAssembly.GetManifestResourceStream(resourceName);
-                        byte[] data = new BinaryReader(assemblyStream).ReadBytes((int)assemblyStream.Length);
-
-                        var targetDir = Path.GetDirectoryName(targetAssembly.Location);
-                        var targetFile = Path.Combine(targetDir, nameToFind);
-                        using (FileStream fs = File.Create(targetFile))
+                        if (assemblyStream != null)
                         {
-                            fs.Write(data, 0, data.Length);
-                            fs.Close();
+                            byte[] data = new BinaryReader(assemblyStream).ReadBytes((int) assemblyStream.Length);
+
+                            var targetDir = Path.GetDirectoryName(targetAssembly.Location);
+                            if (targetDir != null)
+                            {
+                                var targetFile = Path.Combine(targetDir, nameToFind);
+                                using (FileStream fs = File.Create(targetFile))
+                                {
+                                    fs.Write(data, 0, data.Length);
+                                    fs.Close();
+                                }
+                                return Assembly.LoadFrom(targetFile);
+                            }
                         }
-                        return Assembly.LoadFrom(targetFile);
                     }
                 }
             }

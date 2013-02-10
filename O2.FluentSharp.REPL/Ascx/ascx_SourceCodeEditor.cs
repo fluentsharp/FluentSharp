@@ -519,7 +519,7 @@ namespace O2.External.SharpDevelop.Ascx
 
         private void enableOrDisableAutoBackupOnCompileSucessforCSharpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoBackUpOnCompileSuccess = !AutoBackUpOnCompileSuccess;
+            autoBackUpOnCompileSuccess = !autoBackUpOnCompileSuccess;
         }
 
         private void tecSourceCode_MouseMove(object sender, MouseEventArgs e)

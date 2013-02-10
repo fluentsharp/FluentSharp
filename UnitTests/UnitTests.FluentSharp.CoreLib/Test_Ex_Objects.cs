@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using O2.DotNetWrappers.ExtensionMethods;
 
-namespace UnitTests.FluentSharp.CoreLib
+namespace UnitTests.FluentSharp_CoreLib
 {
     [TestFixture]
     class Test_Ex_Objects

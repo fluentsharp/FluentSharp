@@ -139,7 +139,7 @@
     <Compile Include="O2_DotNetWrappers\Windows\O2Forms_ThreadSafe_ProgressBar.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\O2Forms_ThreadSafe_ToolStrip.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Screenshots.cs" />
-    <Compile Include="O2_Interfaces\O2Core\IReflectionASCX.cs" />
+    <Content Include="O2_Interfaces\O2Core\IReflectionASCX.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Messages.cs" />
     <Compile Include="O2_Views_ASCX\APIs\API_ConsoleOut.cs">
       <SubType>Component</SubType>

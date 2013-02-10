@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.IO;
 using O2.Kernel.CodeUtils;
@@ -27,10 +28,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             if (_string.isNull() || values.isNull())
                 return false;
-            foreach (var value in values)
-                if (_string == value)
-                    return true;
-            return false;
+            return values.Any(value => _string == value);
         }        
         public static void      eq(this string string1, string stringToFind, Action onMatch)
         {
@@ -40,24 +38,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             string1.eq(stringsToFind.ToArray(), onMatch);
         }
-        public static void      eq(this string string1, string[] stringsToFind, Action onMatch) 
+        public static void      eq(this string string1, string[] stringsToFind, Action onMatch)
         {
-            foreach(var stringToFind in stringsToFind)
-                if (string1 == stringToFind)
-                {
-                    onMatch();
-                    return;
-                }
-        }        
+            if (stringsToFind.Any(stringToFind => string1 == stringToFind))
+                onMatch();                
+        }
+
         public static bool      neq(this string string1, string string2)
         {
             return (string1 != string2);
         }        
         public static bool      contains(this string targetString, string stringToFind)
         {
-            return (stringToFind != null)
-                        ? targetString.Contains(stringToFind)
-                        : false;
+            return stringToFind != null && 
+                   targetString.Contains(stringToFind);
         }
         public static bool      contains(this string targetString, List<string> stringsToFind)
         {
@@ -240,7 +234,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static bool      isInt(this string value)
         {
-            int a = 0;
+            int a;
             return Int32.TryParse(value, out a);
         }
         public static int       toInt(this string _string)
@@ -261,15 +255,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static string    caps(this string value)
         {
+            if (value.isNull())
+                return null;
             return value.ToUpper();
         }
-        public static string    lower(this string _string)
+        public static string    lower(this string value)
         {
-            return _string.ToLower();
+            if (value.isNull())
+                return null;
+            return value.ToLower();
         }
-        public static string    upper(this string _string)
+        public static string    upper(this string value)
         {
-            return _string.ToUpper();
+            if (value.isNull())
+                return null;
+            return value.ToUpper();
         }
 
         public static string    lowerCaseFirstLetter(this string targetString)
@@ -280,32 +280,36 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         public static string    fixCRLF(this string stringToFix)
-        {
-            //old method (had some misses)
-           /* if (stringToFix.contains(Environment.NewLine))
-                return stringToFix;
-            if (stringToFix.contains("\n"))
-                return stringToFix.Replace("\n", Environment.NewLine);
-            return stringToFix;*/
+        {            
+            if (stringToFix.isNull())
+                return null;
             return stringToFix.Replace(Environment.NewLine, "\n")
                               .Replace("\n", Environment.NewLine);
         }    
 
         public static string    ascii(this byte value)
         {
+            if (value.isNull())
+                return null;
             return Encoding.ASCII.GetString(new[] { value });
         }        
-        public static string    ascii(this byte[] bytes)
+        public static string    ascii(this byte[] value)
         {
-            return Encoding.ASCII.GetString(bytes);
+            if (value.isNull())
+                return null;
+            return Encoding.ASCII.GetString(value);
         }
         public static string    unicode(this byte value)
         {
+            if (value.isNull())
+                return null;
             return Encoding.Unicode.GetString(new[] { value });
         }
-        public static string    unicode(this byte[] bytes)
+        public static string    unicode(this byte[] value)
         {
-            return Encoding.Unicode.GetString(bytes);
+            if (value.isNull())
+                return null;
+            return Encoding.Unicode.GetString(value);
         }
         
         public static List<string>  strings(this byte[] bytes, bool ignoreCharZeroAfterValidChar, int minimumStringSize)
@@ -357,7 +361,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string    replaceLast(this string stringToSearch, string findString, string replaceString)
         {
-            var lastIndexOf = stringToSearch.LastIndexOf(findString);
+            var lastIndexOf = stringToSearch.LastIndexOf(findString, StringComparison.Ordinal);
             lastIndexOf.str().info();
             if (lastIndexOf > -1)
             {
@@ -390,7 +394,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
 			if (targetString.notValid() || stringToFind.notValid())
 				return -1;
-            return targetString.IndexOf(stringToFind);
+            return targetString.IndexOf(stringToFind, StringComparison.Ordinal);
+        }
+        public static int       index(this string targetString, string stringToFind, int startIndex)
+        {
+			if (targetString.notValid() || stringToFind.notValid() || startIndex < targetString.size())
+				return -1;
+            return targetString.IndexOf(stringToFind, startIndex,StringComparison.Ordinal);
         }
         public static string    tabLeft(this string targetString)
         {
@@ -404,7 +414,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
 			if (targetString.notValid() || stringToFind.notValid())
 				return -1;
-            return targetString.LastIndexOf(stringToFind);
+            return targetString.LastIndexOf(stringToFind, StringComparison.Ordinal);
         }
         
         public static string    add(this string targetString, string stringToAdd)
@@ -513,21 +523,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				return subString;
 			return subString.Substring(0,size);
 		}		
-		public static string    subString_After(this string _string, string _stringToFind)
+		public static string    subString_After(this string _string, string stringToFind)
 		{
-			var index = _string.IndexOf(_stringToFind);
+			var index = _string.IndexOf(stringToFind, StringComparison.Ordinal);
 			if (index >0)
 			{
-				return _string.subString(index + _stringToFind.size());
+				return _string.subString(index + stringToFind.size());
 			}
 			return "";
 		}
-        public static string    subString_After_Last(this string _string, string _stringToFind)
+        public static string    subString_After_Last(this string _string, string stringToFind)
         {
-            var index = _string.LastIndexOf(_stringToFind);
+            var index = _string.LastIndexOf(stringToFind, StringComparison.Ordinal);
             if (index > 0)
             {
-                return _string.subString(index + _stringToFind.size());
+                return _string.subString(index + stringToFind.size());
             }
             return "";
         }
@@ -585,7 +595,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			try
 			{				
-				return ((char)_int).str();					
+				return (_int).str();					
 			}
 			catch(Exception ex)
 			{
@@ -664,7 +674,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			try
 			{
-				var ipAddress = IPAddress.Loopback;
+				IPAddress ipAddress;
 				IPAddress.TryParse(_string, out ipAddress);
 				return ipAddress;
 			}
@@ -792,8 +802,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			try
 			{
-				DateTime.Parse(date);
-				return true;
+				var parsedDate = DateTime.Parse(date);
+				return parsedDate.notNull();
 			}
 			catch
 			{

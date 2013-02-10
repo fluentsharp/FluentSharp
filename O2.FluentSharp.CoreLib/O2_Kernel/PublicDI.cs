@@ -3,26 +3,13 @@ using System;
 using System.Collections.Generic;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.InterfacesBaseImpl;
-using O2.Kernel.Objects;
 using O2.DotNetWrappers.ExtensionMethods;
-using System.Configuration;
 using O2.DotNetWrappers.Filters;
 using System.Text.RegularExpressions;
 using O2.Kernel.O2CmdShell;
 
-//O2File:PublicDI.cs
-//O2File:InterfacesBaseImpl/KO2Log.cs
-//O2File:InterfacesBaseImpl/KO2Config.cs
-//O2File:InterfacesBaseImpl/KReflection.cs
-//O2File:InterfacesBaseImpl/KO2MessageQueue.cs
-
 namespace O2.Kernel
-{
-    /// <summary>
-    /// These are public DI objects which can be used and manipulated by O2 modules 
-    /// For example the log one is a good candidate for the GUI controls to take over
-    /// </summary>
-    /// todo: merge this with the O2.Kernel.DI class so that only this PublicDI.exists
+{   
     public static class PublicDI
     {
         public static bool Offline { get; set; }
@@ -30,12 +17,11 @@ namespace O2.Kernel
         static PublicDI()
         {            
             //loadValuesFromConfigFile();
-
-            O2Kernel_Web.ApplyNetworkConnectionHack();
-
+            O2Kernel_Web.ApplyNetworkConnectionHack();            
             log = new KO2Log();			
-            config = O2ConfigLoader.getKO2Config();
             reflection = new KReflection();            
+            config = O2ConfigLoader.getKO2Config();
+            
 
             O2KernelProcessName = "Generic O2 Kernel Process";
             AppDomainUtils.registerCurrentAppDomain();            

@@ -5,14 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
-using O2.Interfaces.O2Core;
 using O2.Kernel.CodeUtils;
 
 using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.Kernel.InterfacesBaseImpl
 {
-    public class KO2Config : IO2Config
+    public class KO2Config // : IO2Config
     {
                 
 	    public int MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE = 120;
@@ -79,7 +78,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 
 			defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
 			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
-            if (O2ConfigSettings.checkForTempDirMaxSizeCheck)            
+            if (O2ConfigSettings.CheckForTempDirMaxSizeCheck)            
 			    if (defaultLocalScriptFolder.size() > MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE)
 			    {
 				    "[o2setup] defaultLocalScriptFolder path was more than 120 chars: {0}".debug(defaultLocalScriptFolder);
@@ -201,37 +200,30 @@ namespace O2.Kernel.InterfacesBaseImpl
 				{
 					var entryAssembly = Assembly.GetEntryAssembly();
 					if (entryAssembly.isNull() || entryAssembly.GetName().Name.contains("O2").isFalse()) // if the main Assembly is not called O2 (for example under VisualStudio), then use the location of this assembly (FluentSharp.BCL) 
-						entryAssembly = Assembly.GetExecutingAssembly();
-					if (entryAssembly != null)
-					{
-						return Path.GetDirectoryName(entryAssembly.Location);
-					}
+						entryAssembly = Assembly.GetExecutingAssembly();					
+					return Path.GetDirectoryName(entryAssembly.Location);					
 				}
-				catch// (Exception ex)
+				catch (Exception ex)
 				{
-					//ex.log();
+					ex.log();
 				}
                 return AppDomain.CurrentDomain.BaseDirectory;                
-            }
-            set { }
+            }            
         }
 
         public String CurrentExecutableFileName
         {
-            get { return Path.GetFileName(Process.GetCurrentProcess().ProcessName); }
-            set { }
+            get { return Path.GetFileName(Process.GetCurrentProcess().ProcessName); }            
         }
 
         public string ExecutingAssembly
         {
-            get { return Assembly.GetExecutingAssembly().Location; }
-            set { }
+            get { return Assembly.GetExecutingAssembly().Location; }            
         }
 
         public string TempFileNameInTempDirectory
         {
-			get { return O2TempDir.pathCombine(O2Kernel_Files.getTempFileName()); }
-            set { }
+			get { return O2TempDir.pathCombine(O2Kernel_Files.getTempFileName()); }            
         }
 
         public string TempFolderInTempDirectory
@@ -241,8 +233,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 				string tempFolder = O2TempDir.pathCombine(O2Kernel_Files.getTempFolderName());
                 Directory.CreateDirectory(tempFolder);
                 return tempFolder;
-            }
-            set { }
+            }            
         }
 
         /*public string O2KernelAssemblyName
@@ -297,12 +288,11 @@ namespace O2.Kernel.InterfacesBaseImpl
                 }
             return false;
         }
-
-        // Todo: NEED TO CHECK IF THIS IS NEEDED
+        
         public void addPathToCurrentExecutableEnvironmentPathVariable(String sPathToAdd)
         {
             string sCurrentEnvironmentPath = Environment.GetEnvironmentVariable("Path");
-            if (sCurrentEnvironmentPath != null && sCurrentEnvironmentPath.IndexOf(sPathToAdd) == -1)
+            if (sCurrentEnvironmentPath != null && sCurrentEnvironmentPath.index(sPathToAdd) == -1)
             {
                 String sUpdatedPathValue = String.Format("{0};{1}", sCurrentEnvironmentPath, sPathToAdd);
                 Environment.SetEnvironmentVariable("Path", sUpdatedPathValue);

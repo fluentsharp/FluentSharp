@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using O2.DotNetWrappers.Windows;
-
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
-using System.Reflection;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -160,14 +158,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return Files.getSafeFileNameString(_string,prependBase64EncodedString);
         }
-        public static string        safeFileName(this string _stringToConvert, int maxLength)
+        public static string        safeFileName(this string stringToConvert, int maxLength)
         {
-            var safeName = _stringToConvert.safeFileName();
+            var safeName = stringToConvert.safeFileName();
             if (maxLength > 10 && safeName.size() > maxLength)
                 return "{0} ({1}){2}".format(
                             safeName.Substring(0, maxLength - 10),
                             3.randomNumbers(),
-                            _stringToConvert.Substring(_stringToConvert.size() - 9).extension());
+                            stringToConvert.Substring(stringToConvert.size() - 9).extension());
             return safeName;
         }
         public static string        fileName(this string file)
@@ -198,7 +196,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             try
             {
                 if (file.valid() && file.size() < 256)
-                    return Path.GetExtension(file).ToLower();
+                    return Path.GetExtension(file).lower();
             }
             catch
             {
@@ -275,8 +273,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {
                 if (file.valid() && file.size() < 256)
                     return File.Exists(file);
-            }
-            catch
+            }            
+            catch            
             { }
             return false;
         }        
@@ -480,6 +478,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<string>  files(this string path, bool recursive, params string[] searchPatterns)
         {
+            if (searchPatterns.empty())
+                searchPatterns = new[] {"*.*"};
             return path.files(searchPatterns.toList(), recursive);
         }
         public static List<string>  files(this string path, List<string> searchPatterns, bool recursive)
@@ -487,11 +487,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return (path.isFolder()) 
                 ? Files.getFilesFromDir_returnFullPath(path, searchPatterns, recursive)
                 : new List<string>();
-        }
-        public static List<string>  files(this string folder, bool recursiveSearch)
-        {
-            return folder.files(recursiveSearch, "*.*");
-        }
+        }        
         public static List<string>  files(this string folder, bool recursiveSearch, string filter)
         {
             return Files.getFilesFromDir_returnFullPath(folder, filter, recursiveSearch);
@@ -591,7 +587,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (removeEmptyLines)
                 return text.lines();
             return text.fixCRLF()
-                       .Split(new string[] { Environment.NewLine }, System.StringSplitOptions.None )
+                       .Split(new [] { Environment.NewLine }, StringSplitOptions.None )
                        .toList();
         }
         public static List<string>  filesContains(this List<string> files, string textToSearch)
@@ -623,17 +619,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }		
         public static Dictionary<string,string>         files_Indexed_by_FileName(this List<string> files)
         {
-            var files_Indexed_by_FileName = new Dictionary<string,string>();
+            var files_Indexed_By_FileName = new Dictionary<string,string>();
             foreach(var file in files)			
-                files_Indexed_by_FileName.add(file.fileName(), file);
-            return files_Indexed_by_FileName;
+                files_Indexed_By_FileName.add(file.fileName(), file);
+            return files_Indexed_By_FileName;
         }		
         public static Dictionary<string,List<string>>   files_Mapped_by_Extension(this List<string> files)
         {
-            var files_Indexed_by_FileName = new Dictionary<string,List<string>>();
+            var files_Indexed_By_FileName = new Dictionary<string,List<string>>();
             foreach(var file in files)			
-                files_Indexed_by_FileName.add(file.extension(), file);
-            return files_Indexed_by_FileName;
+                files_Indexed_By_FileName.add(file.extension(), file);
+            return files_Indexed_By_FileName;
         }
 
         public static string        find_File_in_List(this List<string> files, params string[] fileNames)

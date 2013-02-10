@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using O2.Kernel;
@@ -13,7 +12,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {        
         public static DataGridView add_DataGridView(this Control control, params int[] position)
         {
-            return (DataGridView)control.invokeOnThread(() =>
+            return control.invokeOnThread(() =>
                 {
                     var dataGridView = control.add_Control<DataGridView>(position);
                     dataGridView.AllowUserToAddRows = false;
@@ -25,7 +24,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView columnWidth(this DataGridView dataGridView, int id, int width)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     if (width > -1)
                         dataGridView.Columns[id].Width = width;
@@ -40,7 +39,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int add_Column(this DataGridView dataGridView, string title, int width)
         {
-            return (int)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     int id = dataGridView.Columns.Add(title, title);
                     dataGridView.columnWidth(id, width);
@@ -57,7 +56,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int add_Column_Link(this DataGridView dataGridView, string title, int width, bool useColumnTextForLinkValue)
         {
-            return (int)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {                    
 					var links = new DataGridViewLinkColumn();
 					links.TrackVisitedState = true;
@@ -90,12 +89,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView add_Columns(this DataGridView dataGridView, params string[] columns)
         {
-            columns.ForEach(column => dataGridView.add_Column(column));
+            columns.forEach(column => dataGridView.add_Column(column));
             return dataGridView;
         }
         public static int add_Row(this DataGridView dataGridView, params object[] cells)
         {
-            return (int)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     int id = dataGridView.Rows.Add(cells);                    
                     return id;
@@ -122,11 +121,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }    
         public static DataGridViewRow get_Row(this DataGridView dataGridView, int rowId)
         {
-            return (DataGridViewRow)dataGridView.invokeOnThread(() => dataGridView.Rows[rowId]);
+            return dataGridView.invokeOnThread(() => dataGridView.Rows[rowId]);
         }
         public static object value(this DataGridView dataGridView, int rowId, int columnId)
         {
-            return (object)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     try
                     {
@@ -143,7 +142,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView onClick(this DataGridView dataGridView, Action<int, int> cellClicked)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.CellContentClick += (sender, e) => cellClicked(e.RowIndex, e.ColumnIndex);
                     return dataGridView;
@@ -151,7 +150,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView remove_Row(this DataGridView dataGridView, DataGridViewRow row)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Rows.Remove(row);
                     return dataGridView;
@@ -159,7 +158,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView remove_Column(this DataGridView dataGridView, DataGridViewColumn column)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Columns.Remove(column);
                     return dataGridView;
@@ -167,7 +166,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView remove_Rows(this DataGridView dataGridView)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Rows.Clear();
                     return dataGridView;
@@ -175,7 +174,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView remove_Columns(this DataGridView dataGridView)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Columns.Clear();
                     return dataGridView;
@@ -183,24 +182,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<List<object>> rows(this DataGridView dataGridView)
         {
-            return (List<List<object>>)dataGridView.invokeOnThread(() =>
-                {
-                    var rows = new List<List<object>>();
-                    foreach (DataGridViewRow row in dataGridView.Rows)
-                    {
-                        var rowData = new List<object>();
-                        foreach (DataGridViewCell cell in row.Cells)
-                        {
-                            rowData.Add(cell.Value ?? "");
-                        }
-                        rows.Add(rowData);
-                    }
-                    return rows;
-                });
+            return dataGridView.invokeOnThread(
+                () => (from DataGridViewRow row in dataGridView.Rows 
+                       select (from DataGridViewCell cell in row.Cells 
+                               select cell.Value ?? "")
+                               .ToList())
+                               .ToList());
         }
         public static DataGridView noSelection(this DataGridView dataGridView)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.SelectionChanged += (sender, e) => dataGridView.ClearSelection();
                     return dataGridView;
@@ -208,7 +199,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView column_backColor(this DataGridView dataGridView, int columnId, Color color)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Columns[columnId].DefaultCellStyle.BackColor = color;
                     return dataGridView;
@@ -216,7 +207,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView showFileStrings(this DataGridView dataGridView, string file, bool ignoreCharZeroAfterValidChar, int minimumStringSize)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Columns.Clear();
                     dataGridView.add_Column("string");
@@ -228,7 +219,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView showFileContents(this DataGridView dataGridView, string file, Func<byte, string> encoding)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     showFileContents(dataGridView, file, 16, encoding);
                     return dataGridView;
@@ -236,7 +227,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView showFileContents(this DataGridView dataGridView, string file, int splitPoint, Func<byte, string> encoding)
         {
-            return (DataGridView)dataGridView.invokeOnThread(() =>
+            return dataGridView.invokeOnThread(() =>
                 {
                     dataGridView.Columns.Clear();
                     dataGridView.add_Column("");
@@ -252,17 +243,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     var row = new List<string>();
                     var rowId = 0;
                     row.add(rowId.hex());
+                    // ReSharper disable CoVariantArrayConversion
                     foreach (var value in bytes)
                     {
                         row.add(encoding(value));
                         if (row.Count == splitPoint)
-                        {
-                            dataGridView.add_Row(row.ToArray());
+                        {                            
+                            dataGridView.add_Row(row.ToArray());                            
                             row.Clear();
                             row.add((rowId++).hex());
                         }
-                    }
+                    }                    
                     dataGridView.add_Row(row.ToArray());
+                    // ReSharper restore CoVariantArrayConversion
                     //dataGridView.add_Row(row);
                     return dataGridView;
                 });
@@ -358,7 +351,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 										if (dataGridViewRow.Tag.notNull() && dataGridViewRow.Tag is T)
 											callback((T)dataGridViewRow.Tag);
 								   });
-			dataGridView.onDoubleClick<T>(callback);					   
+			dataGridView.onDoubleClick(callback);					   
 			return dataGridView;
 		}		
 		public static DataGridView afterSelect(this DataGridView dataGridView, Action<DataGridViewRow> callback)
@@ -383,7 +376,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}		
 		public static List<string> values(this DataGridViewRow dataViewGridRow)
 		{
-			return ( List<string>)dataViewGridRow.DataGridView.invokeOnThread(
+			return dataViewGridRow.DataGridView.invokeOnThread(
 				()=>{
 						var values = new List<string>();
 						foreach(var cell in dataViewGridRow.Cells)
@@ -397,11 +390,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			dataGridView.remove_Columns();
 			if(_object is IEnumerable)
 			{
-				var list = (_object as IEnumerable); 
-				var first = list.first();  
+				var list = (_object as IEnumerable);
+			    var enumerable = list as object[] ?? list.Cast<object>().ToArray();
+			    var first = enumerable.first();  
 				var names = first.type().properties().names(); 
 				dataGridView.add_Columns(names);
-				foreach(var item in list)
+				foreach(var item in enumerable)
 				{
 					var rowId = dataGridView.add_Row(item.propertyValues().ToArray()); 
 					dataGridView.get_Row(rowId).Tag = item;										

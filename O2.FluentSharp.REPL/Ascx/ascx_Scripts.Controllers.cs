@@ -26,13 +26,13 @@ namespace O2.External.SharpDevelop.Ascx
                                                                       "WeifenLuo.WinFormsUI.Docking.dll"
                                                                   };*/
 
-        private bool runOnLoad = true;
+        private bool _runOnLoad = true;
 
         private void onLoad()
         {
 
 
-            if (false == DesignMode && runOnLoad)
+            if (false == DesignMode && _runOnLoad)
             {
 
                 // set ascx_ScriptsFolder DI variable to point to the current Script Editor|
@@ -65,7 +65,7 @@ namespace O2.External.SharpDevelop.Ascx
                 assemblyInvoke.setExecuteMethodOnDoubleClick(true);
                 assemblyInvoke.setShowAssemblyExecutionPanel(true);
                 assemblyInvoke.setOnlyShowStaticMethods(true);*/
-                runOnLoad = false;
+                _runOnLoad = false;
             }
         }
 

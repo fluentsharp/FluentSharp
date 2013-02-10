@@ -1,38 +1,25 @@
 ﻿// This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.Text;
-using System.Linq;
 using System.Drawing;
-using System.Reflection;
 using System.Threading;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using O2.Kernel;
 using O2.Kernel.CodeUtils;
-using O2.Interfaces.O2Core;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.Views.ASCX;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.Views.ASCX.ExtensionMethods;
-using O2.External.SharpDevelop;
 using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.AST;
 using O2.External.SharpDevelop.ExtensionMethods;
-using ICSharpCode.NRefactory;
-using ICSharpCode.NRefactory.Ast;
 using O2.DotNetWrappers.H2Scripts;
-using O2.Views.ASCX.Ascx.MainGUI;
 using O2.Views.ASCX.DataViewers;
-using O2.Views.ASCX.CoreControls;
 using O2.API.AST.ExtensionMethods.CSharp;
-using O2.FluentSharp;
 using O2.Views.ASCX.Forms;
 using O2.FluentSharp.REPL;
 using O2.Platform.BCL.O2_Views_ASCX;
-
-//O2Ref:log4net.dll
 
 namespace O2.XRules.Database.Utils
 {
@@ -48,9 +35,9 @@ namespace O2.XRules.Database.Utils
     }
     // Comments: (24 Feb 2010): This was the 6th pass at building an O2 Command Prompt (i.e. simple script editor)	
 
-    public class ascx_Simple_Script_Editor : UserControl
+    public sealed class ascx_Simple_Script_Editor : UserControl
     {
-        private static IO2Log log = PublicDI.log;
+        //private static IO2Log log = PublicDI.log;
 
         public ascx_SourceCodeViewer sourceCodeViewer { get; set; }
         public ascx_SourceCodeViewer commandsToExecute { get; set; }
@@ -105,7 +92,7 @@ namespace O2.XRules.Database.Utils
         public static ascx_Simple_Script_Editor startControl_NoCodeComplete()
         {
             var host = O2Gui.load<Panel>("O2 Simple Script Editor", 700, 300);
-            return (ascx_Simple_Script_Editor)host.invokeOnThread(
+            return host.invokeOnThread(
                 () =>
                 {
                     var scriptEditor = new ascx_Simple_Script_Editor(false);
@@ -122,8 +109,8 @@ namespace O2.XRules.Database.Utils
         public ascx_Simple_Script_Editor(bool codeCompleteSupport)
         {
             AddToolStrip = true;
-            this.Width = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
             previousCompiledCodeText = "";
             InvocationParameters = new Dictionary<string, object>(); 
             AutoCompileOnCodeChange = true; 
@@ -139,7 +126,7 @@ namespace O2.XRules.Database.Utils
             ExecuteOnEnter = false;
             if (codeCompleteSupport)
                 enableCodeComplete_afterACoupleSeconds();
-            this.Refresh();
+            Refresh();
 
         }
 
@@ -346,11 +333,7 @@ namespace O2.XRules.Database.Utils
                     break;
                 case "clear 'AssembliesCheckedIfExists' cache":
                     commandsToExecute.insert_Text("".line() + "//ClearAssembliesCheckedIfExists".line());
-                    break;
-                default:
-
-                    //                    commandsToExecute.insert_Text(".........");                    
-                    break;
+                    break;                
             }
         }
 
@@ -399,11 +382,11 @@ namespace O2.XRules.Database.Utils
                 {
                     //"AST creation failed".error();
                     //	this.sourceCodeViewer.enabled(false);    	 				
-                    this.executeButton.enabled(false);
-                    this.result_RichTextBox.textColor(Color.Red).set_Text("Ast Parsing Errors:\r\n\r\n");
+                    executeButton.enabled(false);
+                    result_RichTextBox.textColor(Color.Red).set_Text("Ast Parsing Errors:\r\n\r\n");
                     //.append_Text(csharpCompiler.AstErrors);						
-                    this.commandsToExecute.updateCodeComplete(csharpCompiler);
-                    this.sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);
+                    commandsToExecute.updateCodeComplete(csharpCompiler);
+                    sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);
                     OnAstFail.invoke();
                 };
 
@@ -411,22 +394,22 @@ namespace O2.XRules.Database.Utils
                 () =>
                 {
                     o2Timer.start();
-                    this.commandsToExecute.editor().refresh();
-                    this.sourceCodeViewer.enabled(true);
-                    this.commandsToExecute.invokeOnThread(() => commandsToExecute.Refresh()); ;
-                    this.GeneratedCode = csharpCompiler.SourceCode;
-                    this.commandsToExecute.updateCodeComplete(csharpCompiler);
-                    this.sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);
+                    commandsToExecute.editor().refresh();
+                    sourceCodeViewer.enabled(true);
+                    commandsToExecute.invokeOnThread(() => commandsToExecute.Refresh());
+                    GeneratedCode = csharpCompiler.SourceCode;
+                    commandsToExecute.updateCodeComplete(csharpCompiler);
+                    sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);
                     OnAstOK.invoke();
                 };
 
-            this.csharpCompiler.onCompileFail =
+            csharpCompiler.onCompileFail =
                () =>
                {
                    //"AST OK, but compilation failed".error();
-                   this.executeButton.enabled(false);
+                   executeButton.enabled(false);
                    var codeOffset = csharpCompiler.getGeneratedSourceCodeMethodLineOffset();
-                   this.csharpCompiler.CompilationErrors.runForEachCompilationError(
+                   csharpCompiler.CompilationErrors.runForEachCompilationError(
                                              (row, col) =>
                                              {
                                                  sourceCodeViewer.editor().setSelectedText(row, col, true, false);
@@ -438,25 +421,25 @@ namespace O2.XRules.Database.Utils
                                                      false); /*decrementLineAndColumn*/
 
                                              });
-                   this.result_RichTextBox.textColor(Color.Red)
+                   result_RichTextBox.textColor(Color.Red)
                                      .set_Text("Compilation Errors:\r\n\r\n")
                                      .append_Text(csharpCompiler.CompilationErrors);
                    onCompileFail.invoke();
 
                };
-            this.csharpCompiler.onCompileOK =
+            csharpCompiler.onCompileOK =
                () =>
                {
                    o2Timer.stop();
                    "Compilation OK".debug();
-                   this.commandsToExecute.editor().refresh();
-                   this.sourceCodeViewer.editor().refresh();
-                   this.result_RichTextBox.set_Text("Compilation OK:\r\n\r\n")
+                   commandsToExecute.editor().refresh();
+                   sourceCodeViewer.editor().refresh();
+                   result_RichTextBox.set_Text("Compilation OK:\r\n\r\n")
                                           .textColor(Color.Green);
-                   this.executeButton.enabled(true);
+                   executeButton.enabled(true);
                    if (AutoSaveOnCompileSuccess && Code != defaultCode)
                    {
-                       this.AutoSaveDir.createDir();    // make sure it exits
+                       AutoSaveDir.createDir();    // make sure it exits
                        var targetFile = AutoSaveDir.pathCombine(Files.getFileSaveDateTime_Now().trim() + ".cs");
                        targetFile.fileWrite(Code);
                    }

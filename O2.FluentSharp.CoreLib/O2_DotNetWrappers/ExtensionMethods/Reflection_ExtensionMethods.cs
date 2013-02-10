@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using O2.Kernel;
 
 using System.Reflection;
@@ -13,36 +12,45 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class Reflection_ExtensionMethods_Assemby
     { 
-        public static Assembly              assembly(this string assemblyName)
+        public static Assembly              assembly                     (this string assemblyName)
         {
             return PublicDI.reflection.getAssembly(assemblyName);
         }
-        public static string                assemblyLocation(this Type type)
+        public static string                assemblyLocation             (this Type type)
         {
             if (type.isNull())
                 return null;
             return type.Assembly.Location;
-        }        
-        public static string                version(this Assembly assembly)
+        }
+        public static string                append_CurrentAssemblyVersion(this string aString)
+        {
+            return Assembly.GetCallingAssembly().version();            
+        }
+        public static string                append_O2Version             (this string aString)
+        {
+            return Assembly.GetExecutingAssembly().version();
+        }
+        
+        public static string                version                      (this Assembly assembly)
         {
             if (assembly.notNull())
                 return assembly.GetName().Version.ToString();
             return "";
         }
-        public static List<AssemblyName>    referencedAssemblies(this Assembly assembly)
+        public static List<AssemblyName>    referencedAssemblies         (this Assembly assembly)
         {
             return assembly.GetReferencedAssemblies().toList();
         }		
-        public static bool                  isAssemblyName(this string _string)
+        public static bool                  isAssemblyName               (this string _string)
         {
             return _string.contains("PublicKeyToken") &&   // ensure these exists since .assemblyName() will work for simple filenames
                    _string.assemblyName().notNull();
         }		
-        public static AssemblyName          assemblyName(this string _string)
+        public static AssemblyName          assemblyName                 (this string _string)
         {
             try
             {
-                return new System.Reflection.AssemblyName(_string);
+                return new AssemblyName(_string);
             }
             catch//(Exception ex)
             {
@@ -50,60 +58,60 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return null;
             }
         }
-        public static bool                  isDynamic(this Assembly assembly)
+        public static bool                  isDynamic                    (this Assembly assembly)
         {
             return assembly.prop<bool>("IsDynamic");
         }
-        public static List<Assembly>        notDynamic(this List<Assembly> assemblies)
+        public static List<Assembly>        notDynamic                   (this List<Assembly> assemblies)
         {
             return (from assembly in assemblies                    
                     where assembly.isDynamic().isFalse()
                     select assembly).toList();
         }
-        public static List<Assembly>        with_Valid_Location(this List<Assembly> assemblies)
+        public static List<Assembly>        with_Valid_Location          (this List<Assembly> assemblies)
         {
             return assemblies.notDynamic().where((assembly) => assembly.Location.valid()).toList();
         }
-        public static List<string>          names(this List<AssemblyName> assemblyNames)
+        public static List<string>          names                        (this List<AssemblyName> assemblyNames)
         {
             return (from assemblyName in assemblyNames
                     select assemblyName.name()).toList();
         }
-        public static string                name(this Assembly assembly)
+        public static string                name                         (this Assembly assembly)
         {
             if (assembly.notNull())
                 return assembly.GetName().Name;
             return null;
         }
-        public static string                name(this AssemblyName assemblyName)
+        public static string                name                         (this AssemblyName assemblyName)
         {
             if(assemblyName.notNull())
                 return assemblyName.Name;
             return null;
         }					
-        public static Assembly              assembly(this AssemblyName assemblyName)
+        public static Assembly              assembly                     (this AssemblyName assemblyName)
         {
             return assemblyName.str().assembly();
         }		
-        public static string                assembly_Location(this string assemblyName)
+        public static string                assembly_Location            (this string assemblyName)
         {
             return assemblyName.assembly().location();
         }		
-        public static string                location(this Assembly assembly)
+        public static string                location                     (this Assembly assembly)
         {
             if(assembly.notNull())
                 return assembly.Location;
             return null;
         }
-        public static List<AssemblyName>    referencedAssemblies(this AssemblyName assemblyName)
+        public static List<AssemblyName>    referencedAssemblies         (this AssemblyName assemblyName)
         {
             return assemblyName.assembly().referencedAssemblies();
         }
-        public static List<AssemblyName>    referencedAssemblies(this Assembly assembly, bool recursiveSearch)
+        public static List<AssemblyName>    referencedAssemblies         (this Assembly assembly, bool recursiveSearch)
         {
             return assembly.referencedAssemblies(recursiveSearch, true);
         }
-        public static List<AssemblyName>    referencedAssemblies(this Assembly assembly, bool recursiveSearch, bool removeGacEntries)
+        public static List<AssemblyName>    referencedAssemblies         (this Assembly assembly, bool recursiveSearch, bool removeGacEntries)
         {
             var mappedReferences = new List<string>();
             var resolvedAssemblies = new List<AssemblyName>();
@@ -132,24 +140,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
             "there where {0} NonGac  assemblies resolved for {1}".debug(resolvedAssemblies.size(), assembly.Location);
             return resolvedAssemblies;
         }
-        public static List<AssemblyName>    removeGacAssemblies(this List<AssemblyName> assemblyNames)
+        public static List<AssemblyName>    removeGacAssemblies          (this List<AssemblyName> assemblyNames)
         {
             var systemRoot = Environment.GetEnvironmentVariable("SystemRoot");
             return (from assemblyName in assemblyNames
                     let assembly = assemblyName.assembly()
                     where assembly.notNull() && assembly.Location.starts(systemRoot).isFalse()
                     select assemblyName).toList();
-        }
-        public static List<Assembly>        removeAssembliesSignedByMicrosoft(this IEnumerable<Assembly> assemblies)
-        {
-            return (from assembly in assemblies
-                    where assembly.isDynamic().isFalse()
-                    where assembly.FullName.contains("PublicKeyToken=b03f5f7f11d50a3a",         //need to identify other public keys used by Microsoft
-                                                     "PublicKeyToken=b77a5c561934e089", 
-                                                     "PublicKeyToken=31bf3856ad364e35").isFalse()
-                    select assembly).toList();
         }        
-        public static List<string>				locations(this List<AssemblyName> assemblyNames)
+        public static List<string>			locations                    (this List<AssemblyName> assemblyNames)
         {
 
             var locations = new List<string>();
@@ -167,24 +166,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return locations;
         }
-        public static string					imageRuntimeVersion(this Assembly assembly)
+        public static string				imageRuntimeVersion          (this Assembly assembly)
         {
             if (assembly.notNull())
                 return assembly.ImageRuntimeVersion;
             return null;
         }
-        public static PortableExecutableKinds	assembly_PortableExecutableKind(this string assemblyLocation)
-        {
-            return Assembly.ReflectionOnlyLoadFrom(assemblyLocation).portableExecutableKind();
-        }
-        public static PortableExecutableKinds	portableExecutableKind(this Assembly assembly)
+        
+        public static PortableExecutableKinds	portableExecutableKind              (this Assembly assembly)
         {
             PortableExecutableKinds peKind;
             ImageFileMachine imageFileMachine;
             assembly.ManifestModule.GetPEKind(out peKind, out imageFileMachine);
             return peKind;
         }
-        public static string					value(this PortableExecutableKinds peKind)
+        public static string					value                               (this PortableExecutableKinds peKind)
         {
             switch (peKind)
             {
@@ -203,9 +199,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 //throw new ArgumentOutOfRangeException();
             }
         }
-
-
-        
+        public static List<Assembly>            removeAssembliesSignedByMicrosoft   (this IEnumerable<Assembly> assemblies)
+        {
+            return (from assembly in assemblies
+                    where assembly.isDynamic().isFalse()
+                    where assembly.FullName.contains("PublicKeyToken=b03f5f7f11d50a3a",         //need to identify other public keys used by Microsoft
+                                                     "PublicKeyToken=b77a5c561934e089", 
+                                                     "PublicKeyToken=31bf3856ad364e35").isFalse()
+                    select assembly).toList();
+        }        
+        public static PortableExecutableKinds	assembly_PortableExecutableKind     (this string assemblyLocation)
+        {
+            return Assembly.ReflectionOnlyLoadFrom(assemblyLocation).portableExecutableKind();
+        }        
     }
 
     public static class Reflection_ExtensionMethods_Ctor
@@ -226,12 +232,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<ConstructorInfo> ctors(this Type type)
         {
-            return type.GetConstructors(System.Reflection.BindingFlags.NonPublic | 
-                                        System.Reflection.BindingFlags.Public | 
-                                        System.Reflection.BindingFlags.Instance).toList();
+            return type.GetConstructors(BindingFlags.NonPublic | 
+                                        BindingFlags.Public | 
+                                        BindingFlags.Instance).toList();
         }		    
-
-        public static Array createArray<T>(this Type arrayType,  params T[] values)			
+        public static Array                 createArray<T>(this Type arrayType,  params T[] values)			
         {
             try
             {
@@ -282,13 +287,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return list.Select((item) => item.type()).toList();
         }
-		public static object		infoTypeName(this object _object)
+        public static object		infoTypeName(this object _object)
         {
             if (_object.notNull())
                 _object.typeName().info();
             else
                 "in infoTypeName _object was null".error();
-			return _object;
+            return _object;
         }
         public static string        typeName(this object _object)
         {
@@ -330,12 +335,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<Type>    withBaseType<T>(this Assembly assembly)
         {
-            var matches = new List<Type>();
-            foreach (var type in assembly.types())
-                if (type.baseTypes().Contains(typeof(T)))
-                    matches.Add(type);
-            return matches;
+            return assembly .types()
+                            .Where(type => type.baseTypes()
+                                               .Contains(typeof (T)))
+                            .ToList();
         }
+
         public static List<string>  typesNames(this Assembly assembly)
         {
             return (from type in assembly.types()
@@ -349,10 +354,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return PublicDI.reflection.getProperties(type);
         }
-		public static List<PropertyInfo>	properties<T>(this Type type)
-		{
-			return type.properties().where((prop)=>prop.PropertyType == typeof(T));
-		}        
+        public static List<PropertyInfo>	properties<T>(this Type type)
+        {
+            return type.properties().where((prop)=>prop.PropertyType == typeof(T));
+        }        
         public static List<PropertyInfo>    properties_public_declared(this Type type, BindingFlags bindingFlags)
         { 
             return type.properties(BindingFlags.Public | BindingFlags.DeclaredOnly);
@@ -398,28 +403,30 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static List<object>          propertyValues(this object _object)
         {
-            var propertyValues = new List<object>();
+            /*var propertyValues = new List<object>();
             var names = _object.type().properties().names();
             foreach(var name in names)
                 propertyValues.Add(_object.prop(name));
+            return propertyValues;*/
+            return _object.type()
+                          .properties()
+                          .names()
+                          .select(name => _object.prop(name));            
+        }
+        public static List<T>               propertyValues<T>(this object _object)
+        {            
+            return _object.type         ()
+                          .properties<T>()
+                          .select       (property => (T) _object.prop(property.Name));                          
+        }
+        public static Dictionary<string,T> propertyValues_MappedBy_Name<T>(this object _object)
+        {
+            var propertyValues = new Dictionary<string,T>();
+            var properties = _object.type().properties<T>();
+            foreach (var property in properties)
+                propertyValues.add(property.Name, (T)_object.prop(property.Name));
             return propertyValues;
         }
-		public static List<T> propertyValues<T>(this object _object)
-		{
-			var propertyValues = new List<T>();
-			var properties = _object.type().properties<T>();
-			foreach (var property in properties)
-				propertyValues.Add((T)_object.prop(property.Name));
-			return propertyValues;
-		}
-		public static Dictionary<string,T> propertyValues_MappedBy_Name<T>(this object _object)
-		{
-			var propertyValues = new Dictionary<string,T>();
-			var properties = _object.type().properties<T>();
-			foreach (var property in properties)
-				propertyValues.add(property.Name, (T)_object.prop(property.Name));
-			return propertyValues;
-		}
         public static object                prop(this Type type, string propertyName)
         {
             return PublicDI.reflection.getProperty(propertyName, type);
@@ -438,15 +445,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {            
             return PublicDI.reflection.getProperty(propertyName, liveObject);
         }
-		public static object				prop(this object _liveObject, PropertyInfo propertyInfo, object value)
+        public static object				prop(this object liveObject, PropertyInfo propertyInfo, object value)
         {
-            PublicDI.reflection.setProperty(propertyInfo, _liveObject, value);
-			return _liveObject;
+            PublicDI.reflection.setProperty(propertyInfo, liveObject, value);
+            return liveObject;
         }        
-        public static object                prop(this object _liveObject, string propertyName, object value)
+        public static object                prop(this object liveObject, string propertyName, object value)
         {
-            PublicDI.reflection.setProperty(propertyName, _liveObject, value);
-			return _liveObject;
+            PublicDI.reflection.setProperty(propertyName, liveObject, value);
+            return liveObject;
         }
         public static List<string>          names(this List<PropertyInfo> properties)
         {
@@ -462,10 +469,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return PublicDI.reflection.getFields(type);
         }
-		public static List<FieldInfo>	fields<T>(this Type type)
-		{
-			return type.fields().where((field) => field.FieldType == typeof(T));
-		}
+        public static List<FieldInfo>	fields<T>(this Type type)
+        {
+            return type.fields().where((field) => field.FieldType == typeof(T));
+        }
         public static object            field(this object liveObject, string fieldName)
         {
             return PublicDI.reflection.getFieldValue(fieldName, liveObject);
@@ -477,7 +484,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static object            field(this object liveObject, string fieldName, object value)
         {
             PublicDI.reflection.setField(fieldName, liveObject, value);
-			return liveObject;
+            return liveObject;
         }        
         public static object            field<T>(this object _object, string fieldName)
         {
@@ -569,12 +576,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return PublicDI.reflection.getMethods(type, BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic);
         }
         public static MethodInfo        firstMethod(this Assembly assembly)
-        {    		
-            foreach(var method in assembly.methods())
-                if (false == method.IsSpecialName)      // to skip the methods created by properties
-                    return method;        	
-            return null;
+        {
+            // to skip the methods created by properties
+            return assembly.methods().FirstOrDefault(method => false == method.IsSpecialName);
         }
+
         public static List<String>      names(this List<MethodInfo> methods)
         {
             var names = from method in methods select method.Name;
@@ -582,12 +588,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static MethodInfo        method(this Type type, string name)
         {
-            foreach (var method in type.methods())
-            {
-                if (method.Name == name)
-                    return method;
-            }
-            return null;
+            return type.methods().first(method => method.Name == name);
         }
         public static string            signature(this MethodInfo methodInfo)
         {
@@ -595,15 +596,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {                
                 var method = methodInfo.type().method("ConstructName");
                 var result = method.Invoke(methodInfo, new object[] { });
-                return result.str(); ;         
+                return result.str();        
             }
             return "mscorlib".assembly().type("RuntimeMethodInfo")
                                             .method("ConstructName")
                                             .invokeStatic(methodInfo)
                                             .str();                
             
-        }		
-    
+        }		    
         public static List<MethodInfo>  methods(this List<Type> types)
         {
             return (from type in types
@@ -703,10 +703,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 }
             return default(T2);
         }
-        public static object                invoke(this object liveObject, string methodName)
+/*        public static object                invoke(this object liveObject, string methodName)
         {
             return liveObject.invoke(methodName, new object[] { });
-        }
+        }*/
         public static object                invoke(this object liveObject, MethodInfo methodInfo, params object[] parameters)
         {
             return methodInfo.invoke_on_LiveObject(liveObject, parameters);
@@ -731,12 +731,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 {
                     ex.log("[in object.Action.invoke()");
                 }
-			return _object;
+            return _object;
         }*/
-        public static object                invoke(this MethodInfo methodInfo)
+        /*public static object                invoke(this MethodInfo methodInfo)
         {
             return PublicDI.reflection.invoke(methodInfo);
-        }
+        }*/
         public static object                invoke(this MethodInfo methodInfo, params object[] parameters)
         {
             return PublicDI.reflection.invoke(methodInfo, parameters);
@@ -745,18 +745,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {         
             return PublicDI.reflection.invoke(liveObject, methodInfo, parameters);            
         }
-        public static Thread				invokeStatic_StaThread(this MethodInfo methodInfo)
+        /*public static Thread				invokeStatic_StaThread(this MethodInfo methodInfo)
         {
             return methodInfo.invokeStatic_StaThread(null);
-        }		
+        }*/		
         public static Thread				invokeStatic_StaThread(this MethodInfo methodInfo, params object[] invocationParameters)
         {
             return O2Thread.staThread(()=>methodInfo.invokeStatic(invocationParameters));
         }		
-        public static object				invokeStatic(this MethodInfo methodInfo)
+        /*public static object				invokeStatic(this MethodInfo methodInfo)
         {
             return methodInfo.invokeStatic(null);
-        }		
+        }*/		
         public static object				invokeStatic(this MethodInfo methodInfo, params object[] invocationParameters)
         {            
             if (invocationParameters.notNull())
@@ -780,24 +780,47 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class Reflection_ExtensionMethods_Attributes
     { 
-        public static List<System.Attribute>    attributes(this List<MethodInfo> methods)
+        public static List<Attribute>           attributes      (this Assembly assembly)
+        {
+            return PublicDI.reflection.getAttributes(assembly);
+       
+        }		
+
+        public static List<T>                   attributes<T>   (this Assembly assembly)			where T : Attribute
+        {
+            return assembly.attributes().attributes<T>();
+        }	
+        public static T                         attribute<T>    (this Assembly assembly)			where T : Attribute
+        {
+            return assembly.attributes<T>().first();
+        }	        	
+        public static bool                      hasAttribute<T>(this Assembly assembly)			    where T : Attribute
+        {
+            return assembly.attribute<T>().notNull();
+        }
+        public static List<Attribute>    attributes(this List<MethodInfo> methods)
         {
             return (from method in methods 
                     from attribute in method.attributes()
                     select attribute).toList();
         }
-        public static List<System.Attribute>    attributes(this MethodInfo method)
+        public static List<Attribute>           attributes(this MethodInfo method)
         {
             return PublicDI.reflection.getAttributes(method);
         }		
-        public static List<T>                   attributes<T>(this MethodInfo methods)			where T : Attribute
+        public static List<T>                   attributes<T>(this MethodInfo method)			        where T : Attribute
         {
-            return methods.attributes().attributes<T>();
+            return method.attributes().attributes<T>();
         }		
         public static List<T>                   attributes<T>(this List<MethodInfo> methods)			where T : Attribute
         {
-            return methods.attributes<T>();
-        }		
+            var attributes = new List<T>();
+            foreach(var method in  methods)
+                foreach (var attribute in method.attributes<T>())
+                    attributes.add(attribute);
+            return attributes;
+        }
+
         public static List<T>                   attributes<T>(this List<Attribute> attributes)			where T : Attribute
         {
             return (from attribute in attributes
@@ -810,11 +833,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }		
         public static Attribute                 attribute(this MethodInfo methodInfo, string name)
         {
-            foreach(var attribute in methodInfo.attributes())
-                if (attribute.name() == name)
-                    return attribute;
-            return null;			
-        }		
+            return methodInfo.attributes().FirstOrDefault(attribute => attribute.name() == name);
+        }
+
         public static T                         attribute<T>(this MethodInfo methodInfo)			where T : Attribute
         {
             return methodInfo.attributes<T>().first();			
@@ -830,8 +851,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<MethodInfo>          withAttribute(this List<MethodInfo> methods, string attributeName)
         { 
             return (from method in methods 
-                    from attribute in method.attributes()		  
-                    where attributeName == (attribute.TypeId as Type).Name.remove("Attribute")
+                    from attribute in method.attributes()
+                    let type = attribute.TypeId as Type
+                    where type != null && attributeName == type.Name.remove("Attribute")
                     select method).toList();						
         }				
         public static List<MethodInfo>          withAttribute<T>(this List<MethodInfo> methods)			where T : Attribute
@@ -873,14 +895,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             Type type = (_object is Type) 	
                             ? (Type)_object
-                            : _object.type();				
-            var soapMethods = new List<MethodInfo >(); 
-            foreach(var method in type.methods())
-                foreach(var attribute in method.attributes())
-                    if (attribute.typeFullName() == "System.Web.Services.Protocols.SoapDocumentMethodAttribute" ||
-                        attribute.typeFullName() == "System.Web.Services.Protocols.SoapRpcMethodAttribute")
-                        soapMethods.Add(method);
-            return soapMethods;
+                            : _object.type();
+            return (from   method    in type.methods()
+                    from   attribute in method.attributes()
+                    where  attribute.typeFullName() == "System.Web.Services.Protocols.SoapDocumentMethodAttribute" || 
+                           attribute.typeFullName() == "System.Web.Services.Protocols.SoapRpcMethodAttribute"
+                    select method).ToList();
         }
         
         public static Items property_Values_AsStrings(this object _object)
@@ -904,7 +924,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }		
         public static Assembly resolveAssembly(this string nameOrPath, Func<string,string> resolveName)
         {
-            System.ResolveEventHandler assemblyResolve =  
+            ResolveEventHandler assemblyResolve =  
                 (sender, args)=>{						
                                     var name = args.prop("Name").str();
                                     //"[AssemblyResolve] for name: {0}".debug(name);
@@ -917,9 +937,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                         {										
                                             //"[AssemblyResolve] loaded Assembly: {0}".info(assembly.FullName);
                                             return assembly;
-                                        }
-                                        else
-                                            "[AssemblyResolve] failed to load Assembly from location: {0}".error(location);
+                                        }                                        
+                                        "[AssemblyResolve] failed to load Assembly from location: {0}".error(location);
                                     }
                                     else
                                         "[AssemblyResolve] could not find a location for assembly with name: {0}".error(name);
@@ -961,8 +980,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
             
             
             var loadedAssemblies = new Dictionary<string, Assembly>();
-
-            Action<Assembly> loadReferencedAssemblies = null;
+            // ReSharper disable ImplicitlyCapturedClosure
+            // ReSharper disable AccessToModifiedClosure
+            Action<Assembly> loadReferencedAssemblies = (assembly) => { };
             Func<string, Assembly> loadAssembly = null;
             loadAssembly = 
                 (assemblyPathOrName) => {
@@ -971,18 +991,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                             var assembly = assemblyPathOrName.resolveAssembly(resolveAssemblyName);											
                                             if(assembly.notNull())
                                             {
-                                                loadedAssemblies.add(assemblyPathOrName, assembly);
-                                                loadReferencedAssemblies(assembly); 												
-                                                
+                                                loadedAssemblies.add(assemblyPathOrName, assembly);                                                
+                                                loadReferencedAssemblies(assembly); 												                                                
                                                 if (assembly.Location.valid().isFalse())
                                                 {
-                                                    loadAssembly(assembly.FullName.assemblyName().name()); 
-                                                    if (assembly.ManifestModule.Name != "<Unknown>")
-                                                        loadAssembly(assembly.ManifestModule.Name);
-                                                    else
-                                                        loadAssembly(assembly.ManifestModule.ScopeName);
+                                                    loadAssembly(assembly.FullName.assemblyName().name());
+                                                    loadAssembly(assembly.ManifestModule.Name != "<Unknown>"
+                                                                     ? assembly.ManifestModule.Name
+                                                                     : assembly.ManifestModule.ScopeName);
                                                 }
-                                                 //loadAssembly(assembly.ManifestModule.Name);
+                                                //loadAssembly(assembly.ManifestModule.Name);
                                                  
                                             } 
                                             return assembly;
@@ -998,7 +1016,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                             "COULD NOT LOAD Referenced Assembly: {0}".error(assemblyName);
                                 }
                             };										
-            
+            // ReSharper restore ImplicitlyCapturedClosure
+            // ReSharper restore AccessToModifiedClosure                                                
             var mainAssembly = loadAssembly(pathToAssemblyToLoad);
         
             "[loadAssemblyAndAllItsDependencies] there were {0} references loaded/mapped from '{1}'".info(loadedAssemblies.size(), pathToAssemblyToLoad);

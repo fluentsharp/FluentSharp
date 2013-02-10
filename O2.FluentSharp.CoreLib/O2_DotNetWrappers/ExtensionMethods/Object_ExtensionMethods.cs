@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace O2.DotNetWrappers.ExtensionMethods
@@ -48,22 +49,39 @@ namespace O2.DotNetWrappers.ExtensionMethods
 			return objectToGoBackTo;
 		}
         // ReSharper restore RedundantAssignment
-		public static T log_Info<T>(this T hostObject, string infoMessage, params object[] messageParams)
-		{
-			infoMessage.info(messageParams);
+
+		public static T log_Info<T>(this T hostObject, params object[] messageParams)
+		{			
+		    hostObject.str().info(messageParams);
 			return hostObject;
 		}
 
-		public static T log_Debug<T>(this T hostObject, string debugMessage, params object[] messageParams)
-		{
-			debugMessage.info(messageParams);
+		public static T log_Debug<T>(this T hostObject,  params object[] messageParams)
+		{			
+            hostObject.str().debug(messageParams);
 			return hostObject;
 		}
-		public static T log_Error<T>(this T hostObject, string errprMessage, params object[] messageParams)
-		{
-			errprMessage.info(messageParams);
+		public static T log_Error<T>(this T hostObject, params object[] messageParams)
+		{			
+            hostObject.str().error(messageParams);
 			return hostObject;
 		}
 
+        public static List<T> log_Info<T>(this List<T> list, params object[] messageParams)
+		{			
+		    list.forEach((item)=> item.str().info(messageParams));
+			return list;
+		}
+
+		public static List<T> log_Debug<T>(this List<T> list,  params object[] messageParams)
+		{			
+            list.forEach((item)=> item.str().debug(messageParams));
+			return list;
+		}
+		public static List<T> log_Error<T>(this List<T> list, params object[] messageParams)
+		{			
+            list.forEach((item)=> item.str().error(messageParams));
+			return list;
+		}
     }
 }

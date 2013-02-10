@@ -8,7 +8,7 @@
     <ProjectGuid>{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests.FluentSharp.CoreLib</RootNamespace>
+    <RootNamespace>UnitTests.FluentSharp_CoreLib</RootNamespace>
     <AssemblyName>UnitTests.FluentSharp.CoreLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,6 +49,7 @@
     <Compile Include="Test_O2Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test_CompileEngine.cs" />
+    <Compile Include="Test_Reflection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

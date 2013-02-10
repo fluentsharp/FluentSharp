@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
 using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
 using System.Drawing;
 using O2.DotNetWrappers.Windows;
 
@@ -12,11 +11,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Control_Object
     {
-
+        // ReSharper disable RedundantAssignment
         //add
         public static T add<T>(this Control hostControl, T childControl) where T : Control
         {
-            return (T)hostControl.invokeOnThread(
+            return hostControl.invokeOnThread(
                     () =>
                     {
                         hostControl.Controls.Add(childControl);
@@ -29,11 +28,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T add_Control<T>(this Control hostControl, T childControl) where T : Control
         {
-            return (T)hostControl.add(childControl);
+            return hostControl.add(childControl);
         }
         public static Control add_Control(this Control control, Type childControlType)            
         {
-            return (Control)control.invokeOnThread(
+            return control.invokeOnThread(
                                  () =>
                                  {
                                      try
@@ -99,6 +98,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return null;
                 });
         }
+
 		public static T add_Control<T>(this Control hostControl, ref T controlAdded) where T : Control
 		{
 			return controlAdded = hostControl.add_Control<T>();
@@ -1711,7 +1711,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}			
 		public static int top<T>(this T control)			where T : Control
 		{
-			return (int)control.invokeOnThread(()=>  control.Top);
+			return control.invokeOnThread(()=>  control.Top);
 		}
 		public static int left<T>(this T control)			where T : Control
 		{
@@ -1779,5 +1779,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     return control;
                 });
         }
+
+        // ReSharper restore RedundantAssignment
     }
 }

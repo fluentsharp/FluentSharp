@@ -1,29 +1,16 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
-using O2.Interfaces.O2Core;
-using O2.Kernel.CodeUtils;
-
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.Objects;
-using System.IO;
 using O2.DotNetWrappers.DotNet;
 using System.Threading;
 
-//O2File:../PublicDI.cs
-//O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
-//O2File:../ExtensionMethods/String_ExtensionMethods.cs
-//O2File:../Objects/O2Object.cs
-//O2File:../CodeUtils/O2GitHub.cs
-//O2File:../CodeUtils/O2Kernel_O2Thread.cs
-//O2File:../CodeUtils/O2Kernel_Files.cs
-
 namespace O2.Kernel.InterfacesBaseImpl
 {
-
-	
-    public class KReflection : IReflection
+    public class KReflection //: IReflection
     {
         public bool verbose { get; set; }
 
@@ -577,12 +564,15 @@ namespace O2.Kernel.InterfacesBaseImpl
         }
 
         public bool setField(FieldInfo fieldToSet, object liveObject, object fieldValue)
-        {
+        {            
             try
-            {
+            {                
                 fieldToSet.SetValue(liveObject, fieldValue,
                                             BindingFlags.SetField | BindingFlags.Public |
-                                            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, null, null);
+                                            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, null, 
+                                            // ReSharper disable AssignNullToNotNullAttribute
+                                            default(CultureInfo));
+                                            // ReSharper restore AssignNullToNotNullAttribute
                 return true;
             }
             catch (Exception ex)
@@ -639,7 +629,11 @@ namespace O2.Kernel.InterfacesBaseImpl
             {
                 propertyToSet.SetValue(liveObject,propertyValue,
                                             BindingFlags.SetProperty | BindingFlags.Public |
-                                            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, null,null,null );
+                                            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, null,null,
+                                            // ReSharper disable AssignNullToNotNullAttribute
+                                            null );
+                                            // ReSharper restore AssignNullToNotNullAttribute
+                                            
                 return true;
             }
             catch (Exception ex)
@@ -713,18 +707,18 @@ namespace O2.Kernel.InterfacesBaseImpl
 				}
 
 				// try with load method #1                
-#pragma warning disable 618
+                #pragma warning disable 618
                 try
                 {
                     assembly = Assembly.LoadWithPartialName(assemblyToLoad);
 
                     if (assembly.isNull() && assemblyToLoad.lower().ends(".dll") || assemblyToLoad.lower().ends(".exe"))
                     {
-                        assembly = Assembly.LoadWithPartialName(Path.GetFileNameWithoutExtension(assemblyToLoad));
+                        assembly = Assembly.LoadWithPartialName(assemblyToLoad.fileName_WithoutExtension());
                     }
-                }
-                catch { }
-#pragma warning restore 618
+                }               
+                catch { }                
+                #pragma warning restore 618
 				if (assembly.isNull())
 				{
 					// try with load method #2
@@ -749,8 +743,8 @@ namespace O2.Kernel.InterfacesBaseImpl
 							try
 							{
 								assembly = Assembly.Load(assemblyToLoad);
-							}
-							catch //(Exception ex3)
+							}                            
+							catch //(Exception ex3)                            
 							{
 								//            		    PublicDI.log.error("in loadAssembly (Assembly.LoadFrom) :{0}", ex1.Message);
 								//            		    PublicDI.log.error("in loadAssembly (Assembly.Load) :{0}", ex2.Message);
@@ -898,7 +892,9 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
             try
             {
+                // ReSharper disable AssignNullToNotNullAttribute
                 return methodInfo.Invoke(oLiveObject, BindingFlags.OptionalParamBinding , null, methodParameters, null);
+                // ReSharper restore AssignNullToNotNullAttribute
             }
             catch (Exception ex)
             {
@@ -908,7 +904,9 @@ namespace O2.Kernel.InterfacesBaseImpl
                     methodParameters = new object[] { methodParameters };
                     try
                     {
+                        // ReSharper disable AssignNullToNotNullAttribute
                         return methodInfo.Invoke(oLiveObject, BindingFlags.OptionalParamBinding, null, methodParameters, null);
+                        // ReSharper restore AssignNullToNotNullAttribute
                     }
                     catch (Exception ex2)
                     {
@@ -972,8 +970,11 @@ namespace O2.Kernel.InterfacesBaseImpl
             {
                 return methodToExecute.Invoke(null,
                                               BindingFlags.Public | BindingFlags.NonPublic |
-                                              BindingFlags.Static | BindingFlags.InvokeMethod, null,
-                                              (oParams ?? new object[0]), null);
+                                              BindingFlags.Static | BindingFlags.InvokeMethod, null,                                              
+                                              (oParams ?? new object[0]), 
+                                              // ReSharper disable AssignNullToNotNullAttribute
+                                              null);
+                                              // ReSharper restore AssignNullToNotNullAttribute
             }
             catch (Exception ex)
             {
@@ -986,7 +987,10 @@ namespace O2.Kernel.InterfacesBaseImpl
                         return methodToExecute.Invoke(null,
                                                   BindingFlags.Public | BindingFlags.NonPublic |
                                                   BindingFlags.Static | BindingFlags.InvokeMethod, null,
-                                                  (oParams ?? new object[0]), null);
+                                                  (oParams), 
+                                                  // ReSharper disable AssignNullToNotNullAttribute
+                                                  null);
+                                                  // ReSharper restore AssignNullToNotNullAttribute
                     }
                     catch (Exception ex2)
                     {
@@ -1019,7 +1023,7 @@ namespace O2.Kernel.InterfacesBaseImpl
                         return tMethodToInvokeType.InvokeMember(sMethodToInvokeName,
                                                                 BindingFlags.Public | BindingFlags.NonPublic |
                                                                 BindingFlags.Static | BindingFlags.InvokeMethod, null, null,
-                                                                (oParams ?? new object[0]));
+                                                                (oParams));
                     }
                     catch (Exception ex2)
                     {
@@ -1080,11 +1084,7 @@ namespace O2.Kernel.InterfacesBaseImpl
                        : null;
         }
 
-        public object createObject(Assembly assembly, String typeToCreateObject)
-        {
-            return createObject(assembly, typeToCreateObject, new object[] {});
-        }
-
+     
         public object createObject(Assembly assembly, String typeToCreateObject,
                                    params object[] constructorArguments)
         {                            
