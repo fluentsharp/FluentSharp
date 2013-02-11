@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using QuickGraph;
 using O2.DotNetWrappers.ExtensionMethods;
 
@@ -25,10 +23,7 @@ namespace O2.API.AST.ExtensionMethods
             {
                 "adding vertex: {0}".info(vertexToAdd.str());
                 graph.AddVertex(vertexToAdd);
-            }
-            else
-            { 
-            }
+            }            
             return graph;
         }
 
@@ -41,10 +36,7 @@ namespace O2.API.AST.ExtensionMethods
                 if (toVertex != null)
                     graph.AddVertex(toVertex);
                 if (fromVertex != null && toVertex != null)
-                    graph.AddEdge(new Edge<object>(fromVertex, toVertex));
-                else
-                { 
-                }
+                    graph.AddEdge(new Edge<object>(fromVertex, toVertex));               
             }
             catch (System.Exception ex)
             { 

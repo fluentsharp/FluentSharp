@@ -1,17 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using O2.Interfaces.O2Core;
-using O2.Interfaces.O2Findings;
-using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
 using System.Windows.Forms;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.DotNetWrappers.DotNet;
 using System.Drawing;
-using O2.Views.ASCX.Ascx.MainGUI;
-using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using System.Threading;
@@ -135,7 +128,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T		showAsForm<T>(this string title, int width, int height) where T : Control
         {
-            return (T)O2Gui.open<T>(title, width, height)
+            return O2Gui.open<T>(title, width, height)
                             .add_H2Icon();
         }
 
@@ -174,7 +167,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return control;
         }
-        public static Form      onClosed<T>(this Form form, MethodInvoker onClosed)
+        public static Form      onClosed(this Form form, MethodInvoker onClosed)
         {
             if (form == null)
             {
@@ -191,10 +184,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T         waitForClose<T>(this T control) where T: Control
         {
-            var form = control.parentForm();
-            var formClosed = new AutoResetEvent(false);
-            form.onClosed(() => formClosed.Set());
-            formClosed.WaitOne();
+            if (control.IsDisposed.isFalse())
+            {
+                var form = control.parentForm();
+                if (form.IsDisposed.isFalse())
+                {
+                    var formClosed = new AutoResetEvent(false);
+                    form.onClosed(() => formClosed.Set());
+                    formClosed.WaitOne();
+                }
+            }
             return control;
         }
         public static Form      form_Currently_Running(this string titleOrType)
@@ -218,12 +217,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Form      maximized(this Form form)
         {
-            return (Form)form.invokeOnThread(
-                () =>
-                {
-                    form.WindowState = FormWindowState.Maximized;
-                    return form;
-                });
+            return form.invokeOnThread(() =>{
+                                                form.WindowState = FormWindowState.Maximized;
+                                                return form;
+                                            });
         }
         public static T         minimized<T>(this T control)            where T : Control
         {
@@ -239,12 +236,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T         windowState<T>(this T control, FormWindowState state)            where T : Control
         {
-            return (T)control.invokeOnThread(
-                () =>
-                {
-                    control.parentForm().WindowState = state;
-                    return control;
-                });
+            return control.invokeOnThread(() =>{
+                                                    control.parentForm().WindowState = state;
+                                                    return control;
+                                                });
         }
         public static T         parentForm_AlwaysOnTop<T>(this T control)			where T : Control
 		{
@@ -325,7 +320,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string saveAs(this Icon icon, string targetFile)
         {
-            using (FileStream fileStream = new FileStream(targetFile, FileMode.Create))
+            using (var fileStream = new FileStream(targetFile, FileMode.Create))
                 icon.Save(fileStream);
             return targetFile;
         }
@@ -357,15 +352,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}								
 		public static T add_H2Icon<T>(this T control)			where T : Control
 		{
-			return control.set_Form_Icon("H2Logo.ico".local());
+			//return control.set_Form_Icon("H2Logo.ico".local());
+		    return control.set_Form_Icon(FormImages.H2Logo);
 		}
         public static Form set_H2Icon(this Form form)	
 		{
-			return form.set_Icon("H2Logo.ico".local().icon());
+            //return form.set_Icon("H2Logo.ico".local().icon());
+            return form.set_Form_Icon(FormImages.H2Logo);			
 		}
         public static Form set_O2Icon(this Form form)	
-		{            
-			return form.set_Icon("O2Logo.ico".local().icon());
+		{   
+            return form.set_Form_Icon(FormImages.O2Logo);			
+			//return form.set_Icon("O2Logo.ico".local().icon());
 		}
         public static Form set_DefaultIcon(this Form form)
         {
@@ -379,7 +377,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Form clientSize(this Form form, int width, int height)
         {
-            return (Form)form.invokeOnThread(() =>
+            return form.invokeOnThread(() =>
                 {
                     form.ClientSize = new Size(width, height);
                     return form;
@@ -412,13 +410,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static Form isMdiContainer(this Form form, bool value)
         {
-            return (Form)form.invokeOnThread(
-                () =>
-                {
-                    form.Controls.Clear();
-                    form.IsMdiContainer = true;
-                    return form;
-                });
+            return form.invokeOnThread(()=>{
+                                               form.Controls.Clear();
+                                               form.IsMdiContainer = true;
+                                               return form;
+                                           });
         }
 
         public static Form add_MdiChild(this Form parentForm)
@@ -447,25 +443,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static Form add_MdiChild(this Form parentForm, Func<Form> formCtor)
         {
-            return (Form)parentForm.invokeOnThread(
-                () =>
-                {
-                    var mdiChild = formCtor();
-                    mdiChild.MdiParent = parentForm;
-                    mdiChild.Show();
-                    return mdiChild;
-                });
+            return parentForm.invokeOnThread(()=>{
+                                                    var mdiChild = formCtor();
+                                                    mdiChild.MdiParent = parentForm;
+                                                    mdiChild.Show();
+                                                    return mdiChild;
+                                                });
         }
 
 
         public static Form layout(this Form parentForm, MdiLayout layout)
         {
-            return (Form)parentForm.invokeOnThread(
-                () =>
-                {
-                    parentForm.LayoutMdi(layout);
-                    return parentForm;
-                });
+            return parentForm.invokeOnThread(()=>{
+                                                    parentForm.LayoutMdi(layout);
+                                                    return parentForm;
+                                                 });
         }
 
         public static Form layout_TileHorizontal(this Form parentForm)

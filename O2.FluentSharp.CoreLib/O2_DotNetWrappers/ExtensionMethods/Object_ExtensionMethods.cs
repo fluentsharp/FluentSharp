@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 using JetBrains.Annotations;
 
 namespace O2.DotNetWrappers.ExtensionMethods
@@ -53,7 +53,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static T log_Info<T>(this T hostObject, params object[] messageParams)
 		{			
             if (hostObject.isIEnumerable())
-                (hostObject as IEnumerable<T>).toList().forEach<T>((item)=> item.str().info(messageParams));	
+                (hostObject as IEnumerable).toList().forEach<object>((item)=> item.str().info(messageParams));	
 		    else
 		        hostObject.str().info(messageParams);
 			return hostObject;
@@ -62,7 +62,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static T log_Debug<T>(this T hostObject,  params object[] messageParams)
 		{	
 		    if (hostObject.isIEnumerable())
-                (hostObject as IEnumerable<T>).toList().forEach<T>((item)=> item.str().debug(messageParams));					                    
+                (hostObject as IEnumerable).toList().forEach<object>((item)=> item.str().debug(messageParams));					                    
 		    else   
                 hostObject.str().debug(messageParams);
 			return hostObject;
@@ -70,7 +70,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		public static T log_Error<T>(this T hostObject, params object[] messageParams)
 		{			
             if (hostObject.isIEnumerable())
-                (hostObject as IEnumerable<T>).toList().forEach<T>((item)=> item.str().error(messageParams));			
+                (hostObject as IEnumerable).toList().forEach<object>((item)=> item.str().error(messageParams));			
             else
                 hostObject.str().error(messageParams);
 			return hostObject;

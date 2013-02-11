@@ -17,6 +17,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return PublicDI.reflection.getAssembly(assemblyName);
         }
+        public static Assembly              assembly                     (this byte[] bytes)
+        {
+            try
+            {
+                return Assembly.Load(bytes);
+            }
+            catch (Exception ex)
+            {
+                ex.log("Failed to load assembly from provided bytes");
+                return null;
+            }            
+        }
         public static string                assemblyLocation             (this Type type)
         {
             if (type.isNull())
@@ -1000,12 +1012,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class Reflection_ExtensionMethods_Resources
     {
-        public static List<String> embeddedResourceNames(this Assembly assembly)
+        public static List<String>  embeddedResourceNames(this Assembly assembly)
         {
             return assembly.GetManifestResourceNames().toList();
         }
-
-        public static byte[] embeddedResource(this Assembly assembly, string name)
+        public static List<String>  embeddedAssembliesNames(this Assembly assembly)
+        {
+            return assembly.GetManifestResourceNames().toList()
+                                                      .where((name)=>name.ends(new [] {".dll",".exe",".dll.gz",".exe.gz"}));
+        }
+        public static byte[]        embeddedResource(this Assembly assembly, string name)
         {            
             if (assembly.isNull())
                 return null;

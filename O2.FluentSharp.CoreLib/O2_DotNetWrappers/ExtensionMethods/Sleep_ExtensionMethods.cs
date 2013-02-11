@@ -29,6 +29,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static T		wait<T>(this T _object)
         {
+            if (_object is Int32)
+                return _object.wait(Int32.Parse(_object.str()), true);
             return _object.wait(1000, true);
         }
         public static T		wait<T>(this T _object, int length)

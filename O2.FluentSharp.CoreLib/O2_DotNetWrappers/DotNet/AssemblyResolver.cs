@@ -9,7 +9,7 @@ using O2.Kernel;
 namespace O2.DotNetWrappers.DotNet
 {
     public class AssemblyResolver
-    {
+    {        
         public static Func<string, string> NameResolver						{ get; set; }
         public static Dictionary<string, Assembly> CachedMappedAssemblies	{ get; set; }
         public static bool  Initialized                                     { get; set; }
@@ -48,8 +48,7 @@ namespace O2.DotNetWrappers.DotNet
             return assembly;
         }
         public static Assembly loadFromDisk(string name)
-        {
-            //"[AssemblyResolve] loadFromDisk : {0}".info(name);
+        {            
             if (name.valid() && CachedMappedAssemblies.hasKey(name))
                 return CachedMappedAssemblies[name];
                         
@@ -110,7 +109,8 @@ namespace O2.DotNetWrappers.DotNet
                         if (resourceName.lower().contains(nameToFind.lower() + ".dll") || 
                             resourceName.lower().contains(nameToFind.lower() + ".exe"))                            
                         {
-                            return saveResourceAsAssembly(name, resourceName, currentAssembly);
+                            //return saveResourceAsAssembly(name, resourceName, currentAssembly);
+                            return loadResourceAsAssembly(name, resourceName, currentAssembly);
                         }
                     }
                 }

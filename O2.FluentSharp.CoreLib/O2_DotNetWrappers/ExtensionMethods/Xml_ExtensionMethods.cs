@@ -13,15 +13,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static XmlReader     xmlReader(this string xml)
         {
             var xmlToLoad = xml.fileExists() ? xml.fileContents() : xml;
-            var xmlReaderSettings = new XmlReaderSettings();
-            xmlReaderSettings.XmlResolver = null;
-/*#if NET_4
-            xmlReaderSettings.DtdProcessing = DtdProcessing.Ignore; 
-#endif
-#if NET_3_5*/
-            xmlReaderSettings.ProhibitDtd = false;
-            
-//#endif
+            var xmlReaderSettings = new XmlReaderSettings
+                {
+                    XmlResolver = null,
+                    /*#if NET_4
+                        DtdProcessing = DtdProcessing.Ignore
+                    #endif
+                    #if NET_3_5*/
+                        ProhibitDtd = false    
+                    //#endif
+                } ;            
+
+
+
             var stringReader = new StringReader(xmlToLoad);
             return XmlReader.Create(stringReader, xmlReaderSettings);
         }
@@ -45,13 +49,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {
                 var xmlDocument = new XmlDocument();
                 xmlDocument.Load(xml.xmlReader());
-                return xmlDocument.DocumentElement.Name;
+                if (xmlDocument.DocumentElement != null) return xmlDocument.DocumentElement.Name;
             }
             catch (Exception ex)
             {
-                ex.log("in xmlDocumentElement");
-                return "";
+                ex.log("in xmlDocumentElement");                
             }
+            return "";
         }        
         public static string        xmlFormat(this string xml)
         {
@@ -62,10 +66,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var doc = new XmlDocument();
             doc.Load(xml.xmlReader());
             var stringWriter = new StringWriter();
-            var xmlWriter = new XmlTextWriter(stringWriter);
-            xmlWriter.Formatting = Formatting.Indented;
-            xmlWriter.Indentation = indentation;
-            xmlWriter.IndentChar = indentChar;
+            var xmlWriter = new XmlTextWriter(stringWriter)
+                {
+                    Formatting = Formatting.Indented,
+                    Indentation = indentation,
+                    IndentChar = indentChar
+                };
             xmlWriter.field("encoding", new UTF8Encoding()); //DC: is there another to set this			
             doc.Save(xmlWriter);
             return stringWriter.str();
@@ -82,7 +88,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             var xmlDocument = (xmlAttributes.size() > 0) 
                                     ?  xmlAttributes[0].OwnerDocument
-                                    : new XmlDocument();						
+                                    : new XmlDocument();
+            if (xmlDocument.isNull())
+                return null;
             var newAttribute = xmlDocument.CreateAttribute(name);
             newAttribute.Value = value;
             xmlAttributes.add(newAttribute);

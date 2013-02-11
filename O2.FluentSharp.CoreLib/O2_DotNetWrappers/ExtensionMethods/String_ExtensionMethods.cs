@@ -76,10 +76,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         return true;
             return false;
         }
-        public static bool      starts(this string stringToSearch, string stringToFind)
+        public static bool starts(this string stringToSearch, string stringToFind)
         {
             return stringToSearch.StartsWith(stringToFind);
         }
+        public static bool      starts(this string stringToSearch, string[] stringsToFind)
+        {
+            return stringsToFind.Any(stringToFind => stringToSearch.StartsWith(stringToFind));
+        }
+
         public static void      starts(this string stringToSearch, string[] stringsToFind, Action<string> onMatch)
         {
             stringToSearch.starts(stringsToFind, true, onMatch);
@@ -115,13 +120,22 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             return false;
         }
-        public static bool      nstarts(this string stringToSearch, string stringToFind)
+        /*public static bool      nstarts(this string stringToSearch, string stringToFind)
         {
             return ! starts(stringToSearch, stringToFind);
-        }
-        public static bool      ends(this string string1, string string2)
+        }*/
+
+        public static bool ends(this string stringToSearch, string stringToFind)
         {
-            return string1.EndsWith(string2);
+            return stringToSearch.EndsWith(stringToFind);
+        }
+
+        public static bool      ends(this string stringToSearch, string[] stringsToFind)
+        {
+            foreach(var stringToFind in stringsToFind)
+                if (stringToSearch.EndsWith(stringToFind))
+                    return true;
+            return false;            
         }
 
         public static List<string> containing(this List<string> strings, string stringToFind)
