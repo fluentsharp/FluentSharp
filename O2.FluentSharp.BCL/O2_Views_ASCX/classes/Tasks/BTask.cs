@@ -67,7 +67,7 @@ namespace O2.Views.ASCX.classes.Tasks
                 // invoke events
                 if (onTaskStatusChange != null)
                     onTaskStatusChange(this, value);
-                if (taskStatus == TaskStatus.Completed_OK || taskStatus == TaskStatus.Completed_Failed)
+                if (taskStatus == TaskStatus.Completed_Ok || taskStatus == TaskStatus.Completed_Failed)
                     if (onTaskExecutionCompletion != null)
                         onTaskExecutionCompletion(resultsObject);
             }

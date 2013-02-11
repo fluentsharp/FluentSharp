@@ -94,13 +94,14 @@ namespace O2.DotNetWrappers.DotNet
             var nameToFind = (name.isAssemblyName())
                     ? name.assemblyName().Name
                     : name;
+
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().removeAssembliesSignedByMicrosoft();
             //first see if the one we're trying to find is already loaded in memory
             foreach (var assembly in assemblies)
                 if (assembly.FullName == name)
                     return assembly;
              
-            foreach (var currentAssembly in assemblies)      
+            foreach (var currentAssembly in assemblies)
             {
                 try
                 {

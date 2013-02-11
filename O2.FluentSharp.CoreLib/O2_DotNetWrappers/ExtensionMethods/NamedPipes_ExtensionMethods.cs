@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using O2.DotNetWrappers.Windows;
+using System.IO.Pipes;
+using System.IO;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
-    using O2.DotNetWrappers.Windows;
-    using System.IO.Pipes;
-    using System.IO;
-
     public static class NamedPipes_ExtensionMethods
     {
         public static NamedPipeServerStream namePipeServer(this string pipeName, Action<string> dataReceived)

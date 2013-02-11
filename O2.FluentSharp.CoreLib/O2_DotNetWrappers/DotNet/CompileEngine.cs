@@ -16,13 +16,13 @@ namespace O2.DotNetWrappers.DotNet
 {
     public class CompileEngine
     {                
-        static string onlyAddReferencedAssemblies = "O2Tag_OnlyAddReferencedAssemblies";        
-        static List<string> specialO2Tag_ExtraReferences 	= new List<string>();
-        static List<string> specialO2Tag_Download 			= new List<string>();
-        static List<string> specialO2Tag_PathMapping 		= new List<string>();
-        static List<string> specialO2Tag_ExtraSourceFile 	= new List<string>();
-        static List<string> specialO2Tag_ExtraFolder 		= new List<string>();
-        static List<string> specialO2Tag_DontCompile		= new List<string>();
+        static string       _onlyAddReferencedAssemblies = "O2Tag_OnlyAddReferencedAssemblies";        
+        static List<string> _specialO2Tag_ExtraReferences 	= new List<string>();
+        static List<string> _specialO2Tag_Download 			= new List<string>();
+        static List<string> _specialO2Tag_PathMapping 		= new List<string>();
+        static List<string> _specialO2Tag_ExtraSourceFile 	= new List<string>();
+        static List<string> _specialO2Tag_ExtraFolder 		= new List<string>();
+        static List<string> _specialO2Tag_DontCompile		= new List<string>();
 
         public Assembly				compiledAssembly;
         public CompilerParameters	cpCompilerParameters;
@@ -61,18 +61,18 @@ namespace O2.DotNetWrappers.DotNet
             setDefaultLocalReferenceFolders();
             setDefaultReferencedAssemblies();
             setDefaultUsingStatements();
-            specialO2Tag_ExtraReferences	.add("//O2Tag_AddReferenceFile:")
+            _specialO2Tag_ExtraReferences	.add("//O2Tag_AddReferenceFile:")
                                             .add("//O2Ref:");
-            specialO2Tag_Download			.add("//Download:")
+            _specialO2Tag_Download			.add("//Download:")
                                             .add("//O2Download:");
-            specialO2Tag_PathMapping 		.add("//PathMapping:")
+            _specialO2Tag_PathMapping 		.add("//PathMapping:")
                                             .add("//O2PathMapping:");
-            specialO2Tag_ExtraSourceFile  	.add("//O2Tag_AddSourceFile:")
+            _specialO2Tag_ExtraSourceFile  	.add("//O2Tag_AddSourceFile:")
                                             .add("//O2File:");
-            specialO2Tag_ExtraFolder		.add("//O2Tag_AddSourceFolder:")
+            _specialO2Tag_ExtraFolder		.add("//O2Tag_AddSourceFolder:")
                                             .add("//O2Folder:")
                                             .add("//O2Dir:");
-            specialO2Tag_DontCompile   		.add("//O2NoCompile");
+            _specialO2Tag_DontCompile   	.add("//O2NoCompile");
         }
 
         public CompileEngine() : this (true)
@@ -487,7 +487,7 @@ namespace O2.DotNetWrappers.DotNet
             var filesToNotCompile = new List<string>();
             foreach(var sourceCodeFile in sourceCodeFiles)
                 if (sourceCodeFile.fileExists())
-                    if ("" != StringsAndLists.InFileTextStartsWithStringListItem(sourceCodeFile, specialO2Tag_DontCompile))
+                    if ("" != StringsAndLists.InFileTextStartsWithStringListItem(sourceCodeFile, _specialO2Tag_DontCompile))
                         filesToNotCompile.Add(sourceCodeFile);
             foreach (var fileToNotCompile in filesToNotCompile)
             {
@@ -531,7 +531,7 @@ namespace O2.DotNetWrappers.DotNet
                     var fileLines = Files.getFileLines(sourceCodeFile);
                     foreach (var fileLine in fileLines)
                     {
-                        var match = StringsAndLists.TextStartsWithStringListItem(fileLine, specialO2Tag_ExtraSourceFile);
+                        var match = StringsAndLists.TextStartsWithStringListItem(fileLine, _specialO2Tag_ExtraSourceFile);
                         if (match != "")
                         {
                             //   var file = fileLine.Replace(specialO2Tag_ExtraSourceFile, "").Trim();
@@ -547,7 +547,7 @@ namespace O2.DotNetWrappers.DotNet
                         //else if (fileLine.StartsWith(specialO2Tag_ExtraFolder))
                         else
                         {
-                            match = StringsAndLists.TextStartsWithStringListItem(fileLine, specialO2Tag_ExtraFolder);
+                            match = StringsAndLists.TextStartsWithStringListItem(fileLine, _specialO2Tag_ExtraFolder);
                             if (match != "")
                             {
                                 var folder = fileLine.Replace(match, "").Trim();
@@ -565,7 +565,7 @@ namespace O2.DotNetWrappers.DotNet
 
                             else
                             {
-                                match = StringsAndLists.TextStartsWithStringListItem(fileLine, specialO2Tag_PathMapping);
+                                match = StringsAndLists.TextStartsWithStringListItem(fileLine, _specialO2Tag_PathMapping);
                                 if (match != "")
                                     addCompilationPathMappings(fileLine.remove(match));
                             }
@@ -635,7 +635,7 @@ namespace O2.DotNetWrappers.DotNet
                 // note that the special tag must be the first line of the source code file
                 // (this case is a bit of a legacy from the earlier versions of this code which did not had good support for References)
                 var sourceCode = Files.getFileContents(sourceCodeFile);
-                if (sourceCode.starts("//"+ onlyAddReferencedAssemblies))
+                if (sourceCode.starts("//"+ _onlyAddReferencedAssemblies))
                 {
                     referencedAssemblies.Clear();
                     break;              // once one the files has the onlyAddReferencedAssemblies ref, we can clear the referencedAssemblies and break the loop
@@ -653,7 +653,7 @@ namespace O2.DotNetWrappers.DotNet
 
                 foreach (var fileLine in fileLines)
                 {
-                    var match = StringsAndLists.TextStartsWithStringListItem(fileLine, specialO2Tag_ExtraReferences);
+                    var match = StringsAndLists.TextStartsWithStringListItem(fileLine, _specialO2Tag_ExtraReferences);
                     //if (fileLine.StartsWith(specialO2Tag_ExtraReferences))
                     if (match!="")
                     {

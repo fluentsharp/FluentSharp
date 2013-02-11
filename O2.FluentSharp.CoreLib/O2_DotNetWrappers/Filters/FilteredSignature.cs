@@ -30,7 +30,7 @@ namespace O2.DotNetWrappers.Filters
         
 		public  FilteredSignature()
 		{
-			classesToNotApplyDotNetPatch.AddRange(new string[] {"System.String","System.Char","System.Object", "System.Int16", "System.Int32", "System.Int64", "System.Boolean", "System.Double", "System.Void"});        
+			classesToNotApplyDotNetPatch.AddRange(new [] {"System.String","System.Char","System.Object", "System.Int16", "System.Int32", "System.Int64", "System.Boolean", "System.Double", "System.Void"});        
 		}
 		
         public FilteredSignature(String sSignature) : this()
@@ -180,10 +180,10 @@ namespace O2.DotNetWrappers.Filters
         public void sParseSignature()
         {
             sOriginalSignature = sSignature;            
-            if ((sSignature.IndexOf("::") > -1))// && (sSignature.IndexOf("!") > -1))
+            if ((sSignature.index("::") > -1))// && (sSignature.IndexOf("!") > -1))
                 sSignature = transformCecilSignature(sSignature).Trim();
             else
-                if (sSignature.IndexOf("!") > -1)
+                if (sSignature.index("!") > -1)
                     sSignature = extractModule(sSignature).Trim();
 
             //if (bMakeDotNetSignatureCompatibleWithOunceRules)
@@ -306,25 +306,25 @@ namespace O2.DotNetWrappers.Filters
             return sFilteredSignature;
         }
 
-        public String getClassName(Int32 Depth) // filters class names from the left to right
+        public String getClassName(Int32 depth) // filters class names from the left to right
         {
-            if (Depth > -1 && lsFunctionClass_Parsed.Count - Depth > -1)
+            if (depth > -1 && lsFunctionClass_Parsed.Count - depth > -1)
             {
                 // String asd = String.Join(".", lsFunctionClass_Parsed.ToArray(), lsFunctionClass_Parsed.Count - Depth, Depth);
 
-                return String.Join(".", lsFunctionClass_Parsed.ToArray(), lsFunctionClass_Parsed.Count - Depth, Depth);
+                return String.Join(".", lsFunctionClass_Parsed.ToArray(), lsFunctionClass_Parsed.Count - depth, depth);
             }
 
             return sFunctionClass;
         }
 
-        public String getClassName_Rev(Int32 Depth) // filters class names from the right to left
+        public String getClassName_Rev(Int32 depth) // filters class names from the right to left
         {
-            if (Depth > -1 && lsFunctionClass_Parsed.Count > Depth)
+            if (depth > -1 && lsFunctionClass_Parsed.Count > depth)
             {
                 //     String asd = String.Join(".", lsFunctionClass_Parsed.ToArray(), Depth, lsFunctionClass_Parsed.Count - Depth);
 
-                return String.Join(".", lsFunctionClass_Parsed.ToArray(), 0, Depth);
+                return String.Join(".", lsFunctionClass_Parsed.ToArray(), 0, depth);
             }
 
             return sFunctionClass;

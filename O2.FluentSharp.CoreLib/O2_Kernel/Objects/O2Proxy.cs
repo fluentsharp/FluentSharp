@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using O2.Kernel.CodeUtils;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 
@@ -146,7 +145,7 @@ namespace O2.Kernel.Objects
             try
             {
                 Assembly assembly = AppDomain.CurrentDomain.Load(assemblyToUse);
-                if (assembly == null)
+                if (assembly.isNull())
                     PublicDI.log.error("in instanceInvocation assembly was null : {0} {1}", assemblyToUse);
                 else
                 {

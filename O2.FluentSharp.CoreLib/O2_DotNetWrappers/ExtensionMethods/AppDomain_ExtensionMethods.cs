@@ -8,24 +8,24 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class _Extra_AppDomain_ExtensionMethods
     {
-		public static O2AppDomainFactory	appDomain(this string name)
-		{
-			return name.appDomain_Get();
-		}
-		public static O2AppDomainFactory	appDomain_Get(this string name)
-		{
-			if (O2AppDomainFactory.AppDomains_ControledByO2Kernel.hasKey(name))
-				return O2AppDomainFactory.AppDomains_ControledByO2Kernel[name];
-			return null;
-		}
-		public static bool					isNotCurrentAppDomain(this O2AppDomainFactory appDomainFactory)
-		{
-			return appDomainFactory.isCurrentAppDomain().isFalse();
-		}
-		public static bool					isCurrentAppDomain(this O2AppDomainFactory appDomainFactory)
-		{
-			return appDomainFactory.appDomain != AppDomain.CurrentDomain;
-		}
+        public static O2AppDomainFactory	appDomain(this string name)
+        {
+            return name.appDomain_Get();
+        }
+        public static O2AppDomainFactory	appDomain_Get(this string name)
+        {
+            if (O2AppDomainFactory.AppDomains_ControledByO2Kernel.hasKey(name))
+                return O2AppDomainFactory.AppDomains_ControledByO2Kernel[name];
+            return null;
+        }
+        public static bool					isNotCurrentAppDomain(this O2AppDomainFactory appDomainFactory)
+        {
+            return appDomainFactory.isCurrentAppDomain().isFalse();
+        }
+        public static bool					isCurrentAppDomain(this O2AppDomainFactory appDomainFactory)
+        {
+            return appDomainFactory.AppDomain != AppDomain.CurrentDomain;
+        }
         public static O2AppDomainFactory	appDomain_New(this string appDomainName)
         {
             var appDomain = new O2AppDomainFactory(appDomainName);

@@ -9,7 +9,12 @@ namespace O2.DotNetWrappers.DotNet
 {
     public class O2Thread
     {
-        public static List<Thread> ThreadsCreated = new List<Thread>();
+        public static List<Thread> ThreadsCreated { get; set; }
+
+        static O2Thread()
+        {
+            ThreadsCreated = new List<Thread>();
+        }
 
         #region Delegates
 
@@ -40,7 +45,7 @@ namespace O2.DotNetWrappers.DotNet
 
         public static Thread staThread(Action codeToExecute, ThreadPriority threadPriority)            
         {
-            var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
+            //var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
             var staThread = new Thread(()=>{
                                                 try 
 	                                            {	        
@@ -85,7 +90,7 @@ namespace O2.DotNetWrappers.DotNet
 
         public static Thread mtaThread(string threadName, Action codeToExecute, ThreadPriority threadPriority)
         {
-            var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
+            //var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
             var mtaThread = new Thread(() =>
                                         {
                                             try
@@ -107,21 +112,20 @@ namespace O2.DotNetWrappers.DotNet
 
         public static Thread mtaThread(Semaphore semaphore, Action codeToExecute)
         {
-            var stackTrace = getCurrentStackTrace(); // used for cross thread debugging purposes
+            //var stackTrace = getCurrentStackTrace(); // used for cross thread debugging purposes
             if (semaphore == null)
                 return mtaThread(codeToExecute);
             // if no use the mtaThread function with no semaphore support
 
-            var _mtaThread = new Thread(() =>
-                                            {
-                                                semaphore.WaitOne();
-                                                codeToExecute();
-                                                semaphore.Release();
-                                            });
-            _mtaThread.SetApartmentState(ApartmentState.MTA);
-            _mtaThread.Start();
-            ThreadsCreated.add(_mtaThread);
-            return _mtaThread;
+            var thread = new Thread(()=>{
+                                            semaphore.WaitOne();
+                                            codeToExecute();
+                                            semaphore.Release();
+                                        });
+            thread.SetApartmentState(ApartmentState.MTA);
+            thread.Start();
+            ThreadsCreated.add(thread);
+            return thread;
 
         }
 

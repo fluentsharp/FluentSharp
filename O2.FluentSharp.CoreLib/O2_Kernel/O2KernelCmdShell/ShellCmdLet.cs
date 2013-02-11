@@ -5,16 +5,16 @@ namespace O2.Kernel.O2CmdShell
 {
     public class ShellCmdLet
     {
-        public MethodInfo methodToExecute { get; set; }
-        public string cmdInstruction { get; set; }
-        public object[] cmdParameters { get; set; }
+        public MethodInfo MethodToExecute { get; set; }
+        public string CmdInstruction { get; set; }
+        public object[] CmdParameters { get; set; }
         
         //public VoidFunc { get; set; }
-        public ShellCmdLet(MethodInfo _methodToExecute, string _cmdInstruction, object[] _cmdParameters)
+        public ShellCmdLet(MethodInfo methodToExecute, string cmdInstruction, object[] cmdParameters)
         {
-            methodToExecute = _methodToExecute;
-            cmdInstruction = _cmdInstruction;
-            cmdParameters = _cmdParameters;
+            MethodToExecute = methodToExecute;
+            CmdInstruction = cmdInstruction;
+            CmdParameters = cmdParameters;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using O2.Kernel;
 
@@ -703,10 +704,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 }
             return default(T2);
         }
-/*        public static object                invoke(this object liveObject, string methodName)
-        {
-            return liveObject.invoke(methodName, new object[] { });
-        }*/
         public static object                invoke(this object liveObject, MethodInfo methodInfo, params object[] parameters)
         {
             return methodInfo.invoke_on_LiveObject(liveObject, parameters);
@@ -718,25 +715,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static object                invokeStatic(this Type type, string methodName, params object[] parameters)
         {
             return PublicDI.reflection.invokeMethod_Static(type, methodName, parameters);
-        }
-        //TOFIX: this method doens't make a lot of sense since the _object value is not used (callers should use action.invoke() directly))
-/*        public static object                invoke(this object _object, Action action)
-        {
-            if (action != null)
-                try
-                {
-                    action();
-                }
-                catch (Exception ex)
-                {
-                    ex.log("[in object.Action.invoke()");
-                }
-            return _object;
-        }*/
-        /*public static object                invoke(this MethodInfo methodInfo)
-        {
-            return PublicDI.reflection.invoke(methodInfo);
-        }*/
+        }  
         public static object                invoke(this MethodInfo methodInfo, params object[] parameters)
         {
             return PublicDI.reflection.invoke(methodInfo, parameters);
@@ -744,19 +723,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static object                invoke_on_LiveObject(this MethodInfo methodInfo, object liveObject, object[] parameters)
         {         
             return PublicDI.reflection.invoke(liveObject, methodInfo, parameters);            
-        }
-        /*public static Thread				invokeStatic_StaThread(this MethodInfo methodInfo)
-        {
-            return methodInfo.invokeStatic_StaThread(null);
-        }*/		
+        }    
         public static Thread				invokeStatic_StaThread(this MethodInfo methodInfo, params object[] invocationParameters)
         {
             return O2Thread.staThread(()=>methodInfo.invokeStatic(invocationParameters));
-        }		
-        /*public static object				invokeStatic(this MethodInfo methodInfo)
-        {
-            return methodInfo.invokeStatic(null);
-        }*/		
+        }		        
         public static object				invokeStatic(this MethodInfo methodInfo, params object[] invocationParameters)
         {            
             if (invocationParameters.notNull())
@@ -1026,5 +997,26 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return mainAssembly;
         }		
     }
-    
+
+    public static class Reflection_ExtensionMethods_Resources
+    {
+        public static List<String> embeddedResourceNames(this Assembly assembly)
+        {
+            return assembly.GetManifestResourceNames().toList();
+        }
+
+        public static byte[] embeddedResource(this Assembly assembly, string name)
+        {            
+            if (assembly.isNull())
+                return null;
+            var assemblyStream = assembly.GetManifestResourceStream(name);
+            var bytes = assemblyStream.isNull() 
+                            ? null 
+                            : new BinaryReader(assemblyStream).ReadBytes((int) assemblyStream.Length);
+            return name.contains(".gz") 
+                            ? bytes.gzip_Decompress() 
+                            : bytes;
+        }
+    }
+
 }

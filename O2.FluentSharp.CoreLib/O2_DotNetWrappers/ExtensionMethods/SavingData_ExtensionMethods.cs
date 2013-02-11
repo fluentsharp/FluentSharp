@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -77,8 +74,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                Rectangle bitmapRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-                Bitmap thumbnail = new Bitmap(newWidth, newHeight);
+                var bitmapRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                var thumbnail = new Bitmap(newWidth, newHeight);
                 using (Graphics gfx = Graphics.FromImage(thumbnail))
                 {
                     // high quality image sizing

@@ -89,7 +89,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static DataGridView add_Columns(this DataGridView dataGridView, params string[] columns)
         {
-            columns.forEach(column => dataGridView.add_Column(column));
+            columns.toList().forEach<string>(column => dataGridView.add_Column(column));
             return dataGridView;
         }
         public static int add_Row(this DataGridView dataGridView, params object[] cells)

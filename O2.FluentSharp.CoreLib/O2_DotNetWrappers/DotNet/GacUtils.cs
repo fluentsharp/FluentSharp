@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using O2.Interfaces.DotNet;
-using O2.Kernel;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel.InterfacesBaseImpl;
 
@@ -37,8 +35,8 @@ namespace O2.DotNetWrappers.DotNet
                 return chachedListOfGacAssembliesNames;
 
             chachedListOfGacAssembliesNames = (from gacAssembly in currentGacAssemblies()
-											   select gacAssembly.name).toList();
-			return chachedListOfGacAssembliesNames;
+                                               select gacAssembly.Name).toList();
+            return chachedListOfGacAssembliesNames;
         }
 
 

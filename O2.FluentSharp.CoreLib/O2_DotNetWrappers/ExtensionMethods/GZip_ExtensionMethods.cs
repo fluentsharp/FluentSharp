@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.IO;
 using System.IO.Compression;
 
@@ -27,7 +24,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var outputStream = new MemoryStream();
             using (var gzipStream = new GZipStream(inputStream, CompressionMode.Decompress))
             {
-                byte[] buffer = new byte[4096];
+                var buffer = new byte[4096];
                 int numRead;
                 while ((numRead = gzipStream.Read(buffer, 0, buffer.Length)) != 0)
                     outputStream.Write(buffer, 0, numRead);
@@ -60,17 +57,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     // Create the compressed file. 
                     using (FileStream outFile = File.Create(targetFile))
                     {
-                        using (GZipStream Compress = new GZipStream(outFile,
-                                CompressionMode.Compress))
+                        using (var compress = new GZipStream(outFile, CompressionMode.Compress))
                         {
                             // Copy the source file into the compression stream.
-                            byte[] buffer = new byte[4096];
+                            var buffer = new byte[4096];
                             int numRead;
                             while ((numRead = inFile.Read(buffer, 0, buffer.Length)) != 0)
-                            {
-                                Compress.Write(buffer, 0, numRead);
-                            }
-                            "Compressed {0} from {1} to {2} bytes.".info(fi.Name, fi.Length.ToString(), outFile.Length.ToString());
+                                compress.Write(buffer, 0, numRead);
+
+                            "Compressed {0} from {1} to {2} bytes.".info(fi.Name, fi.Length.str(), outFile.Length.str());
                         }
                     }
                 }
@@ -93,13 +88,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 //Create the decompressed file. 
                 using (FileStream outFile = File.Create(targetFile))
                 {
-                    using (GZipStream Decompress = new GZipStream(inFile,
-                            CompressionMode.Decompress))
+                    using (var decompress = new GZipStream(inFile, CompressionMode.Decompress))
                     {
                         //Copy the decompression stream into the output file.
-                        byte[] buffer = new byte[4096];
+                        var buffer = new byte[4096];
                         int numRead;
-                        while ((numRead = Decompress.Read(buffer, 0, buffer.Length)) != 0)
+                        while ((numRead = decompress.Read(buffer, 0, buffer.Length)) != 0)
                         {
                             outFile.Write(buffer, 0, numRead);
                         }

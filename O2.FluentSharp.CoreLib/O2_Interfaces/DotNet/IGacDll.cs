@@ -5,10 +5,10 @@ namespace O2.Interfaces.DotNet
 {
     public interface IGacDll
     {
-        string name {get;set;}
-        string version { get; set; }
-        string fullPath { get; set; }
-        ICirData cirData { get; set; }
+        string Name         { get;set;}
+        string Version      { get; set; }
+        string FullPath     { get; set; }
+        ICirData CirData    { get; set; }
         PostSharpHookStatus PostSharpHooks { get; set; }
     }
 }

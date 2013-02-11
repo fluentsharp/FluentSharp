@@ -7,20 +7,20 @@ namespace O2.Kernel.O2CmdShell
 {
     public class ShellIO
     {
-        public TextReader inputTextReader;
-        public TextWriter outputTextWriter;
-        public string lastExecutionResult = "";
+        public TextReader   InputTextReader   { get; set; }
+        public TextWriter   OutputTextWriter  { get; set; }
+        public string       lastExecutionResult   { get; set; }
 
         public ShellIO()
         {
             Console.OpenStandardInput();
             Console.OpenStandardOutput();
-            inputTextReader = Console.In;
-            outputTextWriter = Console.Out;
+            InputTextReader = Console.In;
+            OutputTextWriter = Console.Out;
         }
-        public ShellIO(TextWriter _outputTextWriter) : this()
+        public ShellIO(TextWriter outputTextWriter) : this()
         {
-            outputTextWriter = _outputTextWriter;
+            OutputTextWriter = outputTextWriter;
         }
 
 
@@ -28,7 +28,7 @@ namespace O2.Kernel.O2CmdShell
         {
             try
             {
-                outputTextWriter.Write(string.Format(textWithFormat, formatArguments));
+                OutputTextWriter.Write(textWithFormat, formatArguments);
             }
             catch (Exception ex)
             {
@@ -40,7 +40,7 @@ namespace O2.Kernel.O2CmdShell
         {
             try
             {
-                outputTextWriter.WriteLine(string.Format(textWithFormat, formatArguments));
+                OutputTextWriter.WriteLine(textWithFormat, formatArguments);
             }
             catch (Exception ex)
             {
@@ -52,9 +52,9 @@ namespace O2.Kernel.O2CmdShell
         {
             try
             {
-                outputTextWriter.WriteLine();
-                outputTextWriter.WriteLine(string.Format(textWithFormat, formatArguments));
-                outputTextWriter.WriteLine();
+                OutputTextWriter.WriteLine();
+                OutputTextWriter.WriteLine(textWithFormat, formatArguments);
+                OutputTextWriter.WriteLine();
             }
             catch (Exception ex)
             {
@@ -62,15 +62,9 @@ namespace O2.Kernel.O2CmdShell
             }
         }
 
-        /*public void writeLine(string value)
-        {
-            outputTextReader.WriteLine(value);
-
-        }*/
-
         public string readLine()
         {
-            return inputTextReader.ReadLine();
+            return InputTextReader.ReadLine();
         }
         
     }

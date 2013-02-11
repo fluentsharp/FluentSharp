@@ -173,7 +173,7 @@
     <Compile Include="O2_Kernel\CodeUtils\LoadTypes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2ConfigLoader.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Files.cs" />
-    <None Include="Apache.2.0.license.txt" />
+    <EmbeddedResource Include="Apache.2.0.license.txt" />
     <None Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Processes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Serialize.cs" />

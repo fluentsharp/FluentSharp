@@ -163,7 +163,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 if (_string.valid() && _string.contains("://"))
                 {
                     var uri = new Uri(_string);
-                    return (uri != null && uri.IsAbsoluteUri && uri.IsFile.isFalse());
+                    return (uri.IsAbsoluteUri && uri.IsFile.isFalse());
                 }
             }
             catch (Exception)
@@ -280,7 +280,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                return System.Text.ASCIIEncoding.ASCII.GetBytes(new char[] { charToConvert })[0];
+                return Encoding.ASCII.GetBytes(new [] { charToConvert })[0];
             }
             catch
             {
@@ -289,13 +289,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static byte[]    asciiBytes(this string stringToConvert)
         {
-            return System.Text.ASCIIEncoding.ASCII.GetBytes(stringToConvert);
+            return Encoding.ASCII.GetBytes(stringToConvert);
         }
         public static string    base64Encode(this string stringToEncode)
         {
             try
             {
-                return System.Convert.ToBase64String(stringToEncode.asciiBytes());
+                return Convert.ToBase64String(stringToEncode.asciiBytes());
             }
             catch (Exception ex)
             {
@@ -307,7 +307,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                return System.Convert.ToBase64String(bytesToEncode);
+                return Convert.ToBase64String(bytesToEncode);
             }
             catch (Exception ex)
             {
@@ -319,7 +319,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                return System.Convert.FromBase64String(stringToDecode).ascii(); ;
+                return Convert.FromBase64String(stringToDecode).ascii();
             }
             catch (Exception ex)
             {
@@ -331,7 +331,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                return System.Convert.FromBase64String(stringToDecode);
+                return Convert.FromBase64String(stringToDecode);
             }
             catch (Exception ex)
             {

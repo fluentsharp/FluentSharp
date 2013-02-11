@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.DotNetWrappers.ExtensionMethods;
+﻿using O2.DotNetWrappers.ExtensionMethods;
 using System.Reflection.Emit;
 
 namespace O2.DotNetWrappers.DotNet
@@ -12,8 +8,7 @@ namespace O2.DotNetWrappers.DotNet
         public static string create_DLL_TO_castViaTypeConfusion()
         {
             var assemblyName = "TypeConfusion";
-            var dllName = assemblyName + ".dll";
-            var appDomain = AppDomain.CurrentDomain;
+            var dllName = assemblyName + ".dll";            
             var targetDir = "".tempDir(false);
             var targetFile = targetDir.pathCombine(dllName);
             if (targetFile.fileExists())
@@ -34,9 +29,7 @@ namespace O2.DotNetWrappers.DotNet
             ilGenerator.Emit(OpCodes.Ldarg_1);
             ilGenerator.Emit(OpCodes.Stloc_0);
             ilGenerator.Emit(OpCodes.Ldloc_0);
-            ilGenerator.ret();
-
-            var type = typeBuilder.create();
+            ilGenerator.ret();            
 
             assemblyBuilder.Save(dllName);
             return targetFile;

@@ -2,9 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 
@@ -29,14 +28,14 @@ namespace O2.DotNetWrappers.O2Misc
             {
                 var targetType = (o2SampleScripts is Type) ? ((Type) o2SampleScripts) : o2SampleScripts.GetType();
                 foreach (MethodInfo method in PublicDI.reflection.getMethods(targetType))
-                    if (method.Name.IndexOf("get_") > -1 && (method.Name != "get_ResourceManager" && (method.Name != "get_Culture")))
+                    if (method.Name.index("get_") > -1 && (method.Name != "get_ResourceManager" && (method.Name != "get_Culture")))
                     {
                         var scriptName = method.Name.Replace("get_", "");
                         // hack to handle IronPhyton sample files
                         //scriptName += scriptName.IndexOf("IronPython") > -1 ? ".py" : fileExtension;
-                        if (scriptName.IndexOf("_py") > -1)
+                        if (scriptName.index("_py") > -1)
                             scriptName = scriptName.Replace("_py", ".py");
-                        else if (scriptName.IndexOf("_java") > -1)
+                        else if (scriptName.index("_java") > -1)
                             scriptName = scriptName.Replace("_java", ".java");
                         else
                             scriptName += fileExtension;

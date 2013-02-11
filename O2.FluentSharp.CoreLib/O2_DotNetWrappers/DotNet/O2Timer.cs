@@ -18,14 +18,14 @@ namespace O2.DotNetWrappers.DotNet
             start();
         }
 
-        public O2Timer(String _description)
+        public O2Timer(String description)
         {
-            Description = _description;
+            Description = description;
         }
 
-        public O2Timer(String _description, Action actionToTime)
+        public O2Timer(String description, Action actionToTime)
         {
-            Description = _description;
+            Description = description;
             start();
             actionToTime();
             stop();
@@ -37,9 +37,9 @@ namespace O2.DotNetWrappers.DotNet
             return this; // do this so that we can create this object and start it one line
         }
 
-        public O2Timer start(String _description)
+        public O2Timer start(String description)
         {
-            Description = _description;
+            Description = description;
             return start();
         }
 

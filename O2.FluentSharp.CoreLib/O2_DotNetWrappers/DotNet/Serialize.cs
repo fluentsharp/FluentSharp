@@ -5,7 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
 using O2.DotNetWrappers.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet
@@ -186,7 +185,7 @@ namespace O2.DotNetWrappers.DotNet
                     if (fsFileStream != null)
                     {
                         fsFileStream.Close();
-                        fsFileStream = null;
+                        //fsFileStream = null;
                     }
                 }
             }

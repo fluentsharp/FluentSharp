@@ -6,24 +6,24 @@ namespace O2.Kernel.InterfacesBaseImpl
 {
     public class KGacDll : IGacDll
     {
-        public string name { get; set; }
-        public string version { get; set; }
-        public string fullPath { get; set; }
-        public ICirData cirData { get; set; }
-        public PostSharpHookStatus PostSharpHooks { get; set; }
+        public string               Name { get; set; }
+        public string               Version { get; set; }
+        public string               FullPath { get; set; }
+        public ICirData             CirData { get; set; }
+        public PostSharpHookStatus  PostSharpHooks { get; set; }
 
-        public KGacDll(string _name, string _version, string _fullPath)
+        public KGacDll(string name, string version, string fullPath)
         {
-            name = _name;
-            version = _version;
-            fullPath = _fullPath;
-            cirData = null;
+            Name = name;
+            Version = version;
+            FullPath = fullPath;
+            CirData = null;
             PostSharpHooks = PostSharpHookStatus.NotCalculated;
         }
 
         public override string ToString()
         {
-            return name;
+            return Name;
         }
 
     }

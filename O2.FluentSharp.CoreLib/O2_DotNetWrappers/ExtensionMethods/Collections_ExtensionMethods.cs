@@ -28,22 +28,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
             value = "{{ {0} }}".format(value);
             return value;
         }
-        public static IEnumerable<T> forEach<T>(this IEnumerable<T> collection, Action<T> action)
+/*        public static IList<T> forEach<T>(this IList<T> list, Action<T> action)
         {
-            var enumerable = collection as T[] ?? collection.ToArray();
-            if(collection.notNull() && action.notNull())
-                foreach (T item in enumerable)
+            if (list.notNull() && action.notNull())
+                foreach (T item in list)
                     action(item);
-            return enumerable;
-        }
-        public static IEnumerable forEach<T>(this IEnumerable collection, Action<T> action)
-        {
-            var enumerable = collection as object[] ?? collection.Cast<object>().ToArray();
-            if(collection.notNull() && action.notNull())
-                foreach (var item in enumerable)
+            return list;
+        }*/
+        public static IList forEach<T>(this IList list, Action<T> action)
+        {            
+            if(list.notNull() && action.notNull())
+                foreach (var item in list)
                     if (item is T)
                         action((T)item);
-            return enumerable;
+            return list;
         }
         
         public static bool      isIEnumerable(this object list)

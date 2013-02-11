@@ -40,10 +40,11 @@ namespace O2.DotNetWrappers.O2CmdShell
 
                 MethodInfo methodToInvoke = O2CmdApi.getMethod(methodName, methodParams.ToArray());
                 if (methodToInvoke == null)
-                    O2Cmd.log.error("Could not find command to execute: {0}", methodToInvoke);
-                else
-                    //O2Thread.staThread()
+                    O2Cmd.log.error("Could not find command to execute: {0}", methodName);
+                else                    
+                    // ReSharper disable CoVariantArrayConversion
                     methodToInvoke.Invoke(null, methodParams.ToArray());
+                    // ReSharper restore CoVariantArrayConversion
 
                 O2Cmd.log.write("\n\n                                  All Done... exiting now...\n");
                 O2Cmd.log.write("                                       Have a good Day\n");

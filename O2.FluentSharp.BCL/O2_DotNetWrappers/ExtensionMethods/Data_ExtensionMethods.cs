@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data;
 using System.Reflection;
 
@@ -37,7 +36,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (typeof(T) == typeof(String))			// we need to handle string seperately since it is also an IEnumerable
             {
                 dataTable.add_Column("String");
-                collection.forEach<string>((item) => dataTable.newRow(item));
+                collection.toList().forEach<string>((item) => dataTable.newRow(item));
             }
             else
             {
@@ -52,11 +51,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 foreach (var item in collection)
                 {
                     var row = dataTable.newRow();
-                    dataTable.Columns.forEach<DataColumn>(
-                        (dataColumn) =>
-                        {
-                            row[dataColumn.ColumnName] = item.property(dataColumn.ColumnName);
-                        });
+                    dataTable.Columns.toList().forEach<DataColumn>(
+                        (dataColumn) =>{
+                                            row[dataColumn.ColumnName] = item.property(dataColumn.ColumnName);
+                                        });
                 }
             }
             return dataTable;

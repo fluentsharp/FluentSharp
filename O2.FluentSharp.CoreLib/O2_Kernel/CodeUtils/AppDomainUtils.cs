@@ -14,7 +14,7 @@ namespace O2.Kernel.CodeUtils
 {
     public class AppDomainUtils
     {
-        private static readonly IO2Log log = new KO2Log("AppDomainUtils");
+        private static IO2Log log = new KO2Log("AppDomainUtils");
 
         public static string findDllInCurrentAppDomain(string dllToFind)
         {

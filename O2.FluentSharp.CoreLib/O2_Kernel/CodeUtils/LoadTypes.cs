@@ -17,7 +17,7 @@ namespace O2.Kernel.CodeUtils
             object proxyObject = appDomainHelper.createAndUnWrap(dllWithType, typeToCreateAndUnwrap);
             if (proxyObject == null)
                 PublicDI.log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");            
-                ///    var proxy = appDomain.CreateInstanceAndUnwrap(dllToLoad, typeToCreateAndUnwrap);
+                //    var proxy = appDomain.CreateInstanceAndUnwrap(dllToLoad, typeToCreateAndUnwrap);
                 //if (proxy == null)
                 //    log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");
             else

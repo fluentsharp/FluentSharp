@@ -7,19 +7,23 @@ using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
-using System.Collections.Specialized;
 
 namespace O2.DotNetWrappers.Network
 {
     public class Web
     {
-        public static int DefaultHttpWebRequestTimeout = 1000 * 30;     //(30 seconds)
+        public static int DefaultHttpWebRequestTimeout { get; set; }
 
         public Dictionary<string, string> Headers_Request { get; set; }
         public Dictionary<string, string> Headers_Response { get; set; }
         //public List<string> RequestHistory { get; set; }
         //public string LastRequest { get; set; }
         //public string LastResponse { get; set; }
+
+        static Web()
+        {
+            DefaultHttpWebRequestTimeout = 1000 * 30;     //(30 seconds)
+        }
 
         public Web()
         {
@@ -73,12 +77,12 @@ namespace O2.DotNetWrappers.Network
                 var uri = urlToFetch.uri();
                 // first try to save the file using the original name
                 urlToFetch = urlToFetch.Replace(uri.Query, "");
-                var targetFile = "";
+                string targetFile;
                 if (uri.Segments.Length >0 && uri.Segments[uri.Segments.Length -1 ] == "/")
                     targetFile = PublicDI.config.TempFileNameInTempDirectory + ".html";
                 else
                 {
-                    targetFile = Path.Combine(PublicDI.config.O2TempDir, Path.GetFileName(urlToFetch));
+                    targetFile = PublicDI.config.O2TempDir.pathCombine(urlToFetch.fileName());
                     if (File.Exists(targetFile)) // but give it a unique name if that file alredy exists
                         targetFile = string.Format("{0}_{1}", PublicDI.config.TempFileNameInTempDirectory,
                                                    Path.GetFileName(urlToFetch));
@@ -117,8 +121,10 @@ namespace O2.DotNetWrappers.Network
             {
                 if (verbose)
                     PublicDI.log.info("Fetching url: {0}", urlToFetch);
-                HttpWebRequest webRequest = WebRequest.Create(urlToFetch) as HttpWebRequest;
-                
+                var webRequest = WebRequest.Create(urlToFetch) as HttpWebRequest;
+                if (webRequest.isNull())
+                    return null;
+
                 webRequest.Timeout = Web.DefaultHttpWebRequestTimeout;
                 webRequest.ReadWriteTimeout = Web.DefaultHttpWebRequestTimeout;
 
@@ -128,11 +134,13 @@ namespace O2.DotNetWrappers.Network
                 foreach (var header in Headers_Request)
                     webRequest.Headers.Add(header.Key, header.Value);
 
-                WebResponse rResponse = webRequest.GetResponse();                
+                var rResponse = webRequest.GetResponse();                
 
                 updateHeadersResponse(rResponse.Headers);               // store response headers
 
                 Stream sStream = rResponse.GetResponseStream();
+                if (sStream.isNull())
+                    return null;
                 var srStreamReader = new StreamReader(sStream);
                 string sHtml = srStreamReader.ReadToEnd();
                 sStream.Close();
@@ -174,15 +182,12 @@ namespace O2.DotNetWrappers.Network
         }
 
         public String getUrlContents_POST(String urlToFetch,string contentType, string cookies, byte[] postData)
-        {
-            //var thread = O2Thread.mtaThread(
-            //    () =>
-            //    {
+        {            
             try
             {
                 // the Timeout and GC calls below were introduced due to GetResponseStream() hangs                
-                HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(urlToFetch);
-                webRequest.Timeout = Web.DefaultHttpWebRequestTimeout;
+                var webRequest = (HttpWebRequest)WebRequest.Create(urlToFetch);
+                webRequest.Timeout = DefaultHttpWebRequestTimeout;
                 webRequest.ReadWriteTimeout = Web.DefaultHttpWebRequestTimeout;
 
                 //setup headers (& cookies)   
@@ -207,6 +212,8 @@ namespace O2.DotNetWrappers.Network
                     updateHeadersResponse(rResponse.Headers);               // store response headers
                     using (Stream sStream = rResponse.GetResponseStream())
                     {
+                        if (sStream.isNull())
+                            return null;
                         var srStreamReader = new StreamReader(sStream);
                         string sHtml = srStreamReader.ReadToEnd();
                         sStream.Close();
@@ -247,8 +254,8 @@ namespace O2.DotNetWrappers.Network
         public string downloadBinaryFile(string urlOfFileToFetch, string targetFileOrFolder)
         {
         	var targetFile = targetFileOrFolder;
-        	if (Directory.Exists(targetFileOrFolder))
-        		targetFile = Path.Combine(targetFileOrFolder, Path.GetFileName(urlOfFileToFetch));
+            if (Directory.Exists(targetFileOrFolder))
+                targetFile = targetFileOrFolder.pathCombine(urlOfFileToFetch.fileName());
         		
         	PublicDI.log.debug("Downloading Binary File {0}", urlOfFileToFetch);
             var webClient = new WebClient();
@@ -280,7 +287,7 @@ namespace O2.DotNetWrappers.Network
 
         public bool httpFileExists(string url, bool showError)
         {
-            var webRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
             webRequest.Method = "HEAD";
             try
             {

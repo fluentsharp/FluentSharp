@@ -1,6 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System.Collections.Generic;
-using System.IO;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Interfaces.Controllers;
 using O2.Kernel.CodeUtils;
 
@@ -27,7 +27,7 @@ namespace O2.Kernel.InterfacesBaseImpl
             {
                 _target = value;
                 if (useFileNameOnWorkDirecory)
-                    WorkDirectory = Path.Combine(WorkDirectory, Path.GetFileNameWithoutExtension(Target));
+                    WorkDirectory = WorkDirectory.pathCombine(Target.fileName_WithoutExtension());
             }
         }
 

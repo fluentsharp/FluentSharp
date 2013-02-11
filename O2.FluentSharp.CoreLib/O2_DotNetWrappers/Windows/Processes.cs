@@ -12,10 +12,9 @@ namespace O2.DotNetWrappers.Windows
 {
     public class Processes
     {
-        private const int iMaxProcessExecutionTimeOut = 120000;
+        private static int iMaxProcessExecutionTimeOut = 120000;        
 
-        // this will kill all current O2 processes (good when doing updates of the latests O2 exec)
-        public static void killO2s()
+        public static void      killO2s()
         {
             int iCurrentProcess = Process.GetCurrentProcess().Id;
             foreach (Process pProcess in Process.GetProcesses())
@@ -30,29 +29,30 @@ namespace O2.DotNetWrappers.Windows
             }
             Process.GetCurrentProcess().Kill(); // end current process
         }
-
-        public static Process startProcess(String sProcessToStart)
+        public static Process   startProcess(String sProcessToStart)
         {
             return startProcess(sProcessToStart, "");
         }
-
-        public static Process startProcess(String sProcessToStart, String sArguments)
+        public static Process   startProcess(String sProcessToStart, String sArguments)
         {
             return startProcess(sProcessToStart, sArguments, false);
         }
-
-        public static Process startProcess(String sProcessToStart, String sArguments, bool CreateNoWindow)
+        public static Process   startProcess(String sProcessToStart, String sArguments, bool createNoWindow)
         {
             try
             {
                 PublicDI.log.debug("Starting process {0} with arguments {1}", sProcessToStart, sArguments);
-                var pProcess = new Process();
-                pProcess.StartInfo = new ProcessStartInfo();
-                pProcess.StartInfo.Arguments = sArguments;
-                pProcess.StartInfo.FileName = sProcessToStart;
-                pProcess.StartInfo.WorkingDirectory = Path.GetDirectoryName(sProcessToStart);
-                
-                if (CreateNoWindow)
+                var pProcess = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                            {
+                                Arguments = sArguments,
+                                FileName = sProcessToStart,
+                                WorkingDirectory = sProcessToStart.directoryName()
+                            }
+                    };
+
+                if (createNoWindow)
                 {
                     pProcess.StartInfo.CreateNoWindow = true;
                     pProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
@@ -66,31 +66,25 @@ namespace O2.DotNetWrappers.Windows
                 return null;
             }
         }
-
-        public static String waitForProcessExitAndGetProcessExitCode(Process pProcess)
+        public static String    waitForProcessExitAndGetProcessExitCode(Process pProcess)
         {
             try
             {
                 pProcess.WaitForExit(iMaxProcessExecutionTimeOut);
-                return pProcess.ExitCode.ToString();
+                return pProcess.ExitCode.str();
             }
             catch
             {
                 return null;
             }
         }
-
-        public static void waitForProcessExitAndInvokeCallBankOncompletion(Process pProcess,
-                                                                           Callbacks.dMethod_Object
-                                                                               dProcessCompletionCallback,
-                                                                           bool bNoExecutionTimeLimit)
+        public static void      waitForProcessExitAndInvokeCallBankOncompletion(Process pProcess, Callbacks.dMethod_Object dProcessCompletionCallback,  bool bNoExecutionTimeLimit)
         {
             ThreadStart tsThreadStart =
                 () => waitForProcessExitAndInvokeCallBankOncompletion_Thread(pProcess, dProcessCompletionCallback,
                                                                              bNoExecutionTimeLimit);
             new Thread(tsThreadStart).Start();
         }
-
         public static void waitForProcessExitAndInvokeCallBankOncompletion_Thread(Process pProcess,
                                                                                   Callbacks.dMethod_Object
                                                                                       dProcessCompletionCallback,
@@ -112,12 +106,10 @@ namespace O2.DotNetWrappers.Windows
                 PublicDI.log.ex(ex, "In waitForProcessExitAndInvokeCallBankOncompletion:", true);
             }
         }
-
         public static String startAsCmdExe(String processToStart, String arguments)
         {
             return startProcessAsConsoleApplicationAndReturnConsoleOutput(processToStart, arguments, Path.GetDirectoryName(processToStart), true);
         }
-
         public static String startAsCmdExe(String processToStart, String arguments, string workingDirectory)
         {
             return startProcessAsConsoleApplicationAndReturnConsoleOutput(processToStart, arguments, workingDirectory, true);
@@ -127,12 +119,10 @@ namespace O2.DotNetWrappers.Windows
         {
             return startProcessAsConsoleApplicationAndReturnConsoleOutput(processToStart, arguments,Path.GetDirectoryName(processToStart),  true);
         }
-
         public static String startProcessAsConsoleApplicationAndReturnConsoleOutput(String processToStart, String arguments, string workingDirectory)
         {
             return startProcessAsConsoleApplicationAndReturnConsoleOutput(processToStart, arguments, workingDirectory, true);
         }
-
         public static String startProcessAsConsoleApplicationAndReturnConsoleOutput(String processToStart,
                                                                                     String arguments, string workingDirectory, bool showProcessDetails)
         {
@@ -144,12 +134,12 @@ namespace O2.DotNetWrappers.Windows
                 var pProcess = new Process();
                 pProcess.StartInfo = new ProcessStartInfo();
                 pProcess.StartInfo.Arguments = arguments;
-				pProcess.StartInfo.FileName = processToStart;
-				pProcess.StartInfo.UseShellExecute = false;
-				pProcess.StartInfo.WorkingDirectory = workingDirectory;
-				pProcess.StartInfo.RedirectStandardOutput = true;
-				pProcess.StartInfo.RedirectStandardError = true;
-				pProcess.StartInfo.CreateNoWindow = true;
+                pProcess.StartInfo.FileName = processToStart;
+                pProcess.StartInfo.UseShellExecute = false;
+                pProcess.StartInfo.WorkingDirectory = workingDirectory;
+                pProcess.StartInfo.RedirectStandardOutput = true;
+                pProcess.StartInfo.RedirectStandardError = true;
+                pProcess.StartInfo.CreateNoWindow = true;
 
                 pProcess.Start();
                 // _note that the StandardOutput and StandardError might not show in the correct order in consoleData is just adding one the other othere
@@ -163,19 +153,16 @@ namespace O2.DotNetWrappers.Windows
                 return "";
             }
         }
-
         public static Process startProcessAsConsoleApplication(String processToStart, String arguments)
         {
             return startProcessAsConsoleApplication(processToStart, arguments, null, null);
         }
-
         public static Process startProcessAsConsoleApplication(String processToStart, String arguments,
                                                                DataReceivedEventHandler callbackDataReceived)
         {
             return startProcessAsConsoleApplication(processToStart, arguments, callbackDataReceived,
                                                     callbackDataReceived);
         }
-
         public static Process startProcessAsConsoleApplication(String sProcessToStart, String sArguments,
                                                                DataReceivedEventHandler callbackOutputDataReceived,
                                                                DataReceivedEventHandler callbackErrorDataReceived)
@@ -207,7 +194,6 @@ namespace O2.DotNetWrappers.Windows
 
             return pProcess;
         }
-
         public static Process startProcessAndRedirectIO(string processToStart , Action<string> onDataReceived)
         {
             return startProcessAndRedirectIO(processToStart, "", onDataReceived);
@@ -246,32 +232,34 @@ namespace O2.DotNetWrappers.Windows
 
         }
 
-        public static Process startProcessAndRedirectIO(
-                                                        string processToStart, string arguments, ref StreamWriter processStdInput,
+        public static Process startProcessAndRedirectIO(string processToStart, string arguments, ref StreamWriter processStdInput,
                                                         DataReceivedEventHandler callbackOutputDataReceived,
                                                         DataReceivedEventHandler callbackErrorDataReceived)
         {
             return startProcessAndRedirectIO(processToStart, arguments, Path.GetDirectoryName(processToStart),
                                              ref processStdInput, callbackOutputDataReceived, callbackErrorDataReceived);
         }
-
-        public static Process startProcessAndRedirectIO(
-                                                        string processToStart, string arguments,string workingDirectory, ref StreamWriter processStdInput, 
+        // ReSharper disable RedundantAssignment
+        public static Process startProcessAndRedirectIO(string processToStart, string arguments,string workingDirectory, ref StreamWriter processStdInput, 
                                                         DataReceivedEventHandler callbackOutputDataReceived,
                                                         DataReceivedEventHandler callbackErrorDataReceived)
         {            
             PublicDI.log.debug("Starting process {0} as a console Application with IO redirected {1}", processToStart,
                          arguments);
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo();
-            process.StartInfo.Arguments = string.IsNullOrEmpty(arguments) ? null : arguments;
-			process.StartInfo.FileName = processToStart;
-			process.StartInfo.WorkingDirectory = workingDirectory;
-			process.StartInfo.UseShellExecute = false;
-			process.StartInfo.RedirectStandardInput = true;
-			process.StartInfo.RedirectStandardOutput = true;
-			process.StartInfo.RedirectStandardError = true;
-			process.StartInfo.CreateNoWindow = true;
+            var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                                    {
+                                        Arguments = arguments ?? "",
+                                        FileName = processToStart,
+                                        WorkingDirectory = workingDirectory,
+                                        UseShellExecute = false,
+                                        RedirectStandardInput = true,
+                                        RedirectStandardOutput = true,
+                                        RedirectStandardError = true,
+                                        CreateNoWindow = true
+                                    }
+                };
 
             //process.StartInfo.EnvironmentVariables.Add("_NT_SYMBOL_PATH",@"srv*c:\symbols*http://msdl.microsoft.com/download/symbols");
 
@@ -293,26 +281,23 @@ namespace O2.DotNetWrappers.Windows
             
             return process;
         }
-
+        // ReSharper restore RedundantAssignment
         public static void pProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data != "")
                 PublicDI.log.info("\t:{0}:", e.Data);
             //throw new NotImplementedException();
         }
-
         public static void pProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.Data))
                 PublicDI.log.error("\t:{0}:", e.Data);
             //throw new NotImplementedException();
         }
-
         public static void killProcess(String sProcessToKill)
         {
             killProcess(sProcessToKill, false);
         }
-
         public static void killProcess(String sProcessToKill, bool bVerbose)
         {
             //  foreach (Process pProcess in Process.GetProcesses())
@@ -333,23 +318,19 @@ namespace O2.DotNetWrappers.Windows
                 }
             }
         }
-
         public static void killProcess(Process processToKill)
         {
             if (processToKill.HasExited == false)
                 processToKill.Kill();
         }
-
         public static bool doesProcessExist(String sProcess)
         {
-            return (Process.GetProcessesByName(sProcess).Length > 0) ? true : false;
+            return Process.GetProcessesByName(sProcess).Length > 0;
         }
-
         public static void resetIIS()
         {
             resetIIS(false);
         }
-
         public static void resetIIS(bool bWaitForCompletion)
         {
             PublicDI.log.debug("Reseting IIS");
@@ -357,10 +338,10 @@ namespace O2.DotNetWrappers.Windows
             var process = new Process();
             process.StartInfo = new ProcessStartInfo();
             process.StartInfo.Arguments = "/noforce /timeout:300 /restart";
-			process.StartInfo.FileName = "c:\\windows\\system32\\iisreset.exe";
-			process.StartInfo.UseShellExecute = true;
-			process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-			process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.FileName = "c:\\windows\\system32\\iisreset.exe";
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.CreateNoWindow = true;
 
             process.Start();
             if (bWaitForCompletion)
@@ -368,9 +349,7 @@ namespace O2.DotNetWrappers.Windows
                 process.WaitForExit();
                 PublicDI.log.info("IIS service reset");
             }
-        }
-
-        // this starts the current process in a windows tempdirectory
+        }        
         public static void startCurrentProcessInTempFolder()
         {
 
@@ -381,10 +360,10 @@ namespace O2.DotNetWrappers.Windows
                     Files.copy(assembly.Location, sTargetDirectory);                        
             //String sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             //Files.copyFilesFromDirectoryToDirectory(sCurrentDirectory, sTargetDirectory);
-            String sCommandLine = Environment.CommandLine.Replace("\"", "").Replace(".vshost", "");
+            var sCommandLine = Environment.CommandLine.Replace("\"", "").Replace(".vshost", "");
 
-            String sExeName = Path.GetFileName(sCommandLine);
-            String sExeInTempDirectory = Path.Combine(sTargetDirectory, sExeName);
+            var sExeName = sCommandLine.fileName();
+            var sExeInTempDirectory = sTargetDirectory.pathCombine(sExeName);
             
             //if there is a .config file, copy it to the temp directory
             var configFile = Path.Combine(PublicDI.config.CurrentExecutableDirectory,
@@ -396,17 +375,14 @@ namespace O2.DotNetWrappers.Windows
 
             Process.GetCurrentProcess().Kill();
         }
-
         public static String getCurrentProcessName()
         {
             return Process.GetCurrentProcess().ProcessName;
         }
-
         public static int getCurrentProcessID()
         {
             return Process.GetCurrentProcess().Id;
         }
-
         public static Process getProcess(int processIdOfProcessToGet)
         {
             try

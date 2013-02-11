@@ -4,15 +4,11 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml;
 using System.IO;
-using System.Windows.Forms;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class Linq_ExtensionMethods
     {
-
-        //TODO: Organize these type topic/area
-
         public static XDocument xDocument(this string xml)
         {
             var xmlToLoad = xml.fileExists() ? xml.fileContents() : xml;
@@ -20,15 +16,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             {
                 if (xmlToLoad.starts("\n"))       // checks for the cases where there the text starts with \n (which will prevent the document to be loaded
                     xmlToLoad = xmlToLoad.trim();
-                XmlReaderSettings xmlReaderSettings = new XmlReaderSettings();
-                xmlReaderSettings.XmlResolver = null;
-                xmlReaderSettings.ProhibitDtd = false;
-                using (StringReader stringReader = new StringReader(xmlToLoad))
-                using (XmlReader xmlReader = XmlReader.Create(stringReader, xmlReaderSettings))
+                var xmlReaderSettings = new XmlReaderSettings {XmlResolver = null, ProhibitDtd = false};
+                using (var stringReader = new StringReader(xmlToLoad))
+                using (var xmlReader = XmlReader.Create(stringReader, xmlReaderSettings))
                     return XDocument.Load(xmlReader);
             }
             return null;
-
         }
 
         public static XElement xRoot(this string xml)
@@ -119,7 +112,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<XElement> elements(this IEnumerable<XElement> xElements, string elementName, bool includeSelf)
         {
             var childXElements = new List<XElement>();
-            xElements.forEach<XElement>((xElement) => childXElements.AddRange(xElement.elements(elementName, includeSelf)));
+            xElements.toList().forEach<XElement>((xElement) => childXElements.AddRange(xElement.elements(elementName, includeSelf)));
             return childXElements;
         }
 
@@ -163,7 +156,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<XAttribute> attributes(this IEnumerable<XElement> xElements, string attributeName)
         {
             var attributes = new List<XAttribute>();
-            xElements.forEach<XElement>((xElement) => attributes.AddRange(xElement.attributes(attributeName)));
+            xElements.toList().forEach<XElement>((xElement) => attributes.AddRange(xElement.attributes(attributeName)));
             return attributes;
         }
 
@@ -175,7 +168,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<string> stringList(this IEnumerable<XAttribute> xAttributes)
         {
             var stringList = new List<String>();
-            xAttributes.forEach<XAttribute>((xAttribute) => stringList.Add(xAttribute.Value));
+            xAttributes.toList().forEach<XAttribute>((xAttribute) => stringList.Add(xAttribute.Value));
             return stringList;
         }
 
@@ -187,7 +180,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static List<string> values(this IEnumerable<XElement> xElements)
         {
             var values = new List<string>();
-            xElements.forEach<XElement>((xElement) => values.Add(xElement.value()));
+            xElements.toList().forEach<XElement>((xElement) => values.Add(xElement.value()));
             return values;
         }
 
@@ -199,9 +192,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static XElement element(this XElement xElement, string elementName)
         {
             if (xElement != null)
-                foreach (var childElement in xElement.elements())
-                    if (childElement.name() == elementName)
-                        return childElement;
+                return xElement.elements().FirstOrDefault(childElement => childElement.name() == elementName);
             return null;
         }
 
@@ -210,13 +201,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (xElements != null)
             {
                 // first search in the current list
-                foreach (var xElement in xElements)
-                    if (xElement.name() == elementName)
-                        return xElement;
+                var enumerable = xElements as IList<XElement> ?? xElements.ToList();
+                foreach (var xElement in enumerable.Where(xElement => xElement.name() == elementName))
+                    return xElement;
                 // then search in the current list childs
-                foreach (var childElement in xElements.elements())
-                    if (childElement.name() == elementName)
-                        return childElement;
+                return enumerable.elements().FirstOrDefault(childElement => childElement.name() == elementName);
             }
             return null;
         }
@@ -232,8 +221,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static XElement xElement(this XNode xNode)
         {
-            if (xNode is XElement)
-                return (XElement)xNode;
+            var node = xNode as XElement;
+            if (node != null)
+                return node;
             return null;
         }
 
@@ -317,15 +307,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {
         public static XProcessingInstruction processingInstruction(this XDocument xDocument, string target)
         {
-            foreach (var processingInstruction in xDocument.processingInstructions())
-                if (processingInstruction.Target == target)
-                    return processingInstruction;
-            return null;
+            return xDocument.processingInstructions().FirstOrDefault(processingInstruction => processingInstruction.Target == target);
         }
 
         public static List<XProcessingInstruction> processingInstructions(this XDocument xDocument)
         {
-            return xDocument.Document.Nodes().OfType<XProcessingInstruction>().toList();
+            if (xDocument.notNull() && xDocument.Document.notNull())            
+                return xDocument.Document.Nodes().OfType<XProcessingInstruction>().toList();
+            return default(List<XProcessingInstruction>);
         }
 
         public static XDocument set_ProcessingInstruction(this XDocument xDocument, string target, string data)

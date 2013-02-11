@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.Kernel;
-
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Xml.Serialization;
 
@@ -61,15 +56,15 @@ namespace O2.DotNetWrappers.DotNet
 	}
 
     [Serializable]
-	public  class NameValuePair<T,K>
+	public  class NameValuePair<T,TK>
 	{
 		[XmlAttribute] public T Key {get;set;}
-		[XmlAttribute] public K Value {get;set;}
+		[XmlAttribute] public TK Value {get;set;}
 		
 		public NameValuePair()
 		{}
 		
-		public NameValuePair(T key, K value)
+		public NameValuePair(T key, TK value)
 		{
 			Key = key;
 			Value = value;

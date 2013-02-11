@@ -52,36 +52,28 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
 		public static T log_Info<T>(this T hostObject, params object[] messageParams)
 		{			
-		    hostObject.str().info(messageParams);
+            if (hostObject.isIEnumerable())
+                (hostObject as IEnumerable<T>).toList().forEach<T>((item)=> item.str().info(messageParams));	
+		    else
+		        hostObject.str().info(messageParams);
 			return hostObject;
 		}
 
 		public static T log_Debug<T>(this T hostObject,  params object[] messageParams)
-		{			
-            hostObject.str().debug(messageParams);
+		{	
+		    if (hostObject.isIEnumerable())
+                (hostObject as IEnumerable<T>).toList().forEach<T>((item)=> item.str().debug(messageParams));					                    
+		    else   
+                hostObject.str().debug(messageParams);
 			return hostObject;
 		}
 		public static T log_Error<T>(this T hostObject, params object[] messageParams)
 		{			
-            hostObject.str().error(messageParams);
+            if (hostObject.isIEnumerable())
+                (hostObject as IEnumerable<T>).toList().forEach<T>((item)=> item.str().error(messageParams));			
+            else
+                hostObject.str().error(messageParams);
 			return hostObject;
-		}
-
-        public static List<T> log_Info<T>(this List<T> list, params object[] messageParams)
-		{			
-		    list.forEach((item)=> item.str().info(messageParams));
-			return list;
-		}
-
-		public static List<T> log_Debug<T>(this List<T> list,  params object[] messageParams)
-		{			
-            list.forEach((item)=> item.str().debug(messageParams));
-			return list;
-		}
-		public static List<T> log_Error<T>(this List<T> list, params object[] messageParams)
-		{			
-            list.forEach((item)=> item.str().error(messageParams));
-			return list;
 		}
     }
 }

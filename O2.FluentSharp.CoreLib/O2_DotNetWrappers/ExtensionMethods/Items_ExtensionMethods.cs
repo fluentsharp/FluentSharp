@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using O2.DotNetWrappers.DotNet;
 
@@ -121,9 +119,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
     //legacy
     public static class NameValuePair_ExtensionMethods
 	{									
-		public static List<NameValuePair<T,K>> add<T,K>(this List<NameValuePair<T,K>> list, T key, K value)
+		public static List<NameValuePair<T,TK>> add<T,TK>(this List<NameValuePair<T,TK>> list, T key, TK value)
 		{
-			list.Add(new NameValuePair<T,K>(key,value));
+			list.Add(new NameValuePair<T,TK>(key,value));
 			return list;
 		}
 	}

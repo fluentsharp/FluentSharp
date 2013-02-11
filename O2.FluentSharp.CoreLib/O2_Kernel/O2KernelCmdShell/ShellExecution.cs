@@ -1,30 +1,27 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System.Collections.Generic;
-using System.Reflection;
+using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel.CodeUtils;
-
-//O2File:O2Shell.cs
-//O2File:../CodeUtils/O2Kernel_Processes.cs
 
 namespace O2.Kernel.O2CmdShell
 {
     public class ShellExecution
     {
-        private readonly ShellIO shellIO;
+        private ShellIO _shellIO;
         //private readonly ShellCommands shellCommands;
         public static bool cmdExecutionEnabled; 
 
-        public ShellExecution(ShellIO _shellIO)
+        public ShellExecution(ShellIO shellIO)
         {
-            shellIO = _shellIO;
+            _shellIO = shellIO;
         }
 
         public bool execute(string cmdToExecute)
         {
-           // shellIO.write("\nExecuting: {0} \n\n", cmdToExecute);
+           // _shellIO.write("\nExecuting: {0} \n\n", cmdToExecute);
             var shellCmdLet = resolveCmdToExecuteIntoShellCmdLet(cmdToExecute);
             if (shellCmdLet == null)
-                shellIO.writeLine("Error: Could not resolve command: {0}", cmdToExecute);
+                _shellIO.writeLine("Error: Could not resolve command: {0}", cmdToExecute);
             else
                 execute(shellCmdLet);
             return true;
@@ -32,10 +29,10 @@ namespace O2.Kernel.O2CmdShell
 
         private void execute(ShellCmdLet shellCmdLet)
         {            
-            var returnData = PublicDI.reflection.invoke(null,shellCmdLet.methodToExecute, shellCmdLet.cmdParameters);
-            shellIO.lastExecutionResult = (returnData!=null) ? returnData.ToString() : "";
+            var returnData = PublicDI.reflection.invoke(null,shellCmdLet.MethodToExecute, shellCmdLet.CmdParameters);
+            _shellIO.lastExecutionResult = (returnData!=null) ? returnData.str() : "";
             if (returnData != null)
-                shellIO.writeLineWithPreAndPostNewLine(returnData.ToString());
+                _shellIO.writeLineWithPreAndPostNewLine(returnData.str());
         }
 
         public ShellCmdLet resolveCmdToExecuteIntoShellCmdLet(string cmdToExecute)
@@ -64,7 +61,7 @@ namespace O2.Kernel.O2CmdShell
                                                                                           cmdExeParams);
                             return new ShellCmdLet(o2MethodThatWillStartTheProcess, cmdToExecute, cmdExeParams);
                         }
-                        shellIO.writeLine("Cmd execution is disabled!");
+                        _shellIO.writeLine("Cmd execution is disabled!");
                         break;
                     default:
                         // if it not one of the above first try to get this from the ShellCommands class

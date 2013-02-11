@@ -17,7 +17,7 @@ namespace O2.Kernel.CodeUtils
         {
             string sTargetFile = sTargetFileOrFolder;
             if (Directory.Exists(sTargetFile))
-                sTargetFile = Path.Combine(sTargetFile, Path.GetFileName(sSourceFile));
+                sTargetFile = sTargetFile.pathCombine(sSourceFile.fileName());
             try
             {
                 File.Copy(sSourceFile, sTargetFile, true);

@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.DotNetWrappers.H2Scripts
@@ -10,7 +7,7 @@ namespace O2.DotNetWrappers.H2Scripts
     {
         public string SourceCode { get; set; }        
         public List<string> ReferencedAssemblies { get; set; }
-        private Dictionary<string, object> InvocationParameters { get; set; }
+        public Dictionary<string, object> InvocationParameters { get; set; }
    
         public H2()
         {            

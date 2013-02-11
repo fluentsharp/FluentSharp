@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.IO;
 using O2.DotNetWrappers.Windows;
-
-//O2File:PublicDI.cs
 
 namespace O2.Kernel
 {
@@ -33,7 +27,7 @@ namespace O2.Kernel
         {
             var returnData = Processes.startProcessAsConsoleApplicationAndReturnConsoleOutput(commandToExecute, arguments);
 //            var returnData = "O2_DotNetWrappers".type("Processes").invokeStatic("startProcessAsConsoleApplicationAndReturnConsoleOutput", commandToExecute, arguments);
-            return returnData != null ? returnData.ToString() : "";
+            return returnData != null ? returnData: "";
         }
 
         // speciif ones

@@ -2,7 +2,6 @@
 using System;
 using System.Net.NetworkInformation;
 using System.Threading;
-using O2.DotNetWrappers;
 using O2.Kernel;
 
 namespace O2.DotNetWrappers.Network
@@ -25,7 +24,7 @@ namespace O2.DotNetWrappers.Network
             {
                 var pPing = new System.Net.NetworkInformation.Ping();
                 PingReply prPingReply = pPing.Send(sHostNameOrAddressToPing);
-                return (prPingReply != null && prPingReply.Status == IPStatus.Success) ? true : false;
+                return (prPingReply != null && prPingReply.Status == IPStatus.Success);
             }
             catch (Exception ex)
             {
@@ -63,8 +62,8 @@ namespace O2.DotNetWrappers.Network
 
         public class ping_thread
         {
-            private readonly dPingReply dCallback;
-            private readonly String sHostNameOrAddressToPing;
+            private dPingReply dCallback;
+            private String sHostNameOrAddressToPing;
             public bool bCancel;
             public Int32 iSleepPeriood = 2000;
 

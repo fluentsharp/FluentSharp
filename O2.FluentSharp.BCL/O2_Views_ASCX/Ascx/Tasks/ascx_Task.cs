@@ -178,7 +178,7 @@ namespace O2.Views.ASCX.Tasks
                 lbTaskStatus.Text = taskStatus.ToString();
                 switch (taskStatus)
                 {
-                    case TaskStatus.Completed_OK:
+                    case TaskStatus.Completed_Ok:
                         setResultText("OK", Color.Green);
                         setProgressBarValue(taskProgressBar.Maximum);
                         break;

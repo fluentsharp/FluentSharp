@@ -119,14 +119,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         public static void log(this Exception ex, string textFormat, params object[] parameters)
-        {
-            ex.log(textFormat.format(parameters));
-        }
-
-        public static void log(this Exception ex, string text)
-        {
-            PublicDI.log.ex(ex, text, false);
-        }
+        {            
+            PublicDI.log.ex(ex, textFormat.format(parameters), false);
+        }        
 
         public static void logWithStackTrace(this Exception ex, string text)
         {

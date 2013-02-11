@@ -187,7 +187,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string    replace(this string targetString, string stringToFind, string stringToReplaceWith)
         {
-            if (stringToFind.notNull())
+            if (stringToFind.notNull() && targetString.notNull() && stringToReplaceWith.notNull())
                 targetString = targetString.Replace(stringToFind, stringToReplaceWith);
             // need to find a better way to do this replace (maybe using regex) since this pattern was causing some nasty side effects (for example when replacing \n with Environment.NewLine)
             //targetString = targetString.Replace(stringToFind.lower(), stringToReplaceWith);

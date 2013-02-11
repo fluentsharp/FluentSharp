@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Drawing;
-
-using O2.DotNetWrappers.ExtensionMethods;
 using System.Security.Cryptography;
 using System.IO;
 
@@ -98,13 +94,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 if (bitmap.isNull())
                     return null;
                 //based on code snippets from http://dotnet.itags.org/dotnet-c-sharp/85838/
-                using (MemoryStream strm = new MemoryStream())
+                using (var strm = new MemoryStream())
                 {
                     var image = new Bitmap(bitmap);
                     bitmap.Save(strm, System.Drawing.Imaging.ImageFormat.Bmp);
                     strm.Seek(0, 0);
                     byte[] bytes = strm.ToArray();
-                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                    var md5 = new MD5CryptoServiceProvider();
                     byte[] hashed = md5.TransformFinalBlock(bytes, 0, bytes.Length);
                     string hash = BitConverter.ToString(hashed).ToLower();
                     md5.Clear();
@@ -128,8 +124,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var md5Hash2 = bitmap2.md5Hash();
             if (md5Hash1.valid() && md5Hash2.valid())
                 return md5Hash1 == md5Hash2;
-            else
-                "in Bitmap.isEqualTo at least one of the calculated MD5 Hashes was not valid".error();
+            
+            "in Bitmap.isEqualTo at least one of the calculated MD5 Hashes was not valid".error();
             return false;
         }
         #endregion

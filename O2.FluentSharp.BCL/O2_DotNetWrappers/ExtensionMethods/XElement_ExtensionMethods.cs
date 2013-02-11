@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Windows.Forms;
 
@@ -28,7 +26,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             var value = xElement.Value;
             if (value.valid())
-                xElement.Nodes().forEach<XElement>(
+                xElement.Nodes().toList().forEach<XElement>(
                     (element) => value = value.replace(element.Value, ""));
             return value.trim();
         }
@@ -42,10 +40,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 (xElement) =>
                 {
                     treeView.current().clear();
-                    xElement.Nodes().forEach<XElement>(
+                    xElement.Nodes().toList().forEach<XElement>(
                             (element) => treeView.current().add_Node(element));
 
-                    xElement.Attributes().forEach<XAttribute>(
+                    xElement.Attributes().toList().forEach<XAttribute>(
                             (attribute) => treeView.current().add_Node(attribute));
 
                     var value = xElement.getNormalizedValue();

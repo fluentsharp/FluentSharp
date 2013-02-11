@@ -1,8 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.ExtensionMethods;
@@ -12,7 +10,7 @@ namespace O2.DotNetWrappers.NetSDK
 {
     public class IL
     {
-        public static string pathToExecutableILAsm = @"C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\ilasm.exe";
+        public static string pathToExecutableIlAsm = @"C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\ilasm.exe";
 
         public static List<String> possibleILdasmLocations = new List<string>();
                                                            
@@ -25,8 +23,8 @@ namespace O2.DotNetWrappers.NetSDK
 		
         public static string getILAsmExe()
         {
-            if (File.Exists(pathToExecutableILAsm))
-                return pathToExecutableILAsm;
+            if (File.Exists(pathToExecutableIlAsm))
+                return pathToExecutableIlAsm;
             return "";
         }
 
@@ -40,8 +38,8 @@ namespace O2.DotNetWrappers.NetSDK
 
         public static string createILforAssembly(string targetAssembly)
         {
-            var targetDirectory = Path.GetDirectoryName(targetAssembly); //PublicDI.config.TempFolderInTempDirectory;
-            var ilFileToCreate = Path.Combine(targetDirectory, Path.GetFileNameWithoutExtension(targetAssembly) + ".il");
+            var targetDirectory = targetAssembly.directoryName();
+            var ilFileToCreate = targetDirectory.pathCombine(targetAssembly.fileName_WithoutExtension() + ".il");
             var arguments = string.Format("\"{0}\" /OUT=\"{1}\"", targetAssembly, ilFileToCreate);
             var process = Processes.startProcessAsConsoleApplication(getILDasmExe(), arguments);
             process.WaitForExit();

@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using O2.DotNetWrappers.ExtensionMethods;
 using System.IO.Pipes;
 using O2.DotNetWrappers.DotNet;
@@ -26,7 +22,7 @@ namespace O2.DotNetWrappers.Windows
                 {                    
                     namedPipeServerStream.WaitForConnection();
                     "[NamePipeServer][{0}] Pipe connection established".format(pipeName).info();
-                    using (StreamReader streamReader = new StreamReader(namedPipeServerStream))
+                    using (var streamReader = new StreamReader(namedPipeServerStream))
                     {                                                                        
                         string line;
                         while ((line = streamReader.ReadLine()) != null)
@@ -49,7 +45,7 @@ namespace O2.DotNetWrappers.Windows
 
         public static NamedPipeClientStream createNamePipeClient(string pipeName, int maxConnectTime)
         {
-            NamedPipeClientStream namedPipeClientStream = new NamedPipeClientStream(pipeName);                        
+            var namedPipeClientStream = new NamedPipeClientStream(pipeName);                        
             "[NamePipeClient][{0}] Trying to connected to pipe".format(pipeName).info();
             namedPipeClientStream.Connect(maxConnectTime);
             "[NamePipeClient][{0}] Pipe connection established".format(pipeName).info();                

@@ -124,7 +124,7 @@ namespace O2.DotNetWrappers.Windows
         private void raiseCallback()
         {
             //var fileInfo = new FileInfo(this.file);            
-            Callbacks.raiseRegistedCallbacks(callbackOnFolderWatchEvent, new[] {this});
+            Callbacks.raiseRegistedCallbacks(callbackOnFolderWatchEvent, new object[] { this });
         }
         /// <summary>
         /// This function tries to check if the file is already in a state the can be opened
@@ -134,7 +134,7 @@ namespace O2.DotNetWrappers.Windows
         /// <param name="fileToTest"></param>
         /// <param name="numberOfAttempts"></param>
         /// <returns></returns>
-        private bool checkIfFileCanBeOpened(string fileToTest, int numberOfAttempts)
+        public bool checkIfFileCanBeOpened(string fileToTest, int numberOfAttempts)
         {
             while (numberOfAttempts-- > 0)
                 try

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using O2.DotNetWrappers.Windows;
 using System.IO;
 using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
 using System.Runtime.InteropServices;
 
 namespace O2.DotNetWrappers.ExtensionMethods
@@ -23,7 +21,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Process       write(this Process process, string textToSendToStandardInput)
         {
-            if (process.StandardInput != null)
+            if (process.StandardInput.notNull())
                 process.StandardInput.WriteLine(textToSendToStandardInput.line());
             return process;
         }
@@ -182,8 +180,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                var m = process.Modules;
-                return true;
+                return process.Modules.notNull();                
             }
             catch
             {

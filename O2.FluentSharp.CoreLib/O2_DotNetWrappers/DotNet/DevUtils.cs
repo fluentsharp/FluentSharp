@@ -1,4 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
+/*  //This shouldn't be here, specially with such dependency on xsd.exe
+ 
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -51,10 +53,9 @@ namespace O2.DotNetWrappers.DotNet
                              sPathToAssemblyToProcess);
             else
             {
-                string sLocationOfXsdExecutable1 =
-                    @"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\xsd\xsd.exe";
-                string sLocationOfXsdExecutable2 = @"C:\Program Files\Microsoft SDKs\Windows\v6.0A\bin\xsd.exe";
-                String XsdExecutable = "";
+                var sLocationOfXsdExecutable1 = @"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\xsd\xsd.exe";
+                var sLocationOfXsdExecutable2 = @"C:\Program Files\Microsoft SDKs\Windows\v6.0A\bin\xsd.exe";
+                var XsdExecutable = "";
 
                 if (File.Exists(sLocationOfXsdExecutable1))
                     XsdExecutable = sLocationOfXsdExecutable1;
@@ -73,3 +74,4 @@ namespace O2.DotNetWrappers.DotNet
         }
     }
 }
+*/

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
+
 namespace O2.DotNetWrappers.Windows
 {
     public class Netsh
@@ -34,7 +32,7 @@ namespace O2.DotNetWrappers.Windows
 			if (lines.Count > 3)
 			for(int i = 2 ; i < lines.Count; i++)
 			{
-				var items = lines[i].Split(new string[] {"   "},StringSplitOptions.RemoveEmptyEntries );
+				var items = lines[i].Split(new [] {"   "},StringSplitOptions.RemoveEmptyEntries );
 				if (items.Length == 4)
 					names.Add(items[3].Trim());
 			}

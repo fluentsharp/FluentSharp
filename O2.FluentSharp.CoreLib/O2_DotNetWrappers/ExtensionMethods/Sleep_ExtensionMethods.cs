@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
 
 namespace O2.DotNetWrappers.ExtensionMethods
 {
@@ -44,10 +40,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             _object.sleep(length, verbose);
             return _object;
         }
-		public static T		wait_n_Seconds<T>(this T _object, int seconds)
-		{
-			return _object.wait(seconds * 1000);
-		}
+        public static T		wait_n_Seconds<T>(this T _object, int seconds)
+        {
+            return _object.wait(seconds * 1000);
+        }
         
     }
 }

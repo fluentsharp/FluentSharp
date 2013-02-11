@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using System.IO;
-//using System.Data;
-
-using System.Reflection;
-using System.Xml.Schema;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 
@@ -18,7 +13,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static XmlReader     xmlReader(this string xml)
         {
             var xmlToLoad = xml.fileExists() ? xml.fileContents() : xml;
-            XmlReaderSettings xmlReaderSettings = new XmlReaderSettings();
+            var xmlReaderSettings = new XmlReaderSettings();
             xmlReaderSettings.XmlResolver = null;
 /*#if NET_4
             xmlReaderSettings.DtdProcessing = DtdProcessing.Ignore; 
@@ -34,7 +29,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                XmlDocument xmlDocument = new XmlDocument();
+                var xmlDocument = new XmlDocument();
                 xmlDocument.Load(xml.xmlReader());
                 return xmlDocument;
             }
@@ -64,7 +59,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string        xmlFormat(this string xml, int indentation, char indentChar)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(xml.xmlReader());
             var stringWriter = new StringWriter();
             var xmlWriter = new XmlTextWriter(stringWriter);

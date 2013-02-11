@@ -43,7 +43,7 @@ namespace O2.DotNetWrappers.DotNet
             if (sMatchPattern != null)
                 try
                 {
-                    RegexOptions rRegexOptions = RegexOptions.Compiled;
+                    var rRegexOptions = RegexOptions.Compiled;
                     if (bMultiline)
                         rRegexOptions = rRegexOptions | RegexOptions.Multiline;
                     if (bIgnoreCase)

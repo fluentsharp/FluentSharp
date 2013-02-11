@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.O2Misc;
-
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.Kernel;
 
@@ -26,9 +24,9 @@ namespace O2.DotNetWrappers.Windows
         }
         public static String copy(String sSourceFile, String sTargetFileOrFolder, bool overrideFile)
         {
-            string sTargetFile = sTargetFileOrFolder;            
+            string sTargetFile = sTargetFileOrFolder;
             if (Directory.Exists(sTargetFile))
-                sTargetFile = Path.Combine(sTargetFile, Path.GetFileName(sSourceFile));
+                sTargetFile = sTargetFile.pathCombine(sSourceFile.fileName());
             try
             {
                 if (sSourceFile != sTargetFile || overrideFile)
@@ -45,7 +43,7 @@ namespace O2.DotNetWrappers.Windows
         public static string copyVerbose(string fileToCopy, string targetFolder, bool dontCopyIfTargetFileAlreadyExists)
         {
             var fileName = Path.GetFileName(fileToCopy);
-            var targetFileLocation = Path.Combine(targetFolder, Path.GetFileName(fileToCopy));
+            var targetFileLocation = targetFolder.pathCombine(fileToCopy.fileName());
             if (false == File.Exists(targetFileLocation))
             {
                 PublicDI.log.write("copying file {0} to folder {1}", fileName, targetFolder);
@@ -86,17 +84,13 @@ namespace O2.DotNetWrappers.Windows
             try
             {
                 if (File.Exists(sSourceDll))
-                {
-                    if (File.Exists(sTargetDll)) // copy the latest one
-                    {
-                    }
+                {                    
                     File.Copy(sSourceDll, sTargetDll, bOveride);
-                    sSourceDll = Path.Combine(Path.GetDirectoryName(sSourceDll),
-                                              Path.GetFileNameWithoutExtension(sSourceDll) + ".pdb");
+                    sSourceDll = sSourceDll.directoryName()
+                                           .pathCombine(sSourceDll.fileName_WithoutExtension() + ".pdb");
                     if (File.Exists(sSourceDll))
                     {
-                        sTargetDll = Path.Combine(Path.GetDirectoryName(sTargetDll),
-                                                  Path.GetFileNameWithoutExtension(sTargetDll) + ".pdb");
+                        sTargetDll = sTargetDll.directoryName().pathCombine(sTargetDll.fileName_WithoutExtension() + ".pdb");
                         File.Copy(sSourceDll, sTargetDll, bOveride);
                     }
                 }
@@ -245,15 +239,11 @@ namespace O2.DotNetWrappers.Windows
                 ex.log("[getFilesFromDir_returnFullPath] for path : {0}".format(path));
             }
             return results;
-        }
-        // returns full paths instead of just the file names
+        }        
         public static List<String> getFilesFromDir_returnFullPath(String path, String searchPattern,bool searchRecursively)
         {
             var results = new List<String>();
             getListOfAllFilesFromDirectory(results, path, searchRecursively, searchPattern, false /*verbose*/);
-            ///  foreach (String sFile in lsFiles)
-            //      lsFiles.Add(Path.Combine(sPath, sFile));
-
             return results;
         }
         public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively, O2Thread.FuncVoidT1<List<String>> onComplete)
@@ -555,7 +545,7 @@ namespace O2.DotNetWrappers.Windows
                     {
                         if (ignoreFolderWith.valid().isFalse() || folder.contains(ignoreFolderWith).isFalse())
                         {
-                            string folderToCopyFiles = targetFolder.pathCombine(folder.Replace(pathReplaceString, ""));
+                            string folderToCopyFiles = targetFolder.pathCombine(folder.replace(pathReplaceString, ""));
                             if (false == Directory.Exists(folderToCopyFiles))
                                 Directory.CreateDirectory(folderToCopyFiles);
                             if (folderToCopyFiles.dirExists())
@@ -606,9 +596,9 @@ namespace O2.DotNetWrappers.Windows
             {
                 try
                 {
-                    if (false == RegEx.findStringInString(safeString[i].ToString(), validCharsRegEx))
+                    if (false == RegEx.findStringInString(safeString[i].str(), validCharsRegEx))
                     {
-                        var cc = safeString[i];
+                        //var cc = safeString[i];
                         safeString[i] = '_';
                     }
                 }

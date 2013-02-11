@@ -25,13 +25,10 @@ namespace O2.Kernel
         public static bool CheckForTempDirMaxSizeCheck
         {
             get
-            {
-                var callingAssembly = Assembly.GetCallingAssembly();
-                if (callingAssembly.notNull() && callingAssembly.hasAttribute<SkipTempPathLengthVerification>())
-                {
-                    "FOUND: SkipTempPathLengthVerification".error();
+            {                
+                var entryAssembly = Assembly.GetEntryAssembly();
+                if (entryAssembly.notNull() && entryAssembly.hasAttribute<SkipTempPathLengthVerification>())                                    
                     return false;
-                }
                 return _checkForTempDirMaxSizeCheck;
             }
             set

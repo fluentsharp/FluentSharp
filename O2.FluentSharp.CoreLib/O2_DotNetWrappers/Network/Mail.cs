@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Imaging;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Sockets;
-using O2.DotNetWrappers.Windows;
 using O2.Kernel.CodeUtils;
 using O2.Kernel;
 

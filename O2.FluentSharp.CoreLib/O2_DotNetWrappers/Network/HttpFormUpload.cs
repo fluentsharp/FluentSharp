@@ -1,11 +1,9 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Net;
 using System.IO;
 using System.Text;
-using O2.Kernel;
 
 using O2.DotNetWrappers.ExtensionMethods;
 
@@ -13,10 +11,7 @@ namespace O2.DotNetWrappers.Network
 {
 	// this code was based on the code from from http://www.briangrinstead.com/blog/multipart-form-post-in-c
 	// which was created following this StackOverflow thread http://stackoverflow.com/questions/219827/multipart-forms-from-c-client
-	
-	public class HttpMultiPartForm
-	{
-		/* example */
+	/* example */
 		/*public static HttpWebResponse uploadFile()
 		{			
 			string fileToUpload = "c:\\people.doc";
@@ -28,9 +23,12 @@ namespace O2.DotNetWrappers.Network
 			string cookies = "";
 			return uploadFile(fileToUpload ,fileName ,fileFormat ,fileContentType , postURL, userAgent, cookies);
 		}*/
-		//
-        public Dictionary<string, string> Headers_Request { get; set; }
-        public Dictionary<string, string> Headers_Response { get; set; }
+
+	public class HttpMultiPartForm
+	{
+        public Encoding encoding = Encoding.UTF8;	
+        public Dictionary<string, string> Headers_Request   { get; set; }
+        public Dictionary<string, string> Headers_Response  { get; set; }
 
         public HttpMultiPartForm()
         {
@@ -41,34 +39,34 @@ namespace O2.DotNetWrappers.Network
         #region uploadFile
 
         public HttpWebResponse uploadFile(string fileToUpload, string fileName, string fileFormat, string fileContentType , 
-							   string postURL, string userAgent, string cookies)
+							   string postUrl, string userAgent, string cookies)
 		{		
 			// Read file data
-			FileStream fs = new FileStream(fileToUpload, FileMode.Open, FileAccess.Read);
-			byte[] data = new byte[fs.Length];
+			var fs = new FileStream(fileToUpload, FileMode.Open, FileAccess.Read);
+			var data = new byte[fs.Length];
 			fs.Read(data, 0, data.Length);
 			fs.Close();
-			return uploadFile(data, fileName ,fileFormat ,fileContentType , postURL, userAgent, cookies);			
+			return uploadFile(data, fileName ,fileFormat ,fileContentType , postUrl, userAgent, cookies);			
 		}	
 		
 		public HttpWebResponse uploadFile(byte[] data, string fileName, string fileFormat, string fileContentType , 
-							   string postURL, string userAgent, string cookies)
+							   string postUrl, string userAgent, string cookies)
 		{
 			// Generate post objects
-			Dictionary<string, object> postParameters = new Dictionary<string, object>();
+			var postParameters = new Dictionary<string, object>();
 			postParameters.Add("filename", fileName);
 			postParameters.Add("fileformat", fileFormat);
 			var postedFileHttpFieldName = "file";
-			return uploadFile(data, postParameters, fileName, fileContentType, postURL, userAgent, postedFileHttpFieldName, cookies);
+			return uploadFile(data, postParameters, fileName, fileContentType, postUrl, userAgent, postedFileHttpFieldName, cookies);
 		}
 		
 		public HttpWebResponse uploadFile(byte[] data, Dictionary<string, object> postParameters, string fileName, string fileContentType , 
-							   string postURL, string userAgent, string postedFileHttpFieldName, string cookies)
+							   string postUrl, string userAgent, string postedFileHttpFieldName, string cookies)
 		{
 			
 			postParameters.Add(postedFileHttpFieldName, new HttpMultiPartForm.FileParameter(data, fileName, fileContentType));
 			 			
-			return MultipartFormDataPost(postURL, userAgent, postParameters, cookies);
+			return MultipartFormDataPost(postUrl, userAgent, postParameters, cookies);
 			
 			//return webResponse.ResponseUri;
 			//show.info(webResponse);
@@ -79,9 +77,7 @@ namespace O2.DotNetWrappers.Network
 			webResponse.Close();
 			return fullResponse;			//DC: Modified so that we return the response as string
 			*/
-		}			
-	    
-		private readonly Encoding encoding = Encoding.UTF8;
+		}				    		
 		
 		public HttpWebResponse MultipartFormDataPost(string postUrl, string userAgent, Dictionary<string, object> postParameters, string cookies)
 		{
@@ -102,14 +98,11 @@ namespace O2.DotNetWrappers.Network
             try
             {
 
-                HttpWebRequest webRequest = WebRequest.Create(postUrl) as HttpWebRequest;
-
+                var webRequest = WebRequest.Create(postUrl) as HttpWebRequest;
+                if (webRequest.isNull())
+                    return null;
                 webRequest.Timeout = Web.DefaultHttpWebRequestTimeout;
-                webRequest.ReadWriteTimeout = Web.DefaultHttpWebRequestTimeout;
-                if (webRequest == null)
-                {
-                    throw new NullReferenceException("request is not a http request");
-                }
+                webRequest.ReadWriteTimeout = Web.DefaultHttpWebRequestTimeout;                
 
                 // Set up the request properties
                 webRequest.Method = "POST";
@@ -156,7 +149,7 @@ namespace O2.DotNetWrappers.Network
 			{
 				if (param.Value is FileParameter)
 				{
-					FileParameter fileToUpload = (FileParameter)param.Value;
+					var fileToUpload = (FileParameter)param.Value;
 	 
 					// Add just the first part of this param, since we will write the file data directly to the Stream
 					string header = string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\";\r\nContent-Type: {3}\r\n\r\n", 
@@ -186,7 +179,7 @@ namespace O2.DotNetWrappers.Network
 	 
 			// Dump the Stream into a byte[]
 			formDataStream.Position = 0;
-			byte[] formData = new byte[formDataStream.Length];
+			var formData = new byte[formDataStream.Length];
 			formDataStream.Read(formData, 0, formData.Length);
 			formDataStream.Close();
 	 

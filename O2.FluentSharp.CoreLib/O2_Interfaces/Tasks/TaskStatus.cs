@@ -11,7 +11,7 @@ namespace O2.Interfaces.Tasks
         Uploading_Data_To_Remote_Server,
         Waiting_For_Remote_Server_Response,
         Downloading_Data_From_Remote_Server,
-        Completed_OK,
+        Completed_Ok,
         Completed_Failed
     }
 }

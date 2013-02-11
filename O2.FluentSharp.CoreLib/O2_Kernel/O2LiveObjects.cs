@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace O2.Kernel
 {
     public class O2LiveObjects
     {
-        public static Dictionary<string, object> LiveObjects;
+        public static Dictionary<string, object> LiveObjects { get; set; }
 
         static O2LiveObjects()
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection.Emit;
 using System.Reflection;
 
@@ -80,7 +79,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var property = typeBuilder.DefineProperty(propertyName,
                                                        propertyAttributes,
                                                        propertyType,
-                                                       new Type[] { propertyType });
+                                                       new [] { propertyType });
 
             var field = typeBuilder.dynamicField_Private("_" + propertyName, propertyType);
 
@@ -141,10 +140,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return typeBuilder.dynamicMethod(methodName, methodAttributes, returnType, parameterTypes ?? Type.EmptyTypes);
         }
 
-        public static MethodBuilder dynamicMethod(this TypeBuilder typeBuilder, string methodName, MethodAttributes methodAttributes, Type returnType)
+        /*public static MethodBuilder dynamicMethod(this TypeBuilder typeBuilder, string methodName, MethodAttributes methodAttributes, Type returnType)
         {
             return typeBuilder.dynamicMethod(methodName, methodAttributes, returnType, Type.EmptyTypes);
-        }
+        }*/
 
         public static MethodBuilder dynamicMethod(this TypeBuilder typeBuilder, string methodName, MethodAttributes methodAttributes, Type returnType, params Type[] parameterTypes)
         {

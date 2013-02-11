@@ -25,7 +25,7 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
 	        try
 	        {		        
-			    this.calculate_O2TempDir();
+			    calculate_O2TempDir();
 
 			    O2ConfigSettings.defaultLocallyDevelopedScriptsFolder =
 				    defaultO2LocalTempFolder.pathCombine(O2ConfigSettings.defaultLocallyDevelopedScriptsFolder);
@@ -53,7 +53,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 		        ReferencesDownloadLocation = o2TempDir.pathCombine(@"../_ReferencesDownloaded");
 		        EmbeddedAssemblies = o2TempDir.pathCombine(@"../_EmbeddedAssemblies");
 
-		        O2.DotNetWrappers.DotNet.AssemblyResolver.Init();
+		        DotNetWrappers.DotNet.AssemblyResolver.Init();
 	        }
 	        catch (Exception ex)
 	        {

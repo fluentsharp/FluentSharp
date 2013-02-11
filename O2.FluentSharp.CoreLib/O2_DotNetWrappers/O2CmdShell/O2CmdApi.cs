@@ -12,9 +12,12 @@ namespace O2.DotNetWrappers.O2CmdShell
 
         public static MethodInfo getMethod(string methodName, string[] methodParameter)
         {
-            foreach (Type type in typesWithCommands)
+            foreach (var type in typesWithCommands)
             {
-                MethodInfo methodToexecute = PublicDI.reflection.getMethod(type, methodName, methodParameter);
+                // ReSharper disable CoVariantArrayConversion
+                var methodToexecute = PublicDI.reflection.getMethod(type, methodName, methodParameter);
+                // ReSharper restore CoVariantArrayConversion
+
                 if (methodToexecute != null)
                     return methodToexecute;
             }

@@ -3,7 +3,7 @@ namespace O2.Interfaces.Tasks
 {
     public interface ITaskThread
     {
-        void setTaskControl(ITaskControl _taskControl);
+        void setTaskControl(ITaskControl taskControl);
         void start();
         void wait(double secondsToWait);
         ITask getTask();

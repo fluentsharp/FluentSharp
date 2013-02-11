@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using O2.DotNetWrappers.DotNet;
 using System.Text.RegularExpressions;
 
@@ -33,7 +30,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (from item in collection
                     where item.regEx(regEx)
-                    select item).ToList(); ;
+                    select item).ToList();
         }
         public static List<string>  filter(this List<string> items, string textToFind)
         {

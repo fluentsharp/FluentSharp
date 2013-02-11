@@ -6,15 +6,7 @@ using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using O2.Kernel.CodeUtils;
-
 using O2.DotNetWrappers.ExtensionMethods;
-
-//O2File:../PublicDI.cs
-//O2File:../CodeUtils/O2Kernel_Files.cs
-//O2File:../CodeUtils/O2Kernel_Serialize.cs
-//O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
-//O2File:../ExtensionMethods/Object_ExtensionMethods.cs 
-//O2File:../ExtensionMethods/Reflection_ExtensionMethods.cs 
 
 
 namespace O2.Kernel.Objects
@@ -26,16 +18,16 @@ namespace O2.Kernel.Objects
         public static Dictionary<string, O2AppDomainFactory> AppDomains_ControledByO2Kernel { get; set; }
 
         public String BaseDirectory { get; set; }
-        public AppDomain appDomain { get; set; }
+        public AppDomain AppDomain { get; set; }
 
         static O2AppDomainFactory()
         {
             AppDomains_ControledByO2Kernel = new Dictionary<string, O2AppDomainFactory>();
         }
 
-        public O2AppDomainFactory(AppDomain _appDomain)
+        public O2AppDomainFactory(AppDomain appDomain)
         {
-            appDomain = _appDomain;
+            AppDomain = appDomain;
         }
 
         // if none is provide then create one a tempfolder in the O2 Temp Dir * give it a random name
@@ -91,12 +83,12 @@ namespace O2.Kernel.Objects
                     AppDomains_ControledByO2Kernel.Add(appDomainName, this);
                     
                     //Create domain
-                    appDomain = AppDomain.CreateDomain(appDomainName, null, appDomainSetup, permissionSet);
+                    AppDomain = AppDomain.CreateDomain(appDomainName, null, appDomainSetup, permissionSet);
             //        appDomain.AssemblyResolve += new ResolveEventHandler(assemblyResolve);
-                    BaseDirectory = appDomain.BaseDirectory;
+                    BaseDirectory = AppDomain.BaseDirectory;
 
-                    appDomain.DomainUnload += (sender, e) => this.removeDomainFromManagedList();
-                    return appDomain;
+                    AppDomain.DomainUnload += (sender, e) => this.removeDomainFromManagedList();
+                    return AppDomain;
                 }
             }
             catch (Exception ex)
@@ -123,7 +115,7 @@ namespace O2.Kernel.Objects
                 {
                     if (File.Exists(assemblyToLoad))
                     {
-                        var targetFileName = Path.Combine(appDomain.BaseDirectory, Path.GetFileName(assemblyToLoad));
+                        var targetFileName = Path.Combine(AppDomain.BaseDirectory, assemblyToLoad.fileName());
 						if (targetFileName.fileExists().isFalse())
 							O2Kernel_Files.Copy(assemblyToLoad, targetFileName);
                         assembliesInNewAppDomain.Add(targetFileName);
@@ -133,7 +125,7 @@ namespace O2.Kernel.Objects
                         var resolvedName = Path.Combine(PublicDI.config.CurrentExecutableDirectory, assemblyToLoad);
                         if (File.Exists(resolvedName))
                         {
-                            var targetFileName = Path.Combine(appDomain.BaseDirectory, Path.GetFileName(resolvedName));
+                            var targetFileName = Path.Combine(AppDomain.BaseDirectory, resolvedName.fileName());
 							if (targetFileName.fileExists().isFalse())
 								O2Kernel_Files.Copy(resolvedName, targetFileName);
                             assembliesInNewAppDomain.Add(targetFileName);
@@ -148,7 +140,7 @@ namespace O2.Kernel.Objects
             foreach (var assemblyToLoad in assembliesInNewAppDomain)
                 try
                 {
-                    appDomain.Load(Path.GetFileNameWithoutExtension(assemblyToLoad));
+                    AppDomain.Load(Path.GetFileNameWithoutExtension(assemblyToLoad));
                 }
                 catch (Exception ex)
                 {
@@ -161,7 +153,7 @@ namespace O2.Kernel.Objects
 
         public string Name
         {
-            get { return appDomain.notNull() ? appDomain.FriendlyName : ""; }
+            get { return AppDomain.notNull() ? AppDomain.FriendlyName : ""; }
         }
 
         public List<string> FilesInAppDomainBaseDirectory
@@ -194,8 +186,8 @@ namespace O2.Kernel.Objects
                     string typeName = splitedType[1];
                     string assemblyName = splitedType[2];
 
-                    object proxyObject = appDomain.CreateInstanceAndUnwrap(assemblyName, typeName);
-                    if (proxyObject == null)
+                    var proxyObject = AppDomain.CreateInstanceAndUnwrap(assemblyName, typeName);
+                    if (proxyObject.isNull())
                         PublicDI.log.error("in getProxyMethod, could not create proxy:{0} in assembly {1}", typeName,
                                   assemblyName);
                     else
@@ -236,7 +228,7 @@ namespace O2.Kernel.Objects
                     rawTypeOfProxyToCreate = splitedType[0];
                     assemblyName = splitedType[1];
                     // check if we can load the assembly and the requested type is there
-                    Assembly loadedAssembly = appDomain.Load(assemblyName);
+                    Assembly loadedAssembly = AppDomain.Load(assemblyName);
                     Type foundProxyType = PublicDI.reflection.getType(loadedAssembly, rawTypeOfProxyToCreate);
                     if (foundProxyType == null)
                     {
@@ -249,10 +241,10 @@ namespace O2.Kernel.Objects
                 }
 
                 // add support for just passing in the simple name of the type to create (this is will use the first one found)
-                foreach (Assembly assembly in appDomain.GetAssemblies())
+                foreach (Assembly assembly in AppDomain.GetAssemblies())
                 {
                     Type foundProxyType = PublicDI.reflection.getType(assembly, rawTypeOfProxyToCreate);
-                    if (foundProxyType != null && assembly != null && assembly.FullName != null)
+                    if (foundProxyType != null && assembly != null)
                     {
                         assemblyName = assembly.FullName;
                         typeOfProxyToCreate = foundProxyType.FullName;
@@ -279,8 +271,8 @@ namespace O2.Kernel.Objects
                 var foundProxyType = getProxyType(rawTypeOfProxyToCreate, ref assemblyName, ref typeOfProxyToCreate);
                 if (foundProxyType != null)
                 {
-                    object proxy = appDomain.CreateInstanceAndUnwrap(assemblyName, typeOfProxyToCreate);
-                    if (proxy != null)
+                    object proxy = AppDomain.CreateInstanceAndUnwrap(assemblyName, typeOfProxyToCreate);
+                    if (proxy.notNull())
                         return proxy;
                 }
                 "could not create object: ".error(rawTypeOfProxyToCreate);
@@ -352,7 +344,7 @@ namespace O2.Kernel.Objects
                     try
                     {
                         if (File.Exists(pathToAssemblyToLoad))
-                            O2Kernel_Files.Copy(pathToAssemblyToLoad, appDomain.BaseDirectory);
+                            O2Kernel_Files.Copy(pathToAssemblyToLoad, AppDomain.BaseDirectory);
                         else
                             PublicDI.log.error(
                                 "copyToAppDomainBaseDirectoryBeforeLoad was set but pathToAssemblyToLoad was set to a file that didn't exist: {0}",
@@ -364,21 +356,21 @@ namespace O2.Kernel.Objects
                     }
                 // load assembly into AppDomain
                 //First try directly
-                appDomain.Load(fullAssemblyName);                
+                AppDomain.Load(fullAssemblyName);                
             }
             catch (Exception ex1)
             {
                 //then try using AssemblyName
                 try
                 {
-                    appDomain.Load(AssemblyName.GetAssemblyName(fullAssemblyName));
+                    AppDomain.Load(AssemblyName.GetAssemblyName(fullAssemblyName));
                 }
                 catch (Exception ex2)
                 {
                     // last change load assembly into current appdomain to get its full name and try again
                     try
                     {
-                        appDomain.Load(fullAssemblyName.assembly().FullName);
+                        AppDomain.Load(fullAssemblyName.assembly().FullName);
                     }
                     catch (Exception ex3)
                     {
@@ -393,15 +385,15 @@ namespace O2.Kernel.Objects
         }
         public object		createAndUnWrap(string dllWithType, string typeToCreateAndUnwrap)
         {
-            return appDomain.CreateInstanceAndUnwrap(dllWithType, typeToCreateAndUnwrap);
+            return AppDomain.CreateInstanceAndUnwrap(dllWithType, typeToCreateAndUnwrap);
         }
         public List<String> getAssemblies(bool showFulName)
         {
             var assemblies = new List<String>();
             try
             {
-                if (appDomain != null)
-                    foreach (Assembly assembly in appDomain.GetAssemblies())
+                if (AppDomain != null)
+                    foreach (Assembly assembly in AppDomain.GetAssemblies())
                         if (showFulName)
                             assemblies.Add(assembly.FullName);
                         else
@@ -522,7 +514,7 @@ namespace O2.Kernel.Objects
             {
                 PublicDI.log.info("Forcibly Unloading appDomain: {0}", Name);
                 //removeDomainFromManagedList();
-                AppDomain.Unload(appDomain);                
+                AppDomain.Unload(AppDomain);                
                 return true;
             }
             catch (Exception ex)
@@ -536,7 +528,7 @@ namespace O2.Kernel.Objects
         {
             try
             {
-                var appDomainBaseDirectory = appDomain.BaseDirectory;// we need to get this value before we unload the appDomain
+                var appDomainBaseDirectory = AppDomain.BaseDirectory;// we need to get this value before we unload the appDomain
                if (unLoadAppDomain())
                 {
                     PublicDI.log.info("Deleting (recursively) appDomain Base Directory: {0}", appDomainBaseDirectory);

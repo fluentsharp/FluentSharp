@@ -1,21 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 using System.Net.NetworkInformation;
 
-//O2File:../PublicDI.cs
-//O2File:../ExtensionMethods/Logging_ExtensionMethods.cs
-//O2File:../ExtensionMethods/String_ExtensionMethods.cs
-
 namespace O2.Kernel.CodeUtils
 {
     public class O2Kernel_Web
     {
-        public static bool SkipOnlineCheck = PublicDI.Offline;
+        public static bool SkipOnlineCheck { get; set; }
+
+        static O2Kernel_Web()
+        {
+             SkipOnlineCheck = PublicDI.Offline;
+        }
 
         //need these settings of the WebClient and GetResponseStream Http .NET clients methods will hang
         //for more references see:
@@ -26,8 +24,8 @@ namespace O2.Kernel.CodeUtils
         //   
         public static void ApplyNetworkConnectionHack()
         {
-            System.Net.ServicePointManager.DefaultConnectionLimit = 4096;
-            System.Net.ServicePointManager.CheckCertificateRevocationList = true;
+            ServicePointManager.DefaultConnectionLimit = 4096;
+            ServicePointManager.CheckCertificateRevocationList = true;
         }
 
         public bool httpFileExists(string url)
@@ -37,7 +35,7 @@ namespace O2.Kernel.CodeUtils
 
         public bool httpFileExists(string url, bool showError)
         {
-            var webRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
             webRequest.Timeout = 10000;
             webRequest.Method = "HEAD";
             try
@@ -72,12 +70,12 @@ namespace O2.Kernel.CodeUtils
         {
             var targetFile = targetFileOrFolder;
             if (Directory.Exists(targetFileOrFolder))
-                targetFile = Path.Combine(targetFileOrFolder, Path.GetFileName(urlOfFileToFetch));
+                targetFile = targetFileOrFolder.pathCombine(urlOfFileToFetch.fileName());
 
             PublicDI.log.debug("Downloading Binary File {0}", urlOfFileToFetch);
             lock (this)
             {
-                using (WebClient webClient = new WebClient())
+                using (var webClient = new WebClient())
                 {        
                     try
                     {                                                
@@ -111,9 +109,9 @@ namespace O2.Kernel.CodeUtils
         {         
             try
             {
-                var pPing = new System.Net.NetworkInformation.Ping();
+                var pPing = new Ping();
                 PingReply prPingReply = pPing.Send(address);
-                return (prPingReply != null && prPingReply.Status == IPStatus.Success) ? true : false;
+                return (prPingReply != null && prPingReply.Status == IPStatus.Success);
             }
             catch (Exception ex)
             {

@@ -19,12 +19,12 @@ namespace O2.Views.ASCX.classes.Tasks
             task.taskStatus = TaskStatus.Ready;
         }
 
-        public void setTaskControl(ITaskControl _taskControl)
+        public void setTaskControl(ITaskControl taskControl)
         {
-            if (_taskControl != null)
+            if (taskControl != null)
             {
-                taskControl = _taskControl;
-                taskControl.setStartLinkVisibleStatus(true);
+                this.taskControl = taskControl;
+                this.taskControl.setStartLinkVisibleStatus(true);
             }
         }
        
@@ -39,7 +39,7 @@ namespace O2.Views.ASCX.classes.Tasks
                     taskControl.setProgressBarValue(0);
                     taskControl.startExecutionTimeCounterThread();
                 }
-                task.taskStatus = task.execute() ? TaskStatus.Completed_OK : TaskStatus.Completed_Failed;
+                task.taskStatus = task.execute() ? TaskStatus.Completed_Ok : TaskStatus.Completed_Failed;
                 if (taskControl != null)                
                     taskControl.setProgressBarValue(taskControl.getProgressBarMaximum());
             }
@@ -65,7 +65,7 @@ namespace O2.Views.ASCX.classes.Tasks
 
         public bool isTaskCompleted()
         {
-            return (task.taskStatus == TaskStatus.Completed_OK || task.taskStatus == TaskStatus.Completed_Failed);
+            return (task.taskStatus == TaskStatus.Completed_Ok || task.taskStatus == TaskStatus.Completed_Failed);
         }        
     }
 }
