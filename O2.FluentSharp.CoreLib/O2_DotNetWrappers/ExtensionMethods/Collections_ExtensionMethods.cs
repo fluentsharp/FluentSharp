@@ -413,7 +413,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return 0;
         }
         public static bool      empty(this ICollection colection)
-        {
+        {            
             if (colection.isNull())
                 return true;
             return colection.size() < 1;
@@ -824,7 +824,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Queue<T>      push<T>(this Queue<T> queue, T item)
         {
-            if (item.notNull())
+            if (item.isNull())
                 "in Queue  push, provided value was null)".error();
             else if (queue.isNull())
                 "in Queue  push, stack value was null)".error();

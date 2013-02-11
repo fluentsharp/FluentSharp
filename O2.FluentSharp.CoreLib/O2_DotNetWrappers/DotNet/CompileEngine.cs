@@ -955,14 +955,31 @@ namespace O2.DotNetWrappers.DotNet
                     assembly = resolvedReference.assembly();
                 }
             }
-            if (assembly.notNull() && assembly.Location.fileExists())
+            if (assembly.notNull())
             {
-                if (resolvedReference != assembly.Location)
+                if (assembly.Location.notValid())
                 {
-                    resolvedReference = assembly.Location;
-                    setCachedCompiledAssembly(originalReference, resolvedReference, false);
-                }                
-                return resolvedReference;
+                    var embeddedAssemblyLocation = AssemblyResolver.saveEmbeddedAssemblyToDisk(assembly.GetName());
+                    if (embeddedAssemblyLocation.fileExists())
+                    {
+                        assembly = embeddedAssemblyLocation.assembly();
+                        if (assembly.notNull())
+                        {
+                            resolvedReference = embeddedAssemblyLocation;
+                            setCachedCompiledAssembly(originalReference, resolvedReference, true);
+                            return resolvedReference;
+                        }
+                    }
+                }
+                else
+                {
+                    if (resolvedReference != assembly.Location)
+                    {
+                        resolvedReference = assembly.Location;
+                        setCachedCompiledAssembly(originalReference, resolvedReference, false);                        
+                    }
+                    return resolvedReference;
+                }
             }
                         
             if (CachedCompiledAssemblies.ContainsKey(originalReference))    // removed it form here and try again)

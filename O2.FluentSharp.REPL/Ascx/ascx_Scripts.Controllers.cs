@@ -12,26 +12,10 @@ namespace O2.External.SharpDevelop.Ascx
 {
     public partial class ascx_Scripts
     {
-        /*public List<String> lsExtraReferenceAssembliesToAdd = new List<string>
-                                                                  {
-                                                                      "O2_Kernel.dll",
-                                                                      "System.Dll",
-                                                                      "System.Core.dll",
-                                                                      "System.Data.dll",
-                                                                      "System.Drawing.dll",
-                                                                      "System.Windows.Forms.dll",
-                                                                      "System.Xml.dll",
-                                                                      "System.Xml.Linq.dll",                                                                      
-                                                                      "System.Configuration.dll",                                                                      
-                                                                      "WeifenLuo.WinFormsUI.Docking.dll"
-                                                                  };*/
-
         private bool _runOnLoad = true;
 
         private void onLoad()
         {
-
-
             if (false == DesignMode && _runOnLoad)
             {
 

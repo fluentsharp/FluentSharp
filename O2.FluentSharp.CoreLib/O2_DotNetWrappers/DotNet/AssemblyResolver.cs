@@ -10,15 +10,17 @@ namespace O2.DotNetWrappers.DotNet
 {
     public class AssemblyResolver
     {        
-        public static Func<string, string> NameResolver						{ get; set; }
-        public static Dictionary<string, Assembly> CachedMappedAssemblies	{ get; set; }
-        public static bool  Initialized                                     { get; set; }
+        public static Func<string, string>              NameResolver				{ get; set; }
+        public static Dictionary<string, Assembly>      CachedMappedAssemblies	    { get; set; }
+        public static Dictionary<string, byte[]>  LoadedEmbeddedAssemblies          { get; set; }
+        public static bool  Initialized                                             { get; set; }
 
         static AssemblyResolver()
         {
             enable_AssemblyResolve();			
-            NameResolver = resolve_using_CompilationReferencePath;
-            CachedMappedAssemblies = new Dictionary<string, Assembly>();
+            NameResolver                = resolve_using_CompilationReferencePath;
+            CachedMappedAssemblies      = new Dictionary<string, Assembly>();
+            LoadedEmbeddedAssemblies    = new Dictionary<string, byte[]>();
         }        
 
         public static string resolve_using_CompilationReferencePath(string file)
@@ -126,22 +128,39 @@ namespace O2.DotNetWrappers.DotNet
         {
             var assemblyBytes = getAssemblyAsBytesFromResource(name, resourceName, currentAssembly);
             if (assemblyBytes == null) 
+                return null;            
+            var assembly = Assembly.Load(assemblyBytes);
+            if (assembly.isNull())
                 return null;
-            return Assembly.Load(assemblyBytes);
+            LoadedEmbeddedAssemblies.add(assembly.GetName().str(),assemblyBytes);
+            return assembly;
+        }
+
+        public static string saveEmbeddedAssemblyToDisk(AssemblyName assemblyName)
+        {
+            if (LoadedEmbeddedAssemblies.ContainsKey(assemblyName.str()))
+                return saveAssemblyBytesToDisk(assemblyName.Name, LoadedEmbeddedAssemblies[assemblyName.str()]);
+            return null;
         }
 
         public static Assembly saveResourceAsAssembly(string name, string resourceName, Assembly currentAssembly)
         {
             var assemblyBytes = getAssemblyAsBytesFromResource(name, resourceName, currentAssembly);
             if (assemblyBytes == null) 
-                return null;
+                return null;        
+            var saveAssemblyTo = saveAssemblyBytesToDisk(name, assemblyBytes);
+            return loadFromDisk(saveAssemblyTo);
+        }
+
+        private static string saveAssemblyBytesToDisk(string name, byte[] assemblyBytes)
+        {
             var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(name); //nameToFind);
-            
-            if (saveAssemblyTo.fileExists() && saveAssemblyTo.fileContents_AsByteArray() == assemblyBytes)
+
+            if (saveAssemblyTo.fileExists())
                 "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);
             else
                 Windows.Files.WriteFileContent(saveAssemblyTo, assemblyBytes);
-            return loadFromDisk(saveAssemblyTo);
+            return saveAssemblyTo;
         }
 
         private static byte[] getAssemblyAsBytesFromResource(string name, string resourceName, Assembly currentAssembly)

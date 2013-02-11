@@ -22,7 +22,7 @@ namespace O2.XRules.Database.Utils
             return runControl(null);
         }
         public static ascx_Panel_With_Inspector runControl(string file)
-        {
+        {            
             var currentProcess = Processes.getCurrentProcess();
             var panelWithInspector = O2Gui.load<ascx_Panel_With_Inspector>("C# REPL Editor             ({0})".format(clr.details())); //and name: {1})".format(clr.details(), currentProcess.ProcessName));
             if (file.valid())
@@ -31,7 +31,7 @@ namespace O2.XRules.Database.Utils
         }
 
         public static ascx_Panel_With_Inspector runControl_withParameter(string parameterName, object parameterObject)
-        {
+        {            
             var panelWithInspector = runControl();
             panelWithInspector.inspector.InvocationParameters.Add(parameterName, parameterObject);
             return panelWithInspector;
@@ -40,7 +40,7 @@ namespace O2.XRules.Database.Utils
         public ascx_Panel_With_Inspector()
         {
             try
-            {
+            {                
                 this.Width = 800;
                 this.Height = 600;
 
