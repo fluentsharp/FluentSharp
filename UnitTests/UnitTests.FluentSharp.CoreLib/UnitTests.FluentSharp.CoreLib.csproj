@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="Test_Ex_Objects.cs" />
     <Compile Include="Test_O2Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

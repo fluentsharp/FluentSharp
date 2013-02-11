@@ -59,8 +59,24 @@ namespace UnitTests.FluentSharp_CoreLib
             var assemblyAttributes = fluentSharpCoreLib.attributes();            
             Assert.IsNotEmpty(assemblyAttributes);
             Assert.IsFalse(fluentSharpCoreLib.hasAttribute<SkipTempPathLengthVerification>());
-            Assert.IsTrue (thisAssembly      .hasAttribute<SkipTempPathLengthVerification>());
-            
+            Assert.IsTrue (thisAssembly      .hasAttribute<SkipTempPathLengthVerification>());            
+        }
+
+        [Test]
+        public void Resources()
+        {
+            var testResource        = "FluentSharp.CoreLib.Apache.2.0.license.txt";
+            var expectedText        = "Apache License";
+            var nonExistingResource = "AAAAAAAAAAAAA";
+            var assembly            = typeof (PublicDI).Assembly;            
+            var resourceNames       = assembly.embeddedResourceNames();
+            var resourceValue       = assembly.embeddedResource(testResource);
+
+            Assert.IsNotNull(resourceNames);            
+            Assert.Contains (testResource, resourceNames);            
+            Assert.IsNotNull(resourceValue);
+            Assert.IsTrue   (resourceValue.ascii().contains(expectedText));
+            Assert.IsNull   (assembly.embeddedResource(nonExistingResource));            
         }
 
     }

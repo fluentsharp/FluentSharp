@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentSharp.BCL">
-      <HintPath>..\..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.5.0.52\lib\net35\FluentSharp.BCL.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -47,13 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test_Embedded_Assemblies_Load.cs" />
+    <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_PopupWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>FluentSharp.BCL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
