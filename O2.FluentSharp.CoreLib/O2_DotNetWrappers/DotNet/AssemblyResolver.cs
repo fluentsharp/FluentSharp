@@ -140,6 +140,11 @@ namespace O2.DotNetWrappers.DotNet
         {
             if (LoadedEmbeddedAssemblies.ContainsKey(assemblyName.str()))
                 return saveAssemblyBytesToDisk(assemblyName.Name, LoadedEmbeddedAssemblies[assemblyName.str()]);
+            //if not there try to reload it from the current loaded assemblies
+            var assembly = loadFromEmbededResources(assemblyName.Name);
+            if (assembly.notNull())
+                if (LoadedEmbeddedAssemblies.ContainsKey(assemblyName.str()))
+                    return saveAssemblyBytesToDisk(assemblyName.Name, LoadedEmbeddedAssemblies[assemblyName.str()]);
             return null;
         }
 
@@ -155,7 +160,8 @@ namespace O2.DotNetWrappers.DotNet
         private static string saveAssemblyBytesToDisk(string name, byte[] assemblyBytes)
         {
             var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(name); //nameToFind);
-
+            if(saveAssemblyTo.extension().eq(".dll",".exe").isFalse())
+                saveAssemblyTo+=".dll";
             if (saveAssemblyTo.fileExists())
                 "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);
             else

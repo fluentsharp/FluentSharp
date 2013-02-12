@@ -6,14 +6,14 @@ namespace O2.DotNetWrappers.H2Scripts
     public class H2
     {
         public string SourceCode { get; set; }        
-        public List<string> ReferencedAssemblies { get; set; }
-        public Dictionary<string, object> InvocationParameters { get; set; }
+        //public List<string> ReferencedAssemblies { get; set; }        
+        //public Dictionary<string, object> InvocationParameters { get; set; }
    
         public H2()
         {            
             SourceCode = "";            
-            ReferencedAssemblies = new List<string>();
-            InvocationParameters = new Dictionary<string, object>();
+            //ReferencedAssemblies = new List<string>();
+            //InvocationParameters = new Dictionary<string, object>();
         }
 
         public H2(string sourceCode) : this()

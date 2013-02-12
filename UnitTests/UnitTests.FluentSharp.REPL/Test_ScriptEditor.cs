@@ -11,9 +11,7 @@ namespace UnitTests.FluentSharp_REPL
         [Test]
         public void OpenScriptEditor()
         {            
-            var script = open.scriptEditor();            
-            script.inspector.onCompileExecuteOnce();
-            script.inspector.enableCodeComplete();
+            var script = open.scriptEditor();                        
             script.inspector.onExecute =
                 (result) => {
                                 var panel = (Panel)script.inspector.InvocationParameters["panel"];
@@ -24,6 +22,8 @@ namespace UnitTests.FluentSharp_REPL
                                 Assert.AreEqual("[null value]",result.str());
                                 script.closeForm();
                 };
+            script.inspector.onCompileExecuteOnce();
+            script.inspector.enableCodeComplete();
             script.waitForClose();
         }
 

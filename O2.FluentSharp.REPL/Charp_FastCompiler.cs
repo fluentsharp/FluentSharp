@@ -63,7 +63,6 @@ namespace O2.External.SharpDevelop.AST
             setDefaultUsingStatements();
             setDefaultReferencedAssemblies();
         }
-
         public CSharp_FastCompiler()
         {        
         	DebugMode = false;				// set to true to see details about each AstCreation and Compilation stage
@@ -104,12 +103,10 @@ namespace O2.External.SharpDevelop.AST
                                               //,"WeifenLuo.WinFormsUI.Docking.dll");
                                               
         }                		
-
 		public Dictionary<string,object> getDefaultInvocationParameters()
 		{
 			return new Dictionary<string, object>();
-		}
-              
+		}              
         public void compileSnippet(string codeSnippet)
         {
             try
@@ -133,7 +130,6 @@ namespace O2.External.SharpDevelop.AST
                 ex.log("in compileSnippet");
             }
         }
-
         public bool removeCachedAssemblyForCode(string codeSnippet)
         {
             if (codeSnippet.notValid())
@@ -144,7 +140,6 @@ namespace O2.External.SharpDevelop.AST
             var filesMd5 = codeSnippet.md5Hash();
             return CompileEngine.removeCachedAssemblyForCode_MD5(filesMd5);
         }
-
 		public bool getCachedAssemblyForCode_and_RaiseEvents(string codeSnippet)
 		{
             if (codeSnippet.notValid())
@@ -164,7 +159,6 @@ namespace O2.External.SharpDevelop.AST
 			}
 			return false;
 		}
-
         public void compileSnippet()
         {
             O2Thread.mtaThread(
@@ -195,14 +189,12 @@ namespace O2.External.SharpDevelop.AST
                     }
                 });
         }
-
         private void compileSourceCode(string sourceCode, bool createdFromSnipptet)
         {
             CreatedFromSnipptet = createdFromSnipptet;
             _compileStack.Push(sourceCode);
             compileSourceCode();
         }
-
 		public void compileSourceCode(string sourceCode)
         {
             if (sourceCode.valid().isFalse())
@@ -220,8 +212,7 @@ namespace O2.External.SharpDevelop.AST
                 mapCodeO2References(astCSharp);
                 compileSourceCode(sourceCode, false);
             }
-       	}
-       	
+       	}       	
        	public void compileSourceCode()
        	{
        	    O2Thread.mtaThread(() => compileSourceCode_Thread() );
@@ -248,6 +239,12 @@ namespace O2.External.SharpDevelop.AST
                     beforeCompile.invoke();
                     DebugMode.ifInfo("Compiling Source Code (Size: {0})", sourceCode.size());
                     SourceCode = sourceCode;
+                    
+                    if (sourceCode.lines().starting("//CLR_3.5").notEmpty())        // allow setting compilation into 2.0 CLR
+                    {
+                        CompilationVersion= "v3.5";
+                    }
+
                     var providerOptions = new Dictionary<string, string>().add("CompilerVersion", CompilationVersion);
 
                     var csharpCodeProvider = new Microsoft.CSharp.CSharpCodeProvider(providerOptions);
@@ -331,7 +328,6 @@ namespace O2.External.SharpDevelop.AST
             }
             return parsedCode;
         }
-
         //this code needs to be completely rewritten
         public string tryToCreateCSharpCodeWith_Class_Method_WithMethodText(string code)
         {
@@ -449,7 +445,6 @@ namespace O2.External.SharpDevelop.AST
             }      			
 			return null;                
         }        
-
         public void mapCodeO2References(Ast_CSharp astCSharp)
         {            
             bool onlyAddReferencedAssemblies = false;			
@@ -503,7 +498,6 @@ namespace O2.External.SharpDevelop.AST
 			CompileEngine.tryToResolveReferencesForCompilation(ReferencedAssemblies, WorkOffline);            
 
         }
-
         public void resolveFileLocationsOfExtraSourceCodeFilesToCompile()
         {
             if (ExtraSourceCodeFilesToCompile.size() > 0)
@@ -547,7 +541,6 @@ namespace O2.External.SharpDevelop.AST
                 }
             }
         }
-
         public object executeFirstMethod()
         {
 			if (CompiledAssembly.notNull())
@@ -557,7 +550,6 @@ namespace O2.External.SharpDevelop.AST
 			}
 			return null;
         }                       
-
         public Location getGeneratedSourceCodeMethodLineOffset()
         {
             if (CreatedFromSnipptet && SourceCode.valid())                
@@ -567,7 +559,6 @@ namespace O2.External.SharpDevelop.AST
                     }
             return new Location(0, 0) ;
         }
-
         public void waitForCompilationComplete()
         {            
             if (FinishedCompilingCode.WaitOne(20 * 1000).isFalse())

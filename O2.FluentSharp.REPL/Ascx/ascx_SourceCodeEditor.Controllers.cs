@@ -54,19 +54,18 @@ namespace O2.External.SharpDevelop.Ascx
         public bool     autoBackUpOnCompileSuccess = true;
         public bool     checkForDebugger = false;        
         public INode    currentINode = null;
-        public Ast_CSharp_ShowDetailsInViewer showAstDetails;
-        public O2CodeCompletion o2CodeCompletion;          
-        public O2MappedAstData compiledFileAstData = null;
-        public Dictionary<string, string> sampleScripts;
-        public List<string> partialFileContents = new List<string>();
+        public Ast_CSharp_ShowDetailsInViewer   showAstDetails;
+        public O2CodeCompletion                 o2CodeCompletion;          
+        public O2MappedAstData                  compiledFileAstData = null;
+        public Dictionary<string, string>       sampleScripts;
+        public List<string>                     partialFileContents = new List<string>();
 
-        public void setDefaultValues()
+        public void     setDefaultValues()
         {
             eCompile =  (assembly) => { };
             eFileOpen = (file) => { };
         }
-
-        public void onLoad()
+        public void     onLoad()
         {
             if (false == DesignMode && runOnLoad)
             {                
@@ -98,62 +97,19 @@ namespace O2.External.SharpDevelop.Ascx
 
                 mapExternalExecutionEngines();
                 //this.onCaretMove(caretMoved);
-				extraGuiChanges();
+                extraGuiChanges();
                 runOnLoad = false;
             }
         }
-
-		public void extraGuiChanges() // starting to move this code into O2's more explicit code
-		{
-			menuStripForSourceEdition.add_MenuItem("Open C# REPL Script", () => open.scriptEditor());
-		}
-
-
-
-
-		// reason from commment:
-		// the idea with this method was to show information about the current carret position, but as it is 
-		// it is expensive and doesn't add a lot of value 
-		/*        void caretMoved(Caret caret)
-				{
-		
-
-					// same code as the one in "public static INode iNode(this O2MappedAstData o2MappedAstData, string file, Caret caret)" in O2MappedAstData_ExtensionMethods.cs (O2 Script)
-					var o2MappedAstData = compiledFileAstData;
-					var file = sPathToFileLoaded;
-
-					if (o2MappedAstData != null && file != null && caret != null)
-					{
-						if (o2MappedAstData.FileToINodes.hasKey(file))
-						{
-							var allINodes = o2MappedAstData.FileToINodes[file];
-							var adjustedLine = caret.Line + 1;
-							var adjustedColumn = caret.Column + 1;
-							CurrentINode = allINodes.getINodeAt(adjustedLine, adjustedColumn);
-							if (CurrentINode != null)                    
-								lbCurrentAstNode.set_Text("Current Ast Node: {0}".format(CurrentINode.typeName()));                                                                    
-						}
-                
-					}
-					if (compiledFileAstData.notNull())
-					{
-						//var iNode = compiledFileAstData.iNode(sPathToFileLoaded, caret);
-						//if (iNode != null)	
-						//{					
-							//CurrentINode = iNode;
-							//lbCurrentAstNode.set_Text("Current Ast Node: {0}".format(iNode.typeName()))
-						//}
-					}
-  
-				}
-				*/
-
-		void TextArea_KeyUp(object sender, KeyEventArgs e)
+        public void     extraGuiChanges() // starting to move this code into O2's more explicit code
+        {
+            menuStripForSourceEdition.add_MenuItem("Open C# REPL Script", () => open.scriptEditor());
+        }
+        public void     TextArea_KeyUp(object sender, KeyEventArgs e)
         {
             handlePressedKeys(e);
         }
-
-        private void handlePressedKeys(KeyEventArgs e)
+        public void     handlePressedKeys(KeyEventArgs e)
         {            
            
             if (e.Modifiers == Keys.Control && e.KeyValue == 'B')           // Ctrl+B compiles code
@@ -172,19 +128,15 @@ namespace O2.External.SharpDevelop.Ascx
             else if (o2CodeCompletion.isNull() || o2CodeCompletion.codeCompletionWindow.isNull())                                   // trigger on " " (space)
                 this.focus();  //  to deal with the issue that sometimes happened where the cursor would disapear (from the currently GUI under edit)
         }
-
-        void TextArea_KeyDown(object sender, KeyEventArgs e)
+        public void     TextArea_KeyDown(object sender, KeyEventArgs e)
         {
             //O2.Kernel.PublicDI.log.debug("KeyDown: " + e.KeyValue.ToString()); ;
         }
-
-        void TextArea_KeyPress(object sender, KeyPressEventArgs e)
+        public void     TextArea_KeyPress(object sender, KeyPressEventArgs e)
         {
             //O2.Kernel.PublicDI.log.debug("KeyPress: " + e.KeyChar.ToString()); ;
         }
-        
-
-        void IconBarMargin_MouseDown(AbstractMargin sender, Point mousepos, MouseButtons mouseButtons)
+        public void     IconBarMargin_MouseDown(AbstractMargin sender, Point mousepos, MouseButtons mouseButtons)
         {
             /*    IconBarMargin margin = (IconBarMargin)sender;
                 Graphics g = margin.TextArea.CreateGraphics();
@@ -195,13 +147,11 @@ namespace O2.External.SharpDevelop.Ascx
     */
             //tecSourceCode.Document.BookmarkManager.AddMark(bookmark);
         }
-
-        void TextArea_DragOver(object sender, DragEventArgs e)
+        public void     TextArea_DragOver(object sender, DragEventArgs e)
         {
             Dnd.setEffect(e);
         }
-
-        void TextArea_DragDrop(object sender, DragEventArgs e)
+        public void     TextArea_DragDrop(object sender, DragEventArgs e)
         {
             var fileOrFolder = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e);
             if (fileOrFolder.fileExists())
@@ -227,16 +177,12 @@ namespace O2.External.SharpDevelop.Ascx
                     tecSourceCode.ActiveTextAreaControl.TextArea.InsertString(data.ToString());
             }
         }
-
-        void TextArea_DragEnter(object sender, DragEventArgs e)
+        public void     TextArea_DragEnter(object sender, DragEventArgs e)
         {
             Dnd.setEffect(e);
 
         }
-
-
-
-        public void mapExternalExecutionEngines()
+        public void     mapExternalExecutionEngines()
         {
             this.invokeOnThread(
                 () =>
@@ -248,16 +194,14 @@ namespace O2.External.SharpDevelop.Ascx
                         cbExternalEngineToUse.SelectedIndex = 0;
                 });
         }
-
-        private void configureOnLoadMenuOptions()
+        public void     configureOnLoadMenuOptions()
         {
             //if (O2Messages.IsGuiLoaded())
             //{
             //btShowLogs.Visible = O2Messages.isGuiLoaded();
             //}
         }
-
-        private void configureDefaultSettingsForTextEditor(TextEditorControlBase tecTargetTextEditor)
+        public void     configureDefaultSettingsForTextEditor(TextEditorControlBase tecTargetTextEditor)
         {
             tecTargetTextEditor.Document.DocumentChanged += Document_DocumentChanged;
 
@@ -281,9 +225,7 @@ namespace O2.External.SharpDevelop.Ascx
             cboxVRuler.Checked = false;
             cboxVRuler_CheckedChanged(null, null);
         }
-
-
-        private void loadSourceCodeFileIntoTextEditor(String fileToLoad, TextEditorControlBase tecTargetTextEditor)
+        public void     loadSourceCodeFileIntoTextEditor(String fileToLoad, TextEditorControlBase tecTargetTextEditor)
         {
             fileToLoad = tryToResolveFileLocation(fileToLoad, this);
             //this.okThreadSync(delegate
@@ -335,8 +277,7 @@ namespace O2.External.SharpDevelop.Ascx
                     });
 
         }
-
-        public void loadPartialFileView(string fileToLoad)
+        public void     loadPartialFileView(string fileToLoad)
         {
             fileToLoad = tryToResolveFileLocation(fileToLoad, this);
             this.invokeOnThread(() =>
@@ -348,8 +289,7 @@ namespace O2.External.SharpDevelop.Ascx
                         showLinesFromPartialFileContents(0, 1000);
                     });
         }
-
-        public void showLinesFromPartialFileContents(int start_Line, int end_Line)
+        public void     showLinesFromPartialFileContents(int start_Line, int end_Line)
         {
             startLine = start_Line;
             endLine = end_Line;
@@ -373,8 +313,7 @@ namespace O2.External.SharpDevelop.Ascx
 
                     });
         }
-
-        public void selectLineFromPartialFileContents(uint lineToSelect)
+        public void     selectLineFromPartialFileContents(uint lineToSelect)
         {
             // handle the special case where 0 is provided as the line to select 
             //  if (lineToSelect == 0)
@@ -405,9 +344,7 @@ namespace O2.External.SharpDevelop.Ascx
 
                     });
         }
-
-
-        public void saveSourceCodeFile(String sTargetLocation)
+        public void     saveSourceCodeFile(String sTargetLocation)
         {
             this.invokeOnThread(
                 () =>
@@ -431,20 +368,19 @@ namespace O2.External.SharpDevelop.Ascx
                     }                    
                 });
         }
-
-		public void newFile()
-		{
-			"Creating a new Script".info();
-			setPathToFileLoaded(null);
-			setDocumentContents("",".cs");
-		}
-        public bool loadSourceCodeFile(String pathToSourceCodeFileToLoad)
+        public void     newFile()
         {
-			if (pathToSourceCodeFileToLoad.notValid())
-			{
-				newFile();
-				return false;
-			}
+            "Creating a new Script".info();
+            setPathToFileLoaded(null);
+            setDocumentContents("",".cs");
+        }
+        public bool     loadSourceCodeFile(String pathToSourceCodeFileToLoad)
+        {
+            if (pathToSourceCodeFileToLoad.notValid())
+            {
+                newFile();
+                return false;
+            }
 
             pathToSourceCodeFileToLoad = tryToResolveFileLocation(pathToSourceCodeFileToLoad, this);
 
@@ -496,35 +432,32 @@ namespace O2.External.SharpDevelop.Ascx
                                      return false;
                                  }));
         }
-
-        private void setPathToFileLoaded(string pathToSourceCodeFileToLoad)
+        public void     setPathToFileLoaded(string pathToSourceCodeFileToLoad)
         {
-			if (pathToSourceCodeFileToLoad.notValid())
-			{
-				sDirectoryOfFileLoaded = "";
-				tbSourceCode_DirectoryOfFileLoaded.set_Text("");
-				tbSourceCode_FileLoaded.set_Text("");
-				sPathToFileLoaded ="";
-			}
-			else
-				tbSourceCode_DirectoryOfFileLoaded.invokeOnThread(
-					() =>{
-							sDirectoryOfFileLoaded = Path.GetDirectoryName(pathToSourceCodeFileToLoad);
-							tbSourceCode_DirectoryOfFileLoaded.Text = sDirectoryOfFileLoaded;
-							tbSourceCode_FileLoaded.Text = Path.GetFileName(pathToSourceCodeFileToLoad);
-							sPathToFileLoaded = pathToSourceCodeFileToLoad;
-						 });
+            if (pathToSourceCodeFileToLoad.notValid())
+            {
+                sDirectoryOfFileLoaded = "";
+                tbSourceCode_DirectoryOfFileLoaded.set_Text("");
+                tbSourceCode_FileLoaded.set_Text("");
+                sPathToFileLoaded ="";
+            }
+            else
+                tbSourceCode_DirectoryOfFileLoaded.invokeOnThread(
+                    () =>{
+                            sDirectoryOfFileLoaded = Path.GetDirectoryName(pathToSourceCodeFileToLoad);
+                            tbSourceCode_DirectoryOfFileLoaded.Text = sDirectoryOfFileLoaded;
+                            tbSourceCode_FileLoaded.Text = Path.GetFileName(pathToSourceCodeFileToLoad);
+                            sPathToFileLoaded = pathToSourceCodeFileToLoad;
+                         });
         }
-
-        private bool hasNonRendredChars(string pathToSourceCodeFileToLoad)
+        public bool     hasNonRendredChars(string pathToSourceCodeFileToLoad)
         {
             var fileContents = Files.getFileContents(pathToSourceCodeFileToLoad);
             if (fileContents.Contains("\0"))
                 return true;
             return false;
         }
-
-        private void setCompileAndInvokeButtonsState(string pathToFileLoaded)
+        public void     setCompileAndInvokeButtonsState(string pathToFileLoaded)
         {
             bool supportCSharpCompileAndExecute = true;
             if (pathToFileLoaded.extension().lower() == ".o2")
@@ -552,13 +485,8 @@ namespace O2.External.SharpDevelop.Ascx
             btDragAssemblyCreated.Visible = supportCSharpCompileAndExecute;
             btSelectedLineHistory.Visible = supportCSharpCompileAndExecute;
             tsCompileStripSeparator.Visible = supportCSharpCompileAndExecute;
-        }
-
-        /// <summary>
-        /// Thread safe way to get value of tecSourceCode
-        /// </summary>
-        /// <returns></returns>
-        public String getSourceCode()
+        }     
+        public String   getSourceCode()
         {
             return tecSourceCode.invokeOnThread(() => tecSourceCode.Text);
             //return (string)this.tecSourceCode.ActiveTextAreaControl.TextArea.invokeOnThread(() => tecSourceCode.Text);
@@ -583,14 +511,8 @@ namespace O2.External.SharpDevelop.Ascx
             {
                 return "";                
             }  */
-        }
-
-        public TextEditorControl getObject_TextEditorControl()
-        {
-            return tecSourceCode;
-        }
-
-        public string getFullPathTOCurrentSourceCodeFile()
+        }        
+        public string   getFullPathTOCurrentSourceCodeFile()
         {
             var directory = tbSourceCode_DirectoryOfFileLoaded.get_Text();
             var file = tbSourceCode_FileLoaded.get_Text();
@@ -602,8 +524,7 @@ namespace O2.External.SharpDevelop.Ascx
             }
             return "";
         }
-
-        public void saveSourceCode()
+        public void     saveSourceCode()
         {
             String sFilePath = getFullPathTOCurrentSourceCodeFile();
             PublicDI.CurrentScript = sFilePath;
@@ -620,19 +541,16 @@ namespace O2.External.SharpDevelop.Ascx
                 new H2(getSourceCode()).save(sFilePath);
             // }
         }
-
-        public void highlightLineWithColor(Int32 iLineToSelect, Color cColor)
+        public void     highlightLineWithColor(Int32 iLineToSelect, Color cColor)
         {
             //TextEditorControl tecControl = tecSourceCode.ActiveTextAreaControl;            
             //ICSharpCode.TextEditor.Document.LineSegment lsLineSegment = tecSourceCode.Document.GetLineSegment(iLineToSelect);
             //lsLineSegment.
         }
-
-        public void cleanHighLights()
+        public void     cleanHighLights()
         {
         }
-
-        public void gotoLine(Int32 iLineToSelect)
+        public void     gotoLine(Int32 iLineToSelect)
         {
             try
             {
@@ -661,8 +579,7 @@ namespace O2.External.SharpDevelop.Ascx
                 PublicDI.log.error("in SourceCodeEditor.gotoLine: {0}", ex.Message);
             }
         }
-
-        public void gotoLine(String sPathSourceCodeFile, string lineToSelect)
+        public void     gotoLine(String sPathSourceCodeFile, string lineToSelect)
         {
             try
             {
@@ -673,7 +590,7 @@ namespace O2.External.SharpDevelop.Ascx
                 PublicDI.log.error("in gotoLine: {0}", ex.Message);
             }
         }
-        public void gotoLine(String sPathSourceCodeFile, Int32 iLineToSelect)
+        public void     gotoLine(String sPathSourceCodeFile, Int32 iLineToSelect)
         {
 
             if (sPathToFileLoaded != sPathSourceCodeFile)
@@ -685,75 +602,78 @@ namespace O2.External.SharpDevelop.Ascx
             }
             gotoLine(iLineToSelect);
 
-        }
-
-        // code snippet from http://owasp-code-central.googlecode.com/svn/trunk/labs/ReportGenerator/ascx/ascxXsltEditor.cs (which I wrote a while back of OWASP Report Generator tool)
-        private void searchForTextInTextEditor(string sTextToSearch)
+        }       
+        public void     searchForTextInTextEditor(string sTextToSearch)
         {
-            lbSearch_textNotFound.Visible = false;
-            //int iOriginalTextCaret = tecSourceCode.ActiveTextAreaControl.TextArea.Caret.Offset;
-            int iOffsetOfEndOfCurrentSelection = tecSourceCode.ActiveTextAreaControl.TextArea.Caret.Offset +
-                                                 tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.
-                                                     SelectedText.Length;
+            tecSourceCode.invokeOnThread(
+                ()=>{
+                        // code snippet from http://owasp-code-central.googlecode.com/svn/trunk/labs/ReportGenerator/ascx/ascxXsltEditor.cs (which I wrote a while back of OWASP Report Generator tool)
+                        lbSearch_textNotFound.Visible = false;
+                        //int iOriginalTextCaret = tecSourceCode.ActiveTextAreaControl.TextArea.Caret.Offset;
+                        var iOffsetOfEndOfCurrentSelection = tecSourceCode.ActiveTextAreaControl.TextArea.Caret.Offset +
+                                                             tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.
+                                                                 SelectedText.Length;
+                        var text = tecSourceCode.Text;
+                        int iFoundPos = text.lower().index(sTextToSearch.lower(), iOffsetOfEndOfCurrentSelection);
+                        //start from the cursor position
+                        if (iFoundPos == -1) // didn't find anything
+                            iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), 0); // start from the top
+                        if (iFoundPos > -1) // if there is a match process it
+                        {
+                            tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.ClearSelection();
+                            tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SetSelection(
+                                new DefaultSelection(tecSourceCode.Document,
+                                                     tecSourceCode.Document.OffsetToPosition(iFoundPos),
+                                                     tecSourceCode.Document.OffsetToPosition(iFoundPos + sTextToSearch.Length)));
 
-            int iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), iOffsetOfEndOfCurrentSelection);
-            //start from the cursor position
-            if (iFoundPos == -1) // didn't find anything
-                iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), 0); // start from the top
-            if (iFoundPos > -1) // if there is a match process it
-            {
-                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.ClearSelection();
-                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SetSelection(
-                    new DefaultSelection(tecSourceCode.Document,
-                                         tecSourceCode.Document.OffsetToPosition(iFoundPos),
-                                         tecSourceCode.Document.OffsetToPosition(iFoundPos + sTextToSearch.Length)));
-
-                tecSourceCode.ActiveTextAreaControl.Caret.Position =
-                    tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SelectionCollection[0].StartPosition;
-                tecSourceCode.ActiveTextAreaControl.TextArea.ScrollToCaret();
+                            tecSourceCode.ActiveTextAreaControl.Caret.Position =
+                                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SelectionCollection[0].StartPosition;
+                            tecSourceCode.ActiveTextAreaControl.TextArea.ScrollToCaret();
 
 
-                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.FireSelectionChanged();
-            }
-            else
-            {
-                lbSearch_textNotFound.Visible = true;
-                lbSearch_textNotFound.Text = string.Format("Provided search string not found: '{0}'", sTextToSearch);
-            }
-        }
-
-        // code snippet from http://owasp-code-central.googlecode.com/svn/trunk/labs/ReportGenerator/ascx/ascxXsltEditor.cs (which I wrote a while back of OWASP Report Generator tool) 
-        private void searchForTextInTextEditor_findNext(String sTextToSearch)
+                            tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.FireSelectionChanged();
+                        }
+                        else
+                        {
+                            lbSearch_textNotFound.Visible = true;
+                            lbSearch_textNotFound.Text = string.Format("Provided search string not found: '{0}'", sTextToSearch);
+                        }
+                    });
+        }       
+        public void     searchForTextInTextEditor_findNext(String sTextToSearch)
         {
-            if (iLastFoundPosition > tecSourceCode.Text.Length)
-                iLastFoundPosition = 0;
-            var iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), iLastFoundPosition);
-            if (iFoundPos == -1) // try from the begginig
-                iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), 0);
-            if (iFoundPos > -1)// & iLastFoundPosition != iFoundPos)
-            {
-                lbSearch_textNotFound.Visible = false;
-                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.ClearSelection();
-                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SetSelection(
-                    new DefaultSelection(tecSourceCode.Document,
-                                         tecSourceCode.Document.OffsetToPosition(iFoundPos),
-                                         tecSourceCode.Document.OffsetToPosition(iFoundPos + sTextToSearch.Length)));
+            tecSourceCode.invokeOnThread(
+                ()=>{
+                        // code snippet from http://owasp-code-central.googlecode.com/svn/trunk/labs/ReportGenerator/ascx/ascxXsltEditor.cs (which I wrote a while back of OWASP Report Generator tool) 
+                        if (iLastFoundPosition > tecSourceCode.Text.Length)
+                            iLastFoundPosition = 0;
+                        var iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), iLastFoundPosition);
+                        if (iFoundPos == -1) // try from the begginig
+                            iFoundPos = tecSourceCode.Text.lower().index(sTextToSearch.lower(), 0);
+                        if (iFoundPos > -1)// & iLastFoundPosition != iFoundPos)
+                        {
+                            lbSearch_textNotFound.Visible = false;
+                            tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.ClearSelection();
+                            tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SetSelection(
+                                new DefaultSelection(tecSourceCode.Document,
+                                                     tecSourceCode.Document.OffsetToPosition(iFoundPos),
+                                                     tecSourceCode.Document.OffsetToPosition(iFoundPos + sTextToSearch.Length)));
 
-                tecSourceCode.ActiveTextAreaControl.Caret.Position =
-                    tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SelectionCollection[0].StartPosition;
+                            tecSourceCode.ActiveTextAreaControl.Caret.Position =
+                                tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.SelectionCollection[0].StartPosition;
 
-                tecSourceCode.ActiveTextAreaControl.TextArea.ScrollToCaret();
-                //tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.FireSelectionChanged();
+                            tecSourceCode.ActiveTextAreaControl.TextArea.ScrollToCaret();
+                            //tecSourceCode.ActiveTextAreaControl.TextArea.SelectionManager.FireSelectionChanged();
 
-                iLastFoundPosition = iFoundPos + sTextToSearch.Length;
-            }
-            else
-            {
-                lbSearch_textNotFound.Visible = true;
-            }
+                            iLastFoundPosition = iFoundPos + sTextToSearch.Length;
+                        }
+                        else
+                        {
+                            lbSearch_textNotFound.Visible = true;
+                        }
+                    });
         }
-
-        public void setDirectoryOfFileLoaded(string newPath)
+        public void     setDirectoryOfFileLoaded(string newPath)
         {
             if (((tbSourceCode_DirectoryOfFileLoaded)).okThread(delegate { setDirectoryOfFileLoaded(newPath); }))
                 if (newPath != tbSourceCode_DirectoryOfFileLoaded.Text)
@@ -765,8 +685,7 @@ namespace O2.External.SharpDevelop.Ascx
                     lbSource_CodeFileSaved.Visible = false;
                 }
         }
-
-        public void getAtCaret_WordAndObject(ref String sWord, ref String sObject)
+        public void     getAtCaret_WordAndObject(ref String sWord, ref String sObject)
         {
             Int32 iCurrentWord = 0;
             Caret cCaret = tecSourceCode.ActiveTextAreaControl.TextArea.Caret;
@@ -805,23 +724,19 @@ namespace O2.External.SharpDevelop.Ascx
                 }
             }
         }
-
-        public void setSelectedLineNumber(string fileName, int lineNumber)
+        public void     setSelectedLineNumber(string fileName, int lineNumber)
         {
             gotoLine(fileName, lineNumber);
         }
-
-        public void setSelectedLineNumber(int lineNumber)
+        public void     setSelectedLineNumber(int lineNumber)
         {
             gotoLine(lineNumber);
         }
-
-        public int getSelectedLineNumber()
+        public int      getSelectedLineNumber()
         {
             return this.invokeOnThread(() => tecSourceCode.ActiveTextAreaControl.Caret.Line + 1);
         }
-
-        public string getSelectedLineText()
+        public string   getSelectedLineText()
         {
             return  this.invokeOnThread(
                                 () =>
@@ -832,8 +747,7 @@ namespace O2.External.SharpDevelop.Ascx
                                             tecSourceCode.ActiveTextAreaControl.TextArea.TextView.Document.GetText(lineSegment.Offset, lineSegment.Length);
                                     });
         }
-
-        private void executeMethod()
+        public void     executeMethod()
         {
             this.invokeOnThread(
                 () => {
@@ -845,9 +759,7 @@ namespace O2.External.SharpDevelop.Ascx
                            return default(object);
                        });
         }
-
-
-        public void compileSourceCode()
+        public void     compileSourceCode()
         {
             if (getSourceCode() != "" && allowCodeCompilation)
                 if (partialFileViewMode == false)
@@ -874,15 +786,14 @@ namespace O2.External.SharpDevelop.Ascx
                         );
 
         }
-
         public Assembly compileH2File()
         {
             var sourceCode = getSourceCode();
             if (sourceCode != "")
             {				
-				saveSourceCode(); // always save before compiling  
-				var csharpCompiler = new CSharp_FastCompiler();
-				csharpCompiler.onAstFail +=
+                saveSourceCode(); // always save before compiling  
+                var csharpCompiler = new CSharp_FastCompiler();
+                csharpCompiler.onAstFail +=
                     ()=> "AST Creation for provided source code failed".error();   
                 //csharpCompiler.generateDebugSymbols = true;
                 csharpCompiler.compileSnippet(sourceCode);
@@ -894,7 +805,6 @@ namespace O2.External.SharpDevelop.Ascx
             }
             return null;
         }
-
         public Assembly compileCSSharpFile()
         {
             compiledAssembly = null;
@@ -925,7 +835,7 @@ namespace O2.External.SharpDevelop.Ascx
             // if there isn't a compiledAssembly, show errors
             if (compiledAssembly == null)
             {
-				CompileEngine_WinForms.addErrorsListToTreeView(tvCompilationErrors, compileEngine.sbErrorMessage);
+                CompileEngine_WinForms.addErrorsListToTreeView(tvCompilationErrors, compileEngine.sbErrorMessage);
                 showErrorsInSourceCodeEditor(compileEngine.sbErrorMessage.str());
             }
          /*   else
@@ -937,10 +847,9 @@ namespace O2.External.SharpDevelop.Ascx
             
             return compiledAssembly;
         }
-
-        private void compileDotNetCode()
+        public void     compileDotNetCode()
         {
-			cboxCompliledSourceCodeMethods.enabled(false);	
+            cboxCompliledSourceCodeMethods.enabled(false);	
             O2Thread.mtaThread (
                 () =>
                 {
@@ -966,12 +875,12 @@ namespace O2.External.SharpDevelop.Ascx
                                cboxCompliledSourceCodeMethods.Items.Clear();
                                if (compiledAssembly != null)
                                {
-								   cboxCompliledSourceCodeMethods.Enabled = true;
+                                   cboxCompliledSourceCodeMethods.Enabled = true;
                                    autoBackup();
                                    var previousExecutedMethod = cboxCompliledSourceCodeMethods.Text;
                                    eCompile(compiledAssembly);
                                    O2Messages.dotNetAssemblyAvailable(compiledAssembly.Location);
-								   //only show the first ten
+                                   //only show the first ten
                                    foreach (var method in PublicDI.reflection.getMethods(compiledAssembly)
                                                                              .Where((method) => (false == method.IsAbstract && false == method.IsSpecialName))
                                                                              .Take(5))
@@ -988,7 +897,7 @@ namespace O2.External.SharpDevelop.Ascx
                                            }
                                        cboxCompliledSourceCodeMethods.SelectedIndex = 0;
                                    }
-								   cboxCompliledSourceCodeMethods.enabled();
+                                   cboxCompliledSourceCodeMethods.enabled();
                                }
                                refresh();
                            });
@@ -999,9 +908,8 @@ namespace O2.External.SharpDevelop.Ascx
                         PublicDI.log.error("in compileDotNetCode:{0}", ex.Message);
                     }
                 });
-        }
-        
-        private void autoBackup()
+        }        
+        public void     autoBackup()
         {
             if (autoBackUpOnCompileSuccess)
             {
@@ -1017,10 +925,7 @@ namespace O2.External.SharpDevelop.Ascx
                     targetFile.fileWrite(code);
             }
         }
-
-        
-
-        private void showErrorsInSourceCodeEditor(string errorMessages)
+        public void     showErrorsInSourceCodeEditor(string errorMessages)
         {
             String[] sSplitedErrorMessage = errorMessages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string sSplitMessage in sSplitedErrorMessage)
@@ -1037,15 +942,8 @@ namespace O2.External.SharpDevelop.Ascx
                     //O2Messages.fileErrorHighlight(sSplitedLine[4], iLine, iColumn);                    
                 }
             }
-        }
-
-
-        public static void addExternalEngine(string engineName, Func<string, DataReceivedEventHandler, Process> engineExecuteFunction)
-        {
-            externalExecutionEngines.Add(engineName, engineExecuteFunction);
-        }
-
-        private void executeOnExternalEngine(string engineToUse)
+        }        
+        public  void    executeOnExternalEngine(string engineToUse)
         {
             //PublicDI.log.info("executing PY");
             /*if (!File.Exists(ironPhytonExe))
@@ -1087,13 +985,11 @@ namespace O2.External.SharpDevelop.Ascx
             //}
 
         }
-
-        private void externalEngineExecutionLogCallback(object sender, DataReceivedEventArgs e)
+        public  void    externalEngineExecutionLogCallback(object sender, DataReceivedEventArgs e)
         {
             writeMessageTo_ExecutionHistoryOrLog(e.Data);
         }
-
-        public void writeMessageTo_ExecutionHistoryOrLog(string logMessage)
+        public void     writeMessageTo_ExecutionHistoryOrLog(string logMessage)
         {
             if (!string.IsNullOrEmpty(logMessage))
             {
@@ -1101,37 +997,27 @@ namespace O2.External.SharpDevelop.Ascx
                 PublicDI.log.info("\t:{0}:", logMessage);
             }
         }
-
-        public void showLogViewerControl()
+        public void     showLogViewerControl()
         {
-			var tabControl = this.parent<TabControl>();
-			if (tabControl.notNull())
-				tabControl.insert_LogViewer();
-			else
-				this.insert_LogViewer();
-			/*int splitterLocation = (int)(150); 
+            var tabControl = this.parent<TabControl>();
+            if (tabControl.notNull())
+                tabControl.insert_LogViewer();
+            else
+                this.insert_LogViewer();
+            /*int splitterLocation = (int)(150); 
             var logViewer = this.add_Control<ascx_LogViewer>();
             this.insert_Right(logViewer, splitterLocation);
-			btShowLogs.visible(false);            */
+            btShowLogs.visible(false);            */
         }
-
-        public void hideButton(string buttonId)
+        public void     hideButton(string buttonId)
         {
             (this.field(buttonId) as ToolStripButton).visible(false);
-        }
-
-
-        public List<String> getSampleScriptsNames()
-        {
-            return (sampleScripts != null) ? new List<string>(sampleScripts.Keys) : new List<string>();
-        }
-
-        public void loadSampleScripts()
+        }        
+        public void     loadSampleScripts()
         {
             loadSampleScripts(typeof(O2SampleScripts));
         }
-
-        public void loadSampleScripts(object resourcesObjectWithSampleScripts)
+        public void     loadSampleScripts(object resourcesObjectWithSampleScripts)
         {
             this.invokeOnThread(
                 () => {
@@ -1153,8 +1039,7 @@ namespace O2.External.SharpDevelop.Ascx
             if (tvSampleScripts.Nodes.Count > 0)
                 tvSampleScripts.SelectedNode = tvSampleScripts.Nodes[0];*/
         }
-
-        public void loadSampleScript(string scriptToLoad)
+        public void     loadSampleScript(string scriptToLoad)
         {
             if (scriptToLoad != "" && sampleScripts.ContainsKey(scriptToLoad))
             {
@@ -1165,8 +1050,7 @@ namespace O2.External.SharpDevelop.Ascx
                 //compileSourceCode();
             }
         }
-
-        private void setMaxLoadSize(string newMaxLoadSize)
+        public void     setMaxLoadSize(string newMaxLoadSize)
         {
             try
             {
@@ -1178,8 +1062,7 @@ namespace O2.External.SharpDevelop.Ascx
             }
 
         }
-
-        private void showSelectedErrorOnSourceCodeFile()
+        public void     showSelectedErrorOnSourceCodeFile()
         {
             var selectedError = getSelectedError();
             if (selectedError == "")
@@ -1193,15 +1076,13 @@ namespace O2.External.SharpDevelop.Ascx
                 gotoLine(iLine);
             }
         }
-
-        public string getSelectedError()
+        public string   getSelectedError()
         {
             if (tvCompilationErrors.SelectedNode != null)
                 return tvCompilationErrors.SelectedNode.Text;
             return "";
         }
-
-        private object GetCurrentCSharpObjectModel()
+        public object   GetCurrentCSharpObjectModel()
         {
             var timer = new O2Timer("Calculated O2 Object Model for referencedAssesmblies").start();
             var signatures = new List<string>();
@@ -1215,8 +1096,7 @@ namespace O2.External.SharpDevelop.Ascx
             timer.stop();
             return signatures;
         }
-
-        public void reloadCurrentFile()
+        public void     reloadCurrentFile()
         {
             var currentLoadedFile = sPathToFileLoaded;// getFullPathTOCurrentSourceCodeFile();
             if (File.Exists(currentLoadedFile))
@@ -1226,8 +1106,7 @@ namespace O2.External.SharpDevelop.Ascx
                 loadSourceCodeFile(currentLoadedFile);
             }
         }
-
-        public void openFile()
+        public void     openFile()
         {
             PublicDI.log.info("Select file to open");
             var openFileDialog = new OpenFileDialog();
@@ -1237,26 +1116,22 @@ namespace O2.External.SharpDevelop.Ascx
                 loadSourceCodeFile(openFileDialog.FileName);
             }
         }
-
-        public void setDocumentContents(string documentContents)
+        public void     setDocumentContents(string documentContents)
         {
             setDocumentContents(documentContents, "", true);
         }
-
-        public void setDocumentContents(string documentContents, string fileNameOrExtension)
+        public void     setDocumentContents(string documentContents, string fileNameOrExtension)
         {
             setDocumentContents(documentContents, fileNameOrExtension, true);
-        }
-        
-        public void setDocumentHighlightingStrategy(string fileNameOrExtension)
+        }        
+        public void     setDocumentHighlightingStrategy(string fileNameOrExtension)
         {            
             this.invokeOnThread(
                     () => tecSourceCode.Document.HighlightingStrategy =
                                 HighlightingStrategyFactory.CreateHighlightingStrategyForFile(fileNameOrExtension));
 
         }
-
-        public void setDocumentContents(string documentContents, string fileNameOrExtension, bool clearFileLocationValues)
+        public void     setDocumentContents(string documentContents, string fileNameOrExtension, bool clearFileLocationValues)
         {
 
             tecSourceCode.ActiveTextAreaControl.TextArea.invokeOnThread(
@@ -1280,17 +1155,15 @@ namespace O2.External.SharpDevelop.Ascx
                         }
                     });
         }
-
-        public void setSelectedText(int line, int column, bool showAsError)
+        public void     setSelectedText(int line, int column, bool showAsError)
         {
             setSelectedText(line, column, showAsError, true);
         }
-
-        public void setSelectedText(int line, int column, bool showAsError, bool showAsBookMark)
+        public void     setSelectedText(int line, int column, bool showAsError, bool showAsBookMark)
         {
             setSelectedText(line, column, showAsError, showAsBookMark, true);
         }
-        public void setSelectedText(int line, int column, bool showAsError, bool showAsBookMark, bool decrementLineAndColumn)
+        public void     setSelectedText(int line, int column, bool showAsError, bool showAsBookMark, bool decrementLineAndColumn)
         {
             this.invokeOnThread(
                 () =>
@@ -1317,8 +1190,7 @@ namespace O2.External.SharpDevelop.Ascx
                     });
             // tecSourceCode.ActiveTextAreaControl.Refresh();
         }
-
-        public void refresh()
+        public void     refresh()
         {
             this.invokeOnThread(
                 () =>
@@ -1334,8 +1206,7 @@ namespace O2.External.SharpDevelop.Ascx
                         }
                     });
         }
-
-        public void clearBookmarksAndMarkers()
+        public void     clearBookmarksAndMarkers()
         {
             tecSourceCode.invokeOnThread(() =>
             {
@@ -1343,7 +1214,7 @@ namespace O2.External.SharpDevelop.Ascx
                 clearMarkers();
             });
         }
-        public void clearMarkers()
+        public void     clearMarkers()
         {
             tecSourceCode.invokeOnThread(() =>
             {
@@ -1353,14 +1224,12 @@ namespace O2.External.SharpDevelop.Ascx
                 refresh();
             });
         }
-
-        public void openO2ObjectModel()
+        public void     openO2ObjectModel()
         {
             //O2Messages.openControlInGUI(typeof(ascx_O2ObjectModel), O2DockState.Float, "O2 Object Model");
             O2Thread.mtaThread(()=>open.o2ObjectModel());
         }
-
-        public void setAutoCompileStatus(bool state)
+        public void     setAutoCompileStatus(bool state)
         {
             if (autoCompileThread != null && state == false)
                 autoCompileThread.Abort();
@@ -1383,16 +1252,13 @@ namespace O2.External.SharpDevelop.Ascx
                 }
 
         }
-
-
-        public void addBreakpointOnCurrentLine()
+        public void     addBreakpointOnCurrentLine()
         {
             var currentLine = tecSourceCode.ActiveTextAreaControl.Caret.Line;
             var lineSegment = tecSourceCode.ActiveTextAreaControl.TextArea.TextView.Document.GetLineSegment(currentLine);
             O2Messages.raiseO2MDbg_SetBreakPointOnFile(sPathToFileLoaded, lineSegment.LineNumber + 1);
         }
-
-        public void createStandAloneExeAndDebugMethod(string loadDllsFrom)
+        public void     createStandAloneExeAndDebugMethod(string loadDllsFrom)
         {
             this.invokeOnThread(
                 () =>{
@@ -1401,51 +1267,7 @@ namespace O2.External.SharpDevelop.Ascx
                         selectedItem.raiseO2MDbgDebugMethodInfoRequest(loadDllsFrom);                    
                      });
         }
-
-/*        private void setDebugButtonEnableState()
-        {
-            this.invokeOnThread(
-            () =>
-            {                
-                if (checkForDebugger && O2Messages.isDebuggerAvailable())
-                {
-                    btDebugMethod.Visible = true;
-                    if (cboxCompliledSourceCodeMethods.SelectedItem != null && cboxCompliledSourceCodeMethods.SelectedItem is Reflection_MethodInfo)
-                    {
-                        var selectedMethod = ((Reflection_MethodInfo)cboxCompliledSourceCodeMethods.SelectedItem).Method;
-                        if (selectedMethod != null)
-                        {
-                            if (selectedMethod.IsStatic &&
-                                    selectedMethod.ReturnType.FullName == "System.Void" &&
-                                    selectedMethod.GetParameters().Length == 0)
-                            {
-                                btDebugMethod.Enabled = true;
-                                return;
-                            }
-                            else
-                                PublicDI.log.debug("Debugging note: the only supported methods to start the debugging session are: static methods, with no parameters and returning void");
-                        }
-                        btDebugMethod.Enabled = false;
-                    }
-                }
-                else
-                    btDebugMethod.Visible = false;
-            });
-        }
-        */
-        private static void listinLogViewCurrentAssemblyReferencesAutomaticallyAdded()
-        {
-            PublicDI.log.debug(StringsAndLists.fromStringList_getText(new CompileEngine().getListOfReferencedAssembliesToUse()));
-        }
-        
-        public ICompletionDataProvider enableCodeComplete()
-        {
-            return o2CodeCompletion ?? (o2CodeCompletion = new O2CodeCompletion(tecSourceCode));
-        }
-
-        public static bool autoTryToFixSourceCodeFileReferences = true;
-        
-        public string tryToResolveFileLocation(string fileToMap, Control hostControl)
+        public string   tryToResolveFileLocation(string fileToMap, Control hostControl)
         {            
             if (autoTryToFixSourceCodeFileReferences && false == File.Exists(fileToMap) && false == Directory.Exists(fileToMap))
             {
@@ -1453,5 +1275,66 @@ namespace O2.External.SharpDevelop.Ascx
             }
             return fileToMap;
         }
+
+        public List<String>             getSampleScriptsNames()
+        {
+            return (sampleScripts != null) ? new List<string>(sampleScripts.Keys) : new List<string>();
+        }
+        public TextEditorControl        getObject_TextEditorControl()
+        {
+            return tecSourceCode;
+        }
+        public ICompletionDataProvider enableCodeComplete()
+        {
+            return o2CodeCompletion ?? (o2CodeCompletion = new O2CodeCompletion(tecSourceCode));
+        }
+
+        public static void  addExternalEngine(string engineName, Func<string, DataReceivedEventHandler, Process> engineExecuteFunction)
+        {
+            externalExecutionEngines.Add(engineName, engineExecuteFunction);
+        }
+        public static void  listinLogViewCurrentAssemblyReferencesAutomaticallyAdded()
+        {
+            PublicDI.log.debug(StringsAndLists.fromStringList_getText(new CompileEngine().getListOfReferencedAssembliesToUse()));
+        }                
+        public static bool  autoTryToFixSourceCodeFileReferences = true;        
+
+                // reason from commment:
+        // the idea with this method was to show information about the current carret position, but as it is 
+        // it is expensive and doesn't add a lot of value 
+        /*        void caretMoved(Caret caret)
+                {
+        
+
+                    // same code as the one in "public static INode iNode(this O2MappedAstData o2MappedAstData, string file, Caret caret)" in O2MappedAstData_ExtensionMethods.cs (O2 Script)
+                    var o2MappedAstData = compiledFileAstData;
+                    var file = sPathToFileLoaded;
+
+                    if (o2MappedAstData != null && file != null && caret != null)
+                    {
+                        if (o2MappedAstData.FileToINodes.hasKey(file))
+                        {
+                            var allINodes = o2MappedAstData.FileToINodes[file];
+                            var adjustedLine = caret.Line + 1;
+                            var adjustedColumn = caret.Column + 1;
+                            CurrentINode = allINodes.getINodeAt(adjustedLine, adjustedColumn);
+                            if (CurrentINode != null)                    
+                                lbCurrentAstNode.set_Text("Current Ast Node: {0}".format(CurrentINode.typeName()));                                                                    
+                        }
+                
+                    }
+                    if (compiledFileAstData.notNull())
+                    {
+                        //var iNode = compiledFileAstData.iNode(sPathToFileLoaded, caret);
+                        //if (iNode != null)	
+                        //{					
+                            //CurrentINode = iNode;
+                            //lbCurrentAstNode.set_Text("Current Ast Node: {0}".format(iNode.typeName()))
+                        //}
+                    }
+  
+                }
+                */
+
     }
 }

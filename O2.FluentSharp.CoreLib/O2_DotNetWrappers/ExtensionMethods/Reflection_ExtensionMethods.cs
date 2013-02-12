@@ -112,8 +112,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }		
         public static string                location                     (this Assembly assembly)
         {
-            if(assembly.notNull())
+            if (assembly.notNull())
+            {
+                if (assembly.Location.notValid())                
+                    return AssemblyResolver.saveEmbeddedAssemblyToDisk(assembly.GetName());
                 return assembly.Location;
+            }
             return null;
         }
         public static List<AssemblyName>    referencedAssemblies         (this AssemblyName assemblyName)
@@ -388,7 +392,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (_object.notNull())
             {
                 var result = _object.property(propertyName);
-                if (result.notNull())
+                if (result is T)
                     return (T)result;
             }
             return default(T);
@@ -499,10 +503,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             PublicDI.reflection.setField(fieldName, liveObject, value);
             return liveObject;
         }        
-        public static object            field<T>(this object _object, string fieldName)
+        public static T                 field<T>(this object _object, string fieldName)
         {
-            var type = typeof(T);  
-            return _object.field(type, fieldName);
+            var value = _object.field(fieldName);
+            if (value is T)
+                return (T) value;
+            return default(T);
         }		
         public static object            field(this object _object, Type type, string fieldName)
         {						

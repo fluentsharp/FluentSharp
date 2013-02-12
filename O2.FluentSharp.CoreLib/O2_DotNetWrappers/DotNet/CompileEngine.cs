@@ -709,6 +709,13 @@ namespace O2.DotNetWrappers.DotNet
                 if (bVerbose)
                     PublicDI.log.debug("Dynamically compiling Source code...");                
                 
+                foreach(var file in sourceCodeFiles)
+                    if(file.fileContents().lines().starting("//CLR_3.5").notEmpty())        // allow setting compilation into 2.0 CLR
+                    {
+                        compilationVersion= "v3.5";
+                        break;
+                    }
+
                 if (cscpCSharpCodeProvider == null)
                 {
                     var providerOptions = new Dictionary<string, string>().add("CompilerVersion", compilationVersion);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.DotNetWrappers.ExtensionMethods;
+﻿using System.Collections.Generic;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
 using System.Reflection;
@@ -90,12 +86,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return null;
 		}
 
-		public static List<Assembly> copyAssembliesToFolder(this string targetFolder,  params string[] assemblyNames)
+		public static List<Assembly> copyAssembliesToFolder(this string targetFolder,  params AssemblyName[] assemblyNames)
 		{
 			return targetFolder.copyAssembliesToFolder(true, assemblyNames);
 		}
 		
-		public static List<Assembly> copyAssembliesToFolder(this string targetFolder , bool onlyCopyReferencesInO2ExecutionDir, params string[] assemblyNames)
+		public static List<Assembly> copyAssembliesToFolder(this string targetFolder , bool onlyCopyReferencesInO2ExecutionDir, params AssemblyName[] assemblyNames)
 		{
 			//"[copyReferencesToTargetFolder] copying {0} assemblies into {1}".info(assemblyNames.size(), targetFolder);
 			var assembliesCopied = new List<Assembly>();
@@ -105,7 +101,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 				if (assembly.notNull())
 				{
 					var location = assembly.Location;
-					if (location.isNull())
+                    if (location.notValid())
+                    { 
+                        location = AssemblyResolver.saveEmbeddedAssemblyToDisk(assemblyName);
+                    }
+					if (location.notValid())
 						"[copyReferencesToTargetFolder] loaded assembly had no Location info: {0}".error(assembly.str());
 					else
 					{

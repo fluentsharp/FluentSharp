@@ -412,7 +412,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static int       index(this string targetString, string stringToFind, int startIndex)
         {
-			if (targetString.notValid() || stringToFind.notValid() || startIndex < targetString.size())
+			if (targetString.notValid() || stringToFind.notValid() || startIndex > targetString.size())
 				return -1;
             return targetString.IndexOf(stringToFind, startIndex,StringComparison.Ordinal);
         }

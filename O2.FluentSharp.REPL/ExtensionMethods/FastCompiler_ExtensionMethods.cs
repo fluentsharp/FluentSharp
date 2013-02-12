@@ -30,7 +30,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 
                 var compiledScript = assembly.Location.file_Copy(targetDir);
                 //copy assembly references to targetDir
-                var referenceAssemblies = assembly.referencedAssemblies(true).names();
+                var referenceAssemblies = assembly.referencedAssemblies(true);
                 targetDir.copyAssembliesToFolder(referenceAssemblies.ToArray());
 
                 "Copied compiled script and its dependencies into folder {0}".info(targetDir);

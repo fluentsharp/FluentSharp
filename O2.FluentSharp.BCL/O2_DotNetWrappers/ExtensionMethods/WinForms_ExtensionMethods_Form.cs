@@ -369,10 +369,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             try
             {
-                var icon = Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location);
+                var entryAssembly = Assembly.GetEntryAssembly();
+
+                var icon = (entryAssembly.notNull())
+                               ? Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location)
+                               : FormImages.H2Logo;
                 form.set_Icon(icon);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                ex.log("in set_DefaultIcon");
+            }
             return form;        
         }
         public static Form clientSize(this Form form, int width, int height)

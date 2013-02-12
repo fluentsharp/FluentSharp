@@ -695,8 +695,11 @@ namespace O2.Kernel.InterfacesBaseImpl
         {
 			try
 			{
-				if (AssemblyResolver.CachedMappedAssemblies.hasKey(assemblyToLoad))
-					return AssemblyResolver.CachedMappedAssemblies[assemblyToLoad];
+                if (AssemblyResolver.CachedMappedAssemblies.hasKey(assemblyToLoad))
+                { 
+					var cachedAssembly = AssemblyResolver.CachedMappedAssemblies[assemblyToLoad];
+                    return cachedAssembly;
+                }
                 Assembly assembly = AssemblyResolver.loadFromDiskOrResource(assemblyToLoad);
 				if (assembly != null)
 				{
