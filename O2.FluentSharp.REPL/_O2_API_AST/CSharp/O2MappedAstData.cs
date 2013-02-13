@@ -96,9 +96,7 @@ namespace O2.API.AST.CSharp
             {
                 O2.Kernel.PublicDI.log.ex(ex,"in O2MappedAstData.LoadFile: " + filePath);
             }
-		}                            
-        
-
+		}                                    
         public void loadCompilationUnit(string filePath, List<ISpecial> specials, CompilationUnit compilationUnit)
         {        	
             //store specials
@@ -123,27 +121,22 @@ namespace O2.API.AST.CSharp
         {
             return MapAstToDom.CompilationUnitToNameSpaces.Keys.ToList();
         }
-
         public List<TypeDeclaration> typeDeclarations()
         {
             return MapAstToDom.TypesAstToDom.Keys.ToList();
         }
-
         public List<MethodDeclaration> methodDeclarations()
         {
             return MapAstToDom.MethodsAstToDom.Keys.ToList();
         }
-
         public List<CodeMemberMethod> codeMemberMethods()
         {
             return MapAstToDom.MethodsAstToDom.Values.ToList();
         }
-
         public List<CodeTypeDeclaration> codeTypeDeclarations()
         {
             return MapAstToDom.TypesAstToDom.Values.ToList();
         }
-
         public List<CodeNamespace> codeNamespaces()
         {
             var codeNamespaces = new List<CodeNamespace>();
@@ -151,17 +144,14 @@ namespace O2.API.AST.CSharp
                 codeNamespaces.AddRange(namespaces);
             return codeNamespaces;
         }
-
         public List<ICompilationUnit> iCompilationUnits()
         {
             return MapAstToNRefactory.CompilationUnitToICompilationUnit.Values.ToList();
         }
-
         public List<IClass> iClasses()
         {
             return MapAstToNRefactory.IClassToTypeDeclaration.Keys.ToList();
         }
-
         public List<IMethod> iMethods()
         {
             var methods = new List<IMethod>();

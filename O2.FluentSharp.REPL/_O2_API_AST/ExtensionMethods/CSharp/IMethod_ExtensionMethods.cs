@@ -11,12 +11,11 @@ namespace O2.API.AST.ExtensionMethods.CSharp
 {
     public static class IMethod_ExtensionMethods
     {
-        public static string name(this IMethod iMethod)
+        public static string name       (this IMethod iMethod)
         {
             return iMethod.Name;
         }
-
-        public static string fullName(this IMethodOrProperty iMethodOrProperty)
+        public static string fullName   (this IMethodOrProperty iMethodOrProperty)
         {
             if (iMethodOrProperty is IMethod)
                 return (iMethodOrProperty as IMethod).fullName();
@@ -24,8 +23,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
                 return (iMethodOrProperty as IProperty).fullName();
             return "[null value]";
         }
-
-        public static string fullName(this IProperty iProperty)
+        public static string fullName   (this IProperty iProperty)
         {
             if (iProperty == null)
                 return "[null value]";
@@ -33,8 +31,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             ambience.ConversionFlags = ConversionFlags.StandardConversionFlags | ConversionFlags.UseFullyQualifiedMemberNames | ConversionFlags.UseFullyQualifiedTypeNames;
             return ambience.Convert(iProperty);
         }
-
-        public static string fullName(this IMethod iMethod)
+        public static string fullName   (this IMethod iMethod)
         {
             if (iMethod == null)
                 return "[null value]";
@@ -42,18 +39,15 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             ambience.ConversionFlags = ConversionFlags.StandardConversionFlags | ConversionFlags.UseFullyQualifiedMemberNames;
             return ambience.Convert(iMethod);
         }
-
-        public static string @namespace(this IMethod iMethod)
+        public static string @namespace (this IMethod iMethod)
         {
             return iMethod.DeclaringType.Namespace;
         }
-
-        public static string typeName(this IMethod iMethod)
+        public static string typeName   (this IMethod iMethod)
         {
             return iMethod.DeclaringType.Name;
         }
-
-        public static string csharpCode(this IMethod iMethod)
+        public static string csharpCode (this IMethod iMethod)
         {
             var @namespace = iMethod.@namespace();
             var typeName = iMethod.typeName();

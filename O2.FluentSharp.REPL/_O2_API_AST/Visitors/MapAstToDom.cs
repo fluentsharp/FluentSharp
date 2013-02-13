@@ -1224,7 +1224,8 @@ namespace O2.API.AST.Visitors // was ICSharpCode.NRefactory.Visitors
             }
             catch (Exception ex)
             {
-                ex.log("in MapAstToDom.VisitBinaryOperatorExpression");
+                //ex.log("in MapAstToDom.VisitBinaryOperatorExpression");
+                "in MapAstToDom.VisitBinaryOperatorExpression: {0}".debug(ex.Message);
                 return null;
             }
 		}
