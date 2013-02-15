@@ -53,10 +53,6 @@
     <Compile Include="Test_SourceCodeEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\O2.Platform.Projects\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
-      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
-      <Name>O2_External_SharpDevelop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.BCL</Name>
@@ -68,6 +64,10 @@
     <ProjectReference Include="..\..\O2.FluentSharp.REPL\FluentSharp.REPL.csproj">
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
       <Name>FluentSharp.REPL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
+      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
+      <Name>O2_External_SharpDevelop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
