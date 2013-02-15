@@ -153,9 +153,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return toolStrip.invokeOnThread(
                 () =>
                 {
-                    var newButton = new ToolStripButton(text);
-                    newButton.Image = image;
-                    newButton.Click += (sender, e) => O2Thread.mtaThread(() => onClick());
+                    var newButton = new ToolStripButton(text) {Image = image};
+                    newButton.Click += (sender, e) => O2Thread.mtaThread(onClick);
                     toolStrip.Items.Add(newButton);
                     return newButton;
                 });
@@ -167,42 +166,42 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 "[ToolStripButton][add_Button] provided toolStrip was null".error();
                 return null;
             }
-            return (ToolStripButton)toolStrip.invokeOnThread(
+            return toolStrip.invokeOnThread(
                 () =>
-                {
-                    var button = new ToolStripButton();
-                    toolStrip.Items.Add(button);
-                    try
                     {
-                        if (resourceName.valid())
+                        var button = new ToolStripButton();
+                        toolStrip.Items.Add(button);
+                        try
                         {
-                            button.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
-                            button.applyResources(resourceName);
-                        }
-                        if (image.notNull())
-                            button.Image = image;
-                        if (text.valid())
-                            button.Text = text;
+                            if (resourceName.valid())
+                            {
+                                button.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                                button.applyResources(resourceName);
+                            }
+                            if (image.notNull())
+                                button.Image = image;
+                            if (text.valid())
+                                button.Text = text;
 
-                        button.Click += (sender, e) =>
+                            button.Click += (sender, e) =>
+                                {
+                                    if (onClick.notNull())
+                                        onClick();
+                                };
+                        }
+                        catch (Exception ex)
                         {
-                            if (onClick.notNull())
-                                onClick();
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.log("inside toolStrip add_Button");
-                    }
-                    Application.DoEvents();
-                    if (button.toolStrip() != toolStrip)
-                    {
-                        "[ToolStripButton][add_Button] parent was not set, so setting it manuallly".error();
-                        //button.prop("Parent", toolStrip);
-                        Reflection_ExtensionMethods_Properties.prop("button", "Parent", toolStrip);
-                    }
-                    return button;
-                });
+                            ex.log("inside toolStrip add_Button");
+                        }
+                        Application.DoEvents();
+                        if (button.toolStrip() != toolStrip)
+                        {
+                            "[ToolStripButton][add_Button] parent was not set, so setting it manuallly".error();
+                            //button.prop("Parent", toolStrip);
+                            Reflection_ExtensionMethods_Properties.prop("button", "Parent", toolStrip);
+                        }
+                        return button;
+                    });
         }
         public static ToolStripTextBox  add_TextBox (this ToolStripItem toolStripItem, string text)
         {
@@ -210,7 +209,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static ToolStripTextBox  add_TextBox (this ToolStrip toolStrip, string text)
         {
-            return (ToolStripTextBox)toolStrip.invokeOnThread(
+            return toolStrip.invokeOnThread(
                 () =>
                 {
                     var textBox = new ToolStripTextBox();
@@ -221,7 +220,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static ToolStripButton   click       (this ToolStripButton button)
         {
-            return (ToolStripButton)button.toolStrip().invokeOnThread(
+            return button.toolStrip().invokeOnThread(
                 () =>
                 {
                     button.PerformClick();
@@ -230,7 +229,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static string            get_Text    (this ToolStripControlHost toolStripControlHost)
         {
-            return (string)toolStripControlHost.toolStrip().invokeOnThread(() => toolStripControlHost.Text);
+            return toolStripControlHost.toolStrip().invokeOnThread(() => toolStripControlHost.Text);
         }
         public static ToolStripTextBox  onEnter      (this ToolStripTextBox toolStripTextBox, Action<String> callback)
         {
@@ -546,14 +545,14 @@ namespace O2.DotNetWrappers.ExtensionMethods
     {
         public static MenuStrip add_Menu(this Form form)
         {
-            return (MenuStrip)form.invokeOnThread(
+            return form.invokeOnThread(
                 () =>
-                {
-                    var menuStrip = new MenuStrip();
-                    form.Controls.Add(menuStrip);
-                    form.MainMenuStrip = menuStrip;
-                    return menuStrip;
-                });
+                    {
+                        var menuStrip = new MenuStrip();
+                        form.Controls.Add(menuStrip);
+                        form.MainMenuStrip = menuStrip;
+                        return menuStrip;
+                    });
         }
         public static ToolStripMenuItem add_MenuItem(this MenuStrip menuStrip, string text)
         {
@@ -561,16 +560,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static ToolStripMenuItem add_MenuItem(this MenuStrip menuStrip, string text, MethodInvoker callback)
         {
-            return (ToolStripMenuItem)menuStrip.invokeOnThread(
+            return menuStrip.invokeOnThread(
                 () =>
-                {
-                    var fileMenuItem = new ToolStripMenuItem();
-                    fileMenuItem.Text = text;
-                    menuStrip.Items.Add(fileMenuItem);
-                    if (callback != null)
-                        menuStrip.Click += (sender, e) => callback();
-                    return fileMenuItem;
-                });
+                    {
+                        var fileMenuItem = new ToolStripMenuItem {Text = text};
+                        menuStrip.Items.Add(fileMenuItem);
+                        if (callback != null)
+                            menuStrip.Click += (sender, e) => callback();
+                        return fileMenuItem;
+                    });
         }
         public static ContextMenuStrip add_MenuItem(this ContextMenuStrip contextMenu, string text, bool dummyValue, MethodInvoker onClick)
         {
@@ -586,24 +584,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_ToolStripStatus
     {
-        public static ToolStripStatusLabel add_StatusStrip(this UserControl _control)
+        public static ToolStripStatusLabel add_StatusStrip(this UserControl control)
         {
-            return _control.add_StatusStrip(Color.LightGray);
+            return control.add_StatusStrip(Color.LightGray);
         }
         public static ToolStripStatusLabel add_StatusStrip(this ContainerControl containerControl, Color backColor)
         {
-            return (ToolStripStatusLabel)containerControl.invokeOnThread(
+            return containerControl.invokeOnThread(
                 () =>
-                {
-                    var label = new ToolStripStatusLabel();
-                    label.Spring = true;
-                    var statusStrip = new StatusStrip();
-                    if (backColor != null)
-                        statusStrip.BackColor = backColor;
-                    statusStrip.Items.Add(label);
-                    containerControl.Controls.Add(statusStrip);
-                    return label;
-                });
+                    {
+                        var label = new ToolStripStatusLabel {Spring = true};
+                        var statusStrip = new StatusStrip {BackColor = backColor};
+                        statusStrip.Items.Add(label);
+                        containerControl.Controls.Add(statusStrip);
+                        return label;
+                    });
         }
         public static ToolStripStatusLabel add_StatusStrip(this Control control)
         {
@@ -611,34 +606,48 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return (control as UserControl).add_StatusStrip(Color.FromName("Control"));
             return null;
         }
-        public static ToolStripStatusLabel add_StatusStrip(this System.Windows.Forms.Form form, bool spring)
+        public static ToolStripStatusLabel add_StatusStrip(this Form form, bool spring)
         {
             var statusStrip = form.add_StatusStrip();
             form.invokeOnThread(() => statusStrip.Spring = spring); // make it align left	
             return statusStrip;
         }
-        public static ToolStripStatusLabel add_StatusStrip(this System.Windows.Forms.Form form)
+        public static ToolStripStatusLabel add_StatusStrip(this Form form)
         {
             return form.add_StatusStrip(Color.FromName("Control"));
         }
         public static ToolStripStatusLabel set_Text(this ToolStripStatusLabel label, string message)
         {
-            //return (ToolStripStatusLabel)label.invokeOnThread(
-            // 	()=>{
-            if (label.notNull())
-                label.Text = message;
+            try
+            {
+                if (label.notNull())
+                    label.Text = message;
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+            }
             return label;
             //		});
         }
         public static string get_Text(this ToolStripStatusLabel label)
         {
-            return label.Text;
+            try
+            {
+                return label.Text;
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+                return null;
+            }
+            
         }
         public static ToolStripStatusLabel textColor(this ToolStripStatusLabel label, Control hostControl, Color color)
         {
             // I have to provide an hostControl so that I can get the running Thread since ForeColor doesn't seem to be Thread safe
-            return (ToolStripStatusLabel)hostControl.invokeOnThread(
-                    () =>
+            return hostControl.invokeOnThread(
+                () =>
                     {
                         if (label.IsLink)
                             label.LinkColor = color;
@@ -649,18 +658,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static object tag(this Panel panel)
         {
-            return (object)panel.invokeOnThread(() => panel.Tag);
+            return panel.invokeOnThread(() => panel.Tag);
         }
         public static T tag<T>(this Panel panel)
         {
-            return (T)panel.invokeOnThread(
+            return panel.invokeOnThread(
                 () =>
-                {
-                    var tag = panel.Tag;
-                    if (tag is T)
-                        return (T)tag;
-                    return default(T);
-                });
+                    {
+                        var tag = panel.Tag;
+                        if (tag is T)
+                            return (T)tag;
+                        return default(T);
+                    });
         }
         public static Panel tag(this Panel panel, object tag)
         {
@@ -676,8 +685,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return contextMenu.invokeOnThread(
                 () =>
                 {
-                    var textBox = new ToolStripTextBox();
-                    textBox.Text = text;
+                    var textBox = new ToolStripTextBox {Text = text};
                     contextMenu.Items.Add(textBox);
                     return textBox;
                 });
@@ -687,8 +695,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return menuItem.Owner.invokeOnThread(
                     () =>
                     {
-                        var textBox = new ToolStripTextBox();
-                        textBox.Text = text;
+                        var textBox = new ToolStripTextBox {Text = text};
                         menuItem.DropDownItems.Add(textBox);
                         return textBox;
                     });
@@ -716,7 +723,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
                     () =>
                     {
                         textBox.Width = width;
-                        textBox.TextBox.Width = width;
+                        if (textBox.TextBox != null) 
+                            textBox.TextBox.Width = width;
                         return textBox;
                     });
         }
@@ -744,8 +752,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             if (contextMenu.isNull())
                 return null;
-            var menuItem = new ToolStripMenuItem();
-            menuItem.Text = text;
+            var menuItem = new ToolStripMenuItem {Text = text};
             contextMenu.Items.Add(menuItem);
             menuItem.Click += (sender, e) => O2Thread.mtaThread(() => onClick(menuItem));
             return menuItem;
@@ -772,20 +779,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static ToolStripMenuItem add_MenuItem(this ToolStripMenuItem menuItem, string text, bool returnParentMenuItem, Action<ToolStripMenuItem> onClick)
         {
-            return (ToolStripMenuItem)menuItem.toolStrip().invokeOnThread(
+            return menuItem.toolStrip().invokeOnThread(
                 () =>
-                {
-                    if (menuItem.isNull())
-                        return null;
-                    var clildMenuItem = new ToolStripMenuItem();
-                    clildMenuItem.Text = text;
-                    clildMenuItem.Click +=
-                        (sender, e) => O2Thread.mtaThread(() => onClick(clildMenuItem));
-                    menuItem.DropDownItems.Add(clildMenuItem);
-                    if (returnParentMenuItem)
-                        return menuItem;
-                    return clildMenuItem;
-                });
+                    {
+                        if (menuItem.isNull())
+                            return null;
+                        var clildMenuItem = new ToolStripMenuItem {Text = text};
+                        clildMenuItem.Click +=
+                            (sender, e) => O2Thread.mtaThread(() => onClick(clildMenuItem));
+                        menuItem.DropDownItems.Add(clildMenuItem);
+                        if (returnParentMenuItem)
+                            return menuItem;
+                        return clildMenuItem;
+                    });
         }
         public static ToolStripComboBox enabled(this ToolStripComboBox toolStripComboBox)
         {

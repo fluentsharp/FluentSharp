@@ -76,13 +76,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         return true;
             return false;
         }
-        public static bool starts(this string stringToSearch, string stringToFind)
+        public static bool      starts(this string stringToSearch, string stringToFind)
         {
+            if (stringToSearch.notValid() || stringToFind.notValid())
+                return false;
             return stringToSearch.StartsWith(stringToFind);
         }
         public static bool      starts(this string stringToSearch, string[] stringsToFind)
         {
-            return stringsToFind.Any(stringToFind => stringToSearch.StartsWith(stringToFind));
+            if (stringToSearch.notValid() || stringsToFind.empty())
+                return false;
+            return stringsToFind.Any(stringToSearch.StartsWith);
         }
 
         public static void      starts(this string stringToSearch, string[] stringsToFind, Action<string> onMatch)
@@ -127,6 +131,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
         public static bool ends(this string stringToSearch, string stringToFind)
         {
+            if (stringToSearch.notValid() || stringToFind.notValid())
+                return false;
             return stringToSearch.EndsWith(stringToFind);
         }
 
@@ -187,7 +193,8 @@ namespace O2.DotNetWrappers.ExtensionMethods
             }
             catch (Exception ex)
             {
-                ex.log("error applying string format: " + format);
+                ("Error applying format " + format + "\nexception message: " + ex.Message).error();
+                //ex.log("error applying string format: " + format); // can't do this or we will have a recursive error call to this .format method
                 return "";
             }
         }
