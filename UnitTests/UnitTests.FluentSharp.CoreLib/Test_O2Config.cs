@@ -24,8 +24,10 @@ namespace UnitTests.FluentSharp_CoreLib
 		    PublicDI.config = new KO2Config();
 		    var o2TempDir3 = PublicDI.config.O2TempDir;
 
-            Assert.AreNotEqual(o2TempDir2, o2TempDir3 , "Should be different");
-
+            if (o2TempDir2.size() > 120 || o2TempDir3.size() > 120)
+                Assert.AreNotEqual(o2TempDir2, o2TempDir3 , "Should be different");
+            else
+                Assert.AreNotEqual(o2TempDir2, o2TempDir3 , "Should be the same");
 		    "O2TempDir is: {0}".info(o2TempDir3);
 		}
 
