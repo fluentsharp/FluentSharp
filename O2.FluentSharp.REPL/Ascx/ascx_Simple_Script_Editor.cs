@@ -772,7 +772,7 @@ namespace O2.XRules.Database.Utils
         {
             var o2CodeCompletion = commandsToExecute.editor().o2CodeCompletion;
             if (o2CodeCompletion.notNull())
-                o2CodeCompletion.OnlyShowCodeCompleteResulstFromO2Namespace = !o2CodeCompletion.OnlyShowCodeCompleteResulstFromO2Namespace;
+                o2CodeCompletion.OnlyShowCodeCompleteResultsFromO2Namespace = !o2CodeCompletion.OnlyShowCodeCompleteResultsFromO2Namespace;
         }
 
         public string Code

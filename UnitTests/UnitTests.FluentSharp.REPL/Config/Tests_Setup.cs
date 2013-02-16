@@ -9,7 +9,7 @@ namespace UnitTests.FluentSharp_REPL
         [SetUp]
         public void RunBeforeAnyTests()
         {
-            O2ConfigSettings.CheckForTempDirMaxSizeCheck = false;
+            O2ConfigSettings.CheckForTempDirMaxSizeCheck = false;            
         }
 
         [TearDown]

@@ -9,11 +9,8 @@ using System.Collections.Generic;
 
 using O2.DotNetWrappers.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
-using O2.Views.ASCX.classes.MainGUI;
-
-using ICSharpCode;
 using ICSharpCode.TextEditor;
-using ICSharpCode.TextEditor.Gui;
+
 using ICSharpCode.SharpDevelop.Dom.CSharp;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.SharpDevelop.Dom;
@@ -30,69 +27,67 @@ namespace O2.External.SharpDevelop.Ascx
 {
     public class O2CodeCompletion : ICompletionDataProvider
     {        	
-        public TextEditorControl textEditor;
+        public TextEditorControl        TextEditor                      { get; set; }
+        public Location                 CodeCompleteCaretLocationOffset { get; set; }
+        public string                   CodeCompleteTargetText          { get; set; }
+        public Form                     HostForm                        { get; set; }        
+        public bool                     UseParseCodeThread              { get; set; }
+        public List<String>             loadedReferences                { get; set; }
+        public List<String>             gacAssemblies                   { get; set; }
+		public ICompletionDataProvider  completionDataProvider          { get; set; }        
+        public bool                                 OnlyShowCodeCompleteResultsFromO2Namespace  { get; set; }
+        public Dictionary<string, ICompilationUnit> mappedCompilationUnits                      { get; set; } // so that we support dynamic CodeCompletion from multiple files
+        
         //public TextEditorControl textEditorToGrabCodeFrom;      // (Was not really working) to support behind the scenes AST building
-        public List<string> extraSourceCodeToProcess;
-        public LanguageProperties CurrentLanguageProperties = LanguageProperties.CSharp;
-        public ProjectContentRegistry pcRegistry;
-        public DefaultProjectContent myProjectContent;
-        public ParseInformation parseInformation = new ParseInformation();
-        public Dictionary<string, ICompilationUnit> mappedCompilationUnits { get; set; } // so that we support dynamic CodeCompletion from multiple files
-        //public ICompilationUnit lastCompilationUnit;
-        public string DummyFileName = "edited.cs";
-        public int startOffset = 0;
-        public ImageList SmallIcons;
-        public Form HostForm { get; set; }
-        public Location CodeCompleteCaretLocationOffset { get; set; }
-        public string CodeCompleteTargetText { get; set; }
-        public CodeCompletionWindow codeCompletionWindow;
-        public Action<string> statusMessage;
-        public bool OnlyShowCodeCompleteResulstFromO2Namespace { get; set; }
-        public bool UseParseCodeThread { get; set; }
-        public ExpressionResult currentExpression;
-        public List<String> loadedReferences { get; set; }
-        public List<String> gacAssemblies { get; set; }
-		public ICompletionDataProvider completionDataProvider { get; set; }
-		public Action<CodeCompletionWindow> After_CodeCompletionWindow_IsAvailable { get; set; }
-
-        public O2CodeCompletion(TextEditorControl _textEditor)
-            : this(_textEditor,(text)=>text.info())
+        public List<string>             extraSourceCodeToProcess;
+        public LanguageProperties       currentLanguageProperties = LanguageProperties.CSharp;
+        public ProjectContentRegistry   pcRegistry;
+        public DefaultProjectContent    myProjectContent;
+        public ParseInformation         parseInformation = new ParseInformation();                
+        public string                   dummyFileName = "edited.cs";
+        public int                      startOffset = 0;
+        public ImageList                smallIcons;
+        
+        public CodeCompletionWindow     codeCompletionWindow;
+        public Action<string>           statusMessage;
+        public ExpressionResult         currentExpression;        
+		public event Action<CodeCompletionWindow>   after_CodeCompletionWindow_IsAvailable;  
+        public event  Action                        onCompleted_AddReferences;                
+        
+        public O2CodeCompletion(TextEditorControl textEditor) : this(textEditor,(text)=>text.info())
         {
         }
-
-        public O2CodeCompletion(TextEditorControl _textEditor, Action<string> status)
+        public O2CodeCompletion(TextEditorControl textEditor, Action<string> status)
         {
-            OnlyShowCodeCompleteResulstFromO2Namespace = false; //true;            
+            OnlyShowCodeCompleteResultsFromO2Namespace = false; //true;            
             UseParseCodeThread = true;
             extraSourceCodeToProcess = new List<string>();
             mappedCompilationUnits = new Dictionary<string, ICompilationUnit>();
             gacAssemblies = GacUtils.assemblyNames(true);
             loadedReferences = new List<string>();
 
-            _textEditor.invokeOnThread(
+            textEditor.invokeOnThread(
                 ()=>{
-                        textEditor = _textEditor;
+                        TextEditor = textEditor;
                         statusMessage = status;				    	
                         loadIcons();			    		
                         setupEnvironment();
                     });
         }
-                
-        
+                        
         public void setupEnvironment()
         {
             try
             {
-                textEditor.ActiveTextAreaControl.TextArea.KeyEventHandler += TextAreaKeyEventHandler;
-                textEditor.ActiveTextAreaControl.TextArea.Caret.PositionChanged += Caret_PositionChanged;
-                textEditor.Disposed += CloseCodeCompletionWindow;  // When the editor is disposed, close the code completion window
+                TextEditor.ActiveTextAreaControl.TextArea.KeyEventHandler += TextAreaKeyEventHandler;
+                TextEditor.ActiveTextAreaControl.TextArea.Caret.PositionChanged += Caret_PositionChanged;
+                TextEditor.Disposed += CloseCodeCompletionWindow;  // When the editor is disposed, close the code completion window
 
                 //set up the ToolTipRequest event
-                textEditor.ActiveTextAreaControl.TextArea.ToolTipRequest += OnToolTipRequest;
+                TextEditor.ActiveTextAreaControl.TextArea.ToolTipRequest += OnToolTipRequest;
 
-                this.pcRegistry = new ProjectContentRegistry();
-                this.myProjectContent = new DefaultProjectContent();
-                this.myProjectContent.Language = this.CurrentLanguageProperties;
+                pcRegistry = new ProjectContentRegistry();
+                myProjectContent = new DefaultProjectContent {Language = currentLanguageProperties};
                 var persistanceFolder = PublicDI.config.O2TempDir.pathCombine("..//_CSharpCodeCompletion").fullPath();  // Path.Combine(Path.GetTempPath(), "CSharpCodeCompletion");
                 persistanceFolder.createFolder();
                 pcRegistry.ActivatePersistence(persistanceFolder);
@@ -109,37 +104,22 @@ namespace O2.External.SharpDevelop.Ascx
             }
 
         }
-
         void Caret_PositionChanged(object sender, EventArgs e)
         {
-            var caret = (Caret)sender;
-           // "Current Offset: {0}".format(caret.Offset).info();
-           // showLocationDetails(caret.Position);           
-        }
-        
+            var caret = (Caret)sender;           
+        }        
         void loadIcons()    	
-        {    	
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(O2CodeCompletion));
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));    		
-            SmallIcons = new ImageList();
-            SmallIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));    			
-        }
-        /*public O2CodeCompletion(Form hostForm)
-        {
-            HostForm = hostForm;
-        }*/
-    
-    
-/*    	public void open(string fileToOpen)
-        {
-            textEditor.open(fileToOpen);
-            //DummyFileName = fileToOpen;				// DC  - check if this makes the diference
-        }
-*/
+        {    	            
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));    		
+            smallIcons = new ImageList
+                {
+                    ImageStream = ((ImageListStreamer) (resources.GetObject("imageList1.ImageStream")))
+                };
+        }   
         public void mapDotNetReferencesForCodeComplete()
         {
             statusMessage("Loading Code Complete Reference: MsCorlib");
-            this.myProjectContent.AddReferencedContent(this.pcRegistry.Mscorlib);
+            myProjectContent.AddReferencedContent(pcRegistry.Mscorlib);
             /*addReference("System.Windows.Forms");
             addReference("System");
             addReference("System.Data");
@@ -151,31 +131,14 @@ namespace O2.External.SharpDevelop.Ascx
             addReference("WindowsBase");
             addReference("WindowsFormsIntegration");*/
         }
-
         public void startAddReferencesThread()
         {
             O2Thread.mtaThread(
-                () =>
-                {
-                    O2Thread.setPriority_Lowest();                    
-                    mapDotNetReferencesForCodeComplete();
-
-                    // for GraphSharp
-                /*    addReference("ICSharpCode.AvalonEdit.dll");
-                    addReference("GraphSharp.dll");
-                    addReference("QuickGraph.dll");
-                    addReference("GraphSharp.Controls.dll");
-                    // for twitter
-                    addReference("Newtonsoft.Json.dll");
-                    addReference("Dimebrain.TweetSharp.dll");*/
-                                        
-                    //foreach (var reference in CompileEngine.getListOfO2AssembliesInExecutionDir())
-                    //    addReference(reference);
-                                   
-                    //statusMessage("Dependencies loaded");
-                });
-        }
-        
+                () =>{
+                        O2Thread.setPriority_Lowest();                    
+                        mapDotNetReferencesForCodeComplete();                
+                     });
+        }        
         public void addReference(string referenceAssembly)
         {
             try
@@ -183,13 +146,13 @@ namespace O2.External.SharpDevelop.Ascx
                 if (loadedReferences.contains(referenceAssembly).isFalse())
                 {
                     if (referenceAssembly.fileExists())
-                        this.myProjectContent.add_Reference(this.pcRegistry, referenceAssembly, statusMessage);
+                        myProjectContent.add_Reference(pcRegistry, referenceAssembly, statusMessage);
                     else
                     {
                         var assembly = referenceAssembly.assembly();
                         if (assembly.notNull() && assembly.Location.fileExists())
                         {
-                            this.myProjectContent.add_Reference(this.pcRegistry, assembly.Location, statusMessage);
+                            myProjectContent.add_Reference(pcRegistry, assembly.Location, statusMessage);
                         }
                         else
                             "[addReference] could not find assembly for: {0}".error(referenceAssembly);
@@ -208,57 +171,52 @@ namespace O2.External.SharpDevelop.Ascx
                 ex.log("in O2CodeCompletion addReference:{0}".format(referenceAssembly));
             }
         }
-
         public void addReferences(List<string> referencesToAdd)
         {
             O2Thread.mtaThread(
                 () =>{
                         try
                         {
-                            var referencesTimer = new O2Timer("Added {0} references".format(referencesToAdd.size())).start(); ;
+                            //var referencesTimer = new O2Timer("Added {0} references".format(referencesToAdd.size())).start(); ;
                             foreach (var referencedAssembly in referencesToAdd)
                                 addReference(referencedAssembly);
-                            referencesTimer.stop();
+                            //referencesTimer.stop();
+                            onCompleted_AddReferences.invoke();
                         }
                         catch (Exception ex)
                         {
                             ex.log("in O2Completion addRefrences");
                         }
                     });
-        }    
-    
+        }        
         // this will regularly parse the current source code so that we have code completion for its methods 
         public void startParseCodeThread()
         {
             O2Thread.mtaThread(
                 ()=>{						
-                        while (!textEditor.IsDisposed && UseParseCodeThread)
+                        while (!TextEditor.IsDisposed && UseParseCodeThread)
                             {			                    
-                                this.parseSourceCode(DummyFileName, this.textEditor.get_Text());
+                                parseSourceCode(dummyFileName, TextEditor.get_Text());
                                 foreach (var codeOrFile in extraSourceCodeToProcess)
                                     if (codeOrFile.isFile())
-                                        this.parseSourceCode(codeOrFile,codeOrFile.contents());
+                                        parseSourceCode(codeOrFile,codeOrFile.contents());
                                     else
-                                        this.parseSourceCode(codeOrFile);
+                                        parseSourceCode(codeOrFile);
                                 this.sleep(2000,false);			             
                             }			              
                      });
         }        
-
         public void parseFile(string fileToParse)
         {
             parseSourceCode(fileToParse, fileToParse.fileContents());
         }
-
         public void parseSourceCode(string code)
         {
-            parseSourceCode(DummyFileName, code);
+            parseSourceCode(dummyFileName, code);
         }
-
-
         public void parseSourceCode(string file, string code)
         {
-            var text = textEditor.get_Text();
+            var text = TextEditor.get_Text();
             //textEditor.set(")
             if (false == code.valid())
                 return;
@@ -281,33 +239,28 @@ namespace O2.External.SharpDevelop.Ascx
                 newCompilationUnit = ConvertCompilationUnit(p.CompilationUnit);
             }            
             // Remove information from lastCompilationUnit and add information from newCompilationUnit.
-            myProjectContent.UpdateCompilationUnit(lastCompilationUnit, newCompilationUnit, DummyFileName);
+            myProjectContent.UpdateCompilationUnit(lastCompilationUnit, newCompilationUnit, dummyFileName);
             mappedCompilationUnits[file] = newCompilationUnit;
             //            lastCompilationUnit = newCompilationUnit;
             parseInformation.SetCompilationUnit(newCompilationUnit);
 
             try {
             //    if (file.exists())
-                    textEditor.Document.FoldingManager.UpdateFoldings(this.DummyFileName, parseInformation);
+                    TextEditor.Document.FoldingManager.UpdateFoldings(dummyFileName, parseInformation);
             } catch //(Exception ex)
             {
                 //ex.log(ex);
             }
 
-        }
-        
+        }        
         public ICompilationUnit ConvertCompilationUnit(CompilationUnit compilationUnit)
         {
-            NRefactoryASTConvertVisitor converter;
-            converter = new NRefactoryASTConvertVisitor(myProjectContent);
+            var converter = new NRefactoryASTConvertVisitor(myProjectContent);
             compilationUnit.AcceptVisitor(converter, null);            
             return converter.Cu;
         }
-        
-        
-        
-        // Was part of the CodeCompletionKeyHandler file
-        
+
+        // Was part of the CodeCompletionKeyHandler file        
         /// <summary>
         /// Return true to handle the keypress, return false to let the text area handle the keypress
         /// </summary>
@@ -333,7 +286,6 @@ namespace O2.External.SharpDevelop.Ascx
             }			
             return false;
         }
-
         public void showCodeCompleteWindow(char key)
         { 
 //            CodeCompleteTargetText = textEditor.get_Text(); // update this text so that we are working with the latest version of the code/snippet
@@ -352,44 +304,41 @@ namespace O2.External.SharpDevelop.Ascx
                 completionDataProvider = this;//new CodeCompletionProvider(this);
 
                 codeCompletionWindow = CodeCompletionWindow.ShowCompletionWindow(
-                    textEditor.ParentForm,					// The parent window for the completion window
-                    textEditor, 							// The text editor to show the window for
-                    DummyFileName,							// Filename - will be passed back to the provider
+                    TextEditor.ParentForm,					// The parent window for the completion window
+                    TextEditor, 							// The text editor to show the window for
+                    dummyFileName,							// Filename - will be passed back to the provider
                     completionDataProvider,					// Provider to get the list of possible completions
                     key										// Key pressed - will be passed to the provider
                 );
-                        
+
                 if (codeCompletionWindow != null)
                 {
                     // ShowCompletionWindow can return null when the provider returns an empty list
-                    codeCompletionWindow.Closed += new EventHandler(CloseCodeCompletionWindow);
+                    codeCompletionWindow.Closed += CloseCodeCompletionWindow;
+                    
+                    codeCompletionWindow.AfterLoadGui = () =>
+                        {
+                            codeCompletionWindow.AfterLoadGui = null; //so that we only invoke this once
+                            after_CodeCompletionWindow_IsAvailable.invoke(codeCompletionWindow);
+                        };
                 }
-                //textEditor.insertTextAtCurrentCaretLocation(".");
-				codeCompletionWindow.AfterLoadGui = () =>
-					{
-						codeCompletionWindow.AfterLoadGui = null;			//so that we only invoke this once
-						After_CodeCompletionWindow_IsAvailable.invoke(codeCompletionWindow);
-					};
             }
             catch (Exception ex)
             {
                 ex.log("in O2CodeCompletion.TextAreaKeyEventHandler");
             }
            // o2Timer.stop();
-        }
-        
+        }        
         void CloseCodeCompletionWindow(object sender, EventArgs e)
         {
             if (codeCompletionWindow != null) {
-                codeCompletionWindow.Closed -= new EventHandler(CloseCodeCompletionWindow);
+                codeCompletionWindow.Closed -= CloseCodeCompletionWindow;
                 codeCompletionWindow.Dispose();
                 codeCompletionWindow = null;
             }
         }
-        
-        
-        // was part of Tool Tip Provider
-        
+                
+        // was part of Tool Tip Provider        
         void OnToolTipRequest(object sender, ToolTipRequestEventArgs e)
         {
             O2Thread.mtaThread(
@@ -418,16 +367,13 @@ namespace O2.External.SharpDevelop.Ascx
                 {
                     ex.log("in OnToolTipRequest");
                 }
-            });
+            });            
         }
-
         public void showLocationDetails(TextLocation location)
         {
             try
-            {
-                if (location == null)
-                    return;
-                "Line: {0}".format(textEditor.Text.lines()[location.Line]).debug();
+            {               
+                "Line: {0}".format(TextEditor.Text.lines()[location.Line]).debug();
                 ResolveResult rr = resolveLocation(location);
                 if (rr == null)
                     return;
@@ -468,13 +414,13 @@ namespace O2.External.SharpDevelop.Ascx
         }
         private ResolveResult resolveLocation(TextLocation logicalPosition)
         {
-           var textArea = textEditor.ActiveTextAreaControl.TextArea;
-            var targetText = "";
-            var targetOffset = 0;
+           var textArea = TextEditor.ActiveTextAreaControl.TextArea;
+            string targetText;
+            int targetOffset;
             if (CodeCompleteCaretLocationOffset.Line == 0)
             {
-                targetText = textEditor.get_Text();//.Text;
-                targetOffset = textEditor.Document.PositionToOffset(logicalPosition);
+                targetText = TextEditor.get_Text();//.Text;
+                targetOffset = TextEditor.Document.PositionToOffset(logicalPosition);
             }
             else
             {
@@ -482,12 +428,10 @@ namespace O2.External.SharpDevelop.Ascx
                 targetText = getAdjustedSnippetText(textArea, firstMethodOffset);
                 targetOffset = firstMethodOffset + textArea.Caret.Offset;
             }
-              ExpressionResult expression;
-              
-              //getExpressionFromTextArea(textArea);
-              IExpressionFinder expressionFinder;
-              expressionFinder = new CSharpExpressionFinder(this.parseInformation);
-              expression = expressionFinder.FindFullExpression(targetText,targetOffset);              
+
+            //getExpressionFromTextArea(textArea);
+            var expressionFinder = new CSharpExpressionFinder(parseInformation);
+            var expression = expressionFinder.FindFullExpression(targetText,targetOffset);              
 
             /*IExpressionFinder expressionFinder;
             expressionFinder = new CSharpExpressionFinder(this.parseInformation);
@@ -500,17 +444,14 @@ namespace O2.External.SharpDevelop.Ascx
                 expression.Region = new DomRegion(logicalPosition.Line + 1, logicalPosition.Column + 1);
             }
             
-            NRefactoryResolver resolver = new NRefactoryResolver(this.myProjectContent.Language);
-            ResolveResult rr = resolver.Resolve(expression,
-                                                this.parseInformation,
-                                                targetText);
-                                                //textArea.MotherTextEditorControl.Text);
+            var resolver = new NRefactoryResolver(this.myProjectContent.Language);
+            var rr = resolver.Resolve(expression, parseInformation, targetText);                                                
 
             return rr;
-        }
-        
+        }        
         static string GetText(ResolveResult result)
         {
+            // ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
             if (result == null) {
                 return null;
             }
@@ -518,42 +459,42 @@ namespace O2.External.SharpDevelop.Ascx
                 return GetText(((MixedResolveResult)result).PrimaryResult);
             IAmbience ambience = new CSharpAmbience();
             ambience.ConversionFlags = ConversionFlags.StandardConversionFlags | ConversionFlags.ShowAccessibility;
-            if (result is MemberResolveResult) {
+            if (result is MemberResolveResult) 
+            {
                 return GetMemberText(ambience, ((MemberResolveResult)result).ResolvedMember);
-            } else if (result is LocalResolveResult) {
-                LocalResolveResult rr = (LocalResolveResult)result;
+            }
+            if (result is LocalResolveResult) 
+            {
+                var rr = (LocalResolveResult)result;
                 ambience.ConversionFlags = ConversionFlags.UseFullyQualifiedTypeNames
-                    | ConversionFlags.ShowReturnType;
-                StringBuilder b = new StringBuilder();
-                if (rr.IsParameter)
-                    b.Append("parameter ");
-                else
-                    b.Append("local variable ");
+                                           | ConversionFlags.ShowReturnType;
+                var b = new StringBuilder();
+                b.Append(rr.IsParameter ? "parameter " : "local variable ");
                 b.Append(ambience.Convert(rr.Field));
                 return b.ToString();
-            } else if (result is NamespaceResolveResult) {
+            }
+            if (result is NamespaceResolveResult) {
                 return "namespace " + ((NamespaceResolveResult)result).Name;
-            } else if (result is TypeResolveResult) {
+            }
+            if (result is TypeResolveResult) {
                 IClass c = ((TypeResolveResult)result).ResolvedClass;
                 if (c != null)
                     return GetMemberText(ambience, c);
-                else
-                    return ambience.Convert(result.ResolvedType);
-            } else if (result is MethodGroupResolveResult) {
-                MethodGroupResolveResult mrr = result as MethodGroupResolveResult;
+                return ambience.Convert(result.ResolvedType);
+            }
+            if (result is MethodGroupResolveResult) {
+                var mrr = result as MethodGroupResolveResult;
                 IMethod m = mrr.GetMethodIfSingleOverload();
                 if (m != null)
                     return GetMemberText(ambience, m);
-                else
-                    return "Overload of " + ambience.Convert(mrr.ContainingType) + "." + mrr.Name;
-            } else {
-                return null;
+                return "Overload of " + ambience.Convert(mrr.ContainingType) + "." + mrr.Name;
             }
-        }
-        
+            return null;
+            // ReSharper restore CanBeReplacedWithTryCastAndCheckForNull
+        }        
         static string GetMemberText(IAmbience ambience, IEntity member)
         {
-            StringBuilder text = new StringBuilder();
+            var text = new StringBuilder();
             if (member is IField) {
                 text.Append(ambience.Convert(member as IField));
             } else if (member is IProperty) {
@@ -566,48 +507,41 @@ namespace O2.External.SharpDevelop.Ascx
                 text.Append(ambience.Convert(member as IClass));
             } else {
                 text.Append("unknown member ");
-                text.Append(member.ToString());
+                text.Append(member.str());
             }
-            string documentation = member.Documentation;
-            if (documentation != null && documentation.Length > 0) {
+            var documentation = member.Documentation;
+            if (documentation.valid()) 
+            {
                 text.Append('\n');
                 text.Append(CodeCompletionData.XmlDocumentationToText(documentation));
             }
             return text.ToString();
         }
-        
-        
-        // part of the CodeCompletionProvider   (public class CodeCompletionProvider : ICompletionDataProvider)
-        
-        
+
+        // part of the CodeCompletionProvider   (public class CodeCompletionProvider : ICompletionDataProvider)                
         public ImageList ImageList {
             get {
-                return this.SmallIcons;				
+                return this.smallIcons;				
             }
-        }
-        
+        }        
         public string PreSelection {
             get {
                 return null;
             }
-        }
-        
+        }        
         public int DefaultIndex {
             get {
                 return -1;
             }
-        }
-        
+        }        
         public CompletionDataProviderKeyResult ProcessKey(char key)
         {
             if (char.IsLetterOrDigit(key) || key == '_') {
                 return CompletionDataProviderKeyResult.NormalKey;
-            } else {
-                // key triggers insertion of selected items
-                return CompletionDataProviderKeyResult.InsertionKey;
             }
-        }
-        
+            // key triggers insertion of selected items
+            return CompletionDataProviderKeyResult.InsertionKey;
+        }        
         /// <summary>
         /// Called when entry should be inserted. Forward to the insertion action of the completion data.
         /// </summary>
@@ -615,8 +549,7 @@ namespace O2.External.SharpDevelop.Ascx
         {
             textArea.Caret.Position = textArea.Document.OffsetToPosition(insertionOffset);
             return data.InsertAction(textArea, key);
-        }
-        
+        }        
         public ICompletionData[] GenerateCompletionData(string fileName, TextArea textArea, char charTyped)
         {
             // We can return code-completion items like this:
@@ -624,7 +557,7 @@ namespace O2.External.SharpDevelop.Ascx
             //return new ICompletionData[] {
             //	new DefaultCompletionData("Text", "Description", 1)
             //};
-            var targetText = "";
+            string targetText;
             if (CodeCompleteCaretLocationOffset.Line == 0)
             {
 
@@ -636,12 +569,10 @@ namespace O2.External.SharpDevelop.Ascx
                 targetText = getAdjustedSnippetText(textArea, firstMethodOffset);
             }
 
-            NRefactoryResolver resolver = new NRefactoryResolver(this.myProjectContent.Language);
+            var resolver = new NRefactoryResolver(myProjectContent.Language);
             //ResolveResult rr = resolver.Resolve(FindExpression(textArea),
-            ResolveResult rr = resolver.Resolve(currentExpression,
-                                                    this.parseInformation,
-                                                    targetText);
-            List<ICompletionData> resultList = new List<ICompletionData>();
+            var rr = resolver.Resolve(currentExpression, parseInformation, targetText);
+            var resultList = new List<ICompletionData>();
             if (rr.notNull())// && ) 
             {                
                 ArrayList completionData = rr.GetCompletionData(this.myProjectContent);
@@ -664,8 +595,7 @@ namespace O2.External.SharpDevelop.Ascx
                 "[CodeComplete] expression '{0}' could not be resolved".error(currentExpression.Expression);
            // "In generate completion Data, There were {0} results found".format(resultList.Count).debug();
             return resultList.ToArray();
-        }
-        
+        }        
         /// <summary>
         /// Find the expression the cursor is at.
         /// Also determines the context (using statement, "new"-expression etc.) the
@@ -673,7 +603,7 @@ namespace O2.External.SharpDevelop.Ascx
         /// </summary>
         ExpressionResult FindExpression()//TextArea textArea)
         {
-            var textArea = textEditor.ActiveTextAreaControl.TextArea;
+            var textArea = TextEditor.ActiveTextAreaControl.TextArea;
             try
             {                
                 var expression = (CodeCompleteCaretLocationOffset.Line == 0)
@@ -689,16 +619,14 @@ namespace O2.External.SharpDevelop.Ascx
             catch (Exception ex)
             {
                 ex.log("in FindExpression");
-                return new ExpressionResult(); ;
+                return new ExpressionResult();
             }
         }
-
         public ExpressionResult getExpressionFromTextArea(TextArea textArea)
         {
-            IExpressionFinder finder = new CSharpExpressionFinder(this.parseInformation);
+            IExpressionFinder finder = new CSharpExpressionFinder(parseInformation);
             return finder.FindExpression(textArea.Document.TextContent, textArea.Caret.Offset);            
         }
-
         public ExpressionResult getExpressionFromCodeSnippet(TextArea textArea)
         {
             IExpressionFinder finder = new CSharpExpressionFinder(this.parseInformation);
@@ -710,7 +638,6 @@ namespace O2.External.SharpDevelop.Ascx
             var expression = finder.FindExpression(adjustedSnippeetText, offset);
             return expression;
         }
-
         public int calculateFirstMethodOffset()
         {            
             //var offset = 0;                              
@@ -725,7 +652,6 @@ namespace O2.External.SharpDevelop.Ascx
            // var test = CodeCompleteTargetText.Substring(offset);
             return topText.Length;
         }
-
         public string getAdjustedSnippetText(TextArea textArea, int firstMethodOffset)
         {            
             var currentText = textArea.get_Text(); ;           
@@ -738,38 +664,36 @@ namespace O2.External.SharpDevelop.Ascx
                                           "}".line();
                 return adjustedSnippeetText;
             }
-            else
-                return currentText;
+            return currentText;
         }
-
         void AddCompletionData(List<ICompletionData> resultList, ArrayList completionData)
         {
-         //   var currentCodeCompleteText = "";
-         //   var lenght = textEditor.currentOffset() - startOffset;
-         //   if (lenght >0)
-         //       currentCodeCompleteText = textEditor.get_Text(startOffset,lenght);
-         //   "{0}:{1}  = {2}".format(startOffset,lenght , currentCodeCompleteText).debug();
+            // ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
 
             // used to store the method names for grouping overloads
-            Dictionary<string, CodeCompletionData> nameDictionary = new Dictionary<string, CodeCompletionData>();
+            var nameDictionary = new Dictionary<string, CodeCompletionData>();
             
             // Add the completion data as returned by SharpDevelop.Dom to the
             // list for the text editor
             foreach (object obj in completionData) {
-                if (obj is string) {
+                if (obj is string) 
+                {
                     // namespace names are returned as string
                     resultList.Add(new DefaultCompletionData((string)obj, "namespace " + obj, 5));
-                } else if (obj is IClass) {
-                    IClass c = (IClass)obj;
+                } else if (obj is IClass) 
+                {
+                    var c = (IClass)obj;
                     resultList.Add(new CodeCompletionData(c,this));
-                } else if (obj is IMember) {
-                    IMember m = (IMember)obj;
-                    if (m is IMethod && ((m as IMethod).IsConstructor)) {
+                } else if (obj is IMember) 
+                {
+                    var m = (IMember)obj;
+                    if (m is IMethod && ((m as IMethod).IsConstructor)) 
+                    {
                         // Skip constructors
                         continue;
                     }
                     // if OnlyShowCodeCompleteResulstFromO2Namespace filter for only O2.* namepace
-                    if (OnlyShowCodeCompleteResulstFromO2Namespace &&  m.DeclaringType.Namespace.starts("O2") == false)
+                    if (OnlyShowCodeCompleteResultsFromO2Namespace &&  m.DeclaringType.Namespace.starts("O2") == false)
                         continue;
 
                     // NOT WORKING only show items that match currentCodeCompleteText regex
@@ -789,10 +713,10 @@ namespace O2.External.SharpDevelop.Ascx
                 } else {
                     // Current ICSharpCode.SharpDevelop.Dom should never return anything else
                     throw new NotSupportedException();
-                }
+                }                
             }
-        }
-        
+            // ReSharper restore CanBeReplacedWithTryCastAndCheckForNull
+        }        
     }
     
     public class CodeCompletionData : DefaultCompletionData, ICompletionData
@@ -801,31 +725,25 @@ namespace O2.External.SharpDevelop.Ascx
         public IMember member;
         public IClass c;
         public CSharpAmbience csharpAmbience = new CSharpAmbience();
-        
-        public CodeCompletionData(IMember member, O2CodeCompletion _o2CodeCompletion)
-            : base(member.Name, null, GetMemberImageIndex(member))
+               string         _description;
+
+        public CodeCompletionData(IMember member, O2CodeCompletion o2_Code_Completion)            : base(member.Name, null, GetMemberImageIndex(member))
         {
             this.member = member;
-            o2CodeCompletion =  _o2CodeCompletion;
-        }
-        
-        public CodeCompletionData(IClass c, O2CodeCompletion _o2CodeCompletion)
-            : base(c.Name, null, GetClassImageIndex(c))
+            o2CodeCompletion =  o2_Code_Completion;
+        }        
+        public CodeCompletionData(IClass c, O2CodeCompletion o2_Code_Completion)  : base(c.Name, null, GetClassImageIndex(c))
         {
             this.c = c;
-            o2CodeCompletion = _o2CodeCompletion;
-        }
-        
-        //public int overloads = 0;
-	    public List<IMember> overloads = new List<IMember>();
-        //public void AddOverload()
-		internal void AddOverload(IMember member)
+            o2CodeCompletion = o2_Code_Completion;
+        }                
+	    public List<IMember> overloads = new List<IMember>();        
+		internal void AddOverload(IMember iMember)
 		{
 			//var name = (m as DefaultMethod).DotNetName;
-			overloads.Add(member);
+			overloads.Add(iMember);
 //            overloads++;
-        }
-        
+        }       
         static int GetMemberImageIndex(IMember member)
         {
             // Missing: different icons for private/public member
@@ -838,8 +756,7 @@ namespace O2.External.SharpDevelop.Ascx
             if (member is IEvent)
                 return 6;
             return 3;
-        }
-        
+        }        
         static int GetClassImageIndex(IClass c)
         {
             switch (c.ClassType) {
@@ -848,68 +765,58 @@ namespace O2.External.SharpDevelop.Ascx
                 default:
                     return 0;
             }
-        }
-        
-        string description;
-        
-        // DefaultCompletionData.Description is not virtual, but we can reimplement
-        // the interface to get the same effect as overriding.
+        }                              
         string ICompletionData.Description {
             get {
-                if (description == null) {
+                  // DefaultCompletionData.Description is not virtual, but we can reimplement
+                // the interface to get the same effect as overriding.
+                if (_description == null) {
                     IEntity entity = (IEntity)member ?? c;
-                    description = GetText(entity);
+                    _description = GetText(entity);
 
                     if (overloads.size() > 1) 
 					{
-                        description += " (+" + overloads.size() + " overloads)";
-						description += "\n\n-------------------------- \n\n";
+                        _description += " (+" + overloads.size() + " overloads)";
+						_description += "\n\n-------------------------- \n\n";
 						foreach (var overload in overloads)
 						{
 							if (overload is DefaultMethod)
-								description += "{0}".line().format((overload as DefaultMethod).Signature());
+								_description += "{0}".line().format((overload as DefaultMethod).Signature());
 							else
-								description += "{0}".line().format(overload.str());
+								_description += "{0}".line().format(overload.str());
 						}
 					}
 	                
                     //description += Environment.NewLine + XmlDocumentationToText(entity.Documentation);
                 }
-                return description;
+                return _description;
             }
-        }
-        
-        /// <summary>
-        /// Converts a member to text.
-        /// Returns the declaration of the member as C# or VB code, e.g.
-        /// "public void MemberName(string parameter)"
-        /// </summary>
+        }                
         string GetText(IEntity entity)
         {
-            return (string)o2CodeCompletion.textEditor.invokeOnThread(
+            return o2CodeCompletion.TextEditor.invokeOnThread(
                 ()=> {					
-                        IAmbience ambience = csharpAmbience;
-                        if (entity is IMethod)
-                            return ambience.Convert(entity as IMethod);
-                        if (entity is IProperty)
-                            return ambience.Convert(entity as IProperty);
-                        if (entity is IEvent)
-                            return ambience.Convert(entity as IEvent);
-                        if (entity is IField)
-                            return ambience.Convert(entity as IField);
-                        if (entity is IClass)
-                            return ambience.Convert(entity as IClass);
-                        // unknown entity:
-                        return entity.ToString();
-                    });
-        }
-        
+                         IAmbience ambience = csharpAmbience;
+                         if (entity is IMethod)
+                             return ambience.Convert(entity as IMethod);
+                         if (entity is IProperty)
+                             return ambience.Convert(entity as IProperty);
+                         if (entity is IEvent)
+                             return ambience.Convert(entity as IEvent);
+                         if (entity is IField)
+                             return ambience.Convert(entity as IField);
+                         if (entity is IClass)
+                             return ambience.Convert(entity as IClass);
+                         // unknown entity:
+                         return entity.ToString();
+                });
+        }        
         static public string XmlDocumentationToText(string xmlDoc)
         {
             PublicDI.log.error(xmlDoc);
-            StringBuilder b = new StringBuilder();
+            var b = new StringBuilder();
             try {
-                using (XmlTextReader reader = new XmlTextReader(new StringReader("<root>" + xmlDoc + "</root>"))) {
+                using (var reader = new XmlTextReader(new StringReader("<root>" + xmlDoc + "</root>"))) {
                     reader.XmlResolver = null;
                     while (reader.Read()) {
                         switch (reader.NodeType) {
@@ -936,13 +843,10 @@ namespace O2.External.SharpDevelop.Ascx
                                     case "see":
                                         if (reader.IsEmptyElement) {
                                             b.Append(reader.GetAttribute("cref"));
-                                        } else {
+                                        } else
+                                        {
                                             reader.MoveToContent();
-                                            if (reader.HasValue) {
-                                                b.Append(reader.Value);
-                                            } else {
-                                                b.Append(reader.GetAttribute("cref"));
-                                            }
+                                            b.Append(reader.HasValue ? reader.Value : reader.GetAttribute("cref"));
                                         }
                                         break;
                                 }

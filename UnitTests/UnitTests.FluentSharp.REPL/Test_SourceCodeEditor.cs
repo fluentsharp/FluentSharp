@@ -10,29 +10,26 @@ namespace UnitTests.FluentSharp_REPL
     [TestFixture]
     public class Test_SourceCodeEditor
     {
-        public ascx_SourceCodeEditor codeEditor;
+        public ascx_SourceCodeEditor CodeEditor { get; set; }
+
         [SetUp]
         public void SetUp()
-        {
-            var codeSnippet = @"return ""Hello World"";";
-            var testFile    = codeSnippet.createCSharpFileFromCodeSnippet();
-
-            codeEditor  = "SourceCodeEditor".popupWindow()
-                                            .add_SourceCodeEditor()
-                                            .open(testFile);            
+        {            
+            CodeEditor = Default_Helpers.CSharpFile_HelloWord
+                                        .open_InCodeEditor();            
         }
 
         [TearDown]
         public void tearDown()
-        {
-            codeEditor.closeForm_InNSeconds(0);
-            codeEditor.waitForClose();
+        {            
+            CodeEditor.close()
+                      .waitForClose();
         }
 
         [Test]
         public void OpenAndCompileTestFile()
         {            
-            var assembly = codeEditor.compileCSSharpFile();
+            var assembly = CodeEditor.compileCSSharpFile();
             var type     = assembly.type("DynamicType");
             var method   = type.method("dynamicMethod");
             var result   = method.invoke();
@@ -51,9 +48,9 @@ namespace UnitTests.FluentSharp_REPL
         public void SearchForText()
         {            
             var textToSearch             = "Hello";
-            var selectedTextBeforeSearch = codeEditor.selectedText();            
-            codeEditor.searchForTextInTextEditor(textToSearch);
-            var selectedTextAfterSearch  = codeEditor.selectedText();
+            var selectedTextBeforeSearch = CodeEditor.selectedText();            
+            CodeEditor.searchForTextInTextEditor(textToSearch);
+            var selectedTextAfterSearch  = CodeEditor.selectedText();
 
             Assert.AreNotEqual(textToSearch, selectedTextBeforeSearch);
             Assert.AreEqual   (textToSearch, selectedTextAfterSearch);

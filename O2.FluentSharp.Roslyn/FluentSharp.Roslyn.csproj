@@ -71,7 +71,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FluentSharp.Roslyn.nuspec" />
+    <None Include="FluentSharp.Roslyn.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

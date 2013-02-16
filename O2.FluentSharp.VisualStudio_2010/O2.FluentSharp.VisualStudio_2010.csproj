@@ -177,7 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\O2PlatformKey.pfx" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>

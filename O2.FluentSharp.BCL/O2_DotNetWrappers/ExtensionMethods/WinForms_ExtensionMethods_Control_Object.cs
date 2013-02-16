@@ -556,17 +556,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             control.Width = hostControl.Width - pad - pad;
             return control;
         }
-        public static void close(this Control control)
+        public static T close<T>(this T userControl) where T : UserControl
         {
-            control.invokeOnThread(
+            return userControl.invokeOnThread(
                 () =>
-                {
-                    if (control is UserControl)
                     {
-                        var userControl = (UserControl)control;
-                        if (userControl.ParentForm != null)
-                            userControl.ParentForm.Close();
-                    }
+                        userControl.parentForm().Close();                        
+                        return userControl;
                 });
         }
         public static T foreColor<T>(this T control, Color color) where T : Control

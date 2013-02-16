@@ -217,33 +217,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                     tecSourceCode.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategyForFile(dummyFileName);
                     return sourceCodeEditor;
                 });
-        }
-        public static ascx_SourceCodeViewer     set_Text(this ascx_SourceCodeViewer sourceCodeViewer, string text)
-        {             
-            return sourceCodeViewer.invokeOnThread(           
-                () =>
-                    {
-                        sourceCodeViewer.setDocumentContents(text);
-                        return sourceCodeViewer;
-                    });
-            
-        }
-        public static ascx_SourceCodeViewer     insert_Text(this ascx_SourceCodeViewer sourceCodeViewer, string text)
-        {
-            sourceCodeViewer.editor().insert_Text(text);
-            return sourceCodeViewer;
-        }
-        public static ascx_SourceCodeEditor     insert_Text(this ascx_SourceCodeEditor sourceCodeEditor, string text)
-        {
-            var textArea = sourceCodeEditor.textEditorControl().textArea();
-            return textArea.invokeOnThread(
-                () =>
-                    {
-                        textArea.InsertString(text);
-                        return sourceCodeEditor;
-                    });
-            
-        }            
+        }        
                 
         public static ascx_SourceCodeViewer     onClick(this ascx_SourceCodeViewer codeViewer, MethodInvoker callback)
         {
@@ -351,7 +325,23 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             sourceCodeEditor.setDocumentHighlightingStrategy("aa.cs");
             return sourceCodeEditor;
+        }        
+        public static ascx_SourceCodeViewer     insert_Text(this ascx_SourceCodeViewer sourceCodeViewer, string text)
+        {
+            sourceCodeViewer.editor().insert_Text(text);
+            return sourceCodeViewer;
         }
+        public static ascx_SourceCodeEditor     insert_Text(this ascx_SourceCodeEditor sourceCodeEditor, string text)
+        {
+            var textArea = sourceCodeEditor.textEditorControl().textArea();
+            return textArea.invokeOnThread(
+                () =>
+                    {
+                        textArea.InsertString(text);
+                        return sourceCodeEditor;
+                    });
+            
+        }            
         public static ascx_SourceCodeViewer     set_Text(this ascx_SourceCodeViewer codeViewer, string text, string highlightForExtension)
         {
             codeViewer.editor().set_Text(text, highlightForExtension);
@@ -366,11 +356,30 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             }
             return codeEditor;
         }
+        public static ascx_SourceCodeViewer     set_Text(this ascx_SourceCodeViewer codeViewer, string text)
+        {             
+            return codeViewer.invokeOnThread(           
+                () =>
+                    {
+                        codeViewer.setDocumentContents(text);
+                        return codeViewer;
+                    });
+            
+        }
         public static ascx_SourceCodeEditor     set_Text(this ascx_SourceCodeEditor codeEditor, string text)
         {
             if(codeEditor.notNull())
                 codeEditor.setDocumentContents(text);
             return codeEditor;
+        }        
+        public static ascx_SourceCodeViewer     set_Code(this ascx_SourceCodeViewer codeViewer, string code)
+        {
+            return codeViewer.set_Text(code);
+
+        }
+        public static ascx_SourceCodeEditor     set_Code(this ascx_SourceCodeEditor codeEditor, string code)
+        {
+            return codeEditor.set_Text(code);
         }        
         
         public static ascx_SourceCodeEditor     caret(this ascx_SourceCodeEditor codeEditor, int line, int column)
@@ -560,11 +569,11 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 			return codeEditor;
 		}
 
-        public static TextArea          textArea(this ascx_SourceCodeViewer sourceCodeViewer)
+        public static TextArea                  textArea(this ascx_SourceCodeViewer sourceCodeViewer)
         {
             return sourceCodeViewer.editor().textArea();
         }
-        public static TextArea          textArea(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static TextArea                  textArea(this ascx_SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.textEditorControl().ActiveTextAreaControl.TextArea;
         }
@@ -585,6 +594,14 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         public static string                    get_Text(this ascx_SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.getSourceCode();
+        }
+        public static string                    get_Code(this ascx_SourceCodeViewer sourceCodeViewer)
+        {
+            return sourceCodeViewer.get_Text();
+        }
+        public static string                    get_Code(this ascx_SourceCodeEditor sourceCodeEditor)
+        {
+            return sourceCodeEditor.get_Text();
         }
         public static int                       caretLine(this ascx_SourceCodeEditor sourceCodeEditor)
         {

@@ -17,26 +17,14 @@ namespace O2.DotNetWrappers.DotNet
         }
 
         #region Delegates
-
-        public delegate Thread FuncThread(); // they forgot to include this one :)
-        //public delegate void FuncVoid(); // they forgot to include this one :)
+        // ReSharper disable TypeParameterCanBeVariant
+        public delegate Thread FuncThread(); 
         public delegate void FuncVoidT1<T1>(T1 arg1);
         public delegate void FuncVoidT1T2<T1,T2>(T1 arg1,T2 arg2);
         public delegate void FuncVoidT1T2T3<T1, T2,T3>(T1 arg1, T2 arg2, T3 arg3);
         public delegate void FuncVoidT1T2T3T4<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
-
+        // ReSharper restore TypeParameterCanBeVariant
         #endregion
-
-        //var threadEnded = new AutoResetEvent(false);
-
-        /*public static void staThreadSync(FuncVoid codeToExecute)
-        {            
-            var thread = staThread(codeToExecute);
-            thread.Join();
-            if (thread.IsAlive)
-            {
-            }
-        }*/
 
         public static Thread staThread(Action codeToExecute)
         {
@@ -55,23 +43,14 @@ namespace O2.DotNetWrappers.DotNet
 	                                            {
 		                                            ex.log("in staThread");
                                                 }
-	                                        });
-            staThread.Name = "[O2 Sta Thread]";
+	                                        }) 
+                                                {Name = "[O2 Sta Thread]"};
             staThread.SetApartmentState(ApartmentState.STA);
             staThread.Priority = threadPriority;
             staThread.Start();            
             ThreadsCreated.add(staThread);            
             return staThread;
         }
-
-       /* public static void mtaThreadSync(FuncVoid codeToExecute)
-        {
-            var thread = mtaThread(codeToExecute);            
-            thread.Join();
-            if (thread.IsAlive)
-            {
-            }
-        }*/
 
         public static Thread mtaThread(Action codeToExecute)
         {
@@ -91,18 +70,17 @@ namespace O2.DotNetWrappers.DotNet
         public static Thread mtaThread(string threadName, Action codeToExecute, ThreadPriority threadPriority)
         {
             //var stackTrace = getCurrentStackTrace();    // used for cross thread debugging purposes
-            var mtaThread = new Thread(() =>
-                                        {
-                                            try
-                                            {
-                                                codeToExecute();
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                PublicDI.log.ex(ex,"in mtaThread", true);
-                                            }
-                                        });                                         
-			mtaThread.Name =      threadName;                                   
+            var mtaThread = new Thread(()=>{
+                                                try
+                                                {
+                                                    codeToExecute();
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    PublicDI.log.ex(ex,"in mtaThread", true);
+                                                }
+                                            }) 
+                                                {Name = threadName};
             mtaThread.SetApartmentState(ApartmentState.MTA);
             mtaThread.Priority = threadPriority;
             mtaThread.Start();
@@ -137,27 +115,27 @@ namespace O2.DotNetWrappers.DotNet
 
         public static void setPriority_Lowest()
         {
-            System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Lowest;
+            Thread.CurrentThread.Priority = ThreadPriority.Lowest;
         }
 
         public static void setPriority_BelowNormal()
         {
-            System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.BelowNormal;
+            Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
         }
 
         public static void setPriority_Normal()
         {
-            System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Normal;
+            Thread.CurrentThread.Priority = ThreadPriority.Normal;
         }
 
         public static void setPriority_AboveNormal()
         {
-            System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.AboveNormal;
+            Thread.CurrentThread.Priority = ThreadPriority.AboveNormal;
         }
 
         public static void setPriority_Highest()
         {
-            System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Highest;
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
         }               
     }
 }

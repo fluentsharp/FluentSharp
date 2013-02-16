@@ -179,7 +179,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
         public static Form      close(this Form form)
         {
-            form.invokeOnThread(() => form.Close());
+            form.invokeOnThread(form.Close);
             return form;
         }
         public static T         waitForClose<T>(this T control) where T: Control
@@ -191,7 +191,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 {
                     var formClosed = new AutoResetEvent(false);
                     form.onClosed(() => formClosed.Set());
-                    formClosed.WaitOne();
+                    while (form.IsDisposed.isFalse())
+                    {
+                        if (formClosed.WaitOne(1000))
+                            return control;
+                    }                    
                 }
             }
             return control;

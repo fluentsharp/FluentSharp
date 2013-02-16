@@ -104,6 +104,16 @@ namespace O2.External.SharpDevelop.Ascx
         public void     extraGuiChanges() // starting to move this code into O2's more explicit code
         {
             menuStripForSourceEdition.add_MenuItem("Open C# REPL Script", () => open.scriptEditor());
+            toolStripWithSourceCodeActions.add_Button("Sample C#", OpenSampleCSharpFile);
+        }
+
+        public void OpenSampleCSharpFile()
+        {
+            var sampleCode = @"
+            ""Hello world"".alert();
+            return ""Hello World"";";
+            var sampleFile = sampleCode.createCSharpFileFromCodeSnippet();
+            loadSourceCodeFile(sampleFile);            
         }
         public void     TextArea_KeyUp(object sender, KeyEventArgs e)
         {
@@ -344,29 +354,29 @@ namespace O2.External.SharpDevelop.Ascx
 
                     });
         }
-        public void     saveSourceCodeFile(String sTargetLocation)
+        public ascx_SourceCodeEditor     saveSourceCodeFile(String sTargetLocation)
         {
-            this.invokeOnThread(
-                () =>
-                {
-                    try
-                    {
-                        tecSourceCode.SaveFile(sTargetLocation);
-                        if (sPathToFileLoaded != null && sPathToFileLoaded != sTargetLocation)
-                            sPathToFileLoaded = sTargetLocation;
+            return this.invokeOnThread(
+                () =>{
+                        try
+                        {
+                            tecSourceCode.SaveFile(sTargetLocation);
+                            if (sPathToFileLoaded != null && sPathToFileLoaded != sTargetLocation)
+                                sPathToFileLoaded = sTargetLocation;
 
-                        PublicDI.log.info("Source code saved to: {0}", sTargetLocation);
-                        tbSourceCode_FileLoaded.Text = Path.GetFileName(sTargetLocation);
-                        lbSource_CodeFileSaved.Visible = true;
-                        lbSourceCode_UnsavedChanges.Visible = false;
-                        btSaveFile.Enabled = false;
-                        tecSourceCode.LineViewerStyle = LineViewerStyle.None;
-                    }
-                    catch (Exception ex)
-                    {
-                        PublicDI.log.error("in saveSourceCodeFile {0}", ex.Message);
-                    }                    
-                });
+                            PublicDI.log.info("Source code saved to: {0}", sTargetLocation);
+                            tbSourceCode_FileLoaded.Text = Path.GetFileName(sTargetLocation);
+                            lbSource_CodeFileSaved.Visible = true;
+                            lbSourceCode_UnsavedChanges.Visible = false;
+                            btSaveFile.Enabled = false;
+                            tecSourceCode.LineViewerStyle = LineViewerStyle.None;
+                        }
+                        catch (Exception ex)
+                        {
+                            PublicDI.log.error("in saveSourceCodeFile {0}", ex.Message);
+                        }
+                        return this;
+                    });
         }
         public void     newFile()
         {
@@ -524,7 +534,7 @@ namespace O2.External.SharpDevelop.Ascx
             }
             return "";
         }
-        public void     saveSourceCode()
+        public ascx_SourceCodeEditor     saveSourceCode()
         {
             String sFilePath = getFullPathTOCurrentSourceCodeFile();
             PublicDI.CurrentScript = sFilePath;
@@ -539,7 +549,7 @@ namespace O2.External.SharpDevelop.Ascx
             }
             else
                 new H2(getSourceCode()).save(sFilePath);
-            // }
+            return this;
         }
         public void     highlightLineWithColor(Int32 iLineToSelect, Color cColor)
         {
@@ -805,8 +815,10 @@ namespace O2.External.SharpDevelop.Ascx
             }
             return null;
         }
+
         public Assembly compileCSSharpFile()
         {
+            enableCodeComplete();
             compiledAssembly = null;
             var compileEngine = new CompileEngine();            
             if (getSourceCode() != "")
@@ -815,9 +827,7 @@ namespace O2.External.SharpDevelop.Ascx
                 // always save before compiling                                                
                 compileEngine.compileSourceFile(sPathToFileLoaded);
                 compiledAssembly = compileEngine.compiledAssembly;
-                if (compiledAssembly.notNull() &&
-                    o2CodeCompletion.notNull() &&
-                    compileEngine.cpCompilerParameters.notNull())
+                if (compiledAssembly.notNull() && o2CodeCompletion.notNull() && compileEngine.cpCompilerParameters.notNull())
                     o2CodeCompletion.addReferences(compileEngine.cpCompilerParameters.ReferencedAssemblies.toList());  
             }
 
@@ -1081,6 +1091,10 @@ namespace O2.External.SharpDevelop.Ascx
             if (tvCompilationErrors.SelectedNode != null)
                 return tvCompilationErrors.SelectedNode.Text;
             return "";
+        }
+        public ToolStrip getToolStrip()
+        {
+            return toolStripWithSourceCodeActions;
         }
         public object   GetCurrentCSharpObjectModel()
         {
