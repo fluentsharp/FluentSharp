@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnitTests.FluentSharp_REPL</RootNamespace>
-    <AssemblyName>UnitTests.O2.FluentSharp.REPL</AssemblyName>
+    <AssemblyName>UnitTests.FluentSharp.REPL</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
