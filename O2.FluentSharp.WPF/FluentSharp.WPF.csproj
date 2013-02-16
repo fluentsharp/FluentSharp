@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2.FluentSharp.WPF</RootNamespace>
-    <AssemblyName>O2_FluentSharp_WPF</AssemblyName>
+    <AssemblyName>FluentSharp.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -91,6 +91,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FluentSharp.WPF.nuspec" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>

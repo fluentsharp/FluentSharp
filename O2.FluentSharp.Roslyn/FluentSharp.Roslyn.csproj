@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>O2.FluentSharp</RootNamespace>
-    <AssemblyName>O2_FluentSharp_Roslyn</AssemblyName>
+    <AssemblyName>FluentSharp.Roslyn</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -71,6 +71,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FluentSharp.Roslyn.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
