@@ -21,7 +21,7 @@ This is the FluentSharp NGit which provides exposed NGit (a managed Git API)</de
         <tags>Fluent OWASP O2Platform Security</tags>
         <dependencies>
             <group targetFramework=".NETFramework3.5">
-                <dependency id="FluentSharp.CoreLib" version="4.3.2.0" />
+                <dependency id="FluentSharp.CoreLib" />
             </group>
         </dependencies>
     </metadata>
