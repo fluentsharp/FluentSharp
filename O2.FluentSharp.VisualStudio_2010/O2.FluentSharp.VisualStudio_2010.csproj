@@ -39,14 +39,14 @@
       <HintPath>c:\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\extensibility.dll</HintPath>
     </Reference>
     <Reference Include="FluentSharp.BCL, Version=5.1.0.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.5.0.51\lib\net35\FluentSharp.BCL.dll</HintPath>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.BCL.5.0.60\lib\net35\FluentSharp.BCL.dll</HintPath>
     </Reference>
     <Reference Include="FluentSharp.CoreLib, Version=5.1.0.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.CoreLib.5.0.51\lib\net35\FluentSharp.CoreLib.dll</HintPath>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.CoreLib.5.0.60\lib\net35\FluentSharp.CoreLib.dll</HintPath>
     </Reference>
     <Reference Include="FluentSharp.REPL, Version=5.1.0.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
       <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.REPL.5.0.51\lib\net35\FluentSharp.REPL.exe</HintPath>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.REPL.5.0.60\lib\net35\FluentSharp.REPL.exe</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
@@ -65,8 +65,7 @@
       <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\FluentSharp.WPF.4.5.2.0\lib\net40\O2_FluentSharp_WPF.dll</HintPath>
     </Reference>
     <Reference Include="O2_Platform_External_SharpDevelop, Version=5.1.0.0, Culture=neutral, PublicKeyToken=55a0f9bf4256d533, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\O2.Platform.External.SharpDevelop.5.0.11\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
+      <HintPath>..\..\O2.Platform.Projects\VisualStudio Solution Files\packages\O2.Platform.External.SharpDevelop.5.0.60\lib\net35\O2_Platform_External_SharpDevelop.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
