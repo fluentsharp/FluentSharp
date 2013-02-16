@@ -57,8 +57,10 @@ namespace ICSharpCode.TextEditor.Document
 			if (ThreadOK().isFalse())
 				return default(char);
 			
-			if (offset < 0 || offset >= Length) {
-				throw new ArgumentOutOfRangeException("offset", offset, "0 <= offset < " + Length.ToString());
+			if (offset < 0 || offset >= Length) 
+            {
+                return default(char);
+				//throw new ArgumentOutOfRangeException("offset", offset, "0 <= offset < " + Length.ToString());
 			}
 			
 			return offset < gapBeginOffset ? buffer[offset] : buffer[offset + gapLength];

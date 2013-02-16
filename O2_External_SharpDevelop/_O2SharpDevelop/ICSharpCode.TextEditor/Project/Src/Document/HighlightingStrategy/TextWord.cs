@@ -213,10 +213,12 @@ namespace ICSharpCode.TextEditor.Document
 		// TAB
 		public TextWord(IDocument document, LineSegment line, int offset, int length, HighlightColor color, bool hasDefaultColor)
 		{
-			Debug.Assert(document != null);
+		    if (document == null || line == null || color == null)
+		        throw new Exception();
+			/*Debug.Assert(document != null);
 			Debug.Assert(line != null);
 			Debug.Assert(color != null);
-			
+			*/
 			this.document = document;
 			this.line  = line;
 			this.offset = offset;

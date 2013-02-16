@@ -170,10 +170,13 @@ namespace O2.DotNetWrappers.DotNet
             {
                 if (needCachedCompiledAssembliesSave)
                 {
-                    "in saveCachedCompiledAssembliesMappings".debug();
-                    var keyValueStrings = CompileEngine.CachedCompiledAssemblies.toKeyValueStrings();
-                    keyValueStrings.saveAs(CachedCompiledAssembliesMappingsFile);
-                    needCachedCompiledAssembliesSave = false;
+                    lock (CachedCompiledAssemblies)
+                    {
+                        "in saveCachedCompiledAssembliesMappings".debug();
+                        var keyValueStrings = CachedCompiledAssemblies.toKeyValueStrings();
+                        keyValueStrings.saveAs(CachedCompiledAssembliesMappingsFile);
+                        needCachedCompiledAssembliesSave = false;
+                    }
                 }
             }
             catch (Exception ex)

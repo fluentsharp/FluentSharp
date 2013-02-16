@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {
@@ -22,7 +23,7 @@ namespace ICSharpCode.SharpDevelop.Dom
 	public class ProjectContentRegistry : IDisposable
 	{
 		public static DomPersistence persistence;
-		Dictionary<string, IProjectContent> contents = new Dictionary<string, IProjectContent>(StringComparer.OrdinalIgnoreCase);
+		public static Dictionary<string, IProjectContent> contents = new Dictionary<string, IProjectContent>(StringComparer.OrdinalIgnoreCase);
 		
 		/// <summary>
 		/// Disposes all project contents stored in this registry.
@@ -72,44 +73,49 @@ namespace ICSharpCode.SharpDevelop.Dom
 			}
 		}
 		
-		public virtual IProjectContent Mscorlib {
-			get {
-				if (mscorlibContent != null) return mscorlibContent;
-				lock (contents) {
-					if (contents.ContainsKey("mscorlib")) {
-						mscorlibContent = (ReflectionProjectContent)contents["mscorlib"];
-						return contents["mscorlib"];
-					}
-					int time = LoggingService.IsDebugEnabled ? Environment.TickCount : 0;
-					LoggingService.Debug("Loading PC for mscorlib...");
-					if (persistence != null) {
-						mscorlibContent = persistence.LoadProjectContentByAssemblyName(MscorlibAssembly.FullName);
-						if (mscorlibContent != null) {
-							if (time != 0) {
-								LoggingService.Debug("Loaded mscorlib from cache in " + (Environment.TickCount - time) + " ms");
-							}
-						}
-					}
-					if (mscorlibContent == null) {
-						// We're using Cecil now for everything to find bugs in CecilReader faster
-						//mscorlibContent = CecilReader.LoadAssembly(MscorlibAssembly.Location, this);
+		public virtual IProjectContent Mscorlib 
+        {
+			get 
+            {
+                lock (persistence)
+                { 
+				    if (mscorlibContent != null) return mscorlibContent;
+				    lock (contents) {
+					    if (contents.ContainsKey("mscorlib")) {
+						    mscorlibContent = (ReflectionProjectContent)contents["mscorlib"];
+						    return contents["mscorlib"];
+					    }
+					    int time = LoggingService.IsDebugEnabled ? Environment.TickCount : 0;
+					    LoggingService.Debug("Loading PC for mscorlib...");
+					    if (persistence != null) {
+						    mscorlibContent = persistence.LoadProjectContentByAssemblyName(MscorlibAssembly.FullName);
+						    if (mscorlibContent != null) {
+							    if (time != 0) {
+								    LoggingService.Debug("Loaded mscorlib from cache in " + (Environment.TickCount - time) + " ms");
+							    }
+						    }
+					    }
+					    if (mscorlibContent == null) {
+						    // We're using Cecil now for everything to find bugs in CecilReader faster
+						    //mscorlibContent = CecilReader.LoadAssembly(MscorlibAssembly.Location, this);
 						
-						// After SD 2.1 Beta 2, we're back to Reflection
-						mscorlibContent = new ReflectionProjectContent(MscorlibAssembly, this);
-						if (time != 0) {
-							//LoggingService.Debug("Loaded mscorlib with Cecil in " + (Environment.TickCount - time) + " ms");
-							LoggingService.Debug("Loaded mscorlib with Reflection in " + (Environment.TickCount - time) + " ms");
-						}
-						if (persistence != null) {
-							persistence.SaveProjectContent(mscorlibContent);
-							LoggingService.Debug("Saved mscorlib to cache");
-						}
-					}
-					contents["mscorlib"] = mscorlibContent;
-					contents[mscorlibContent.AssemblyFullName] = mscorlibContent;
-					contents[mscorlibContent.AssemblyLocation] = mscorlibContent;
-					return mscorlibContent;
-				}
+						    // After SD 2.1 Beta 2, we're back to Reflection
+						    mscorlibContent = new ReflectionProjectContent(MscorlibAssembly, this);
+						    if (time != 0) {
+							    //LoggingService.Debug("Loaded mscorlib with Cecil in " + (Environment.TickCount - time) + " ms");
+							    LoggingService.Debug("Loaded mscorlib with Reflection in " + (Environment.TickCount - time) + " ms");
+						    }
+						    if (persistence != null) {
+							    persistence.SaveProjectContent(mscorlibContent);
+							    LoggingService.Debug("Saved mscorlib to cache");
+						    }
+					    }
+					    contents["mscorlib"] = mscorlibContent;
+					    contents[mscorlibContent.AssemblyFullName] = mscorlibContent;
+					    contents[mscorlibContent.AssemblyLocation] = mscorlibContent;
+					    return mscorlibContent;
+				    }
+                }
 			}
 		}
 		
@@ -178,44 +184,57 @@ namespace ICSharpCode.SharpDevelop.Dom
 		
 		public virtual IProjectContent GetProjectContentForReference(string itemInclude, string itemFileName)
 		{
-			lock (contents) {
+			lock (contents) 
+            {
 				IProjectContent pc = GetExistingProjectContent(itemFileName);
-				if (pc != null) {
+				if (pc != null) 
+                {
+                    "Loaded Code Completion Reference (from Cache): {0}".debug(itemFileName);
 					return pc;
 				}
 				
-				LoggingService.Debug("Loading PC for " + itemInclude);
+				//LoggingService.Debug("Loading PC for " + itemInclude);
 				
 				string shortName = itemInclude;
 				int pos = shortName.IndexOf(',');
-				if (pos > 0)
-					shortName = shortName.Substring(0, pos);
+				//if (pos > 0)
+				//	shortName = shortName.Substring(0, pos);
 				
 				#if DEBUG
 				int time = Environment.TickCount;
 				#endif
 				
-				try {
-					pc = LoadProjectContent(itemInclude, itemFileName);
-				} catch (Exception ex) {
+				try 
+                {
+					pc = LoadProjectContent(itemInclude, itemFileName);                    
+				} 
+                catch (Exception ex) 
+                {
 					HostCallback.ShowAssemblyLoadErrorInternal(itemFileName, itemInclude, "Error loading assembly:\n" + ex.ToString());
-					O2.Kernel.PublicDI.log.ex(ex);
-				} finally {
+					ex.log();
+				} 
+                finally 
+                {
 					#if DEBUG
 					LoggingService.Debug(string.Format("Loaded {0} in {1}ms", itemInclude, Environment.TickCount - time));
 					#endif
 				}
 				
-				if (pc != null) {
+				if (pc != null) 
+                {
 					ReflectionProjectContent reflectionProjectContent = pc as ReflectionProjectContent;
-					if (reflectionProjectContent != null) {
-						reflectionProjectContent.InitializeReferences();
-						if (reflectionProjectContent.AssemblyFullName != null) {
+					if (reflectionProjectContent != null) 
+                    {
+						reflectionProjectContent.InitializeReferences();						
+                        if (reflectionProjectContent.AssemblyFullName != null) 
+                        {
 							contents[reflectionProjectContent.AssemblyFullName] = pc;
 						}
 					}
 					contents[itemInclude] = pc;
 					contents[itemFileName] = pc;
+
+                    "Loaded Code Completion Reference for: {0}".info(itemFileName);
 				}
 				return pc;
 			}

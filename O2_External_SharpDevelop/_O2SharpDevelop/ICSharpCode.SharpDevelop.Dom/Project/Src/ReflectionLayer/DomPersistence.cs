@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using O2.DotNetWrappers.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom
@@ -124,18 +123,21 @@ namespace ICSharpCode.SharpDevelop.Dom
 		{
             try
             {
-                string indexFile = GetIndexFileName();
-                using (FileStream fs = new FileStream(indexFile, FileMode.Create, FileAccess.Write))
+                lock (ProjectContentRegistry.persistence)
                 {
-                    using (BinaryWriter writer = new BinaryWriter(fs))
+                    string indexFile = GetIndexFileName();
+                    using (var fs = new FileStream(indexFile, FileMode.Create, FileAccess.Write))
                     {
-                        writer.Write(IndexFileMagic);
-                        writer.Write(FileVersion);
-                        writer.Write(cacheIndex.Count);
-                        foreach (KeyValuePair<string, string> e in cacheIndex)
+                        using (var writer = new BinaryWriter(fs))
                         {
-                            writer.Write(e.Key);
-                            writer.Write(e.Value);
+                            writer.Write(IndexFileMagic);
+                            writer.Write(FileVersion);
+                            writer.Write(cacheIndex.Count);
+                            foreach (KeyValuePair<string, string> e in cacheIndex)
+                            {
+                                writer.Write(e.Key);
+                                writer.Write(e.Value);
+                            }
                         }
                     }
                 }

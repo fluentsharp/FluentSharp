@@ -34,7 +34,7 @@ namespace O2.External.SharpDevelop.Ascx
         public bool                     UseParseCodeThread              { get; set; }
         public List<String>             loadedReferences                { get; set; }
         public List<String>             gacAssemblies                   { get; set; }
-		public ICompletionDataProvider  completionDataProvider          { get; set; }        
+        public ICompletionDataProvider  completionDataProvider          { get; set; }        
         public bool                                 OnlyShowCodeCompleteResultsFromO2Namespace  { get; set; }
         public Dictionary<string, ICompilationUnit> mappedCompilationUnits                      { get; set; } // so that we support dynamic CodeCompletion from multiple files
         
@@ -51,7 +51,7 @@ namespace O2.External.SharpDevelop.Ascx
         public CodeCompletionWindow     codeCompletionWindow;
         public Action<string>           statusMessage;
         public ExpressionResult         currentExpression;        
-		public event Action<CodeCompletionWindow>   after_CodeCompletionWindow_IsAvailable;  
+        public event Action<CodeCompletionWindow>   after_CodeCompletionWindow_IsAvailable;  
         public event  Action                        onCompleted_AddReferences;                
         
         public O2CodeCompletion(TextEditorControl textEditor) : this(textEditor,(text)=>text.info())
@@ -177,11 +177,14 @@ namespace O2.External.SharpDevelop.Ascx
                 () =>{
                         try
                         {
-                            //var referencesTimer = new O2Timer("Added {0} references".format(referencesToAdd.size())).start(); ;
-                            foreach (var referencedAssembly in referencesToAdd)
-                                addReference(referencedAssembly);
-                            //referencesTimer.stop();
-                            onCompleted_AddReferences.invoke();
+                            lock (ProjectContentRegistry.persistence)
+                            {
+                                //var referencesTimer = new O2Timer("Added {0} references".format(referencesToAdd.size())).start(); ;
+                                foreach (var referencedAssembly in referencesToAdd.toList())
+                                    addReference(referencedAssembly);
+                                //referencesTimer.stop();
+                                onCompleted_AddReferences.invoke();
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -277,9 +280,9 @@ namespace O2.External.SharpDevelop.Ascx
             }
    //         "key pressed:{0}".format(key).info();
          //   if (key == '.')// || key == ' ')
-			if (key == '.')
+            if (key == '.')
             {
-				showCodeCompleteWindow(key);
+                showCodeCompleteWindow(key);
                  
                 //});
 //                return true;
@@ -521,7 +524,7 @@ namespace O2.External.SharpDevelop.Ascx
         // part of the CodeCompletionProvider   (public class CodeCompletionProvider : ICompletionDataProvider)                
         public ImageList ImageList {
             get {
-                return this.smallIcons;				
+                return smallIcons;				
             }
         }        
         public string PreSelection {
@@ -704,8 +707,8 @@ namespace O2.External.SharpDevelop.Ascx
                     // description if there are multiple results with the same name.                    
                     CodeCompletionData data;
                     if (nameDictionary.TryGetValue(m.Name, out data)) 
-					{						
-						data.AddOverload(m);
+                    {						
+                        data.AddOverload(m);
                     } else {
                         nameDictionary[m.Name] = data = new CodeCompletionData(m,this);
                         resultList.Add(data);
@@ -737,11 +740,11 @@ namespace O2.External.SharpDevelop.Ascx
             this.c = c;
             o2CodeCompletion = o2_Code_Completion;
         }                
-	    public List<IMember> overloads = new List<IMember>();        
-		internal void AddOverload(IMember iMember)
-		{
-			//var name = (m as DefaultMethod).DotNetName;
-			overloads.Add(iMember);
+        public List<IMember> overloads = new List<IMember>();        
+        internal void AddOverload(IMember iMember)
+        {
+            //var name = (m as DefaultMethod).DotNetName;
+            overloads.Add(iMember);
 //            overloads++;
         }       
         static int GetMemberImageIndex(IMember member)
@@ -775,18 +778,18 @@ namespace O2.External.SharpDevelop.Ascx
                     _description = GetText(entity);
 
                     if (overloads.size() > 1) 
-					{
+                    {
                         _description += " (+" + overloads.size() + " overloads)";
-						_description += "\n\n-------------------------- \n\n";
-						foreach (var overload in overloads)
-						{
-							if (overload is DefaultMethod)
-								_description += "{0}".line().format((overload as DefaultMethod).Signature());
-							else
-								_description += "{0}".line().format(overload.str());
-						}
-					}
-	                
+                        _description += "\n\n-------------------------- \n\n";
+                        foreach (var overload in overloads)
+                        {
+                            if (overload is DefaultMethod)
+                                _description += "{0}".line().format((overload as DefaultMethod).Signature());
+                            else
+                                _description += "{0}".line().format(overload.str());
+                        }
+                    }
+                    
                     //description += Environment.NewLine + XmlDocumentationToText(entity.Documentation);
                 }
                 return _description;
@@ -859,7 +862,7 @@ namespace O2.External.SharpDevelop.Ascx
                 return xmlDoc;
             }
         }		
-	}
+    }
     
     
     public static class SharpdevelopExtensionMethods
@@ -868,19 +871,21 @@ namespace O2.External.SharpDevelop.Ascx
         {
             try
             {
-                debugMessage("Loading Code Completion Reference: {0}".format(assemblyToLoad));
-                //if (!assemblyToLoad.fileExists())
-                //	"file doesn't exist".error();    		
-                IProjectContent referenceProjectContent = pcRegistry.GetProjectContentForReference(assemblyToLoad, assemblyToLoad);
-                if (referenceProjectContent == null)
-                    "referenceProjectContent was null".error();
-                else
-                {
-                    projectContent.AddReferencedContent(referenceProjectContent);
-                    if (referenceProjectContent is ReflectionProjectContent)
-                        (referenceProjectContent as ReflectionProjectContent).InitializeReferences();
+                lock (ProjectContentRegistry.persistence)
+                { 
+                    //debugMessage("Loading Code Completion Reference: {0}".format(assemblyToLoad));
+                    
+                    IProjectContent referenceProjectContent = pcRegistry.GetProjectContentForReference(assemblyToLoad, assemblyToLoad);
+                    if (referenceProjectContent == null)
+                        "referenceProjectContent was null".error();
                     else
-                        "something when wrong in DefaultProjectContent.add_Reference".error();
+                    {
+                        projectContent.AddReferencedContent(referenceProjectContent);
+                        if (referenceProjectContent is ReflectionProjectContent)
+                            (referenceProjectContent as ReflectionProjectContent).InitializeReferences();
+                        else
+                            "something when wrong in DefaultProjectContent.add_Reference".error();
+                    }
                 }
             }
             catch (Exception ex)

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Drawing;
 
 using ICSharpCode.TextEditor.Undo;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace ICSharpCode.TextEditor.Document
 {
@@ -184,11 +185,21 @@ namespace ICSharpCode.TextEditor.Document
 		}
 		
 		public IHighlightingStrategy HighlightingStrategy {
-			get {
+			get 
+            {
 				return lineTrackingStrategy.HighlightingStrategy;
 			}
-			set {
-				lineTrackingStrategy.HighlightingStrategy = value;
+			set 
+            {
+                try
+                {
+                    lineTrackingStrategy.HighlightingStrategy = value;
+                }
+                catch (Exception ex)
+                {
+                    ex.log("in DefaultDocument.HighlightingStrategy setter");
+                }
+				
 			}
 		}
 		

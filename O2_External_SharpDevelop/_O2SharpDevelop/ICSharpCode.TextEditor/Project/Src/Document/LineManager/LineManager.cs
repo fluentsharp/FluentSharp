@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace ICSharpCode.TextEditor.Document
 {
@@ -34,13 +35,26 @@ namespace ICSharpCode.TextEditor.Document
 			get {
 				return highlightingStrategy;
 			}
-			set {
-				if (highlightingStrategy != value) {
-					highlightingStrategy = value;
-					if (highlightingStrategy != null) {
-						highlightingStrategy.MarkTokens(document);
-					}
-				}
+			set 
+            {
+                try
+                {
+                    lock (document)
+                    {
+                        if (highlightingStrategy != value)
+                        {
+                            highlightingStrategy = value;
+                            if (highlightingStrategy != null)
+                            {
+                                highlightingStrategy.MarkTokens(document);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.log("[in LineManager] HighlightingStrategy setter");
+                }			    
 			}
 		}
 		

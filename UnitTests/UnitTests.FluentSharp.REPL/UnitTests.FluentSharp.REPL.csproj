@@ -52,7 +52,7 @@
     <Compile Include="Test_Embedded_Assemblies_Load.cs" />
     <Compile Include="Test_ScriptEditor.cs" />
     <Compile Include="Test_SourceCodeEditor.cs" />
-    <Compile Include="Test_SourceCodeEditor_CodeComplete.cs" />
+    <Compile Include="Test_ScriptMe.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">

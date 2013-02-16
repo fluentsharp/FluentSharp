@@ -6,6 +6,7 @@
 // </file>
 
 using System;
+using O2.DotNetWrappers.ExtensionMethods;
 
 namespace ICSharpCode.TextEditor.Document
 {
@@ -28,11 +29,16 @@ namespace ICSharpCode.TextEditor.Document
 		
 		public static IHighlightingStrategy CreateHighlightingStrategyForFile(string fileName)
 		{
-			IHighlightingStrategy highlightingStrategy  = HighlightingManager.Manager.FindHighlighterForFile(fileName);
-			if (highlightingStrategy == null) {
-				return CreateHighlightingStrategy();
-			}
-			return highlightingStrategy;
+		    try
+		    {
+                var highlightingStrategy  = HighlightingManager.Manager.FindHighlighterForFile(fileName);
+			    return highlightingStrategy ?? CreateHighlightingStrategy();
+		    }
+		    catch (Exception ex)
+		    {
+		        ex.log("in CreateHighlightingStrategyForFile for file: {0}", fileName);
+		        return null;
+		    }			
 		}
 	}
 }

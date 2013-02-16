@@ -38,74 +38,45 @@ namespace O2.XRules.Database.Utils
     public sealed class ascx_Simple_Script_Editor : UserControl
     {
         //private static IO2Log log = PublicDI.log;
-
-        public ascx_SourceCodeViewer sourceCodeViewer { get; set; }
-        public ascx_SourceCodeViewer commandsToExecute { get; set; }
-        public RichTextBox result_RichTextBox { get; set; }
-        public Panel result_Panel { get; set; }
-        public Button executeButton { get; set; }
+        public ascx_SourceCodeViewer sourceCodeViewer   { get; set; }
+        public ascx_SourceCodeViewer commandsToExecute  { get; set; }
+        public RichTextBox result_RichTextBox           { get; set; }
+        public Panel result_Panel                       { get; set; }
+        public Button executeButton                     { get; set; }
         //public TextBox currentScriptPath 				{ get; set;}
-        public ToolStrip ToolStrip { get; set; }
+        public ToolStrip ToolStrip                      { get; set; }
         //public SplitContainer topLevelSplitContainer {get ; set;}
         public SplitContainer splitContainer_CommandBox { get; set; }
-        public SplitContainer splitContainer_TopLevel { get; set; }
-        public SplitContainer splitContainer_Results { get; set; }
-        public bool AddToolStrip { get; set; }
-
-        public Action OnAstFail { get; set; }
-        public Action OnAstOK { get; set; }
-        public Action onCompileFail { get; set; }
-        public Action onCompileOK { get; set; }
-        public Action<object> onExecute { get; set; }
-
+        public SplitContainer splitContainer_TopLevel   { get; set; }
+        public SplitContainer splitContainer_Results    { get; set; }
+        public bool AddToolStrip                { get; set; }
+        public Action OnAstFail                 { get; set; }
+        public Action OnAstOK                   { get; set; }
+        public Action onCompileFail             { get; set; }
+        public Action onCompileOK               { get; set; }
+        public Action<object> onExecute         { get; set; }
         public CSharp_FastCompiler csharpCompiler { get; set; }
-        public string GeneratedCode { get; set; }
+        public string GeneratedCode             { get; set; }
         public Dictionary<string, object> InvocationParameters { get; set; }
         //public bool 		  				ResolveInvocationParametersType { get; set; }
-        public bool AutoCompileOnCodeChange { get; set; }
-        public bool AutoSaveOnCompileSuccess { get; set; }
-        public string AutoSaveDir { get; set; }
+        public bool AutoCompileOnCodeChange     { get; set; }
+        public bool AutoSaveOnCompileSuccess    { get; set; }
+        public string AutoSaveDir               { get; set; }
         public int width = 300;
         public int height = 300;
-        public bool ExecuteOnEnter { get; set; }
-        public bool ExecuteOnCompile { get; set; }
-        public string previousCompiledCodeText { get; set; }
-        public Thread TriggerCompilationThread { get; set; }
-        public Thread ExecutionThread { get; set; }
+        public bool ExecuteOnEnter              { get; set; }
+        public bool ExecuteOnCompile            { get; set; }
+        public string previousCompiledCodeText  { get; set; }
+        public Thread TriggerCompilationThread  { get; set; }
+        public Thread ExecutionThread           { get; set; }
+        public object LastExecutionResult       { get; set; }
 
         public string defaultCode = "PublicDI.log.info(\"Dynamic Data: {0},{1}\", testString, testNumber);"
-                               .line("return \"Dynamic Data = \" + testString + \" :: \" + testNumber;");
+                               .line("return \"Dynamic Data = \" + testString + \" :: \" + testNumber;");        
 
-        public static ascx_Simple_Script_Editor startControl()
-        {
-            var control = O2Gui.load<ascx_Simple_Script_Editor>("O2 Simple Script Editor", 700, 300);
-
-            control.invokeOnThread(() =>
-            {
-                control.InvocationParameters.Add("testString", "Hello World");
-                control.InvocationParameters.Add("testNumber", 42);
-                control.commandsToExecute.set_Text(control.defaultCode);
-            });
-            return control;
-        }
-
-        public static ascx_Simple_Script_Editor startControl_NoCodeComplete()
-        {
-            var host = O2Gui.load<Panel>("O2 Simple Script Editor", 700, 300);
-            return host.invokeOnThread(
-                () =>
-                {
-                    var scriptEditor = new ascx_Simple_Script_Editor(false);
-                    scriptEditor.fill();
-                    host.add_Control(scriptEditor);
-                    return scriptEditor;
-                });
-        }
-		 
         public ascx_Simple_Script_Editor() : this(true)
         {			
         }
-
         public ascx_Simple_Script_Editor(bool codeCompleteSupport)
         {
             AddToolStrip = true;
@@ -129,7 +100,6 @@ namespace O2.XRules.Database.Utils
             Refresh();
 
         }
-
         public void enableCodeComplete_afterACoupleSeconds()
         {
             O2Thread.mtaThread(
@@ -139,10 +109,9 @@ namespace O2.XRules.Database.Utils
                     "Loading Code Complete data".info();
                     commandsToExecute.enableCodeComplete();
                     commandsToExecute.editor().o2CodeCompletion.UseParseCodeThread = false;
-					commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+                    commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
                 });
         }
-
         private void createGui()
         {
             // create controls
@@ -183,7 +152,6 @@ namespace O2.XRules.Database.Utils
                 addToolStrip();
 
         }
-
         public void configureGui()
         {
             result_Panel.visible(false);
@@ -257,14 +225,16 @@ namespace O2.XRules.Database.Utils
                        .add_MenuItem("run in STA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("run in MTA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
                        .add_MenuItem("clear 'AssembliesCheckedIfExists' cache", (menuitem) => insertCodeSnipptet(menuitem.Text));
+            contextMenu.add_MenuItem("This Script Editor")
+                        .add_MenuItem("REPL script this Script"                      , scriptTheCurrentScript)
+                        .add_MenuItem("REPL script this Script's codeComplete object", scriptTheCurrentScript_CodeComplete);
             contextMenu.add_MenuItem("O2 Scripts")
-                       .add_MenuItem("Download/Update O2 Scripts (via http)", () => O2Scripts.downloadO2Scripts())
+                       .add_MenuItem("Download/Update O2 Scripts (via http)", O2Scripts.downloadO2Scripts)
                        .add_MenuItem("O2 Script: find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
-					   .add_MenuItem("O2 Script: new C# Script Editor", () => open.scriptEditor())                       
-                       .add_MenuItem("O2 Script: script this Script", () => scriptTheCurrentScript())
+                       .add_MenuItem("O2 Script: new C# Script Editor", () => open.scriptEditor())                                              
                        .add_MenuItem("O2 Script: Find Script to execute", () => "Util - O2 Available scripts.h2".local().executeH2Script())
                        .add_MenuItem("O2 Script: open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script())
-					   .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script());
+                       .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script());
 
             contextMenu.add_MenuItem("package current Script as StandAlone Exe", () => packageCurrentScriptAsStandAloneExe());            
             contextMenu.add_MenuItem("show O2 Object Model", () => open.o2ObjectModel());            
@@ -272,7 +242,6 @@ namespace O2.XRules.Database.Utils
             contextMenu.add_MenuItem("show Log Viewer", (menuitem) => showLogViewer());
 
         }
-
         public void openSelectedTextInCodeEditor()
         {
             var selectedText = this.commandsToExecute.editor()
@@ -282,7 +251,6 @@ namespace O2.XRules.Database.Utils
             if (file.exists())
                 file.showInCodeEditor();
         }
-
         public void packageCurrentScriptAsStandAloneExe()
         {
             var h2File = currentSourceCodeFilePath();
@@ -293,7 +261,6 @@ namespace O2.XRules.Database.Utils
             var packageScript = (Action<string>)"Util - Package O2 Script into separate Folder.h2".executeFirstMethod();
             packageScript(h2File);
         }
-
         public void insertCodeSnipptet(string snippetToInsert)
         {
             switch (snippetToInsert)
@@ -336,19 +303,18 @@ namespace O2.XRules.Database.Utils
                     break;                
             }
         }
-
         public void addToolStrip()
         {
-			this.ToolStrip = this.insert_Above(30).add_Control<ToolStrip>()
-												  .splitContainerFixed();			
+            this.ToolStrip = this.insert_Above(30).add_Control<ToolStrip>()
+                                                  .splitContainerFixed();			
             
             try
             { 
-				ToolStrip.add_Button("run"		, () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
-						 .add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
-					     .add_Button("open"		, () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
+                ToolStrip.add_Button("run"		, () => { this.execute(); }).with_Icon(FormImages.btExecuteSelectedMethod_Image)	
+                         .add_Button("new"		, () => { this.commandsToExecute.editor().newFile() ; }).with_Icon_New()
+                         .add_Button("open"		, () => { this.commandsToExecute.editor().openFile(); }).with_Icon_Open()
                          .add_Button("save as"	, () => { this.saveAsScript(); }).with_Icon_Save()
-						 //.add_Button("log viewer", () => { this.showLogViewer(); })
+                         //.add_Button("log viewer", () => { this.showLogViewer(); })
                          .add_Label("search:").add_TextBox("").onEnter(searchInText)
                          ;
             }
@@ -357,13 +323,11 @@ namespace O2.XRules.Database.Utils
                 ex.log().logStackTrace();
             }
         }
-
         public ascx_Simple_Script_Editor openFile(string file)
         {
             commandsToExecute.open(file);
             return this;
         }
-
         public void setCompilerEnvironment()
         {
             var o2Timer = new O2Timer("Code Compiled in");
@@ -446,8 +410,8 @@ namespace O2.XRules.Database.Utils
 
                    onCompileOK.invoke();
                    // once all is done update the codeComplete information
-//                   if (this.commandsToExecute.editor().o2CodeCompletion.notNull())
-//                     this.commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+                   if (commandsToExecute.editor().o2CodeCompletion.notNull())
+                       commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
 
                    //add_ExtraMethodsFile();									// restore previous mappings here
 
@@ -461,43 +425,19 @@ namespace O2.XRules.Database.Utils
                        execute();
                };		
 
-        }
-
-        //extra O2 Tags (ideally all should be handled here)	
+        }      
         public string handleExtraO2TagsInSourceCode(string codeToCompile)
-        {
+        {            
             if (codeToCompile.contains("O2Tag_CleanCompilation"))
-                codeToCompile = codeToCompile.insertAfter( // "".line() + "//O2Tag_DontAddExtraO2Files" +
-                                                          "".line() + " //O2Tag_OnlyAddReferencedAssemblies");
+                codeToCompile = codeToCompile.insertAfter( "".line() + " //O2Tag_OnlyAddReferencedAssemblies");
+      
+            csharpCompiler.ResolveInvocationParametersType = codeToCompile.contains("//O2Tag_SetInvocationParametersToDynamic")
+                                                                           .isFalse();
 
-           /* if (codeToCompile.contains("//O2Tag_DontAddExtraO2Files"))
-                add_No_ExtraMethodsFile();
-            else
-                add_ExtraMethodsFile();*/
-
-            this.csharpCompiler.ResolveInvocationParametersType = codeToCompile.contains("//O2Tag_SetInvocationParametersToDynamic")
-                                                                               .isFalse();
-
-            this.csharpCompiler.UseCachedAssemblyIfAvailable = codeToCompile.contains("//O2Tag_DontUseCachedAssemblyIfAvailable")
-                                                                            .isFalse();
+            csharpCompiler.UseCachedAssemblyIfAvailable = codeToCompile.contains("//O2Tag_DontUseCachedAssemblyIfAvailable")
+                                                                       .isFalse();
             return codeToCompile;
-        }
-
-        //these two next methods are a hack to handle the problem caused by EXTRA_EXTENSION_METHODS_FILE being a constant
-/*        public void add_ExtraMethodsFile()
-        {
-            //"HACK: add_ExtraMethodsFile".error();
-            var extraMethodsFile = PublicDI.config.LocalScriptsFolder.pathCombine(@"Utils\ExtensionMethods\_Extra_methods_To_Add_to_Main_CodeBase.cs");
-            CompileEngine.LocalScriptFileMappings["_Extra_methods_To_Add_to_Main_CodeBase.cs"] = extraMethodsFile;
-        }
-
-        public void add_No_ExtraMethodsFile()
-        {
-            //"HACK: add_No_ExtraMethodsFile".error();
-            var noExtraMethodsFile = PublicDI.config.LocalScriptsFolder.pathCombine(@"Utils\ExtensionMethods\_No_Extra_methods.cs");
-            CompileEngine.LocalScriptFileMappings["_Extra_methods_To_Add_to_Main_CodeBase.cs"] = noExtraMethodsFile;
-        }*/
-
+        }    
         public void triggerCompilation()
         {
             TriggerCompilationThread = O2Thread.mtaThread(
@@ -514,8 +454,6 @@ namespace O2.XRules.Database.Utils
                     }
                 });
         }
-
-
         public void onTextChanged(string newText)
         {
             if (AutoCompileOnCodeChange)
@@ -523,13 +461,11 @@ namespace O2.XRules.Database.Utils
                 triggerCompilation();
             }
         }
-
         public ascx_Simple_Script_Editor compile()
         {
             compileCodeSnippet(currentCode());
             return this;
         }
-
         public string currentCode()
         {
             return commandsToExecute.editor().getSourceCode();
@@ -562,7 +498,6 @@ namespace O2.XRules.Database.Utils
                 ex.log("in ascx_Simple_Script_Editor compileCodeSnippet", true);
             }
         }
-
         public void forceCompilation()
         {
             /*var dummyclass = "public class test".line() + 
@@ -577,17 +512,14 @@ namespace O2.XRules.Database.Utils
             csharpCompiler.compileSourceCode(dummyclass);*/
             csharpCompiler.compileSourceCode(sourceCodeViewer.get_Text());
         }
-
         public void replaceMainCodeWithGeneratedSource()
         {
             commandsToExecute.set_Text(sourceCodeViewer.get_Text());
         }
-
         public void showLogViewer()
         {
             this.insert_LogViewer();
         }
-
         public void showAutoSavedScripts()
         {
             if ("Util - Search AutoSaved Scripts (starting with Today).h2".local().fileExists())
@@ -604,7 +536,6 @@ namespace O2.XRules.Database.Utils
                         directory.open(autoSaveDir);
                     });
         }
-
         public bool handleKeyEventHandler(char key)
         {
             if (ExecuteOnEnter && key == 10)
@@ -614,34 +545,7 @@ namespace O2.XRules.Database.Utils
                 return true;
             }
             return false;
-        }
-        private void handlePressedKeys(KeyEventArgs e)
-        {
-            //var currentOffset = commandsToExecute.textArea().Document.PositionToOffset(commandsToExecute.editor().caretLine);
-            //commandsToExecute.textArea().Document.Remove(currentOffset, 1);
-            //e.KeyCode.str().info();
-            //O2.Kernel.PublicDI.log.debug("KeyUp: " + e.KeyValue.ToString()); ;                
-            if (e.Modifiers == Keys.Control && e.KeyValue == 'B')           // Ctrl+B compiles code
-            {
-                "Compiling code".debug();
-                compileCodeSnippet(Code);
-
-            }
-            if (e.Modifiers == Keys.Control && e.KeyValue == 'S')           // Ctrl+S saves code
-            {
-                "Saving Script".debug();
-                saveScript();
-
-            }
-            else if (e.KeyValue == 116 ||                                       // F5 (key 116) and 
-                (e.Modifiers == Keys.Control && e.KeyValue == 'R') ||           // Ctrl+R  executes it
-                (e.Modifiers == Keys.Control && e.KeyValue == 13))              // Ctrl+Enter  executes it
-            {
-                "Executing method".debug();
-                execute();
-            }
-        }
-
+        }        
         public void execute()
         {
             if (executeButton.Enabled)
@@ -655,7 +559,6 @@ namespace O2.XRules.Database.Utils
                 ExecutionThread = O2Thread.mtaThread(() => showResult(csharpCompiler.executeFirstMethod()));
             }
         }
-
         public void stopCurrentExecution()
         {
             if (ExecutionThread.notNull() && ExecutionThread.IsAlive)
@@ -665,9 +568,9 @@ namespace O2.XRules.Database.Utils
                 result_RichTextBox.textColor(Color.Red).set_Text("...current thread stopped...");
             }
         }
-
         public void showResult(object result)
         {
+            LastExecutionResult = result;
             result_RichTextBox.visible(false);
             result_Panel.visible(false);
             result_Panel.clear();
@@ -701,12 +604,10 @@ namespace O2.XRules.Database.Utils
             onExecute.invoke(result);
 
         }
-
         public string currentSourceCodeFilePath()
         {
             return commandsToExecute.editor().getFullPathTOCurrentSourceCodeFile();
         }
-
         public void saveScript()
         {
             if (currentSourceCodeFilePath().fileExists())
@@ -717,7 +618,6 @@ namespace O2.XRules.Database.Utils
             else
                 saveAsScript();
         }
-
         public void saveAsScript()
         {
             this.invokeOnThread(
@@ -738,7 +638,6 @@ namespace O2.XRules.Database.Utils
                     "target: {0}".info(targetFile);
                 });
         }
-
         public void swapGeneratedCodeViewMode()
         {
             this.invokeOnThread(
@@ -749,32 +648,27 @@ namespace O2.XRules.Database.Utils
                         compileCodeSnippet(currentCode());
                 });
         }
-
         public void showGeneratedSourceCode()
         {
             if (splitContainer_TopLevel.Panel2Collapsed)
                 swapGeneratedCodeViewMode();
         }
-
         public bool isGeneratedSourceCodeVisible()
         {
             return !splitContainer_TopLevel.Panel2Collapsed;
         }
-
         public void enableCodeComplete()
         {
             commandsToExecute.enableCodeComplete();
             commandsToExecute.editor().o2CodeCompletion.UseParseCodeThread = false;
-			commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+            commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
         }
-
         public void enableDisableFullCodeComplete()
         {
             var o2CodeCompletion = commandsToExecute.editor().o2CodeCompletion;
             if (o2CodeCompletion.notNull())
                 o2CodeCompletion.OnlyShowCodeCompleteResultsFromO2Namespace = !o2CodeCompletion.OnlyShowCodeCompleteResultsFromO2Namespace;
         }
-
         public string Code
         {
             get
@@ -787,19 +681,19 @@ namespace O2.XRules.Database.Utils
                 commandsToExecute.set_Text(value);
             }
         }
-
         public ascx_Simple_Script_Editor set_Script(string script)
         {
             this.Code = script;
             return this;
         }
-
         public void searchInText(string text)
         {
             this.commandsToExecute.editor().invoke("searchForTextInTextEditor_findNext", text);
         }
-
-
+        public void scriptTheCurrentScript_CodeComplete()
+        {
+            commandsToExecute.editor().o2CodeCompletion.script_Me();
+        }
         public void scriptTheCurrentScript()
         {
             var code = "return script.Code;";
@@ -827,5 +721,58 @@ return _script.Code;
                       .execute();
             */
         }
+
+        private void handlePressedKeys(KeyEventArgs e)
+        {
+            //var currentOffset = commandsToExecute.textArea().Document.PositionToOffset(commandsToExecute.editor().caretLine);
+            //commandsToExecute.textArea().Document.Remove(currentOffset, 1);
+            //e.KeyCode.str().info();
+            //O2.Kernel.PublicDI.log.debug("KeyUp: " + e.KeyValue.ToString()); ;                
+            if (e.Modifiers == Keys.Control && e.KeyValue == 'B')           // Ctrl+B compiles code
+            {
+                "Compiling code".debug();
+                compileCodeSnippet(Code);
+
+            }
+            if (e.Modifiers == Keys.Control && e.KeyValue == 'S')           // Ctrl+S saves code
+            {
+                "Saving Script".debug();
+                saveScript();
+
+            }
+            else if (e.KeyValue == 116 ||                                       // F5 (key 116) and 
+                (e.Modifiers == Keys.Control && e.KeyValue == 'R') ||           // Ctrl+R  executes it
+                (e.Modifiers == Keys.Control && e.KeyValue == 13))              // Ctrl+Enter  executes it
+            {
+                "Executing method".debug();
+                execute();
+            }
+        }
+
+                public static ascx_Simple_Script_Editor startControl()
+        {
+            var control = O2Gui.load<ascx_Simple_Script_Editor>("O2 Simple Script Editor", 700, 300);
+
+            control.invokeOnThread(() =>
+            {
+                control.InvocationParameters.Add("testString", "Hello World");
+                control.InvocationParameters.Add("testNumber", 42);
+                control.commandsToExecute.set_Text(control.defaultCode);
+            });
+            return control;
+        }
+        public static ascx_Simple_Script_Editor startControl_NoCodeComplete()
+        {
+            var host = O2Gui.load<Panel>("O2 Simple Script Editor", 700, 300);
+            return host.invokeOnThread(
+                () =>
+                {
+                    var scriptEditor = new ascx_Simple_Script_Editor(false);
+                    scriptEditor.fill();
+                    host.add_Control(scriptEditor);
+                    return scriptEditor;
+                });
+        }		 
+
     }
 }
