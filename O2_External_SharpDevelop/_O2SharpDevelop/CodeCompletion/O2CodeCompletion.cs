@@ -182,14 +182,14 @@ namespace O2.External.SharpDevelop.Ascx
                                 //var referencesTimer = new O2Timer("Added {0} references".format(referencesToAdd.size())).start(); ;
                                 foreach (var referencedAssembly in referencesToAdd.toList())
                                     addReference(referencedAssembly);
-                                //referencesTimer.stop();
-                                onCompleted_AddReferences.invoke();
+                                //referencesTimer.stop();                                
                             }
                         }
                         catch (Exception ex)
                         {
                             ex.log("in O2Completion addRefrences");
                         }
+                        onCompleted_AddReferences.invoke();
                     });
         }        
         // this will regularly parse the current source code so that we have code completion for its methods 

@@ -55,7 +55,7 @@ namespace UnitTests.FluentSharp_REPL
         }
         [Test] public void CheckCodeCompleteReferences()
         {
-            var referenceToLoad = "FluentSharp.REPL.exe";
+            //var referenceToLoad = "FluentSharp.REPL.exe";
             CodeEditor.compileCSSharpFile();
             var o2CodeComplete = CodeEditor.o2CodeCompletion;
             Assert.IsNotNull(o2CodeComplete);
@@ -64,20 +64,25 @@ namespace UnitTests.FluentSharp_REPL
             o2CodeComplete.onCompleted_AddReferences += ()=> sync.Set();
                     
             sync.waitOne();
+            sync.reset();
             var loadedReferences = o2CodeComplete.loadedReferences.fileNames();
             
             Assert.Less(5, loadedReferences.size());
+
+            var testAssembly = "return {0};".format(1000000.randomNumber()).compileCodeSnippet();
+            Assert.IsTrue(testAssembly.Location.valid());
+            var referenceToLoad = testAssembly.Location.fileName();
+
             Assert.IsFalse(loadedReferences.contains(referenceToLoad));
             var code = CodeEditor.get_Text();
             Assert.IsNotNullOrEmpty(code);
 
             //add new code reference and compile again
-            var textToInsert = "//O2Ref:{0}".format(referenceToLoad).lineBeforeAndAfter();
+            var textToInsert = "//O2Ref:{0}".format(referenceToLoad).line();
             CodeEditor.insert_Text(textToInsert);
             CodeEditor.saveSourceCode()
-                      .compileCSSharpFile();
-            sync.reset()
-                .waitOne();
+                      .compileCSSharpFile();            
+            sync.waitOne();
             var newLoadedReferences = o2CodeComplete.loadedReferences.fileNames();
 
             Assert.AreNotEqual(newLoadedReferences.size(), loadedReferences.size());
