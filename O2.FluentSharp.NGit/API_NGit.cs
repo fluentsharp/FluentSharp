@@ -27,49 +27,41 @@ namespace O2.FluentSharp
         public Action<string, string, int> onMessage { get; set; }
         public StringWriter FullMessage { get; set; }
 
-        public GitProgress()
-            : this(new StringWriter())
+        public GitProgress()            : this(new StringWriter())
         {
         }
-        public GitProgress(StringWriter stringWriter)
-            : base(stringWriter)
+        public GitProgress(StringWriter stringWriter)            : base(stringWriter)
         {
             FullMessage = stringWriter;
 
-            onMessage = (type, taskName, workCurr) =>
-            {
-                "[GitProgress] {0} : {1} : {2}".info(type, taskName, workCurr);
-            };
+            onMessage = (type, taskName, workCurr) => "[GitProgress] {0} : {1} : {2}".info(type, taskName, workCurr);
         }
 
-        public override void Start(int totalTasks)
+     /*   public override void Start(int totalTasks)
         {
             //onMessage("Start","",totalTasks);
             base.Start(totalTasks);
-        }
-
+        }*/
         public override void BeginTask(string title, int work)
         {
             onMessage("BeginTask", title, work);
             base.BeginTask(title, work);
         }
-
-        public override void Update(int completed)
+    /*    public override void Update(int completed)
         {
             //onMessage("Update", "", completed);
             base.Update(completed);
         }
-
         public override void EndTask()
         {
             //onMessage("EndTask", "", -1);
             base.EndTask();
-        }
+        }*/
     }
 
     public static class API_NGit_ExtensionMethods
     {
-        public static API_NGit init(this API_NGit nGit, string pathToLocalRepository)
+        public static API_NGit  init    (this API_NGit nGit, string pathToLocalRepository                 )
         {
             try
             {
@@ -87,14 +79,8 @@ namespace O2.FluentSharp
                 ex.log("[API_NGit] ");
             }
             return null;
-        }
-
-        public static API_NGit git_Open(this string pathToLocalRepository)
-        {
-            return new API_NGit().open(pathToLocalRepository);
-        }
-
-        public static API_NGit open(this API_NGit nGit, string pathToLocalRepository)
+        }        
+        public static API_NGit  open    (this API_NGit nGit, string pathToLocalRepository                 )
         {
             try
             {
@@ -105,24 +91,13 @@ namespace O2.FluentSharp
                 nGit.Path_Local_Repository = pathToLocalRepository;
                 return nGit;
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
                 ex.log("[API_NGit] ");
             }
             return null;
         }
-
-        public static API_NGit git_Clone(this Uri sourceRepository, string targetFolder)
-        {
-            return sourceRepository.str().git_Clone(targetFolder);
-        }
-
-        public static API_NGit git_Clone(this string sourceRepository, string targetFolder)
-        {
-            return new API_NGit().clone(sourceRepository, targetFolder);
-        }
-
-        public static API_NGit clone(this API_NGit nGit, string sourceRepository, string targetFolder)
+        public static API_NGit  clone   (this API_NGit nGit, string sourceRepository, string targetFolder )
         {
             "[API_NGit] cloning: {0} into {1}".debug(sourceRepository, targetFolder);
             try
@@ -154,8 +129,7 @@ namespace O2.FluentSharp
             }
             return null;
         }
-
-        public static API_NGit add(this API_NGit nGit, string filePattern)
+        public static API_NGit  add     (this API_NGit nGit, string filePattern                           )
         {
             "[API_NGit] add: {0}".debug(filePattern);
 
@@ -164,7 +138,7 @@ namespace O2.FluentSharp
             add_Command.Call();
             return nGit;
         }
-        public static API_NGit commit(this API_NGit nGit, string commitMessage)
+        public static API_NGit  commit  (this API_NGit nGit, string commitMessage                         )
         {
             "[API_NGit] commit: {0}".debug(commitMessage);
 
@@ -178,13 +152,11 @@ namespace O2.FluentSharp
                 "[API_NGit] commit was called with no commitMessage".error();
             return nGit;
         }
-
-        public static API_NGit push(this API_NGit nGit)
+        public static API_NGit  push    (this API_NGit nGit                                               )
         {
             return nGit.push("origin");
         }
-
-        public static API_NGit push(this API_NGit nGit, string remote)
+        public static API_NGit  push    (this API_NGit nGit, string remote                                )
         {
             "[API_NGit] push: {0}".debug(remote);
 
@@ -197,13 +169,7 @@ namespace O2.FluentSharp
             "[API_NGit] push completed".debug();
             return nGit;
         }
-
-        public static API_NGit git_Pull(this string repository)
-        {
-            return repository.git_Open()
-                             .pull();
-        }
-        public static API_NGit pull(this API_NGit nGit) //, string remote)
+        public static API_NGit  pull    (this API_NGit nGit                                               )
         {
             //"[API_NGit] pull start".debug();
             var pull_Command = nGit.Git.Pull();
@@ -215,20 +181,7 @@ namespace O2.FluentSharp
             "[API_NGit] pull completed".debug();
             return nGit;
         }
-
-        public static API_NGit add_and_commit_using_Status(this API_NGit nGit)
-        {
-            nGit.add(".");
-            nGit.commit_using_Status();
-            return nGit;
-        }
-        public static API_NGit commit_using_Status(this API_NGit nGit)
-        {
-            nGit.commit(nGit.status());
-            return nGit;
-        }
-
-        public static string status(this API_NGit nGit)
+        public static string    status  (this API_NGit nGit                                               )
         {
             var statusCommand = nGit.Git.Status();
             var status = statusCommand.Call();
@@ -251,21 +204,64 @@ namespace O2.FluentSharp
                                 ((conflicting.Count > 0) ? "conflicting: {0}\n".format(conflicting.join(" , ")) : "");
             return statusDetails;
         }
-
-
+        public static ObjectId  head    (this API_NGit nGit)
+        {
+            try
+            {
+                return nGit.Repository.Resolve(Constants.HEAD);
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+                return null;
+            }
+            
+        }        
+        public static API_NGit  add_and_commit_using_Status (this API_NGit nGit                           )
+        {
+            nGit.add(".");
+            nGit.commit_using_Status();
+            return nGit;
+        }
+        public static API_NGit  commit_using_Status         (this API_NGit nGit                           )
+        {
+            nGit.commit(nGit.status());
+            return nGit;
+        }
+        
+        public static API_NGit  git_Open    (this string pathToLocalRepository                            )
+        {
+            return new API_NGit().open(pathToLocalRepository);
+        }
+        public static API_NGit  git_Clone   (this Uri sourceRepository, string targetFolder               )
+        {
+            return sourceRepository.str().git_Clone(targetFolder);
+        }
+        public static API_NGit  git_Clone   (this string sourceRepository, string targetFolder            )
+        {
+            return new API_NGit().clone(sourceRepository, targetFolder);
+        }        
+        public static API_NGit  git_Pull    (this string repository                                       )
+        {
+            return repository.git_Open()
+                             .pull();
+        }
     }
 
 
     public static class API_NGit_ExtensionMethods_File_Utils
     {
-        public static API_NGit writeFile(this API_NGit nGit, string virtualFileName, string fileContents)
+        public static API_NGit  writeFile      (this API_NGit nGit, string virtualFileName, string fileContents)
         {
             var fileToWrite = nGit.Path_Local_Repository.pathCombine(virtualFileName);
             fileContents.saveAs(fileToWrite);
             return nGit;
         }
-
-        public static bool isGitRepository(this string pathToFolder)
+        public static API_NGit  create_File    (this API_NGit nGit, string virtualFileName, string fileContents)
+        {
+            return nGit.writeFile(virtualFileName, fileContents);
+        }
+        public static bool      isGitRepository(this string pathToFolder)
         {
             return pathToFolder.dirExists() && pathToFolder.pathCombine(".git").dirExists();
         }
