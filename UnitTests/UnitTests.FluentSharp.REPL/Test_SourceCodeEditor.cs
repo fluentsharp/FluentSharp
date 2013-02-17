@@ -62,8 +62,9 @@ namespace UnitTests.FluentSharp_REPL
 
             var sync = false.sync();
             o2CodeComplete.onCompleted_AddReferences += ()=> sync.Set();
-                    
-            sync.waitOne();
+                
+            if (sync.waitOne(30 * 1000).isFalse())
+                Assert.Fail("Timeout on first sync");
             sync.reset();
             var loadedReferences = o2CodeComplete.loadedReferences.fileNames();
             
@@ -81,8 +82,10 @@ namespace UnitTests.FluentSharp_REPL
             var textToInsert = "//O2Ref:{0}".format(referenceToLoad).line();
             CodeEditor.insert_Text(textToInsert);
             CodeEditor.saveSourceCode()
-                      .compileCSSharpFile();            
-            sync.waitOne();
+                      .compileCSSharpFile();         
+   
+            if (sync.waitOne(30 * 1000).isFalse())
+                Assert.Fail("Timeout on 2nd sync");
             var newLoadedReferences = o2CodeComplete.loadedReferences.fileNames();
 
             Assert.AreNotEqual(newLoadedReferences.size(), loadedReferences.size());

@@ -23,7 +23,7 @@ namespace UnitTests.FluentSharp_REPL
                                 script.closeForm();
                 };
             script.inspector.onCompileExecuteOnce();
-            script.inspector.enableCodeComplete();
+            //script.inspector.enableCodeComplete();
             script.waitForClose();
         }
 
