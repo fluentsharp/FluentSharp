@@ -132,10 +132,15 @@ namespace O2.FluentSharp
         }
         public static API_NGit  add     (this API_NGit nGit, string filePattern                           )
         {
+            return nGit.add(filePattern, true);
+        }
+        public static API_NGit  add     (this API_NGit nGit, string filePattern, bool  setUpdate          )
+        {
             "[API_NGit] add: {0}".debug(filePattern);
 
             var add_Command = nGit.Git.Add();
             add_Command.AddFilepattern(filePattern);
+            add_Command.SetUpdate(setUpdate);           // true will handle missing/deleted files
             add_Command.Call();
             return nGit;
         }
