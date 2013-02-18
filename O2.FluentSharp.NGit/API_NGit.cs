@@ -1,5 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
+using System.Collections.Generic;
 using System.IO;
 using O2.DotNetWrappers.ExtensionMethods;
 using NGit.Api;
@@ -25,19 +26,19 @@ namespace O2.FluentSharp
     public class GitProgress : TextProgressMonitor
     {
         public Action<string, string, int> onMessage { get; set; }
-        public StringWriter FullMessage { get; set; }
+        public StringWriter                FullMessage { get; set; }
 
-        public GitProgress()            : this(new StringWriter())
+        public GitProgress()                             : this(new StringWriter())
         {
         }
-        public GitProgress(StringWriter stringWriter)            : base(stringWriter)
+        public GitProgress(StringWriter stringWriter)    : base(stringWriter)
         {
             FullMessage = stringWriter;
 
             onMessage = (type, taskName, workCurr) => "[GitProgress] {0} : {1} : {2}".info(type, taskName, workCurr);
         }
 
-     /*   public override void Start(int totalTasks)
+        /*   public override void Start(int totalTasks)
         {
             //onMessage("Start","",totalTasks);
             base.Start(totalTasks);
@@ -47,7 +48,7 @@ namespace O2.FluentSharp
             onMessage("BeginTask", title, work);
             base.BeginTask(title, work);
         }
-    /*    public override void Update(int completed)
+        /*    public override void Update(int completed)
         {
             //onMessage("Update", "", completed);
             base.Update(completed);
@@ -204,11 +205,12 @@ namespace O2.FluentSharp
                                 ((conflicting.Count > 0) ? "conflicting: {0}\n".format(conflicting.join(" , ")) : "");
             return statusDetails;
         }
-        public static ObjectId  head    (this API_NGit nGit)
+        public static string  	head    (this API_NGit nGit                                               )
         {
             try
             {
-                return nGit.Repository.Resolve(Constants.HEAD);
+            	var head = nGit.Repository.Resolve(Constants.HEAD);
+            	return head.notNull() ? head.Name : null;
             }
             catch (Exception ex)
             {
@@ -217,7 +219,8 @@ namespace O2.FluentSharp
             }
             
         }        
-        public static API_NGit  add_and_commit_using_Status (this API_NGit nGit                           )
+
+        public static API_NGit  add_and_Commit_using_Status (this API_NGit nGit                           )
         {
             nGit.add(".");
             nGit.commit_using_Status();
@@ -229,9 +232,19 @@ namespace O2.FluentSharp
             return nGit;
         }
         
-        public static API_NGit  git_Open    (this string pathToLocalRepository                            )
+        public static API_NGit  git_Init    (this string targetFolder                                     )
         {
-            return new API_NGit().open(pathToLocalRepository);
+            if (targetFolder.isGitRepository())
+            {
+                "[API_NGit][git_Init] tried to init a repository in a folder that already has a git repository: {0}"
+                    .error(targetFolder);
+                return null;
+            }
+            return new API_NGit().init(targetFolder);
+        }
+        public static API_NGit  git_Open    (this string targetFolder                                     )
+        {
+            return new API_NGit().open(targetFolder);
         }
         public static API_NGit  git_Clone   (this Uri sourceRepository, string targetFolder               )
         {
@@ -245,6 +258,39 @@ namespace O2.FluentSharp
         {
             return repository.git_Open()
                              .pull();
+        }
+
+        public static Status        status_Raw          (this API_NGit nGit                               ) 
+        {
+            return nGit.Git.Status().Call();
+        }   
+        public static List<string>  status_Added        (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetAdded().toList();
+        }
+        public static List<string>  status_Changed      (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetChanged().toList();
+        }
+        public static List<string>  status_Conflicting  (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetConflicting().toList();
+        }    
+        public static List<string>  status_Missing      (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetMissing().toList();
+        }                
+        public static List<string>  status_Modified     (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetModified().toList();
+        }    
+        public static List<string>  status_Untracked    (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetUntracked().toList();
+        }
+        public static List<string>  status_Removed      (this API_NGit nGit                               ) 
+        {
+            return nGit.status_Raw().GetRemoved().toList();
         }
     }
 
