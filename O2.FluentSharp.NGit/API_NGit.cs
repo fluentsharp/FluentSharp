@@ -2,9 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using NGit.Diff;
+using NGit.Revwalk;
+using NGit.Storage.File;
 using O2.DotNetWrappers.ExtensionMethods;
 using NGit.Api;
 using NGit;
+using Sharpen;
 
 //O2Ref:O2_FluentSharp_NGit.dll
 //O2Ref:NGit.dll
@@ -130,26 +135,28 @@ namespace O2.FluentSharp
             }
             return null;
         }
+        public static API_NGit  add     (this API_NGit nGit                                               )
+        {
+            return nGit.add(".");
+        }
         public static API_NGit  add     (this API_NGit nGit, string filePattern                           )
         {
             return nGit.add(filePattern, true);
         }
-        public static API_NGit  add     (this API_NGit nGit, string filePattern, bool  setUpdate          )
+        public static API_NGit  add     (this API_NGit nGit, string filePattern, bool  handleMissingFiles )
         {
             "[API_NGit] add: {0}".debug(filePattern);
 
-            var add_Command = nGit.Git.Add();
-            add_Command.AddFilepattern(filePattern);
-            add_Command.SetUpdate(setUpdate);           // true will handle missing/deleted files
-            add_Command.Call();
+            nGit.Git.Add().AddFilepattern(filePattern).Call();
+            if (handleMissingFiles)
+                nGit.Git.Add().AddFilepattern(filePattern).SetUpdate(true).Call();
             return nGit;
         }
         public static API_NGit  commit  (this API_NGit nGit, string commitMessage                         )
-        {
-            "[API_NGit] commit: {0}".debug(commitMessage);
-
+        {            
             if (commitMessage.valid())
             {
+                "[API_NGit] commit: {0}".debug(commitMessage);
                 var commit_Command = nGit.Git.Commit();
                 commit_Command.SetMessage(commitMessage);
                 commit_Command.Call();
@@ -227,7 +234,7 @@ namespace O2.FluentSharp
 
         public static API_NGit  add_and_Commit_using_Status (this API_NGit nGit                           )
         {
-            nGit.add(".");
+            nGit.add();
             nGit.commit_using_Status();
             return nGit;
         }
@@ -265,10 +272,6 @@ namespace O2.FluentSharp
                              .pull();
         }
 
-        public static Status        status_Raw          (this API_NGit nGit                               ) 
-        {
-            return nGit.Git.Status().Call();
-        }   
         public static List<string>  status_Added        (this API_NGit nGit                               ) 
         {
             return nGit.status_Raw().GetAdded().toList();
@@ -297,12 +300,65 @@ namespace O2.FluentSharp
         {
             return nGit.status_Raw().GetRemoved().toList();
         }
+        public static List<string>  commits(this API_NGit nGit)
+        {
+            return nGit.commits(-1);
+        }
+        public static List<string>  commits(this API_NGit nGit, int maxCount)
+        {
+            return nGit.log_Raw(maxCount)
+                       .Select(logEntry => logEntry.Name)
+                       .toList();
+
+        }
+        public static List<string>  refLogs(this API_NGit nGit)
+        {
+            return nGit.reflogs_Raw().Select(refLog => refLog.str()).toList();
+        }
+        public static string        diff(this API_NGit nGit)
+        {
+            var outputStream = "Sharpen.dll".assembly()
+                                            .type("ByteArrayOutputStream")
+                                            .ctor()
+                                            .cast<OutputStream>();
+            nGit.diff_Raw(outputStream);
+            return outputStream.str();
+        }
+
+        public static Status                    status_Raw          (this API_NGit nGit                               ) 
+        {
+            return nGit.Git.Status().Call();
+        }   
+        public static Iterable<RevCommit>       log_Raw(this API_NGit nGit)
+        {
+            return nGit.log_Raw(-1);
+        }
+        public static Iterable<RevCommit>       log_Raw(this API_NGit nGit, int maxCount)
+        {
+            return nGit.Git.Log().SetMaxCount(maxCount).Call();
+        }
+        public static ICollection<ReflogEntry>  reflogs_Raw(this API_NGit nGit)
+        {
+            return nGit.Git.Reflog().Call();
+        }
+        public static IList<DiffEntry>          diff_Raw(this API_NGit nGit)
+        {
+            return nGit.diff_Raw(null);
+        }
+        public static IList<DiffEntry>          diff_Raw(this API_NGit nGit, OutputStream outputStream)
+        {
+            var diff = nGit.Git.Diff();
+            if (outputStream.notNull())
+                diff.SetOutputStream(outputStream);
+            return diff.Call();
+        }
+        
     }
 
 
     public static class API_NGit_ExtensionMethods_File_Utils
     {
-        public static API_NGit  writeFile      (this API_NGit nGit, string virtualFileName, string fileContents)
+        public static API_NGit  write_File     (this API_NGit nGit, string virtualFileName, string fileContents)
         {
             var fileToWrite = nGit.Path_Local_Repository.pathCombine(virtualFileName);
             fileContents.saveAs(fileToWrite);
@@ -310,7 +366,7 @@ namespace O2.FluentSharp
         }
         public static API_NGit  create_File    (this API_NGit nGit, string virtualFileName, string fileContents)
         {
-            return nGit.writeFile(virtualFileName, fileContents);
+            return nGit.write_File(virtualFileName, fileContents);
         }
         public static bool      isGitRepository(this string pathToFolder)
         {
