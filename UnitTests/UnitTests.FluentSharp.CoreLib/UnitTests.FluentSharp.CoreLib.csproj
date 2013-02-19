@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Tests_Setup.cs" />
+    <Compile Include="Test_Ex_IO.cs" />
     <Compile Include="Test_Ex_Objects.cs" />
+    <Compile Include="Test_H2_FileFormat.cs" />
     <Compile Include="Test_O2Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test_CompileEngine.cs" />

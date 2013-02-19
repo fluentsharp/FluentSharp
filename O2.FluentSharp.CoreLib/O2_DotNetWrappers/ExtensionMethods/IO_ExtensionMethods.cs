@@ -280,7 +280,16 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }        
         public static bool          isBinaryFormat(this string file)
         {
-            return file.fileContents().Contains("\0");
+            try
+            {
+                return file.fileContents_AsByteArray().Contains((byte)0);
+            }
+            catch (Exception ex)
+            {
+                ex.log("in file.isBinaryFormat for: {0}", file);
+                return false;
+            }
+            
         }
         public static bool          fileName_Is(this string file, params string[] values)
         {

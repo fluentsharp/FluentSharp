@@ -21,5 +21,8 @@
         <copyright>O2 Platform 2012</copyright>
         <language>en-GB</language>
         <tags>Fluent OWASP O2Platform Security</tags>
+				<frameworkAssemblies>
+					<frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
+				</frameworkAssemblies>
     </metadata>    
 </package>

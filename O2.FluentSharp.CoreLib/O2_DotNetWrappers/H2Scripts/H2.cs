@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using O2.DotNetWrappers.ExtensionMethods;
 
@@ -23,12 +24,25 @@ namespace O2.DotNetWrappers.H2Scripts
 
         public static H2 load(string path)
         {
-            return path.deserialize<H2>();            
+            if (path.fileExists().isFalse())
+                return null;
+            if (path.isBinaryFormat())
+                return null;
+            
+            //we can't use .fileContents since it has native support for the h2 file format
+            var fileContents = path.fileContents_AsByteArray().ascii().trim();
+            if(fileContents.starts("<?xml "))                       
+                return fileContents.deserialize<H2>(false);
+            return new H2(fileContents);
+
+
         }        
 
         public bool save(string path)
         {
-            return this.serialize(path);
+            //return this.serialize(path);
+            return this.SourceCode.saveAs(path)
+                                  .fileExists();
         }        
     }
 }
