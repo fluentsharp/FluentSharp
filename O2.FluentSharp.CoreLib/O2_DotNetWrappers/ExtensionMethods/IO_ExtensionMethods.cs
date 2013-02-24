@@ -544,7 +544,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
             return Path.Combine(folder, path).fullPath();
         }
-
+        public static string        pathCombine_WithTempDir(this string fileOrPath)
+		{
+			return PublicDI.config.O2TempDir.pathCombine(fileOrPath.fileName());
+		}
        /* public static string        pathCombine_With_ExecutingAssembly_Folder(this string path)
         {
             try

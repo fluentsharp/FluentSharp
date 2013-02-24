@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Threading;
 using O2.DotNetWrappers.ExtensionMethods;
 
 using O2.External.SharpDevelop.AST;
@@ -65,15 +66,12 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         public static Assembly compile(this string pathToFileToCompile, bool generateDebugSymbols)
         {
             PublicDI.CurrentScript = pathToFileToCompile;
-            var csharpCompiler = new CSharp_FastCompiler();
-            csharpCompiler.generateDebugSymbols= generateDebugSymbols;
-			var compileProcess = new System.Threading.AutoResetEvent(false);            
+            var csharpCompiler = new CSharp_FastCompiler {generateDebugSymbols = generateDebugSymbols};
+            var compileProcess = new AutoResetEvent(false);            
             csharpCompiler.onCompileFail = () => compileProcess.Set();
             csharpCompiler.onCompileOK = () => compileProcess.Set();
 
-			O2Thread.mtaThread(()=> {            
-										csharpCompiler.compileSourceCode(pathToFileToCompile.contents());
-									});
+			O2Thread.mtaThread(()=> csharpCompiler.compileSourceCode(pathToFileToCompile.contents()));
             compileProcess.WaitOne();
             return csharpCompiler.assembly();
         }
@@ -85,10 +83,8 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {   
             //Note we can't use the precompiled engines here since there is an issue of the resolution of this code dependencies
 
-            var csharpCompiler = new CSharp_FastCompiler();
-            csharpCompiler.DebugMode = true;
-            csharpCompiler.generateDebugSymbols= generateDebugSymbols;
-            var compileProcess = new System.Threading.AutoResetEvent(false);
+            var csharpCompiler = new CSharp_FastCompiler {DebugMode = true, generateDebugSymbols = generateDebugSymbols};
+            var compileProcess = new AutoResetEvent(false);
             //csharpCompiler.compileSourceCode(pathToFileToCompile.contents());            
             csharpCompiler.onAstFail = () => compileProcess.Set();
             //csharpCompiler.onAstOK = () => compileProcess.Set();
@@ -109,7 +105,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             try
             {                
-                var sourceCode = "";
+                string sourceCode;
                 if (h2Script.extension(".h2"))
                 {
                     PublicDI.CurrentScript = h2Script;
@@ -159,7 +155,22 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                 pathToFileToCompile.fileInsertAt(0, generateDebugSymbolsTag);
             return pathToFileToCompile.compile();
 
-        } */       
+        } */
+
+        public static object invoke_FirstMethod(this Assembly assembly)
+        {
+            return assembly.invoke_FirstMethod<object>();
+        }
+
+        public static T invoke_FirstMethod<T>(this Assembly assembly)
+        {
+            var result = assembly.executeFirstMethod();
+            if (result is T)
+                return (T)result;
+            "in invoke_FirstMethod, returned value was not the expected type ('{0}') it was: '{1}'".error(typeof(T), result.type());
+            return default(T);
+        }
+
         public static object executeFirstMethod(this string pathToFileToCompileAndExecute)
         {
             try
@@ -182,11 +193,9 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             }
             if (pathToFileToCompileAndExecute.extension(".h2"))
                 return executeH2Script(pathToFileToCompileAndExecute);
-            else
-            {
-                var assembly = pathToFileToCompileAndExecute.compile(true /* generatedDebug symbols */);
-                return assembly.executeFirstMethod(parameters);
-            }
+
+            var assembly = pathToFileToCompileAndExecute.compile(true /* generatedDebug symbols */);
+            return assembly.executeFirstMethod(parameters);
         }
         public static object executeFirstMethod(this Assembly assembly)
         {
@@ -206,10 +215,15 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                     //if (methods.Count >0)        		
                     //{
                     {
+                        MethodInfo method1 = method;       
                         if (executeInStaThread)
-                            return O2Thread.staThread(() => method.executeMethod(parameters));
+                        {                            
+                            return O2Thread.staThread(() => method1.executeMethod(parameters));
+                        }
                         if (executeInMtaThread)
-                            return O2Thread.mtaThread(() => method.executeMethod(parameters));
+                        {                            
+                            return O2Thread.mtaThread(() => method1.executeMethod(parameters));
+                        }
 
                         return method.executeMethod(parameters);
                     }
@@ -303,11 +317,13 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 		}		
 		public static ComboBox add_ExecutionComboBox(this Control control, string labelText, int top, int left, Items scriptMappings, List<string> comboBoxItems)
 		{						
+            // ReSharper disable CoVariantArrayConversion
 			return control.add_Label(labelText, top, left)
 		 				  .append_Control<ComboBox>().top(top-3).dropDownList() // .width(100)		 				  
  						  .add_Items(comboBoxItems.insert("... select one...").ToArray())
  						  .executeScriptOnSelection(scriptMappings)		 							
  						  .selectFirst(); 
+            // ReSharper restore CoVariantArrayConversion
 		}		
         public static ComboBox executeScriptOnSelection(this ComboBox comboBox, Items mappings)
 		{			
@@ -356,6 +372,6 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             //"\"{0}\".executeFirstMethod()".executeCodeSnippet_InSeparateAppDomain();
             //so for now continue with the previous model of running in a separate thread
             O2Thread.mtaThread(()=>itemToExecute.executeFirstMethod());
-        }	
+        }
     }
 }

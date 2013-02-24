@@ -158,6 +158,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ascx\MiscUI\FileViewers.cs" />
+    <Compile Include="O2Setup.cs" />
     <Compile Include="launch.cs" />
     <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
@@ -242,8 +243,8 @@
     <Compile Include="_O2_External_WinFormsUI\O2Environment\O2DockUtils.cs" />
     <Compile Include="_O2_External_WinFormsUI\O2Environment\O2MessagesHandler.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\JSON_ExtensionMethods.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\ExtensionMethods\Zip_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\JSON_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Zip_ExtensionMethods.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\Web_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />

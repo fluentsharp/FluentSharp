@@ -102,6 +102,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return new Bitmap(file);
             return null;
         }
+        public static Bitmap    asBitmap(this Image image)
+		{
+			return image as Bitmap;				
+		}				
     }
 
 

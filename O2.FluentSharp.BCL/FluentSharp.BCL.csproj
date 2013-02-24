@@ -62,6 +62,7 @@
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_Control_Add.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_ToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>

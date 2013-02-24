@@ -643,7 +643,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		{
 			return label = control.add_Label(text);
 		}
-		public static Label append_Label<T>(this T control, string text, ref Label label) where T : Control
+		public static Label append_Label<T> (this T control, string text, ref Label label) where T : Control
 		{
 			return label = control.append_Label(text);
 		}
@@ -653,6 +653,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
                           .set_Text(text)
                           .autoSize();
         }
+        public static Label append_Label    (this Control control, string text, int top)
+		{
+			return control.append_Label(text).top(top);
+		}		
+		public static Label append_Label    (this Control control, string text, int top, ref Label label)
+		{
+			return label = control.append_Label(text).top(top);
+		}
+        public static Label append_Label    (this Control control, ref Label label)
+		{
+			return label = control.append_Control<Label>().autoSize();
+		}
         public static Label set_Text		(this Label label, string text)
         {
             return (Label)label.invokeOnThread(
@@ -710,7 +722,17 @@ namespace O2.DotNetWrappers.ExtensionMethods
 						label.TextAlign = ContentAlignment.MiddleCenter;
 					});
 			return label;
-		}	
+		}	        		
+		public static Label bold(this Label label)
+		{
+			return label.font_bold();
+		}
+
+        public static Label add_Message(this Control control, string messageToShow)
+		{
+			return control.clear().white().add_Label(messageToShow)
+						  .fill().text_Center().font_bold().size(20);
+		}
     }
 
     public static class WinForms_ExtensionMethods_LinkLabel
@@ -872,6 +894,13 @@ namespace O2.DotNetWrappers.ExtensionMethods
             var pictureBox = control.add_PictureBox();
             return pictureBox.load(pathToImage);
         }        
+        public static PictureBox append_PictureBox(this Control control, ref PictureBox pictureBox)
+		{
+			pictureBox = control.append_Control<PictureBox>();
+			pictureBox.height(control.height());
+			pictureBox.width(control.width());			
+			return pictureBox;
+		}
         public static PictureBox open(this PictureBox pictureBox, string pathToImage)
         {
             return pictureBox.load(pathToImage);
@@ -1466,7 +1495,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     }
 
-   
 
     public static class WinForms_ExtensionMethods_GuiHelpers
     { 

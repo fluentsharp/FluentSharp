@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.IO;
-using O2.DotNetWrappers.ExtensionMethods;
 using System.Runtime.Serialization.Json;
-using System.IO.Compression;
 using System.Web.Script.Serialization;
 
 namespace O2.DotNetWrappers.ExtensionMethods
@@ -31,7 +26,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 	    public static T json_Deserialize<T>(this string json)
 	    {
 	        //T obj = Activator.CreateInstance<T>();
-	        MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
+	        var ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
 	        var serializer = new DataContractJsonSerializer(typeof(T));
 	        var obj = (T)serializer.ReadObject(ms);
 	        ms.Close();

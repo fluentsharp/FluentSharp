@@ -75,21 +75,21 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
             return form;
         }
-		
-		
-		public static T     popupWindow<T>(this string title)			where T : Control
+        
+        
+        public static T     popupWindow<T>(this string title)			where T : Control
         {
-        	//title+=" - test" ;
+            //title+=" - test" ;
             return title.showAsForm().add_Control<T>();
         }        
         public static T     popupWindow<T>(this string title, int width, int height) where T : Control
         {
             return title.showAsForm(width, height)
-            			.add_Control<T>();
+                        .add_Control<T>();
         }       
         public static Panel popupWindow(this string title)
         {
-        	//title+=" - test" ;
+            //title+=" - test" ;
             return title.showAsForm();
         }        
         public static Panel popupWindow(this string title, int width, int height)
@@ -109,19 +109,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return O2Gui.open<Panel>(title, width, height);
         }
-		public static T	    openForm<T>(this string textToAppendToFormTitle) where T : Form
-		{
-			T form = null;
-			O2Thread.staThread(
-						() =>
-						{
-							form = (T)typeof(T).ctor();
-							form.Text += textToAppendToFormTitle.valid() ? " - {0}".format(textToAppendToFormTitle) : "";
-							form.ShowDialog();
-						});
-			Utils.waitForNotNull(ref form);
-			return form;
-		} 
+        public static T	    openForm<T>(this string textToAppendToFormTitle) where T : Form
+        {
+            T form = null;
+            O2Thread.staThread(
+                        () =>
+                        {
+                            form = (T)typeof(T).ctor();
+                            form.Text += textToAppendToFormTitle.valid() ? " - {0}".format(textToAppendToFormTitle) : "";
+                            form.ShowDialog();
+                        });
+            Utils.waitForNotNull(ref form);
+            return form;
+        } 
         public static T		showAsForm<T>(this string title) where T : Control
         {
             return title.showAsForm<T>(600, 400);
@@ -246,15 +246,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                                                 });
         }
         public static T         parentForm_AlwaysOnTop<T>(this T control)			where T : Control
-		{
-			control.parentForm().alwaysOnTop();
-			return control;
-		}				
-		public static T         alwaysOnTop<T>(this T form)			where T : Form
-		{
-			form.invokeOnThread(()=> form.TopMost= true);
-			return form;
-		}
+        {
+            control.parentForm().alwaysOnTop();
+            return control;
+        }				
+        public static T         alwaysOnTop<T>(this T form)			where T : Form
+        {
+            form.invokeOnThread(()=> form.TopMost= true);
+            return form;
+        }
         public static Form      title(this Form form, string title)
         {
             return form.set_Text(title);
@@ -285,31 +285,35 @@ namespace O2.DotNetWrappers.ExtensionMethods
             typeof(Form).fieldValue("defaultIcon", icon);
             return icon;
         }
+        public static Icon  asIcon(this Image image)
+        {
+            return image.asBitmap().asIcon();
+        }
         public static Icon asIcon(this Bitmap bitmap)
         {
-			try
-			{
-				return Icon.FromHandle(bitmap.GetHicon());
-			}
-			catch (Exception ex)
-			{
-				ex.log();
-				return null;
-			}
+            try
+            {
+                return Icon.FromHandle(bitmap.GetHicon());
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+                return null;
+            }
             
         }
         public static Icon icon(this string iconFile)
-		{
-			try
-			{
-				return new Icon(iconFile);
-			}
-			catch(Exception ex)
-			{
-				"[icon] {0}".error(ex.Message);
-				return null;
-			}
-		}
+        {
+            try
+            {
+                return new Icon(iconFile);
+            }
+            catch(Exception ex)
+            {
+                "[icon] {0}".error(ex.Message);
+                return null;
+            }
+        }
         public static string saveAs_Icon(this Bitmap bitmap)
         {
             return bitmap.saveAs_Icon(".ico".tempFile());
@@ -328,15 +332,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 icon.Save(fileStream);
             return targetFile;
         }
-		public static T set_Form_Icon<T>(this T control, string iconFile)			where T : Control
-		{
-			return control.set_Form_Icon(iconFile.icon());
-		}		
-		public static T set_Form_Icon<T>(this T control, Icon icon)			where T : Control
-		{
-			control.parentForm().set_Icon(icon);
-			return control;
-		}
+        public static T set_Form_Icon<T>(this T control, string iconFile)			where T : Control
+        {
+            return control.set_Form_Icon(iconFile.icon());
+        }		
+        public static T set_Form_Icon<T>(this T control, Icon icon)			where T : Control
+        {
+            control.parentForm().set_Icon(icon);
+            return control;
+        }
         public static T set_Icon<T>(this T control, string iconName) where T : Control
         {
             var file = iconName.local_Or_Resource();
@@ -350,25 +354,25 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return control;
         }
         public static Form set_Icon(this Form form, Icon icon)
-		{
-			form.invokeOnThread(()=> form.Icon = icon);
-			return form;
-		}								
-		public static T add_H2Icon<T>(this T control)			where T : Control
-		{
-			//return control.set_Form_Icon("H2Logo.ico".local());
-		    return control.set_Form_Icon(FormImages.H2Logo);
-		}
+        {
+            form.invokeOnThread(()=> form.Icon = icon);
+            return form;
+        }								
+        public static T add_H2Icon<T>(this T control)			where T : Control
+        {
+            //return control.set_Form_Icon("H2Logo.ico".local());
+            return control.set_Form_Icon(FormImages.H2Logo);
+        }
         public static Form set_H2Icon(this Form form)	
-		{
+        {
             //return form.set_Icon("H2Logo.ico".local().icon());
             return form.set_Form_Icon(FormImages.H2Logo);			
-		}
+        }
         public static Form set_O2Icon(this Form form)	
-		{   
+        {   
             return form.set_Form_Icon(FormImages.O2Logo);			
-			//return form.set_Icon("O2Logo.ico".local().icon());
-		}
+            //return form.set_Icon("O2Logo.ico".local().icon());
+        }
         public static Form set_DefaultIcon(this Form form)
         {
             try
@@ -395,9 +399,9 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 });
         }
         public static Image formImage(this string imageKey)
-		{
-			return (Image)typeof(FormImages).prop(imageKey);
-		}
+        {
+            return (Image)typeof(FormImages).prop(imageKey);
+        }
     }
 
     public static class WinForms_ExtensionMethods_MDIForms

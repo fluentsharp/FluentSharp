@@ -620,6 +620,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return treeView.Nodes.parentTreeNode();
             return null;
         }       
+
         
         public static TreeView  show_Object(this TreeView treeView, object objectToShow)
         {
@@ -915,20 +916,24 @@ namespace O2.DotNetWrappers.ExtensionMethods
 		}
         
 
-        public static TreeView  showToolTip(this TreeView treeView)
+        public static TreeView      showToolTip(this TreeView treeView)
         {
             if (treeView != null)
                 treeView.invokeOnThread(() => treeView.ShowNodeToolTips = true);
             return treeView;
         }
-        public static TreeNode  toolTip(this TreeNode treeNode, string toolTipText)
+        public static TreeNode      toolTip(this TreeNode treeNode, string toolTipText)
         {
             if (treeNode != null)
                 treeNode.treeView().invokeOnThread(() => treeNode.ToolTipText = toolTipText);
             return treeNode;
         }
-
-        public static TreeView  sort(this TreeView treeView, bool value)
+        public static TreeNode      font(this TreeNode treeNode, Font font)
+    	{
+			treeNode.treeView().invokeOnThread(()=> treeNode.NodeFont = font);
+			return treeNode;
+    	}
+        public static TreeView      sort(this TreeView treeView, bool value)
         {
             return (TreeView)treeView.invokeOnThread(
                     ()=>{
@@ -936,7 +941,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
                             return treeView;
                         });
         }
-        public static int       index(this TreeNode treeNode)
+        public static int           index(this TreeNode treeNode)
         {
             return (int)treeNode.treeView().invokeOnThread(() => { return treeNode.Index; });
         }
@@ -1034,6 +1039,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }
 
         //CheckBoxes
+        public static TreeView       checkBoxes(this TreeView treeView)
+		{
+			return treeView.checkBoxes(true);
+		}
         public static TreeView       checkBoxes(this TreeView treeView, bool enable)
         {
             return treeView.invokeOnThread(() => { treeView.CheckBoxes = enable; return treeView; });
@@ -1064,6 +1073,15 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 node.checkBox(false);
             return treeView;
         }
+        public static TreeNode      @checked(this TreeNode treeNode)
+		{
+			return treeNode.@checked(true);
+		}
+		public static TreeNode      @checked(this TreeNode treeNode, bool value)
+    	{
+    		treeNode.treeView().invokeOnThread(()=> treeNode.Checked = value);
+    		return treeNode;
+    	}
 
     }
 
@@ -1307,12 +1325,20 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_TreeView_Colors
     {
+        public static TreeNode  foreColor(this TreeNode treeNode, string colorName)
+    	{
+    		return treeNode.foreColor(colorName.color());    			
+    	}    	
         public static TreeNode  foreColor(this TreeNode treeNode, Color color)
         {
             if (treeNode != null)
                 treeNode.treeView().invokeOnThread(() => treeNode.ForeColor = color);
             return treeNode;
         }
+        public static TreeNode  backColor(this TreeNode treeNode, string colorName)
+    	{
+    		return treeNode.backColor(colorName.color());    			
+    	}    	
         public static TreeNode  backColor(this TreeNode treeNode, Color color)
         {
             if (treeNode != null)
@@ -1323,14 +1349,74 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {            
             return treeNode.setTextColor(color);
         }
+        public static TreeNode  color(this TreeNode treeNode, string colorName)
+    	{
+    		return treeNode.foreColor(colorName);
+    	}
         public static TreeNode  setTextColor(this TreeNode treeNode, Color color)
         {
             if (treeNode != null)
                 treeNode.treeView().invokeOnThread(() => { treeNode.ForeColor = color; });
             return treeNode;
         }
+    	public static TreeNode  textColor(this TreeNode treeNode, string colorName)
+    	{
+    		return treeNode.foreColor(colorName);
+    	}
+    	
     }
 
+
+    public static class WinForms_ExtensionMethods_TreeView_ImageList
+    {
+        public static ImageList imageList(this TreeView treeView)
+        {
+            return treeView.invokeOnThread(
+                () =>
+                    {
+                        if (treeView.ImageList.isNull())
+                            treeView.ImageList = new ImageList();
+                        return treeView.ImageList;
+                    });
+        }
+        public static TreeView  add_ToImageList(this TreeView treeView, params string[] keys)
+		{
+			foreach(var key in keys)
+				treeView.add_ToImageList(key, key.formImage());
+			return treeView;
+		}
+		public static TreeView  add_ToImageList(this TreeView treeView, string key, Image image)
+		{
+			return treeView.invokeOnThread(
+				()=>{
+						if (key.notNull() && image.notNull()) 
+							treeView.imageList().Images.Add(key, image);
+						return treeView;
+					});
+		}
+        public static TreeView  imageIndex(this TreeView treeView, int index)
+		{
+			treeView.invokeOnThread(()=> treeView.ImageIndex = index);
+			return treeView;
+		}
+        public static TreeNode  image(this TreeNode treeNode, string key)
+    	{
+    		return treeNode.treeView().invokeOnThread(
+    			()=>{
+    					treeNode.ImageKey = key;
+    					return treeNode;
+    				});
+    	}
+    	public static TreeNode  image(this TreeNode treeNode, int index)
+    	{
+    		return treeNode.treeView().invokeOnThread(
+    			()=>{
+    					treeNode.ImageIndex = index; 
+    					treeNode.SelectedImageIndex = index; 
+    					return treeNode;
+    				});
+    	}
+    }
 
     public static class WinForms_ExtensionMethods_TreeView_Hacks
     { 

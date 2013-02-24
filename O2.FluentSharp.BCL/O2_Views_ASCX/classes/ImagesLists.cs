@@ -13,8 +13,8 @@ namespace O2.Views.ASCX.classes
         {
 
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ascx_Directory));
-            var imageList = new System.Windows.Forms.ImageList();
-            imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilDirectoriesAndFiles.ImageStream")));
+            var imageList = new ImageList();
+            imageList.ImageStream = ((ImageListStreamer)(resources.GetObject("ilDirectoriesAndFiles.ImageStream")));
             imageList.TransparentColor = System.Drawing.Color.Transparent;
             imageList.Images.SetKeyName(0, "Explorer_Folder.ico");
             imageList.Images.SetKeyName(1, "Explorer_File.ico");

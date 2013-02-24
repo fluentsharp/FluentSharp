@@ -11,12 +11,11 @@ namespace O2.DotNetWrappers.ExtensionMethods
 {
     public static class Collections_ExtensionMethods_IEnumerable
     {
-        public static string asString<T>(this IEnumerable<T> sequence) where T : class
+        public static string        asString<T>(this IEnumerable<T> sequence) where T : class
         {
             return sequence.toString();
         }
-
-        public static string    toString<T>(this IEnumerable<T> sequence) where T : class
+        public static string        toString<T>(this IEnumerable<T> sequence) where T : class
         {
             var value = "";
             foreach (var item in sequence)
@@ -28,14 +27,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             value = "{{ {0} }}".format(value);
             return value;
         }
-/*        public static IList<T> forEach<T>(this IList<T> list, Action<T> action)
-        {
-            if (list.notNull() && action.notNull())
-                foreach (T item in list)
-                    action(item);
-            return list;
-        }*/
-        public static IList forEach<T>(this IList list, Action<T> action)
+        public static IList         forEach<T>(this IList list, Action<T> action)
         {            
             if(list.notNull() && action.notNull())
                 foreach (var item in list)
@@ -44,88 +36,86 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return list;
         }
         
-        public static bool      isIEnumerable(this object list)
-		{
-			return list.notNull() && list is IEnumerable;
-		}		
-		public static int       count(this object list)
-		{
-			if (list.isIEnumerable())
-				return (list as IEnumerable).count();
-			return -1;
-		}		
-		public static int       size(this IEnumerable list)
-		{
-			return list.count();
-		}
-        public static bool      empty(this IEnumerable list)
+        public static bool          isIEnumerable(this object list)
+        {
+            return list.notNull() && list is IEnumerable;
+        }		
+        public static int           count(this object list)
+        {
+            if (list.isIEnumerable())
+                return (list as IEnumerable).count();
+            return -1;
+        }		
+        public static int           size(this IEnumerable list)
+        {
+            return list.count();
+        }
+        public static bool          empty(this IEnumerable list)
         {
             return list.size() < 1;
         }
-		public static int       count(this IEnumerable list)
-		{			
-			var count = 0;
-			if (list.notNull())
-			    count += list.Cast<object>().Count();
-		    return count;
-		}		
-		public static object    first(this IEnumerable list)
-		{
-			if(list.notNull())
-			    return list.Cast<object>().FirstOrDefault();
-		    return null;
-		}		
-		public static T         first<T>(this IEnumerable<T> list)
-		{
-			try
-			{
-				if (list.notNull())
-					return list.First();
-			}
-			catch(Exception ex)
-			{	
-				if (ex.Message != "Sequence contains no elements")
-					"[IEnumerable.first] {0}".error(ex.Message);
-			}
-			return default(T);
-		}								
-		public static T         last<T>(this IEnumerable<T> list)
-		{
-			try
-			{
-				if (list.notNull())
-					return list.Last();
-			}
-			catch(Exception ex)
-			{	
-				if (ex.Message != "Sequence contains no elements")
-					"[IEnumerable.first] {0}".error(ex.Message);
-			}
-			return default(T);
-		}		
-		public static object    last(this IEnumerable list)
-		{
-			object lastItem = null;
-			if(list.notNull())
-				foreach(var item in list)
-					lastItem= item;
-			return lastItem;
-		}				
-		public static List<T>   insert<T>(this List<T> list, T value)
-		{
-			return list.insert(0, value);
-		}		
-		public static List<T>   insert<T>(this List<T> list, int position, T value)
-		{
-			list.Insert(position, value);
-			return list;
-		}
-
+        public static int           count(this IEnumerable list)
+        {			
+            var count = 0;
+            if (list.notNull())
+                count += list.Cast<object>().Count();
+            return count;
+        }		
+        public static object        first(this IEnumerable list)
+        {
+            if(list.notNull())
+                return list.Cast<object>().FirstOrDefault();
+            return null;
+        }		
+        public static T             first<T>(this IEnumerable<T> list)
+        {
+            try
+            {
+                if (list.notNull())
+                    return list.First();
+            }
+            catch(Exception ex)
+            {	
+                if (ex.Message != "Sequence contains no elements")
+                    "[IEnumerable.first] {0}".error(ex.Message);
+            }
+            return default(T);
+        }								
+        public static T             last<T>(this IEnumerable<T> list)
+        {
+            try
+            {
+                if (list.notNull())
+                    return list.Last();
+            }
+            catch(Exception ex)
+            {	
+                if (ex.Message != "Sequence contains no elements")
+                    "[IEnumerable.first] {0}".error(ex.Message);
+            }
+            return default(T);
+        }		
+        public static object        last(this IEnumerable list)
+        {
+            object lastItem = null;
+            if(list.notNull())
+                foreach(var item in list)
+                    lastItem= item;
+            return lastItem;
+        }				
+        public static List<T>       insert<T>(this List<T> list, T value)
+        {
+            return list.insert(0, value);
+        }		
+        public static List<T>       insert<T>(this List<T> list, int position, T value)
+        {
+            list.Insert(position, value);
+            return list;
+        }
         public static List<object>  toList(this IEnumerable collection)
         {
             return collection.toList<object>();
         }
-
         public static List<T>       toList<T>(this IEnumerable<T> collection)
         {
             return (collection != null) ? collection.ToList() : null;
@@ -134,12 +124,10 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return (from object item in list select (T) item).ToList();
         }
-
         public static List<string>  toList(this StringCollection stringCollection)
         {
             return stringCollection.Cast<string>().ToList();
         }
-
         public static List<T>       unique<T>(this IEnumerable<T> list)
         {
             return list.distinct();
@@ -148,12 +136,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return list.Distinct().toList();
         }
-		public static List<T> take<T>(this IEnumerable<T> data, int count)
-		{			
-			if (count == -1)
-				return data.toList();
-			return data.Take(count).toList();
-		}
+        public static List<T>       take<T>(this IEnumerable<T> data, int count)
+        {			
+            if (count == -1)
+                return data.toList();
+            return data.Take(count).toList();
+        }
     }
     public static class Collections_ExtensionMethods_List
     {        
@@ -201,7 +189,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return list.Contains(text);
             return false;
         }
-
+        public static bool              contains(this List<string> targetList, List<string> sourceList)
+        {
+            if (targetList.isNull() || sourceList.isNull())
+                return false;
+            return sourceList.All(item => !targetList.contains(item).isFalse());
+        }
         public static List<T>           clear<T>(this List<T> list)
         {
             if (list.notNull())
@@ -220,13 +213,19 @@ namespace O2.DotNetWrappers.ExtensionMethods
                         targetList.add(item);
             return targetList;
         }
-		public static List<string>		replace(this List<String> targetList, string textToFind, string textToReplace)
+        public static List<string>      add_If_Not_There(this List<string> targetList, List<string> sourceList)
 		{
-			if (targetList.notNull())
-				for (int i = 0; i < targetList.size(); i++)
-					targetList[i] = targetList[i].replace(textToFind, textToReplace);
+			foreach(string item in sourceList)
+				targetList.add_If_Not_There(item);
 			return targetList;
 		}
+        public static List<string>		replace(this List<String> targetList, string textToFind, string textToReplace)
+        {
+            if (targetList.notNull())
+                for (int i = 0; i < targetList.size(); i++)
+                    targetList[i] = targetList[i].replace(textToFind, textToReplace);
+            return targetList;
+        }
         public static List<T>           add<T>(this List<T> list, T item)
         {
             if (list.notNull())
@@ -238,7 +237,27 @@ namespace O2.DotNetWrappers.ExtensionMethods
             targetList.AddRange(sourceList.Select(item => (T) item));
             return targetList;
         }
-
+        public static List<T>           add<T>(this List<T> targetList, T[] items)
+		{
+			targetList.addRange(items.toList());
+			return targetList;
+		}        
+        public static List<T>           addRange<T>(this List<T> targetList, params T[] items)
+		{
+			return targetList.addRange(items.toList());
+		}		
+		public static List<T>           addRange<T>(this List<T> targetList, List<T> items)
+		{
+			if (targetList.notNull() && items.notNull())
+				targetList.AddRange(items.ToArray());
+			return targetList;
+		}	
+        public static List<T>           remove<T>(this List<T> targetList, List<T> itemsToRemove)
+		{
+			foreach(var item in itemsToRemove)
+				targetList.remove(item);
+			return targetList;
+		}
         public static List<String>      sort(this List<String> list)
         {
             list.Sort();
@@ -271,18 +290,18 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return list.where((value) => value.str().contains(text).isFalse());
         }        
         public static List<string>      removeEmpty(this List<string> list)
-		{
-			return (from item in list
-					where item.valid()
-					select item).toList();
-		}				
-		public static List<string>      add_If_Not_There(this List<string> list, string item)
-		{
-			if (item.notNull())
-				if (list.contains(item).isFalse())
-					list.add(item);
-			return list;
-		}        
+        {
+            return (from item in list
+                    where item.valid()
+                    select item).toList();
+        }				
+        public static List<string>      add_If_Not_There(this List<string> list, string item)
+        {
+            if (item.notNull())
+                if (list.contains(item).isFalse())
+                    list.add(item);
+            return list;
+        }        
         public static List<T>           wrapOnList<T>(this T item)
         {
             var list = new List<T>();
@@ -290,51 +309,49 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return list;
         }        
 
-		public static string    join(this List<string> list)
-		{
-			return list.join(",");
-		}		
-		public static string    join(this List<string> list, string separator)
-		{
-			if (list.size()==1)
-				return list[0];
-			if (list.size() > 1)
-				return list.Aggregate((a,b)=> "{0} {1} {2}".format(a,separator,b));
-			return "";
-		}		
-		public static T         item<T>(this List<T> list, int index)
-		{
-			return list.value(index);
-		}		
-		public static T         value<T>(this List<T> list, int index)
-		{
-			if (list.size() > index)
-				return list[index];
-			return default(T);
-		}		
-		public static List<T>   where<T>(this List<T> list, Func<T,bool> query)
-		{
-			return list.Where(query).toList();
-		}
-
-        public static List<TK> select<T,TK>(this List<T> list, Func<T, TK> query)
+        public static string    join(this List<string> list)
+        {
+            return list.join(",");
+        }		
+        public static string    join(this List<string> list, string separator)
+        {
+            if (list.size()==1)
+                return list[0];
+            if (list.size() > 1)
+                return list.Aggregate((a,b)=> "{0} {1} {2}".format(a,separator,b));
+            return "";
+        }		
+        public static T         item<T>(this List<T> list, int index)
+        {
+            return list.value(index);
+        }		
+        public static T         value<T>(this List<T> list, int index)
+        {
+            if (list.size() > index)
+                return list[index];
+            return default(T);
+        }		
+        public static List<T>   where<T>(this List<T> list, Func<T,bool> query)
+        {
+            return list.Where(query).toList();
+        }
+        public static List<TK>  select<T,TK>(this List<T> list, Func<T, TK> query)
         {
             return list.Select(query).toList();
         }
-
         public static T         first<T>(this List<T> list, Func<T,bool> query)
-		{
-			var results = list.Where(query).toList();
-			if (results.size()>0)
-				return results.First();
-			return default(T);
-		}		
-		public static T         second<T>(this List<T> list)
-		{			
-			if (list.notNull() && list.size()>1)
-				return list[1];		
-			return default(T);
-		}
+        {
+            var results = list.Where(query).toList();
+            if (results.size()>0)
+                return results.First();
+            return default(T);
+        }		
+        public static T         second<T>(this List<T> list)
+        {			
+            if (list.notNull() && list.size()>1)
+                return list[1];		
+            return default(T);
+        }
         public static T         third<T>(this List<T> list)
         {
             if (list.notNull() && list.size() > 2)
@@ -353,48 +370,48 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return list[4];
             return default(T);
         }		
-		public static List<T>   removeRange<T>(this List<T> list, int start, int end)
-		{
-			list.RemoveRange(start,end);
-			return list;
-		}	
-		public static List<T>   list<T>(this T item)
-		{
-			return item.wrapOnList();
-		}		
-		public static List<T>   push<T>(this List<T> list, T value)
-		{
-			if (list.notNull())			
-				list.add(value);
-			return list;
-		}
-		public static T         pop<T>(this List<T> list)
-		{			
-			if (list.notNull() && list.Count > 0)
-			{
-				int valuePosition = list.Count - 1;
-				var value = list[valuePosition];
-				list.RemoveAt(valuePosition);
-				return value;
-			}
-			return  default(T);
-		}		
-		public static T         shift<T>(this List<T> list)
-		{			
-			if (list.notNull() && list.Count > 0)
-			{
-				T value = list[0];
-				list.RemoveAt(0);
-				return value;
-			}
-			return default(T);			
-		}	
-		public static List<T>   unshift<T>(this List<T> list, T value)
-		{
-			if (list.notNull())			
-				list.Insert(0, value);
-			return list;
-		}
+        public static List<T>   removeRange<T>(this List<T> list, int start, int end)
+        {
+            list.RemoveRange(start,end);
+            return list;
+        }	
+        public static List<T>   list<T>(this T item)
+        {
+            return item.wrapOnList();
+        }		
+        public static List<T>   push<T>(this List<T> list, T value)
+        {
+            if (list.notNull())			
+                list.add(value);
+            return list;
+        }
+        public static T         pop<T>(this List<T> list)
+        {			
+            if (list.notNull() && list.Count > 0)
+            {
+                int valuePosition = list.Count - 1;
+                var value = list[valuePosition];
+                list.RemoveAt(valuePosition);
+                return value;
+            }
+            return  default(T);
+        }		
+        public static T         shift<T>(this List<T> list)
+        {			
+            if (list.notNull() && list.Count > 0)
+            {
+                T value = list[0];
+                list.RemoveAt(0);
+                return value;
+            }
+            return default(T);			
+        }	
+        public static List<T>   unshift<T>(this List<T> list, T value)
+        {
+            if (list.notNull())			
+                list.Insert(0, value);
+            return list;
+        }
 
         public static void      createTypeAndAddToList<T>(this List<T> sequence, params object[] values)
         {
@@ -486,12 +503,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
             return default(T1);
         }
         public static T             value<T>(this Dictionary<string,object> dictionary, string name)
-		{
-			var value = dictionary.value(name);
-			if (value.notNull() && value is T)
-				return (T)value;
-			return default(T);
-		}
+        {
+            var value = dictionary.value(name);
+            if (value.notNull() && value is T)
+                return (T)value;
+            return default(T);
+        }
 
         public static Dictionary<T, T1>         add<T, T1>(this Dictionary<T, T1> dictionary, T key, T1 value)
         {
@@ -591,41 +608,41 @@ namespace O2.DotNetWrappers.ExtensionMethods
         }        
         
         public static Dictionary<string,string>     toStringDictionary(this string targetString, string rowSeparator, string keySeparator)
-		{
-			var stringDictionary = new Dictionary<string,string>();
-			try
-			{
-				foreach(var row in targetString.split(rowSeparator))
-				{
-					if(row.valid())
-					{
-						var splittedRow = row.split(keySeparator);
-						if (splittedRow.size()!=2)
-							"[toStringDictionary] splittedRow was not 2: {0}".error(row);
-						else
-						{
-							if (stringDictionary.hasKey(splittedRow[0]))
-								"[toStringDictionary] key already existed in the collection: {0}".error(splittedRow[0]);		
-							else
-								stringDictionary.Add(splittedRow[0], splittedRow[1]);
-						}
-					}
-				}
-			}
-			catch(Exception ex)
-			{
-				"[toStringDictionary] {0}".error(ex.Message);
-			}
-			return stringDictionary;
-		}		
-		public static Dictionary<string,string>     remove(this Dictionary<string,string> dictionary, Func<KeyValuePair<string,string>, bool> filter)
-		{
-			var itemsToRemove = dictionary.Where(filter).toList();			
-			foreach(var itemToRemove in itemsToRemove)
-				dictionary.Remove(itemToRemove.Key);    
-			return dictionary;
-		}		
-		
+        {
+            var stringDictionary = new Dictionary<string,string>();
+            try
+            {
+                foreach(var row in targetString.split(rowSeparator))
+                {
+                    if(row.valid())
+                    {
+                        var splittedRow = row.split(keySeparator);
+                        if (splittedRow.size()!=2)
+                            "[toStringDictionary] splittedRow was not 2: {0}".error(row);
+                        else
+                        {
+                            if (stringDictionary.hasKey(splittedRow[0]))
+                                "[toStringDictionary] key already existed in the collection: {0}".error(splittedRow[0]);		
+                            else
+                                stringDictionary.Add(splittedRow[0], splittedRow[1]);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                "[toStringDictionary] {0}".error(ex.Message);
+            }
+            return stringDictionary;
+        }		
+        public static Dictionary<string,string>     remove(this Dictionary<string,string> dictionary, Func<KeyValuePair<string,string>, bool> filter)
+        {
+            var itemsToRemove = dictionary.Where(filter).toList();			
+            foreach(var itemToRemove in itemsToRemove)
+                dictionary.Remove(itemToRemove.Key);    
+            return dictionary;
+        }		
+        
         
     }
     public static class Collections_ExtensionMethods_KeyValuePair
@@ -657,12 +674,12 @@ namespace O2.DotNetWrappers.ExtensionMethods
                 return keyValuePairs[index].Key;
             return default(T);
         }
-		public static T1		value<T, T1>(this NameValuePair<T, T1> nameValuePair)
-		{
-			if (nameValuePair.notNull())
-				return nameValuePair.Value;
-			return default(T1);
-		}
+        public static T1		value<T, T1>(this NameValuePair<T, T1> nameValuePair)
+        {
+            if (nameValuePair.notNull())
+                return nameValuePair.Value;
+            return default(T1);
+        }
         public static List<KeyValuePair<T, T1>> add<T, T1>(this List<KeyValuePair<T, T1>> valuePairList, T key, T1 value)
         {
             valuePairList.Add(new KeyValuePair<T, T1>(key, value));
@@ -712,61 +729,61 @@ namespace O2.DotNetWrappers.ExtensionMethods
 
     public static class Loop_ExtensionMethods
     { 
-    	public static Action            loop(this int count , Action action)
-		{
-			return count.loop(0,action);
-		}	
-		public static Action            loop(this int count , int delay,  Action action)
-		{
-			"Executing provided action for {0} times with a delay of {1} milliseconds".info(count, delay);
-			for(var i=0 ; i < count ; i ++)
-			{
-				action();
-				if (delay > 0)
-					count.sleep(delay,false);
-			}
-			return action;
-		}		
-		public static Action<int>       loop(this int count , Action<int> action)
-		{
-			return count.loop(0, action);
-		}		
-		public static Action<int>       loop(this int count , int start, Action<int> action)
-		{
-			return count.loop(start,1, action);
-		}		
-		public static Action<int>       loop(this int count, int start , int step, Action<int> action)
-		{
-			for(var i=start ; i < count ; i+=step)			
-				action(i);							
-			return action;
-		}		
-		public static Func<int,bool>    loop(this int count, Func<int,bool> action)
-		{
-			return count.loop(0, action);
-		}
-		public static Func<int,bool>    loop(this int count, int start , Func<int,bool> action)
-		{
-			for(var i=start ; i < count ; i++)			
-				if (action(i).isFalse())
-					break;
-			return action;
-		}
-		public static List<T>           loopIntoList<T>(this int count , Func<int,T> action)
-		{
-			return count.loopIntoList(0, action);
-		}	
-		public static List<T>           loopIntoList<T>(this int count , int start, Func<int,T> action)
-		{
-			return count.loopIntoList(start,1, action);
-		}		
-		public static List<T>           loopIntoList<T>(this int count, int start , int step, Func<int,T> action)
-		{
-			var results = new List<T>();
-			for(var i=start ; i < count ; i+=step)			
-				results.Add(action(i));
-			return results;
-		}
+        public static Action            loop(this int count , Action action)
+        {
+            return count.loop(0,action);
+        }	
+        public static Action            loop(this int count , int delay,  Action action)
+        {
+            "Executing provided action for {0} times with a delay of {1} milliseconds".info(count, delay);
+            for(var i=0 ; i < count ; i ++)
+            {
+                action();
+                if (delay > 0)
+                    count.sleep(delay,false);
+            }
+            return action;
+        }		
+        public static Action<int>       loop(this int count , Action<int> action)
+        {
+            return count.loop(0, action);
+        }		
+        public static Action<int>       loop(this int count , int start, Action<int> action)
+        {
+            return count.loop(start,1, action);
+        }		
+        public static Action<int>       loop(this int count, int start , int step, Action<int> action)
+        {
+            for(var i=start ; i < count ; i+=step)			
+                action(i);							
+            return action;
+        }		
+        public static Func<int,bool>    loop(this int count, Func<int,bool> action)
+        {
+            return count.loop(0, action);
+        }
+        public static Func<int,bool>    loop(this int count, int start , Func<int,bool> action)
+        {
+            for(var i=start ; i < count ; i++)			
+                if (action(i).isFalse())
+                    break;
+            return action;
+        }
+        public static List<T>           loopIntoList<T>(this int count , Func<int,T> action)
+        {
+            return count.loopIntoList(0, action);
+        }	
+        public static List<T>           loopIntoList<T>(this int count , int start, Func<int,T> action)
+        {
+            return count.loopIntoList(start,1, action);
+        }		
+        public static List<T>           loopIntoList<T>(this int count, int start , int step, Func<int,T> action)
+        {
+            var results = new List<T>();
+            for(var i=start ; i < count ; i+=step)			
+                results.Add(action(i));
+            return results;
+        }
     }
 
     public static class Stack_ExtensionMethods

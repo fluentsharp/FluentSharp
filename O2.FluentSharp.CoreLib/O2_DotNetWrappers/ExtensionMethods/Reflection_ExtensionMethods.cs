@@ -188,7 +188,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
             if (assembly.notNull())
                 return assembly.ImageRuntimeVersion;
             return null;
-        }
+        }        
         
         public static PortableExecutableKinds	portableExecutableKind              (this Assembly assembly)
         {
@@ -228,7 +228,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
         public static PortableExecutableKinds	assembly_PortableExecutableKind     (this string assemblyLocation)
         {
             return Assembly.ReflectionOnlyLoadFrom(assemblyLocation).portableExecutableKind();
-        }        
+        }
     }
 
     public static class Reflection_ExtensionMethods_Ctor
