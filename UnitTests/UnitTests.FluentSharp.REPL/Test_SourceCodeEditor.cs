@@ -53,8 +53,17 @@ namespace UnitTests.FluentSharp_REPL
             "selectedTextBeforeSearch: {0}".info(selectedTextBeforeSearch);
             "selectedTextAfterSearch : {0}".info(selectedTextAfterSearch);            
         }
-        [Test,Ignore("Fails in TeamCity")] 
-              public void CheckCodeCompleteReferences()
+        [Test] public void LoadH2FileInCodeEditor()
+        {
+            var h2File = "aaa.h2".tempFile();
+            "var a = 12;\nreturn a;".saveAs(h2File);
+            var h2     = h2File.h2();
+            Assert.IsTrue   (h2File.fileExists());
+            Assert.IsNotNull(h2);
+            CodeEditor.open(h2File);
+            Assert.AreEqual(CodeEditor.get_Code().fixCRLF(), h2File.fileContents());
+        }
+        [Test,Ignore("Fails in TeamCity")] public void CheckCodeCompleteReferences()
         {
             //var referenceToLoad = "FluentSharp.REPL.exe";
             CodeEditor.compileCSSharpFile();
@@ -92,6 +101,7 @@ namespace UnitTests.FluentSharp_REPL
             Assert.AreNotEqual(newLoadedReferences.size(), loadedReferences.size());
             Assert.IsTrue(newLoadedReferences.lower().contains(referenceToLoad.lower()));                   
         }
+        
         
         //codeEditor.script_Me("codeEditor").waitForClose();
     }

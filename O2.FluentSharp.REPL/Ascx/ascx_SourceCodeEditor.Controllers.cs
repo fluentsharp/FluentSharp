@@ -103,8 +103,14 @@ namespace O2.External.SharpDevelop.Ascx
         }
         public void     extraGuiChanges() // starting to move this code into O2's more explicit code
         {
-            menuStripForSourceEdition.add_MenuItem("Open C# REPL Script", () => open.scriptEditor());
+            menuStripForSourceEdition.add_MenuItem("Script Editor")
+                                     .add_MenuItem("Open C# REPL Script", () => open.scriptEditor())
+                                     .add_MenuItem("REPL this Editor", () => this.script_Me());
+            menuStripForSourceEdition.add_MenuItem("Open Parent Folder of current script", () => this.sPathToFileLoaded.parentFolder().startProcess());
+
             toolStripWithSourceCodeActions.add_Button("Sample C#", OpenSampleCSharpFile);
+
+            
         }
 
         public void OpenSampleCSharpFile()

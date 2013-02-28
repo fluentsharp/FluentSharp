@@ -37,6 +37,7 @@ namespace O2.DotNetWrappers.DotNet
         public static Dictionary<string, string> LocalScriptFileMappings                { get; set; }
         public static List<string>               LocalReferenceFolders                  { get; set; }
         public static List<string>               LocalFoldersToSearchForCodeFiles       { get; set; }
+        public static List<string>               LocalFoldersToAddToFileMappings        { get; set; }        
         public static Dictionary<string, string> CachedCompiledAssemblies               { get; set; }
         public static string					 CachedCompiledAssembliesMappingsFile   { get; set; }
         public static Dictionary<string,string>  CompilationPathMappings                { get; set; }
@@ -46,16 +47,16 @@ namespace O2.DotNetWrappers.DotNet
 
         // the first time were here, load up the mappings from the CachedCompiledAssembliesMappingsFile
         static CompileEngine() 
-        {
-            LocalScriptFileMappings = new Dictionary<string, string>();
-            LocalReferenceFolders    = new List<string>();
-            LocalFoldersToSearchForCodeFiles = new List<string>();
-            CachedCompiledAssemblies = new Dictionary<string, string>();
+        {            
+            LocalReferenceFolders                = new List<string>();
+            LocalFoldersToSearchForCodeFiles     = new List<string>();
+            LocalFoldersToAddToFileMappings      = new List<string>();
+            DefaultReferencedAssemblies          = new List<string>();
+            DefaultUsingStatements               = new List<string>();
+            LocalScriptFileMappings              = new Dictionary<string, string>();
+            CachedCompiledAssemblies             = new Dictionary<string, string>();
+            CompilationPathMappings              = new Dictionary<string, string>();
             CachedCompiledAssembliesMappingsFile = PublicDI.config.O2TempDir.pathCombine("..\\CachedCompiledAssembliesMappings.xml");
-            CompilationPathMappings = new Dictionary<string, string>();
-            DefaultReferencedAssemblies = new List<string>();
-            DefaultUsingStatements = new List<string>();
-
 
             loadCachedCompiledAssembliesMappings();
             setDefaultLocalReferenceFolders();
@@ -85,18 +86,18 @@ namespace O2.DotNetWrappers.DotNet
             this.useCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
             compilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
         }
-		
+        
         public CompileEngine(string compilation_Version) 
         {             
-			compilationVersion = compilation_Version;
-			useCachedAssemblyIfAvailable = true;            
+            compilationVersion = compilation_Version;
+            useCachedAssemblyIfAvailable = true;            
         }
 
-		public CompileEngine(string compilation_Version, bool useCachedAssemblyIfAvailable)
-		{
-			compilationVersion = compilation_Version;
-			this.useCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
-		}
+        public CompileEngine(string compilation_Version, bool useCachedAssemblyIfAvailable)
+        {
+            compilationVersion = compilation_Version;
+            this.useCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
+        }
 
         public static void setDefaultReferencedAssemblies()
         {
@@ -266,7 +267,7 @@ namespace O2.DotNetWrappers.DotNet
             }
             catch (Exception ex)
             {
-				ex.logWithStackTrace("in CompileEngine.compileSourceFiles(...)");
+                ex.logWithStackTrace("in CompileEngine.compileSourceFiles(...)");
             }
             
             return null;
@@ -753,14 +754,14 @@ namespace O2.DotNetWrappers.DotNet
                 if (null != sReferenceAssembliesToAdd)
                     foreach (String sReferenceAssembly in sReferenceAssembliesToAdd)
                     {
-						//HACK to deal with the fact that we are passing 4.0 assemblies as references
-						if (compilationVersion == "v3.5" && sReferenceAssembly.contains("v4.0"))
-						{
-							cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly.fileName());
-						}
-						else 
-							if (File.Exists(sReferenceAssembly))
-								cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
+                        //HACK to deal with the fact that we are passing 4.0 assemblies as references
+                        if (compilationVersion == "v3.5" && sReferenceAssembly.contains("v4.0"))
+                        {
+                            cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly.fileName());
+                        }
+                        else 
+                            if (File.Exists(sReferenceAssembly))
+                                cpCompilerParameters.ReferencedAssemblies.Add(sReferenceAssembly);
                     }
                 crCompilerResults = cscpCSharpCodeProvider.CompileAssemblyFromFile(cpCompilerParameters, sourceCodeFiles.ToArray());
                 
@@ -799,17 +800,19 @@ namespace O2.DotNetWrappers.DotNet
         }
         public static Dictionary<string, string> resetLocalScriptsFileMappings()
         {
-            clearLocalScriptFileMappings();
+            clearLocalScriptFileMappings();            
             var filesToSearch = PublicDI.config.LocalScriptsFolder.files(true);
+            foreach (var extraFolder in LocalFoldersToAddToFileMappings)
+                filesToSearch.add(extraFolder.files(true));
             foreach (var localScriptFile in filesToSearch)
             {
                 if (localScriptFile.contains(@"\.git").isFalse())
                 {
                     var key = localScriptFile.fileName().ToLower();
-                    CompileEngine.LocalScriptFileMappings.add(key, localScriptFile);
+                    LocalScriptFileMappings.add(key, localScriptFile);
                 }
             }            
-            return CompileEngine.LocalScriptFileMappings;                
+            return LocalScriptFileMappings;                
         }
         public static string findFileOnLocalScriptFolder(string file, string searchInFolder)
         { 
@@ -835,7 +838,7 @@ namespace O2.DotNetWrappers.DotNet
                                                           .add(Assembly.GetExecutingAssembly().location().parentFolder())
                                                           .add(Assembly.GetCallingAssembly().location().parentFolder())
                                                           .add(Assembly.GetEntryAssembly().location().parentFolder())
-														  .add(O2.Kernel.PublicDI.config.ToolsOrApis)
+                                                          .add(PublicDI.config.ToolsOrApis)
                                                           .onlyValidFolders()
                                                           .unique();
 
@@ -976,7 +979,7 @@ namespace O2.DotNetWrappers.DotNet
                         if (assembly.notNull())
                         {
                             resolvedReference = embeddedAssemblyLocation;
-                            setCachedCompiledAssembly(originalReference, resolvedReference, true);
+                            setCachedCompiledAssembly(originalReference, resolvedReference);
                             return resolvedReference;
                         }
                     }
@@ -1075,9 +1078,9 @@ namespace O2.DotNetWrappers.DotNet
                         var o2Script = refs.first();
                         var expectedFile = refs.second();
                         //if (expectedDll.assembly().isNull())
-						if (expectedFile.local().fileExists().isFalse()) //mapping it to the file instead of an assembly (to support unmanaged exes)
+                        if (expectedFile.local().fileExists().isFalse()) //mapping it to the file instead of an assembly (to support unmanaged exes)
                         {
-							"[handleReferencedAssembliesInstallRequirements] expected assembly not found ('{0}'), so running installer script: '{1}'".info(expectedFile, o2Script);
+                            "[handleReferencedAssembliesInstallRequirements] expected assembly not found ('{0}'), so running installer script: '{1}'".info(expectedFile, o2Script);
                             var assembly = new CompileEngine().compileSourceFile(o2Script.local());
                             if (assembly.notNull())
                             {
@@ -1087,11 +1090,11 @@ namespace O2.DotNetWrappers.DotNet
                                 else
                                 {
                                     installType.ctor(); // the installer is supposed to be triggered by the  constructor
-									//if (expectedFile.assembly().isNull())
-									if (expectedFile.local().fileExists().isFalse())
-										"[handleReferencedAssembliesInstallRequirements] after install requested assembly still not found: '{0}'".error(expectedFile);
+                                    //if (expectedFile.assembly().isNull())
+                                    if (expectedFile.local().fileExists().isFalse())
+                                        "[handleReferencedAssembliesInstallRequirements] after install requested assembly still not found: '{0}'".error(expectedFile);
                                     else
-										"[handleReferencedAssembliesInstallRequirements] after install requested assembly is now available: '{0}'".info(expectedFile);
+                                        "[handleReferencedAssembliesInstallRequirements] after install requested assembly is now available: '{0}'".info(expectedFile);
                                 }
                             }
                         }

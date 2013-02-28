@@ -1571,18 +1571,14 @@ textBox1.prop("",true);
 	
 	public static class WPF_Controls_ExtensionMethods_Control
 	{
-		public static T opacity<T>(this T uiElement, double value)
-            where T : UIElement
+		public static T opacity<T>(this T uiElement, double value) where T : UIElement
         {
             return (T)uiElement.wpfInvoke(
                 ()=>{
                 		uiElement.Opacity = value;
                 		return uiElement;
                 	});
-        }
-	
-        #region Control - foreground text Color
-
+        }	      
         public static T color<T>(this T control, string colorName) where T : Control
         {
             var color = new BrushConverter().ConvertFromString(colorName);
@@ -1590,25 +1586,18 @@ textBox1.prop("",true);
                 control.fontColor((Brush)color);
             return control;
         }
-
-
         public static T black<T>(this T control) where T : Control
         {
             return control.fontColor(Brushes.Black);
         }
-
         public static T blue<T>(this T control) where T : Control
         {
             return control.fontColor(Brushes.Blue);
         }
-
         public static T red<T>(this T control) where T : Control
         {
             return control.fontColor(Brushes.Red);            
         }
-      
-        #endregion
-
  	}
 	
 	public static class WPF_Controls_ExtensionMethods_Animation

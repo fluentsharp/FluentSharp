@@ -49,8 +49,8 @@ namespace O2.Kernel.InterfacesBaseImpl
                               : messageFormat.format(variables);
                 Debug.Write(message);
                 if (alsoShowInConsole)
-                    Console.WriteLine(message);
-                LogData.AppendLine(message);
+                    Console.Write(message);
+                LogData.Append(message);
             }
             catch (Exception ex)
             {
