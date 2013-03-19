@@ -33,9 +33,9 @@ namespace O2.Views.ASCX.O2Findings
 
         public List<IO2Finding> currentO2Findings = new List<IO2Finding>();
         public Callbacks.dMethod_Object eventFindingSelected;
-        public event O2Thread.FuncVoidT1<IO2Finding> _onFindingSelected;
-        public event O2Thread.FuncVoidT1<IO2Trace> _onTraceSelected;
-        public event O2Thread.FuncVoidT1<string> _onFolderSelectEvent;
+        public event Action<IO2Finding> _onFindingSelected;
+        public event Action<IO2Trace> _onTraceSelected;
+        public event Action<string> _onFolderSelectEvent;
 
         public string assessmentName = "";
         //public Dictionary<string, IO2Finding> currentFilteredText = new Dictionary<string, IO2Finding>(); 
@@ -767,11 +767,11 @@ namespace O2.Views.ASCX.O2Findings
         
         public static bool addO2AssessmentLoadEngine_static(IO2AssessmentLoad o2AssessmentLoad)
         {
-			foreach (var loadedEngine in o2AssessmentLoadEngines)
-				if (loadedEngine.typeFullName() == o2AssessmentLoad.typeFullName())
-					return false;
+            foreach (var loadedEngine in o2AssessmentLoadEngines)
+                if (loadedEngine.typeFullName() == o2AssessmentLoad.typeFullName())
+                    return false;
             o2AssessmentLoadEngines.Add(o2AssessmentLoad);
-			return true;
+            return true;
         }
 
         public void addO2AssessmentLoadEngine(IO2AssessmentLoad o2AssessmentLoad)

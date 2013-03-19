@@ -1,4 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
+
+using System;
 using O2.Interfaces.O2Findings;
 
 namespace O2.Views.ASCX.O2Findings
@@ -654,7 +656,7 @@ namespace O2.Views.ASCX.O2Findings
             this.ascxTraceTreeView.Visible = false;
             this.ascxTraceTreeView.Load += new System.EventHandler(this.ascxTraceTreeView_Load);
             this.ascxTraceTreeView.SizeChanged += new System.EventHandler(this.ascxTraceTreeView_SizeChanged);
-            this.ascxTraceTreeView._onTraceSelected += new O2.DotNetWrappers.DotNet.O2Thread.FuncVoidT1<IO2Trace>(this.ascxTraceTreeView__onTraceSelected);
+            this.ascxTraceTreeView._onTraceSelected += new Action<IO2Trace>(this.ascxTraceTreeView__onTraceSelected);
             // 
             // ascx_FindingsViewer
             // 

@@ -15,61 +15,61 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             return CompileEngine.findFileOnLocalScriptFolder(fileName.trim());
         }
-		public static Assembly  download_Assembly_From_O2_GitHub(this string assemblyName)
-		{
-			return assemblyName.download_Assembly_From_O2_GitHub(false);
-		}
-		public static Assembly  download_Assembly_From_O2_GitHub(this string assemblyName, bool ignoreSslErrors)
-		{
-			if (assemblyName.assembly().notNull())
-				"in download_Assembly_From_O2_GitHub, the requests assembly already exists".error(assemblyName);
-			else
-			{
-				if (ignoreSslErrors)
-					Web.Https.ignoreServerSslErrors();
+        public static Assembly  download_Assembly_From_O2_GitHub(this string assemblyName)
+        {
+            return assemblyName.download_Assembly_From_O2_GitHub(false);
+        }
+        public static Assembly  download_Assembly_From_O2_GitHub(this string assemblyName, bool ignoreSslErrors)
+        {
+            if (assemblyName.assembly().notNull())
+                "in download_Assembly_From_O2_GitHub, the requests assembly already exists".error(assemblyName);
+            else
+            {
+                if (ignoreSslErrors)
+                    Web.Https.ignoreServerSslErrors();
 
-				//add option to ignore cache
-				new O2.Kernel.CodeUtils.O2GitHub().tryToFetchAssemblyFromO2GitHub(assemblyName,false);
-			}
-			return assemblyName.assembly();
-		}
+                //add option to ignore cache
+                new O2.Kernel.CodeUtils.O2GitHub().tryToFetchAssemblyFromO2GitHub(assemblyName,false);
+            }
+            return assemblyName.assembly();
+        }
 
-		public static object    compileAndExecuteCodeSnippet(this string snippet)
-		{
-			return snippet.compileAndExecuteCodeSnippet((msg) => msg.info(), (msg) => msg.error());
-		}
-		public static object    compileAndExecuteCodeSnippet(this string snippet, Action<string> onCompileOk, Action<string> onCompileFail)
-		{
-			var assembly = snippet.compileCodeSnippet(onCompileOk, onCompileFail);
-			if (assembly.notNull())
-				return assembly.type("DynamicType").ctor().invoke("dynamicMethod");
-			return null;
-		}
-		public static Assembly  compileCodeSnippet(this string snippet)
-		{
-			return snippet.compileCodeSnippet((msg) => msg.info(), (msg) => msg.error());
-		}
-		public static Assembly  compileCodeSnippet(this string snippet, Action<string> onCompileOk, Action<string> onCompileFail)
-		{
-			try
-			{
-				var codeFile = createCSharpFileFromCodeSnippet(snippet);
+        public static object    compileAndExecuteCodeSnippet(this string snippet)
+        {
+            return snippet.compileAndExecuteCodeSnippet((msg) => msg.info(), (msg) => msg.error());
+        }
+        public static object    compileAndExecuteCodeSnippet(this string snippet, Action<string> onCompileOk, Action<string> onCompileFail)
+        {
+            var assembly = snippet.compileCodeSnippet(onCompileOk, onCompileFail);
+            if (assembly.notNull())
+                return assembly.type("DynamicType").ctor().invoke("dynamicMethod");
+            return null;
+        }
+        public static Assembly  compileCodeSnippet(this string snippet)
+        {
+            return snippet.compileCodeSnippet((msg) => msg.info(), (msg) => msg.error());
+        }
+        public static Assembly  compileCodeSnippet(this string snippet, Action<string> onCompileOk, Action<string> onCompileFail)
+        {
+            try
+            {
+                var codeFile = createCSharpFileFromCodeSnippet(snippet);
 
-			    var compileEngine = new CompileEngine();
-				var assembly = compileEngine.compileSourceFile(codeFile);
-				if (assembly.notNull())
-				{
-					onCompileOk("[compileAndExecuteCodeSnippet] Snippet assembly created OK: {0}".format(assembly.location()));
-					return assembly;
-				}
-				onCompileFail("[compileAndExecuteCodeSnippet] Compilation failed: ".line() + compileEngine.sbErrorMessage.str());
-			}
-			catch (Exception ex)
-			{
-				ex.log("[compileAndExecuteCodeSnippet]");
-			}
-			return null;
-		}
+                var compileEngine = new CompileEngine();
+                var assembly = compileEngine.compileSourceFile(codeFile);
+                if (assembly.notNull())
+                {
+                    onCompileOk("[compileAndExecuteCodeSnippet] Snippet assembly created OK: {0}".format(assembly.location()));
+                    return assembly;
+                }
+                onCompileFail("[compileAndExecuteCodeSnippet] Compilation failed: ".line() + compileEngine.sbErrorMessage.str());
+            }
+            catch (Exception ex)
+            {
+                ex.log("[compileAndExecuteCodeSnippet]");
+            }
+            return null;
+        }
         public static string    createCSharpFileFromCodeSnippet(this string snippet)
         {
             var code = createCSharpCodeFromCodeSnippet(snippet);
@@ -96,15 +96,15 @@ using System;
 
 public class DynamicType
 {
-	public object dynamicMethod()
-	{
+    public object dynamicMethod()
+    {
 //*** Code Start	
 
 %%CODE%%
 
 //*** Code Ends
-		//return null;
-	}
+        //return null;
+    }
 }";
 
             //extra extra usings

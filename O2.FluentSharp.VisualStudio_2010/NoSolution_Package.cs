@@ -79,7 +79,7 @@ namespace O2.FluentSharp.VisualStudio
 					
                     populateDefaultVSComObjects();
                     VisualStudio_2010.Initialized = true;
-                    //VisualStudio_O2_Utils.compileAndExecuteScript(@"VS_Scripts\O2_Platform_Gui.cs", "O2_Platform_Gui", "buildGui");
+                    //VisualStudio_O2_Utils.compileAndExecuteScript(@"VS_O2_PlugIns\O2_Platform_Gui.cs", "O2_Platform_Gui", "buildGui");
 
                 }
                 catch (Exception ex)

@@ -246,7 +246,7 @@ namespace O2.DotNetWrappers.Windows
             getListOfAllFilesFromDirectory(results, path, searchRecursively, searchPattern, false /*verbose*/);
             return results;
         }
-        public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively, O2Thread.FuncVoidT1<List<String>> onComplete)
+        public static List<String> getListOfAllFilesFromDirectory(String sStartDirectory, bool bSearchRecursively, Action<List<String>> onComplete)
         {
             var lsFiles = new List<string>();
             O2Thread.mtaThread(

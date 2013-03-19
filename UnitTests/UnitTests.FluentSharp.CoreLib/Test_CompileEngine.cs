@@ -9,8 +9,7 @@ namespace UnitTests.FluentSharp_CoreLib
     [TestFixture]
     public class Test_CompileEngine
     {
-        [Test]
-        public void CompileAndExecuteCodeSnippet()
+        [Test] public void CompileAndExecuteCodeSnippet()
         {
             //try with good script
             var snippet = "return 12;";
@@ -28,9 +27,7 @@ namespace UnitTests.FluentSharp_CoreLib
             Assert.AreNotEqual("", compileError, "compile errors were expected");
             Assert.IsNull(result, "result should be null");
         }
-
-        [Test]
-        public void LocalScriptFolders()
+        [Test] public void LocalScriptFolders()
         {
             var localScripts      = CompileEngine.LocalScriptFileMappings;
             var localScriptFolder = PublicDI.config.LocalScriptsFolder.createDir();
@@ -75,7 +72,5 @@ namespace UnitTests.FluentSharp_CoreLib
             Assert.AreEqual (extraFileName.local(),extraFile);
             Assert.AreEqual (extraFileName.local().fileContents(),extraFileContents);
         }
-
-        
     }
 }

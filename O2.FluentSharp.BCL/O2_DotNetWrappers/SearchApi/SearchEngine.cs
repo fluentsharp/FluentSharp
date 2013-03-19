@@ -50,7 +50,7 @@ namespace O2.DotNetWrappers.SearchApi
             loadFiles(lFilesToLoad, null);
         }
 
-        public void loadFiles(List<String> lFilesToLoad, O2Thread.FuncVoidT1<int> onPartialLoad)
+        public void loadFiles(List<String> lFilesToLoad, Action<int> onPartialLoad)
         {
             int iFilesProcessed = 0;
             foreach (String sFileToLoad in lFilesToLoad)

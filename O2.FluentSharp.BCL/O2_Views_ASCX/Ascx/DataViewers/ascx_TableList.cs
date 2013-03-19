@@ -13,7 +13,7 @@ namespace O2.Views.ASCX.DataViewers
 {
     public partial class ascx_TableList : UserControl
     {
-        public event O2Thread.FuncVoidT1<DragEventArgs> _onTableListDrop;
+        public event Action<DragEventArgs> _onTableListDrop;
 
         private bool resizeColumnsWidth = true;
 

@@ -54,6 +54,7 @@
     <Compile Include="Test_O2Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test_CompileEngine.cs" />
+    <Compile Include="Test_O2Threads.cs" />
     <Compile Include="Test_Reflection.cs" />
   </ItemGroup>
   <ItemGroup>
