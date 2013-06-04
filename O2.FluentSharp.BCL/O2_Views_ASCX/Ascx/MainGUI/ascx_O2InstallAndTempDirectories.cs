@@ -39,10 +39,10 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                 O2Thread.mtaThread(
                     () =>
                         {
-                            Threads_ExtensionMethods.invokeOnThread((Control) this, (Func<object>) (() => lbMessage_DeletingTempFolder.Visible = true));
+                            Thread_Invoke_ExtensionMethods.invokeOnThread((Control)this, (Func<object>)(() => lbMessage_DeletingTempFolder.Visible = true));
                             Files.deleteFolder(PublicDI.config.O2TempDir,true);
                             Files.checkIfDirectoryExistsAndCreateIfNot(PublicDI.config.O2TempDir, true);
-                            Threads_ExtensionMethods.invokeOnThread((Control) this, (Func<object>) (() => lbMessage_O2TempFolderContentsDeleted.Visible = true));
+                            Thread_Invoke_ExtensionMethods.invokeOnThread((Control)this, (Func<object>)(() => lbMessage_O2TempFolderContentsDeleted.Visible = true));
                         }
                     );
             }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using System.Threading;
 using O2.DotNetWrappers.Windows;
 using System.IO;
 using O2.DotNetWrappers.DotNet;
@@ -323,29 +322,6 @@ namespace O2.DotNetWrappers.ExtensionMethods
         {
             memoryStream.Position =0;
             return new StreamReader(memoryStream).ReadToEnd();
-        }
-    }
-
-    public static class Threads_ExtensionMethods
-    {
-        public static string name(this Thread thread)
-        {
-            if (thread.notNull())
-                return thread.Name;
-            return null;
-        }
-        public static StackTrace stackTrace(this Thread thread)
-        {
-            if (thread.notNull())
-                try
-                {
-                    return new StackTrace(thread, true);
-                }
-                catch (Exception ex)
-                {
-                    ex.log("[thread][stacktrace]");
-                }                            
-            return null;
         }
     }
 }

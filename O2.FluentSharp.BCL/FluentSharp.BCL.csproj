@@ -81,7 +81,7 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\IO_ExtensionMethods_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\O2Controls_ExtensioMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
-    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Threads_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Thread_Invoke_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />

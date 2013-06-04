@@ -94,6 +94,7 @@
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\SavingData_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Serialize_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Sleep_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\ExtensionMethods\Thread_Info_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Web_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\ExtensionMethods\Xml_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredSignature.cs" />
