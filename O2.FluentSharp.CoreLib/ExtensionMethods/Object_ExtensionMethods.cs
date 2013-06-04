@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using JetBrains.Annotations;
 
@@ -7,7 +8,7 @@ namespace FluentSharp.ExtensionMethods
     {
         public static void  gcCollect(this object _object)
         {
-            System.GC.Collect();
+            GC.Collect();
         }                
         public static int   hash(this object _object)
         {
@@ -41,14 +42,12 @@ namespace FluentSharp.ExtensionMethods
 		public static T backTo<T>(this object hostObject, T objectToGoBackTo)
 		{
 			return objectToGoBackTo;
-		}
-        // ReSharper disable RedundantAssignment
+		}        
 		public static T backTo<T, TK>(this TK hostObject, T objectToGoBackTo, ref TK hostObjectRef)         
 		{
 			hostObjectRef = hostObject;
 			return objectToGoBackTo;
-		}
-        // ReSharper restore RedundantAssignment
+		}        
 
 		public static T log_Info<T>(this T hostObject, params object[] messageParams)
 		{			
@@ -58,7 +57,6 @@ namespace FluentSharp.ExtensionMethods
 		        hostObject.str().info(messageParams);
 			return hostObject;
 		}
-
 		public static T log_Debug<T>(this T hostObject,  params object[] messageParams)
 		{	
 		    if (hostObject.isIEnumerable())
@@ -75,5 +73,22 @@ namespace FluentSharp.ExtensionMethods
                 hostObject.str().error(messageParams);
 			return hostObject;
 		}
+
+        public static T clone<T>(this T objectToClone)
+        {
+            try
+            {
+                if (objectToClone.isNull())
+                    "[object<T>.clone] provided object was null (type = {0})".error(typeof(T));
+                else
+                    return (T)objectToClone.invoke("MemberwiseClone");
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+                "[object<T>.clone]Faild to clone object {0} of type {1}".error(objectToClone.str(), typeof(T));
+            }
+            return default(T);
+        }	
     }
 }

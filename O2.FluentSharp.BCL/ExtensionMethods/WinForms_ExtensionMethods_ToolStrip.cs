@@ -543,7 +543,7 @@ namespace FluentSharp.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_MenuStrip
     {
-        public static MenuStrip add_Menu(this Form form)
+        public static MenuStrip         add_Menu(this Form form)
         {
             return form.invokeOnThread(
                 () =>
@@ -553,6 +553,25 @@ namespace FluentSharp.ExtensionMethods
                         form.MainMenuStrip = menuStrip;
                         return menuStrip;
                     });
+        }
+        public static MenuStrip         add_MenuStrip(this Control control)
+        {
+            return control.add_Control<MenuStrip>();
+        }
+        public static MenuStrip         insert_MenuStrip(this Control control)
+        {
+            return control.insert_Above(30).splitContainerFixed().add_MenuStrip();
+        }
+        public static ToolStripMenuItem add_Menu(this MenuStrip menuStrip, string name)
+        {
+            return menuStrip.add_MenuItem(name);
+        }
+        public static ToolStripMenuItem add_Menu(this ToolStripMenuItem toolStripMenuItem, string name)
+        {
+            if (toolStripMenuItem.notNull() && toolStripMenuItem.Owner is MenuStrip)
+                return (toolStripMenuItem.Owner as MenuStrip).add_Menu(name);
+            "[in add_Menu] toolStripMenuItem.Owner was not a MenuStrip, it was: {0}".error(toolStripMenuItem.typeName());
+            return null;
         }
         public static ToolStripMenuItem add_MenuItem(this MenuStrip menuStrip, string text)
         {
@@ -570,7 +589,7 @@ namespace FluentSharp.ExtensionMethods
                         return fileMenuItem;
                     });
         }
-        public static ContextMenuStrip add_MenuItem(this ContextMenuStrip contextMenu, string text, bool dummyValue, MethodInvoker onClick)
+        public static ContextMenuStrip  add_MenuItem(this ContextMenuStrip contextMenu, string text, bool dummyValue, MethodInvoker onClick)
         {
             // since we can't have two different return types the dummyValue is there for the cases where we want to get the reference to the 
             // ContextMenuStrip and not the menu item created
@@ -584,11 +603,11 @@ namespace FluentSharp.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_ToolStripStatus
     {
-        public static ToolStripStatusLabel add_StatusStrip(this UserControl control)
+        public static ToolStripStatusLabel  add_StatusStrip(this UserControl control)
         {
             return control.add_StatusStrip(Color.LightGray);
         }
-        public static ToolStripStatusLabel add_StatusStrip(this ContainerControl containerControl, Color backColor)
+        public static ToolStripStatusLabel  add_StatusStrip(this ContainerControl containerControl, Color backColor)
         {
             return containerControl.invokeOnThread(
                 () =>
@@ -600,23 +619,23 @@ namespace FluentSharp.ExtensionMethods
                         return label;
                     });
         }
-        public static ToolStripStatusLabel add_StatusStrip(this Control control)
+        public static ToolStripStatusLabel  add_StatusStrip(this Control control)
         {
             if (control is UserControl)
                 return (control as UserControl).add_StatusStrip(Color.FromName("Control"));
             return null;
         }
-        public static ToolStripStatusLabel add_StatusStrip(this Form form, bool spring)
+        public static ToolStripStatusLabel  add_StatusStrip(this Form form, bool spring)
         {
             var statusStrip = form.add_StatusStrip();
             form.invokeOnThread(() => statusStrip.Spring = spring); // make it align left	
             return statusStrip;
         }
-        public static ToolStripStatusLabel add_StatusStrip(this Form form)
+        public static ToolStripStatusLabel  add_StatusStrip(this Form form)
         {
             return form.add_StatusStrip(Color.FromName("Control"));
         }
-        public static ToolStripStatusLabel set_Text(this ToolStripStatusLabel label, string message)
+        public static ToolStripStatusLabel  set_Text(this ToolStripStatusLabel label, string message)
         {
             try
             {
@@ -630,7 +649,7 @@ namespace FluentSharp.ExtensionMethods
             return label;
             //		});
         }
-        public static string get_Text(this ToolStripStatusLabel label)
+        public static string                get_Text(this ToolStripStatusLabel label)
         {
             try
             {
@@ -643,7 +662,7 @@ namespace FluentSharp.ExtensionMethods
             }
             
         }
-        public static ToolStripStatusLabel textColor(this ToolStripStatusLabel label, Control hostControl, Color color)
+        public static ToolStripStatusLabel  textColor(this ToolStripStatusLabel label, Control hostControl, Color color)
         {
             // I have to provide an hostControl so that I can get the running Thread since ForeColor doesn't seem to be Thread safe
             return hostControl.invokeOnThread(
@@ -656,11 +675,11 @@ namespace FluentSharp.ExtensionMethods
                         return label;
                     });
         }
-        public static object tag(this Panel panel)
+        public static object                tag(this Panel panel)
         {
             return panel.invokeOnThread(() => panel.Tag);
         }
-        public static T tag<T>(this Panel panel)
+        public static T                     tag<T>(this Panel panel)
         {
             return panel.invokeOnThread(
                 () =>
@@ -671,11 +690,11 @@ namespace FluentSharp.ExtensionMethods
                         return default(T);
                     });
         }
-        public static Panel tag(this Panel panel, object tag)
+        public static Panel                 tag(this Panel panel, object tag)
         {
             panel.invokeOnThread(() => panel.Tag = tag);
             return panel;
-        }
+        }        
     }
 
     public static class WinForms_ExtensionMethods_ToolStripTextBox

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using O2.External.SharpDevelop.Ascx;
 using O2.XRules.Database.Utils;
 using FluentSharp.ExtensionMethods;
 using O2.External.SharpDevelop.ExtensionMethods;
@@ -116,7 +117,11 @@ namespace FluentSharp.ExtensionMethods
         public static ascx_Simple_Script_Editor add_Script_Me(this Panel panel, object _object)
         {
             return _object.script_Me(panel.clear());
-        }        
+        }
+        public static ascx_Simple_Script_Editor add_Script_Me(this Panel panel, object targetObject, string varName)
+        {
+            return targetObject.script_Me(varName, panel);
+        }
         public static ascx_Simple_Script_Editor insert_Right_Script_Me(this Control control, object _object)
         {
             return control.insert_Right().add_Script_Me(_object);
@@ -159,6 +164,15 @@ namespace FluentSharp.ExtensionMethods
 			scriptEditor.Code = scriptEditor.Code.line() +  scriptEditor.Code;
 			return scriptEditor;
 		}
+        public static ascx_SourceCodeEditor     csharp_Colors(this ascx_SourceCodeEditor codeEditor)
+        {
+            return codeEditor.set_ColorsForCSharp();
+        }
+        public static ascx_Simple_Script_Editor executeOnCompile(this ascx_Simple_Script_Editor simpleEditor)
+        {
+            simpleEditor.ExecuteOnCompile = true;
+            return simpleEditor;
+        }
         //"test".popupWindow().add_Script().InvocationParameters.add("mdbgShell", mdbgShell);        
     }
 }

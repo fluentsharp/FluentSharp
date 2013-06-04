@@ -192,6 +192,7 @@
     <Compile Include="_O2_API_AST\ExtensionMethods\BidirectionalGraph_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CodeDom_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\AbstractNode_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\AssignmentExpression_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\Attribute_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\BlockStatement_ExtensionMethod.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\CompilationUnit_ExtensionMethods.cs" />
@@ -209,6 +210,8 @@
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\ObjectCreateExpression_ExtensionMethod.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\ParameterDeclarationExpression_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\Parser_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\IdentifierExpression_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\PrimitiveExpression_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\PropertyDeclaration_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\TypeDeclaration_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\ExtensionMethods\CSharp\TypeReference_ExtensionMethods.cs" />

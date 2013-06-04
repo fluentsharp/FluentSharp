@@ -12,7 +12,7 @@ namespace FluentSharp.ExtensionMethods
     public static class WinForms_ExtensionMethods_Control_Object
     {
         //get
-        public static T get<T>(this Control controlToSearch) where T : Control
+        public static T             get<T>(this Control controlToSearch) where T : Control
         {
             foreach (var control in controlToSearch.controls())
                 if (control is T)
@@ -25,21 +25,21 @@ namespace FluentSharp.ExtensionMethods
                 }
             return null;
         }
-        public static T get<T>(this List<Control> controls) where T : Control
+        public static T             get<T>(this List<Control> controls) where T : Control
         {
             foreach (Control control in controls)
                 if (control.type() == typeof(T))
                     return (T)control;
             return null;
         }
-        public static T castOrCreate<T>(this Control control, object objectToCheck, Func<T> createFunction)
+        public static T             castOrCreate<T>(this Control control, object objectToCheck, Func<T> createFunction)
         {
             if (objectToCheck != null && objectToCheck is T)
                 return (T)objectToCheck;
             control.clear();
             return createFunction();
         }
-        public static Control parent(this Control control)
+        public static Control       parent(this Control control)
         {
             return (Control)control.invokeOnThread(
                 () =>
@@ -49,7 +49,7 @@ namespace FluentSharp.ExtensionMethods
                     return null;
                 });
         }
-        public static T parent<T>(this List<Control> controls) where T : Control
+        public static T             parent<T>(this List<Control> controls) where T : Control
         {
             foreach (var control in controls)
             {
@@ -59,7 +59,7 @@ namespace FluentSharp.ExtensionMethods
             }
             return null;
         }
-        public static T parent<T>(this Control control) where T : Control
+        public static T             parent<T>(this Control control) where T : Control
         {
             if (control != null && control.Parent != null)
             {
@@ -77,31 +77,31 @@ namespace FluentSharp.ExtensionMethods
             }
             return null;
         }
-        public static string get_Text(this Control control)
+        public static string        get_Text(this Control control)
         {
             return (string)control.invokeOnThread(() => { return control.Text; });
         }
-        public static T text<T>(this List<T> controls, string textToFind) where T : Control
+        public static T             text<T>(this List<T> controls, string textToFind) where T : Control
         {
             foreach (var control in controls)
                 if (control.get_Text() == textToFind)
                     return control;
             return null;
         }
-        public static List<string> texts<T>(this List<T> controls)  where T : Control
+        public static List<string>  texts<T>(this List<T> controls)  where T : Control
         {
             return (from control in controls
                     select control.get_Text()).toList();
         }
 
         //Misc
-        public static Form parentForm(this Control control)
+        public static Form          parentForm(this Control control)
         {
             if (control is Form)
                 return (Form)control;
             return control.parent<Form>();
         }
-        public static T set_Text<T>(this T control, string text) where T : Control
+        public static T             set_Text<T>(this T control, string text) where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -111,11 +111,11 @@ namespace FluentSharp.ExtensionMethods
                     return (T)control;
                 });
         }
-        public static T createInThread<T>(this Control control) where T : Control
+        public static T             createInThread<T>(this Control control) where T : Control
         {
             return control.newInThread<T>();
         }
-        public static T newInThread<T>(this Control control) where T : Control
+        public static T             newInThread<T>(this Control control) where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -131,11 +131,11 @@ namespace FluentSharp.ExtensionMethods
                     }
                 });
         }
-        public static Form newFormInThread(this Control control)
+        public static Form          newFormInThread(this Control control)
         {
             return control.newFormInThread("New Form in thread of: {0}".format(control.get_Text()));
         }
-        public static Form newFormInThread(this Control control, string text)
+        public static Form          newFormInThread(this Control control, string text)
         {
             return (Form)control.invokeOnThread(
                 () =>
@@ -147,11 +147,20 @@ namespace FluentSharp.ExtensionMethods
                     return newForm;
                 });
         }
-        public static T fill<T>(this T control) where T : Control
+        public static T             autoSize<T>(this T control, bool value) where T : Control
+        {
+            return control.invokeOnThread(
+                () =>
+                {
+                    control.AutoSize = value;
+                    return control;
+                });
+        }
+        public static T             fill<T>(this T control) where T : Control
         {
             return control.fill(true);
         }
-        public static T fill<T>(this T control, bool status) where T : Control
+        public static T             fill<T>(this T control, bool status) where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -161,11 +170,11 @@ namespace FluentSharp.ExtensionMethods
                 });
 
         }
-        public static T enabled<T>(this T control) where T : Control
+        public static T             enabled<T>(this T control) where T : Control
         {
             return control.enabled(true);
         }
-        public static T enabled<T>(this T control, bool state) where T : Control
+        public static T             enabled<T>(this T control, bool state) where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -174,11 +183,11 @@ namespace FluentSharp.ExtensionMethods
                     return (T)control;
                 });
         }
-        public static T visible<T>(this T control) where T : Control
+        public static T             visible<T>(this T control) where T : Control
         {
             return control.visible(true);
         }
-        public static T visible<T>(this T control, bool state) where T : Control
+        public static T             visible<T>(this T control, bool state) where T : Control
         {
             if (control.isNull())
                 return null;
@@ -189,7 +198,7 @@ namespace FluentSharp.ExtensionMethods
                     return (T)control;
                 });
         }
-        public static T mapToWidth<T>(this Control hostControl, T control, bool alignToTop) where T : Control
+        public static T             mapToWidth<T>(this Control hostControl, T control, bool alignToTop) where T : Control
         {
             if (alignToTop)
                 control.anchor_TopLeftRight();
@@ -201,7 +210,7 @@ namespace FluentSharp.ExtensionMethods
             control.Width = hostControl.Width - pad - pad;
             return control;
         }
-        public static T close<T>(this T userControl) where T : UserControl
+        public static T             close<T>(this T userControl) where T : UserControl
         {
             return userControl.invokeOnThread(
                 () =>
@@ -210,7 +219,7 @@ namespace FluentSharp.ExtensionMethods
                         return userControl;
                 });
         }
-        public static T foreColor<T>(this T control, Color color) where T : Control
+        public static T             foreColor<T>(this T control, Color color) where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -219,7 +228,7 @@ namespace FluentSharp.ExtensionMethods
                     return control;
                 });
         }
-        public static T backColor<T>(this T control, Color color) where T : Control
+        public static T             backColor<T>(this T control, Color color) where T : Control
         {
             return (T)control.invokeOnThread(
                 () =>
@@ -228,7 +237,7 @@ namespace FluentSharp.ExtensionMethods
                     return control;
                 });
         }
-        public static T backColor<T>(this T control, string colorName) where T : Control
+        public static T             backColor<T>(this T control, string colorName) where T : Control
         {
             return control.backColor(Color.FromName(colorName));
         }
@@ -236,7 +245,7 @@ namespace FluentSharp.ExtensionMethods
         {
             return control.controls(false);
         }
-        public static List<T> controls<T>(this Control control, bool recursiveSearch) where T : Control
+        public static List<T>       controls<T>(this Control control, bool recursiveSearch) where T : Control
         {
             return (from childControl in control.controls(recursiveSearch)
                     where childControl is T
@@ -254,7 +263,7 @@ namespace FluentSharp.ExtensionMethods
             else
                 return control.Controls.list();
         }
-        public static T controls<T>(this Control rootControl, int depthToReturn) where T : Control
+        public static T             controls<T>(this Control rootControl, int depthToReturn) where T : Control
         {
             var controls = rootControl.controls(depthToReturn);
             return controls.control<T>();
@@ -267,7 +276,7 @@ namespace FluentSharp.ExtensionMethods
                 allControls = allControls.controls(false);
             return allControls;
         }
-        public static List<T> controls<T>(this List<Control> controls) where T : Control
+        public static List<T>       controls<T>(this List<Control> controls) where T : Control
         {
             return (from control in controls
                     where control is T
@@ -288,25 +297,25 @@ namespace FluentSharp.ExtensionMethods
             }
             return allControls;
         }
-        public static T controls<T>(this Control control) where T : Control
+        public static T             controls<T>(this Control control) where T : Control
         {
             foreach (var childControl in control.controls())
                 if (childControl is T)
                     return (T)childControl;
             return null;
         }
-        public static T control<T>(this List<Control> controls) where T : Control
+        public static T             control<T>(this List<Control> controls) where T : Control
         {
             foreach (var control in controls)
                 if (control is T)
                     return (T)control;
             return null;
         }
-        public static T control<T>(this Control control) where T : Control
+        public static T             control<T>(this Control control) where T : Control
         {
             return control.control<T>(true);
         }
-        public static Control control<T>(this T hostControl, string controlName, bool recursive) where T : Control
+        public static Control       control<T>(this T hostControl, string controlName, bool recursive) where T : Control
         {
             var controls = hostControl.controls(recursive);
             foreach (var control in controls)
@@ -314,7 +323,7 @@ namespace FluentSharp.ExtensionMethods
                     return control;
             return null;
         }
-        public static T control<T>(this Control control, bool searchRecursively) where T : Control
+        public static T             control<T>(this Control control, bool searchRecursively) where T : Control
         {
             try
             {
@@ -326,6 +335,7 @@ namespace FluentSharp.ExtensionMethods
             catch {}
             return null;
         }
+
         public static List<Control> list(this Control.ControlCollection controlCollection)
         {
             var controls = new List<Control>();

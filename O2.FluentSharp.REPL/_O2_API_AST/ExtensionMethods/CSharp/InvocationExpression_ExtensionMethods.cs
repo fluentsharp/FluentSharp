@@ -14,7 +14,6 @@ namespace O2.API.AST.ExtensionMethods.CSharp
         {
             return blockStatement.add_Invocation("", methodName);
         }
-
         public static InvocationExpression add_Invocation(this BlockStatement blockStatement, string typeName, string methodName, params object[] parameters) //, AstExpression expression)
         {
             if (methodName.valid().isFalse())
@@ -43,10 +42,28 @@ namespace O2.API.AST.ExtensionMethods.CSharp
 
             return memberReference;
         }
- 
-
-
-        public static int argumentPosition(this InvocationExpression invocationExpression, IdentifierExpression identifierExpression)
+        public static InvocationExpression add_Invocation(this BlockStatement blockStatement, VariableDeclaration variableDeclaration, string methodName, params Expression[] arguments)
+        {
+            return blockStatement.add_Invocation(variableDeclaration.Name, methodName, arguments);
+        }
+        public static InvocationExpression add_Invocation(this InvocationExpression parentInvocation, string methodName, params Expression[] arguments)
+        {
+            return parentInvocation.toMemberReference(methodName)
+                                   .toInvocation(arguments);
+        }
+        public static InvocationExpression ast_Invocation_onType(this string typeName, string methodName, params object[] parameters)
+        {
+            return new BlockStatement().add_Invocation(typeName, methodName, parameters);
+        }
+        public static InvocationExpression ast_Invocation(this  string methodName, params object[] parameters)
+        {
+            return new BlockStatement().add_Invocation("", methodName, parameters);
+        }
+        public static InvocationExpression toInvocation(this Expression targetObject, params Expression[] arguments)
+        {
+            return new InvocationExpression(targetObject, arguments.toList());
+        }
+        public static int                  argumentPosition(this InvocationExpression invocationExpression, IdentifierExpression identifierExpression)
         {
             if (invocationExpression != null && identifierExpression != null)
                 for (int i = 0; i < invocationExpression.Arguments.Count; i++)								// for each arguments

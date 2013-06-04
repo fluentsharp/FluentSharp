@@ -151,7 +151,7 @@ namespace FluentSharp.ExtensionMethods
         public static TreeView  add_Nodes(this TreeView treeView, IEnumerable collection)
         {
             return treeView.add_Nodes(collection, false, "");
-        }
+        }        
         public static TreeView  add_Nodes(this TreeView treeView, IEnumerable collection, bool clearTreeView)
         {
             return treeView.add_Nodes(collection, clearTreeView, "");
@@ -193,7 +193,11 @@ namespace FluentSharp.ExtensionMethods
 				treeView.add_Node(nodeText, item.Value).add_Nodes(item.Value);
 			}
 			return treeView;
-		}		
+		}
+        public static TreeView  add_Nodes(this TreeView treeView, params string[] nodes)
+        {
+            return treeView.add_Nodes(nodes.toList());
+        }
 
         public static TreeView  add_Nodes<T>(this TreeView treeView, Dictionary<string, List<T>> items)
         {

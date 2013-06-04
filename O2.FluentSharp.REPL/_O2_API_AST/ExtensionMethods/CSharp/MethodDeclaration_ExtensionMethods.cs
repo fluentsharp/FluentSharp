@@ -13,46 +13,39 @@ namespace O2.API.AST.ExtensionMethods.CSharp
 {
 	public static class MethodDeclaration_ExtensionMethods
     {
-        #region create
-
-        public static TypeDeclaration add_Method(this TypeDeclaration typeDeclaration, MethodDeclaration methodDeclaration)
+        // create
+        public static TypeDeclaration                   add_Method(this TypeDeclaration typeDeclaration, MethodDeclaration methodDeclaration)
         {
             if (typeDeclaration != null && methodDeclaration != null)
                 typeDeclaration.AddChild(methodDeclaration);
             return typeDeclaration;
         }
-
-        public static CompilationUnit add_Method(this CompilationUnit compilationUnit, IClass iClass, MethodDeclaration methodDeclaration)
+        public static CompilationUnit                   add_Method(this CompilationUnit compilationUnit, IClass iClass, MethodDeclaration methodDeclaration)
         {
             var typeDeclaration = compilationUnit.add_Type(iClass);
             compilationUnit.add_Method(typeDeclaration, methodDeclaration);
             return compilationUnit;
         }        
-
-        public static CompilationUnit add_Method(this CompilationUnit compilationUnit, string @namespace, string typeName, MethodDeclaration methodDeclaration)
+        public static CompilationUnit                   add_Method(this CompilationUnit compilationUnit, string @namespace, string typeName, MethodDeclaration methodDeclaration)
         {
             var typeDeclaration = compilationUnit.add_Type(@namespace, typeName);
             compilationUnit.add_Method(typeDeclaration, methodDeclaration);
             return compilationUnit;
-        }
-               
-        public static CompilationUnit add_Method(this CompilationUnit compilationUnit, TypeDeclaration typeDeclaration, MethodDeclaration methodDeclaration)
+        }               
+        public static CompilationUnit                   add_Method(this CompilationUnit compilationUnit, TypeDeclaration typeDeclaration, MethodDeclaration methodDeclaration)
         {                                   
             typeDeclaration.add_Method(methodDeclaration);
             return compilationUnit;
         }
-
-        public static MethodDeclaration add_Method(this TypeDeclaration typeDeclaration, string methodName)
+        public static MethodDeclaration                 add_Method(this TypeDeclaration typeDeclaration, string methodName)
         {
             return typeDeclaration.add_Method(methodName, null, true,  null);
         }
-
-        public static MethodDeclaration add_Method(this TypeDeclaration typeDeclaration, string methodName, BlockStatement body)
+        public static MethodDeclaration                 add_Method(this TypeDeclaration typeDeclaration, string methodName, BlockStatement body)
         {
             return typeDeclaration.add_Method(methodName, null, true, body);
         }
-
-        public static MethodDeclaration add_Method(this TypeDeclaration typeDeclaration, string methodName, Dictionary<string, object> invocationParameters, bool resolveInvocationParametersType, BlockStatement body)
+        public static MethodDeclaration                 add_Method(this TypeDeclaration typeDeclaration, string methodName, Dictionary<string, object> invocationParameters, bool resolveInvocationParametersType, BlockStatement body)
         {
 			var newMethod = new MethodDeclaration();
 			newMethod.Body = body;
@@ -75,8 +68,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             typeDeclaration.AddChild(newMethod);
             return newMethod;
         }
-
-        public static TypeReference setReturnType(this MethodDeclaration methodDeclaration)
+        public static TypeReference                     setReturnType(this MethodDeclaration methodDeclaration)
         {
             var blockStatement = methodDeclaration.Body;
             //just default to always have a return of type object
@@ -105,136 +97,113 @@ namespace O2.API.AST.ExtensionMethods.CSharp
         //    }
             return methodDeclaration.TypeReference;
         }
-
-        public static MethodDeclaration returnType(this MethodDeclaration methodDeclaration, string returnType)
+        public static MethodDeclaration                 returnType(this MethodDeclaration methodDeclaration, string returnType)
         {
             methodDeclaration.TypeReference = new TypeReference(returnType);
             return methodDeclaration;
         }
-
-        public static BlockStatement add_Body(this MethodDeclaration methodDeclaration)
+        public static BlockStatement                    add_Body(this MethodDeclaration methodDeclaration)
         {
             var blockDeclaration = new BlockStatement();
             methodDeclaration.Body = blockDeclaration;
             return blockDeclaration;
-        }
-        #endregion
+        }        
 
-        #region query
-
-        public static List<MethodDeclaration> methods(this TypeDeclaration typeDeclaration)
+        //query
+        public static List<MethodDeclaration>           methods(this TypeDeclaration typeDeclaration)
         {
             var methods = from child in typeDeclaration.Children
                           where child is MethodDeclaration
                           select (MethodDeclaration)child;
             return methods.ToList();
         }
-
-        public static List<MethodDeclaration> methods(this IParser parser)
+        public static List<MethodDeclaration>           methods(this IParser parser)
         {
             return parser.CompilationUnit.methods();
         }
-
-        public static List<MethodDeclaration> methods(this CompilationUnit compilationUnit)
+        public static List<MethodDeclaration>           methods(this CompilationUnit compilationUnit)
         {
             return compilationUnit.types(true).methods();
         }
-
-        public static List<MethodDeclaration> methods(this List<TypeDeclaration> typeDeclarations)
+        public static List<MethodDeclaration>           methods(this List<TypeDeclaration> typeDeclarations)
         {
             var methods = new List<MethodDeclaration>();
             foreach (var typeDeclaration in typeDeclarations)
                 methods.AddRange(typeDeclaration.methods());
             return methods;
         }
-
-        public static MethodDeclaration method(this IParser parser, string name)
+        public static MethodDeclaration                 method(this IParser parser, string name)
         {
             return parser.CompilationUnit.method(name);
         }
-
-        public static MethodDeclaration method(this CompilationUnit compilationUnit, string name)
+        public static MethodDeclaration                 method(this CompilationUnit compilationUnit, string name)
         {
             return compilationUnit.types(true).methods().method(name);
         }
-
-        public static MethodDeclaration method(this List<MethodDeclaration> methodDeclarations, string name)
+        public static MethodDeclaration                 method(this List<MethodDeclaration> methodDeclarations, string name)
         {
             foreach (var methodDeclaration in methodDeclarations)
                 if (methodDeclaration.name() == name)
                     return methodDeclaration;
             return null;
         }
-
-        public static TypeReference returnType(this MethodDeclaration methodDeclaration)
+        public static TypeReference                     returnType(this MethodDeclaration methodDeclaration)
         {
             return methodDeclaration.TypeReference;
         }
-
-        public static List<TypeReference> returnTypes(this List<MethodDeclaration> methodDeclarations)
+        public static List<TypeReference>               returnTypes(this List<MethodDeclaration> methodDeclarations)
         {
             var returnTypes = from methodDeclaration in methodDeclarations
                               select methodDeclaration.returnType();
             return returnTypes.ToList();
         }
-
-        public static MethodDeclaration name(this List<MethodDeclaration> methodDeclarations, string name)
+        public static MethodDeclaration                 name(this List<MethodDeclaration> methodDeclarations, string name)
         {
             return methodDeclarations.method(name);
         }
-
-        public static string name(this MethodDeclaration methodDeclaration)
+        public static string                            name(this MethodDeclaration methodDeclaration)
         {
             return methodDeclaration.Name;
         }
-
-        public static List<string> names(this List<MethodDeclaration> methodDeclarations)
+        public static List<string>                      names(this List<MethodDeclaration> methodDeclarations)
         {
             var names = from methodDeclaration in methodDeclarations
                           select methodDeclaration.Name;
             return names.ToList();
         }
-
-        public static List<LocalVariableDeclaration> variables(this List<MethodDeclaration> methodDeclarations)
+        public static List<LocalVariableDeclaration>    variables(this List<MethodDeclaration> methodDeclarations)
         {
             var variables = new List<LocalVariableDeclaration>();
             foreach (var methodDeclaration in methodDeclarations)
                 variables.AddRange(methodDeclaration.variables());
             return variables;
         }
-
-        public static List<LocalVariableDeclaration> variables(this MethodDeclaration methodDeclaration)
+        public static List<LocalVariableDeclaration>    variables(this MethodDeclaration methodDeclaration)
         {
             var astVisitors = new AstVisitors();
             methodDeclaration.AcceptVisitor(astVisitors, null);
             return astVisitors.localVariableDeclarations;
         }
-
-        public static List<InvocationExpression> invocations(this List<MethodDeclaration> methodDeclarations)
+        public static List<InvocationExpression>        invocations(this List<MethodDeclaration> methodDeclarations)
         {
             var invocations = new List<InvocationExpression>();
             foreach (var methodDeclaration in methodDeclarations)
                 invocations.AddRange(methodDeclaration.invocations());
             return invocations;
         }
-
-        public static List<InvocationExpression> invocations(this MethodDeclaration methodDeclaration)
+        public static List<InvocationExpression>        invocations(this MethodDeclaration methodDeclaration)
         {
             var astVisitors = new AstVisitors();
             methodDeclaration.AcceptVisitor(astVisitors, null);
             return astVisitors.invocationExpressions;
         }
-
-        public static bool validBody(this MethodDeclaration methodDeclaration)
+        public static bool                              validBody(this MethodDeclaration methodDeclaration)
         {
             return (methodDeclaration.Body != null && methodDeclaration.Body.Children != null && methodDeclaration.Body.Children.Count > 0);
         }
 
-        #endregion
-
-        #region sourcecode
-
-        public static string sourceCode(this MethodDeclaration methodDeclaration, string sourceCodeFile)
+        //Source code
+        public static string                            sourceCode(this MethodDeclaration methodDeclaration, string sourceCodeFile)
         {
             var startLine = methodDeclaration.StartLocation.Line;
             var endLine = (methodDeclaration.Body != null)
@@ -242,14 +211,73 @@ namespace O2.API.AST.ExtensionMethods.CSharp
                             : startLine + 1;
             return sourceCodeFile.fileSnippet(startLine - 1, endLine);
         }
-
-        
-        public static Location firstLineOfCode(this MethodDeclaration methodDeclaration)
+        public static Location                          firstLineOfCode(this MethodDeclaration methodDeclaration)
         {
             if (methodDeclaration.validBody())
                 return methodDeclaration.Body.Children[0].StartLocation;
             return new Location(0, 0);
+        }        
+
+
+        //TO MAP
+        public static MethodDeclaration                 ast_Method(this string methodName)
+        {
+            return new MethodDeclaration()
+                            .name(methodName)
+                            .public_Instance()
+                            .returnType_Void()
+                            .empty_Body();
         }
-        #endregion
+        public static MethodDeclaration                 name(this MethodDeclaration methodDeclaration, string methodName)
+        {
+            methodDeclaration.Name = methodName;
+            return methodDeclaration;
+        }
+        public static MethodDeclaration                 name_Add(this MethodDeclaration methodDeclaration, string textToAdd)
+        {
+            methodDeclaration.Name += textToAdd;
+            return methodDeclaration;
+        }
+        public static MethodDeclaration                 empty_Body(this MethodDeclaration methodDeclaration)
+        {
+            return methodDeclaration.body(new BlockStatement());
+        }
+        public static MethodDeclaration                 body(this MethodDeclaration methodDeclaration, BlockStatement newBody)
+        {
+            methodDeclaration.Body = newBody;
+            return methodDeclaration;
+        }
+        public static MethodDeclaration                 returnType_Void(this MethodDeclaration methodDeclaration)
+        {
+            return methodDeclaration.setReturnType("void");
+        }
+        public static MethodDeclaration                 setReturnType(this MethodDeclaration methodDeclaration, string returnType)
+        {
+            return methodDeclaration.returnType_using_Keyword(returnType);
+        }
+        public static MethodDeclaration                 returnType_using_Keyword(this MethodDeclaration methodDeclaration, string returnType)
+        {
+            methodDeclaration.TypeReference = new TypeReference(returnType, true);
+            return methodDeclaration;
+        }
+        public static MethodDeclaration                 public_Static(this MethodDeclaration methodDeclaration)
+        {
+            methodDeclaration.Modifier = Modifiers.Static | Modifiers.Public;
+            return methodDeclaration;
+        }
+        public static MethodDeclaration                 public_Instance(this MethodDeclaration methodDeclaration)
+        {
+            methodDeclaration.Modifier = Modifiers.Public;
+            return methodDeclaration;
+        }
+        public static MethodDeclaration                 private_Static(this MethodDeclaration methodDeclaration)
+        {
+            methodDeclaration.Modifier = Modifiers.Static | Modifiers.Private;
+            return methodDeclaration;
+        }
+        public static List<IdentifierExpression>        parameters_Names_as_Indentifiers(this MethodDeclaration methodDeclaration)
+        {
+            return methodDeclaration.parameters().names().ast_Identifiers();
+        }
     }
 }

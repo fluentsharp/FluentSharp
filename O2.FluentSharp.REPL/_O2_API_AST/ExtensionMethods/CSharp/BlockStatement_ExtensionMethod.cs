@@ -10,7 +10,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
 {
     public static class BlockStatement_ExtensionMethod
     {
-        public static BlockStatement body(this INode iNode)
+        public static BlockStatement        body(this INode iNode)
         {
             if (iNode is MethodDeclaration)
                 return (iNode as MethodDeclaration).Body;
@@ -20,13 +20,11 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             "method declaration for iNode: {0} was null".error(iNode);
             return null;
         }
-
-        public static BlockStatement parentBlock(this INode iNode)
+        public static BlockStatement        parentBlock(this INode iNode)
         {
             return iNode.parent<BlockStatement>();
         }
-
-        public static BlockStatement add_Return(this BlockStatement blockStatement, object returnData)
+        public static BlockStatement        add_Return(this BlockStatement blockStatement, object returnData)
         {
 			Expression returnStatement;
 			if (returnData.isNull())
@@ -42,6 +40,21 @@ namespace O2.API.AST.ExtensionMethods.CSharp
 			blockStatement.append(new ReturnStatement(returnStatement));
             return blockStatement;
         }
- 
+        public static BlockStatement        append_AsStatement(this BlockStatement blockExpression, Expression expression)
+        {
+            return blockExpression.append(expression.expressionStatement());
+        }
+        public static VariableDeclaration   add_Variable_with_NewObject(this BlockStatement blockStatement, string variableName, string typeName)
+        {
+            return blockStatement.add_Variable_with_NewObject(variableName, typeName.ast_TypeReference());
+        }
+        public static VariableDeclaration   add_Variable_with_NewObject(this BlockStatement blockStatement, string variableName, TypeDeclaration typeDeclaration)
+        {
+            return blockStatement.add_Variable_with_NewObject(variableName, typeDeclaration.Name.ast_TypeReference());
+        }
+        public static VariableDeclaration   add_Variable_with_NewObject(this BlockStatement blockStatement, string variableName, TypeReference typeReference)
+        {
+            return blockStatement.add_Variable(variableName, typeReference.ast_ObjectCreate(), typeReference);
+        }
     }
 }

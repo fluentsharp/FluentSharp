@@ -18,9 +18,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             blockStatement.append(memberReference.expressionStatement());
             return memberReference;
         }
-
-
-        public static string sourceCode(this MemberReferenceExpression memberReferenceExpression, string file)
+        public static string                    sourceCode(this MemberReferenceExpression memberReferenceExpression, string file)
         {
             var methodDeclaration = memberReferenceExpression.methodDeclaration();
             if (methodDeclaration != null)
@@ -31,6 +29,10 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             }
             "could not find sourcecode in {0} for provided memberReferenceExpression: {1}".format(file, memberReferenceExpression).error();
             return "";
+        }
+        public static MemberReferenceExpression toMemberReference(this Expression targetObject, string memberName)
+        {
+            return new MemberReferenceExpression(targetObject, memberName);
         }
     }
 }

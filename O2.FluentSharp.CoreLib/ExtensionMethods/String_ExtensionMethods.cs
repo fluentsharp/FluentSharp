@@ -273,6 +273,21 @@ namespace FluentSharp.ExtensionMethods
         {
             return Convert.ToString(value, 16).caps();
         }
+        public static byte[]    hexStringToByteArray(this string hex)
+        {
+            try
+            {
+                return Enumerable.Range(0, hex.Length)
+                                 .Where(x => x % 2 == 0)
+                                 .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                                 .ToArray();
+            }
+            catch (Exception ex)
+            {
+                ex.log();
+                return new byte[] { };
+            }
+        }
 
         public static string    caps(this string value)
         {

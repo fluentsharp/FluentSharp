@@ -8,16 +8,15 @@ namespace FluentSharp.ExtensionMethods
 {
     public static class Crypto_ExtensionMethods
     {
-        public static Random randomObject = new Random((int)DateTime.Now.Ticks);
-         
+        //Random numbers
+        public static Random randomObject = new Random((int)DateTime.Now.Ticks);         
         public static int random(this int maxValue)
         {
             return randomObject.Next(maxValue);
-        }
-
-        // inspired from the accepted answer from http://stackoverflow.com/questions/1122483/c-random-string-generator
+        }        
         public static string randomString(this int size)
         {
+            // inspired from the accepted answer from http://stackoverflow.com/questions/1122483/c-random-string-generator
             var random = Crypto_ExtensionMethods.randomObject;
 
             var stringBuilder = new StringBuilder();
@@ -29,7 +28,6 @@ namespace FluentSharp.ExtensionMethods
             }
             return stringBuilder.ToString();
         }
-
         public static string randomNumbers(this int size)
         {
             var random = Crypto_ExtensionMethods.randomObject;
@@ -43,9 +41,6 @@ namespace FluentSharp.ExtensionMethods
             }
             return stringBuilder.ToString();
         }
-
-
-
         public static string randomLetters(this int size)
         {
             var random = Crypto_ExtensionMethods.randomObject;
@@ -62,7 +57,7 @@ namespace FluentSharp.ExtensionMethods
             return stringBuilder.ToString();
         }
 
-        #region MD5 String
+        // MD5 String
         public static string md5Hash(this string stringToHash)
         {
             if (stringToHash.isNull())
@@ -73,7 +68,6 @@ namespace FluentSharp.ExtensionMethods
             var data = md5.ComputeHash(stringToHash.asciiBytes());
             return data.hexString();            
         }
-
         public static string hexString(this byte[] bytes)
         {
             if (bytes.isNull())
@@ -83,10 +77,8 @@ namespace FluentSharp.ExtensionMethods
             for (int i = 0; i < bytes.Length; i++)            
                 stringBuilder.Append(bytes[i].ToString("x2"));                        
             return stringBuilder.ToString();
-        }
-        #endregion
-
-        #region MD5 Bitmap
+        }        
+        //MD5 Bitmap
         public static string md5Hash(this Bitmap bitmap)
         {
             try
@@ -128,6 +120,146 @@ namespace FluentSharp.ExtensionMethods
             "in Bitmap.isEqualTo at least one of the calculated MD5 Hashes was not valid".error();
             return false;
         }
-        #endregion
+        
+        //AES
+        //based on code sample from: http://msdn.microsoft.com/en-us/library/system.security.cryptography.aes(v=vs.100).aspx
+        public static byte[] encrypt_AES(this string plainText, string key, string iv)
+        {
+            return plainText.encrypt_AES(key.hexStringToByteArray(), iv.hexStringToByteArray());
+        }
+        public static byte[] encrypt_AES(this string plainText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (plainText == null || plainText.Length <= 0)
+                throw new ArgumentNullException("plainText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("Key");
+
+            // Declare the streams used
+            // to encrypt to an in memory
+            // array of bytes.
+            MemoryStream msEncrypt = null;
+            CryptoStream csEncrypt = null;
+            StreamWriter swEncrypt = null;
+
+            // Declare the Aes object
+            // used to encrypt the data.
+            Aes aesAlg = null;
+
+            // Declare the bytes used to hold the
+            // encrypted data.
+            byte[] encrypted = null;
+
+            try
+            {
+                // Create an Aes object
+                // with the specified key and IV.
+                aesAlg = Aes.Create();
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                // Create a decrytor to perform the stream transform.
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption.
+                msEncrypt = new MemoryStream();
+                csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
+                swEncrypt = new StreamWriter(csEncrypt);
+
+                //Write all data to the stream.
+                swEncrypt.Write(plainText);
+
+            }
+            finally
+            {
+                // Clean things up.
+
+                // Close the streams.
+                if (swEncrypt != null)
+                    swEncrypt.Close();
+                if (csEncrypt != null)
+                    csEncrypt.Close();
+                if (msEncrypt != null)
+                    msEncrypt.Close();
+
+                // Clear the Aes object.
+                if (aesAlg != null)
+                    aesAlg.Clear();
+            }
+
+            // Return the encrypted bytes from the memory stream.
+            return msEncrypt.ToArray();
+        }
+        public static string decrypt_AES(this byte[] cipherText, string key, string iv)
+        {
+            return cipherText.decrypt_AES(key.hexStringToByteArray(), iv.hexStringToByteArray());
+        }
+        public static string decrypt_AES(this byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (cipherText == null || cipherText.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("Key");
+
+            // TDeclare the streams used
+            // to decrypt to an in memory
+            // array of bytes.
+            MemoryStream msDecrypt = null;
+            CryptoStream csDecrypt = null;
+            StreamReader srDecrypt = null;
+
+            // Declare the Aes object
+            // used to decrypt the data.
+            Aes aesAlg = null;
+
+            // Declare the string used to hold
+            // the decrypted text.
+            string plaintext = null;
+
+            try
+            {
+                // Create an Aes object
+                // with the specified key and IV.
+                aesAlg = Aes.Create();
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                // Create a decrytor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for decryption.
+                msDecrypt = new MemoryStream(cipherText);
+                csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
+                srDecrypt = new StreamReader(csDecrypt);
+
+                // Read the decrypted bytes from the decrypting stream
+                // and place them in a string.
+                plaintext = srDecrypt.ReadToEnd();
+            }
+            finally
+            {
+                // Clean things up.
+
+                // Close the streams.
+                if (srDecrypt != null)
+                    srDecrypt.Close();
+                if (csDecrypt != null)
+                    csDecrypt.Close();
+                if (msDecrypt != null)
+                    msDecrypt.Close();
+
+                // Clear the Aes object.
+                if (aesAlg != null)
+                    aesAlg.Clear();
+            }
+
+            return plaintext;
+        }
+
     }
 }

@@ -10,20 +10,17 @@ namespace O2.API.AST.ExtensionMethods.CSharp
 {
     public static class PropertyDeclaration_ExtensionMethods
     {
-
-        public static PropertyDeclaration add_Property(this CompilationUnit compilationUnit, IProperty iProperty,  PropertyDeclaration propertyDeclaration)
+        public static PropertyDeclaration   add_Property(this CompilationUnit compilationUnit, IProperty iProperty,  PropertyDeclaration propertyDeclaration)
         {
             var propertyType = compilationUnit.add_Type(iProperty.DeclaringType);
             return propertyType.add_Property(propertyDeclaration);
         }
-
-        public static PropertyDeclaration add_Property(this CompilationUnit compilationUnit, IProperty iProperty)
+        public static PropertyDeclaration   add_Property(this CompilationUnit compilationUnit, IProperty iProperty)
         {
             var propertyType = compilationUnit.add_Type(iProperty.DeclaringType);
             return propertyType.add_Property(iProperty);            
         }
-
-        public static PropertyDeclaration add_Property(this TypeDeclaration typeDeclaration, PropertyDeclaration propertyDeclaration)
+        public static PropertyDeclaration   add_Property(this TypeDeclaration typeDeclaration, PropertyDeclaration propertyDeclaration)
         {
             if (typeDeclaration.notNull() && propertyDeclaration.notNull() && typeDeclaration.Children.notNull())
             {
@@ -33,8 +30,7 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             return propertyDeclaration;
             
         }
-
-        public static PropertyDeclaration add_Property(this TypeDeclaration typeDeclaration, IProperty iProperty)
+        public static PropertyDeclaration   add_Property(this TypeDeclaration typeDeclaration, IProperty iProperty)
         {           
             foreach (var child in typeDeclaration.Children)
                 if (child is PropertyDeclaration)
@@ -55,10 +51,26 @@ namespace O2.API.AST.ExtensionMethods.CSharp
             "in add_Property could not convert property into PropertyDeclaration, because it is: {0}".error(property.typeName());
             return null;
         }
-
-        public static PropertyDeclaration add_Property(this TypeDeclaration typeDeclaration, string propertyType, string propertyName)
+        public static PropertyDeclaration   add_Property(this TypeDeclaration typeDeclaration, string propertyType, string propertyName)
         {
             return null;
+        }
+        public static PropertyDeclaration   ast_Property(this string propertyName, string propertyType)
+        {
+            var modifier = Modifiers.Public;
+            var attributes = new List<AttributeSection>();
+            var parameters = new List<ParameterDeclarationExpression>() { };
+
+            var propertyDeclaration = new PropertyDeclaration(modifier, attributes, propertyName, parameters);
+            propertyDeclaration.TypeReference = propertyType.ast_TypeReference();
+            propertyDeclaration.GetRegion = new PropertyGetRegion(null, null);
+            propertyDeclaration.SetRegion = new PropertySetRegion(null, null);
+            return propertyDeclaration;
+        }
+        public static TypeDeclaration       add_Property(this TypeDeclaration targetType, string propertyName, TypeDeclaration propertyType)
+        {
+            targetType.add_Property(propertyName.ast_Property(propertyType.name()));
+            return targetType;
         }
     }
 }

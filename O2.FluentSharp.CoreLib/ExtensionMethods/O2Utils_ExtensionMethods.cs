@@ -6,7 +6,6 @@ namespace FluentSharp.ExtensionMethods
         {
             return textToEncode.encodeAsO2ScriptText(";", 0);
         }
-
         public static string encodeAsO2ScriptText(this string textToEncode, string lastChar, int extraTabsAfterFirstLine)
         {
             var scriptText = "";
