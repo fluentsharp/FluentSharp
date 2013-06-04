@@ -61,6 +61,16 @@
   <ItemGroup>
     <Compile Include="API_NGit.cs" />
     <Compile Include="API_NGit_O2Platform.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Push.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Add.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Commit.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Misc.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Diff.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Log.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Status.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Pull.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_Init_Clone_Open.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtMet_RefLogs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
