@@ -1,7 +1,7 @@
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.External.SharpDevelop.ExtensionMethods;
 //using O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods;
 

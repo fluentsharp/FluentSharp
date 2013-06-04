@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class IO_ExtensionMethods_WinForms
     {

@@ -7,7 +7,7 @@ using O2.DotNetWrappers.DotNet;
 using System.Collections.Specialized;
 using O2.Kernel.Objects;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Collections_ExtensionMethods_IEnumerable
     {

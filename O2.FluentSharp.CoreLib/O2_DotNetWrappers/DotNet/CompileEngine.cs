@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Microsoft.CSharp;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 using O2.Kernel.CodeUtils;

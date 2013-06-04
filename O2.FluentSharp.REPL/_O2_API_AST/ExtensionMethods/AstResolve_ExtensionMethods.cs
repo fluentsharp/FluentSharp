@@ -5,7 +5,7 @@ using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using O2.API.AST.Graph;
 using ICSharpCode.SharpDevelop.Dom;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.API.AST.CSharp;
 using O2.API.AST.ExtensionMethods.CSharp;
 

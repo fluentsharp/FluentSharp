@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using O2.External.WinFormsUI.O2Environment;
 using O2.Interfaces.Views;

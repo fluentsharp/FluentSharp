@@ -7,7 +7,7 @@ using System.IO;
 using O2.DotNetWrappers.DotNet;
 using System.Runtime.InteropServices;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
 
     public static class Processes_ExtensionMethods

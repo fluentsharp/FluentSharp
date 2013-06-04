@@ -8,7 +8,7 @@ using Roslyn.Compilers;
 using System.Reflection;
 using System.IO;
 using O2.Kernel;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.Threading;
 
 namespace O2.FluentSharp

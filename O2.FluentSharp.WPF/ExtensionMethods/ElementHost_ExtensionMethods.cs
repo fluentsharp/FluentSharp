@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 using O2.Kernel.ExtensionMethods;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 //O2File:WPF_Controls_ExtensionMethods.cs
 

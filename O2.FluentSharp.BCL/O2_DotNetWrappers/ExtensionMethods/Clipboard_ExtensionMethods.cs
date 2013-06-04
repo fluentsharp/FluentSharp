@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.Windows;
 using System.Windows.Forms;
 using O2.Kernel;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Clipboard_ExtensionMethods
     {

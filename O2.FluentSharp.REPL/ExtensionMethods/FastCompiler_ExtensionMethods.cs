@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Threading;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 using O2.External.SharpDevelop.AST;
 using O2.DotNetWrappers.Windows;

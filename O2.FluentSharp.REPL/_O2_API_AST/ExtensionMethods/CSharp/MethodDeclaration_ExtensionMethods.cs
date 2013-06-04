@@ -6,7 +6,7 @@ using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using O2.API.AST.CSharp;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using ICSharpCode.SharpDevelop.Dom;
 
 namespace O2.API.AST.ExtensionMethods.CSharp

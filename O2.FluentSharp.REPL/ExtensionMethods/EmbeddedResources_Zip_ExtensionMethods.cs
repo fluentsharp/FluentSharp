@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.IO.Compression;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel;
 using System.Reflection;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class EmbeddedResources_Zip_ExtensionMethods
     {

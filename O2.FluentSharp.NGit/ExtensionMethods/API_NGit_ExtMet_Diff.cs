@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NGit.Diff;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using Sharpen;
 
 namespace O2.FluentSharp.ExtensionMethods

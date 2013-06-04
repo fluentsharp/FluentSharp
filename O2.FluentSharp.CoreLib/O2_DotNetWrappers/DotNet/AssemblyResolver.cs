@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.IO;
 using O2.Kernel;
 

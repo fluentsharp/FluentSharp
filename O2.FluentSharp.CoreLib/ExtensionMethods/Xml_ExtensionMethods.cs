@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Xml_ExtensionMethods
     {        

@@ -1,4 +1,4 @@
-﻿using O2.DotNetWrappers.ExtensionMethods;
+﻿using FluentSharp.ExtensionMethods;
 using System.Reflection.Emit;
 
 namespace O2.DotNetWrappers.DotNet

@@ -5,7 +5,7 @@ using System.Reflection;
 using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class EmbeddedResources_ExtensionMethods
     {

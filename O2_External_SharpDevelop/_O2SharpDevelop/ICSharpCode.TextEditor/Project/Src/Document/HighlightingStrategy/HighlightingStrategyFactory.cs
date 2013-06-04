@@ -6,7 +6,7 @@
 // </file>
 
 using System;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.TextEditor.Document
 {

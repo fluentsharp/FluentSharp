@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Visitors;
 using ICSharpCode.NRefactory;

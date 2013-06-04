@@ -3,7 +3,7 @@ using System;
 //using System.Deployment.Application;
 using System.Threading;
 using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel;
 
 namespace O2.DotNetWrappers.DotNet

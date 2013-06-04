@@ -4,7 +4,7 @@ using System.Linq;
 using System.Data;
 using System.Reflection;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Data_ExtensionMethods
     {

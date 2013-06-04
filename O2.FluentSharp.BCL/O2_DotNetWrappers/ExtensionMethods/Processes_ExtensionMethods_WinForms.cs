@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Processes_ExtensionMethods_WinForms
     {

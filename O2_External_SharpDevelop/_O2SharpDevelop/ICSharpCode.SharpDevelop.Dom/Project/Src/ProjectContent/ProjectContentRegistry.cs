@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {

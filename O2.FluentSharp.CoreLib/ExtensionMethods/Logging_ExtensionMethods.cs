@@ -4,7 +4,7 @@ using O2.Kernel;
 
 //O2File:../PublicDI.cs
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Logging_ExtensionMethods
     {

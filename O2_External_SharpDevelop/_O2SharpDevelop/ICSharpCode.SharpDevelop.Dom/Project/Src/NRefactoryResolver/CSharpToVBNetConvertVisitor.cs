@@ -13,7 +13,7 @@ using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.AstBuilder;
 using ICSharpCode.NRefactory.Visitors;
 using System.Runtime.InteropServices;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
 {

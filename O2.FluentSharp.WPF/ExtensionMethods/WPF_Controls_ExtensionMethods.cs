@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Threading;
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel.ExtensionMethods;
 using System.Windows;
 using System.Windows.Input;

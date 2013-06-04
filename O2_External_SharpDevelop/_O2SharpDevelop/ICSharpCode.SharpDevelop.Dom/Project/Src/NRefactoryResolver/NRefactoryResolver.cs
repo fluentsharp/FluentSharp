@@ -17,7 +17,7 @@ using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Visitors;
 using NR = ICSharpCode.NRefactory;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
 {

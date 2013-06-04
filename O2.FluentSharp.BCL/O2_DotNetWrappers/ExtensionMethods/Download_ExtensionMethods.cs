@@ -6,7 +6,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Views.ASCX.CoreControls;
 using O2.Views.ASCX.classes.MainGUI;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Download_ExtensionMethods        
 	{		

@@ -8,7 +8,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom.VBNet
 {

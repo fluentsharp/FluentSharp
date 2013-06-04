@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using O2.Kernel.InterfacesBaseImpl;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace O2.Kernel.CodeUtils
 {

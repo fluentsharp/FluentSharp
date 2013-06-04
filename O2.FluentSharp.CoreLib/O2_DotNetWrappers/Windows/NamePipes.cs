@@ -1,5 +1,5 @@
 using System;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.IO.Pipes;
 using O2.DotNetWrappers.DotNet;
 using System.IO;

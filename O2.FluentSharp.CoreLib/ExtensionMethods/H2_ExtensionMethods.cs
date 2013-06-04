@@ -1,6 +1,6 @@
 ﻿using O2.DotNetWrappers.H2Scripts;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class H2_ExtensionMethods
     {

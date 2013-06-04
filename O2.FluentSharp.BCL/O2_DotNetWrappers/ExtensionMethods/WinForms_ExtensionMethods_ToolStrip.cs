@@ -6,7 +6,7 @@ using System.Drawing;
 using O2.DotNetWrappers.DotNet;
 using O2.Platform.BCL.O2_Views_ASCX;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public class ToolStripCheckBox : ToolStripControlHost
     {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using O2.Views.ASCX.DataViewers;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.Drawing;
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
 using O2.Views.ASCX.classes.MainGUI;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_O2_TableList
     {

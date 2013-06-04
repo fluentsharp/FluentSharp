@@ -8,7 +8,7 @@ using ICSharpCode.NRefactory.Parser;
 using ICSharpCode.NRefactory.Ast;
 using ASTAttribute = ICSharpCode.NRefactory.Ast.Attribute;
 using Types = ICSharpCode.NRefactory.Ast.ClassType;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 /*
   Parser.frame file for NRefactory.
  */

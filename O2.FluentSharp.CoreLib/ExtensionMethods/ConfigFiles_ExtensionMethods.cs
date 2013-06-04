@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using O2.Kernel;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class ConfigFiles_ExtensionMethods
     {

@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Linq_ExtensionMethods
     {

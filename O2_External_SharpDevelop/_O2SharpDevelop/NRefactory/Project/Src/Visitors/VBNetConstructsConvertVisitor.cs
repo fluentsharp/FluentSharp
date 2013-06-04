@@ -12,7 +12,7 @@ using System.Reflection;
 using ICSharpCode.NRefactory.Ast;
 using Attribute = ICSharpCode.NRefactory.Ast.Attribute;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.NRefactory.Visitors
 {

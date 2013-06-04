@@ -4,7 +4,7 @@ using O2.Kernel;
 using O2.Kernel.Objects;
 
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class _Extra_AppDomain_ExtensionMethods
     {

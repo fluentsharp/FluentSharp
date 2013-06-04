@@ -7,7 +7,7 @@ using O2.Kernel;
 using System.Drawing;
 using O2.DotNetWrappers.Windows;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Control_Object
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Interfaces.O2Findings;
 
 namespace O2.DotNetWrappers.O2Findings

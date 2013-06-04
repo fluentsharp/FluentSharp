@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using ICSharpCode.NRefactory.Ast;
 using O2.DotNetWrappers.DotNet;
 using ICSharpCode.NRefactory;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.External.SharpDevelop.ExtensionMethods;
 
 using O2.API.AST.ExtensionMethods.CSharp;

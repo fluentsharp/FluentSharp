@@ -5,7 +5,7 @@ using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.SharpDevelop.Dom;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.API.AST.ExtensionMethods;
 using O2.API.AST;
 

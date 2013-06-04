@@ -2,7 +2,7 @@ using System;
 using O2.DotNetWrappers.DotNet;
 using O2.Kernel;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Serialize_ExtensionMethods
     {

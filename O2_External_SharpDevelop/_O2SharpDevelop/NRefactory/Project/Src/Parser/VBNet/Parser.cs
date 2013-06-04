@@ -12,7 +12,7 @@ using ASTAttribute = ICSharpCode.NRefactory.Ast.Attribute;
  */
 using System;
 using System.Reflection;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.NRefactory.Parser.VB {
 

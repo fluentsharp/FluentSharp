@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 using System.IO;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.Net.NetworkInformation;
 
 namespace O2.Kernel.CodeUtils

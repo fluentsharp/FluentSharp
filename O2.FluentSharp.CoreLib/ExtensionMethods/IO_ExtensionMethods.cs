@@ -7,7 +7,7 @@ using O2.DotNetWrappers.Windows;
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class IO_ExtensionMethods_File_Save
     {        

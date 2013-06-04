@@ -11,7 +11,7 @@ using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.AstBuilder;
 using Attribute = ICSharpCode.NRefactory.Ast.Attribute;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.NRefactory.Visitors
 {

@@ -16,7 +16,7 @@ using ICSharpCode.NRefactory.Visitors;
 using AST = ICSharpCode.NRefactory.Ast;
 using RefParser = ICSharpCode.NRefactory;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
 {

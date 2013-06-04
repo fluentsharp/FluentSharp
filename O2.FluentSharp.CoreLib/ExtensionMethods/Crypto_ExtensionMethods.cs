@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Crypto_ExtensionMethods
     {

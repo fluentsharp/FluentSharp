@@ -1,4 +1,4 @@
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class PerformanceCounters_ExtensionMethods
     {

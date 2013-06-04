@@ -1,5 +1,5 @@
 ﻿
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_CoreLib

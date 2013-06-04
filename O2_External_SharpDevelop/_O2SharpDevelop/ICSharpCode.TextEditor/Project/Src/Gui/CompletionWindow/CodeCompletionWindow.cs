@@ -12,7 +12,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using O2.External.SharpDevelop.Ascx;
 

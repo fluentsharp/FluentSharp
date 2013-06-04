@@ -3,7 +3,7 @@ using O2.DotNetWrappers.Windows;
 using System.IO.Pipes;
 using System.IO;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class NamedPipes_ExtensionMethods
     {

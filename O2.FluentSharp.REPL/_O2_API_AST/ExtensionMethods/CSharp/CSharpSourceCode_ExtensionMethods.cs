@@ -5,7 +5,7 @@ using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.PrettyPrinter;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace O2.API.AST.ExtensionMethods.CSharp
 {

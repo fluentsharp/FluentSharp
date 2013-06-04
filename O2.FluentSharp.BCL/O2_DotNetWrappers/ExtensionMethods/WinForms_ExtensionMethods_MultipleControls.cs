@@ -7,7 +7,7 @@ using O2.DotNetWrappers.DotNet;
 using System.ComponentModel;
 using O2.Views.ASCX.DataViewers;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Component
     {

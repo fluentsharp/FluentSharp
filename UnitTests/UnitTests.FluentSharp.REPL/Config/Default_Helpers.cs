@@ -1,4 +1,4 @@
-﻿using O2.DotNetWrappers.ExtensionMethods;
+﻿using FluentSharp.ExtensionMethods;
 
 namespace UnitTests.FluentSharp_REPL
 {

@@ -7,7 +7,7 @@
 
 using System;
 using System.Text;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.TextEditor.Document
 {

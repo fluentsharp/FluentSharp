@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace O2.DotNetWrappers.H2Scripts
 {

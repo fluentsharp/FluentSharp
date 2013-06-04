@@ -2,7 +2,7 @@ using System;
 using O2.DotNetWrappers.Windows;
 using O2.DotNetWrappers.DotNet;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Sleep_ExtensionMethods
     {                    

@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using O2.Kernel.CodeUtils;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace O2.Kernel.InterfacesBaseImpl
 {

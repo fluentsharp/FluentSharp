@@ -7,7 +7,7 @@ using O2.External.SharpDevelop.Ascx;
 using O2.Kernel;
 using O2.Kernel.CodeUtils;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 //using O2.Views.ASCX._Wizards;
 //using O2.Core.XRules._Wizards;
 //using O2.Core.XRules.Classes;

@@ -5,7 +5,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace O2.DotNetWrappers.Network
 {

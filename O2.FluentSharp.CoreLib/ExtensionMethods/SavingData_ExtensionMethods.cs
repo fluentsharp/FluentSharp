@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using O2.Kernel;
 using System.Drawing.Drawing2D;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class SavingData_ExtensionMethods
     {

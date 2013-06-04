@@ -5,7 +5,7 @@ using System.Reflection;
 using O2.Interfaces.CIR;
 using O2.Kernel;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 //using Mono.Cecil;
 //using O2.o2AppDomainProxy;
 

@@ -4,7 +4,7 @@ using O2.DotNetWrappers.Zip;
 using O2.DotNetWrappers.Windows;
 using Ionic.Zip;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Zip_ExtensionMethods
     {

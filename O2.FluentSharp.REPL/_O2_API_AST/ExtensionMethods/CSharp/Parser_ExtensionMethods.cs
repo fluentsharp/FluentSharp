@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.NRefactory;
 using System.IO;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 using ICSharpCode.NRefactory.Ast;
 

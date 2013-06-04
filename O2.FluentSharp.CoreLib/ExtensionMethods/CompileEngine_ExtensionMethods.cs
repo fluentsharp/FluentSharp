@@ -3,7 +3,7 @@ using O2.DotNetWrappers.DotNet;
 using System.Reflection;
 using O2.DotNetWrappers.Network;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class CompileEngine_ExtensionMethods
     {

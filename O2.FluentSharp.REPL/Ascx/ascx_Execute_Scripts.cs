@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using O2.Kernel;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Platform.BCL.O2_Views_ASCX;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.External.SharpDevelop.Ascx;

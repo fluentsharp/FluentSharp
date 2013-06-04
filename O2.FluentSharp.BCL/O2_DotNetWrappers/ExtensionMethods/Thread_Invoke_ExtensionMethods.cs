@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using O2.DotNetWrappers.DotNet;
 using System.Diagnostics;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Thread_Invoke_ExtensionMethods
     {        

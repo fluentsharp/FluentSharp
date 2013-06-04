@@ -3,7 +3,7 @@ using System.Linq;
 
 using O2.DotNetWrappers.DotNet;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Items_ExtensionMethods
 	{

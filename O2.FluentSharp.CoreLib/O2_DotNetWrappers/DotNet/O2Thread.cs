@@ -3,7 +3,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.Collections.Generic;
 using O2.Kernel;
 

@@ -8,7 +8,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel;
 
 namespace ICSharpCode.TextEditor.Gui.CompletionWindow

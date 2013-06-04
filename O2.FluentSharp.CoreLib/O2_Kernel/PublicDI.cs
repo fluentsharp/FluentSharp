@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using O2.Kernel.CodeUtils;
 using O2.Kernel.InterfacesBaseImpl;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.Filters;
 using System.Text.RegularExpressions;
 using O2.Kernel.O2CmdShell;

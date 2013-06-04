@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.XRules.Database.Utils;
 
 namespace UnitTests.FluentSharp_REPL

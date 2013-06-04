@@ -9,7 +9,7 @@ using System.Drawing;
 using System.IO;
 
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Web_ExtensionMethods_Http_Requests
     {

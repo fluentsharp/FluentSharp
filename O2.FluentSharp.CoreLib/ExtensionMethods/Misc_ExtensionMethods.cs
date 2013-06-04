@@ -4,7 +4,7 @@ using O2.Kernel;
 using System.Drawing;
 using System.Threading;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Misc_ExtensionMethods_Int
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ICSharpCode.NRefactory.Visitors;
 using ICSharpCode.NRefactory.Ast;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 
 namespace O2.API.AST.Visitors

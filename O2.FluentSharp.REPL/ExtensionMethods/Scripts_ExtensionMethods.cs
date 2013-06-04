@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using O2.XRules.Database.Utils;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.External.SharpDevelop.ExtensionMethods;
 using O2.Views.ASCX.Ascx.MainGUI;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Scripts_ExecutionMethods
     {

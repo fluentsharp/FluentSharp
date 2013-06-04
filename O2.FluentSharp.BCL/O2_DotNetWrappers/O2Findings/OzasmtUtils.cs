@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using O2.DotNetWrappers.Filters;
 using O2.DotNetWrappers.O2Findings;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Interfaces.O2Findings;
 using O2.Interfaces.Rules;
 using O2.Kernel;

@@ -3,7 +3,7 @@ using System.Windows.Threading;
 //O2Ref:WindowsBase.dll
 //O2Ref:System.Core.dll
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WPF_Threading_ExtensionMethods
     {    

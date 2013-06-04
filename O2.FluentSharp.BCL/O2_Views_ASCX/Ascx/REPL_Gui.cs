@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using System.Drawing;
 using O2.Views.ASCX.DataViewers;
@@ -63,7 +63,7 @@ namespace O2.XRules.Database.Utils
     }
 }
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class REPL_Gui_ExtensionMethods_CreateGuis
     {

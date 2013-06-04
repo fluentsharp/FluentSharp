@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document;
 using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.External.SharpDevelop.AST;
 using O2.Platform.External.SharpDevelop.Resources;
 

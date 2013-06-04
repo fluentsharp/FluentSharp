@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using O2.Kernel;
 using O2.Kernel.ExtensionMethods;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.XRules.Database.Utils;
 //O2File:ISecretData.cs
 //O2File:SecretDataEditor.cs.o2

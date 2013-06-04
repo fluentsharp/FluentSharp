@@ -9,7 +9,7 @@ using O2.External.SharpDevelop.ExtensionMethods;
 using O2.XRules.Database.Utils;
 
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {    
     public static class WinFormsUI_ExtensionMethods
     {

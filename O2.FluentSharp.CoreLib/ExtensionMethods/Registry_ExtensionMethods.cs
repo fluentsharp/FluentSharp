@@ -2,7 +2,7 @@
 
 using Microsoft.Win32;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {    
 	public static class Registry_ExtensionMethods
     {    

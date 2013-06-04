@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.CodeDom;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using System.Collections;
 using ICSharpCode.SharpDevelop.Dom;
 

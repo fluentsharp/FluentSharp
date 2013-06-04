@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using O2.DotNetWrappers.Network;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Web_Encoding_ExtensionMethods
     {

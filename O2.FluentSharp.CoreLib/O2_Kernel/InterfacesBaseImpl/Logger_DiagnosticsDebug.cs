@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Text;
 using O2.Interfaces.O2Core;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel.InterfacesBaseImpl;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class Extra_Extensionmethods_IO2Log
     {

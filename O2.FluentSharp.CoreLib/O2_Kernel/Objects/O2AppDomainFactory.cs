@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using O2.Kernel.CodeUtils;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 
 namespace O2.Kernel.Objects

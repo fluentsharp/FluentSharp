@@ -6,7 +6,7 @@
 // </file>
 
 using System;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 //using log4net;
 
 namespace ICSharpCode.SharpDevelop.Dom

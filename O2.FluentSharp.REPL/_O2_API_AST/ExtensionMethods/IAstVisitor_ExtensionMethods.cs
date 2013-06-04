@@ -3,7 +3,7 @@ using System.Linq;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.API.AST.ExtensionMethods.CSharp;
 using O2.API.AST.Visitors;
 

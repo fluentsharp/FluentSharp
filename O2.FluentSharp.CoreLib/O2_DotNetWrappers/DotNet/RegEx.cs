@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Kernel;
 //using O2.DotNetWrappers.ExtensionMethods;
 

@@ -10,7 +10,7 @@ using System.IO;
 using System.Threading;
 using O2.Platform.BCL.O2_Views_ASCX;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_Form
     {

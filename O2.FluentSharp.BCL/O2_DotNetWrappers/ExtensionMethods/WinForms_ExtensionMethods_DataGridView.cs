@@ -6,7 +6,7 @@ using System.Drawing;
 using O2.Kernel;
 using System.Collections;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_DataGridView
     {        

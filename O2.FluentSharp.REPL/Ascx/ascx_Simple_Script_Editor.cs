@@ -8,7 +8,7 @@ using O2.Kernel;
 using O2.Kernel.CodeUtils;
 using O2.DotNetWrappers.DotNet;
 using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.Views.ASCX.classes.MainGUI;
 using O2.Views.ASCX.ExtensionMethods;
 using O2.External.SharpDevelop.Ascx;

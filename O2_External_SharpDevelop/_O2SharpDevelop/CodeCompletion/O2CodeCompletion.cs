@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
 
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.DotNetWrappers.DotNet;
 using ICSharpCode.TextEditor;
 

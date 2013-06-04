@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using O2.Views.ASCX.Ascx.MainGUI;
 using O2.Views.ASCX.classes.MainGUI;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_O2_Controls
     {

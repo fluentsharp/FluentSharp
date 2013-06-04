@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using O2.Interfaces.O2Core;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 
 namespace O2.Kernel.InterfacesBaseImpl
 {

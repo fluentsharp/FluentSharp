@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.AST;
 using O2.Kernel;

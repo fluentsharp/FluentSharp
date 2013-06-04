@@ -7,7 +7,7 @@ using NGit.Api;
 using NGit.Diff;
 using NGit.Treewalk;
 using NUnit.Framework;
-using O2.DotNetWrappers.ExtensionMethods;
+using FluentSharp.ExtensionMethods;
 using O2.FluentSharp;
 using O2.FluentSharp.ExtensionMethods;
 using Sharpen;

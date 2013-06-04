@@ -10,7 +10,7 @@ using O2.DotNetWrappers.Network;
 using System.Threading;
 using System.Runtime.InteropServices;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class WinForms_ExtensionMethods_WebBrowser_Add_Control
     {
@@ -669,7 +669,7 @@ namespace O2.DotNetWrappers.ExtensionMethods
 	{
         //COM Objects (so that we don't have to add a reference to mshtml
         [ComImport, ComVisible(true), Guid(@"3050f28b-98b5-11cf-bb82-00aa00bdce0b")]
-        [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIDispatch)]
+        [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
         [TypeLibType(TypeLibTypeFlags.FDispatchable)]
         public interface IHTMLScriptElement
         {

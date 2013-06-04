@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace O2.DotNetWrappers.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
 
     public static class GZip_ExtensionMethods
