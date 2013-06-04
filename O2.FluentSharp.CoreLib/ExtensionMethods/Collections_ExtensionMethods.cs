@@ -195,6 +195,10 @@ namespace FluentSharp.ExtensionMethods
                 return false;
             return sourceList.All(item => !targetList.contains(item).isFalse());
         }
+        public static bool              notContains(this List<string> list, string stringToNotFind)
+        {
+            return list.contains(stringToNotFind).isFalse();
+        }
         public static List<T>           clear<T>(this List<T> list)
         {
             if (list.notNull())
@@ -413,12 +417,23 @@ namespace FluentSharp.ExtensionMethods
             return list;
         }
 
-        public static void      createTypeAndAddToList<T>(this List<T> sequence, params object[] values)
+        public static void          createTypeAndAddToList<T>(this List<T> sequence, params object[] values)
         {
             var t = (T)typeof(T).ctor();
             var properties = t.type().properties();
             Loop.nTimes(values.Length, i => t.prop(properties[i], values[i]));            
             sequence.Add(t);
+        }
+        public static List<string>  toStringList(this List<Guid> guids)
+        {
+            return (from guid in guids
+                    select guid.str()).toList();
+        }        
+        public static List<T>       reverse<T>(this List<T> list)
+        {
+            if (list.notNull())
+                list.Reverse();
+            return list;
         }
     }
     public static class Collections_ExtensionMethods_ICollection

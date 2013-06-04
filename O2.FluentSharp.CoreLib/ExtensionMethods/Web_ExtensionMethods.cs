@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using O2.DotNetWrappers.Network;
 using O2.DotNetWrappers.Windows;
@@ -46,7 +47,7 @@ namespace FluentSharp.ExtensionMethods
         }
         public static Bitmap    getImageAsBitmap(this Uri uri)
         {
-            var webClient = new System.Net.WebClient();
+            var webClient = new WebClient();
             var imageBytes = webClient.DownloadData(uri);
             "image size :{0}".info(imageBytes.size());
             var memoryStream = new MemoryStream(imageBytes);
@@ -114,6 +115,27 @@ namespace FluentSharp.ExtensionMethods
         {
             return new Web().getUrlContents_POST(url.str(), postData);
         }
+
+        //HEAD requests
+        public static WebHeaderCollection HEAD_Headers(this Uri uri)
+        {
+            var request = (HttpWebRequest) WebRequest.Create(uri);
+            request.Timeout = 1000;
+            request.AllowAutoRedirect = false;            
+            request.Method = "HEAD";
+            try
+            {
+                return request.GetResponse().Headers;                                
+            }
+            catch (WebException)
+            {                
+                return null;
+            }
+        }
+        public static bool                HEAD(this Uri uri)
+        {
+            return uri.HEAD_Headers().notNull();
+        }
     }
     
     public static class Web_ExtensionMethods_URI
@@ -166,9 +188,9 @@ namespace FluentSharp.ExtensionMethods
                     return (uri.IsAbsoluteUri && uri.IsFile.isFalse());
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                ex.log();
             }
             return false;
         }

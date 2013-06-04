@@ -805,7 +805,7 @@ namespace FluentSharp.ExtensionMethods
 		}
 	}
 
-    public static class _Extra_DateTime_ExtensionMethods
+    public static class DateTime_ExtensionMethods
 	{
 		public static long      unixTime(this DateTime dateTime)
 		{
@@ -844,6 +844,10 @@ namespace FluentSharp.ExtensionMethods
 			//return timeSpan.ToString("mm'm 'ss's 'ff'ms'");  //4.0 dependent
             return timeSpan.ToString();
 		}
+        public static DateTime  fromFileTimeUtc(this long fileTimeUtc)
+        {
+            return DateTime.FromFileTimeUtc(fileTimeUtc);
+        }
 		
 	}
 }
