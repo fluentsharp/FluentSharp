@@ -247,8 +247,6 @@ namespace ICSharpCode.SharpDevelop.Dom
 			if (pos > 0)
 				shortName = shortName.Substring(0, pos);
 
-
-//            var a = O2.DotNetWrappers.ExtensionMethods.Reflection_ExtensionMethods_Assemby.assembly(shortName);
             try
             {
                 Assembly assembly = File.Exists(shortName)

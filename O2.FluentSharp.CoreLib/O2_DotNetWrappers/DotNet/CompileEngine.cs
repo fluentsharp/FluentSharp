@@ -134,7 +134,7 @@ namespace O2.DotNetWrappers.DotNet
                         .add("System.Linq")
                         .add("O2.Interfaces")
                         .add("O2.Kernel")
-                        .add("O2.DotNetWrappers.ExtensionMethods")
+                        .add("FluentSharp.ExtensionMethods")
                         .add("O2.DotNetWrappers.Windows")
                         .add("O2.DotNetWrappers.DotNet")
                         .add("O2.DotNetWrappers.Network");

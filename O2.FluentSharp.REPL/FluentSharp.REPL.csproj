@@ -253,16 +253,6 @@
     </None>
     <None Include="H2Logo.ico" />
     <EmbeddedResource Include="_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\IO2Wizard.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinUtils.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\MerlinWizard_ExtensionMethods_2.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Business_Logic.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Misc_Utils.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\EX_O2_Ascx.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Windows_Forms.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\MerlinWizard\O2Wizard_ExtensionMethods\Ex_Wizard_GUI.cs.txt" />
-    <None Include="_O2_FluentSharp_Misc\O2_Views_ASCX\_Wizards\Wizard_BackupFolder.cs.txt" />
     <EmbeddedResource Include="_O2_External_WinFormsUI\Forms\GenericDockContent.resx">
       <DependentUpon>GenericDockContent.cs</DependentUpon>
     </EmbeddedResource>

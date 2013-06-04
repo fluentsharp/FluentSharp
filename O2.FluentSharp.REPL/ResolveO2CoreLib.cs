@@ -2,8 +2,6 @@
 using System.Reflection;
 using System.IO;
 using System.Diagnostics;
-//using O2.Kernel;
-//using O2.DotNetWrappers.ExtensionMethods;
 
 namespace O2.FluentSharp.REPL
 {
