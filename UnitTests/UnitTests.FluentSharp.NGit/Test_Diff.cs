@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
+using FluentSharp;
 using NGit;
 using NGit.Api;
-using NGit.Diff;
 using NGit.Treewalk;
 using NUnit.Framework;
 using FluentSharp.ExtensionMethods;
-using O2.FluentSharp;
-using O2.FluentSharp.ExtensionMethods;
-using Sharpen;
 
 namespace UnitTests.FluentSharp.NGit
 {
