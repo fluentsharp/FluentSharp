@@ -6,7 +6,7 @@ using NGit.Api;
 using NGit;
 
 
-namespace O2.FluentSharp
+namespace FluentSharp
 {
     public class API_NGit
     {

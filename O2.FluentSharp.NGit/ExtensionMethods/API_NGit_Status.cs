@@ -6,7 +6,7 @@ using NGit;
 using NGit.Api;
 using FluentSharp.ExtensionMethods;
 
-namespace O2.FluentSharp.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_ExtMet_Status
     {

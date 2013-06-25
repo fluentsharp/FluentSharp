@@ -5,7 +5,7 @@ using System.Text;
 using NGit.Revwalk;
 using Sharpen;
 
-namespace O2.FluentSharp.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_ExtMet_Log
     {

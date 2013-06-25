@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using FluentSharp.ExtensionMethods;
 
-namespace O2.FluentSharp.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_Commit
+    public static class API_NGit_Commit
     {
         public static API_NGit      commit              (this API_NGit nGit, string commitMessage)
         {            

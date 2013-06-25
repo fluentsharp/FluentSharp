@@ -3,7 +3,7 @@ using NGit.Diff;
 using FluentSharp.ExtensionMethods;
 using Sharpen;
 
-namespace O2.FluentSharp.ExtensionMethods
+namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_ExtMet_Diff
     {
