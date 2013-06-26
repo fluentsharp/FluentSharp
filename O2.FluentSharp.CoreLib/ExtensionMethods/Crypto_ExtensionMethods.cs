@@ -150,7 +150,7 @@ namespace FluentSharp.ExtensionMethods
 
             // Declare the bytes used to hold the
             // encrypted data.
-            byte[] encrypted = null;
+            //byte[] encrypted = null;
 
             try
             {

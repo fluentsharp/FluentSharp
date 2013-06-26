@@ -34,7 +34,9 @@ namespace UnitTests.FluentSharp_NGit
             
             //making sure the head has changed
             var head2 = nGit.head();
-            Assert.AreNotEqual(head1,head2);            
+            Assert.AreNotEqual(head1,head2);
+
+            nGit.delete_Repository_And_Files();
         }
 
         [Test]

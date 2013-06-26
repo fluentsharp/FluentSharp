@@ -150,6 +150,14 @@ namespace FluentSharp.ExtensionMethods
             }
             return null;
         }
+
+        public static List<string> files_Attribute_ReadOnly_Remove(this List<string> files)
+        {
+            foreach (var file in files)
+                file.file_Attribute_ReadOnly_Remove();
+            return files;
+        }
+
         public static long          size(this FileInfo fileInfo)
         {
             if (fileInfo.notNull())

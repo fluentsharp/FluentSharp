@@ -28,9 +28,8 @@ namespace UnitTests.FluentSharp_NGit
         public void TearDown()
         {
             Assert.IsTrue(repoPath.dirExists());
-            
-            nGit.delete_Repository_And_Files();
-            
+            nGit.close()
+                .delete_Repository_And_Files();            
             Assert.IsFalse(repoPath.dirExists());
         }
 
@@ -44,3 +43,4 @@ namespace UnitTests.FluentSharp_NGit
 
     }
 }
+    

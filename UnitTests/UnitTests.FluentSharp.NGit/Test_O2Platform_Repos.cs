@@ -1,24 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FluentSharp;
 using FluentSharp.ExtensionMethods;
 using NUnit.Framework;
 using O2.DotNetWrappers.Network;
+using O2.DotNetWrappers.Windows;
 
 namespace UnitTests.FluentSharp_NGit
 {
     [TestFixture]
     class Test_O2Platform_Repos
-    {        
-        [Test]
-        public void NGit_O2Platform()
+    {
+        public string tempFolder;
+
+        public Test_O2Platform_Repos()
         {
             if (Web.Online.isFalse())
                 Assert.Ignore("Skiping because we are offline");
-            var tempFolder = "_API_NGit_O2Platform".tempDir();
+
             
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            tempFolder = "_API_NGit_O2Platform".tempDir();
+            Assert.IsTrue(tempFolder.dirExists());
+        }
+
+        [TearDown]
+        public void teardown()
+        {
+            tempFolder.folder_Delete();
+            Assert.IsFalse(tempFolder.dirExists());
+        }
+        [Test]
+        public void NGit_O2Platform()
+        {
             var repoToClone = "UnitTests_TestRepo";
             var pathToRepo  = tempFolder.pathCombine(repoToClone);
             
@@ -27,33 +44,66 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsFalse(pathToRepo.dirExists());
             Assert.IsFalse(pathToRepo.isGitRepository());
 
-
-            API_NGit_O2Platform ngitO2Platform = null;
+            API_NGit_O2Platform ngit_O2 = null;
 
             Action checkRepo = 
                     ()=>{
-                            Assert.IsNotNull(ngitO2Platform);
-                            Assert.IsNull   (ngitO2Platform.Git);
-                            Assert.IsNull   (ngitO2Platform.Repository);
+                            Assert.IsNotNull(ngit_O2);
+                            Assert.IsNull   (ngit_O2.Git);
+                            Assert.IsNull   (ngit_O2.Repository);
 
-                            ngitO2Platform  .cloneOrPull(repoToClone);
+                            ngit_O2.cloneOrPull(repoToClone);
 
                             Assert.IsTrue   (pathToRepo.dirExists());
                             Assert.IsTrue   (pathToRepo.isGitRepository());
 
-                            ngitO2Platform.open(pathToRepo);
-                            
-                            Assert.IsNotNull(ngitO2Platform.Git);
-                            Assert.IsNotNull(ngitO2Platform.Repository);
-                        };
+                            ngit_O2.open(pathToRepo);
+
+                            Assert.IsNotNull(ngit_O2.Git);
+                            Assert.IsNotNull(ngit_O2.Repository);
+
+                            ngit_O2.close();
+                    };      
 
             //Test Clone
-            ngitO2Platform = new API_NGit_O2Platform(tempFolder);
+            ngit_O2 = new API_NGit_O2Platform(tempFolder);
+            checkRepo();
+            
+            //Test Open
+            ngit_O2 = new API_NGit_O2Platform(tempFolder);
             checkRepo();
 
-            //Test Open
-            ngitO2Platform = new API_NGit_O2Platform(tempFolder);
-            checkRepo();
+            var result = ngit_O2.delete_Repository_And_Files();
+            Assert.IsTrue(result);
+
+            tempFolder.delete_Folder();
+            Assert.IsFalse(tempFolder.dirExists());
+        }
+
+        [Test]
+        public void Clone_Private_Repo_No_Authorization()
+        {
+            var repoToClone = "UnitTests_TestRepo_Private";
+            var pathToRepo = tempFolder.pathCombine(repoToClone);
+            Files.deleteFolder(pathToRepo,true);            
+            Assert.IsTrue(tempFolder.dirExists());
+            Assert.IsEmpty(tempFolder.dirs());
+            Assert.IsFalse(pathToRepo.dirExists());
+            Assert.IsFalse(pathToRepo.isGitRepository());
+
+            var ngit_O2 = new API_NGit_O2Platform(tempFolder);
+            var repositoryUrl = ngit_O2.repositoryUrl(repoToClone);
+
+            Assert.IsNull(ngit_O2.LastException);
+
+            //clone should fail 
+            ngit_O2.clone(repositoryUrl, pathToRepo);
+
+            //no git repo should be there (if clone failed
+            Assert.IsNotNull(ngit_O2.LastException);
+            Assert.IsEmpty(tempFolder.dirs());
+            Assert.IsFalse(pathToRepo.dirExists());
+            Assert.IsFalse(pathToRepo.isGitRepository());                        
         }
     }
 }

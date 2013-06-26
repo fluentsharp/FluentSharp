@@ -13,6 +13,8 @@ namespace FluentSharp.ExtensionMethods
     {
         public static API_NGit init(this API_NGit nGit, string targetFolder)                                
         {
+            nGit.LastException = null;
+
             if (targetFolder.isNull())
             {
                 "[API_NGit][git_Init] targetFolder value provided was null".error();                    
@@ -26,39 +28,45 @@ namespace FluentSharp.ExtensionMethods
             }
             try
             {
+                nGit.close();
                 "[API_NGit] init: {0}".debug(targetFolder);
                 var init_Command = Git.Init();
 
                 init_Command.SetDirectory(targetFolder);
                 nGit.Git = init_Command.Call();
                 nGit.Repository = nGit.Git.GetRepository();
-                nGit.Path_Local_Repository = targetFolder;
+                nGit.Path_Local_Repository = targetFolder;                
                 return nGit;
             }
             catch (Exception ex)
             {
+                nGit.LastException = ex;
                 ex.log("[API_NGit] ");
             }
             return null;
         }        
         public static API_NGit open         (this API_NGit nGit, string pathToLocalRepository)                  
         {
+            nGit.LastException = null;
             try
             {
+                nGit.close();
                 "[API_NGit] open: {0}".debug(pathToLocalRepository);                
                 nGit.Git = Git.Open(pathToLocalRepository);                
                 nGit.Repository = nGit.Git.GetRepository();
-                nGit.Path_Local_Repository = pathToLocalRepository;
+                nGit.Path_Local_Repository = pathToLocalRepository;                
                 return nGit;
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
+                nGit.LastException = ex;
                 ex.log("[API_NGit] ");
             }
             return null;
         }
-        public static API_NGit clone        (this API_NGit nGit, string sourceRepository, string targetFolder)
+        public static API_NGit clone        (this API_NGit nGit, string sourceRepository, string targetFolder)  
         {
+            nGit.LastException = null;
             "[API_NGit] cloning: {0} into {1}".debug(sourceRepository, targetFolder);
             try
             {                
@@ -67,6 +75,7 @@ namespace FluentSharp.ExtensionMethods
                     "[API_NGit] provided target folder already exists,please delete it or provide a difference one: {0}".error(targetFolder);
                     return null;
                 }
+                nGit.close();
                 var start = DateTime.Now;
                 var clone_Command = Git.CloneRepository();
                 clone_Command.SetDirectory(targetFolder);
@@ -74,45 +83,62 @@ namespace FluentSharp.ExtensionMethods
                 clone_Command.SetCredentialsProvider(nGit.Credentials);
                 nGit.LastGitProgress = new GitProgress();
                 clone_Command.SetProgressMonitor(nGit.LastGitProgress);
-                clone_Command.Call();
-                "[API_NGit] clone completed in: {0}".debug(start.timeSpan_ToString());
 
-                if (targetFolder.isGitRepository())
-                    nGit.open(targetFolder);
+                nGit.Git = clone_Command.Call();
+                nGit.Repository = nGit.Git.GetRepository();
+                nGit.Path_Local_Repository = targetFolder;
+
+                "[API_NGit] clone completed in: {0}".debug(start.timeSpan_ToString());
+                                
                 return nGit;
             }
             catch (Exception ex)
             {
+                nGit.LastException = ex;
                 ex.log("[API_NGit] ");
+                Files.deleteFolder(targetFolder, true);
             }
             return null;
         }
-        public static API_NGit open_or_Clone(this API_NGit nGit, string sourceRepository, string targetFolder)
+        public static API_NGit open_or_Clone(this API_NGit nGit, string sourceRepository, string targetFolder)  
         {
             if (targetFolder.isGitRepository())
                 return nGit.open(targetFolder).pull();
             
             return nGit.clone(sourceRepository, targetFolder);
         }
-        public static API_NGit git_Init     (this string targetFolder)                                      
+        public static API_NGit git_Init     (this string targetFolder)                                          
         {            
             return new API_NGit().init(targetFolder);
         }
-        public static API_NGit git_Open     (this string targetFolder)                                      
+        public static API_NGit git_Open     (this string targetFolder)                                          
         {
             return new API_NGit().open(targetFolder);
         }
-        public static API_NGit git_Clone    (this Uri sourceRepository, string targetFolder)                
+        public static API_NGit git_Clone    (this Uri sourceRepository, string targetFolder)                    
         {
             return sourceRepository.str().git_Clone(targetFolder);
         }
-        public static API_NGit git_Clone    (this string sourceRepository, string targetFolder)             
+        public static API_NGit git_Clone    (this string sourceRepository, string targetFolder)                 
         {
             return new API_NGit().clone(sourceRepository, targetFolder);
         }
-
-        public static bool     delete_Repository(this API_NGit nGit)
+        public static API_NGit close        (this API_NGit nGit)                                                
         {
+            if (nGit.notNull() && nGit.Git.notNull())
+            {                
+                nGit.Git.GetRepository().Close();
+                NGit.RepositoryCache.Clear();
+                nGit.Git.Clean();
+                nGit.Repository = null;
+                nGit.Git = null;
+                GC.Collect();
+            }
+            return nGit;
+        }
+        public static bool     delete_Repository(this API_NGit nGit)                                            
+        {
+            nGit.close();
             if (nGit.files_Location().valid())
             {
                 var folderToDelete = nGit.git_Folder();
@@ -126,8 +152,7 @@ namespace FluentSharp.ExtensionMethods
             }
             return false;
         }
-
-        public static bool delete_Repository_And_Files(this API_NGit nGit)
+        public static bool     delete_Repository_And_Files(this API_NGit nGit)                                  
         {
             if (nGit.delete_Repository())
                 return Files.deleteFolder(nGit.Path_Local_Repository, true);

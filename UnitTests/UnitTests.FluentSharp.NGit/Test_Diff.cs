@@ -1,36 +1,31 @@
 ﻿
-using FluentSharp;
 using NGit;
 using NGit.Api;
 using NGit.Treewalk;
 using NUnit.Framework;
 using FluentSharp.ExtensionMethods;
 
-namespace UnitTests.FluentSharp.NGit
+namespace UnitTests.FluentSharp_NGit
 {
     [TestFixture]
-    class Test_Diff
+    class Test_Diff : Temp_Repo
     {
         [Test]
         public void CommitDiffs()
-        {
-            var NGitApi = new API_NGit();
-
-            var tempRepo = "_tempRepo".tempDir();
-            NGitApi.init(tempRepo);
-            Assert.IsNull(NGitApi.head());
-            NGitApi.create_File("testFile.txt", "some Text");
-            "head 1 :{0}".info(NGitApi.head().info());
-            NGitApi.add_and_Commit_using_Status();
-            "head 2 :{0}".info(NGitApi.head().info());
-            NGitApi.write_File("testFile.txt", "some Text changed");
-            NGitApi.add_and_Commit_using_Status();
-            var head3 = NGitApi.head();
+        {            
+            Assert.IsNull(nGit.head());
+            nGit.create_File("testFile.txt", "some Text");
+            "head 1 :{0}".info(nGit.head().info());
+            nGit.add_and_Commit_using_Status();
+            "head 2 :{0}".info(nGit.head().info());
+            nGit.write_File("testFile.txt", "some Text changed");
+            nGit.add_and_Commit_using_Status();
+            var head3 = nGit.head();
             "head 3 :{0}".info(head3.info());
 
-            WorkingTreeIterator workingTreeIt = new FileTreeIterator(NGitApi.Repository);
+            var workingTreeIt = new FileTreeIterator(nGit.Repository);
 
-            var indexDiff = new IndexDiff(NGitApi.Repository, Constants.HEAD, workingTreeIt);
+            var indexDiff = new IndexDiff(nGit.Repository, Constants.HEAD, workingTreeIt);
             indexDiff.Diff();
             var result = new Status(indexDiff);
             "RESULT: {0}".info(result);
@@ -40,8 +35,7 @@ namespace UnitTests.FluentSharp.NGit
             var diffFormater = new DiffFormatter(outputStream);
             diffFormater.SetRepository(nGit.Repository);
             //diffFormater.Format(refLog.GetNewId(), refLog.GetOldId());
-            diffFormater.Format(refLog.GetOldId(), refLog.GetNewId());*/
-
+            diffFormater.Format(refLog.GetOldId(), refLog.GetNewId());*/            
         }        
     }
 }
