@@ -7,7 +7,7 @@ using FluentSharp.ExtensionMethods;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_RefLogs
+    public static class API_NGit_RefLogs
     {
         public static List<string> refLogs(this API_NGit nGit)
         {

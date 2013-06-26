@@ -136,6 +136,30 @@ namespace FluentSharp.ExtensionMethods
         {
             return uri.HEAD_Headers().notNull();
         }
+        public static bool                httpFileExists(this string url)
+        {
+            return url.httpFileExists(false);
+        }
+        public static bool                httpFileExists(this string url, bool showError)
+        {
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
+            webRequest.Timeout = 10000;
+            webRequest.Method = "HEAD";
+            try
+            {
+                var webResponse = (HttpWebResponse)webRequest.GetResponse();
+                return (webResponse.StatusCode == HttpStatusCode.OK &&
+                        webResponse.ResponseUri.str() == url);
+            }
+            catch (Exception ex)
+            {
+                if (showError)
+                    ex.log("in Web.httpFileExists");
+                if (ex.Message.contains("SSL"))
+                    ex.log("in Web.httpFileExists ({0}) got SSL error: {1}".format(url, ex.Message));
+                return false;
+            }
+        }
     }
     
     public static class Web_ExtensionMethods_URI
@@ -200,7 +224,7 @@ namespace FluentSharp.ExtensionMethods
         }
         public static bool      exists(this Uri uri)
         {
-            return new Web().httpFileExists(uri.str());
+            return uri.str().httpFileExists();
         }
         public static string    hostUrl(this Uri uri)
         {
@@ -371,7 +395,8 @@ namespace FluentSharp.ExtensionMethods
         }
         public static bool      online(this object _object)
         {
-            return new Ping().ping("www.google.com");
-        }    
+            return ping("www.google.com") ||                                // first ping, 
+                   "https://www.google.com/favicon.ico".httpFileExists();    // then try making a HEAD connection            
+        }        
     }
 }

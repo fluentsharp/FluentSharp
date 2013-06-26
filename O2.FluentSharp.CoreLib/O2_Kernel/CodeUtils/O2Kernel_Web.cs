@@ -28,31 +28,7 @@ namespace O2.Kernel.CodeUtils
             ServicePointManager.CheckCertificateRevocationList = true;
         }
 
-        public bool httpFileExists(string url)
-        {
-            return httpFileExists(url, false);
-        }
-
-        public bool httpFileExists(string url, bool showError)
-        {
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Timeout = 10000;
-            webRequest.Method = "HEAD";
-            try
-            {
-                var webResponse = (HttpWebResponse)webRequest.GetResponse();
-                return (webResponse.StatusCode == HttpStatusCode.OK && 
-                        webResponse.ResponseUri.str() == url);
-            }
-            catch (Exception ex )
-            {
-                if (showError)
-                    ex.log("in Web.httpFileExists");
-				if (ex.Message.contains("SSL"))
-					ex.log("in Web.httpFileExists ({0}) got SSL error: {1}".format(url, ex.Message));
-                return false;
-            }
-        }
+        
 
         public string downloadBinaryFile(string urlOfFileToFetch, string targetFileOrFolder)
         {
@@ -99,11 +75,11 @@ namespace O2.Kernel.CodeUtils
         }
 
         #region Ping
-        public bool online()
+/*        public bool online()
         {
             return ping("www.google.com") ||                                // first ping, 
                    httpFileExists("https://www.google.com/favicon.ico");    // then try making a HEAD connection
-        }
+        }*/
 
         public bool ping(string address)
         {         

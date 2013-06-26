@@ -8,7 +8,7 @@ using FluentSharp.ExtensionMethods;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_Status
+    public static class API_NGit_Status
     {
         public static string        status  (this API_NGit nGit                                               )
         {

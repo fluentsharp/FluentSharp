@@ -7,7 +7,7 @@ using Sharpen;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_Log
+    public static class API_NGit_Log
     {
         public static Iterable<RevCommit>       log_Raw(this API_NGit nGit)
         {

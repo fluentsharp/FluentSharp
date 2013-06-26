@@ -4,16 +4,18 @@ using System.IO;
 using FluentSharp.ExtensionMethods;
 using NGit.Api;
 using NGit;
+using NGit.Transport;
 
 
 namespace FluentSharp
 {
     public class API_NGit
     {
-        public string Path_Local_Repository { get; set; }
-        public Git Git { get; set; }
-        public Repository Repository { get; set; }
-        public GitProgress LastGitProgress { get; set; }
+        public string               Path_Local_Repository { get; set; }
+        public Git                  Git { get; set; }        
+        public Repository           Repository { get; set; }
+        public GitProgress          LastGitProgress { get; set; }
+        public CredentialsProvider  Credentials { get; set; }
     }
 
     public class GitProgress : TextProgressMonitor

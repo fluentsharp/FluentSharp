@@ -39,12 +39,10 @@ namespace O2.DotNetWrappers.Network
             Headers_Request.add("Cookie", value);
             return Headers_Request;
         }
-
         public string get_Cookies()
         {
             return Headers_Request.value("Cookie");            
         }
-
         public Dictionary<string,string> add_Header(string name, string value)
         {
             Headers_Request.add(name, value);
@@ -54,13 +52,11 @@ namespace O2.DotNetWrappers.Network
         {
             return Headers_Request.value(name);            
         }
-
         public Dictionary<string, string> delete_Header(string name)
         {
             Headers_Request.delete(name);
             return Headers_Request;
         }
-
         public void updateHeadersResponse(WebHeaderCollection webHeaders)
         {            
             Headers_Response = new Dictionary<string, string>();
@@ -69,7 +65,6 @@ namespace O2.DotNetWrappers.Network
                     Headers_Response.Add(key, webHeaders[key]);
 
         }
-
         public string saveUrlContents(string urlToFetch)
         {
             if (urlToFetch.validUri())
@@ -92,7 +87,6 @@ namespace O2.DotNetWrappers.Network
             }
             return "";
         }
-
         public string saveUrlContents(string urlToFetch, string targetFile)
         {
             var urlContents = getUrlContents(urlToFetch);
@@ -104,17 +98,14 @@ namespace O2.DotNetWrappers.Network
             return "";
 
         }
-
         public String getUrlContents(String urlToFetch)
         {
             return getUrlContents(urlToFetch, false);
         }
-
         public String getUrlContents(String urlToFetch, bool verbose)
         {
             return getUrlContents(urlToFetch, null, verbose);
         }
-
         public String getUrlContents(String urlToFetch, string cookies, bool verbose)
         {        
             try
@@ -154,33 +145,26 @@ namespace O2.DotNetWrappers.Network
                 return "";
             }
         }
-
         public String getUrlContents_POST(String urlToFetch, string postData)
         {
             return getUrlContents_POST(urlToFetch, "application/x-www-form-urlencoded", postData);
         }
-
         public String getUrlContents_POST(String urlToFetch, string cookies, string postData)
         {
             return getUrlContents_POST(urlToFetch, "application/x-www-form-urlencoded", cookies, postData);
         }
-
         public String getUrlContents_POST(String urlToFetch, string contentType, string cookies, string postData)    
         {
             return getUrlContents_POST(urlToFetch, contentType, cookies, Encoding.ASCII.GetBytes(postData));
         }
-
         public String getUrlContents_POST(String urlToFetch, byte[] postData)
         {
             return getUrlContents_POST(urlToFetch, null, postData);
         }
-
-
         public String getUrlContents_POST(String urlToFetch, string cookies, byte[] postData)
         {
             return getUrlContents_POST(urlToFetch, "application/x-www-form-urlencoded", cookies, postData);
         }
-
         public String getUrlContents_POST(String urlToFetch,string contentType, string cookies, byte[] postData)
         {            
             try
@@ -236,21 +220,17 @@ namespace O2.DotNetWrappers.Network
              //   });
             //thread.
         }                 
-
 		public string downloadBinaryFile(string urlOfFileToFetch)
 		{
 			return downloadBinaryFile(urlOfFileToFetch, true);
-		}
-				
-		
+		}						
         public string downloadBinaryFile(string urlOfFileToFetch, bool saveUsingTempFileName)
         {
         	string targetFile = String.Format("{0}.{1}", 
                 									(saveUsingTempFileName) ? PublicDI.config.TempFileNameInTempDirectory + "_" : PublicDI.config.O2TempDir,
                                                     Path.GetFileName(urlOfFileToFetch));
             return downloadBinaryFile(urlOfFileToFetch,targetFile);
-        }
-        
+        }        
         public string downloadBinaryFile(string urlOfFileToFetch, string targetFileOrFolder)
         {
         	var targetFile = targetFileOrFolder;
@@ -279,29 +259,13 @@ namespace O2.DotNetWrappers.Network
             }
             return null;
         }
+                
+        // static methods
+        public static bool Online
+        {
+            get { return "".online(); }
+        }
         
-        public bool httpFileExists(string url)
-        {
-            return httpFileExists(url, false);
-        }
-
-        public bool httpFileExists(string url, bool showError)
-        {
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Method = "HEAD";
-            try
-            {
-                var webResponse = (HttpWebResponse)webRequest.GetResponse();
-                return (webResponse.StatusCode == HttpStatusCode.OK);
-            }
-            catch (Exception ex)
-            {
-                if (showError)
-                    ex.log("in Web.httpFileExists");
-                return false;
-            }
-        }
-
         public class Https
         {
             public static void ignoreServerSslErrors()

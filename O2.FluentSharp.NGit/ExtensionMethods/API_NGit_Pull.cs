@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_Pull
+    public static class API_NGit_Pull
     {
         public static API_NGit  git_Pull    (this string repository                                       )
         {

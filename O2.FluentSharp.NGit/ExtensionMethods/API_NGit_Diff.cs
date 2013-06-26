@@ -5,7 +5,7 @@ using Sharpen;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_Diff
+    public static class API_NGit_Diff
     {
         public static string            diff    (this API_NGit nGit)
         {

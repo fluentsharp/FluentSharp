@@ -140,6 +140,16 @@ namespace FluentSharp.ExtensionMethods
                 return null;
             }
         }
+        public static string        file_Attribute_ReadOnly_Remove(this string filePath)
+        {
+            var fileInfo = filePath.fileInfo();
+            if (fileInfo.notNull())
+            {
+                fileInfo.Attributes = fileInfo.Attributes & ~FileAttributes.ReadOnly;
+                return filePath;
+            }
+            return null;
+        }
         public static long          size(this FileInfo fileInfo)
         {
             if (fileInfo.notNull())

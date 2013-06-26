@@ -12,8 +12,13 @@ namespace FluentSharp
 
         public API_NGit_O2Platform()
         {
-            GitHub_O2_Repositories = "git://github.com/o2platform/{0}.git";
             LocalGitRepositories = PublicDI.config.CurrentExecutableDirectory.pathCombine("..\\..").fullPath(); // by default it is two above the current one
+            GitHub_O2_Repositories = "https://github.com/o2platform/{0}.git";
+        }
+
+        public API_NGit_O2Platform(string targetPath) : this()
+        {
+            LocalGitRepositories = targetPath;
         }
     }
 
@@ -23,11 +28,7 @@ namespace FluentSharp
         {
             var repositoryUrl = nGit_O2.GitHub_O2_Repositories.format(repositoryName);
             var localPath = nGit_O2.LocalGitRepositories.pathCombine(repositoryName);
-            if (localPath.isGitRepository())
-                nGit_O2.open(localPath).pull();
-            else
-                nGit_O2.clone(repositoryUrl, localPath);
-
+            nGit_O2.open_or_Clone(repositoryUrl, localPath);
             return nGit_O2;
         }
     }

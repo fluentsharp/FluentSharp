@@ -73,7 +73,7 @@ namespace O2.Kernel.CodeUtils
 					return;
 				}
 				var webLocation1 = "{0}{1}".format(PublicDI.config.O2GitHub_ExternalDlls, assemblyToLoad).trim();
-				if (new O2Kernel_Web().httpFileExists(webLocation1))
+				if (webLocation1.httpFileExists())
 				{
 					new O2Kernel_Web().downloadBinaryFile(webLocation1, localFilePath);
 				}
@@ -82,15 +82,15 @@ namespace O2.Kernel.CodeUtils
 					var webLocation2 = "{0}{1}".format(PublicDI.config.O2GitHub_Binaries, assemblyToLoad).trim();
 
                     //new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
-                    
-					if (new O2Kernel_Web().httpFileExists(webLocation2))
+
+                    if (webLocation2.httpFileExists())
 					{
 						new O2Kernel_Web().downloadBinaryFile(webLocation2, localFilePath);
 					}
 					else 
 					{
 						var webLocation3 = "{0}{1}".format(PublicDI.config.O2GitHub_FilesWithNoCode, assemblyToLoad).trim();
-						if (new O2Kernel_Web().httpFileExists(webLocation3))
+                        if (webLocation3.httpFileExists())
 						{
 							new O2Kernel_Web().downloadBinaryFile(webLocation3, localFilePath);
 						}

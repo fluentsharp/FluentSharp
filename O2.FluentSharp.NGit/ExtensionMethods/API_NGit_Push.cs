@@ -6,7 +6,7 @@ using FluentSharp.ExtensionMethods;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_ExtMet_Push
+    public static class API_NGit_Push
     {
         public static API_NGit  push    (this API_NGit nGit                                               )
         {

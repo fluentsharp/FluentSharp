@@ -12,3 +12,8 @@ UpgradeLog.xml
 *.userprefs
 /TestResults
 binaries
+*.ncrunchproject
+
+*.ncrunchsolution
+
+*.cache
