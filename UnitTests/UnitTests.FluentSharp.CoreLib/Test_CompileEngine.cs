@@ -31,15 +31,14 @@ namespace UnitTests.FluentSharp_CoreLib
         {
             var localScripts      = CompileEngine.LocalScriptFileMappings;
             var localScriptFolder = PublicDI.config.LocalScriptsFolder.createDir();
-            var fileName          = "testFile.cs";                           // file name with Caps to test use of .lower below
+            var fileName          = "testFile{0}.cs".format(4.randomLetters());                                  
             var fileContents      = "some code";
-            var testFile          = localScriptFolder.pathCombine(fileName);
+            var testFile          = localScriptFolder.pathCombine(fileName);            
 
             Assert.IsNotNull(localScripts);
-            Assert.IsEmpty  (localScripts);
+            //Assert.IsEmpty  (localScripts);
             Assert.AreEqual (fileName.local() , "");
-            Assert.IsNotNull(localScriptFolder);
-            Assert.IsEmpty  (localScriptFolder.files());
+            Assert.IsNotNull(localScriptFolder);            
             
             fileContents.saveAs(testFile);
             CompileEngine.resetLocalScriptsFileMappings();

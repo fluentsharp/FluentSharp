@@ -42,6 +42,6 @@ namespace UnitTests.FluentSharp.NGit
             //diffFormater.Format(refLog.GetNewId(), refLog.GetOldId());
             diffFormater.Format(refLog.GetOldId(), refLog.GetNewId());*/
 
-        }
+        }        
     }
 }
