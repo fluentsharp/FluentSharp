@@ -265,10 +265,7 @@ namespace FluentSharp.ExtensionMethods
             return value;
         }
 
-        public static string    hex(this byte value)
-        {
-            return Convert.ToString(value, 16).caps();
-        }
+        
         public static string    hex(this int value)
         {
             return Convert.ToString(value, 16).caps();
@@ -288,7 +285,7 @@ namespace FluentSharp.ExtensionMethods
                 return new byte[] { };
             }
         }
-
+        
         public static string    caps(this string value)
         {
             if (value.isNull())
@@ -322,60 +319,6 @@ namespace FluentSharp.ExtensionMethods
             return stringToFix.Replace(Environment.NewLine, "\n")
                               .Replace("\n", Environment.NewLine);
         }    
-
-        public static string    ascii(this byte value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.ASCII.GetString(new[] { value });
-        }        
-        public static string    ascii(this byte[] value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.ASCII.GetString(value);
-        }
-        public static string    unicode(this byte value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.Unicode.GetString(new[] { value });
-        }
-        public static string    unicode(this byte[] value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.Unicode.GetString(value);
-        }
-        
-        public static List<string>  strings(this byte[] bytes, bool ignoreCharZeroAfterValidChar, int minimumStringSize)
-        {
-            //this method is only really good to find ASCII binary strings
-            var extractedStrings = new List<string>();
-            var stringBuilder = new StringBuilder();
-            for (int i = 0; i < bytes.Length - 1; i++)
-            {
-                var value = bytes[i];
-                if (value > 31 && value < 127) // see http://www.asciitable.com/
-                {
-                    var str = value.ascii();
-                    stringBuilder.Append(str);
-                    if (ignoreCharZeroAfterValidChar)
-                        if (bytes[i + 1] == 0)
-                            i++;
-                }
-                else
-                {
-                    if (stringBuilder.Length > 0)
-                    {
-                        if (minimumStringSize == -1 || stringBuilder.Length > minimumStringSize)
-                            extractedStrings.Add(stringBuilder.ToString());
-                        stringBuilder = new StringBuilder();
-                    }
-                }
-            }            
-            return extractedStrings;
-        }
 
         public static void      removeLastChar(this StringBuilder stringBuilder)
         {
@@ -476,13 +419,7 @@ namespace FluentSharp.ExtensionMethods
                 ex.log("in toIntFromHex when converting string: {0}".format(hexValue));
                 return -1;
             }
-        }
-        public static string    repeat(this char charToRepeat, int count)
-        {
-            if (count > 0)
-                return new String(charToRepeat, count);
-            return "";
-        }
+        }        
 
         public static string    tempFile(this string postfixString)
         {

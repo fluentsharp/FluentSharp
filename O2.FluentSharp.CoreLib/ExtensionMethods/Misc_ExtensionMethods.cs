@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 using JetBrains.Annotations;
 using O2.Kernel;
 using System.Drawing;
@@ -94,6 +96,103 @@ namespace FluentSharp.ExtensionMethods
         }
     }
 
+    public static class Misc_ExtensionMethods_Char
+    {
+        public static byte     @byte(this char @char)
+        {
+            return (byte) @char;
+        }        
+        public static byte[]    bytes(this char[] chars)
+        {
+            return Encoding.Default.GetBytes(chars);            
+        }        
+        public static string    ascii(this char[] chars)
+        {
+            return Encoding.ASCII.GetString(chars.ascii_Bytes());            
+        }
+        public static byte[]    ascii_Bytes(this char[] chars)
+        {
+            return Encoding.ASCII.GetBytes(chars);            
+        }
+        public static string    repeat(this char charToRepeat, int count)
+        {
+            return count > 0 ? new String(charToRepeat, count) : "";
+        }
+        public static char[]    chars(this string value)
+        {
+            return Encoding.Default.GetChars(value.bytes());
+        }
+    }
+
+    public static class Misc_ExtensionMethods_Byte
+    {
+        public static char      @char(this byte @byte)
+        {
+            return (char)@byte;            
+        }
+        public static string    hex(this byte value)
+        {
+            return Convert.ToString(value, 16).caps();
+        }
+        public static string    ascii(this byte value)
+        {
+            if (value.isNull())
+                return null;
+            return Encoding.ASCII.GetString(new[] { value });
+        }        
+        public static string    ascii(this byte[] value)
+        {
+            if (value.isNull())
+                return null;
+            return Encoding.ASCII.GetString(value);
+        }
+        public static string    unicode(this byte value)
+        {
+            if (value.isNull())
+                return null;
+            return Encoding.Unicode.GetString(new[] { value });
+        }
+        public static string    unicode(this byte[] value)
+        {
+            if (value.isNull())
+                return null;
+            return Encoding.Unicode.GetString(value);
+        }
+        public static byte[]    bytes(this string value)
+        {
+            return Encoding.Default.GetBytes(value);
+        }
+        public static List<string>  strings(this byte[] bytes, bool ignoreCharZeroAfterValidChar, int minimumStringSize)
+        {
+            //this method is only really good to find ASCII binary strings
+            var extractedStrings = new List<string>();
+            var stringBuilder = new StringBuilder();
+            for (int i = 0; i < bytes.Length - 1; i++)
+            {
+                var value = bytes[i];
+                if (value > 31 && value < 127) // see http://www.asciitable.com/
+                {
+                    var str = value.ascii();
+                    stringBuilder.Append(str);
+                    if (ignoreCharZeroAfterValidChar)
+                        if (bytes[i + 1] == 0)
+                            i++;
+                }
+                else
+                {
+                    if (stringBuilder.Length > 0)
+                    {
+                        if (minimumStringSize == -1 || stringBuilder.Length > minimumStringSize)
+                            extractedStrings.Add(stringBuilder.ToString());
+                        stringBuilder = new StringBuilder();
+                    }
+                }
+            }            
+            return extractedStrings;
+        }
+    }
+
+
     public static class Misc_ExtensionMethods_BitMap
     {
         public static Bitmap    bitmap(this string file)
@@ -109,7 +208,7 @@ namespace FluentSharp.ExtensionMethods
     }
 
 
-    public static class Misc_Extensionmethods_LiveObjects_and_Cache
+    public static class Misc_Extensionmethods_LiveObjects_And_Cache
     { 
         public static T         castIfType<T>(this object _object)
 		{
