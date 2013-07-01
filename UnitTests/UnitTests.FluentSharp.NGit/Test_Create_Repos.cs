@@ -22,13 +22,13 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsNull(nGit.head());
 
             //Adding a file (using method 1)
-            nGit.create_File("testFile.txt", "some Text");
+            nGit.file_Create("testFile.txt", "some Text");
             nGit.add_and_Commit_using_Status();
             var head1 = nGit.head();
             Assert.IsNotNull(head1);
                         
             //Adding another file (using method 2)
-            nGit.create_File("testFile2.txt", "some Text");
+            nGit.file_Create("testFile2.txt", "some Text");
             nGit.add("testFile2.txt");
             nGit.commit("Adding Another file");
             
@@ -57,7 +57,7 @@ namespace UnitTests.FluentSharp_NGit
             var tempRepo2 = "_tempRepo".tempDir(true);
             var repo = tempRepo2.git_Init();
 
-            repo.write_File("a file.txt", "some content in the file");
+            repo.file_Write("a file.txt", "some content in the file");
             
             repo.add_and_Commit_using_Status();
             

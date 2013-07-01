@@ -8,7 +8,7 @@
     <ProjectGuid>{B1AAFDA3-2A9F-4BBD-9A08-F0890BA886C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>O2.FluentSharp</RootNamespace>
+    <RootNamespace>FluentSharp</RootNamespace>
     <AssemblyName>FluentSharp.NGit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -66,13 +66,16 @@
     <Compile Include="ExtensionMethods\API_NGit_Misc.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Diff.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Log.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_RevWalk.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Status.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Pull.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Init_Clone_Open.cs" />
     <Compile Include="ExtensionMethods\API_NGit_RefLogs.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Add.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Files.cs" />
+    <Compile Include="Support_Classes\GitProgress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Support_Classes\CustomConfigSessionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_EmbededDlls\ICSharpCode.SharpZipLib.dll" />

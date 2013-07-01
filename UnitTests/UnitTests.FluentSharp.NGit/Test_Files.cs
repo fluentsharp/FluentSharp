@@ -13,8 +13,8 @@ namespace UnitTests.FluentSharp_NGit
             
             var fileName1 = "1st file.txt".add_RandomLetters();
             var fileName2 = "2nd file.txt".add_RandomLetters();
-            nGit.write_File(fileName1, "With Some content");
-            nGit.write_File(fileName2, "With Some content");
+            nGit.file_Write(fileName1, "With Some content");
+            nGit.file_Write(fileName2, "With Some content");
 
             var filesBeforeCommit = nGit.files().size();
 
@@ -53,7 +53,7 @@ namespace UnitTests.FluentSharp_NGit
         {
             var fileName = "testFile.txt".add_RandomLetters(10);            
             var fileContents = "This is some Content";
-            nGit.write_File(fileName, fileContents);                                                       
+            nGit.file_Write(fileName, fileContents);                                                       
             var firstFileFullPath = nGit.file_FullPath(fileName);
             Assert.AreEqual(fileName, firstFileFullPath.fileName());
             Assert.AreEqual(firstFileFullPath.fileContents(), fileContents);

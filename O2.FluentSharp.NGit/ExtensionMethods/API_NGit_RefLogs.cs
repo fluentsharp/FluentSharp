@@ -19,13 +19,27 @@ namespace FluentSharp.ExtensionMethods
         }*/
         public static List<string> refLogs(this API_NGit nGit, int maxCount)
         {
-            return nGit.reflogs_Raw()
+            return nGit.refLogs_Raw()
                        .take(maxCount)
                        .select(refLog => refLog.str()).toList();
         }
-        public static ICollection<ReflogEntry> reflogs_Raw(this API_NGit nGit)
+        public static ICollection<ReflogEntry> refLogs_Raw(this API_NGit nGit)
         {
             return nGit.Git.Reflog().Call();
+        }
+
+        public static string sha1(this ReflogEntry reflog)
+        {
+            if (reflog.notNull())
+                return reflog.GetNewId().Name;
+            return null;
+        }
+
+        public static string sha1_Parent(this ReflogEntry reflog)
+        {
+            if (reflog.notNull())
+                return reflog.GetOldId().Name;
+            return null;
         }
     }
 }

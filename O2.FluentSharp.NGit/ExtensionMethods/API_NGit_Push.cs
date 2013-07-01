@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentSharp.ExtensionMethods;
+using FluentSharp.NGit_Classes;
 
 namespace FluentSharp.ExtensionMethods
 {

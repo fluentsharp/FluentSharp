@@ -14,11 +14,11 @@ namespace UnitTests.FluentSharp_NGit
         public void CommitDiffs()
         {            
             Assert.IsNull(nGit.head());
-            nGit.create_File("testFile.txt", "some Text");
+            nGit.file_Create("testFile.txt", "some Text");
             "head 1 :{0}".info(nGit.head().info());
             nGit.add_and_Commit_using_Status();
             "head 2 :{0}".info(nGit.head().info());
-            nGit.write_File("testFile.txt", "some Text changed");
+            nGit.file_Write("testFile.txt", "some Text changed");
             nGit.add_and_Commit_using_Status();
             var head3 = nGit.head();
             "head 3 :{0}".info(head3.info());

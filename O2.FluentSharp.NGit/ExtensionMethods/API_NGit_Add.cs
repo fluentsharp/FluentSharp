@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentSharp.ExtensionMethods;
+using NGit.Revwalk;
 
 namespace FluentSharp.ExtensionMethods
 {
@@ -26,11 +27,18 @@ namespace FluentSharp.ExtensionMethods
             return nGit;
         }
 
-        public static API_NGit  add_and_Commit_using_Status (this API_NGit nGit                           )
+        public static RevCommit  add_and_Commit_using_Status (this API_NGit nGit                           )
         {
             nGit.add();
-            nGit.commit_using_Status();
-            return nGit;
+            return nGit.commit_using_Status();            
+        }
+
+        public static RevCommit add_and_Commit_Random_File(this API_NGit nGit)
+        {
+            var randomFile = nGit.file_Create_Random_File();
+            nGit.add(randomFile);
+            var commitMessage = "Adding random file: {0}".format(randomFile);
+            return nGit.commit(commitMessage);            
         }
     }
 }

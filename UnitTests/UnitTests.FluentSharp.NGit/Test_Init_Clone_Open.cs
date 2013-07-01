@@ -25,7 +25,7 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsNotNull(nGit.Git);
             Assert.IsNotNull(nGit.Repository);
 
-            nGit.write_File("testFile.txt", "Some Contents");
+            nGit.file_Write("testFile.txt", "Some Contents");
             nGit.add_and_Commit_using_Status();
             //test errors
             var cloneExistingRepo = targetFolder.git_Init();

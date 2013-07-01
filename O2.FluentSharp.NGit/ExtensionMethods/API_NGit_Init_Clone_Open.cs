@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentSharp.NGit_Classes;
 using NGit.Api;
 using FluentSharp.ExtensionMethods;
 using NGit.Transport;
@@ -78,6 +79,7 @@ namespace FluentSharp.ExtensionMethods
                 nGit.close();
                 var start = DateTime.Now;
                 var clone_Command = Git.CloneRepository();
+                
                 clone_Command.SetDirectory(targetFolder);
                 clone_Command.SetURI(sourceRepository);
                 clone_Command.SetCredentialsProvider(nGit.Credentials);

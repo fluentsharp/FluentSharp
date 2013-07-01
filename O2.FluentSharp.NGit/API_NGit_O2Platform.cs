@@ -36,10 +36,9 @@ namespace FluentSharp
             return nGit_O2;
         }
 
-        public static API_NGit_O2Platform close(this API_NGit_O2Platform nGit_O2)
+        public static API_NGit nGit(this API_NGit_O2Platform nGit_O2)
         {
-            (nGit_O2 as API_NGit).close();
             return nGit_O2;
-        }
+        }        
     }
 }

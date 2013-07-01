@@ -1,39 +1,108 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using NGit;
+using NGit.Revwalk;
+using NGit.Treewalk;
 
 namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_Commit
     {
-        public static API_NGit      commit              (this API_NGit nGit, string commitMessage)
+        public static PersonIdent     author(this RevCommit revCommit)
+        {
+            if (revCommit.notNull())
+                return revCommit.GetAuthorIdent();
+            return null;
+        }
+        public static string          author_Name(this RevCommit revCommit)
+        {
+            return revCommit.author().name();
+        }
+        public static string          author_Email(this RevCommit revCommit)
+        {
+            return revCommit.author().email();
+        }
+        public static RevCommit       commit(this API_NGit nGit, string commitMessage)
+        {
+            return nGit.commit(commitMessage, nGit.Author, nGit.Committer);
+        }
+        public static RevCommit       commit(this API_NGit nGit, string commitMessage, string name, string email)
+        {
+            var person = name.personIdent(email);
+            return nGit.commit(commitMessage, person, person);
+        }
+        public static RevCommit       commit(this API_NGit nGit, string commitMessage, PersonIdent author, PersonIdent committer)
         {            
             if (commitMessage.valid())
             {
                 "[API_NGit] commit: {0}".debug(commitMessage);
                 var commit_Command = nGit.Git.Commit();
-                commit_Command.SetMessage(commitMessage);
-                commit_Command.Call();
+                commit_Command.SetMessage  (commitMessage);
+                commit_Command.SetAuthor   (author);
+                commit_Command.SetCommitter(committer);
+                return commit_Command.Call();
             }
-            else
-                "[API_NGit] commit was called with no commitMessage".error();
-            return nGit;
+            
+            "[API_NGit] commit was called with no commitMessage".error();
+            return null;
         }
-        public static API_NGit      commit_using_Status (this API_NGit nGit                      )
+        public static RevCommit       commit_using_Status(this API_NGit nGit)
         {
-            nGit.commit(nGit.status());
-            return nGit;
-        }
-        public static List<string>  commits             (this API_NGit nGit                      )
-        {
-            return nGit.commits(-1);
-        }
-        public static List<string>  commits             (this API_NGit nGit, int maxCount        )
-        {
-            return nGit.log_Raw(maxCount)
+            return nGit.commit(nGit.status());            
+        }        
+        public static List<string>    commits_SHA1             (this API_NGit nGit, int maxCount = -1)
+        {            
+            return nGit.commits(maxCount)
                        .Select(logEntry => logEntry.Name)
                        .toList();
-
         }
-        
+        public static List<RevCommit> commits(this API_NGit nGit, int maxCount = -1)
+        {            
+            return nGit.revCommits_Raw(maxCount).toList();
+        }        
+        public static List<string>    commit_Files(this RevCommit revCommit, API_NGit nGit)
+        {
+            var repoFiles = new List<string>();
+            var treeWalk = new TreeWalk(nGit.Repository);
+            var tree = revCommit.Tree;
+            treeWalk.AddTree(tree);
+            treeWalk.Recursive = true;
+
+            while (treeWalk.Next())            
+                repoFiles.Add(treeWalk.PathString);            
+
+            return repoFiles;
+        }                        
+        public static PersonIdent     committer(this RevCommit revCommit)
+        {
+            if (revCommit.notNull())
+                return revCommit.GetCommitterIdent();
+            return null;
+        }        
+        public static string          committer_Name(this RevCommit revCommit)
+        {
+            return revCommit.committer().name();
+        }
+        public static string          committer_Email(this RevCommit revCommit)
+        {
+            return revCommit.committer().email();
+        }
+        public static string          message(this RevCommit revCommit)
+        {
+            if (revCommit.notNull())
+                return revCommit.GetFullMessage();
+            return null;
+        }
+        public static string          sha1(this RevCommit revCommit)
+        {
+            if (revCommit.notNull())
+                return revCommit.Name;
+            return null;
+        }
+        public static DateTime        when(this RevCommit revCommit)
+        {            
+            return revCommit.committer().when();            
+        }
     }
 }
