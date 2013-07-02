@@ -74,6 +74,19 @@ namespace UnitTests.FluentSharp_NGit
             Assert.AreEqual(file1, commitFiles.second());          
         }
 
+        [Test(Description = "Gets the fill path list of files from the provided revCommit")]
+        public void commit_Files_FullPath()
+        {
+            var revCommit1          = nGit.add_and_Commit_Random_File();
+            var fileAdded           = revCommit1.commit_Files(nGit);
+            var fileAdded_FullPath  = revCommit1.commit_Files_FullPath(nGit);
+
+            Assert.AreEqual(fileAdded.size(), 1);
+            Assert.AreEqual(fileAdded.size(), fileAdded_FullPath.size());
+            Assert.AreEqual(fileAdded_FullPath.first(), nGit.file_FullPath(fileAdded.first()));
+            Assert.IsTrue  (fileAdded_FullPath.first().fileExists());
+        }
+
         [Test(Description = "Returns the SAH1 value of the current commit (same as RevCommitName)")]
         public void sha1()
         {            

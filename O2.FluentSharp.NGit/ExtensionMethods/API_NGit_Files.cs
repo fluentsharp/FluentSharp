@@ -24,6 +24,19 @@ namespace FluentSharp.ExtensionMethods
                 return nGit.Path_Local_Repository.pathCombine(virtualPath);
             return null;
         }
+        public static bool          file_Delete(this API_NGit nGit, string virtualPath)
+        {            
+            if (nGit.notNull())
+            {
+                var fullPath = nGit.file_FullPath(virtualPath);
+                if (fullPath.fileExists())
+                {
+                    fullPath.file_Delete();
+                    return true;
+                }
+            }
+            return false;
+        }
         public static string        file_Create_Random_File(this API_NGit nGit)
         {
             var fileName = "name".add_RandomLetters().add(".txt");

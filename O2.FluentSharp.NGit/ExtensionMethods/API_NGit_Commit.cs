@@ -74,6 +74,11 @@ namespace FluentSharp.ExtensionMethods
 
             return repoFiles;
         }                        
+        public static List<string>    commit_Files_FullPath(this RevCommit revCommit, API_NGit nGit)
+        {
+            return (from file in revCommit.commit_Files(nGit)
+                    select nGit.file_FullPath(file)).toList();
+        }
         public static PersonIdent     committer(this RevCommit revCommit)
         {
             if (revCommit.notNull())

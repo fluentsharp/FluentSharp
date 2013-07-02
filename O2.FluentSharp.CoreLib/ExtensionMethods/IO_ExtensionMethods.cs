@@ -128,7 +128,14 @@ namespace FluentSharp.ExtensionMethods
 
     public static class IO_ExtensionMethods_FileInfo
     {
-        public static FileInfo      fileInfo(this string filePath)
+        public static FileAttributes attributes(this FileInfo fileInfo)
+        {
+            if (fileInfo.valid())
+                return fileInfo.Attributes;
+            return default(FileAttributes);
+        }
+
+        public static FileInfo          fileInfo(this string filePath)
         {
             try
             {
@@ -140,22 +147,60 @@ namespace FluentSharp.ExtensionMethods
                 return null;
             }
         }
-        public static string        file_Attribute_ReadOnly_Remove(this string filePath)
+        public static bool             valid(this FileInfo fileInfo)
         {
-            var fileInfo = filePath.fileInfo();
-            if (fileInfo.notNull())
-            {
-                fileInfo.Attributes = fileInfo.Attributes & ~FileAttributes.ReadOnly;
-                return filePath;
-            }
-            return null;
+            return fileInfo.notNull() && fileInfo.Exists;
+        }
+        public static FileInfo          readOnly_Remove(this FileInfo fileInfo)
+        {
+            if (fileInfo.valid())            
+                fileInfo.Attributes = fileInfo.Attributes & ~FileAttributes.ReadOnly;                
+            return fileInfo;
+        }
+        public static FileInfo          readOnly_Add(this FileInfo fileInfo)
+        {
+            if (fileInfo.valid())
+                fileInfo.Attributes = fileInfo.Attributes | FileAttributes.ReadOnly;
+            return fileInfo;
         }
 
-        public static List<string> files_Attribute_ReadOnly_Remove(this List<string> files)
+        public static bool file_Has_Attribute(this string filePath, FileAttributes attribute)
+        {
+            var fileInfo = filePath.fileInfo();
+            if (fileInfo.valid())
+                return (fileInfo.Attributes == (fileInfo.Attributes | attribute));
+            return false;
+        }
+
+        public static FileAttributes    file_Attributes(this string filePath)
+        {
+            var fileInfo = filePath.fileInfo();
+            if (fileInfo.valid())
+                return fileInfo.Attributes;
+            return default(FileAttributes);
+        }
+        public static string            file_Attribute_ReadOnly_Add(this string filePath)
+        {
+            filePath.fileInfo().readOnly_Add();
+            return filePath;
+        }
+        public static string            file_Attribute_ReadOnly_Remove(this string filePath)
+        {
+            filePath.fileInfo().readOnly_Remove();
+            return filePath;
+        }        
+
+        public static List<string>      files_Attribute_ReadOnly_Remove(this List<string> files)
         {
             foreach (var file in files)
                 file.file_Attribute_ReadOnly_Remove();
             return files;
+        }
+        public static string        path(this FileInfo fileInfo)
+        {
+            if (fileInfo.valid())
+                return fileInfo.FullName;
+            return null;
         }
 
         public static long          size(this FileInfo fileInfo)
@@ -755,10 +800,16 @@ namespace FluentSharp.ExtensionMethods
         {
             try
             {
-                if (waitForCanOpen)
-                    path.file_WaitFor_CanOpen();
-                File.Delete(path);
-                "Deleted file: {0}".info(path);
+                var fileInfo = path.fileInfo();
+                if (fileInfo.valid())
+                {
+                    if (fileInfo.IsReadOnly)
+                        return false;                    
+                    if (waitForCanOpen)
+                        path.file_WaitFor_CanOpen();
+                    File.Delete(path);
+                    "Deleted file: {0}".info(path);
+                }
             }
             catch (Exception ex)
             {

@@ -61,8 +61,7 @@ namespace FluentSharp.ExtensionMethods
         {
             return nGit.status_Raw().GetRemoved().toList();
         }
-
-        public static Status         status_Raw          (this API_NGit nGit) 
+        public static Status        status_Raw          (this API_NGit nGit) 
         {
             if (nGit.notNull())
                 return nGit.Git.Status().Call();

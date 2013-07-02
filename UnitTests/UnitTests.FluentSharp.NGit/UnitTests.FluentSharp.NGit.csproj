@@ -75,6 +75,7 @@
     <Compile Include="Test_O2Platform_Repos.cs" />
     <Compile Include="Test_RefLogs.cs" />
     <Compile Include="Test_RevWalk.cs" />
+    <Compile Include="Test_Status.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
