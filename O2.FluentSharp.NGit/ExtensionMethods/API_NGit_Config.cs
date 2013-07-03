@@ -41,44 +41,32 @@ namespace FluentSharp.ExtensionMethods
         
         public static bool remote_Add(this API_NGit nGit, string remoteName, string url)
         {
-            if (nGit.repository().notNull() && remoteName.valid() && url.valid())
-                //try   // can't trigger from UnitTest
+            if (nGit.repository().notNull() && remoteName.valid() && url.valid())            
             {
+                //no try-catch becasue can't trigger from UnitTest
                 nGit.config().SetString("remote", remoteName, "url", url);
                 nGit.config().Save();
                 return true;
-            }
-                /*catch (Exception ex)
-                {
-                    ex.log("[API_NGit][remote_Add]");
-                }*/
+            }                
             return false;
         }
         public static bool remote_Delete(this API_NGit nGit, string remoteName)
         {
-            if (nGit.repository().notNull() && remoteName.valid())
-                //try   // can't trigger from UnitTest
+            if (nGit.repository().notNull() && remoteName.valid())                
             {
+                //no try-catch becasue can't trigger from UnitTest
                 nGit.config().UnsetSection("remote", remoteName);
                 return true;
             }
-                /*catch (Exception ex)
-                {
-                    ex.log("[API_NGit][remote_Add]");
-                }*/
             return false;
         }
         public static string remote_Url(this API_NGit nGit, string remoteName)
         {
-            if (nGit.repository().notNull())
-                //try   // can't trigger from UnitTest
-                {                    
-                    return nGit.config().GetString("remote", remoteName, "url");                    
-                }
-                /*catch (Exception ex)
-                {
-                    ex.log("[API_NGit][remote_Url]");
-                }*/
+            if (nGit.repository().notNull())                
+            {                    
+                //no try-catch becasue can't trigger from UnitTest
+                return nGit.config().GetString("remote", remoteName, "url");                    
+            }            
             return null;
         }
     }
