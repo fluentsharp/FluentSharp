@@ -31,7 +31,7 @@ namespace FluentSharp.NGit_Classes
 
         public void showMessageInLogViewer(string type, string taskName, int workCurr)
         {
-            "[GitProgress] {0} : {1} : {2}".info(type, taskName, workCurr);
+            FullMessage.WriteLine("[GitProgress] {0} : {1} : {2}".info(type, taskName, workCurr));
         }
 
         public override void BeginTask(string title, int work)

@@ -14,7 +14,7 @@ namespace FluentSharp.ExtensionMethods
     {
         public static API_NGit init(this API_NGit nGit, string targetFolder)                                
         {
-            nGit.LastException = null;
+            nGit.Last_Exception = null;
 
             if (targetFolder.isNull())
             {
@@ -41,14 +41,14 @@ namespace FluentSharp.ExtensionMethods
             }
             catch (Exception ex)
             {
-                nGit.LastException = ex;
+                nGit.Last_Exception = ex;
                 ex.log("[API_NGit] ");
             }
             return null;
         }        
         public static API_NGit open         (this API_NGit nGit, string pathToLocalRepository)                  
         {
-            nGit.LastException = null;
+            nGit.Last_Exception = null;
             try
             {
                 nGit.close();
@@ -60,14 +60,14 @@ namespace FluentSharp.ExtensionMethods
             }
             catch (Exception ex)
             {
-                nGit.LastException = ex;
+                nGit.Last_Exception = ex;
                 ex.log("[API_NGit] ");
             }
             return null;
         }
         public static API_NGit clone        (this API_NGit nGit, string sourceRepository, string targetFolder)  
         {
-            nGit.LastException = null;
+            nGit.Last_Exception = null;
             "[API_NGit] cloning: {0} into {1}".debug(sourceRepository, targetFolder);
             try
             {                
@@ -96,7 +96,7 @@ namespace FluentSharp.ExtensionMethods
             }
             catch (Exception ex)
             {
-                nGit.LastException = ex;
+                nGit.Last_Exception = ex;
                 ex.log("[API_NGit] ");
                 Files.deleteFolder(targetFolder, true);
             }

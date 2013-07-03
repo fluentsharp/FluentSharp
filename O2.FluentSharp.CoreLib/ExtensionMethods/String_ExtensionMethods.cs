@@ -496,12 +496,13 @@ namespace FluentSharp.ExtensionMethods
 				return subString;
 			return subString.Substring(0,size);
 		}		
-		public static string    subString_After(this string _string, string stringToFind)
+		public static string    subString_After(this string value, string stringToFind)
 		{
-			var index = _string.IndexOf(stringToFind, StringComparison.Ordinal);
-			if (index >0)
-			{
-				return _string.subString(index + stringToFind.size());
+            if (value.notNull() && stringToFind.notNull())
+            {
+			    var index = value.IndexOf(stringToFind, StringComparison.Ordinal);
+			    if (index > -1)			
+				    return value.subString(index + stringToFind.size());
 			}
 			return "";
 		}

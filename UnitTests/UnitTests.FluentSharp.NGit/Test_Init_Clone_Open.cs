@@ -2,6 +2,7 @@
 using System.IO;
 using FluentSharp;
 using FluentSharp.ExtensionMethods;
+using FluentSharp.NGit_Classes;
 using NGit;
 using NGit.Api;
 using NGit.Api.Errors;
@@ -33,7 +34,7 @@ namespace UnitTests.FluentSharp_NGit
 
             Assert.IsFalse(tempDir.isGitRepository());
             Assert.IsNull(result);
-            Assert.IsInstanceOf<JGitInternalException>(nGit.LastException);
+            Assert.IsInstanceOf<JGitInternalException>(nGit.Last_Exception);
             tempDir.delete_Folder();
             Assert.IsFalse(tempDir.dirExists());
         }
@@ -46,7 +47,7 @@ namespace UnitTests.FluentSharp_NGit
             //test Exception handing 
             var nGit = new API_NGit();
             Assert.IsNull(nGit.clone(null,null));
-            Assert.IsInstanceOf<InvalidRemoteException>(nGit.LastException);
+            Assert.IsInstanceOf<InvalidRemoteException>(nGit.Last_Exception);
             Assert.IsNull(nGit.clone(null,"".tempDir(false)));
         }
 
@@ -175,7 +176,6 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsTrue(result2);
             Assert.IsTrue(result3);
         }
-
         
         [Test(Description = "Opens a local repository")]
         public void open()
@@ -185,7 +185,7 @@ namespace UnitTests.FluentSharp_NGit
             //test Exception handing 
             var nGit = new API_NGit();            
             Assert.IsNull(nGit.open(null));
-            Assert.IsInstanceOf<ArgumentNullException>(nGit.LastException);
-        }
+            Assert.IsInstanceOf<ArgumentNullException>(nGit.Last_Exception);
+        }        
     }
 }

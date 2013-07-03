@@ -5,7 +5,6 @@ namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_Objects
     {
-
         public static ObjectLoader  open_Object(this API_NGit nGit, string sha1)    
         {
             return nGit.repository().open(sha1);
@@ -62,6 +61,20 @@ namespace FluentSharp.ExtensionMethods
                     ex.log("[API_NGit][ObjectStream][bytes]");
                 }
             return new byte[] {};
+        }
+        public static ObjectId      resolve(this API_NGit nGit, string sha1)
+        {
+            return nGit.repository().resolve(sha1);
+        }
+        public static ObjectId      resolve(this Repository repository, string sha1)
+        {
+            if (repository.notNull())
+                return repository.Resolve(sha1);
+            return null;
+        }
+        public static bool          valid(this ObjectId objectId)
+        {
+            return objectId.notNull() && objectId.Name != NGit_Consts.EMPTY_SHA1;
         }
     }
 }

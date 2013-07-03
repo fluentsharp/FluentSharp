@@ -49,6 +49,8 @@
     <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="ExtensionMethods\Test_Char.cs" />
     <Compile Include="ExtensionMethods\Test_IO.cs" />
+    <Compile Include="ExtensionMethods\Test_Reflection.cs" />
+    <Compile Include="ExtensionMethods\Test_String.cs" />
     <Compile Include="Test_Ex_Objects.cs" />
     <Compile Include="Test_H2_FileFormat.cs" />
     <Compile Include="Test_Logging.cs" />

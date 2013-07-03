@@ -67,15 +67,18 @@
     <Compile Include="Helper\Temp_Repo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test_Commit.cs" />
+    <Compile Include="Test_Config.cs" />
     <Compile Include="Test_Create_Repos.cs" />
     <Compile Include="Test_Diff.cs" />
     <Compile Include="Test_Files.cs" />
     <Compile Include="Test_Init_Clone_Open.cs" />
     <Compile Include="Test_Misc.cs" />
-    <Compile Include="Test_Ngit_Factory.cs" />
+    <Compile Include="Test_NGit_Classes.cs" />
     <Compile Include="Test_O2Platform_Repos.cs" />
     <Compile Include="Test_Objects.cs" />
+    <Compile Include="Test_Push_Pull.cs" />
     <Compile Include="Test_RefLogs.cs" />
+    <Compile Include="Test_Repository.cs" />
     <Compile Include="Test_RevWalk.cs" />
     <Compile Include="Test_Status.cs" />
   </ItemGroup>

@@ -96,13 +96,13 @@ namespace UnitTests.FluentSharp_NGit
             var ngit_O2 = new API_NGit_O2Platform(tempFolder);
             var repositoryUrl = ngit_O2.repositoryUrl(repoToClone);
 
-            Assert.IsNull(ngit_O2.LastException);
+            Assert.IsNull(ngit_O2.Last_Exception);
 
             //clone should fail 
             ngit_O2.clone(repositoryUrl, pathToRepo);
 
             //no git repo should be there (if clone failed
-            Assert.IsNotNull(ngit_O2.LastException);
+            Assert.IsNotNull(ngit_O2.Last_Exception);
             Assert.IsEmpty(tempFolder.dirs());
             Assert.IsFalse(pathToRepo.dirExists());
             Assert.IsFalse(pathToRepo.isGitRepository());                        
@@ -128,13 +128,13 @@ namespace UnitTests.FluentSharp_NGit
             ngit_O2.clone(repositoryUrl, pathToRepo);
             if (pwd == hardCodedbadPWd) 
             {
-                Assert.IsNotNull(ngit_O2.LastException);
-                Assert.IsTrue   (ngit_O2.LastException.Message.contains("not authorized"));
+                Assert.IsNotNull(ngit_O2.Last_Exception);
+                Assert.IsTrue   (ngit_O2.Last_Exception.Message.contains("not authorized"));
             }
             else
             {
                 // these will only run when we are using a valid GitHub Account
-                Assert.IsNull(ngit_O2.LastException);
+                Assert.IsNull(ngit_O2.Last_Exception);
                 Assert.IsNotEmpty(tempFolder.dirs());
                 Assert.IsTrue(pathToRepo.dirExists());
                 Assert.IsTrue(pathToRepo.isGitRepository());    
@@ -166,7 +166,7 @@ namespace UnitTests.FluentSharp_NGit
 
             ngit_O2.clone(repositoryUrl, pathToRepo);
 
-            Assert.IsNull(ngit_O2.LastException);
+            Assert.IsNull(ngit_O2.Last_Exception);
             Assert.IsNotEmpty(tempFolder.dirs());
             Assert.IsTrue(pathToRepo.dirExists());
             Assert.IsTrue(pathToRepo.isGitRepository());

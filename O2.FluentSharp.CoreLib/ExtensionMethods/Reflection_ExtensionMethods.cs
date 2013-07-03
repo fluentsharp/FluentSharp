@@ -232,7 +232,15 @@ namespace FluentSharp.ExtensionMethods
     }
 
     public static class Reflection_ExtensionMethods_Ctor
-    { 
+    {
+        public static T                     ctor<T>(this Type type, params object[] constructorParams)
+        {
+            var newObject = type.ctor(constructorParams);
+            if (newObject.notNull() && newObject is T)
+                return (T) newObject;
+            return default(T);
+        }
+
         public static object                ctor(this string className, string assembly, params object[] parameters)
         {
             var obj = PublicDI.reflection.createObject(assembly, className, parameters);
@@ -242,8 +250,8 @@ namespace FluentSharp.ExtensionMethods
                 else
                     PublicDI.log.debug("in ctor, created object of type: {0}", obj.GetType());
             return obj;
-        }
-        public static Object                ctor(this Type type, params object[] constructorParams)
+        }        
+        public static object                ctor(this Type type, params object[] constructorParams)
         {
             return PublicDI.reflection.createObject(type, constructorParams);
         }
