@@ -105,7 +105,7 @@ namespace FluentSharp.ExtensionMethods
         public static API_NGit open_or_Clone(this API_NGit nGit, string sourceRepository, string targetFolder)  
         {
             if (targetFolder.isGitRepository())
-                return nGit.open(targetFolder).pull();
+                return nGit.open(targetFolder);
             
             return nGit.clone(sourceRepository, targetFolder);
         }

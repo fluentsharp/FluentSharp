@@ -59,6 +59,10 @@ namespace FluentSharp.ExtensionMethods
                 return null;
             }            
         }
+        public static bool        valid(this ObjectId objectId)
+        {
+            return objectId.notNull() && objectId.Name != NGit_Consts.EMPTY_SHA1;
+        }
         public static PersonIdent personIdent(this string name, string email)
         {
             return new PersonIdent(name,email);
@@ -89,6 +93,16 @@ namespace FluentSharp.ExtensionMethods
         {
             return targetString.replace(@"//", @"/");
         }
-             
+        public static ObjectId    resolve(this API_NGit nGit, string sha1)
+        {
+            return nGit.repository().resolve(sha1);
+        }
+        public static ObjectId    resolve(this Repository repository, string sha1)
+        {
+            if (repository.notNull())
+                return repository.Resolve(sha1);
+            return null;
+        }
+
     }
 }

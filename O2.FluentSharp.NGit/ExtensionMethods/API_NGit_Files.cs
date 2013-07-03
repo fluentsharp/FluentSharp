@@ -55,7 +55,7 @@ namespace FluentSharp.ExtensionMethods
             return nGit.files_HEAD();
         }
 
-        public static List<string> files_HEAD(this API_NGit nGit)
+        public static List<string>  files_HEAD(this API_NGit nGit)
         {
             return nGit.files(nGit.head());
         }

@@ -87,6 +87,32 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsTrue  (fileAdded_FullPath.first().fileExists());
         }
 
+        [Test(Description = "Gets the commits files indexed by the file SHA1")]
+        public void commit_Files_IndexedBy_SHA1()
+        {
+            var file1 = "aaa.text";
+            var file2 = "bbb.text";
+            var contents1 = "12345";
+            var contents2 = "abcdef";
+            var sha1 = "bd41cba781d8349272bf3eb92568285b411c027c";
+            var sha2 = "d96dc95707c20a371b14928ee42071f00e00b645";
+            nGit.file_Create(file1, contents1);
+            nGit.file_Create(file2, contents2);
+            var recCommit = nGit.add_and_Commit_using_Status();
+            var commitFiles = recCommit.commit_Files(nGit);
+            Assert.AreEqual(2, commitFiles.size());
+            Assert.AreEqual(commitFiles.first() , file1);
+            Assert.AreEqual(commitFiles.second(), file2);
+            var filesBySha1 = recCommit.commit_Files_IndexedBy_SHA1(nGit);
+            Assert.AreEqual(2, filesBySha1.size());
+            Assert.IsTrue(filesBySha1.keys().contains(sha1));
+            Assert.IsTrue(filesBySha1.keys().contains(sha2));
+            Assert.AreEqual(filesBySha1[sha1], file1);
+            Assert.AreEqual(filesBySha1[sha2], file2);
+            // filesBySha1.script_Me("files").waitForClose();
+
+        }
+
         [Test(Description = "Returns the SAH1 value of the current commit (same as RevCommitName)")]
         public void sha1()
         {            

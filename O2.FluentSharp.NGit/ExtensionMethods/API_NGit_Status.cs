@@ -10,19 +10,18 @@ namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_Status
     {
-        public static string        status              (this API_NGit nGit)
+        public static string        status       (this API_NGit nGit)
         {
             var status = nGit.status_Raw();
             if (status.isNull())
                 return null;
-            var added = status.GetAdded().toList();
-            var changed = status.GetChanged().toList();
-            var removed = status.GetRemoved().toList();
-            var missing = status.GetMissing().toList();
-            var modified = status.GetModified().toList();
-            var untracked = status.GetUntracked().toList();
-            var conflicting = status.GetConflicting().toList();
-
+            var added = status.added();
+            var changed = status.changed();
+            var modified = status.modified();
+            var removed = status.removed();
+            var missing = status.missing();            
+            var untracked = status.untracked();
+            var conflicting = status.conflicting();
 
             var statusDetails = ((added.Count > 0) ? "Added: {0}\n".format(added.join(" , ")) : "") +
                                 ((changed.Count > 0) ? "changed: {0}\n".format(changed.join(" , ")) : "") +
@@ -33,35 +32,49 @@ namespace FluentSharp.ExtensionMethods
                                 ((conflicting.Count > 0) ? "conflicting: {0}\n".format(conflicting.join(" , ")) : "");
             return statusDetails;
         }
-        public static List<string>  status_Added        (this API_NGit nGit) 
+        public static List<string>  added        (this Status status) 
         {
-            return nGit.status_Raw().GetAdded().toList();
+            if (status.notNull())
+                return status.GetAdded().toList();            
+            return new List<string>();
         }
-        public static List<string>  status_Changed      (this API_NGit nGit) 
+        public static List<string>  changed      (this Status status) 
         {
-            return nGit.status_Raw().GetChanged().toList();
+            if (status.notNull())
+                return status.GetChanged().toList();
+            return new List<string>();            
         }
-        public static List<string>  status_Conflicting  (this API_NGit nGit) 
+        public static List<string>  conflicting  (this Status status) 
         {
-            return nGit.status_Raw().GetConflicting().toList();
+            if (status.notNull())
+                return status.GetConflicting().toList();
+            return new List<string>();                
         }    
-        public static List<string>  status_Missing      (this API_NGit nGit) 
+        public static List<string>  missing      (this Status status) 
         {
-            return nGit.status_Raw().GetMissing().toList();
+            if (status.notNull())
+                return status.GetMissing().toList();
+            return new List<string>();                                         
         }                
-        public static List<string>  status_Modified     (this API_NGit nGit) 
+        public static List<string>  modified     (this Status status) 
         {
-            return nGit.status_Raw().GetModified().toList();
+            if (status.notNull())
+                return status.GetModified().toList();
+            return new List<string>();                             
         }    
-        public static List<string>  status_Untracked    (this API_NGit nGit) 
+        public static List<string>  untracked    (this Status status) 
         {
-            return nGit.status_Raw().GetUntracked().toList();
+            if (status.notNull())
+                return status.GetUntracked().toList();
+            return new List<string>();                 
         }
-        public static List<string>  status_Removed      (this API_NGit nGit) 
+        public static List<string>  removed      (this Status status) 
         {
-            return nGit.status_Raw().GetRemoved().toList();
+            if (status.notNull())
+                return status.GetRemoved().toList();
+            return new List<string>();                 
         }
-        public static Status        status_Raw          (this API_NGit nGit) 
+        public static Status        status_Raw   (this API_NGit nGit) 
         {
             if (nGit.notNull())
                 return nGit.Git.Status().Call();

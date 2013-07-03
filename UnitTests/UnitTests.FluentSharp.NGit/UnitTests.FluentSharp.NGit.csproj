@@ -72,7 +72,9 @@
     <Compile Include="Test_Files.cs" />
     <Compile Include="Test_Init_Clone_Open.cs" />
     <Compile Include="Test_Misc.cs" />
+    <Compile Include="Test_Ngit_Factory.cs" />
     <Compile Include="Test_O2Platform_Repos.cs" />
+    <Compile Include="Test_Objects.cs" />
     <Compile Include="Test_RefLogs.cs" />
     <Compile Include="Test_RevWalk.cs" />
     <Compile Include="Test_Status.cs" />

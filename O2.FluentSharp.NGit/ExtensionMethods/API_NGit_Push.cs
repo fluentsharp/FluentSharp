@@ -25,18 +25,6 @@ namespace FluentSharp.ExtensionMethods
 
             "[API_NGit] push completed".debug();
             return nGit;
-        }
-        public static API_NGit  pull    (this API_NGit nGit                                               )
-        {
-            //"[API_NGit] pull start".debug();
-            var pull_Command = nGit.Git.Pull();
-            //pull_Command.SetRemote(remote);	
-            nGit.LastGitProgress = new GitProgress();
-            pull_Command.SetProgressMonitor(nGit.LastGitProgress);
-            pull_Command.Call();
-
-            "[API_NGit] pull completed".debug();
-            return nGit;
-        }
+        }        
     }
 }

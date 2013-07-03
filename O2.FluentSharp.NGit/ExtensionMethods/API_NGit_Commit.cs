@@ -5,6 +5,7 @@ using NGit;
 using NGit.Revwalk;
 using NGit.Treewalk;
 
+
 namespace FluentSharp.ExtensionMethods
 {
     public static class API_NGit_Commit
@@ -64,15 +65,31 @@ namespace FluentSharp.ExtensionMethods
         public static List<string>    commit_Files(this RevCommit revCommit, API_NGit nGit)
         {
             var repoFiles = new List<string>();
+            revCommit.commit_TreeWalk(nGit, treeWalk => repoFiles.Add(treeWalk.PathString));
+            return repoFiles;
+        }  
+
+        public static Dictionary<string,string>    commit_Files_IndexedBy_SHA1(this RevCommit revCommit, API_NGit nGit)
+        {
+            var repoFiles = new Dictionary<string,string>();
+            revCommit.commit_TreeWalk(nGit, treeWalk =>
+                {
+                    var objectId = treeWalk.GetObjectId(0);
+                    repoFiles.Add(objectId.Name, treeWalk.PathString);
+                });
+            return repoFiles;
+        }  
+                      
+        public static RevCommit    commit_TreeWalk(this RevCommit revCommit, API_NGit nGit, Action<TreeWalk> onNext)
+        {            
             var treeWalk = new TreeWalk(nGit.Repository);
             var tree = revCommit.Tree;
             treeWalk.AddTree(tree);
             treeWalk.Recursive = true;
 
-            while (treeWalk.Next())            
-                repoFiles.Add(treeWalk.PathString);            
-
-            return repoFiles;
+            while (treeWalk.Next())
+                onNext(treeWalk);
+            return revCommit;
         }                        
         public static List<string>    commit_Files_FullPath(this RevCommit revCommit, API_NGit nGit)
         {

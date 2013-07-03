@@ -1,7 +1,10 @@
-﻿using FluentSharp;
+﻿using System;
+using System.IO;
+using FluentSharp;
 using FluentSharp.ExtensionMethods;
 using NGit;
 using NGit.Api;
+using NGit.Api.Errors;
 using NGit.Revwalk;
 using NUnit.Framework;
 using O2.DotNetWrappers.Windows;
@@ -11,6 +14,42 @@ namespace UnitTests.FluentSharp_NGit
     [TestFixture]
     internal class Test_Init_Clone_Open
     {
+        [Test(Description = "Creates a repository in the provided path")]
+        public void init()
+        {
+            //git_Init();    // already triggers methods funcionality 
+
+            //test Exception handing (by creating a .git file (which should be a folder))
+            var tempDir      = "tempDir".tempDir();
+            var fakeGitFolder = tempDir.pathCombine(".git");
+            Assert.IsTrue(tempDir.dirExists());
+            Assert.IsFalse(tempDir.isGitRepository());
+
+            "aaa".saveAs(fakeGitFolder);  //
+
+            Assert.IsFalse(tempDir.isGitRepository());
+            var nGit = new API_NGit();
+            var result = nGit.init(tempDir);
+
+            Assert.IsFalse(tempDir.isGitRepository());
+            Assert.IsNull(result);
+            Assert.IsInstanceOf<JGitInternalException>(nGit.LastException);
+            tempDir.delete_Folder();
+            Assert.IsFalse(tempDir.dirExists());
+        }
+
+        [Test(Description = "Clones a repository")]
+        public void clone()
+        {
+            //git_Clonen();    // already triggers methods funcionality
+
+            //test Exception handing 
+            var nGit = new API_NGit();
+            Assert.IsNull(nGit.clone(null,null));
+            Assert.IsInstanceOf<InvalidRemoteException>(nGit.LastException);
+            Assert.IsNull(nGit.clone(null,"".tempDir(false)));
+        }
+
         [Test(Description = "Creates a repository in the provided path")]
         public void git_Init()
         {
@@ -38,6 +77,8 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsNull(result);
 
             nGit.delete_Repository_And_Files();
+            Assert.IsFalse(targetFolder.isGitRepository());
+            Assert.IsFalse(targetFolder.dirExists());
         }
 
         [Test(Description = "Opens a local repository")]
@@ -115,7 +156,7 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsNotEmpty(nGit_Repo.files());
 
 
-            var nGit_Clone = localRepo.git_Clone(localClone);
+            var nGit_Clone = localRepo.uri().git_Clone(localClone);
 
             Assert.IsNotNull(nGit_Clone);
             Assert.IsTrue(localRepo.isGitRepository());
@@ -133,6 +174,18 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsTrue(result1);
             Assert.IsTrue(result2);
             Assert.IsTrue(result3);
-        }        
+        }
+
+        
+        [Test(Description = "Opens a local repository")]
+        public void open()
+        {
+            //git_Open();    // already triggers methods funcionality
+
+            //test Exception handing 
+            var nGit = new API_NGit();            
+            Assert.IsNull(nGit.open(null));
+            Assert.IsInstanceOf<ArgumentNullException>(nGit.LastException);
+        }
     }
 }

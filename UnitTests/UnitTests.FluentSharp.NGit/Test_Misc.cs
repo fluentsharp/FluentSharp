@@ -117,6 +117,14 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsNull((null as API_NGit).repository());
         }
 
+        [Test(Description = "Resolve a string sha1 into an ObjectId ")]
+        public void resolve()
+        {
+            var objectId = nGit.repository().resolve(NGit_Consts.EMPTY_SHA1);
+            Assert.AreEqual(NGit_Consts.EMPTY_SHA1, objectId.Name);
+
+            Assert.IsNull((null as Repository).resolve(null));            
+        }
         [Test(Description = "Sets the Global Credential to use on Pushes and Pulls")]
         public void use_Credential()
         {
@@ -125,6 +133,28 @@ namespace UnitTests.FluentSharp_NGit
             nGit.use_Credential(username, password);
             Assert.AreEqual(username, nGit.Credentials.field<string>("username")); 
             Assert.AreEqual(password, nGit.Credentials.field<char[]>("password").ascii());
-        }        
+        } 
+       
+         [Test(Description = "Returns true id objectId is not null or not 0000000000")]
+        public void valid()
+         {
+             var objectId1 = "6b384b15fbeecdd9747f35ff3ce3db4de86c72a4".objectId();             
+             var objectId2 = NGit_Consts.EMPTY_SHA1.objectId();
+             var objectId3 = (null as string).objectId();
+             var objectId4 = "6b384b15fbeecdd9747f35ff3ce3db4de86c72--".objectId();
+             var objectId5 = "6b384b15fbeecdd9747f35ff3ce3db4de86c72a4111".objectId();
+
+             Assert.NotNull(objectId1);
+             Assert.NotNull(objectId2);
+             Assert.NotNull(objectId3);
+             Assert.IsNull (objectId4);
+             Assert.IsNull (objectId5);
+
+             Assert.IsTrue(objectId1.valid());
+             Assert.IsFalse(objectId2.valid());
+             Assert.IsFalse(objectId3.valid());
+             Assert.IsFalse(objectId4.valid());
+             Assert.IsFalse(objectId5.valid());
+         }
     }
 }
