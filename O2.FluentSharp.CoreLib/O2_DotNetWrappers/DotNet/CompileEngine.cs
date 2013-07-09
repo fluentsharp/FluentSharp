@@ -125,28 +125,16 @@ namespace FluentSharp.CoreLib.API
         public static void setDefaultUsingStatements()
         {
             DefaultUsingStatements = new List<string>()
-                        .add("System")
-                        .add("System.Drawing")
-                        .add("System.Windows.Forms")
-                        .add("System.Collections.Generic")
-                        .add("System.Xml")
-                        .add("System.Xml.Linq")
-                        .add("System.Linq")
-                        .add("O2.Interfaces")
-                        .add("O2.Kernel")
-                        .add("FluentSharp.ExtensionMethods")
-                        .add("O2.DotNetWrappers.Windows")
-                        .add("O2.DotNetWrappers.DotNet")
-                        .add("O2.DotNetWrappers.Network");
-                // .add("O2.External.IE.ExtensionMethods")
-                //.add("O2.XRules.Database.ExtensionMethods")
-                //.add("O2.XRules.Database._Rules._Interfaces")
-                //.add("O2.XRules.Database._Rules.APIs")
-                //.add("O2.XRules.Database.O2Utils")                        
-                //O2 XRules Database
-//                        .add("O2.XRules.Database.APIs")
-                        //.add("O2.XRules.Database.Utils");            
-
+                .add("System")
+                .add("System.Drawing")
+                .add("System.Windows.Forms")
+                .add("System.Collections.Generic")
+                .add("System.Xml")
+                .add("System.Xml.Linq")
+                .add("System.Linq")
+                .add("FluentSharp.CoreLib")
+                .add("FluentSharp.CoreLib.API")
+                .add("FluentSharp.CoreLib.Interfaces");
         }        
         public static void loadCachedCompiledAssembliesMappings()
         {

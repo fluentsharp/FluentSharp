@@ -84,13 +84,20 @@ namespace FluentSharp.REPL.Utils
         public static void setDefaultUsingStatements()
         {
             CompileEngine.DefaultUsingStatements
-                            .add_OnlyNewItems("O2.External.SharpDevelop.ExtensionMethods",
+                            .add_OnlyNewItems("FluentSharp.BCL",
+                                              "FluentSharp.BCL.Controls",
+                                              "FluentSharp.BCL.Interfaces",
+                                              "FluentSharp.BCL.Utils",
+                                              "FluentSharp.REPL",
+                                              "FluentSharp.REPL.Controls",
+                                              "FluentSharp.REPL.Utils"
+                                              /*"O2.External.SharpDevelop.ExtensionMethods",
                                               "O2.External.SharpDevelop.Ascx",
                                               "O2.Views.ASCX.classes.MainGUI",
                                               "O2.Views.ASCX.ExtensionMethods",
                                               "O2.XRules.Database.APIs",
                                               "O2.XRules.Database.Utils",
-											  "O2.FluentSharp");                                     
+											  "O2.FluentSharp"*/);                                     
         }
         public static void setDefaultReferencedAssemblies()
         {

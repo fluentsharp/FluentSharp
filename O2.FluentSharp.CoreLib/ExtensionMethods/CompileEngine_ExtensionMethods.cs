@@ -81,12 +81,7 @@ namespace FluentSharp.CoreLib
         {
             "[compileAndExecuteCodeSnippet] Compiling code with size: {0}".info(snippet.size());
 
-            var codeTemplate = @"using O2.DotNetWrappers.Network;
-
-
-
-
-using O2.Interfaces;
+            var codeTemplate = @"
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml;
