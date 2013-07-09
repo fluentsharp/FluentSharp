@@ -1,8 +1,9 @@
 using System;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+
+
+namespace FluentSharp.CoreLib
 {
     public static class Serialize_ExtensionMethods
     {

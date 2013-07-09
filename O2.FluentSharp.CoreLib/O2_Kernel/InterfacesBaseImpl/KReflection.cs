@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel.Objects;
-using O2.DotNetWrappers.DotNet;
+
+
+
 using System.Threading;
 
-namespace O2.Kernel.InterfacesBaseImpl
+namespace FluentSharp.CoreLib.API
 {
     public class KReflection //: IReflection
     {

@@ -203,7 +203,6 @@
     <Compile Include="O2_Kernel\O2KernelCmdShell\ShellIO.cs" />
     <Compile Include="O2_Kernel\O2LiveObjects.cs" />
     <Compile Include="O2_Kernel\Objects\KeyValueStrings.cs" />
-    <Compile Include="O2_Kernel\Objects\Legacy_Classes.cs" />
     <Compile Include="O2_Kernel\Objects\O2AppDomainFactory.cs" />
     <Compile Include="O2_Kernel\Objects\O2Object.cs" />
     <Compile Include="O2_Kernel\Objects\O2ObjectFactory.cs" />

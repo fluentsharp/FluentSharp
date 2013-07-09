@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
-//O2File:../PublicDI.cs
-
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Logging_ExtensionMethods
     {

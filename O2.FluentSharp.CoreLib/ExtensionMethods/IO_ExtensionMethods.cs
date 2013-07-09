@@ -3,11 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class IO_ExtensionMethods_File_Save
     {        

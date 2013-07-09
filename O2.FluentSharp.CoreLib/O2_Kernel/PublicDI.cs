@@ -1,14 +1,9 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Collections.Generic;
-using O2.Kernel.CodeUtils;
-using O2.Kernel.InterfacesBaseImpl;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Filters;
 using System.Text.RegularExpressions;
-using O2.Kernel.O2CmdShell;
 
-namespace O2.Kernel
+namespace FluentSharp.CoreLib.API
 {   
     public static class PublicDI
     {

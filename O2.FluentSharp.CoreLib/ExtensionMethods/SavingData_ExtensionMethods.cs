@@ -1,11 +1,10 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
-using O2.Kernel;
 using System.Drawing.Drawing2D;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class SavingData_ExtensionMethods
     {
@@ -79,7 +78,7 @@ namespace FluentSharp.ExtensionMethods
                 using (Graphics gfx = Graphics.FromImage(thumbnail))
                 {
                     // high quality image sizing
-                    gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    gfx.SmoothingMode = SmoothingMode.HighQuality;
                     gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;                                                                       // make it look pretty 
                     gfx.DrawImage(bitmap, new Rectangle(0, 0, newWidth, newHeight), bitmapRect, GraphicsUnit.Pixel);
                 }

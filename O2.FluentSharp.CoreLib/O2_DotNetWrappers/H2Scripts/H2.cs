@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using FluentSharp.ExtensionMethods;
 
-namespace O2.DotNetWrappers.H2Scripts
+
+namespace FluentSharp.CoreLib.API
 {
     public class H2
     {

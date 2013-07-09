@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Xml_ExtensionMethods
     {        

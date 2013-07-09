@@ -2,7 +2,7 @@
 using System;
 
 
-namespace O2.Interfaces.CIR
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface ICirFunctionCall
     {

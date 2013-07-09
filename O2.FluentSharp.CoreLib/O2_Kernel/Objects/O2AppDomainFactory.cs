@@ -5,11 +5,8 @@ using System.IO;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
-using O2.Kernel.CodeUtils;
-using FluentSharp.ExtensionMethods;
 
-
-namespace O2.Kernel.Objects
+namespace FluentSharp.CoreLib.API
 {
     [Serializable]
     public class O2AppDomainFactory

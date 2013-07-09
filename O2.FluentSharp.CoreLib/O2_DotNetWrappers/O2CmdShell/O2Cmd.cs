@@ -1,15 +1,12 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System.Reflection;
-using O2.DotNetWrappers.Filters;
-using O2.Interfaces.O2Core;
-using O2.Kernel;
 
 
-namespace O2.DotNetWrappers.O2CmdShell
+namespace FluentSharp.CoreLib.API
 {
     public class O2Cmd
     {
-        public static IO2Log log = PublicDI.log;
+        public static KO2Log log = PublicDI.log;
 
         public static string O2CmdName          { get; set; }
         public static string O2CmdPublishedDate { get; set; }

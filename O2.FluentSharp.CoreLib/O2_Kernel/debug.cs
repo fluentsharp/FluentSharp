@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace O2.Kernel
+namespace FluentSharp.CoreLib.API
 {
     public class debug
     {        

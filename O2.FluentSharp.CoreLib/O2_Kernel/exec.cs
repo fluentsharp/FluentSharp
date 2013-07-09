@@ -1,8 +1,7 @@
-using FluentSharp.ExtensionMethods;
 using System.IO;
-using O2.DotNetWrappers.Windows;
 
-namespace O2.Kernel
+
+namespace FluentSharp.CoreLib.API
 {
     public class exec
     {   

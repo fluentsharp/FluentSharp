@@ -3,12 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
-using O2.Interfaces.O2Core;
-using O2.Kernel.InterfacesBaseImpl;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib.Interfaces;
+
 //O2File:../PublicDI.cs
 
-namespace O2.Kernel.CodeUtils
+namespace FluentSharp.CoreLib.API
 {
     public class Callbacks
     {

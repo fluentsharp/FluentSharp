@@ -1,7 +1,7 @@
-﻿using FluentSharp.ExtensionMethods;
+﻿
 using System.Reflection.Emit;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.CoreLib.API
 {
     public class TypeConfusionBuilder
     {

@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.NetSDK
+
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class IL
     {

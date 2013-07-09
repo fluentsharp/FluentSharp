@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.Windows
+
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class Files
     {

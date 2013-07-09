@@ -5,11 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
-using O2.Kernel.CodeUtils;
 
-using FluentSharp.ExtensionMethods;
-
-namespace O2.Kernel.InterfacesBaseImpl
+namespace FluentSharp.CoreLib.API
 {
     public class KO2Config // : IO2Config
     {
@@ -53,7 +50,7 @@ namespace O2.Kernel.InterfacesBaseImpl
 		        ReferencesDownloadLocation = o2TempDir.pathCombine(@"../_ReferencesDownloaded");
 		        EmbeddedAssemblies = o2TempDir.pathCombine(@"../_EmbeddedAssemblies");
 
-		        DotNetWrappers.DotNet.AssemblyResolver.Init();
+		        AssemblyResolver.Init();
 	        }
 	        catch (Exception ex)
 	        {

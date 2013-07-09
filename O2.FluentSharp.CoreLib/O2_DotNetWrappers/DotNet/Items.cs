@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentSharp.ExtensionMethods;
+
 using System.Xml.Serialization;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.CoreLib.API
 {
     [Serializable]
 	public  class NameValueItems : Items

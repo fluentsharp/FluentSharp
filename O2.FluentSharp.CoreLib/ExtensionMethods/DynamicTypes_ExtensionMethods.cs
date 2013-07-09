@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class DynamicTypes_ExtensionMethods
     {

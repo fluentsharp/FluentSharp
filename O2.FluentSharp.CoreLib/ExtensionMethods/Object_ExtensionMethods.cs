@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using JetBrains.Annotations;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Object_ExtensionMethods
     {

@@ -4,11 +4,11 @@ using System.Text;
 using System.Net;
 using System.IO;
 
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.Network
+
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class Web
     {

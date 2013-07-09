@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace O2.Interfaces.FrameworkSupport.J2EE
+namespace FluentSharp.CoreLib.Interfaces.J2EE
 {
     public interface IStrutsMappings
     {

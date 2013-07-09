@@ -2,7 +2,7 @@
 
 using Microsoft.Win32;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {    
 	public static class Registry_ExtensionMethods
     {    

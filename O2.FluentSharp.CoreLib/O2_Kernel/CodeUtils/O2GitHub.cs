@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
 
-namespace O2.Kernel.CodeUtils
+
+
+namespace FluentSharp.CoreLib.API
 {
     //need to change this text (it is using GIT now)
     public class O2GitHub

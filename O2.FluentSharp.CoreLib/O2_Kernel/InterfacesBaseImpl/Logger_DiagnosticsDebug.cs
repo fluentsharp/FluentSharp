@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
-using O2.Interfaces.O2Core;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel.InterfacesBaseImpl;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
-    public static class Extra_Extensionmethods_IO2Log
+    public static class IO2Log_Extra_Extensionmethods
     {
         public static IO2Log writeToDebug(this IO2Log log)
         {
             return log.writeToDebug(false);
         }
-
     
         public static IO2Log writeToDebug(this IO2Log log, bool alsoShowInConsole)
         {
@@ -23,7 +21,7 @@ namespace FluentSharp.ExtensionMethods
     }
 }
 
-namespace O2.Kernel.InterfacesBaseImpl
+namespace FluentSharp.CoreLib.API
 {	
     public class Logger_DiagnosticsDebug : IO2Log
     {        

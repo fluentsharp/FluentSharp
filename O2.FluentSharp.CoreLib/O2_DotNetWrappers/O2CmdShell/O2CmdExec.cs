@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.O2CmdShell
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class O2CmdHide : Attribute
     { }

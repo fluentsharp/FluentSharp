@@ -4,10 +4,10 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.DotNet
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class Serialize
     {

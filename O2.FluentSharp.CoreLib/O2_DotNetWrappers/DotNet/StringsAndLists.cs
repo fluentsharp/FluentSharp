@@ -3,11 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.DotNet
+
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class StringsAndLists
     {

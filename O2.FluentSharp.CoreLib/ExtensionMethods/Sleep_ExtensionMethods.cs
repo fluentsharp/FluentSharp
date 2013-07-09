@@ -1,8 +1,7 @@
 using System;
-using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Sleep_ExtensionMethods
     {                    

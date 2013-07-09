@@ -2,9 +2,9 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
-using O2.DotNetWrappers.DotNet;
 
-namespace O2.Kernel.CodeUtils
+
+namespace FluentSharp.CoreLib.API
 {
     public class O2Kernel_Processes
     {

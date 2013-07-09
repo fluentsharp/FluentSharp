@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace O2.Interfaces.Utils
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface IZipUtils
     {

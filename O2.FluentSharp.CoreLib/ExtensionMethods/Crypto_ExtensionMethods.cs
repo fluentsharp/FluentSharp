@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Crypto_ExtensionMethods
     {

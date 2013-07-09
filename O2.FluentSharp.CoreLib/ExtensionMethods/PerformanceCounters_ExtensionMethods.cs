@@ -1,4 +1,4 @@
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class PerformanceCounters_ExtensionMethods
     {

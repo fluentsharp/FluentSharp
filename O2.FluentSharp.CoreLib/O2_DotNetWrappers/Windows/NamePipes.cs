@@ -1,10 +1,10 @@
 using System;
-using FluentSharp.ExtensionMethods;
+
 using System.IO.Pipes;
-using O2.DotNetWrappers.DotNet;
+
 using System.IO;
 
-namespace O2.DotNetWrappers.Windows
+namespace FluentSharp.CoreLib.API
 {
     public class NamePipes
     {

@@ -2,10 +2,8 @@
 using System;
 using System.IO;
 using System.Threading;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.Windows
+namespace FluentSharp.CoreLib.API
 {
     public class FolderWatcher
     {

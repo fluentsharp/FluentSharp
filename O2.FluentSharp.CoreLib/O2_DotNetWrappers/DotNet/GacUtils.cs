@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using O2.Interfaces.DotNet;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel.InterfacesBaseImpl;
+using FluentSharp.CoreLib.Interfaces;
 
-using FluentSharp.ExtensionMethods;
-
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.CoreLib.API
 {
     public class GacUtils
     {

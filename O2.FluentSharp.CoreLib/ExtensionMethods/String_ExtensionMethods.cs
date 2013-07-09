@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using O2.Kernel.CodeUtils;
 using System.Net;
-using O2.Kernel;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib.API;
+
 
 //O2File:../PublicDI.cs
 //O2File:../PublicDI.cs
 //O2File:../CodeUtils/O2Kernel_Processes.cs
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class String_ExtensionMethods
     {
@@ -608,7 +607,7 @@ namespace FluentSharp.ExtensionMethods
 		public static bool      isGuid(this String guidValue)
 		{
 			try
-			{
+			{                
 				new Guid(guidValue);
 				return true;
 			}

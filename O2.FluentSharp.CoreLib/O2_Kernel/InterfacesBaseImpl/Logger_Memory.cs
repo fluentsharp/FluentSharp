@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using O2.Interfaces.O2Core;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Kernel.InterfacesBaseImpl
+
+namespace FluentSharp.CoreLib.API
 {
     public class Logger_Memory : IO2Log
     {

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace O2.Kernel.CodeUtils
+namespace FluentSharp.CoreLib.API
 {
     public class O2Kernel_Serialize
     {

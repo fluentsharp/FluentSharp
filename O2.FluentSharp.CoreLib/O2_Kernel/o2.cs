@@ -1,4 +1,4 @@
-﻿namespace O2.Kernel
+﻿namespace FluentSharp.CoreLib.API
 {
     public class o2
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace O2.Interfaces.XRules
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface IXRulesDatabase
     {

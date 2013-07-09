@@ -1,9 +1,8 @@
 using System;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib.API;
 using System.Reflection;
-using O2.DotNetWrappers.Network;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class CompileEngine_ExtensionMethods
     {
@@ -29,7 +28,8 @@ namespace FluentSharp.ExtensionMethods
                     Web.Https.ignoreServerSslErrors();
 
                 //add option to ignore cache
-                new O2.Kernel.CodeUtils.O2GitHub().tryToFetchAssemblyFromO2GitHub(assemblyName,false);
+                
+                new O2GitHub().tryToFetchAssemblyFromO2GitHub(assemblyName,false);
             }
             return assemblyName.assembly();
         }
@@ -82,10 +82,10 @@ namespace FluentSharp.ExtensionMethods
             "[compileAndExecuteCodeSnippet] Compiling code with size: {0}".info(snippet.size());
 
             var codeTemplate = @"using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
+
+
+
+
 using O2.Interfaces;
 using System.Linq;
 using System.Xml.Linq;

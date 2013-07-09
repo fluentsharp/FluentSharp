@@ -2,9 +2,9 @@
 using System;
 using System.Net.NetworkInformation;
 using System.Threading;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.Network
+
+namespace FluentSharp.CoreLib.API
 {
     public class Ping
     {

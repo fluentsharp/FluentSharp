@@ -1,6 +1,6 @@
-﻿using O2.DotNetWrappers.H2Scripts;
+﻿using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class H2_ExtensionMethods
     {

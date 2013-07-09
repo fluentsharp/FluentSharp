@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace O2.Kernel.O2CmdShell
+namespace FluentSharp.CoreLib.API
 {
     public class ShellIO
     {

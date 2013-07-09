@@ -2,12 +2,10 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using O2.DotNetWrappers.DotNet;
-
 using System.Collections.Specialized;
-using O2.Kernel.Objects;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Collections_ExtensionMethods_IEnumerable
     {

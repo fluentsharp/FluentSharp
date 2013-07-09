@@ -1,10 +1,10 @@
 using System;
 using System.Net;
 using System.IO;
-using FluentSharp.ExtensionMethods;
+
 using System.Net.NetworkInformation;
 
-namespace O2.Kernel.CodeUtils
+namespace FluentSharp.CoreLib.API
 {
     public class O2Kernel_Web
     {
@@ -81,7 +81,7 @@ namespace O2.Kernel.CodeUtils
                    httpFileExists("https://www.google.com/favicon.ico");    // then try making a HEAD connection
         }*/
 
-        public bool ping(string address)
+        /*public bool ping(string address)
         {         
             try
             {
@@ -94,7 +94,7 @@ namespace O2.Kernel.CodeUtils
                 PublicDI.log.error("in Ping: {0}", ex.Message);
                 return false;
             }
-        }
+        }*/
         #endregion
     }
 }

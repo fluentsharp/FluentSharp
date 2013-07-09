@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace O2.Interfaces.XRules
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface ILoadedXRule
     {

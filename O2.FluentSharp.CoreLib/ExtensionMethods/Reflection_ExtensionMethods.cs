@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using O2.Kernel;
+
 
 using System.Reflection;
 using System.Threading;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+
+namespace FluentSharp.CoreLib
 {
 
     public static class Reflection_ExtensionMethods_Assemby

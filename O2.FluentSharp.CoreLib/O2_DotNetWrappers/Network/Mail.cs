@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Sockets;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.Network
+
+
+namespace FluentSharp.CoreLib.API
 {    
     public class Mail
     {

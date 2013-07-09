@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentSharp.CoreLib.API;
 
-using O2.DotNetWrappers.DotNet;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Items_ExtensionMethods
 	{

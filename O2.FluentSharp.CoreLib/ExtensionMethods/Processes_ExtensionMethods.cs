@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using O2.DotNetWrappers.Windows;
 using System.IO;
-using O2.DotNetWrappers.DotNet;
 using System.Runtime.InteropServices;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
 
     public static class Processes_ExtensionMethods
@@ -307,14 +306,14 @@ namespace FluentSharp.ExtensionMethods
         public static MemoryStream capture_ConsoleOut(this MemoryStream memoryStream)
         {
             var streamWriter = new StreamWriter(memoryStream);
-            System.Console.SetOut(streamWriter);
+            Console.SetOut(streamWriter);
             streamWriter.AutoFlush = true;
             return memoryStream;
         }		
         public static MemoryStream capture_ConsoleError(this MemoryStream memoryStream)
         {
             var streamWriter = new StreamWriter(memoryStream);
-            System.Console.SetError(streamWriter);
+            Console.SetError(streamWriter);
             streamWriter.AutoFlush = true;
             return memoryStream;
         }		

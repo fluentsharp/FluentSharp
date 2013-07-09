@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace O2.Kernel.Objects
+namespace FluentSharp.CoreLib.API
 {        
     public class KeyValueStrings
     {

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FluentSharp.CoreLib.API;
 using JetBrains.Annotations;
-using O2.Kernel;
 using System.Drawing;
 using System.Threading;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Misc_ExtensionMethods_Int
     {

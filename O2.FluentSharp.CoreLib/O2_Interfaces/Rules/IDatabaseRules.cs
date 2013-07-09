@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 //using O2.Kernel.InterfacesBaseImpl;
 
-namespace O2.Interfaces.Rules
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface IDatabaseRules
     {

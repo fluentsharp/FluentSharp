@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
 
-namespace O2.Kernel.Objects
+namespace FluentSharp.CoreLib.API
 {
     public class O2Proxy : MarshalByRefObject
     {

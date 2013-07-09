@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Reflection;
-using O2.Interfaces.XRules;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Kernel.Interfaces.XRules
+namespace FluentSharp.CoreLib.API
 {
     public class KLoadedXRule : ILoadedXRule
     {

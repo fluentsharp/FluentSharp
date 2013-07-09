@@ -1,8 +1,8 @@
 ﻿using System;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
 
-namespace O2.Kernel
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class clr
     {

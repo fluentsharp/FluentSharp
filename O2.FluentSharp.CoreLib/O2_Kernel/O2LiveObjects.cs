@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace O2.Kernel
+namespace FluentSharp.CoreLib.API
 {
     public class O2LiveObjects
     {

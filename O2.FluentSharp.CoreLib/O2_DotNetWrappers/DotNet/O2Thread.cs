@@ -3,11 +3,11 @@
 using System.Diagnostics;
 using System.Threading;
 using System;
-using FluentSharp.ExtensionMethods;
-using System.Collections.Generic;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.DotNet
+using System.Collections.Generic;
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class O2Thread
     {

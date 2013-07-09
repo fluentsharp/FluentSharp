@@ -6,13 +6,13 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Microsoft.CSharp;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
-using O2.Kernel.Objects;
 
-namespace O2.DotNetWrappers.DotNet
+
+
+
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class CompileEngine
     {                

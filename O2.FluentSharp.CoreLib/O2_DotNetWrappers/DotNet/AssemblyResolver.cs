@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-
-using FluentSharp.ExtensionMethods;
 using System.IO;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.CoreLib.API
 {
     public class AssemblyResolver
     {        
@@ -165,7 +162,7 @@ namespace O2.DotNetWrappers.DotNet
             if (saveAssemblyTo.fileExists())
                 "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);
             else
-                Windows.Files.WriteFileContent(saveAssemblyTo, assemblyBytes);
+                Files.WriteFileContent(saveAssemblyTo, assemblyBytes);
             return saveAssemblyTo;
         }
 

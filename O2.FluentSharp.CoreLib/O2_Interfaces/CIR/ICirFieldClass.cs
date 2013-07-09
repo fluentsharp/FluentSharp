@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace O2.Interfaces.CIR
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface ICirFieldClass
     {

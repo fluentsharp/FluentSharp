@@ -1,7 +1,6 @@
 using System;
-using O2.DotNetWrappers.Windows;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.CoreLib.API
 {
     public static class Loop
     {

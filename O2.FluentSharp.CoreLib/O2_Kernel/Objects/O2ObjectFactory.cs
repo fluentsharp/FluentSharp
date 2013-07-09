@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace O2.Kernel.Objects
+namespace FluentSharp.CoreLib.API
 {
     public class O2ObjectFactory
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using FluentSharp.ExtensionMethods;
 
-namespace O2.Kernel
+
+namespace FluentSharp.CoreLib.API
 {
     public class O2ConfigSettings
     {   

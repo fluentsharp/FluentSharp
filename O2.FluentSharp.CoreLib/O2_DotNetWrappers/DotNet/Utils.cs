@@ -1,6 +1,6 @@
-﻿using FluentSharp.ExtensionMethods;
+﻿
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.CoreLib.API
 {
 	public class Utils
 	{

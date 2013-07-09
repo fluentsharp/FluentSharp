@@ -5,7 +5,7 @@ using System;
 //O2File:ShellIO.cs
 //O2File:ShellCmdLet.cs
 
-namespace O2.Kernel.O2CmdShell
+namespace FluentSharp.CoreLib.API
 {
     public class O2Shell
     {

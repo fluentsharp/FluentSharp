@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using O2.DotNetWrappers.DotNet;
 
-namespace O2.DotNetWrappers.Windows
+
+namespace FluentSharp.CoreLib.API
 {
     public class Netsh
     {

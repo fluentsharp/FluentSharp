@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using O2.DotNetWrappers.DotNet;
 using System.Text.RegularExpressions;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class RegEx_ExtensionMethods
     {

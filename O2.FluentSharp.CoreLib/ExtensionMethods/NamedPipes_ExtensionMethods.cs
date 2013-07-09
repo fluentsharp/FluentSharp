@@ -1,9 +1,9 @@
 using System;
-using O2.DotNetWrappers.Windows;
+using FluentSharp.CoreLib.API;
 using System.IO.Pipes;
 using System.IO;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class NamedPipes_ExtensionMethods
     {

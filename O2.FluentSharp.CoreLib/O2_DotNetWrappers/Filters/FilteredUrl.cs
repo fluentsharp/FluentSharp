@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace O2.DotNetWrappers.Filters
+namespace FluentSharp.CoreLib.API
 {
     public class FilteredUrl
     {

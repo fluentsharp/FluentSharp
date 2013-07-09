@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace O2.Interfaces.O2Findings
+namespace FluentSharp.CoreLib.Interfaces
 {
     public interface IO2Trace
     {

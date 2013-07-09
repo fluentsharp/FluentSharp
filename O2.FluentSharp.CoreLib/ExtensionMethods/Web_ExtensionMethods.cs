@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
-
 using System.Drawing;
 using System.IO;
+using FluentSharp.CoreLib.API;
 
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.CoreLib
 {
     public static class Web_ExtensionMethods_Http_Requests
     {

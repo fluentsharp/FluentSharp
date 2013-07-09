@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
 
-namespace O2.DotNetWrappers.O2Misc
+
+
+
+namespace FluentSharp.CoreLib.API
 {
     public class SampleScripts
     {
