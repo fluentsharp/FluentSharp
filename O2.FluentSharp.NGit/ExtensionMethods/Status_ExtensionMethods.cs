@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NGit;
+﻿using System.Collections.Generic;
+using FluentSharp.Git.APIs;
 using NGit.Api;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Status
+    public static class Status_ExtensionMethods
     {
         public static string        status       (this API_NGit nGit)
         {

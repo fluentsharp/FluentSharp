@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using FluentSharp.CoreLib;
-using FluentSharp.NGit_Classes;
-using FluentSharp.Support_Classes;
+using FluentSharp.Git.Utils;
 using NUnit.Framework;
 using Sharpen;
 

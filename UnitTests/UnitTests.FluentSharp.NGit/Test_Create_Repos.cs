@@ -1,7 +1,8 @@
 ﻿using FluentSharp;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.Git;
+using FluentSharp.Git.APIs;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit

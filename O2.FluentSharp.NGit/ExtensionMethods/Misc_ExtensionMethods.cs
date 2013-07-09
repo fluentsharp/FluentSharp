@@ -1,17 +1,17 @@
 ﻿using System;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit;
-using NGit.Api;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Misc
+    public static class Misc_ExtensionMethods
     {
-        public static string      git_Folder(this API_NGit nGit)
+        public static string       git_Folder(this API_NGit nGit)
         {
             return nGit.files_Location().pathCombine(".git");
         }        
-        public static Git         git(this API_NGit nGit)
+        public static NGit.Api.Git git(this API_NGit nGit)
         {
             if (nGit.notNull())
                 return nGit.Git;

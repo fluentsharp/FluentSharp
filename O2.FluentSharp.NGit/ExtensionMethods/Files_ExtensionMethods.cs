@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit.Revwalk;
 using NGit.Treewalk;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Files
+    public static class Files_ExtensionMethods
     {
         public static API_NGit      file_Write(this API_NGit nGit, string virtualFileName, string fileContents)
         {

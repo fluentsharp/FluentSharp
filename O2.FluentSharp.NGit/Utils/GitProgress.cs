@@ -3,7 +3,7 @@ using System.IO;
 using FluentSharp.CoreLib;
 using NGit;
 
-namespace FluentSharp.NGit_Classes
+namespace FluentSharp.Git.Utils
 {
     public class GitProgress : TextProgressMonitor
     {

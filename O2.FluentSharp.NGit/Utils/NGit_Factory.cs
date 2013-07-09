@@ -6,7 +6,7 @@ using System.Text;
 using FluentSharp.CoreLib;
 using Sharpen;
 
-namespace FluentSharp.Support_Classes
+namespace FluentSharp.Git.Utils
 {
     public class NGit_Factory
     {

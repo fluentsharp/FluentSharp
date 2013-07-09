@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Config
+    public static class Config_ExtensionMethods
     {
         public static StoredConfig config(this API_NGit nGit)
         {

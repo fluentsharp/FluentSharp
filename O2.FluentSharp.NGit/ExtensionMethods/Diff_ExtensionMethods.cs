@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentSharp.Support_Classes;
+using FluentSharp.Git.APIs;
+using FluentSharp.Git.Utils;
 using NGit.Diff;
 using FluentSharp.CoreLib;
 using NGit.Revwalk;
 using Sharpen;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Diff
+    public static class Diff_ExtensionMethods
     {
         public static string            diff    (this API_NGit nGit)        
         {

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit.Transport;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Fetch_Merge
+    public static class Fetch_Merge_ExtensionMethods
     {
         public static bool fetch(this API_NGit nGit)
         {

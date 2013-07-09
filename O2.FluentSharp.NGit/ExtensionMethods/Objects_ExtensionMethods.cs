@@ -1,10 +1,11 @@
 ﻿using System;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Objects
+    public static class Objects_ExtensionMethods
     {
         public static ObjectLoader  open_Object(this API_NGit nGit, string sha1)    
         {

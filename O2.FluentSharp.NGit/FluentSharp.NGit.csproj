@@ -61,25 +61,27 @@
   <ItemGroup>
     <Compile Include="API_NGit.cs" />
     <Compile Include="API_NGit_O2Platform.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Config.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Fetch_Merge.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Objects.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Pull_Push.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Commit.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Misc.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Diff.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Log.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Repository.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_RevWalk.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Status.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Init_Clone_Open.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_RefLogs.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Add.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Files.cs" />
-    <Compile Include="NGit_Classes\GitProgress.cs" />
+    <Compile Include="ExtensionMethods\Other\O2Platform_Git_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Config_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Fetch_Merge_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Objects_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Pull_Push_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Commit_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Misc_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Diff_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Log_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Repository_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\RevWalk_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Status_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Init_Clone_Open_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\RefLogs_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Add_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Files_ExtensionMethods.cs" />
+    <Compile Include="Utils\NGit_Consts.cs" />
+    <Compile Include="Utils\GitProgress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NGit_Classes\CustomConfigSessionFactory.cs" />
-    <Compile Include="NGit_Classes\NGit_Factory.cs" />
+    <Compile Include="Utils\CustomConfigSessionFactory.cs" />
+    <Compile Include="Utils\NGit_Factory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_EmbededDlls\ICSharpCode.SharpZipLib.dll" />

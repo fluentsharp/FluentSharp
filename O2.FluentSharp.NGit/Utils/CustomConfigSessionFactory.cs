@@ -4,7 +4,7 @@ using NGit.Util;
 using NSch;
 using Sharpen;
 
-namespace FluentSharp.NGit_Classes
+namespace FluentSharp.Git.Utils
 {
     //based on example from http://stackoverflow.com/questions/13764435/ngit-making-a-connection-with-a-private-key-file/
     public class CustomConfigSessionFactory : JschConfigSessionFactory

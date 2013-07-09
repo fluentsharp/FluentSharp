@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit;
 using NGit.Revwalk;
 using NGit.Treewalk;
 
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Commit
+    public static class Commit_ExtensionMethods
     {
         public static PersonIdent     author(this RevCommit revCommit)
         {

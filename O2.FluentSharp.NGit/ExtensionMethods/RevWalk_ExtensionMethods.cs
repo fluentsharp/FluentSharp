@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit;
 using NGit.Revwalk;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_RevWalk
+    public static class RevWalk_ExtensionMethods
     {
         public static RevWalk revWalk(this API_NGit nGit)
         {

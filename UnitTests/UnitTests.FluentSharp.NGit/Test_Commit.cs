@@ -1,7 +1,7 @@
 ﻿using System;
-using FluentSharp;
 using FluentSharp.CoreLib;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.Git;
+using FluentSharp.Git.APIs;
 using NGit;
 using NGit.Revwalk;
 using NUnit.Framework;

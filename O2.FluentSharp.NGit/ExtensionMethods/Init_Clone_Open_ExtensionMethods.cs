@@ -1,13 +1,13 @@
 ﻿using System;
 using FluentSharp.CoreLib.API;
-using FluentSharp.NGit_Classes;
-using NGit.Api;
+using FluentSharp.Git.APIs;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.Utils;
 
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Init_Clone_Open
+    public static class Init_Clone_Open_ExtensionMethods
     {
         public static API_NGit init(this API_NGit nGit, string targetFolder)                                
         {
@@ -28,7 +28,7 @@ namespace FluentSharp.ExtensionMethods
             {
                 nGit.close();
                 "[API_NGit] init: {0}".debug(targetFolder);
-                var init_Command = Git.Init();
+                var init_Command = NGit.Api.Git.Init();
 
                 init_Command.SetDirectory(targetFolder);
                 nGit.Git = init_Command.Call();
@@ -50,7 +50,7 @@ namespace FluentSharp.ExtensionMethods
             {
                 nGit.close();
                 "[API_NGit] open: {0}".debug(pathToLocalRepository);                
-                nGit.Git = Git.Open(pathToLocalRepository);                
+                nGit.Git = NGit.Api.Git.Open(pathToLocalRepository);                
                 nGit.Repository = nGit.Git.GetRepository();
                 nGit.Path_Local_Repository = pathToLocalRepository;                
                 return nGit;
@@ -75,7 +75,7 @@ namespace FluentSharp.ExtensionMethods
                 }
                 nGit.close();
                 var start = DateTime.Now;
-                var clone_Command = Git.CloneRepository();
+                var clone_Command = NGit.Api.Git.CloneRepository();
                 
                 clone_Command.SetDirectory(targetFolder);
                 clone_Command.SetURI(sourceRepository);

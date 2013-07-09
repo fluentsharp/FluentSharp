@@ -1,9 +1,9 @@
 ﻿using System;
-using FluentSharp;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.ExtensionMethods;
-using FluentSharp.NGit_Classes;
+using FluentSharp.Git;
+using FluentSharp.Git.APIs;
+using FluentSharp.Git.Utils;
 using NUnit.Framework;
 using NGit.Transport;
 

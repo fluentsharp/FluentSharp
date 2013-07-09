@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using FluentSharp.Git.APIs;
 using NGit.Storage.File;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_RefLogs
+    public static class RefLogs_ExtensionMethods
     {
         public static List<string> refLogs(this API_NGit nGit)
         {

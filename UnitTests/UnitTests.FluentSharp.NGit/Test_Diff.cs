@@ -1,4 +1,4 @@
-﻿using FluentSharp.ExtensionMethods;
+﻿using FluentSharp.Git;
 using NGit;
 using NGit.Api;
 using NGit.Diff;

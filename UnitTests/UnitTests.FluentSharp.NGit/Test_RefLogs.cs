@@ -1,5 +1,5 @@
-﻿using FluentSharp;
-using FluentSharp.ExtensionMethods;
+﻿using FluentSharp.Git;
+using FluentSharp.Git.APIs;
 using NGit.Revwalk;
 using NGit.Storage.File;
 using NUnit.Framework;

@@ -1,9 +1,10 @@
 ﻿using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit.Revwalk;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Log
+    public static class Log_ExtensionMethods
     {
         public static RevWalk revCommits_Raw(this API_NGit nGit)
         {

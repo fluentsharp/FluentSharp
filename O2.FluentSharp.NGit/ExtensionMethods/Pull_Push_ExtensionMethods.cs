@@ -1,10 +1,11 @@
 ﻿using System;
 using FluentSharp.CoreLib;
-using FluentSharp.NGit_Classes;
+using FluentSharp.Git.APIs;
+using FluentSharp.Git.Utils;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Pull_Push
+    public static class Pull_Push_ExtensionMethods
     {
         public static bool  push    (this API_NGit nGit                                               )
         {

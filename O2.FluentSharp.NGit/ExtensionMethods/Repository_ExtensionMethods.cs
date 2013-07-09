@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentSharp.CoreLib;
+using FluentSharp.Git.APIs;
 using NGit;
 using NGit.Transport;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
-    public static class API_NGit_Repository
+    public static class Repository_ExtensionMethods
     {
         public static string branch_Create(this API_NGit nGit, string name)
         {
