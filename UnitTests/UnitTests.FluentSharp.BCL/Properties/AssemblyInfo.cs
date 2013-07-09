@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
 [assembly: AssemblyTitle("UnitTests.FluentSharp.BCL")]
 [assembly: AssemblyProduct("UnitTests.FluentSharp.BCL")]

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
 [assembly: AssemblyTitle("UnitTests.O2.FluentSharp.CoreLib")]
 [assembly: AssemblyProduct("UnitTests.O2.FluentSharp.CoreLib")]

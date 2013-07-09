@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using O2.DotNetWrappers.DotNet;
+﻿using FluentSharp.CoreLib.API;
+using NUnit.Framework;
 using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_CoreLib

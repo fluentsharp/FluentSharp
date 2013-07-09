@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp;
+﻿using FluentSharp;
 using FluentSharp.CoreLib;
-using NGit;
+using FluentSharp.ExtensionMethods;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit

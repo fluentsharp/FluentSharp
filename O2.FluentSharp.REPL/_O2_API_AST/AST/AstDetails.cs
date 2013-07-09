@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.PrettyPrinter;

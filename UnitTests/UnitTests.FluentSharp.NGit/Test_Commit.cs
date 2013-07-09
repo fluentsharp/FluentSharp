@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FluentSharp;
 using FluentSharp.CoreLib;
+using FluentSharp.ExtensionMethods;
 using NGit;
 using NGit.Revwalk;
 using NUnit.Framework;

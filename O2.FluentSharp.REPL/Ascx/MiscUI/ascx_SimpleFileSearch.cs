@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using FluentSharp.BCL;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
 using FluentSharp.BCL.Utils;
-using FluentSharp.CoreLib.API;
-using FluentSharp.SharpDevelop.Utils;
-using FluentSharp.SharpDevelop;
-
-//O2File:SearchEngine.cs
-//O2File:SearchUtils.cs
 
 namespace FluentSharp.REPL.Controls
 {

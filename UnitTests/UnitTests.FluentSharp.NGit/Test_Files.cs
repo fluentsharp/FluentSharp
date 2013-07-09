@@ -1,5 +1,6 @@
 ﻿using FluentSharp;
 using FluentSharp.CoreLib;
+using FluentSharp.ExtensionMethods;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit
@@ -26,7 +27,7 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsTrue (result1);
             nGit.add_and_Commit_using_Status();
 
-            nGit.script_Me();
+            //nGit.script_Me();
 
             //Check exeception code coverage
             var commitFiles = nGit.add_and_Commit_Random_File()

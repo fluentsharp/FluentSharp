@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp;
+﻿using FluentSharp;
 using FluentSharp.CoreLib;
-using FluentSharp.Support_Classes;
+using FluentSharp.ExtensionMethods;
 using NGit;
 using NUnit.Framework;
 

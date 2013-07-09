@@ -1,7 +1,7 @@
 using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib.API;
-using FluentSharp.SharpDevelop.Utils;
+using FluentSharp.REPL;
 using ICSharpCode.TextEditor;
 
 namespace FluentSharp.CSharpAST.Utils

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.REPL;
 using FluentSharp.REPL.Controls;
 using ICSharpCode.NRefactory.Ast;
 

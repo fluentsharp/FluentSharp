@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 using NUnit.Framework;
-using O2.Kernel;
 
 namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
 {

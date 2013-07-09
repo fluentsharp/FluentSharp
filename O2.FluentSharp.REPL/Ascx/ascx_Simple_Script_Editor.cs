@@ -11,8 +11,6 @@ using FluentSharp.CoreLib;
 using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL.Utils;
-using FluentSharp.SharpDevelop;
-using FluentSharp.SharpDevelop.Utils;
 using O2.External.SharpDevelop.ExtensionMethods;
 
 namespace FluentSharp.REPL.Controls

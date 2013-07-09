@@ -1,7 +1,7 @@
 ﻿using FluentSharp;
 using FluentSharp.CoreLib;
+using FluentSharp.ExtensionMethods;
 using NGit.Revwalk;
-using NGit.Transport;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit

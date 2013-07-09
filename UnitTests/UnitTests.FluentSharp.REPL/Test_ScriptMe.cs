@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using FluentSharp.BCL;
+using FluentSharp.REPL;
+using FluentSharp.REPL.Controls;
+using NUnit.Framework;
 using FluentSharp.CoreLib;
-using O2.XRules.Database.Utils;
 
 namespace UnitTests.FluentSharp_REPL
 {

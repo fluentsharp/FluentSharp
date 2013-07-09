@@ -1,7 +1,9 @@
 ﻿using System.Windows.Forms;
+using FluentSharp.BCL;
+using FluentSharp.REPL;
+using FluentSharp.REPL.Utils;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
-using O2.Kernel;
 
 namespace UnitTests.FluentSharp_REPL
 {

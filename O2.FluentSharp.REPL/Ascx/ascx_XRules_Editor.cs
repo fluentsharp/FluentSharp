@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
-using FluentSharp.SharpDevelop.Utils;
 
 namespace FluentSharp.REPL.Controls
 {

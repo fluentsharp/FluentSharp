@@ -1,8 +1,8 @@
-﻿using System.IO;
-using FluentSharp;
+﻿using FluentSharp;
 using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.ExtensionMethods;
 using NUnit.Framework;
-using O2.DotNetWrappers.Windows;
 
 namespace UnitTests.FluentSharp_NGit
 {

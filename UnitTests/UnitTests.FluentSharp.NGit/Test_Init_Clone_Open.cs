@@ -1,14 +1,10 @@
 ﻿using System;
-using System.IO;
 using FluentSharp;
 using FluentSharp.CoreLib;
-using FluentSharp.NGit_Classes;
-using NGit;
-using NGit.Api;
+using FluentSharp.CoreLib.API;
+using FluentSharp.ExtensionMethods;
 using NGit.Api.Errors;
-using NGit.Revwalk;
 using NUnit.Framework;
-using O2.DotNetWrappers.Windows;
 
 namespace UnitTests.FluentSharp_NGit
 {

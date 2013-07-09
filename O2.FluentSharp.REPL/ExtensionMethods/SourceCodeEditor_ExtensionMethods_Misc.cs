@@ -7,7 +7,6 @@ using FluentSharp.BCL;
 using FluentSharp.CoreLib;
 using FluentSharp.REPL.Controls;
 using FluentSharp.REPL.Utils;
-using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.TextEditor;

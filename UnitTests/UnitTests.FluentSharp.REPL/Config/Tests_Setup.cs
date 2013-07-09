@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using O2.Kernel;
+﻿using FluentSharp.CoreLib.API;
+using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_REPL
 {

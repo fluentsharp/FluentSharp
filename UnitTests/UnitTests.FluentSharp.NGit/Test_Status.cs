@@ -1,5 +1,6 @@
 ﻿using FluentSharp;
 using FluentSharp.CoreLib;
+using FluentSharp.ExtensionMethods;
 using NGit.Api;
 using NGit.Revwalk;
 using NUnit.Framework;

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FluentSharp.CoreLib.API;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
-using O2.DotNetWrappers.H2Scripts;
 
 namespace UnitTests.FluentSharp_CoreLib
 {

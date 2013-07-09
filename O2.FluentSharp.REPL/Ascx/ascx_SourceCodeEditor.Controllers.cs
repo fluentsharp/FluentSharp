@@ -12,7 +12,6 @@ using FluentSharp.BCL.Utils;
 using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL.Utils;
-using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using FluentSharp.CoreLib;

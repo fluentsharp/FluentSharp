@@ -1,4 +1,5 @@
 ﻿using FluentSharp;
+using FluentSharp.ExtensionMethods;
 using NGit.Revwalk;
 using NGit.Storage.File;
 using NUnit.Framework;

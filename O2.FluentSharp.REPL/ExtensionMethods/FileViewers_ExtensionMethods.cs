@@ -5,7 +5,6 @@ using FluentSharp.BCL;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib;
 using FluentSharp.REPL.Controls;
-using FluentSharp.SharpDevelop;
 
 namespace FluentSharp.REPL
 { 

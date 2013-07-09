@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using FluentSharp.CoreLib.API;
+using NUnit.Framework;
 using FluentSharp.CoreLib;
-using O2.Kernel;
 
 namespace UnitTests.FluentSharp_CoreLib
 {

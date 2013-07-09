@@ -1,8 +1,7 @@
 ﻿using System;
+using FluentSharp.CoreLib.API;
 using NUnit.Framework;
-using O2.DotNetWrappers.DotNet;
 using FluentSharp.CoreLib;
-using O2.Kernel;
 
 namespace UnitTests.FluentSharp_CoreLib
 {

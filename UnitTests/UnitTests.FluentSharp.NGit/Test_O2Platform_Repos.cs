@@ -1,10 +1,10 @@
 ﻿using System;
 using FluentSharp;
 using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.ExtensionMethods;
 using FluentSharp.NGit_Classes;
 using NUnit.Framework;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
 using NGit.Transport;
 
 namespace UnitTests.FluentSharp_NGit

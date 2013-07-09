@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using FluentSharp.BCL;
+using FluentSharp.REPL;
+using FluentSharp.REPL.Controls;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.ExtensionMethods;
 
 namespace UnitTests.FluentSharp_REPL
 {

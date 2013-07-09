@@ -4,7 +4,6 @@ using System.IO;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
-using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using System.Collections.Generic;

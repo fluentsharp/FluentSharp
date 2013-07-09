@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using FluentSharp.BCL;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
 
