@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.SharpDevelop.Dom;
 
-using FluentSharp.ExtensionMethods;
-using O2.API.AST.ExtensionMethods;
-using O2.API.AST;
 
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
 
 	public class O2MethodStream

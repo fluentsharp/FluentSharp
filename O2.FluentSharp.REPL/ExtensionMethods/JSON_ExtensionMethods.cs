@@ -2,8 +2,9 @@
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Web.Script.Serialization;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.REPL
 {
     
     public static class Json_ExtensionMethods

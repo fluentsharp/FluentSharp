@@ -2,20 +2,15 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.Kernel;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Platform.BCL.O2_Views_ASCX;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.AST;
-using O2.External.SharpDevelop.ExtensionMethods;
-using O2.DotNetWrappers.H2Scripts;
-using O2.Views.ASCX.Ascx.MainGUI;
-using O2.Views.ASCX.ExtensionMethods;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop;
+using FluentSharp.SharpDevelop.Utils;
 
-namespace O2.XRules.Database
+namespace FluentSharp.REPL.Utils
 {
     public class ascx_Execute_Scripts : UserControl
     {        
@@ -373,7 +368,7 @@ namespace O2.XRules.Database
         {
             if (currentScript.fileExists())
             {
-                var sourceCodeEditor = (ascx_SourceCodeEditor)typeof(ascx_SourceCodeEditor)
+                var sourceCodeEditor = (SourceCodeEditor)typeof(SourceCodeEditor)
                                             .showAsForm("source code for: {0}".format(currentScript), 600, 200);
                 sourceCodeEditor.loadSourceCodeFile(currentScript);
             }

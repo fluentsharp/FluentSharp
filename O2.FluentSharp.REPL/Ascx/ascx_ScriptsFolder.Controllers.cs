@@ -1,15 +1,13 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System.Collections.Generic;
 using System.IO;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.O2Misc;
-using O2.DotNetWrappers.Windows;
-using O2.External.SharpDevelop.ScriptSamples;
-using O2.Kernel.CodeUtils;
-using O2.Views.ASCX.CoreControls;
-using O2.Kernel;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     public partial class ascx_ScriptsFolder
     {
@@ -20,14 +18,14 @@ namespace O2.External.SharpDevelop.Ascx
 
         //readonly O2SampleScripts o2SampleScripts = new O2SampleScripts();
 
-        public ascx_SourceCodeEditor sourceCodeEditor { get; set;}           // External DI property
+        public SourceCodeEditor sourceCodeEditor { get; set;}           // External DI property
 
         public void openDirectory(string sTargetDirectory)
         {
             directoryWithSourceCodeFiles.openDirectory(sTargetDirectory);
         }
 
-        public ascx_Directory getDirectoryWithSourceCodeFiles()
+        public DirectoryViewer getDirectoryWithSourceCodeFiles()
         {
             return directoryWithSourceCodeFiles;
         }

@@ -7,27 +7,24 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CSharpAST.Utils;
+using FluentSharp.CoreLib.API;
+using FluentSharp.REPL;
+using FluentSharp.REPL.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Filters;
-using O2.DotNetWrappers.O2Misc;
-using O2.DotNetWrappers.Windows;
-using O2.External.SharpDevelop.AST;
+using FluentSharp.CoreLib;
+using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.ScriptSamples;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
 using System.Threading;
-using O2.DotNetWrappers.ViewObjects;
-using O2.DotNetWrappers.H2Scripts;
-using O2.API.AST.CSharp;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
-    public partial class ascx_SourceCodeEditor
+    public partial class SourceCodeEditor
     {        
         public event Action<string>         eFileOpen;
         public event Action<Assembly>       eCompile;
@@ -75,7 +72,7 @@ namespace O2.External.SharpDevelop.Ascx
                 else
                 {
                     if (sFileToOpen != "")
-                        PublicDI.log.error("in ascx_SourceCodeEditor .ctor: File provided does not exist: {0}", sFileToOpen);
+                        PublicDI.log.error("in SourceCodeEditor .ctor: File provided does not exist: {0}", sFileToOpen);
                 }
                 configureOnLoadMenuOptions();
                 configureDefaultSettingsForTextEditor(tecSourceCode);
@@ -146,11 +143,11 @@ namespace O2.External.SharpDevelop.Ascx
         }
         public void     TextArea_KeyDown(object sender, KeyEventArgs e)
         {
-            //O2.Kernel.PublicDI.log.debug("KeyDown: " + e.KeyValue.ToString()); ;
+            //PublicDI.log.debug("KeyDown: " + e.KeyValue.ToString()); ;
         }
         public void     TextArea_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //O2.Kernel.PublicDI.log.debug("KeyPress: " + e.KeyChar.ToString()); ;
+            //PublicDI.log.debug("KeyPress: " + e.KeyChar.ToString()); ;
         }
         public void     IconBarMargin_MouseDown(AbstractMargin sender, Point mousepos, MouseButtons mouseButtons)
         {
@@ -360,7 +357,7 @@ namespace O2.External.SharpDevelop.Ascx
 
                     });
         }
-        public ascx_SourceCodeEditor     saveSourceCodeFile(String sTargetLocation)
+        public SourceCodeEditor     saveSourceCodeFile(String sTargetLocation)
         {
             return this.invokeOnThread(
                 () =>{
@@ -540,7 +537,7 @@ namespace O2.External.SharpDevelop.Ascx
             }
             return "";
         }
-        public ascx_SourceCodeEditor     saveSourceCode()
+        public SourceCodeEditor     saveSourceCode()
         {
             String sFilePath = getFullPathTOCurrentSourceCodeFile();
             PublicDI.CurrentScript = sFilePath;
@@ -1222,7 +1219,7 @@ namespace O2.External.SharpDevelop.Ascx
                         }
                         catch (Exception ex)
                         {
-                            ex.log("in ascx_SourceCodeEditor.refresh");
+                            ex.log("in SourceCodeEditor.refresh");
                         }
                     });
         }
@@ -1246,7 +1243,7 @@ namespace O2.External.SharpDevelop.Ascx
         }
         public void     openO2ObjectModel()
         {
-            //O2Messages.openControlInGUI(typeof(ascx_O2ObjectModel), O2DockState.Float, "O2 Object Model");
+            //O2Messages.openControlInGUI(typeof(O2ObjectModel), O2DockState.Float, "O2 Object Model");
             O2Thread.mtaThread(()=>open.o2ObjectModel());
         }
         public void     setAutoCompileStatus(bool state)

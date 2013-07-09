@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using FluentSharp.CSharpAST.Utils;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
+using FluentSharp.CoreLib;
+using FluentSharp.CSharpAST;
 
-using FluentSharp.ExtensionMethods;
-using O2.API.AST.ExtensionMethods.CSharp;
-using O2.API.AST.Visitors;
-
-namespace O2.API.AST.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class IAstVisitor_ExtensionMethods
     {

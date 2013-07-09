@@ -1,23 +1,15 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.CodeDom;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using O2.Interfaces.O2Core;
-using O2.Kernel;
-
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
-using O2.Views.ASCX;
-
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
-using System.Collections.Generic;   
+using System.Collections.Generic;
+using SupportedLanguage = ICSharpCode.NRefactory.SupportedLanguage;
 
-namespace O2.External.SharpDevelop.AST
+namespace FluentSharp.SharpDevelop.Utils
 {            
     public class Ast_CSharp
     {    

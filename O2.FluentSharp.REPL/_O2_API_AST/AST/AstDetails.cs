@@ -3,9 +3,8 @@ using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.PrettyPrinter;
 using ICSharpCode.NRefactory.Visitors;
-using O2.Kernel;
 
-namespace O2.External.SharpDevelop.AST
+namespace FluentSharp.SharpDevelop.Utils
 {
     public class AstDetails : AbstractAstVisitor
     {

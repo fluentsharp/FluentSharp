@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.CodeDom;
-
-using FluentSharp.ExtensionMethods;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
 using System.Collections;
 using ICSharpCode.SharpDevelop.Dom;
 
-namespace O2.API.AST.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class CodeDom_ExtensionMethods
     {

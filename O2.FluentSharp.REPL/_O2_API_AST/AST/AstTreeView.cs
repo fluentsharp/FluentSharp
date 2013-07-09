@@ -4,16 +4,14 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
-
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 using ICSharpCode.NRefactory.Ast;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.ExtensionMethods;
 
 // This code contains a bunch of code snippets from the SharpDevelop_3.1.1.5327_Source\samples\NRefactoryDemo sample app
 
-namespace O2.External.SharpDevelop.AST
+namespace FluentSharp.SharpDevelop.Utils
 {
     public static class AstTreeView
     {
@@ -127,7 +125,7 @@ namespace O2.External.SharpDevelop.AST
             }
         }
 
-        public static TreeView afterSelect_ShowAstInSourceCodeEditor(this TreeView treeView, ascx_SourceCodeEditor codeEditor)
+        public static TreeView afterSelect_ShowAstInSourceCodeEditor(this TreeView treeView, SourceCodeEditor codeEditor)
         {
             return (TreeView)codeEditor.invokeOnThread(() =>
             {

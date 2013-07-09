@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using System.Data;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using System.Reflection;
+using FluentSharp.REPL;
 
-namespace O2.External.SharpDevelop.ExtensionMethods
+namespace FluentSharp.SharpDevelop
 {
     public static class XmlToXsd_ExtensionMethods
     {        

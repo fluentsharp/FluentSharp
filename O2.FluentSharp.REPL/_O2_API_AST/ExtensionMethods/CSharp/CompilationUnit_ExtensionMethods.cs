@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.NRefactory.Ast;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class CompilationUnit_ExtensionMethods
     {

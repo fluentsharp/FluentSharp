@@ -2,19 +2,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
-using O2.External.WinFormsUI;
-using O2.Interfaces.Views;
-using O2.Kernel;
-using O2.Views.ASCX.Ascx.MainGUI;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.Views.ASCX.Forms;
-using WeifenLuo.WinFormsUI.Docking;
-using O2.Kernel.InterfacesBaseImpl;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.REPL.Utils;
 
-namespace O2.External.WinFormsUI.Forms
+namespace FluentSharp.WinFormUI.Utils
 {
     public partial class O2GuiWithDockPanel : Form
     {
@@ -192,7 +186,7 @@ namespace O2.External.WinFormsUI.Forms
 
         private void currentTempDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //PublicDI.windowsForms.openAscx(typeof (ascx_Directory), true, "O2 Temp Directory");
+            //PublicDI.windowsForms.openAscx(typeof (DirectoryViewer), true, "O2 Temp Directory");
         }
 
         private void logToolStripMenuItem_Click(object sender, EventArgs e)
@@ -231,7 +225,7 @@ namespace O2.External.WinFormsUI.Forms
 
         /*      private void sourceCodeViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PublicDI.windowsForms.openAscx(typeof (ascx_SourceCodeEditor), false, "File Viewer");
+            PublicDI.windowsForms.openAscx(typeof (SourceCodeEditor), false, "File Viewer");
         }
 
         private void sourceCodeEditorwriteAndExecuteDynamicCCodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -241,7 +235,7 @@ namespace O2.External.WinFormsUI.Forms
 
         private void editThisO2ModuleStartUpXmlConfigFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ascx_SourceCodeEditor.loadFile(SpringExec.getCurrentModuleXmlConfigFile().Replace("vshost.", ""));
+            SourceCodeEditor.loadFile(SpringExec.getCurrentModuleXmlConfigFile().Replace("vshost.", ""));
         }
 
         private void dynamicallyInvokeO2sInternalClassesAndMethodsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,7 +251,7 @@ namespace O2.External.WinFormsUI.Forms
 
         private void fileMappingsfilteredByFileTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-//            PublicDI.windowsForms.openAscx(typeof (ascx_FileMappings), false, "File Mappings");
+//            PublicDI.windowsForms.openAscx(typeof (FileMappings), false, "File Mappings");
         }
 
 /*        private void assemblyObjectInvocationshouldWorkWithMostNetAssesmbliesToolStripMenuItem_Click(object sender,

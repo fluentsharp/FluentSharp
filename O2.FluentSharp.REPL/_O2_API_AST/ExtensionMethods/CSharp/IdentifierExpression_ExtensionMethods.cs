@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using ICSharpCode.NRefactory.Ast;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class IdentifierExpression_ExtensionMethods
     {

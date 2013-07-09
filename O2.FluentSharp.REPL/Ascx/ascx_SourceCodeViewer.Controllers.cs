@@ -1,12 +1,10 @@
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
-using System.Threading;
+using FluentSharp.CoreLib.API;
 
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     public partial class ascx_SourceCodeViewer
     {
-        public ascx_SourceCodeEditor getSourceCodeEditor()
+        public SourceCodeEditor getSourceCodeEditor()
         {
             return sourceCodeEditor;
         }

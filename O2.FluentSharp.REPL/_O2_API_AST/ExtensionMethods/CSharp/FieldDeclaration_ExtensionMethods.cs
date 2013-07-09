@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.SharpDevelop.Dom;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class FieldDeclaration_ExtensionMethods
     {

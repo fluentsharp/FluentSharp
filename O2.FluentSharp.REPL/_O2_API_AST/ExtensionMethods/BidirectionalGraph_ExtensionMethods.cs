@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using QuickGraph;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace O2.API.AST.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class BidirectionalGraph_ExtensionMethods
     {

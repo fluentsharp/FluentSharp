@@ -3,9 +3,9 @@ using System.Linq;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class UsingDeclaration_ExtensionMethods
     {

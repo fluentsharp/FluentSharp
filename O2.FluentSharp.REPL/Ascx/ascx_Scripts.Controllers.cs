@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     public partial class ascx_Scripts
     {

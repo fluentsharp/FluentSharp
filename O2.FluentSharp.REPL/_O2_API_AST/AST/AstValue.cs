@@ -1,6 +1,6 @@
 using ICSharpCode.NRefactory;
 
-namespace O2.External.SharpDevelop.AST
+namespace FluentSharp.SharpDevelop.Utils
 {
     public class AstValue <T>
     {

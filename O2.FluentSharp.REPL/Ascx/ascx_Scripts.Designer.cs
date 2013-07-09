@@ -1,5 +1,5 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     partial class ascx_Scripts
     {
@@ -32,7 +32,7 @@ namespace O2.External.SharpDevelop.Ascx
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ascx_Scripts));
             this.scSourceCodeAndCompile = new System.Windows.Forms.SplitContainer();
-            this.sourceCodeEditor = new O2.External.SharpDevelop.Ascx.ascx_SourceCodeEditor();
+            this.sourceCodeEditor = new SourceCodeEditor();
             this.tbCompile = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tbMainClass = new System.Windows.Forms.TextBox();
@@ -51,7 +51,7 @@ namespace O2.External.SharpDevelop.Ascx
             this.ilDirectoriesAndFiles = new System.Windows.Forms.ImageList(this.components);
             this.scTopLevel = new System.Windows.Forms.SplitContainer();
             this.scScriptsFolderAndScriptsEditor = new System.Windows.Forms.SplitContainer();
-            this.scriptsFolder = new O2.External.SharpDevelop.Ascx.ascx_ScriptsFolder();
+            this.scriptsFolder = new ascx_ScriptsFolder();
             this.scSourceCodeAndCompile.Panel1.SuspendLayout();
             this.scSourceCodeAndCompile.Panel2.SuspendLayout();
             this.scSourceCodeAndCompile.SuspendLayout();
@@ -363,7 +363,7 @@ namespace O2.External.SharpDevelop.Ascx
         private System.Windows.Forms.Button btSourceCode_Compile;
         private System.Windows.Forms.ImageList ilDirectoriesAndFiles;
         private System.Windows.Forms.ImageList ilNamepasceClassMethods;
-        private ascx_SourceCodeEditor sourceCodeEditor;
+        private SourceCodeEditor sourceCodeEditor;
         private System.Windows.Forms.ListBox lbSourceCode_CompilationResult;
         private System.Windows.Forms.RadioButton rbCreateExe;
         private System.Windows.Forms.RadioButton rbCreateDll;

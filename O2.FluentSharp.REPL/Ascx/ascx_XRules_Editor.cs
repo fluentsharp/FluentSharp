@@ -2,17 +2,11 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-//using O2.Core.XRules.XRulesEngine;
-using O2.External.SharpDevelop.Ascx;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-//using O2.Views.ASCX._Wizards;
-//using O2.Core.XRules._Wizards;
-//using O2.Core.XRules.Classes;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop.Utils;
 
-namespace O2.Core.XRules.Ascx
+namespace FluentSharp.REPL.Utils
 {
     public partial class ascx_XRules_Editor : UserControl
     {
@@ -43,9 +37,9 @@ namespace O2.Core.XRules.Ascx
                 removeFileInTab(tcTabControlWithRulesSource.SelectedTab);
             /*
             != null && tcTabControlWithRulesSource.SelectedTab.Controls.Count == 1
-                && tcTabControlWithRulesSource.SelectedTab.Controls[0] is ascx_SourceCodeEditor)
+                && tcTabControlWithRulesSource.SelectedTab.Controls[0] is SourceCodeEditor)
             {
-                removeFile(tcTabControlWithRulesSource.SelectedTab,(ascx_SourceCodeEditor) tcTabControlWithRulesSource.SelectedTab.Controls[0])
+                removeFile(tcTabControlWithRulesSource.SelectedTab,(SourceCodeEditor) tcTabControlWithRulesSource.SelectedTab.Controls[0])
             }*/
                 
         }
@@ -53,8 +47,8 @@ namespace O2.Core.XRules.Ascx
         private void llReloadSelectedSourceCodeFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (tcTabControlWithRulesSource.SelectedTab != null && tcTabControlWithRulesSource.SelectedTab.Controls.Count == 1
-                && tcTabControlWithRulesSource.SelectedTab.Controls[0] is ascx_SourceCodeEditor)
-                reloadFile((ascx_SourceCodeEditor) tcTabControlWithRulesSource.SelectedTab.Controls[0]);    
+                && tcTabControlWithRulesSource.SelectedTab.Controls[0] is SourceCodeEditor)
+                reloadFile((SourceCodeEditor) tcTabControlWithRulesSource.SelectedTab.Controls[0]);    
         }
               
         private void tbFileToOpen_KeyUp(object sender, KeyEventArgs e)

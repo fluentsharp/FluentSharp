@@ -2,18 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-//using O2.Core.XRules.XRulesEngine;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.O2Misc;
-using O2.DotNetWrappers.Windows;
-using O2.External.SharpDevelop.Ascx;
-using O2.XRules.Database.Utils;
-using O2.Kernel;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop.Utils;
 
-namespace O2.Core.XRules.Ascx
+namespace FluentSharp.REPL.Utils
 {
     partial class ascx_XRules_Editor
     {
@@ -124,7 +119,7 @@ namespace O2.Core.XRules.Ascx
 
         private void loadSourceCodeFileIntoTab(string fileToOpen, TabPage tabPage, bool compileLoadedFile)
         {
-            var sourceCodeEditor = new ascx_SourceCodeEditor();
+            var sourceCodeEditor = new SourceCodeEditor();
             sourceCodeEditor.Dock = DockStyle.Fill;
             tabPage.Controls.Add(sourceCodeEditor);
             sourceCodeEditor.loadSourceCodeFile(fileToOpen.Trim());
@@ -162,7 +157,7 @@ namespace O2.Core.XRules.Ascx
             return "";
         }
 
-        public void reloadFile(ascx_SourceCodeEditor sourceCodeEditor)
+        public void reloadFile(SourceCodeEditor sourceCodeEditor)
         {
             sourceCodeEditor.reloadCurrentFile();
         }

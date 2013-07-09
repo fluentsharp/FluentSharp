@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 using Ionic.Zip;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers;
-using O2.DotNetWrappers.Windows;
-using O2.Interfaces.Utils;
-using O2.Kernel;
+using FluentSharp.CoreLib;
 
-namespace O2.DotNetWrappers.Zip
+
+namespace FluentSharp.REPL.Utils
 {    
 
     public class zipUtils : IZipUtils

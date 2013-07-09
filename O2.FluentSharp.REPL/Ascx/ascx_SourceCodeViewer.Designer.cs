@@ -1,4 +1,4 @@
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     partial class ascx_SourceCodeViewer
     {
@@ -28,7 +28,7 @@ namespace O2.External.SharpDevelop.Ascx
         /// </summary>
         private void InitializeComponent()
         {
-            this.sourceCodeEditor = new O2.External.SharpDevelop.Ascx.ascx_SourceCodeEditor();
+            this.sourceCodeEditor = new SourceCodeEditor();
             this.SuspendLayout();
             // 
             // sourceCodeEditor
@@ -56,7 +56,7 @@ namespace O2.External.SharpDevelop.Ascx
 
         #endregion
 
-        private ascx_SourceCodeEditor sourceCodeEditor;
+        private SourceCodeEditor sourceCodeEditor;
 
     }
 }

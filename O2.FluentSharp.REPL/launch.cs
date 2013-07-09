@@ -1,6 +1,6 @@
-﻿using O2.XRules.Database;
+﻿
 
-namespace O2.FluentSharp.REPL
+namespace FluentSharp.REPL.Utils
 {
     public class O2Launch
     {

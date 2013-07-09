@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.FluentSharp.REPL
+namespace FluentSharp.REPL.Utils
 {
     public class O2Scripts
     {

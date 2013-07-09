@@ -1,17 +1,14 @@
 using System.Reflection;
 using System.Threading;
-using FluentSharp.ExtensionMethods;
-
-using O2.External.SharpDevelop.AST;
-using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop.Utils;
 using System;
-using O2.DotNetWrappers.H2Scripts;
-using O2.Kernel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-namespace O2.External.SharpDevelop.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class FastCompiler_ExtensionMethods
     {

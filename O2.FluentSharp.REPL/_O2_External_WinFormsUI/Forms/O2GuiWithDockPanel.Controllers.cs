@@ -2,22 +2,16 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
-using O2.External.WinFormsUI.O2Environment;
-using O2.Interfaces.Messages;
-using O2.Interfaces.Views;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
-using O2.Views.ASCX.Ascx.MainGUI;
-using O2.Views.ASCX.classes.MainGUI;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Interfaces;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 using WeifenLuo.WinFormsUI.Docking;
 using System.IO;
-using O2.Views.ASCX;
 
-namespace O2.External.WinFormsUI.Forms
+namespace FluentSharp.WinFormUI.Utils
 {
     public partial class O2GuiWithDockPanel
     {

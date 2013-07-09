@@ -1,25 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel.CodeUtils;
+using FluentSharp.BCL;
 using System.Windows.Forms;
-using System.Drawing;
-using O2.Views.ASCX.DataViewers;
+using FluentSharp.BCL.Controls;
 
 //O2File:ExtensionMethods/Views_ExtensionMethods.cs
 //O2File:CodeUtils/O2Kernel_O2Thread.cs
 //O2File:open.cs
 
-namespace O2.Kernel
+namespace FluentSharp.REPL.Utils
 {
     public class show
     {
-        public static ascx_ShowInfo propertyGrid()
+        public static ctrl_ShowInfo propertyGrid()
         {
             return "Property Grid".popupWindow(300,300)
-                                  .add_Control< ascx_ShowInfo>();
+                                  .add_Control< ctrl_ShowInfo>();
             // open.viewAscx("ascx_ShowInfo", "Property Grid", 300, 300);
         }        
 

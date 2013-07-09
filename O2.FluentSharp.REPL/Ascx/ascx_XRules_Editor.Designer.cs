@@ -1,5 +1,8 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Core.XRules.Ascx
+
+using FluentSharp.CoreLib.API;
+
+namespace FluentSharp.REPL.Utils
 {
     partial class ascx_XRules_Editor
     {
@@ -37,7 +40,7 @@ namespace O2.Core.XRules.Ascx
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tbFileToOpen = new System.Windows.Forms.ToolStripTextBox();
             this.llReloadXRules = new System.Windows.Forms.ToolStripLabel();
-            this.directoryWithLocalXRules = new O2.Views.ASCX.CoreControls.ascx_Directory();
+            this.directoryWithLocalXRules = new global::FluentSharp.BCL.Controls.DirectoryViewer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btCreateRuleFromTemplate = new System.Windows.Forms.Button();
             this.tbNewRuleName = new System.Windows.Forms.TextBox();
@@ -45,7 +48,7 @@ namespace O2.Core.XRules.Ascx
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabControl_WithLocalScripts = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.directoryWithXRulesDatabase = new O2.Views.ASCX.CoreControls.ascx_Directory();
+            this.directoryWithXRulesDatabase = new global::FluentSharp.BCL.Controls.DirectoryViewer();
             this.tabPage_WithSearchForScript = new System.Windows.Forms.TabPage();
             this.scRightPanel = new System.Windows.Forms.SplitContainer();
             this.llReloadSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
@@ -178,7 +181,7 @@ namespace O2.Core.XRules.Ascx
             this.directoryWithLocalXRules._ShowFileContentsOnTopTip = false;
             this.directoryWithLocalXRules._ShowFileSize = false;
             this.directoryWithLocalXRules._ShowLinkToUpperFolder = true;
-            this.directoryWithLocalXRules._ViewMode = O2.Views.ASCX.CoreControls.ascx_Directory.ViewMode.Simple_With_LocationBar;
+            this.directoryWithLocalXRules._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
             this.directoryWithLocalXRules._WatchFolder = true;
             this.directoryWithLocalXRules.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -189,8 +192,8 @@ namespace O2.Core.XRules.Ascx
             this.directoryWithLocalXRules.Name = "directoryWithLocalXRules";
             this.directoryWithLocalXRules.Size = new System.Drawing.Size(405, 157);
             this.directoryWithLocalXRules.TabIndex = 0;
-            this.directoryWithLocalXRules._onDirectoryClick += new O2.Kernel.CodeUtils.Callbacks.dMethod_String(this.directoryWithLocalXRules__onDirectoryClick);
-            this.directoryWithLocalXRules._onDirectoryDoubleClick += new O2.Kernel.CodeUtils.Callbacks.dMethod_String(this.directoryWithLocalXRules__onDirectoryDoubleClick);
+            this.directoryWithLocalXRules._onDirectoryClick += new Callbacks.dMethod_String(this.directoryWithLocalXRules__onDirectoryClick);
+            this.directoryWithLocalXRules._onDirectoryDoubleClick += new Callbacks.dMethod_String(this.directoryWithLocalXRules__onDirectoryDoubleClick);
             // 
             // groupBox1
             // 
@@ -280,7 +283,7 @@ namespace O2.Core.XRules.Ascx
             this.directoryWithXRulesDatabase._ShowFileContentsOnTopTip = false;
             this.directoryWithXRulesDatabase._ShowFileSize = false;
             this.directoryWithXRulesDatabase._ShowLinkToUpperFolder = true;
-            this.directoryWithXRulesDatabase._ViewMode = O2.Views.ASCX.CoreControls.ascx_Directory.ViewMode.Simple_With_LocationBar;
+            this.directoryWithXRulesDatabase._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
             this.directoryWithXRulesDatabase._WatchFolder = true;
             this.directoryWithXRulesDatabase.BackColor = System.Drawing.SystemColors.Control;
             this.directoryWithXRulesDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -289,8 +292,8 @@ namespace O2.Core.XRules.Ascx
             this.directoryWithXRulesDatabase.Name = "directoryWithXRulesDatabase";
             this.directoryWithXRulesDatabase.Size = new System.Drawing.Size(382, 94);
             this.directoryWithXRulesDatabase.TabIndex = 0;
-            this.directoryWithXRulesDatabase._onDirectoryClick += new O2.Kernel.CodeUtils.Callbacks.dMethod_String(this.directoryWithXRulesDatabase__onDirectoryClick);
-            this.directoryWithXRulesDatabase._onDirectoryDoubleClick += new O2.Kernel.CodeUtils.Callbacks.dMethod_String(this.directoryWithXRulesDatabase__onDirectoryDoubleClick);
+            this.directoryWithXRulesDatabase._onDirectoryClick += new Callbacks.dMethod_String(this.directoryWithXRulesDatabase__onDirectoryClick);
+            this.directoryWithXRulesDatabase._onDirectoryDoubleClick += new Callbacks.dMethod_String(this.directoryWithXRulesDatabase__onDirectoryDoubleClick);
             // 
             // tabPage_WithSearchForScript
             // 
@@ -413,7 +416,7 @@ namespace O2.Core.XRules.Ascx
         #endregion
 
         private System.Windows.Forms.SplitContainer scTopLevel;
-        private O2.Views.ASCX.CoreControls.ascx_Directory directoryWithXRulesDatabase;
+        private global::FluentSharp.BCL.Controls.DirectoryViewer directoryWithXRulesDatabase;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btCreateRuleFromTemplate;
@@ -424,7 +427,7 @@ namespace O2.Core.XRules.Ascx
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private O2.Views.ASCX.CoreControls.ascx_Directory directoryWithLocalXRules;
+        private global::FluentSharp.BCL.Controls.DirectoryViewer directoryWithLocalXRules;
         private System.Windows.Forms.LinkLabel llRemoveSelectedSourceCodeFile;
 		private System.Windows.Forms.LinkLabel llReloadSelectedSourceCodeFile;
         private System.Windows.Forms.ToolStrip toolStrip2;

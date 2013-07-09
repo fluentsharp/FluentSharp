@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.NRefactory.Ast;
 
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class AbstractNode_ExtensionMethods
     {

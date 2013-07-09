@@ -5,7 +5,7 @@ using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Visitors;
 
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
     //helper class to aid in the quick creation of AstVisitors
     public class O2AstVisitor : AbstractAstVisitor

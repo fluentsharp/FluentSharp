@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using ICSharpCode.NRefactory.Ast;
-using O2.API.AST.CSharp;
 
-namespace O2.API.AST.Graph
+namespace FluentSharp.CSharpAST.Utils
 {
     public class AstMethodFinder
     {

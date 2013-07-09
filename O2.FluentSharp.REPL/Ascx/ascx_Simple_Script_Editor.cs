@@ -4,24 +4,17 @@ using System.Drawing;
 using System.Threading;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.Views.ASCX.ExtensionMethods;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.AST;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CSharpAST;
+using FluentSharp.CoreLib;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop;
+using FluentSharp.SharpDevelop.Utils;
 using O2.External.SharpDevelop.ExtensionMethods;
-using O2.DotNetWrappers.H2Scripts;
-using O2.Views.ASCX.DataViewers;
-using O2.API.AST.ExtensionMethods.CSharp;
-using O2.Views.ASCX.Forms;
-using O2.FluentSharp.REPL;
-using O2.Platform.BCL.O2_Views_ASCX;
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.REPL.Utils
 {
 
     public class ascx_Simple_Script_Editor_Test
@@ -595,7 +588,7 @@ namespace O2.XRules.Database.Utils
                     break;
                 default:
                     result_Panel.visible(true);
-                    var showInfo = result_Panel.add_Control<ascx_ShowInfo>();
+                    var showInfo = result_Panel.add_Control<ctrl_ShowInfo>();
                     //result_PropertyGrid.visible(true);
                     showInfo.show(result);
                     break;
@@ -727,7 +720,7 @@ return _script.Code;
             //var currentOffset = commandsToExecute.textArea().Document.PositionToOffset(commandsToExecute.editor().caretLine);
             //commandsToExecute.textArea().Document.Remove(currentOffset, 1);
             //e.KeyCode.str().info();
-            //O2.Kernel.PublicDI.log.debug("KeyUp: " + e.KeyValue.ToString()); ;                
+            //PublicDI.log.debug("KeyUp: " + e.KeyValue.ToString()); ;                
             if (e.Modifiers == Keys.Control && e.KeyValue == 'B')           // Ctrl+B compiles code
             {
                 "Compiling code".debug();

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace O2.External.SharpDevelop.AST
+namespace FluentSharp.SharpDevelop.Utils
 {
     public class TextToCodeMappings
     {

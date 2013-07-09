@@ -1,15 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FluentSharp.CSharpAST.Utils;
 using ICSharpCode.NRefactory.Ast;
-using O2.API.AST.Graph;
 using ICSharpCode.SharpDevelop.Dom;
-using FluentSharp.ExtensionMethods;
-using O2.API.AST.CSharp;
-using O2.API.AST.ExtensionMethods.CSharp;
+using FluentSharp.CoreLib;
+using FluentSharp.CSharpAST;
 
-namespace O2.API.AST.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class AstResolve_ExtensionMethods
     {

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using O2.External.SharpDevelop.Ascx;
-using O2.XRules.Database.Utils;
-using FluentSharp.ExtensionMethods;
-using O2.External.SharpDevelop.ExtensionMethods;
-using O2.Views.ASCX.Ascx.MainGUI;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.REPL.Utils;
+using FluentSharp.SharpDevelop.Utils;
+using FluentSharp.SharpDevelop;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class Scripts_ExecutionMethods
     {
@@ -100,6 +98,10 @@ namespace FluentSharp.ExtensionMethods
                     return scriptEditor;
                 });
         }
+        public static ascx_Simple_Script_Editor script_Me_WaitForClose(this object objectToScript)
+        {
+            return objectToScript.script_Me().waitForClose();
+        }
         public static ascx_Simple_Script_Editor script_Me(this object objectToScript)
         {
             var objectName = objectToScript.typeName().lowerCaseFirstLetter();
@@ -164,7 +166,7 @@ namespace FluentSharp.ExtensionMethods
 			scriptEditor.Code = scriptEditor.Code.line() +  scriptEditor.Code;
 			return scriptEditor;
 		}
-        public static ascx_SourceCodeEditor     csharp_Colors(this ascx_SourceCodeEditor codeEditor)
+        public static SourceCodeEditor     csharp_Colors(this SourceCodeEditor codeEditor)
         {
             return codeEditor.set_ColorsForCSharp();
         }

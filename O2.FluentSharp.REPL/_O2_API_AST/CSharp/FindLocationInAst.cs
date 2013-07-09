@@ -6,7 +6,7 @@ using ICSharpCode.NRefactory.Visitors;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
     public class FindLocationInAst : NodeTrackingAstVisitor
     {

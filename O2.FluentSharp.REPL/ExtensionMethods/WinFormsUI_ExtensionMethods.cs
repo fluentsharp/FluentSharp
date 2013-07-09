@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.REPL.Utils;
+using FluentSharp.SharpDevelop;
+using FluentSharp.SharpDevelop.Utils;
 using WeifenLuo.WinFormsUI.Docking;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.ExtensionMethods;
-using O2.XRules.Database.Utils;
 
-
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.REPL
 {    
     public static class WinFormsUI_ExtensionMethods
     {
@@ -119,7 +117,7 @@ namespace FluentSharp.ExtensionMethods
         {
             return dockPanel.add_DockContent(title, DockState.Document).add_RichTextBox();
         }
-        public static ascx_SourceCodeEditor add_DockContent_CodeEditor(this DockPanel dockPanel, string title)
+        public static SourceCodeEditor add_DockContent_CodeEditor(this DockPanel dockPanel, string title)
         {
             return dockPanel.add_DockContent(title, DockState.Document).add_SourceCodeEditor();
         }

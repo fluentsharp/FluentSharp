@@ -2,16 +2,12 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using O2.DotNetWrappers.O2Misc;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.WinFormsUI.Forms;
-using O2.External.WinFormsUI.O2Environment;
-using O2.Interfaces.Messages;
-using O2.Interfaces.Views;
-using O2.Kernel.CodeUtils;
-using O2.Kernel.InterfacesBaseImpl;
+using FluentSharp.BCL.Interfaces;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinFormUI.Utils;
 
-namespace O2.External.SharpDevelop
+namespace FluentSharp.SharpDevelop.Utils
 {
     public class HandleO2MessageOnSD
     {
@@ -24,7 +20,7 @@ namespace O2.External.SharpDevelop
         
         public static void o2MessageHelper_Handle_IM_FileOrFolderSelected(IO2Message o2Message, string parentControl)
         {
-            // open file in ascx_SourceCodeEditor
+            // open file in SourceCodeEditor
             if (o2Message is IM_FileOrFolderSelected)
             {
                 var fileOrFolderSelectedMessage = ((IM_FileOrFolderSelected) o2Message);
@@ -38,9 +34,9 @@ namespace O2.External.SharpDevelop
                     O2Messages.getAscx(ascx_ScriptControl,
                                        guiControl =>
                                            {
-                                               if (guiControl != null && guiControl is ascx_SourceCodeEditor)
+                                               if (guiControl != null && guiControl is SourceCodeEditor)
                                                {
-                                                   var sourceCodeEditor = (ascx_SourceCodeEditor)guiControl;
+                                                   var sourceCodeEditor = (SourceCodeEditor)guiControl;
                                                    switch (fileOrFolderSelectedMessage.messageText)
                                                    {
                                                        case "KM_Show_Selected_Text":
@@ -60,7 +56,7 @@ namespace O2.External.SharpDevelop
             }
         }
 
-        private static void loadFileAndSelectText(ascx_SourceCodeEditor sourceCodeEditor, IM_FileOrFolderSelected fileOrFolderSelectedMessage)
+        private static void loadFileAndSelectText(SourceCodeEditor sourceCodeEditor, IM_FileOrFolderSelected fileOrFolderSelectedMessage)
         {
             
             sourceCodeEditor.loadSourceCodeFile(fileOrFolderSelectedMessage.pathToFileOrFolder);
@@ -69,7 +65,7 @@ namespace O2.External.SharpDevelop
                                              fileOrFolderSelectedMessage.showAsError);            
         }
 
-        private static void loadFileAndSelectLine(ascx_SourceCodeEditor sourceCodeEditor, IM_FileOrFolderSelected fileOrFolderSelectedMessage)
+        private static void loadFileAndSelectLine(SourceCodeEditor sourceCodeEditor, IM_FileOrFolderSelected fileOrFolderSelectedMessage)
         {
             sourceCodeEditor.loadSourceCodeFile(fileOrFolderSelectedMessage.pathToFileOrFolder);
             sourceCodeEditor.setSelectedLineNumber(fileOrFolderSelectedMessage.lineNumber);
@@ -79,7 +75,7 @@ namespace O2.External.SharpDevelop
         {
             var ascxSourceCodeEditor = getScriptEditorControlName(filename);
             if (false == O2AscxGUI.isAscxLoaded(ascxSourceCodeEditor))
-                O2AscxGUI.openAscx(typeof(ascx_SourceCodeEditor), O2DockState.Document, ascxSourceCodeEditor);
+                O2AscxGUI.openAscx(typeof(SourceCodeEditor), O2DockState.Document, ascxSourceCodeEditor);
             return ascxSourceCodeEditor;
         }
 

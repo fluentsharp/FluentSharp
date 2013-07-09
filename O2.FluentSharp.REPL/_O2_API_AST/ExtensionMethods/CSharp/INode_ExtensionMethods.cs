@@ -1,14 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using FluentSharp.CSharpAST.Utils;
 using ICSharpCode.NRefactory.Ast;
+using FluentSharp.CoreLib;
 
-using FluentSharp.ExtensionMethods;
-using O2.API.AST.CSharp;
-using O2.API.AST.Visitors;
-
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class INode_ExtensionMethods
     {

@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.ExtensionMethods;
-using O2.XRules.Database.Utils;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib;
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.REPL.Utils
 {
     public class ascx_Panel_With_Inspector : Control
     {

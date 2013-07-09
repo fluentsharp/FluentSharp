@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 using System.IO;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.Zip;
+using FluentSharp.CoreLib;
 
-namespace O2.DotNetWrappers.Network
+namespace FluentSharp.REPL.Utils
 {
     public class Web_Zip : Web
     {

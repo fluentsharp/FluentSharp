@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-using O2.Views.ASCX.CoreControls;
+using FluentSharp.BCL.Controls;
 
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     partial class ascx_ScriptsFolder
     {
@@ -35,7 +35,7 @@ namespace O2.External.SharpDevelop.Ascx
             this.scDirectoryAndEditor = new System.Windows.Forms.SplitContainer();
             this.cbOverrideWithDefaultSample = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.directoryWithSourceCodeFiles = new O2.Views.ASCX.CoreControls.ascx_Directory();
+            this.directoryWithSourceCodeFiles = new global::FluentSharp.BCL.Controls.DirectoryViewer();
             this.scDirectoryAndEditor.Panel1.SuspendLayout();
             this.scDirectoryAndEditor.Panel2.SuspendLayout();
             this.scDirectoryAndEditor.SuspendLayout();
@@ -100,7 +100,7 @@ namespace O2.External.SharpDevelop.Ascx
             this.directoryWithSourceCodeFiles._ProcessDroppedObjects = true;
             this.directoryWithSourceCodeFiles._ShowFileSize = false;
             this.directoryWithSourceCodeFiles._ShowLinkToUpperFolder = true;
-            this.directoryWithSourceCodeFiles._ViewMode = O2.Views.ASCX.CoreControls.ascx_Directory.ViewMode.Simple_With_LocationBar;
+            this.directoryWithSourceCodeFiles._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
             this.directoryWithSourceCodeFiles._WatchFolder = true;
             this.directoryWithSourceCodeFiles.BackColor = System.Drawing.SystemColors.Control;
             this.directoryWithSourceCodeFiles.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -128,7 +128,7 @@ namespace O2.External.SharpDevelop.Ascx
         #endregion
 
         private System.Windows.Forms.TreeView tvSampleScripts;
-        private ascx_Directory directoryWithSourceCodeFiles;
+        private DirectoryViewer directoryWithSourceCodeFiles;
         private System.Windows.Forms.SplitContainer scDirectoryAndEditor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbOverrideWithDefaultSample;

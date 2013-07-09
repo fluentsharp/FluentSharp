@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace O2.External.WinFormsUI.Forms
+namespace FluentSharp.WinFormUI.Utils
 {
     public static class O2AscxGUI_Ext
     {

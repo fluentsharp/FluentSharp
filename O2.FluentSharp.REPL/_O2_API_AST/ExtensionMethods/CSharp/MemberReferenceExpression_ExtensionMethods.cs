@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ICSharpCode.NRefactory.Ast;
-using O2.API.AST.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class MemberReferenceExpression_ExtensionMethods
     {

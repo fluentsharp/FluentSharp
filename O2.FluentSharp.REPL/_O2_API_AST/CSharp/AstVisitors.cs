@@ -6,7 +6,7 @@ using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Visitors;
 
 
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
     public class AstVisitors : AbstractAstVisitor
     {

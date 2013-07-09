@@ -1,20 +1,12 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
-using System.Text;
-using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
-using O2.Views.ASCX.ExtensionMethods;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.XRules.Database.Utils;
-//O2File:ISecretData.cs
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.REPL.Utils
 {
     public class ascx_AskUserForLoginDetails : ContainerControl
     {       

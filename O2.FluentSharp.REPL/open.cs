@@ -1,37 +1,33 @@
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.ExtensionMethods;
-using O2.Kernel.CodeUtils;
-using O2.Views.ASCX.CoreControls;
-using O2.XRules.Database.Utils;
-using O2.Core.XRules.Ascx;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop;
+using FluentSharp.SharpDevelop.Utils;
+using FluentSharp.BCL.Controls;
 using System.Threading;
-using O2.Views.ASCX.Ascx.MainGUI;
 
 //O2File:ExtensionMethods/Reflection_ExtensionMethods.cs
 //O2File:ExtensionMethods/Views_ExtensionMethods.cs
 //O2File:CodeUtils/O2Kernel_Files.cs
 //O2File:show.cs
 
-namespace O2.Kernel
+namespace FluentSharp.REPL.Utils
 {
     public class open
     {
-        public static ascx_SourceCodeEditor codeEditor()
+        public static SourceCodeEditor codeEditor()
         {
             return codeEditor("");
         }
-        public static ascx_SourceCodeEditor codeEditor(string fileToOpen)
+        public static SourceCodeEditor codeEditor(string fileToOpen)
         {
             return fileToOpen.open_InCodeEditor();
         }
         public static Control               directory()
         {
             return "Directory Viewer".popupWindow(300,300)    
-                                    .add_Control< ascx_Directory>()
+                                    .add_Control< DirectoryViewer>()
                                     .simpleMode_withAddressBar();
         }
         public static Control               directory(string startDir)
@@ -96,10 +92,10 @@ namespace O2.Kernel
 			browser.open_ASync(url);
 			return browser;
         }
-        public static ascx_O2ObjectModel    o2ObjectModel()
+        public static O2ObjectModel    o2ObjectModel()
         {
             return "O2 Object Model".popupWindow(500, 400)
-                                    .add_Control<ascx_O2ObjectModel>();        
+                                    .add_Control<O2ObjectModel>();        
         }
         public static ascx_Panel_With_Inspector scriptEditor()
         {

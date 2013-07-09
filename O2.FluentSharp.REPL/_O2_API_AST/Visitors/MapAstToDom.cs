@@ -19,12 +19,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Visitors;
 using ICSharpCode.NRefactory;
 
-namespace O2.API.AST.Visitors // was ICSharpCode.NRefactory.Visitors
+namespace FluentSharp.CSharpAST.Utils // was ICSharpCode.NRefactory.Visitors
 {
 	public class MapAstToDom : AbstractAstVisitor
     {

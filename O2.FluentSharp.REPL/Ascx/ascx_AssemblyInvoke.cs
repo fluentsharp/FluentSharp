@@ -3,13 +3,12 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel.InterfacesBaseImpl;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
 using O2.Platform.External.SharpDevelop.Resources;
-using O2.Kernel;
 
-namespace O2.External.SharpDevelop.Ascx
+namespace FluentSharp.SharpDevelop.Utils
 {
     public partial class ascx_AssemblyInvoke : UserControl
     {        

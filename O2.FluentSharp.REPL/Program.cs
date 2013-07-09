@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.Kernel;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
-namespace O2.FluentSharp.REPL
+﻿using FluentSharp.CoreLib;
+
+namespace FluentSharp.REPL.Utils
 {
     public class Program
     {

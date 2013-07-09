@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using O2.API.AST.CSharp;
 using ICSharpCode.NRefactory.Ast;
 
-namespace O2.API.AST.Visitors
+namespace FluentSharp.CSharpAST.Utils
 {
     public class FindIdentifierUsage : O2AstVisitor
     {

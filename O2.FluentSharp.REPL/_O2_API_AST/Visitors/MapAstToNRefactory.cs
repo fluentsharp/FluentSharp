@@ -25,11 +25,10 @@ using ICSharpCode.SharpDevelop.Dom;
 using ICSharpCode.SharpDevelop.Dom.NRefactoryResolver;
 
 
-using FluentSharp.ExtensionMethods;
-using O2.API.AST.ExtensionMethods;
-using O2.API.AST.ExtensionMethods.CSharp;
+using FluentSharp.CoreLib;
+using FluentSharp.CSharpAST;
 
-namespace O2.API.AST.Visitors
+namespace FluentSharp.CSharpAST.Utils
 {
 	public class MapAstToNRefactory : AbstractAstVisitor
     {

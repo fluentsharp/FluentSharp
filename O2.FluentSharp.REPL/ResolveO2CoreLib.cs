@@ -3,7 +3,7 @@ using System.Reflection;
 using System.IO;
 using System.Diagnostics;
 
-namespace O2.FluentSharp.REPL
+namespace FluentSharp.REPL.Utils
 {
     //this is just to make that O2.FluentSharp.CoreLib.dll exists in the current folder(if not create it)
     //there must be no dependencies on an O2 dll here

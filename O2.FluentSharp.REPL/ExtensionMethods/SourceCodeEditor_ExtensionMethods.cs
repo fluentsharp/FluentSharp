@@ -1,27 +1,27 @@
 using System;
 using System.Windows.Forms;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib.API;
+using FluentSharp.REPL;
+using FluentSharp.REPL.Utils;
+using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using O2.External.SharpDevelop.Ascx;
-using O2.External.SharpDevelop.AST;
-using O2.Kernel;
-
-using O2.Views.ASCX.classes.MainGUI;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using System.Collections.Generic;
 using System.Drawing;
-using O2.DotNetWrappers.H2Scripts;
 using System.Reflection;
-using O2.Views.ASCX.Ascx.MainGUI;
-using O2.XRules.Database.Utils;
+using O2.External.SharpDevelop.ExtensionMethods;
 
-namespace O2.External.SharpDevelop.ExtensionMethods
+namespace FluentSharp.SharpDevelop
 {
     public static class SourceCodeEditor_TextEditor
     {
-        public static TextEditorControl textEditor(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static TextEditorControl textEditor(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.textEditorControl();
         }
@@ -29,7 +29,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             return sourceCodeViewer.textEditorControl();
         }
-        public static TextEditorControl textEditorControl(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static TextEditorControl textEditorControl(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.getObject_TextEditorControl();
         }
@@ -80,12 +80,12 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 
     public static class SourceCodeEditor_ExtensionMethods_Open
     {
-        public static ascx_SourceCodeEditor     add_SourceCodeEditor(this GroupBox groupBox)
+        public static SourceCodeEditor     add_SourceCodeEditor(this GroupBox groupBox)
         {
             return groupBox.invokeOnThread(
                 () =>
                     {
-                        var sourceCodeEditor = new ascx_SourceCodeEditor();
+                        var sourceCodeEditor = new SourceCodeEditor();
                         sourceCodeEditor.getObject_TextEditorControl().Document.
                                          FormattingStrategy =
                             new DefaultFormattingStrategy();
@@ -94,12 +94,12 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                         return sourceCodeEditor;
                     });
         }
-        public static ascx_SourceCodeEditor     add_SourceCodeEditor(this Control control)
+        public static SourceCodeEditor     add_SourceCodeEditor(this Control control)
         {
             return control.invokeOnThread(
                 () =>
                     {
-                        var sourceCodeEditor = new ascx_SourceCodeEditor();
+                        var sourceCodeEditor = new SourceCodeEditor();
                         sourceCodeEditor.getObject_TextEditorControl().Document.
                                          FormattingStrategy = new DefaultFormattingStrategy();
                         sourceCodeEditor.Dock = DockStyle.Fill;
@@ -111,19 +111,19 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             return (ascx_SourceCodeViewer) control.add_Control(typeof (ascx_SourceCodeViewer));
         }
-        public static ascx_SourceCodeEditor     open_InCodeEditor   (this string fileOrCode)
+        public static SourceCodeEditor     open_InCodeEditor   (this string fileOrCode)
         {
             return fileOrCode.showInCodeEditor();
         }
-        public static ascx_SourceCodeEditor     showInCodeEditor    (this string fileOrCode)
+        public static SourceCodeEditor     showInCodeEditor    (this string fileOrCode)
         {
             if (fileOrCode.fileExists())
                 return fileOrCode.showInCodeEditor(fileOrCode.extension());
             return fileOrCode.showInCodeEditor(".cs");
         }
-        public static ascx_SourceCodeEditor     showInCodeEditor    (this string fileOrCode, string mapAsExtension)
+        public static SourceCodeEditor     showInCodeEditor    (this string fileOrCode, string mapAsExtension)
         {
-            var codeEditor = O2Gui.open<ascx_SourceCodeEditor>();
+            var codeEditor = O2Gui.open<SourceCodeEditor>();
             if (fileOrCode.fileExists())
                 codeEditor.open(fileOrCode);
             else
@@ -147,7 +147,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             codeViewer.editor().setDocumentHighlightingStrategy(mapAsExtension);
             return codeViewer;
         }
-        public static ascx_SourceCodeEditor     open        (this ascx_SourceCodeEditor sourceCodeEditor, string fileToOpen)
+        public static SourceCodeEditor     open        (this SourceCodeEditor sourceCodeEditor, string fileToOpen)
         {
             sourceCodeEditor.loadSourceCodeFile(fileToOpen);
             return sourceCodeEditor;
@@ -162,7 +162,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 			codeViewer.editor().open(file, line);
 			return codeViewer;
 		}		
-		public static ascx_SourceCodeEditor     open        (this ascx_SourceCodeEditor codeEditor, string file , int line)
+		public static SourceCodeEditor     open        (this SourceCodeEditor codeEditor, string file , int line)
 		{
 			codeEditor.open(file);
 			codeEditor.gotoLine(line);
@@ -174,7 +174,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             codeViewer.editor().load(fileOrCode);
             return codeViewer;
         }
-        public static ascx_SourceCodeEditor     load        (this ascx_SourceCodeEditor codeEditor, string fileOrCode)
+        public static SourceCodeEditor     load        (this SourceCodeEditor codeEditor, string fileOrCode)
         {
             if (fileOrCode.fileExists())
             {
@@ -187,7 +187,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             }
             return codeEditor;
         }
-        public static ascx_SourceCodeEditor     editScript  (this string scriptOrFile)
+        public static SourceCodeEditor     editScript  (this string scriptOrFile)
         {
             if (scriptOrFile.fileExists().isFalse())
             {
@@ -207,7 +207,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
     }
     public static class SourceCodeEditor_ExtensionMethods_Misc
     {
-        public static ascx_SourceCodeEditor     colorCodeForExtension(this ascx_SourceCodeEditor sourceCodeEditor, string extension)
+        public static SourceCodeEditor     colorCodeForExtension(this SourceCodeEditor sourceCodeEditor, string extension)
         {
             return sourceCodeEditor.invokeOnThread(() =>
                 {
@@ -224,7 +224,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             codeViewer.editor().onClick(callback);
             return codeViewer;
         }
-        public static ascx_SourceCodeEditor     onClick(this ascx_SourceCodeEditor codeEditor, MethodInvoker callback)
+        public static SourceCodeEditor     onClick(this SourceCodeEditor codeEditor, MethodInvoker callback)
         {
             codeEditor.invokeOnThread(() => codeEditor.textArea().MouseClick += (sender, e) => callback());
             return codeEditor;
@@ -235,27 +235,27 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             sourceCodeViewer.editor().onTextChanged(textChanged);
             return sourceCodeViewer;
         }
-        public static ascx_SourceCodeEditor     onTextChanged(this ascx_SourceCodeEditor sourceCodeEditor, Action<string> textChanged)
+        public static SourceCodeEditor     onTextChanged(this SourceCodeEditor sourceCodeEditor, Action<string> textChanged)
         {
             sourceCodeEditor.eDocumentDataChanged += textChanged;
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     onCompile(this ascx_SourceCodeEditor sourceCodeEditor, Action<Assembly> onCompile)
+        public static SourceCodeEditor     onCompile(this SourceCodeEditor sourceCodeEditor, Action<Assembly> onCompile)
         {
             sourceCodeEditor.editor().eCompile += onCompile;
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     onFileOpen(this ascx_SourceCodeEditor sourceCodeEditor, Action<string> onFileOpen)
+        public static SourceCodeEditor     onFileOpen(this SourceCodeEditor sourceCodeEditor, Action<string> onFileOpen)
         {
             sourceCodeEditor.editor().eFileOpen += onFileOpen;
             return sourceCodeEditor;
         }
 
-        public static ascx_SourceCodeEditor     editor(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static SourceCodeEditor     editor(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     editor(this ascx_SourceCodeViewer sourceCodeViewer)
+        public static SourceCodeEditor     editor(this ascx_SourceCodeViewer sourceCodeViewer)
         {
             return sourceCodeViewer.getSourceCodeEditor();
         }
@@ -265,7 +265,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             sourceCodeViewer.editor().allowCompile(value);
             return sourceCodeViewer;
         }
-        public static ascx_SourceCodeEditor     allowCompile(this ascx_SourceCodeEditor sourceCodeEditor, bool value)
+        public static SourceCodeEditor     allowCompile(this SourceCodeEditor sourceCodeEditor, bool value)
         {
             sourceCodeEditor.allowCodeCompilation = value;
             return sourceCodeEditor;
@@ -275,7 +275,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             sourceCodeViewer.editor().astDetails(value);
             return sourceCodeViewer;
         }
-        public static ascx_SourceCodeEditor     astDetails(this ascx_SourceCodeEditor sourceCodeEditor, bool value)
+        public static SourceCodeEditor     astDetails(this SourceCodeEditor sourceCodeEditor, bool value)
         {
             sourceCodeEditor.invokeOnThread(() =>
                 {
@@ -284,7 +284,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return sourceCodeEditor;
         }                
 
-        public static ascx_SourceCodeEditor     vScroolBar_Enabled(this ascx_SourceCodeEditor sourceCodeEditor, bool value)
+        public static SourceCodeEditor     vScroolBar_Enabled(this SourceCodeEditor sourceCodeEditor, bool value)
         {
             sourceCodeEditor.invokeOnThread(() =>
                 {
@@ -292,7 +292,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                 });
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     vScroolBar_Visible(this ascx_SourceCodeEditor sourceCodeEditor, bool value)
+        public static SourceCodeEditor     vScroolBar_Visible(this SourceCodeEditor sourceCodeEditor, bool value)
         {
             sourceCodeEditor.invokeOnThread(() =>
                 {
@@ -300,7 +300,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                 });
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     hScroolBar_Enabled(this ascx_SourceCodeEditor sourceCodeEditor, bool value)
+        public static SourceCodeEditor     hScroolBar_Enabled(this SourceCodeEditor sourceCodeEditor, bool value)
         {
             sourceCodeEditor.invokeOnThread(() =>
                 {
@@ -308,7 +308,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                 });
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     hScroolBar_Visible(this ascx_SourceCodeEditor sourceCodeEditor, bool value)
+        public static SourceCodeEditor     hScroolBar_Visible(this SourceCodeEditor sourceCodeEditor, bool value)
         {
             sourceCodeEditor.invokeOnThread(() =>
                 {
@@ -321,7 +321,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             sourceCodeViewer.invokeOnThread(() => sourceCodeViewer.editor().setDocumentHighlightingStrategy("aa.cs"));
             return sourceCodeViewer;
         }
-        public static ascx_SourceCodeEditor     set_ColorsForCSharp(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static SourceCodeEditor     set_ColorsForCSharp(this SourceCodeEditor sourceCodeEditor)
         {
             sourceCodeEditor.setDocumentHighlightingStrategy("aa.cs");
             return sourceCodeEditor;
@@ -331,7 +331,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             sourceCodeViewer.editor().insert_Text(text);
             return sourceCodeViewer;
         }
-        public static ascx_SourceCodeEditor     insert_Text(this ascx_SourceCodeEditor sourceCodeEditor, string text)
+        public static SourceCodeEditor     insert_Text(this SourceCodeEditor sourceCodeEditor, string text)
         {
             var textArea = sourceCodeEditor.textEditorControl().textArea();
             return textArea.invokeOnThread(
@@ -347,7 +347,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             codeViewer.editor().set_Text(text, highlightForExtension);
             return codeViewer;
         }
-        public static ascx_SourceCodeEditor     set_Text(this ascx_SourceCodeEditor codeEditor, string text, string highlightForExtension)
+        public static SourceCodeEditor     set_Text(this SourceCodeEditor codeEditor, string text, string highlightForExtension)
         {
             if(codeEditor.notNull())
             {
@@ -366,7 +366,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                     });
             
         }
-        public static ascx_SourceCodeEditor     set_Text(this ascx_SourceCodeEditor codeEditor, string text)
+        public static SourceCodeEditor     set_Text(this SourceCodeEditor codeEditor, string text)
         {
             if(codeEditor.notNull())
                 codeEditor.setDocumentContents(text);
@@ -377,16 +377,16 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return codeViewer.set_Text(code);
 
         }
-        public static ascx_SourceCodeEditor     set_Code(this ascx_SourceCodeEditor codeEditor, string code)
+        public static SourceCodeEditor     set_Code(this SourceCodeEditor codeEditor, string code)
         {
             return codeEditor.set_Text(code);
         }        
         
-        public static ascx_SourceCodeEditor     caret(this ascx_SourceCodeEditor codeEditor, int line, int column)
+        public static SourceCodeEditor     caret(this SourceCodeEditor codeEditor, int line, int column)
         {
             return codeEditor.caret(line, column, 3);
         }
-        public static ascx_SourceCodeEditor     caret(this ascx_SourceCodeEditor codeEditor, int line, int column, int viewOffset)
+        public static SourceCodeEditor     caret(this SourceCodeEditor codeEditor, int line, int column, int viewOffset)
         {
             return codeEditor.invokeOnThread(
                 ()=>{
@@ -396,11 +396,11 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                         return codeEditor;
                     });
         }
-        public static ascx_SourceCodeEditor     caret_Line(this ascx_SourceCodeEditor codeEditor, int value)
+        public static SourceCodeEditor     caret_Line(this SourceCodeEditor codeEditor, int value)
         {
             return codeEditor.caret_Line(value, 3);
         }
-        public static ascx_SourceCodeEditor     caret_Line(this ascx_SourceCodeEditor codeEditor, int value, int viewOffset)
+        public static SourceCodeEditor     caret_Line(this SourceCodeEditor codeEditor, int value, int viewOffset)
         {
             return codeEditor.invokeOnThread(
                 ()=>{
@@ -409,11 +409,11 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                         return codeEditor;
                     });
         }
-        public static ascx_SourceCodeEditor     caret_Column(this ascx_SourceCodeEditor codeEditor, int value)
+        public static SourceCodeEditor     caret_Column(this SourceCodeEditor codeEditor, int value)
         {
             return codeEditor.caret_Column(value, 3);
         }
-        public static ascx_SourceCodeEditor     caret_Column(this ascx_SourceCodeEditor codeEditor, int value, int viewOffset)
+        public static SourceCodeEditor     caret_Column(this SourceCodeEditor codeEditor, int value, int viewOffset)
         {
             return codeEditor.invokeOnThread(
                 ()=>{
@@ -427,7 +427,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             codeViewer.editor().onCaretMove(callback);
             return codeViewer;
         }
-        public static ascx_SourceCodeEditor     onCaretMove(this ascx_SourceCodeEditor codeEditor, Action<Caret> callback)
+        public static SourceCodeEditor     onCaretMove(this SourceCodeEditor codeEditor, Action<Caret> callback)
         {
             codeEditor.textArea().Caret.PositionChanged += 
                 (sender, e)=>{
@@ -436,11 +436,11 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                              };
             return codeEditor;
         }
-        public static string                    selectedText(this ascx_SourceCodeEditor codeEditor)
+        public static string                    selectedText(this SourceCodeEditor codeEditor)
         {
             return codeEditor.invokeOnThread(() => codeEditor.textArea().SelectionManager.SelectedText);
         }
-        public static ascx_SourceCodeEditor     setSelectionText(this ascx_SourceCodeEditor codeEditor, Location startLocation, Location endLocation)
+        public static SourceCodeEditor     setSelectionText(this SourceCodeEditor codeEditor, Location startLocation, Location endLocation)
         {
             return codeEditor.invokeOnThread(
                 () =>{
@@ -453,34 +453,34 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                         return codeEditor;
                     });
         }
-        public static ascx_SourceCodeEditor     selectTextWithColor(this ascx_SourceCodeEditor codeEditor, int startLine, int startColumn, int endLine, int endColumn)
+        public static SourceCodeEditor     selectTextWithColor(this SourceCodeEditor codeEditor, int startLine, int startColumn, int endLine, int endColumn)
         {
             return codeEditor.selectTextWithColor(new TextLocation(startColumn - 1, startLine - 1), new TextLocation(endColumn - 1, endLine - 1));
         }
-        public static ascx_SourceCodeEditor     selectTextWithColor(this ascx_SourceCodeEditor codeEditor, TextLocation startLocation, TextLocation endLocation)
+        public static SourceCodeEditor     selectTextWithColor(this SourceCodeEditor codeEditor, TextLocation startLocation, TextLocation endLocation)
         {
             if (startLocation > endLocation)
             {
-                "in ascx_SourceCodeEditor.selectTextWithColor startLocation > endLocation".error();
+                "in SourceCodeEditor.selectTextWithColor startLocation > endLocation".error();
                 return codeEditor;
             }
             if (startLocation.Column == -1 || startLocation.Line == -1 ||
                 endLocation.Column == -1 || endLocation.Line == -1)
             {
-                "in ascx_SourceCodeEditor.selectTextWithColor one of start or end location values was -1".error();
+                "in SourceCodeEditor.selectTextWithColor one of start or end location values was -1".error();
                 return codeEditor;
             }
             return codeEditor.selectTextWithColor(new DefaultSelection(codeEditor.document(), startLocation, endLocation));
         }
-        public static ascx_SourceCodeEditor     selectTextWithColor(this ascx_SourceCodeEditor codeEditor, DefaultSelection selection)
+        public static SourceCodeEditor     selectTextWithColor(this SourceCodeEditor codeEditor, DefaultSelection selection)
         {
             return codeEditor.selectTextWithColor(selection, TextMarkerType.SolidBlock, Color.LightBlue);
         }
-        public static ascx_SourceCodeEditor     selectTextWithColor(this ascx_SourceCodeEditor codeEditor, DefaultSelection selection, TextMarkerType textMarkerType, Color color)
+        public static SourceCodeEditor     selectTextWithColor(this SourceCodeEditor codeEditor, DefaultSelection selection, TextMarkerType textMarkerType, Color color)
         {
             if (selection.Length < 0)
             {
-                "in ascx_SourceCodeEditor.selectTextWithColor selection.Length was <  0".error();
+                "in SourceCodeEditor.selectTextWithColor selection.Length was <  0".error();
                 return codeEditor;
             }            
             return codeEditor.invokeOnThread(
@@ -494,14 +494,14 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                     });
         }
         
-        public static ascx_SourceCodeEditor     selectTextWithColor(this ascx_SourceCodeEditor codeEditor, INode node)
+        public static SourceCodeEditor     selectTextWithColor(this SourceCodeEditor codeEditor, INode node)
         {
             if (node.StartLocation.Column == 0 && node.StartLocation.Line == 0 && node.Parent != null && node != node.Parent)
                 return codeEditor.selectTextWithColor(node.Parent);
             return codeEditor.selectTextWithColor(node.StartLocation.textLocation(), node.EndLocation.textLocation());
         }
 
-        public static ascx_SourceCodeEditor     colorINodes(this ascx_SourceCodeEditor codeEditor, List<INode> nodes)
+        public static SourceCodeEditor     colorINodes(this SourceCodeEditor codeEditor, List<INode> nodes)
         {
             codeEditor.clearMarkers();
             foreach (var node in nodes)                            
@@ -523,7 +523,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                 });
             return sourceViewer;
         }
-        public static ascx_SourceCodeEditor     _editor(this ascx_SourceCodeViewer sourceCodeViewer)
+        public static SourceCodeEditor     _editor(this ascx_SourceCodeViewer sourceCodeViewer)
 		{
 			return sourceCodeViewer.getSourceCodeEditor();
 		}
@@ -539,7 +539,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 			codeViewer.editor().onTextChange(callback);
 			return codeViewer;
 		}		
-		public static ascx_SourceCodeEditor     onTextChange(this ascx_SourceCodeEditor codeEditor, Action<string> callback)
+		public static SourceCodeEditor     onTextChange(this SourceCodeEditor codeEditor, Action<string> callback)
 		{
 			codeEditor.invokeOnThread(
 				()=>{
@@ -558,7 +558,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 			codeViewer.editor().gotoLine(line,showLinesBelow);
 			return codeViewer;
 		}		
-		public static ascx_SourceCodeEditor     gotoLine(this ascx_SourceCodeEditor codeEditor, int line, int showLinesBelow)
+		public static SourceCodeEditor     gotoLine(this SourceCodeEditor codeEditor, int line, int showLinesBelow)
 		{
 			if (line>0)
 			{
@@ -573,12 +573,12 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             return sourceCodeViewer.editor().textArea();
         }
-        public static TextArea                  textArea(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static TextArea                  textArea(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.textEditorControl().ActiveTextAreaControl.TextArea;
         }
 
-        public static IDocument                 document(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static IDocument                 document(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.invokeOnThread(() => sourceCodeEditor.getObject_TextEditorControl().Document);
         }
@@ -591,7 +591,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             return sourceCodeViewer.editor().get_Text();
         }
-        public static string                    get_Text(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static string                    get_Text(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.getSourceCode();
         }
@@ -599,11 +599,11 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             return sourceCodeViewer.get_Text();
         }
-        public static string                    get_Code(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static string                    get_Code(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.get_Text();
         }
-        public static int                       caretLine(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static int                       caretLine(this SourceCodeEditor sourceCodeEditor)
         {
             return sourceCodeEditor.textEditorControl().ActiveTextAreaControl.Caret.Line;
         }
@@ -611,7 +611,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         {
             return codeViewer.editor().caret();
         }
-        public static Caret                     caret(this ascx_SourceCodeEditor codeEditor)
+        public static Caret                     caret(this SourceCodeEditor codeEditor)
         {
             return codeEditor.textArea().Caret;
         }
@@ -620,17 +620,17 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return new TextLocation(location.Column - 1, location.Line - 1);
         }
 
-        public static ascx_SourceCodeEditor     clipboard_Copy(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static SourceCodeEditor     clipboard_Copy(this SourceCodeEditor sourceCodeEditor)
         {
             sourceCodeEditor.invokeOnThread(()=> sourceCodeEditor.textArea().ClipboardHandler.Copy(null, null));
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     clipboard_Cut(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static SourceCodeEditor     clipboard_Cut(this SourceCodeEditor sourceCodeEditor)
         {
             sourceCodeEditor.invokeOnThread(()=> sourceCodeEditor.textArea().ClipboardHandler.Cut(null, null));
             return sourceCodeEditor;
         }
-        public static ascx_SourceCodeEditor     clipboard_Paste(this ascx_SourceCodeEditor sourceCodeEditor)
+        public static SourceCodeEditor     clipboard_Paste(this SourceCodeEditor sourceCodeEditor)
         {
             sourceCodeEditor.invokeOnThread(()=> sourceCodeEditor.textArea().ClipboardHandler.Paste(null, null));
             return sourceCodeEditor;
@@ -648,7 +648,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return codeViewer;
         }
 
-        public static ascx_SourceCodeEditor selectText(this ascx_SourceCodeEditor codeEditor, int offsetStart, int offsetEnd)
+        public static SourceCodeEditor selectText(this SourceCodeEditor codeEditor, int offsetStart, int offsetEnd)
         {
             codeEditor.textEditor().invokeOnThread(
                 () =>
@@ -661,7 +661,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
                     }
                     catch (Exception ex)
                     {
-                        ex.log("in ascx_SourceCodeEditor selectText");
+                        ex.log("in SourceCodeEditor selectText");
                     }
                 });
             return codeEditor;
@@ -672,7 +672,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return codeViewer;
         }
 
-        public static ascx_SourceCodeEditor add_CodeMarker(this ascx_SourceCodeEditor codeEditor, int offsetStart, int offsetEnd)
+        public static SourceCodeEditor add_CodeMarker(this SourceCodeEditor codeEditor, int offsetStart, int offsetEnd)
         {
             codeEditor.textEditor().invokeOnThread(
                 () =>
@@ -693,7 +693,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return codeViewer;
         }
 
-        public static ascx_SourceCodeEditor markerColor(this ascx_SourceCodeEditor codeEditor, Color color)
+        public static SourceCodeEditor markerColor(this SourceCodeEditor codeEditor, Color color)
         {
             codeEditor.textEditor().invokeOnThread(
                 () =>
@@ -708,7 +708,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
 
     public static class SourceCodeEditor_ExtensionMethods_WinForm_Guis
     {
-        public static ascx_SourceCodeEditor showCodeEditorForFilesInFolder(this string path, string filter)		
+        public static SourceCodeEditor showCodeEditorForFilesInFolder(this string path, string filter)		
 		{	
 			var topPanel = "Code Editor for {0} files in folder {1}".format(filter,path).popupWindow(900,400);
 			var codeEditor = topPanel.add_GroupBox("SourceCode Editor")
@@ -741,7 +741,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
         { 
             return sourceCodeViewer.editor().updateCodeComplete(csharpFastCompiler);
         }
-        public static O2CodeCompletion      updateCodeComplete(this ascx_SourceCodeEditor sourceCodeEditor, CSharp_FastCompiler csharpFastCompiler)
+        public static O2CodeCompletion      updateCodeComplete(this SourceCodeEditor sourceCodeEditor, CSharp_FastCompiler csharpFastCompiler)
         {
             if (sourceCodeEditor.o2CodeCompletion != null)
             {
@@ -760,7 +760,7 @@ namespace O2.External.SharpDevelop.ExtensionMethods
             return sourceCodeEditor.o2CodeCompletion;
         }
         // this wasn't working as expected
-        /*public static void enableCodeComplete(this ascx_SourceCodeEditor sourceCodeEditor, ascx_SourceCodeEditor sourceCodeEditorToGrabCodeFrom)
+        /*public static void enableCodeComplete(this SourceCodeEditor sourceCodeEditor, SourceCodeEditor sourceCodeEditorToGrabCodeFrom)
         {
             var o2CodeComplete = sourceCodeEditor.enableCodeComplete();
             o2CodeComplete.textEditorToGrabCodeFrom = sourceCodeEditorToGrabCodeFrom.getObject_TextEditorControl();

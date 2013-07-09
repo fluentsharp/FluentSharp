@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using ICSharpCode.NRefactory.Visitors;
 using ICSharpCode.NRefactory.Ast;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 
-namespace O2.API.AST.Visitors
+namespace FluentSharp.CSharpAST.Utils
 {
     public class GetAllINodes : NodeTrackingAstVisitor
     {

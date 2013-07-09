@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.IO.Compression;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
-using System.Reflection;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class EmbeddedResources_Zip_ExtensionMethods
     {

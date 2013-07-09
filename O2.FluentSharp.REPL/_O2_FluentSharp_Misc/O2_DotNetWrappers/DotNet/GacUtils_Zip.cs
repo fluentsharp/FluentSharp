@@ -1,16 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using O2.Interfaces.DotNet;
-using O2.Kernel;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel.InterfacesBaseImpl;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Zip;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.REPL.Utils
 {
     public class GacUtils_Zip
     {            

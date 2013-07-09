@@ -5,9 +5,9 @@ using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using ICSharpCode.SharpDevelop.Dom;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {   
     public static class TypeDeclaration_ExtensionMethods
     {

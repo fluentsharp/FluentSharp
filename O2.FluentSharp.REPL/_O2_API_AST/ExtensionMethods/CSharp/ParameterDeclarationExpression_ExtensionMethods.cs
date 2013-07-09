@@ -5,7 +5,7 @@ using System.Text;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class ParameterDeclarationExpression_ExtensionMethods
     {      

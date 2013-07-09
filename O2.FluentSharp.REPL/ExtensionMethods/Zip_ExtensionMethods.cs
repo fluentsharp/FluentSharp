@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using O2.DotNetWrappers.Zip;
-using O2.DotNetWrappers.Windows;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.REPL.Utils;
 using Ionic.Zip;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.REPL
 {
     public static class Zip_ExtensionMethods
     {

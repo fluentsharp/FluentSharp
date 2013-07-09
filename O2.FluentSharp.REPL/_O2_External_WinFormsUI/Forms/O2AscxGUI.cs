@@ -3,19 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.External.WinFormsUI.O2Environment;
-using O2.Interfaces.Views;
-using O2.Kernel;
-using O2.Views.ASCX.Ascx.MainGUI;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.Views.ASCX.CoreControls;
-using O2.Views.ASCX.O2Findings;
-using O2.Views.ASCX;
+using FluentSharp.BCL;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.External.WinFormsUI.Forms
+namespace FluentSharp.WinFormUI.Utils
 {
     [Serializable]
     public class O2AscxGUI
@@ -369,9 +363,9 @@ namespace O2.External.WinFormsUI.Forms
 
         public static void addDefaultControlsToMenu()
         {
-            O2AscxGUI.addControlToMenu(typeof(ascx_Directory), O2DockState.Float, "Directory Viewer");
-            O2AscxGUI.addControlToMenu(typeof(ascx_FileMappings), O2DockState.Float, "Files Mappings");
-            O2AscxGUI.addControlToMenu(typeof(ascx_O2ObjectModel), O2DockState.Float, "O2 Object Model");
+            O2AscxGUI.addControlToMenu(typeof(DirectoryViewer), O2DockState.Float, "Directory Viewer");
+            O2AscxGUI.addControlToMenu(typeof(FileMappings), O2DockState.Float, "Files Mappings");
+            O2AscxGUI.addControlToMenu(typeof(O2ObjectModel), O2DockState.Float, "O2 Object Model");
             O2AscxGUI.addControlToMenu(typeof(ascx_FindingsViewer), O2DockState.Float, "Findings Viewer");
         }
     }

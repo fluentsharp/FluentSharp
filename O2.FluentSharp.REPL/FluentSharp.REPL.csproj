@@ -121,11 +121,11 @@
     <Compile Include="Ascx\ascx_SourceCodeEditor.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ascx\ascx_SourceCodeEditor.cs">
+    <Compile Include="Ascx\SourceCodeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ascx\ascx_SourceCodeEditor.Designer.cs">
-      <DependentUpon>ascx_SourceCodeEditor.cs</DependentUpon>
+    <Compile Include="Ascx\SourceCodeEditor.Designer.cs">
+      <DependentUpon>SourceCodeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Ascx\ascx_SourceCodeViewer.Controllers.cs">
       <SubType>UserControl</SubType>

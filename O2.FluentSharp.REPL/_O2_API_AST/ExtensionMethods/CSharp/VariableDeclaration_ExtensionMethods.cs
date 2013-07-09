@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.Ast;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class VariableDeclaration_ExtensionMethods
     {

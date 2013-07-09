@@ -1,11 +1,9 @@
 using System.Windows.Forms;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.External.SharpDevelop.ExtensionMethods;
-//using O2.Views.ASCX.MerlinWizard.O2Wizard_ExtensionMethods;
 
-namespace O2.External.SharpDevelop.AST
+namespace FluentSharp.SharpDevelop.Utils
 {
     public class Ast_CSharp_ShowDetailsInViewer
     {
@@ -86,10 +84,10 @@ namespace O2.External.SharpDevelop.AST
         private void showInSourceCode(object sender, TreeViewEventArgs e)
         {
             var treeNoteTag = e.Node.Tag;
-            var endLocation = (ICSharpCode.NRefactory.Location)O2.Kernel.PublicDI.reflection.getProperty("EndLocation",treeNoteTag);
-            var startLocation = (ICSharpCode.NRefactory.Location)O2.Kernel.PublicDI.reflection.getProperty("StartLocation", treeNoteTag);
-            var originalObject = O2.Kernel.PublicDI.reflection.getProperty("OriginalObject", treeNoteTag);
-            var text = (string)O2.Kernel.PublicDI.reflection.getProperty("Text", treeNoteTag);
+            var endLocation = (ICSharpCode.NRefactory.Location)PublicDI.reflection.getProperty("EndLocation",treeNoteTag);
+            var startLocation = (ICSharpCode.NRefactory.Location)PublicDI.reflection.getProperty("StartLocation", treeNoteTag);
+            var originalObject = PublicDI.reflection.getProperty("OriginalObject", treeNoteTag);
+            var text = (string)PublicDI.reflection.getProperty("Text", treeNoteTag);
             var astValue = new AstValue<object>(text,originalObject,startLocation,endLocation);
             textEditorControl.showAstValueInSourceCode(astValue);
             

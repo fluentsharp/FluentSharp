@@ -1,6 +1,7 @@
-﻿using FluentSharp.ExtensionMethods;
+﻿using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Kernel
+namespace FluentSharp.REPL.Utils
 {
     public class O2Setup
     {        

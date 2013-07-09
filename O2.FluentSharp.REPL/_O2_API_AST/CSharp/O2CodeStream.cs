@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using ICSharpCode.NRefactory.Ast;
 
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
     public class O2CodeStream
     {        	            	    	

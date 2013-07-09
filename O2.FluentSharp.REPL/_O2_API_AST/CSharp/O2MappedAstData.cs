@@ -1,20 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using FluentSharp.CoreLib.API;
 using ICSharpCode.NRefactory.Ast;
 using System.CodeDom;
-using O2.API.AST.Visitors;
-using O2.API.AST.ExtensionMethods;
-using O2.API.AST.ExtensionMethods.CSharp;
-
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using ICSharpCode.SharpDevelop.Dom;
-using O2.API.AST.CSharp;
 using ICSharpCode.NRefactory;
 
 
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
     public class O2MappedAstData : IDisposable
     {            	
@@ -94,7 +89,7 @@ namespace O2.API.AST.CSharp
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.ex(ex,"in O2MappedAstData.LoadFile: " + filePath);
+                PublicDI.log.ex(ex,"in O2MappedAstData.LoadFile: " + filePath);
             }
 		}                                    
         public void loadCompilationUnit(string filePath, List<ISpecial> specials, CompilationUnit compilationUnit)

@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.External.WinFormsUI.Forms;
-using O2.Interfaces.Views;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 using WeifenLuo.WinFormsUI.Docking;
-using O2.Kernel;
 
-namespace O2.External.WinFormsUI.O2Environment
+namespace FluentSharp.WinFormUI.Utils
 {
     public class O2DockUtils
     {

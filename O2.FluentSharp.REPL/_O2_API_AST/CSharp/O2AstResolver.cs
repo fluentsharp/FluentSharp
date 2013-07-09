@@ -5,12 +5,10 @@ using System.Text;
 using ICSharpCode.SharpDevelop.Dom.NRefactoryResolver;
 using ICSharpCode.SharpDevelop.Dom;
 using ICSharpCode.NRefactory.Ast;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
+using FluentSharp.CSharpAST;
 
-using O2.API.AST.ExtensionMethods;
-using O2.API.AST.ExtensionMethods.CSharp;
-
-namespace O2.API.AST.CSharp
+namespace FluentSharp.CSharpAST.Utils
 {
     public class O2AstResolver
     {

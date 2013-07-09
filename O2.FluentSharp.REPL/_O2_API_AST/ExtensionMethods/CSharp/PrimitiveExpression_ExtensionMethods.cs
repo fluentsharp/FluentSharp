@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using ICSharpCode.NRefactory.Ast;
 
-namespace O2.API.AST.ExtensionMethods.CSharp
+namespace FluentSharp.CSharpAST
 {
     public static class PrimitiveExpression_ExtensionMethods
     {
