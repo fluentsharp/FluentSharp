@@ -9,7 +9,7 @@ using Roslyn.Compilers;
 using Roslyn.Compilers.Common;
 using System.Threading;
 
-namespace O2.FluentSharp
+namespace FluentSharp.FluentRoslyn
 {
     public static class API_Roslyn_ExtensionMethods_Trees
 	{

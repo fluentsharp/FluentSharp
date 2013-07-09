@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Roslyn.Services;
 
-namespace O2.FluentSharp
+namespace FluentSharp.FluentRoslyn
 {
     public static class API_Roslyn_ExtensionMethods_Workspaces
     {

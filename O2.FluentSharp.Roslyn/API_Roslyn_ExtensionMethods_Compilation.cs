@@ -10,7 +10,7 @@ using System.IO;
 using FluentSharp.CoreLib;
 using System.Threading;
 
-namespace O2.FluentSharp
+namespace FluentSharp.FluentRoslyn
 {
     public static class API_Roslyn_ExtensionMethods_Compilation
     {

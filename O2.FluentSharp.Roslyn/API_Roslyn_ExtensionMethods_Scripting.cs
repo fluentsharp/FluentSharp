@@ -2,7 +2,7 @@
 using System.Linq;
 using Roslyn.Scripting.CSharp;
 
-namespace O2.FluentSharp
+namespace FluentSharp.FluentRoslyn
 {
     public static class API_Roslyn_ExtensionMethods_Scripting
     {

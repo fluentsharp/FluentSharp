@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace O2.FluentSharp
+namespace FluentSharp.FluentRoslyn
 { 
 	public class API_Roslyn
 	{
