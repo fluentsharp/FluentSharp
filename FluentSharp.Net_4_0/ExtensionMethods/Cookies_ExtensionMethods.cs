@@ -1,6 +1,7 @@
 ﻿using System.Web;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Net40
 {
     public static class Extra_ExtensioMethods_Cookies
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_BCL
 {

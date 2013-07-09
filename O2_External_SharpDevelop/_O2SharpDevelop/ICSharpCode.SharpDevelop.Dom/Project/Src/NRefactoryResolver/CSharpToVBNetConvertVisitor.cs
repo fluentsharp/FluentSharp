@@ -8,12 +8,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using ICSharpCode.NRefactory;
+using FluentSharp.CoreLib;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.AstBuilder;
 using ICSharpCode.NRefactory.Visitors;
-using System.Runtime.InteropServices;
-using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
 {

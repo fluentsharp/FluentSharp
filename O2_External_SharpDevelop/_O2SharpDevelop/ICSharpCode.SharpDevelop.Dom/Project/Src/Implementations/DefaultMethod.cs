@@ -7,9 +7,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {

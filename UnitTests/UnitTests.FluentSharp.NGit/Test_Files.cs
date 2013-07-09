@@ -1,5 +1,5 @@
 ﻿using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit
@@ -19,12 +19,14 @@ namespace UnitTests.FluentSharp_NGit
             var refCommit = nGit.add_and_Commit_Random_File();
             var fileAdded = refCommit.commit_Files(nGit).first();
             var fullPath  = nGit.file_FullPath(fileAdded);
-
+            
             Assert.IsTrue(fullPath.fileExists());
             var result1 = nGit.file_Delete(fileAdded);
             Assert.IsFalse(fullPath.fileExists());
             Assert.IsTrue (result1);
             nGit.add_and_Commit_using_Status();
+
+            nGit.script_Me();
 
             //Check exeception code coverage
             var commitFiles = nGit.add_and_Commit_Random_File()

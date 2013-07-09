@@ -1,5 +1,5 @@
 ﻿using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NGit.Revwalk;
 using NGit.Transport;
 using NUnit.Framework;
@@ -44,6 +44,7 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsFalse(repoPath2.dirExists());
         }
 
+        [Ignore]
         [Test(Description = "Push the current branch into a remote")]
         public void push()
         {
@@ -56,9 +57,7 @@ namespace UnitTests.FluentSharp_NGit
             //repoPath2.startProcess();
             Assert.IsNull(nGit2.Last_Exception);
             Assert.IsTrue(result_RemoteAdd);
-            Assert.IsTrue(result_Pull_Origin);
-
-            
+            Assert.IsTrue(result_Pull_Origin);   
         }
 
         [Test(Description = "Pulls from a remote into current branch ")]
@@ -69,14 +68,20 @@ namespace UnitTests.FluentSharp_NGit
 
         [Test(Description = "Pulls from a remote into current branch ")]
         public void fetch()
-        {
+        {            
             //var result_RemoteAdd   = nGit2.remote_Add("origin", repoPath1);//.pathCombine(".git"));
-            var fetchCommand = nGit2.Git.Fetch();
-            fetchCommand.SetRemote(repoPath1);
-            var spec = new RefSpec("refs/heads/master:refs/heads/master");
-            fetchCommand.SetRefSpecs(spec);
-            fetchCommand.Call();
+            var fetchResult1 = nGit2.fetch(repoPath1, "master", "master");
 
+            Assert.IsNull   (nGit2.Last_Exception);
+            Assert.IsNotNull(nGit2.Last_FetchResult);
+            Assert.IsTrue   (fetchResult1);
+            //nGit2.Last_FetchResult.script_Me();
+
+            var fetchResult2 = nGit2.fetch(repoPath1, "master_", "master");
+            Assert.IsNotNull(nGit2.Last_Exception);
+            Assert.IsNull   (nGit2.Last_FetchResult);
+            Assert.IsFalse  (fetchResult2);
+            Assert.AreEqual (nGit2.Last_Exception.Message,"Remote does not have refs/heads/master_ available for fetch.");
         }
     }
 }

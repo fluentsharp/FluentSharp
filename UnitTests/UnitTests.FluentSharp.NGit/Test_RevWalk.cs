@@ -1,5 +1,5 @@
 ﻿using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit

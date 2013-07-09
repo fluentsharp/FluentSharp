@@ -3,7 +3,7 @@ using FluentSharp.NGit_Classes;
 
 namespace FluentSharp.ExtensionMethods
 {
-    public static class API_NGit_Push_Pull
+    public static class API_NGit_Pull_Push
     {
         public static bool  push    (this API_NGit nGit                                               )
         {

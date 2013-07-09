@@ -2,7 +2,7 @@
 using NGit.Revwalk;
 using NGit.Storage.File;
 using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_NGit
 {

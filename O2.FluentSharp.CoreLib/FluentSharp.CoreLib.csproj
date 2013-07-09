@@ -70,7 +70,7 @@
     <Compile Include="O2_DotNetWrappers\DotNet\Serialize.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\StringsAndLists.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\TypeConfusion.cs" />
-    <Compile Include="O2_DotNetWrappers\DotNet\Utils.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\MiscUtils.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\XmlHelpers.cs" />
     <Compile Include="ExtensionMethods\AppDomain_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Collections_ExtensionMethods.cs" />

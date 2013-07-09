@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NGit;
 using NGit.Api;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace FluentSharp.ExtensionMethods
 {

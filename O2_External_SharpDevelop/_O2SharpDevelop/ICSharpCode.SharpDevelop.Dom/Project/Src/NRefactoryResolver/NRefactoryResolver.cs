@@ -10,14 +10,12 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.IO;
-using System.Diagnostics;
 using System.Linq;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.Visitors;
 using NR = ICSharpCode.NRefactory;
-
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
 {
@@ -428,7 +426,7 @@ namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
 		{
             if (projectContent == null)
             {
-                O2.Kernel.PublicDI.log.error("Cannot use uninitialized resolver"); // DC
+                PublicDI.log.error("Cannot use uninitialized resolver"); // DC
                 //throw new InvalidOperationException("Cannot use uninitialized resolver");
             }
 			
@@ -512,7 +510,7 @@ namespace ICSharpCode.SharpDevelop.Dom.NRefactoryResolver
             //startOffset++;                  // DC to fix extra { which was breaking parser
 			System.Text.StringBuilder b = new System.Text.StringBuilder(classDecl, length + classDecl.Length + endClassDecl.Length + startLine - 1);
 			b.Append('\n', startLine - 1);
-          //  O2.Kernel.PublicDI.log.error("O2:DC:Applying ExtractMethod Patch");
+          //  PublicDI.log.error("O2:DC:Applying ExtractMethod Patch");
             b.Append("public void test()\n");       // DC
             var text = fileContent.Substring(startOffset, length);
 			b.Append(fileContent, startOffset, length);

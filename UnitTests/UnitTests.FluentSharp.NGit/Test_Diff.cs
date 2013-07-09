@@ -4,7 +4,7 @@ using NGit.Api;
 using NGit.Diff;
 using NGit.Treewalk;
 using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_NGit
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using FluentSharp.NGit_Classes;
 using NGit;
 using NGit.Api;

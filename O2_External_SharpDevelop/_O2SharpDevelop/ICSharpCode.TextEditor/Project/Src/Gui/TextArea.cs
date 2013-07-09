@@ -13,13 +13,13 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Actions;
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.NRefactory;
 
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace ICSharpCode.TextEditor
 {
@@ -75,7 +75,7 @@ namespace ICSharpCode.TextEditor
         {
             if (ownerThread != System.Threading.Thread.CurrentThread.ManagedThreadId)
             {
-                O2.Kernel.PublicDI.log.error("Ambience may only be used by the thread that created it");
+                PublicDI.log.error("Ambience may only be used by the thread that created it");
                 return false;
             }
             return true;
@@ -368,10 +368,10 @@ namespace ICSharpCode.TextEditor
                     toolTip = new DeclarationViewWindow(this.FindForm());
                 if (toolTip.Owner == null)
                 {
-                    O2.Kernel.PublicDI.log.error("in TextArea.SetToolTip, toolTip.Owner  was null");
+                    PublicDI.log.error("in TextArea.SetToolTip, toolTip.Owner  was null");
                 }
                 else if (toolTip.Owner.InvokeRequired)
-                    O2.Kernel.PublicDI.log.error("in TextArea.SetToolTip, aborting method due to CrossThread Problem");
+                    PublicDI.log.error("in TextArea.SetToolTip, aborting method due to CrossThread Problem");
                 else
                 {               
                     if (oldToolTip == text)
@@ -392,7 +392,7 @@ namespace ICSharpCode.TextEditor
                         p.Offset(3, 3);
                         var form = this.FindForm(); // DC
                         if (form.InvokeRequired || toolTip.Owner.InvokeRequired)
-                            O2.Kernel.PublicDI.log.error("in TextArea.SetToolTip, aborting method due to CrossThread Problem");
+                            PublicDI.log.error("in TextArea.SetToolTip, aborting method due to CrossThread Problem");
                         else
                         {
 
@@ -408,7 +408,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("Exception in TextArea.SetToolTip: {0}" + ex.Message);
+                PublicDI.log.error("Exception in TextArea.SetToolTip: {0}" + ex.Message);
             }
 		}
 		

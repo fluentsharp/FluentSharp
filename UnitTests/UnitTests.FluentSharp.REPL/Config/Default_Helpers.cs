@@ -1,4 +1,4 @@
-﻿using FluentSharp.ExtensionMethods;
+﻿using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_REPL
 {

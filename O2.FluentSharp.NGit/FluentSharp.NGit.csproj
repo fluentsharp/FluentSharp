@@ -62,8 +62,9 @@
     <Compile Include="API_NGit.cs" />
     <Compile Include="API_NGit_O2Platform.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Config.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_Fetch_Merge.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Objects.cs" />
-    <Compile Include="ExtensionMethods\API_NGit_Push_Pull.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_Pull_Push.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Commit.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Misc.cs" />
     <Compile Include="ExtensionMethods\API_NGit_Diff.cs" />

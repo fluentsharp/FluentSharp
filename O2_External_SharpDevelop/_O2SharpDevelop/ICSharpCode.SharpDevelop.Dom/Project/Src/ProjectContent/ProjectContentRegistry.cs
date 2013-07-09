@@ -12,7 +12,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {
@@ -323,7 +324,7 @@ namespace ICSharpCode.SharpDevelop.Dom
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.ex(ex);
+                PublicDI.log.ex(ex);
                 
                 return null;
             }

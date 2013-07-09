@@ -9,11 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Forms;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib;
 using O2.External.SharpDevelop.Ascx;
 
 namespace ICSharpCode.TextEditor.Gui.CompletionWindow

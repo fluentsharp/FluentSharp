@@ -613,13 +613,16 @@ namespace FluentSharp.CoreLib
             }
             return result;
         }
+        public static Dictionary<string, string>    clear_Dictionary(this Dictionary<string, string> dictionary)
+        {
+            return dictionary.clear();
+        }
         public static Dictionary<string, string>    clear(this Dictionary<string, string> dictionary)
         {
             if (dictionary.notNull())
                 dictionary.Clear();
             return dictionary;
-        }        
-        
+        }                
         public static Dictionary<string,string>     toStringDictionary(this string targetString, string rowSeparator, string keySeparator)
         {
             var stringDictionary = new Dictionary<string,string>();
@@ -664,7 +667,6 @@ namespace FluentSharp.CoreLib
         {
             return keyValuePairs.Sum(item => item.Value.size());
         }
-
         public static List<T1>  values<T, T1>(this List<KeyValuePair<T, T1>> keyValuePairs)
         {
             return (from item in keyValuePairs
@@ -728,7 +730,6 @@ namespace FluentSharp.CoreLib
         {
             return file.toKeyValueStrings().toDictionary();
         }
-
         public static string                        configSave(this Dictionary<string, string> dictionary)
         {
             return dictionary.toKeyValueStrings().save();

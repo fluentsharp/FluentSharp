@@ -11,7 +11,7 @@ using System.Diagnostics;
 using System.Drawing;
 
 using ICSharpCode.TextEditor.Undo;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace ICSharpCode.TextEditor.Document
 {

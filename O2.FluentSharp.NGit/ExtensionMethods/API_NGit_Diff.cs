@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentSharp.Support_Classes;
 using NGit.Diff;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NGit.Revwalk;
 using Sharpen;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using Sharpen;
 
 namespace FluentSharp.Support_Classes

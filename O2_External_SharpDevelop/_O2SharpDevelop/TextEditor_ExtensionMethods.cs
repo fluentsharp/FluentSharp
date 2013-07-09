@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FluentSharp.BCL;
 using ICSharpCode.TextEditor;
-
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.External.SharpDevelop.Ascx;
-using O2.Kernel;
-using ICSharpCode.TextEditor.Document;
+using FluentSharp.CoreLib;
 
 namespace O2.External.SharpDevelop.ExtensionMethods
 {

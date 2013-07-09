@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
-using FluentSharp.ExtensionMethods; 
+using FluentSharp.CoreLib; 
 
 namespace ICSharpCode.TextEditor
 {
@@ -287,7 +287,7 @@ namespace ICSharpCode.TextEditor
 						}
 						catch (Exception ex)
 						{
-							O2.Kernel.PublicDI.log.error("Error in TextView: " + ex.Message);
+							PublicDI.log.error("Error in TextView: " + ex.Message);
 						}
 					}
 					if (TextEditorProperties.ShowVerticalRuler)
@@ -648,7 +648,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("In PaintLinePart: " + ex.Message);
+                PublicDI.log.error("In PaintLinePart: " + ex.Message);
                 return -1;
             }
 		}
@@ -691,7 +691,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("in SharpDevelop DrawDocumentWord: " + ex.Message);
+                PublicDI.log.error("in SharpDevelop DrawDocumentWord: " + ex.Message);
             }
 			return wordWidth;
 		}

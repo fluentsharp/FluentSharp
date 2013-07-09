@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentSharp.NGit_Classes;
 using NGit.Api;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NGit.Transport;
 using O2.DotNetWrappers.Windows;
 

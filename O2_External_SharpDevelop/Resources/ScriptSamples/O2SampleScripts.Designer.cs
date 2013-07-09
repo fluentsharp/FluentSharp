@@ -68,7 +68,7 @@ namespace O2.External.SharpDevelop.ScriptSamples {
         ///{
         ///    public class HelloWorlds
         ///    {
-        ///        public static IO2Log log = O2.Kernel.PublicDI.log;
+        ///        public static IO2Log log = PublicDI.log;
         ///
         ///      
         ///        public static string sayHelloO2World()

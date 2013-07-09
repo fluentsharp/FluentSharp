@@ -6,9 +6,9 @@ using System.Xml;
 using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
-
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.BCL;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor;
 
 using ICSharpCode.SharpDevelop.Dom.CSharp;
@@ -21,7 +21,6 @@ using ICSharpCode.NRefactory.Ast;
 using CSharpEditor;
 
 using O2.External.SharpDevelop.ExtensionMethods;
-using O2.Kernel;
 
 namespace O2.External.SharpDevelop.Ascx
 {

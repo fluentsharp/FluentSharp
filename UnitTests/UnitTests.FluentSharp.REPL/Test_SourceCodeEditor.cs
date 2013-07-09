@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using O2.External.SharpDevelop.Ascx;
 using O2.External.SharpDevelop.ExtensionMethods;
 
@@ -10,7 +10,7 @@ namespace UnitTests.FluentSharp_REPL
     [TestFixture]
     public class Test_SourceCodeEditor
     {
-        public ascx_SourceCodeEditor CodeEditor { get; set; }
+        public SourceCodeEditor CodeEditor { get; set; }
 
         [SetUp]     public void SetUp()
         {            

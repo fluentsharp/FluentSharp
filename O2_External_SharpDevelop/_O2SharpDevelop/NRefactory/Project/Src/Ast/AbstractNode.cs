@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using FluentSharp.CoreLib.API;
 
 namespace ICSharpCode.NRefactory.Ast
 {
@@ -47,7 +48,7 @@ namespace ICSharpCode.NRefactory.Ast
                     //Debug.Assert(child != null);
                     child.AcceptVisitor(visitor, data);
                 else
-                    O2.Kernel.PublicDI.log.error("In AcceptChildren child == null");
+                    PublicDI.log.error("In AcceptChildren child == null");
 			}
 			return data;
 		}

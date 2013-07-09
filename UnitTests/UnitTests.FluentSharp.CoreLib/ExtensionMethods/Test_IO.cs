@@ -1,6 +1,7 @@
 ﻿
+using System;
 using System.IO;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_CoreLib
@@ -124,6 +125,32 @@ namespace UnitTests.FluentSharp_CoreLib
         {
             //readOnly_Add();
             Assert.IsNull((null as string).fileInfo().path());
+        }
+
+        [Test(Description = "Combine two paths (usually a folder and a filename")]
+        public void pathCombine()
+        {
+            var folder1 = @"C:\aaa";
+            var file1 = "text.txt";
+            var expected1 = @"C:\aaa\text.txt";
+
+            Assert.AreEqual(folder1.pathCombine(file1), expected1);
+
+            var largeFile = 255.randomLetters();
+            var largePath = folder1.pathCombine(largeFile);
+            Assert.Greater(255, largePath.size());
+
+            //should not handle bad chars
+            var unsafeString = 40.randomString() + ":*\aaa";
+            Assert.Throws<ArgumentException>(()=> folder1.pathCombine(unsafeString));
+
+            var bigFolder1 = @"C:\aaa".add_RandomLetters(250);
+
+            Assert.Less(250, bigFolder1.size());
+            //Assert.Throws<ArgumentException>(()=> folder1.pathCombine(unsafeString));
+            Assert.Throws<Exception>(() => bigFolder1.pathCombine(file1));
+
+
         }
 
         [Test(Description = "Removes the readonly attribute from one or more files")]

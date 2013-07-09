@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_CoreLib
 {

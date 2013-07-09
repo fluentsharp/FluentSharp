@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
 
 namespace ICSharpCode.TextEditor
@@ -85,7 +85,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("in FoldMargin " + ex.Message);
+                PublicDI.log.error("in FoldMargin " + ex.Message);
             }
 		}
 		
@@ -223,7 +223,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("in FoldMargin " + ex.Message);
+                PublicDI.log.error("in FoldMargin " + ex.Message);
             }
 		}
 		
@@ -257,7 +257,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("in FoldMargin " + ex.Message);
+                PublicDI.log.error("in FoldMargin " + ex.Message);
             }
 		}
 		
@@ -286,7 +286,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("in FoldMargin " + ex.Message);
+                PublicDI.log.error("in FoldMargin " + ex.Message);
             }
 		}
 		

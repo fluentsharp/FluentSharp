@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentSharp.CoreLib.API;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {
@@ -68,7 +69,7 @@ namespace ICSharpCode.SharpDevelop.Dom
 		protected void CheckBeforeMutation()
 		{
 			if (isFrozen)
-                O2.Kernel.PublicDI.log.error("Cannot mutate frozen " + GetType().Name); // DC
+                PublicDI.log.error("Cannot mutate frozen " + GetType().Name); // DC
 				//throw new InvalidOperationException("Cannot mutate frozen " + GetType().Name);
 		}
 		

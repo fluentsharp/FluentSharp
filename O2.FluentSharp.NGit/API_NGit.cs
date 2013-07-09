@@ -20,6 +20,7 @@ namespace FluentSharp
         public PersonIdent          Committer             { get; set; }
         public Exception            Last_Exception        { get; set; }
         public List<PushResult>     Last_PushResult       { get; set; }
+        public FetchResult          Last_FetchResult      { get; set; }
         public PullResult           Last_PullResult       { get; set; }
 
         public API_NGit()

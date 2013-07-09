@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NGit;
 
 namespace FluentSharp.NGit_Classes

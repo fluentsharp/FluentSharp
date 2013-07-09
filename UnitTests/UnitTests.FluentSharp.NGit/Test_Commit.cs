@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NGit;
 using NGit.Revwalk;
 using NUnit.Framework;

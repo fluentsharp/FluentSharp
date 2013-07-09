@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using FluentSharp.NGit_Classes;
 using NUnit.Framework;
 using O2.DotNetWrappers.Network;

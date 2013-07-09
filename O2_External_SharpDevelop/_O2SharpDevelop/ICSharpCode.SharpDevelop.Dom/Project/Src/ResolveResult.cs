@@ -8,6 +8,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FluentSharp.CoreLib.API;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {
@@ -415,7 +416,7 @@ namespace ICSharpCode.SharpDevelop.Dom
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("[CodeComplete] Integer GetCompletionData: {0}", ex.Message);
+                PublicDI.log.error("[CodeComplete] Integer GetCompletionData: {0}", ex.Message);
             }
 
             return result;

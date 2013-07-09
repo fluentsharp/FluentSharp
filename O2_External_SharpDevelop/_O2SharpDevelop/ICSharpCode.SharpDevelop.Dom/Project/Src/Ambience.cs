@@ -117,7 +117,7 @@ namespace ICSharpCode.SharpDevelop.Dom
 			//#if DEBUG // DC
             if (ownerThread != System.Threading.Thread.CurrentThread.ManagedThreadId)
             {
-                O2.Kernel.PublicDI.log.error("Ambience may only be used by the thread that created it");
+                PublicDI.log.error("Ambience may only be used by the thread that created it");
                 return false;
             }
             return true;

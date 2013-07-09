@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using FluentSharp.NGit_Classes;
 using FluentSharp.Support_Classes;
 using NUnit.Framework;

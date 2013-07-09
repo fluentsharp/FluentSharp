@@ -8,7 +8,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
 
 namespace ICSharpCode.TextEditor
@@ -35,7 +35,7 @@ namespace ICSharpCode.TextEditor
         {            
             if (ownerThread != System.Threading.Thread.CurrentThread.ManagedThreadId)
             {
-                O2.Kernel.PublicDI.log.error("Ambience may only be used by the thread that created it");
+                PublicDI.log.error("Ambience may only be used by the thread that created it");
                 return false;
             }
             return true;      

@@ -9,7 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {

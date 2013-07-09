@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using O2.Kernel;
 using O2.Kernel.InterfacesBaseImpl;
 

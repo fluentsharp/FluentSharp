@@ -85,7 +85,7 @@ namespace FluentSharp.CoreLib
 			tag = "//O2EmbedTool:";
 			foreach (var file in sourceCode.lines().starting(tag).remove(tag))
 			{
-				var toolFolder = file.folderExists() ?  file : O2.Kernel.PublicDI.config.ToolsOrApis.pathCombine(file);				
+				var toolFolder = file.folderExists() ?  file : PublicDI.config.ToolsOrApis.pathCombine(file);				
 				if (toolFolder.folderExists())
 				{
 					"[mapExtraEmbebbedResources] found To EmbedTool reference: {0} -> targetFolder: {1}".debug(toolFolder, targetFolder);

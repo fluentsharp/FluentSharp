@@ -6,8 +6,7 @@
 // </file>
 
 using System;
-using FluentSharp.ExtensionMethods;
-//using log4net;
+using FluentSharp.CoreLib;
 
 namespace ICSharpCode.SharpDevelop.Dom
 {

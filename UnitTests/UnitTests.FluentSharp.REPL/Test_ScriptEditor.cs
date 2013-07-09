@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using O2.Kernel;
 
 namespace UnitTests.FluentSharp_REPL

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using NUnit.Framework;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using O2.External.SharpDevelop.AST;
 using O2.Kernel;
 

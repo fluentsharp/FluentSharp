@@ -6,7 +6,7 @@
 // </file>
 
 using System;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace ICSharpCode.TextEditor.Document
 {

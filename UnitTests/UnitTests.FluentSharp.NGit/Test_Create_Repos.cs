@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using FluentSharp;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 using O2.DotNetWrappers.Windows;
 

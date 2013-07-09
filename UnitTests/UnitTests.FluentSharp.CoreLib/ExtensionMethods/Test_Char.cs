@@ -1,6 +1,6 @@
 ﻿
 using System;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods

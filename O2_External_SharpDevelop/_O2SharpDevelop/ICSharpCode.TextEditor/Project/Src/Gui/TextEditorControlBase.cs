@@ -14,11 +14,9 @@ using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-
+using FluentSharp.BCL;
 using ICSharpCode.TextEditor.Actions;
 using ICSharpCode.TextEditor.Document;
-
-using FluentSharp.ExtensionMethods;
 
 namespace ICSharpCode.TextEditor
 {

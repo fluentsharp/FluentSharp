@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
 
 namespace ICSharpCode.TextEditor
@@ -312,7 +312,7 @@ namespace ICSharpCode.TextEditor
 		static void Log(string text)
 		{
             if (LogCaretCalls)
-                O2.Kernel.PublicDI.log.info("[Caret Log] {0}", text);
+                PublicDI.log.info("[Caret Log] {0}", text);
 			//Console.WriteLine(text);
 		}
 		

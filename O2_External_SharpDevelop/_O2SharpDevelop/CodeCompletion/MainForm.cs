@@ -31,10 +31,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
-
+using FluentSharp.CoreLib.API;
 using NRefactory = ICSharpCode.NRefactory;
 using Dom = ICSharpCode.SharpDevelop.Dom;
-using O2.Kernel;
 
 namespace CSharpEditor
 {

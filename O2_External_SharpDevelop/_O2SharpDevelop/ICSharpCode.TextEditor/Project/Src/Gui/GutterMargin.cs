@@ -10,7 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-
+using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
 
 namespace ICSharpCode.TextEditor
@@ -104,7 +104,7 @@ namespace ICSharpCode.TextEditor
             }
             catch (Exception ex)
             {
-                O2.Kernel.PublicDI.log.error("In GutterMargin: " + ex.Message);
+                PublicDI.log.error("In GutterMargin: " + ex.Message);
             }
 		}
 

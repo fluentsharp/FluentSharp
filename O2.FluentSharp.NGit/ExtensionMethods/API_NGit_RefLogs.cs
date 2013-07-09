@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NGit.Storage.File;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
 namespace FluentSharp.ExtensionMethods
 {
