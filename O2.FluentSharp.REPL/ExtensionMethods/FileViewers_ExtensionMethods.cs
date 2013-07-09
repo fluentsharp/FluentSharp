@@ -4,11 +4,12 @@ using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib;
+using FluentSharp.REPL.Controls;
 using FluentSharp.SharpDevelop;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL
 { 
-    public static class FileViewers
+    public static class FileViewers_ExtensionMethods
     {
     	public static T add_FilesViewer<T>(this T control) where T : Control
     	{
@@ -26,8 +27,7 @@ namespace FluentSharp.REPL.Utils
     	{
     		return control.add_FilesViewer(targetFolder, highlightStrategy, true, fileFilters);
     	}
-    	public static T add_FilesViewer<T>(this T control, string targetFolder, string highlightStrategy, bool recursive, params string[] fileFilters)
-    		where T : Control
+    	public static T add_FilesViewer<T>(this T control, string targetFolder, string highlightStrategy, bool recursive, params string[] fileFilters) where T : Control
     	{
     		var topPanel = control.clear().add_Panel();
 			var sourceCodeViewer = topPanel.add_SourceCodeViewer();
@@ -44,8 +44,7 @@ namespace FluentSharp.REPL.Utils
 			return control;															
     	}
     	
-    	public static ascx_SimpleFileSearch add_FilesSearch<T>(this T control, string targetFolder, params string[] fileFilters)
-    		where T : Control
+    	public static ascx_SimpleFileSearch add_FilesSearch<T>(this T control, string targetFolder, params string[] fileFilters) where T : Control
     	{
 			var simpleFileSearch = control.clear().add_Control<ascx_SimpleFileSearch>();
 			var filesToShow = targetFolder.files(true,fileFilters);

@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Controls
 {
     public partial class ascx_SourceCodeViewer : UserControl
     {

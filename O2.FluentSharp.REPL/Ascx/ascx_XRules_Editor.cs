@@ -6,7 +6,7 @@ using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.SharpDevelop.Utils;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
     public partial class ascx_XRules_Editor : UserControl
     {

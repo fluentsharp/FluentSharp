@@ -11,8 +11,8 @@ using FluentSharp.BCL;
 using FluentSharp.BCL.Utils;
 using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
-using FluentSharp.REPL;
 using FluentSharp.REPL.Utils;
+using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using FluentSharp.CoreLib;
@@ -22,7 +22,7 @@ using System.Threading;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Controls
 {
     public partial class SourceCodeEditor
     {        

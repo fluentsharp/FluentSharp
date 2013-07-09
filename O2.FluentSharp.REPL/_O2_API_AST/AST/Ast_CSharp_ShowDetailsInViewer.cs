@@ -1,9 +1,10 @@
 using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.TextEditor;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.CSharpAST.Utils
 {
     public class Ast_CSharp_ShowDetailsInViewer
     {

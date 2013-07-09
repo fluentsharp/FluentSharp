@@ -4,12 +4,13 @@ using System.IO;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using System.Collections.Generic;
 using SupportedLanguage = ICSharpCode.NRefactory.SupportedLanguage;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.CSharpAST.Utils
 {            
     public class Ast_CSharp
     {    

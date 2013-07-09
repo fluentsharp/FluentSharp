@@ -7,11 +7,12 @@ using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.REPL.Controls;
 using ICSharpCode.NRefactory.Ast;
 
 // This code contains a bunch of code snippets from the SharpDevelop_3.1.1.5327_Source\samples\NRefactoryDemo sample app
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.CSharpAST.Utils
 {
     public static class AstTreeView
     {

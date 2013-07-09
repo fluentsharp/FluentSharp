@@ -12,9 +12,9 @@ using FluentSharp.SharpDevelop;
 //O2File:SearchEngine.cs
 //O2File:SearchUtils.cs
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
-    public class test_ascx_SimpleFileSearch : ContainerControl
+    /*public class test_ascx_SimpleFileSearch : ContainerControl
     {       		
 		public static void launchGui()
 		{
@@ -23,7 +23,7 @@ namespace FluentSharp.REPL.Utils
 			var filesToShow = localScriptsFolder.files(true,"*.cs","*.h2","*.o2");
 			simpleSearch.loadFiles(localScriptsFolder, filesToShow); 
 		}
-	}
+	}*/
 
     public class ascx_SimpleFileSearch : ContainerControl
     {       		

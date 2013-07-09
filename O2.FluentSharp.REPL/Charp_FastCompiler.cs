@@ -1,15 +1,15 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
-using FluentSharp.REPL;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using FluentSharp.CoreLib;
 using FluentSharp.CSharpAST;
 using System.Reflection;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Utils
 {
     public class CSharp_FastCompiler
     {

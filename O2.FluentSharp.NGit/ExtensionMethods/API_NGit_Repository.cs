@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using FluentSharp.CoreLib;
 using NGit;
-using NGit.Api;
 using NGit.Transport;
 
 namespace FluentSharp.ExtensionMethods

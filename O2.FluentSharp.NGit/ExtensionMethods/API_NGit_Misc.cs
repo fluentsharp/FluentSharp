@@ -1,7 +1,7 @@
 ﻿using System;
+using FluentSharp.CoreLib;
 using NGit;
 using NGit.Api;
-using NGit.Transport;
 
 namespace FluentSharp.ExtensionMethods
 {

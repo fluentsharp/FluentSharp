@@ -1,4 +1,4 @@
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Controls
 {
     partial class ascx_SourceCodeViewer
     {

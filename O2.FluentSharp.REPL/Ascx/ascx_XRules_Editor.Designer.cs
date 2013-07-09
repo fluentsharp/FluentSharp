@@ -2,7 +2,7 @@
 
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
     partial class ascx_XRules_Editor
     {

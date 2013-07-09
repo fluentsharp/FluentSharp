@@ -116,5 +116,9 @@ public class DynamicType
                                    .replace("%%CODE%%", snippet);
             return code;
         }
+        public static Assembly  compileSourceFile(this string sourceCodeFile)
+        {
+            return new CompileEngine().compileSourceFiles(sourceCodeFile.wrapOnList());            
+        }
     }
 }

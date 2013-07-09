@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
-using O2.Kernel.ExtensionMethods;
+using FluentSharp.BCL;
 using FluentSharp.CoreLib;
 
 //O2File:WPF_Controls_ExtensionMethods.cs

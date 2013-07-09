@@ -7,10 +7,11 @@ using FluentSharp.BCL.Controls;
 using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.REPL.Utils;
 using FluentSharp.SharpDevelop;
 using FluentSharp.SharpDevelop.Utils;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
     public class ascx_Execute_Scripts : UserControl
     {        

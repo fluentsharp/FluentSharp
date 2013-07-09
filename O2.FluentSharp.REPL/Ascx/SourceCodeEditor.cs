@@ -4,13 +4,15 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.BCL.Utils;
+using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.TextEditor.Document;
 using FluentSharp.CoreLib;
 using O2.Platform.External.SharpDevelop.Resources;
 
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Controls
 {
     public partial class SourceCodeEditor : UserControl
     {

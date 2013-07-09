@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentSharp.CoreLib;
 using NGit;
 using NGit.Revwalk;
 using NGit.Treewalk;

@@ -4,8 +4,9 @@ using FluentSharp.BCL;
 using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib;
+using FluentSharp.REPL.Utils;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
     public class ascx_Panel_With_Inspector : Control
     {

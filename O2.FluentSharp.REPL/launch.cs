@@ -1,5 +1,7 @@
 ﻿
 
+using FluentSharp.REPL.Controls;
+
 namespace FluentSharp.REPL.Utils
 {
     public class O2Launch

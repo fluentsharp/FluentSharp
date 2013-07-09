@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib;
+using FluentSharp.REPL.Controls;
 using FluentSharp.REPL.Utils;
 using FluentSharp.SharpDevelop;
 using FluentSharp.SharpDevelop.Utils;

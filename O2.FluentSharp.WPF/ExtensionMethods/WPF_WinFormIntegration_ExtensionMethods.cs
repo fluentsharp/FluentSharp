@@ -1,36 +1,12 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.Windows.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using O2.Interfaces.O2Core;
-using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
+using FluentSharp.BCL;
 using FluentSharp.CoreLib;
-using O2.DotNetWrappers.Windows;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
-//using WPFExtensions.Controls;
 using System.Windows.Forms.Integration;
-//using O2.External.SharpDevelop.ExtensionMethods;
-//using O2.External.IE.ExtensionMethods;
-//using O2.External.IE.Wrapper;
+using FluentSharp.ExtensionMethods;
 using O2.API.Visualization.Ascx;
-
-//O2File:WPF_Controls_ExtensionMethods.cs
-//O2Ref:WindowsFormsIntegration.dll
-//O2Ref:WPFExtensions.dll
-//O2Ref:O2_External_IE.dll
-//O2Ref:O2_API_Visualization.dll
-
-//O2Ref:PresentationCore.dll
-//O2Ref:WindowsBase.dll
-//O2Ref:System.Xaml.dll
-//O2Ref:PresentationFramework.dll
-
 
 namespace O2.XRules.Database.Utils
 {

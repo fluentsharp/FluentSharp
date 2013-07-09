@@ -10,25 +10,16 @@ using FluentSharp.CSharpAST;
 using FluentSharp.CoreLib;
 using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib.API;
+using FluentSharp.REPL.Utils;
 using FluentSharp.SharpDevelop;
 using FluentSharp.SharpDevelop.Utils;
 using O2.External.SharpDevelop.ExtensionMethods;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
-
-    public class ascx_Simple_Script_Editor_Test
-    {
-        public void testGui()
-        {			
-            //DebugMsg.debugBreak();
-            //ascx_Simple_Script_Editor.startControl();
-            ascx_Simple_Script_Editor.startControl_NoCodeComplete();
-        }
-    }
     // Comments: (24 Feb 2010): This was the 6th pass at building an O2 Command Prompt (i.e. simple script editor)	
 
-    public sealed class ascx_Simple_Script_Editor : UserControl
+    public class ascx_Simple_Script_Editor : UserControl
     {
         //private static IO2Log log = PublicDI.log;
         public ascx_SourceCodeViewer sourceCodeViewer   { get; set; }

@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Controls
 {
     public partial class ascx_Scripts : UserControl
     {        

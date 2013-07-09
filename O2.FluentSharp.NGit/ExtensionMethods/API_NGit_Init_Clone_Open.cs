@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FluentSharp.CoreLib.API;
 using FluentSharp.NGit_Classes;
 using NGit.Api;
 using FluentSharp.CoreLib;
-using NGit.Transport;
-using O2.DotNetWrappers.Windows;
+
 
 namespace FluentSharp.ExtensionMethods
 {

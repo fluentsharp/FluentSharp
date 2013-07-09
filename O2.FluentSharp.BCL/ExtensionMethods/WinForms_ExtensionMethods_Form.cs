@@ -410,19 +410,16 @@ namespace FluentSharp.BCL
         {
             return title.mdiHost();
         }
-
         public static Form mdiHost(this string title)
         {
             return title.popupWindow()
                         .parentForm()
                         .isMdiContainer();
         }
-
         public static Form isMdiContainer(this Form form)
         {
             return form.isMdiContainer(true);
         }
-
         public static Form isMdiContainer(this Form form, bool value)
         {
             return form.invokeOnThread(()=>{
@@ -431,19 +428,15 @@ namespace FluentSharp.BCL
                                                return form;
                                            });
         }
-
         public static Form add_MdiChild(this Form parentForm)
         {
             return parentForm.add_MdiChild("");
         }
-
         public static Form add_MdiChild(this Form parentForm, string title)
         {
             return parentForm.add_MdiChild<Form>(title);
         }
-
-        public static T add_MdiChild<T>(this Form parentForm, string title)
-            where T : Form
+        public static T add_MdiChild<T>(this Form parentForm, string title) where T : Form
         {
             return (T)parentForm.invokeOnThread(
                 () =>
@@ -455,7 +448,6 @@ namespace FluentSharp.BCL
                     return mdiChild;
                 });
         }
-
         public static Form add_MdiChild(this Form parentForm, Func<Form> formCtor)
         {
             return parentForm.invokeOnThread(()=>{
@@ -465,8 +457,6 @@ namespace FluentSharp.BCL
                                                     return mdiChild;
                                                 });
         }
-
-
         public static Form layout(this Form parentForm, MdiLayout layout)
         {
             return parentForm.invokeOnThread(()=>{
@@ -474,40 +464,38 @@ namespace FluentSharp.BCL
                                                     return parentForm;
                                                  });
         }
-
         public static Form layout_TileHorizontal(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.TileHorizontal);
         }
-
         public static Form layout_TileVertical(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.TileVertical);
         }
-
         public static Form layout_Cascade(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.Cascade);
         }
-
         public static Form layout_ArrangeIcons(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.ArrangeIcons);
         }
-
         public static Form tileHorizontaly(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.TileHorizontal);
         }
-
         public static Form tileVerticaly(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.TileVertical);
         }
-
         public static Form cascade(this Form parentForm)
         {
             return parentForm.layout(MdiLayout.Cascade);
+        }
+        public static ascx_LogViewer add_Mdi_LogViewer(this Form parentForm)
+        {
+            return parentForm.add_MdiChild()
+                             .add_LogViewer();
         }
 
     }

@@ -5,9 +5,10 @@ using System.Windows.Forms;
 using FluentSharp.BCL.Interfaces;
 using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.REPL.Controls;
 using FluentSharp.WinFormUI.Utils;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.REPL.Utils
 {
     public class HandleO2MessageOnSD
     {

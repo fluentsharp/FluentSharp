@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentSharp.CoreLib;
 using NGit;
 
 namespace FluentSharp.ExtensionMethods

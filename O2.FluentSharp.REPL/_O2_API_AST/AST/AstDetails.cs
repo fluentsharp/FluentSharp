@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using FluentSharp.SharpDevelop.Utils;
 using ICSharpCode.NRefactory;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory.PrettyPrinter;
 using ICSharpCode.NRefactory.Visitors;
 
-namespace FluentSharp.SharpDevelop.Utils
+namespace FluentSharp.CSharpAST.Utils
 {
     public class AstDetails : AbstractAstVisitor
     {

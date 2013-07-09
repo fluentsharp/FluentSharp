@@ -3,161 +3,108 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using FluentSharp.BCL;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
-using FluentSharp.CoreLib.API;
-using FluentSharp.SharpDevelop;
 using FluentSharp.SharpDevelop.Utils;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
-    public class test_ascx_FolderView : ContainerControl
-    {       		
-		public static void launchGui()
-		{
-			var folderView = O2Gui.open<ascx_FolderView>("Util - FolderView", 500,400);						
-			folderView.loadFolder(PublicDI.config.LocalScriptsFolder);
-		}
-	}
-
     public class ascx_FolderView : Control
     {   
-    	public string RootFolder { get; set; }
+        public string RootFolder { get; set; }
     	
-    	public TreeView FolderView { get; set; }    	    	
-    	public ascx_SourceCodeViewer CodeViewer { get; set; }
+        public TreeView FolderView { get; set; }    	    	
+        public ascx_SourceCodeViewer CodeViewer { get; set; }
     	
-    	public string 	Title_FolderView 	{ get; set; }
-    	public string 	Title_CodeEditor 	{ get; set; }
-    	public int		SplitterDistance	{ get; set; }
+        public string 	Title_FolderView 	{ get; set; }
+        public string 	Title_CodeEditor 	{ get; set; }
+        public int		SplitterDistance	{ get; set; }
     	
-		public ascx_FolderView() : this(true)
-		{
+        public ascx_FolderView() : this(true)
+        {
 		
-		}
-		public ascx_FolderView(bool buildGuiOnCtor)
-    	{
-    		this.Width = 300;
-    		this.Height = 300;    		
-    		Title_FolderView = "Folder and Files";
-    		Title_CodeEditor = "File Contents";
-    		SplitterDistance = 150;
-    		if (buildGuiOnCtor)
-    			buildGui();
-    	}
+        }
+        public ascx_FolderView(bool buildGuiOnCtor)
+        {
+            this.Width = 300;
+            this.Height = 300;    		
+            Title_FolderView = "Folder and Files";
+            Title_CodeEditor = "File Contents";
+            SplitterDistance = 150;
+            if (buildGuiOnCtor)
+                buildGui();
+        }
  
  	
  
-    	public ascx_FolderView buildGui()
-    	{
-    		var topPanel = this.clear().add_Panel();
-			CodeViewer = topPanel.title(Title_CodeEditor).add_SourceCodeViewer();
-			FolderView = topPanel.insert_Left(SplitterDistance, Title_FolderView).add_TreeView();
+        public ascx_FolderView buildGui()
+        {
+            var topPanel = this.clear().add_Panel();
+            CodeViewer = topPanel.title(Title_CodeEditor).add_SourceCodeViewer();
+            FolderView = topPanel.insert_Left(SplitterDistance, Title_FolderView).add_TreeView();
 			
-			FolderView.afterSelect<string>(
-				(fileOrFolder)=>{
-									if (fileOrFolder.fileExists())
-										CodeViewer.open(fileOrFolder);
-								});										
+            FolderView.afterSelect<string>(
+                (fileOrFolder)=>{
+                                    if (fileOrFolder.fileExists())
+                                        CodeViewer.open(fileOrFolder);
+                });										
 			
-			FolderView.beforeExpand<string>((treeNode, path) => loadFolder(treeNode,path));
+            FolderView.beforeExpand<string>((treeNode, path) => loadFolder(treeNode,path));
 			
-			FolderView.onDrop((fileOrfolder) => {
-													FolderView.clear();
-													if (fileOrfolder.dirExists())
-														loadFolder(FolderView.rootNode(),fileOrfolder); 
-												});						
-			FolderView.add_ContextMenu()
-						.add_MenuItem("Refresh",true, ()=> refresh())
-						.add_MenuItem("Open in Windows Explorer", 
-								()=> FolderView.selected().get_Tag().str().startProcess() );
+            FolderView.onDrop((fileOrfolder) => {
+                                                    FolderView.clear();
+                                                    if (fileOrfolder.dirExists())
+                                                        loadFolder(FolderView.rootNode(),fileOrfolder); 
+            });						
+            FolderView.add_ContextMenu()
+                      .add_MenuItem("Refresh",true, ()=> refresh())
+                      .add_MenuItem("Open in Windows Explorer", 
+                                    ()=> FolderView.selected().get_Tag().str().startProcess() );
 						
-			CodeViewer.set_Text("....select file on the left to view its contents here...");			 
-			return this;
-		}		
+            CodeViewer.set_Text("....select file on the left to view its contents here...");			 
+            return this;
+        }		
 		
-		public ascx_FolderView refresh()
-		{
-			this.loadFolder(RootFolder);
-			return this;
-		}
+        public ascx_FolderView refresh()
+        {
+            this.loadFolder(RootFolder);
+            return this;
+        }
 		
-		public ascx_FolderView reloadSelectdNode()
-		{
-			var treeNode = this.FolderView.selected();
-			if (treeNode.notNull())
-				loadFolder(treeNode,(string)treeNode.Tag);
-			return this;
-		}
+        public ascx_FolderView reloadSelectdNode()
+        {
+            var treeNode = this.FolderView.selected();
+            if (treeNode.notNull())
+                loadFolder(treeNode,(string)treeNode.Tag);
+            return this;
+        }
 		
-		public ascx_FolderView loadFolder(TreeNode treeNode, string path)
-		{
-			"Loading Folder: {0}".info(path);
-			if (path.valid())
-			{
-				FolderView.beginUpdate();
-				path = Environment.ExpandEnvironmentVariables(path);  // in case there are Environment variables like %SystemDrive%
-				//"There are {0} files {0}".info(path.files().size());
-				//"There are {0} folders {0}".info(path.folder.folders().size());
-				var folders = path.folders().sort();
-				foreach(var folder in folders)
-					treeNode.add_Node(folder.fileName(), folder, folder.files().size() >0 || folder.folders().size()>0)
-							.color(Color.DarkOrange);
-				var files = path.files();
-				treeNode.add_Nodes(files, (file)=> file.fileName(), (file)=>file, (file)=>false,(file)=>Color.DarkBlue);
-				FolderView.endUpdate();
-			}
-			return this;
-		}
+        public ascx_FolderView loadFolder(TreeNode treeNode, string path)
+        {
+            "Loading Folder: {0}".info(path);
+            if (path.valid())
+            {
+                FolderView.beginUpdate();
+                path = Environment.ExpandEnvironmentVariables(path);  // in case there are Environment variables like %SystemDrive%
+                //"There are {0} files {0}".info(path.files().size());
+                //"There are {0} folders {0}".info(path.folder.folders().size());
+                var folders = path.folders().sort();
+                foreach(var folder in folders)
+                    treeNode.add_Node(folder.fileName(), folder, folder.files().size() >0 || folder.folders().size()>0)
+                            .color(Color.DarkOrange);
+                var files = path.files();
+                treeNode.add_Nodes(files, (file)=> file.fileName(), (file)=>file, (file)=>false,(file)=>Color.DarkBlue);
+                FolderView.endUpdate();
+            }
+            return this;
+        }
 		
-		public ascx_FolderView loadFolder(string path)
-		{			
-			if (path.notNull())
-				RootFolder = Environment.ExpandEnvironmentVariables(path);
-			FolderView.clear();
-			return loadFolder(FolderView.rootNode(),RootFolder);
-		}
+        public ascx_FolderView loadFolder(string path)
+        {			
+            if (path.notNull())
+                RootFolder = Environment.ExpandEnvironmentVariables(path);
+            FolderView.clear();
+            return loadFolder(FolderView.rootNode(),RootFolder);
+        }
 		
-	}
-	
-	public static class ascx_FolderView_ExtensionMethods
-	{
-		public static ascx_FolderView open(this ascx_FolderView folderView, string path)
-		{
-			if (folderView.notNull())
-				return folderView.loadFolder(path);			
-			return folderView;
-		}
-				
-		
-		public static ascx_FolderView add_FolderViewer<T>(this T control, string path = null, bool buildGuiOnCtor = true)
-			where T: Control
-		{			
-			return (ascx_FolderView)control.clear().invokeOnThread(
-				()=>{
-						var folderViewer = new ascx_FolderView(buildGuiOnCtor)
-													.fill();
-						control.add_Control(folderViewer);
-                        if (buildGuiOnCtor)
-                            folderViewer.open(path);
-                        else
-                            folderViewer.RootFolder = path;
-						return folderViewer;
-					});
-		}
-		
-		public static string virtualPath(this ascx_FolderView folderView, string path)
-		{
-			var virtualPath = path.remove(folderView.RootFolder);
-			if (virtualPath.valid())
-			{
-				if (virtualPath[0]=='\\' || virtualPath[0]=='/')
-					return virtualPath;
-				else
-					return "\\{0}".format(virtualPath);
-			}
-			return virtualPath;
-		}
-	}
- 
+    }
 }

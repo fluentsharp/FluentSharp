@@ -1,5 +1,7 @@
 using System;
 using System.Windows.Threading;
+using FluentSharp.CoreLib;
+
 //O2Ref:WindowsBase.dll
 //O2Ref:System.Core.dll
 

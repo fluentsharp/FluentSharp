@@ -3,6 +3,7 @@ using System.Threading;
 using FluentSharp.BCL;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.REPL.Utils;
 using FluentSharp.SharpDevelop.Utils;
 using System;
 using System.Windows.Forms;

@@ -6,7 +6,7 @@ using FluentSharp.BCL;
 using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
  
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.REPL.Controls
 {
     public class ascx_CaptchaQuestion : ContainerControl
     {       
