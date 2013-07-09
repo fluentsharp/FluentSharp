@@ -1,4 +1,4 @@
-﻿namespace O2.API.Visualization.Ascx
+﻿namespace FluentSharp.WPF.Controls
 {
     partial class ascx_Xaml_Host
     {

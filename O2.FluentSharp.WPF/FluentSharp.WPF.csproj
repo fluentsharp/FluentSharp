@@ -61,13 +61,32 @@
     <Compile Include="ExtensionMethods\ElementHost_ExtensionMethods.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExtensionMethods\WPF_Controls_ExtensionMethods.cs">
+    <Compile Include="ExtensionMethods\WrapPanel_ExtensionMethods.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExtensionMethods\WPF_Threading_ExtensionMethods.cs">
+    <Compile Include="ExtensionMethods\Animation_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Button_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ComboBox_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ContentControl_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Control_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Events_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\FrameworkElement_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Generic_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Grid_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Image_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ItemsControl_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Label_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ListView_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\StackPanel_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\TextBlock_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\TextBox_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\TreeView_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\WebBrowser_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Child_Controls_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Threading_ExtensionMethods.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExtensionMethods\WPF_WinFormIntegration_ExtensionMethods.cs">
+    <Compile Include="ExtensionMethods\WinFormIntegration_ExtensionMethods.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

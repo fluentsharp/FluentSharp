@@ -8,9 +8,9 @@ using FluentSharp.CoreLib;
 
 //O2Ref:WindowsFormsIntegration.dll
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.WPF
 {
-    public static class ElementHost_ExtensioMethods
+    public static class ElementHost_ExtensionMethods
     {
         /*public static Control getHost(this string xamlFileName)
         {

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace O2.API.Visualization.Xaml
+namespace FluentSharp.WPF.Controls
 {
     /// <summary>
     /// Interaction logic for Blank.xaml

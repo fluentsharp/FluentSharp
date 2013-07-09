@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
-namespace O2.API.Visualization.Ascx
+namespace FluentSharp.WPF.Controls
 {
     public partial class ascx_Xaml_Host : UserControl
     {
@@ -24,7 +24,7 @@ namespace O2.API.Visualization.Ascx
 
         public System.Windows.Controls.Label showLabel()
         {
-            var maLabel = new Xaml.maLabel();
+            var maLabel = new maLabel();
             elementHost.Child = maLabel;
             return maLabel.label1;
         }
