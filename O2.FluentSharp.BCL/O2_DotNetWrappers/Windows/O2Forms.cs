@@ -9,11 +9,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using O2.Kernel;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.Windows
+namespace FluentSharp.BCL.Utils
 {
     public class O2Forms
     {

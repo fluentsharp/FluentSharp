@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.SearchApi
+
+namespace FluentSharp.BCL.Utils
 {
     public class SearchEngine 
     {

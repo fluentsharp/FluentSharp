@@ -1,5 +1,5 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.O2Findings
+namespace FluentSharp.BCL.Controls
 {
     partial class ascx_FindingEditor
     {
@@ -38,7 +38,7 @@ namespace O2.Views.ASCX.O2Findings
             this.dgvFindingsDetails = new System.Windows.Forms.DataGridView();
             this.panelFindingDetails = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.ascxTraceTreeView = new O2.Views.ASCX.O2Findings.ascx_TraceTreeView();
+            this.ascxTraceTreeView = new ascx_TraceTreeView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.cbCurrentO2TraceType = new System.Windows.Forms.ToolStripComboBox();
             this.btSaveChangesToTrace = new System.Windows.Forms.ToolStripButton();

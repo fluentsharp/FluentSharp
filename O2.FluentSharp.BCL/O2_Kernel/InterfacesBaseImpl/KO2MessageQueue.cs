@@ -1,20 +1,14 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Threading;
-using O2.Interfaces.Messages;
-using O2.Kernel.CodeUtils;
-using O2.DotNetWrappers.DotNet;
- 
-//O2File:../CodeUtils/O2Kernel_O2Thread.cs
-//O2File:../CodeUtils/Callbacks.cs
-//O2File:KO2GenericMessage.cs
-//O2File:KO2Log.cs
+using FluentSharp.BCL.Interfaces;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Kernel.InterfacesBaseImpl
+namespace FluentSharp.BCL.Utils
 {
     public class KO2MessageQueue : IO2MessageQueue
     {
-        private static readonly KO2MessageQueue o2MessageQueue = new KO2MessageQueue();
+        public static KO2MessageQueue o2MessageQueue = new KO2MessageQueue();
 
         private KO2MessageQueue()
         {

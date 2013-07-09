@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.DotNetWrappers.Network;
+using FluentSharp.BCL.Utils;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class Web_Encoding_ExtensionMethods
     {

@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using O2.Kernel;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.classes
+namespace FluentSharp.BCL.Utils
 {  	
     public class CreateDataTable
     {

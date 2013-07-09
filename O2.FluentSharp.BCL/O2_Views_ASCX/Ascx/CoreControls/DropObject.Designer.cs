@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    partial class ascx_DropObject
+    partial class DropObject
     {
         /// <summary> 
         /// Required designer variable.
@@ -56,7 +56,7 @@ namespace O2.Views.ASCX.CoreControls
             this.lbDropObjectText.Text = "Drop Content Here!!";
             this.lbDropObjectText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ascx_DropObject
+            // DropObject
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -65,7 +65,7 @@ namespace O2.Views.ASCX.CoreControls
             this.Controls.Add(this.lbDropObjectText);
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.Color.White;
-            this.Name = "ascx_DropObject";
+            this.Name = "DropObject";
             this.Size = new System.Drawing.Size(136, 21);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ascx_DropObject_DragDrop);
             this.DragLeave += new System.EventHandler(this.ascx_DropObject_DragLeave);

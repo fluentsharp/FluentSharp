@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
+﻿using System.Windows.Forms;
 using System.Drawing;
-using O2.Views.ASCX.classes.MainGUI;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class ConfigFiles_ExtensionMethods_WinForms
     {        
@@ -38,7 +34,7 @@ namespace FluentSharp.ExtensionMethods
             uiMessage = optionsPanel.add_Link("Save", 0, 0,
                                         () =>
                                         {
-                                            config.clear();
+                                            config.clear_Dictionary();
                                             foreach (var row in dataGridView.rows())
                                                 if (row[0].str().valid() && row[1].str().valid())
                                                     config.add(row[0].str(), row[1].str());

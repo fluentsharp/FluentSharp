@@ -2,9 +2,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.Windows
+namespace FluentSharp.BCL.Utils
 {
     public class Screenshots
     {

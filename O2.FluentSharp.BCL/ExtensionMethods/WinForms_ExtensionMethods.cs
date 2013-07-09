@@ -1,10 +1,10 @@
 using System;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
-using O2.Views.ASCX.classes.MainGUI;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods
     {

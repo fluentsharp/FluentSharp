@@ -5,14 +5,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Filters;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.DataViewers
+namespace FluentSharp.BCL.Controls
 {
     public partial class ascx_FunctionsViewer
     {

@@ -1,7 +1,10 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.CoreControls
+
+using FluentSharp.CoreLib.API;
+
+namespace FluentSharp.BCL.Controls
 {
-    partial class ascx_O2ObjectModel
+    partial class O2ObjectModel
     {
         /// <summary> 
         /// Required designer variable.
@@ -61,8 +64,8 @@ namespace O2.Views.ASCX.CoreControls
             this.cbPerformRegExSearch = new System.Windows.Forms.CheckBox();
             this.cbHideCSharpGeneratedMethods = new System.Windows.Forms.CheckBox();
             this.llRefreshFunctionsViewer = new System.Windows.Forms.LinkLabel();
-            this.filteredFunctionsViewer = new O2.Views.ASCX.DataViewers.ascx_FunctionsViewer();
-            this.functionsViewer = new O2.Views.ASCX.DataViewers.ascx_FunctionsViewer();
+            this.filteredFunctionsViewer = new Controls.ascx_FunctionsViewer();
+            this.functionsViewer = new Controls.ascx_FunctionsViewer();
             this.tcO2ObjectModel.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -432,8 +435,8 @@ namespace O2.Views.ASCX.CoreControls
             this.filteredFunctionsViewer.NamespaceDepthValue = 2;
             this.filteredFunctionsViewer.Size = new System.Drawing.Size(470, 189);
             this.filteredFunctionsViewer.TabIndex = 8;
-            this.filteredFunctionsViewer._onItemDrag += new O2.Kernel.CodeUtils.Callbacks.dMethod_Object(this.filteredFunctionsViewer__onItemDrag);
-            this.filteredFunctionsViewer._onAfterSelect += new O2.Kernel.CodeUtils.Callbacks.dMethod_Object(this.filteredFunctionsViewer__onAfterSelect);
+            this.filteredFunctionsViewer._onItemDrag += new Callbacks.dMethod_Object(this.filteredFunctionsViewer__onItemDrag);
+            this.filteredFunctionsViewer._onAfterSelect += new Callbacks.dMethod_Object(this.filteredFunctionsViewer__onAfterSelect);
             // 
             // functionsViewer
             // 
@@ -447,12 +450,12 @@ namespace O2.Views.ASCX.CoreControls
             this.functionsViewer.Size = new System.Drawing.Size(470, 293);
             this.functionsViewer.TabIndex = 0;
             // 
-            // ascx_O2ObjectModel
+            // O2ObjectModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tcO2ObjectModel);
-            this.Name = "ascx_O2ObjectModel";
+            this.Name = "O2ObjectModel";
             this.Size = new System.Drawing.Size(484, 325);
             this.Load += new System.EventHandler(this.ascx_O2ObjectModel_Load);
             this.tcO2ObjectModel.ResumeLayout(false);
@@ -474,7 +477,7 @@ namespace O2.Views.ASCX.CoreControls
         private System.Windows.Forms.TabControl tcO2ObjectModel;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private O2.Views.ASCX.DataViewers.ascx_FunctionsViewer functionsViewer;
+        private Controls.ascx_FunctionsViewer functionsViewer;
         private System.Windows.Forms.LinkLabel llRefreshFunctionsViewer;
         private System.Windows.Forms.CheckBox cbHideCSharpGeneratedMethods;
         private System.Windows.Forms.TreeView tvAssembliesLoaded;
@@ -487,7 +490,7 @@ namespace O2.Views.ASCX.CoreControls
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbFilterBy_MethodType;
         private System.Windows.Forms.Label label1;
-        private O2.Views.ASCX.DataViewers.ascx_FunctionsViewer filteredFunctionsViewer;
+        private Controls.ascx_FunctionsViewer filteredFunctionsViewer;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbMethodDetails_Type;

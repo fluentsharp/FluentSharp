@@ -2,10 +2,9 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using System.Diagnostics;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class Thread_Invoke_ExtensionMethods
     {        

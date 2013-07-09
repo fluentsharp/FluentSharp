@@ -2,11 +2,11 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.DotNetWrappers.Windows;
+using FluentSharp.BCL.Utils;
 
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    public partial class ascx_SelectVisiblePanels : UserControl
+    public partial class SelectVisiblePanels : UserControl
     {
         private Color cSelectedColor = Color.LightGray;
         private Color cUnSelectedColor = Color.DimGray;
@@ -15,7 +15,7 @@ namespace O2.Views.ASCX.CoreControls
         private SplitContainer scTarget_Host;
         private SplitContainer scTarget_Top;
 
-        public ascx_SelectVisiblePanels()
+        public SelectVisiblePanels()
         {
             InitializeComponent();
         }

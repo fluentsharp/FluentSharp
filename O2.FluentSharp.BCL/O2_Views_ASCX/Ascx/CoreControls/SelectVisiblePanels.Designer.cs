@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    partial class ascx_SelectVisiblePanels
+    partial class SelectVisiblePanels
     {
         /// <summary> 
         /// Required designer variable.
@@ -101,14 +101,14 @@ namespace O2.Views.ASCX.CoreControls
             this.cb_View_1.UseVisualStyleBackColor = true;
             this.cb_View_1.CheckedChanged += new System.EventHandler(this.cb_View_1_CheckedChanged);
             // 
-            // ascx_SelectVisiblePanels
+            // SelectVisiblePanels
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.gbVisibleControls);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Name = "ascx_SelectVisiblePanels";
+            this.Name = "SelectVisiblePanels";
             this.Size = new System.Drawing.Size(570, 40);
             this.Load += new System.EventHandler(this.ascx_SelectVisiblePanels_Load);
             this.gbVisibleControls.ResumeLayout(false);

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-//using O2.Views.ASCX.ExtensionMethods;
-using O2.Views.ASCX.Ascx.MainGUI;
-using O2.Views.ASCX.classes.MainGUI;
+﻿using System.Windows.Forms;
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods_O2_Controls
     {

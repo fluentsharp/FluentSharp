@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel.CodeUtils;
 using System.Collections;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.DataViewers
+namespace FluentSharp.BCL.Controls
 {
-    public partial class ascx_TableList : UserControl
+    public partial class ctrl_TableList : UserControl
     {
         public event Action<DragEventArgs> _onTableListDrop;
 
@@ -21,7 +20,7 @@ namespace O2.Views.ASCX.DataViewers
 
         public string defaultColumnsTitles = "";
 
-        public ascx_TableList()
+        public ctrl_TableList()
         {
             InitializeComponent();
             setUpColumnSort();
@@ -155,9 +154,9 @@ namespace O2.Views.ASCX.DataViewers
             makeColumnWidthMatchCellWidth();
         }
         
-        public ascx_TableList makeColumnWidthMatchCellWidth()
+        public ctrl_TableList makeColumnWidthMatchCellWidth()
         {
-            return (ascx_TableList)this.invokeOnThread(() =>
+            return (ctrl_TableList)this.invokeOnThread(() =>
                 {
                     resizeColumnsWidth = false;
                     lvData.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);

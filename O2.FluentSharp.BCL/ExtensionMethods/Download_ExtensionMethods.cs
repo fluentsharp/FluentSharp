@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using O2.DotNetWrappers.Windows;
-using O2.Views.ASCX.CoreControls;
-using O2.Views.ASCX.classes.MainGUI;
+using FluentSharp.CoreLib;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+
+namespace FluentSharp.BCL
 {
     public static class Download_ExtensionMethods        
 	{		
@@ -64,9 +63,9 @@ namespace FluentSharp.ExtensionMethods
 				return targetFile;
 			}
 			var sync = new System.Threading.AutoResetEvent(false); 
-			var downloadControl = O2Gui.open<ascx_DownloadFile>("Downloading: {0}".format(uri.str()), 455  ,170 );							
+			var downloadControl = O2Gui.open<DownloadFile>("Downloading: {0}".format(uri.str()), 455  ,170 );							
 			downloadControl.setAutoCloseOnDownload(true);							
-			downloadControl.setCallBackWhenCompleted((file)=>	downloadControl.parentForm().close());
+			downloadControl.setCallBackWhenCompleted((file)=> downloadControl.parentForm().close());
 			downloadControl.onClosed(()=>sync.Set());
 			downloadControl.setDownloadDetails(uri.str(), targetFile);							
 			downloadControl.downloadFile();

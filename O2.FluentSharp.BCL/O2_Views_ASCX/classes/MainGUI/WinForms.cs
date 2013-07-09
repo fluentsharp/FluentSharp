@@ -1,11 +1,10 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.classes.MainGUI
+namespace FluentSharp.BCL.Controls
 {
     public class WinForms
     {

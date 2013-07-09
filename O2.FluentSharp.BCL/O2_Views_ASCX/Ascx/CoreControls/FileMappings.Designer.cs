@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    partial class ascx_FileMappings
+    partial class FileMappings
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace O2.Views.ASCX.CoreControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ascx_FileMappings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileMappings));
             this.tvFileMappings = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
@@ -450,7 +450,7 @@ namespace O2.Views.ASCX.CoreControls
             this.label5.TabIndex = 23;
             this.label5.Text = "# of files selected:";
             // 
-            // ascx_FileMappings
+            // FileMappings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -466,7 +466,7 @@ namespace O2.Views.ASCX.CoreControls
             this.Controls.Add(this.label2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControl1);
-            this.Name = "ascx_FileMappings";
+            this.Name = "FileMappings";
             this.Size = new System.Drawing.Size(322, 372);
             this.Load += new System.EventHandler(this.ascx_ProjectFiles_Load);
             this.tabControl1.ResumeLayout(false);

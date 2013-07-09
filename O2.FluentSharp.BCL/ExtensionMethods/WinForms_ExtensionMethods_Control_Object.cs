@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
 using System.Drawing;
-using O2.DotNetWrappers.Windows;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods_Control_Object
     {

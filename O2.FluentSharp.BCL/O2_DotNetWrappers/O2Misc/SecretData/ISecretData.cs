@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
+
 //O2File:SecretData_ExtensionMethods.cs
 //O2Ref:System.Xml.Linq.dll
 //O2Ref:System.Xml.dll
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.BCL.Utils
 {    
     public interface ISecretData
     {        

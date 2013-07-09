@@ -2,7 +2,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace O2.DotNetWrappers.SearchApi
+namespace FluentSharp.BCL.Utils
 {
     public class TextSearchResult
     {

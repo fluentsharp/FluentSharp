@@ -5,18 +5,11 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using O2.Interfaces.O2Core;
-using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.XRules.Database.Utils;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-
-using System.Runtime.InteropServices;
-
-namespace O2.FluentSharp
+namespace FluentSharp.BCL.Utils
 {
 	public class API_ConsoleOut_Test
 	{

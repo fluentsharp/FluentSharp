@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+
+namespace FluentSharp.BCL
 {
     // these are controls created via reflection (only available if the target dll is locally available
     public static class O2Controls_ExtensioMethods

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.O2Misc;
-using O2.Kernel;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 using System.Windows.Forms;
 
-namespace O2.DotNetWrappers.Windows
+namespace FluentSharp.BCL.Utils
 {
     public class Files_WinForms : Files
     {

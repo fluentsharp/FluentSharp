@@ -3,14 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.Xsd;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.O2Misc
+namespace FluentSharp.BCL.Utils
 {
     public class SourceCodeMappingsUtils  
     {     

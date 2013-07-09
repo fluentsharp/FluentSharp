@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
 using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.XRules.Database._Rules.APIs.Tasks
+namespace FluentSharp.BCL.Controls
 {
     public class ascx_SimpleTaskGui : Control
     {

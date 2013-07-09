@@ -1,5 +1,5 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.Ascx.MainGUI
+namespace FluentSharp.BCL.Controls
 {
     partial class ascx_O2InstallAndTempDirectories
     {
@@ -30,12 +30,12 @@ namespace O2.Views.ASCX.Ascx.MainGUI
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.directoryWithO2Install = new O2.Views.ASCX.CoreControls.ascx_Directory();
+            this.directoryWithO2Install = new global::FluentSharp.BCL.Controls.DirectoryViewer();
             this.tbCurrentO2InstallDirectory = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lbMessage_DeletingTempFolder = new System.Windows.Forms.Label();
             this.btDeleteTempFolderContents = new System.Windows.Forms.Button();
-            this.directoryWithO2TempDir = new O2.Views.ASCX.CoreControls.ascx_Directory();
+            this.directoryWithO2TempDir = new global::FluentSharp.BCL.Controls.DirectoryViewer();
             this.btChangeTempDir = new System.Windows.Forms.Button();
             this.tbCurrentO2TempDir = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -76,7 +76,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
             this.directoryWithO2Install._ProcessDroppedObjects = true;
             this.directoryWithO2Install._ShowFileSize = false;
             this.directoryWithO2Install._ShowLinkToUpperFolder = true;
-            this.directoryWithO2Install._ViewMode = O2.Views.ASCX.CoreControls.ascx_Directory.ViewMode.Simple;
+            this.directoryWithO2Install._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple;
             this.directoryWithO2Install._WatchFolder = false;
             this.directoryWithO2Install.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                                                                                         | System.Windows.Forms.AnchorStyles.Left)
@@ -135,7 +135,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
             this.directoryWithO2TempDir._ProcessDroppedObjects = true;
             this.directoryWithO2TempDir._ShowFileSize = false;
             this.directoryWithO2TempDir._ShowLinkToUpperFolder = true;
-            this.directoryWithO2TempDir._ViewMode = O2.Views.ASCX.CoreControls.ascx_Directory.ViewMode.Simple;
+            this.directoryWithO2TempDir._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple;
             this.directoryWithO2TempDir._WatchFolder = true;
             this.directoryWithO2TempDir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                                                                                         | System.Windows.Forms.AnchorStyles.Left)
@@ -213,8 +213,8 @@ namespace O2.Views.ASCX.Ascx.MainGUI
         private System.Windows.Forms.Button btChangeTempDir;
         private System.Windows.Forms.TextBox tbCurrentO2TempDir;
         private System.Windows.Forms.Label label2;
-        private O2.Views.ASCX.CoreControls.ascx_Directory directoryWithO2Install;
-        private O2.Views.ASCX.CoreControls.ascx_Directory directoryWithO2TempDir;
+        private global::FluentSharp.BCL.Controls.DirectoryViewer directoryWithO2Install;
+        private global::FluentSharp.BCL.Controls.DirectoryViewer directoryWithO2TempDir;
         private System.Windows.Forms.Button btDeleteTempFolderContents;
         private System.Windows.Forms.Label lbMessage_DeletingTempFolder;
         private System.Windows.Forms.Label lbMessage_O2TempFolderContentsDeleted;

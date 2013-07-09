@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.Windows;
-using O2.Interfaces.Tasks;
-using O2.Kernel;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Views.ASCX.Tasks
+namespace FluentSharp.BCL.Controls
 {
     public partial class ascx_Task : UserControl, ITaskControl
     {

@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.DotNetWrappers.DotNet;
 using System.Drawing;
 using System.Reflection;
 using System.IO;
 using System.Threading;
-using O2.Platform.BCL.O2_Views_ASCX;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods_Form
     {
@@ -119,7 +119,7 @@ namespace FluentSharp.ExtensionMethods
                             form.Text += textToAppendToFormTitle.valid() ? " - {0}".format(textToAppendToFormTitle) : "";
                             form.ShowDialog();
                         });
-            Utils.waitForNotNull(ref form);
+            MiscUtils.waitForNotNull(ref form);
             return form;
         } 
         public static T		showAsForm<T>(this string title) where T : Control

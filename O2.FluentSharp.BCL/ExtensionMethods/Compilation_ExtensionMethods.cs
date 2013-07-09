@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using O2.DotNetWrappers.DotNet;
-using O2.DotNetWrappers.Windows;
-using System.Reflection;
 
-namespace FluentSharp.ExtensionMethods
+using System.Reflection;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+
+namespace FluentSharp.BCL
 {
     public static class Compilation_ExtensionMethods
     {

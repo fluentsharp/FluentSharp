@@ -5,12 +5,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Filters;
-using O2.Kernel.InterfacesBaseImpl;
-using O2.Kernel;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.Windows
+namespace FluentSharp.BCL.Utils
 {
     public class O2FormsReflectionASCX : KReflection
     {

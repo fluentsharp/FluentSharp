@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using O2.DotNetWrappers.Windows;
-using O2.DotNetWrappers.Network;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.BCL.Utils
 {
     public class Dnd
     {

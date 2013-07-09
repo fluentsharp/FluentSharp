@@ -5,17 +5,15 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel.CodeUtils;
-using O2.Views.ASCX;
-using O2.Kernel;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
 // with code inspired from the sample in : http://www.geekpedia.com/tutorial196_Creating-an-advanced-download-manager-in-Csharp.html
 
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    public partial class ascx_DownloadFile : UserControl
+    public partial class DownloadFile : UserControl
     {
         // The thread inside which the download happens
         // The stream of data that we write to the harddrive
@@ -31,7 +29,7 @@ namespace O2.Views.ASCX.CoreControls
         private HttpWebResponse webResponse;
         // The progress of the download in percentage
 
-        public ascx_DownloadFile()
+        public DownloadFile()
         {
             InitializeComponent();
         }

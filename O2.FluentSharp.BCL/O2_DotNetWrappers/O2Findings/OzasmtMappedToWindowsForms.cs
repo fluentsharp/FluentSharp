@@ -2,9 +2,9 @@
 using System;
 using System.Reflection;
 using System.Windows.Forms;
-using O2.Interfaces.O2Findings;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.DotNetWrappers.O2Findings
+namespace FluentSharp.BCL.O2Findings
 {
     public class OzasmtMappedToWindowsForms
     {

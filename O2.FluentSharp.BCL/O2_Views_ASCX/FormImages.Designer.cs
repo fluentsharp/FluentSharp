@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace O2.Platform.BCL.O2_Views_ASCX {
+namespace FluentSharp.BCL.Controls
+{
     using System;
     
     

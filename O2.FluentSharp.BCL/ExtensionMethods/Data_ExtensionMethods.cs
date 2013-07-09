@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 using System.Reflection;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class Data_ExtensionMethods
     {
@@ -32,6 +34,8 @@ namespace FluentSharp.ExtensionMethods
 
         public static DataTable dataTable<T>(this IEnumerable<T> collection, params string[] columnsToShow)
         {
+            if (columnsToShow.empty())
+                return CreateDataTable.from_List(collection.toList());
             var dataTable = new DataTable();            
             if (typeof(T) == typeof(String))			// we need to handle string seperately since it is also an IEnumerable
             {

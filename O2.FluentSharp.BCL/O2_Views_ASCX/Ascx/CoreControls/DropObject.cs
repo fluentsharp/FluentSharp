@@ -5,13 +5,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    public partial class ascx_DropObject : UserControl
+    public partial class DropObject : UserControl
     {
         public bool bAcceptNonO2ObjectsAndFireThemAsObjects = true;
 
@@ -20,7 +19,7 @@ namespace O2.Views.ASCX.CoreControls
         public Form cHostForm;
         public Object oTag; // could be used to store an object value
 
-        public ascx_DropObject()
+        public DropObject()
         {
             InitializeComponent();
         }

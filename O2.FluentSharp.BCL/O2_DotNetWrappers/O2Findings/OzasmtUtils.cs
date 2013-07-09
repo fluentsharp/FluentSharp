@@ -2,15 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using O2.DotNetWrappers.Filters;
-using O2.DotNetWrappers.O2Findings;
-using FluentSharp.ExtensionMethods;
-using O2.Interfaces.O2Findings;
-using O2.Interfaces.Rules;
-using O2.Kernel;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.DotNetWrappers.O2Findings
+namespace FluentSharp.BCL.O2Findings
 {
     public class OzasmtUtils
     {

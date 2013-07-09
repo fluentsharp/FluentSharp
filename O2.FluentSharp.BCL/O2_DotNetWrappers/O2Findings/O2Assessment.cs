@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using O2.DotNetWrappers.DotNet;
-using O2.Interfaces.O2Findings;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.DotNetWrappers.O2Findings
+namespace FluentSharp.BCL.O2Findings
 {
     [Serializable]
     public class O2Assessment : IO2Assessment

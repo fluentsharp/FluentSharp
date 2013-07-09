@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
-using O2.DotNetWrappers.Filters;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.ViewObjects
+namespace FluentSharp.BCL.Utils
 {
     public class Reflection_MethodInfo
     {

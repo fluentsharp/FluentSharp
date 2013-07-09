@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    partial class ascx_DownloadFile
+    partial class DownloadFile
     {
         /// <summary> 
         /// Required designer variable.
@@ -135,7 +135,7 @@ namespace O2.Views.ASCX.CoreControls
             this.cbCloseWindowWhenDownloadComplete.Text = "Close window when download is completed";
             this.cbCloseWindowWhenDownloadComplete.UseVisualStyleBackColor = true;
             // 
-            // ascx_DownloadFile
+            // DownloadFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -149,7 +149,7 @@ namespace O2.Views.ASCX.CoreControls
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.lblUrl);
-            this.Name = "ascx_DownloadFile";
+            this.Name = "DownloadFile";
             this.Size = new System.Drawing.Size(452, 187);
             this.ResumeLayout(false);
             this.PerformLayout();

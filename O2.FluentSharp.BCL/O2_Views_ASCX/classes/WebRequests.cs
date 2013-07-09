@@ -1,18 +1,12 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-//using O2.DotNetWrappers.Zip;
-using O2.Interfaces.Views;
-using O2.Kernel.CodeUtils;
-using O2.Views.ASCX.CoreControls;
-using O2.Kernel;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Views.ASCX.classes
+namespace FluentSharp.BCL.Utils
 {
     public class WebRequests
     {
@@ -35,16 +29,16 @@ namespace O2.Views.ASCX.classes
                 () =>
                     {
                         var windowTitle = "{0} : {1}".format("Download File", sFileToDownload);
-                        O2Messages.openControlInGUISync(typeof (ascx_DownloadFile), O2DockState.Float, windowTitle);
+                        O2Messages.openControlInGUISync(typeof (DownloadFile), O2DockState.Float, windowTitle);
 
                         O2Messages.getAscx(windowTitle,
                                            guiControl =>
                                                {
-                                                   if (guiControl != null && guiControl is ascx_DownloadFile)
+                                                   if (guiControl != null && guiControl is DownloadFile)
                                                    {
                                                        //var downloadFile = (IControl_DownloadFile)guiControl;
-                                                       //O2Messages.openAscxGui(typeof (ascx_DownloadFile), O2DockState.Float, "Download File");
-                                                       var adfDownloadFile = (ascx_DownloadFile) guiControl;
+                                                       //O2Messages.openAscxGui(typeof (DownloadFile), O2DockState.Float, "Download File");
+                                                       var adfDownloadFile = (DownloadFile) guiControl;
                                                        // Exec.openNewWindowWithControl("DownloadFile");
                                                        adfDownloadFile.invokeOnThread(
                                                            delegate

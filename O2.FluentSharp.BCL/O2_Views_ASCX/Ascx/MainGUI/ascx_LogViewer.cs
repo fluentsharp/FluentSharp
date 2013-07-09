@@ -2,12 +2,11 @@
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
-using O2.Kernel;
-using FluentSharp.ExtensionMethods;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.Ascx.MainGUI
+namespace FluentSharp.BCL.Controls
 {
     public partial class ascx_LogViewer : UserControl
     {
@@ -27,7 +26,7 @@ namespace O2.Views.ASCX.Ascx.MainGUI
                     cbDebugMessages.Checked = true;
                     cbInfoMessages.Checked = true;
 
-                    this.Load+=(sender,e)=>
+                    Load+=(sender,e)=>
                         {
                             try
                             {                                

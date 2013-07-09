@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using FluentSharp.BCL.Controls;
+
 //O2File:ascx_SimpleTaskGui.cs
 
-namespace O2.XRules.Database._Rules.APIs.Tasks
+namespace FluentSharp.BCL
 {
     public static class ascx_SimpleTaskGui_ExtensionMethods
     {

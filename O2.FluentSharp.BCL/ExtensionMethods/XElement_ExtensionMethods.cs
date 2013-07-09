@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Windows.Forms;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {    
     public static class XTypedElement_ExtensionMethods_TreeView
     {

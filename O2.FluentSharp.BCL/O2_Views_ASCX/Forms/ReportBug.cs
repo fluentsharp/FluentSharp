@@ -3,14 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.Forms
+namespace FluentSharp.BCL.Controls
 {
     public partial class ReportBug : Form
     {

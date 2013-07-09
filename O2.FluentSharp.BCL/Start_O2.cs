@@ -1,10 +1,10 @@
 ﻿using System;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace O2.Platform.BCL
+namespace FluentSharp.BCL.Utils
 {
 	public class Start_O2
 	{

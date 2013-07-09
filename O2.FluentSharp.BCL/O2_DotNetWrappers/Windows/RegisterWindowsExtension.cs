@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using FluentSharp.CoreLib;
 using Microsoft.Win32;
 using System.IO;
-using FluentSharp.ExtensionMethods;
 
-namespace O2.DotNetWrappers.Windows
+
+namespace FluentSharp.BCL.Utils
 {
 	public class RegisterWindowsExtension
 	{
@@ -53,7 +51,7 @@ namespace O2.DotNetWrappers.Windows
             if (expectedValue != currentValue)                          // only do it if not there
                 if (currentValue.Contains("O2 Platform.exe").isFalse()) // don't do this for the O2 exes
                 {
-                    O2.Kernel.PublicDI.log.info("Value of key {0} was '{1}' so setting it to '{2}'", key_command.Name, currentValue, expectedValue);
+                    "Value of key {0} was '{1}' so setting it to '{2}'".info(key_command.Name, currentValue, expectedValue);
                     key_command.SetValue("", expectedValue);
                     key_command.Close();
 

@@ -3,12 +3,11 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using O2.Interfaces.CIR;
-using O2.Interfaces.Messages;
-using O2.Interfaces.Views;
-using O2.Kernel.InterfacesBaseImpl;
+using FluentSharp.CoreLib.API;
+using FluentSharp.BCL.Interfaces;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Kernel.CodeUtils
+namespace FluentSharp.BCL.Utils
 {
     
     [Serializable]
@@ -18,25 +17,24 @@ namespace O2.Kernel.CodeUtils
     
         public static Thread dotNetAssemblyAvailable(string pathToAssembly)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_DotNetAssemblyAvailable(pathToAssembly));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_DotNetAssemblyAvailable(pathToAssembly));
         }
 
         public static Thread fileErrorHighlight(string pathToFile, int line, int column)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFile, line, column, true));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFile, line, column, true));
         }
 
         public static Thread fileOrFolderSelected(string pathToFileOrFolder)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFileOrFolder));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFileOrFolder));
         }
 
         public static Thread fileOrFolderSelected(string pathToFileOrFolder, string _lineNumber)
         {
             var lineNumber = 0;
             if (Int32.TryParse(_lineNumber, out lineNumber))
-
-                return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFileOrFolder, lineNumber));
+                return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFileOrFolder, lineNumber));
             PublicDI.log.error("in fileOrFolderSelected could not convert linenumber into an int:{0}", _lineNumber);
             return null;
         }
@@ -44,17 +42,17 @@ namespace O2.Kernel.CodeUtils
         public static Thread fileOrFolderSelected(string pathToFileOrFolder, int lineNumber)
         {
             PublicDI.log.info("in O2Kernel: FileOfFolderSelected event: {0}:{1}", pathToFileOrFolder, lineNumber);
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFileOrFolder, lineNumber));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_FileOrFolderSelected(pathToFileOrFolder, lineNumber));
         }
 
         public static void openControlInGUI(Type controlType, O2DockState o2DockState, string controlName)
         {
-            PublicDI_BCL.o2MessageQueue.sendMessage(KM_GUIAction.openControlInGui(controlType, o2DockState, controlName));
+            KO2MessageQueue.o2MessageQueue.sendMessage(KM_GUIAction.openControlInGui(controlType, o2DockState, controlName));
         }
 
         public static Control openControlInGUISync(Type controlType, O2DockState o2DockState, string controlName)
         {            
-            PublicDI_BCL.o2MessageQueue.sendMessageSync(KM_GUIAction.openControlInGui(controlType, o2DockState, controlName));
+            KO2MessageQueue.o2MessageQueue.sendMessageSync(KM_GUIAction.openControlInGui(controlType, o2DockState, controlName));
             return getAscxSync(controlName);
         }
 
@@ -72,7 +70,7 @@ namespace O2.Kernel.CodeUtils
 
         public static Thread getAscx(string ascxToGet, Action<object> actionReturnData)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(KM_GUIAction.getGuiAscx(ascxToGet, actionReturnData));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(KM_GUIAction.getGuiAscx(ascxToGet, actionReturnData));
         }
 
         public static Control getAscxSync(string ascxToGet)
@@ -95,25 +93,25 @@ namespace O2.Kernel.CodeUtils
 
         public static object setAscxDockStateAndOpenIfNotAvailable(string typeOfControl, O2DockState o2DockState, string controlName)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(KM_GUIAction.setAscxDockStateAndOpenIfNotAvailable(typeOfControl, o2DockState, controlName));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(KM_GUIAction.setAscxDockStateAndOpenIfNotAvailable(typeOfControl, o2DockState, controlName));
         }
 
         public static Thread executeOnAscx(string ascxToExecuteMethod, string targetMethod, string[] methodParameters)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(KM_GUIAction.executeOnAscx(ascxToExecuteMethod, targetMethod, methodParameters));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(KM_GUIAction.executeOnAscx(ascxToExecuteMethod, targetMethod, methodParameters));
         }
 
         public static object executeOnAscxSync(string ascxToExecuteMethod, string targetMethod, string[] methodParameters)
         {
             var o2Message = KM_GUIAction.executeOnAscx(ascxToExecuteMethod, targetMethod, methodParameters);
-            PublicDI_BCL.o2MessageQueue.sendMessageSync(o2Message);
+            KO2MessageQueue.o2MessageQueue.sendMessageSync(o2Message);
             return o2Message.returnData;
         }
 
 
         public static void closeAscxParent(string ascxControlName)
         {
-            PublicDI_BCL.o2MessageQueue.sendMessage(KM_GUIAction.closeAscxParent(ascxControlName));
+            KO2MessageQueue.o2MessageQueue.sendMessage(KM_GUIAction.closeAscxParent(ascxControlName));
         }
 
         public static Thread raiseO2MDbgCommandExecutionMessage(IM_O2MdbgActions _o2MdbgAction, string _lastCommandExecutionMessage)
@@ -121,7 +119,7 @@ namespace O2.Kernel.CodeUtils
         	var action = new KM_O2MdbgAction();
 			action.lastCommandExecutionMessage = _lastCommandExecutionMessage;
 			action.o2MdbgAction = _o2MdbgAction;
-            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
+            return KO2MessageQueue.o2MessageQueue.sendMessage(action);
         }
 
         
@@ -129,7 +127,7 @@ namespace O2.Kernel.CodeUtils
         {
         	var action = new KM_O2MdbgAction();
         	action.o2MdbgAction = _o2MdbgAction;
-            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
+            return KO2MessageQueue.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbgBreakEvent(string filename, int line)
@@ -138,7 +136,7 @@ namespace O2.Kernel.CodeUtils
 			action.line = line;
 			action.filename = filename;
 			action.o2MdbgAction = IM_O2MdbgActions.breakEvent;
-            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
+            return KO2MessageQueue.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbgDebugProcessRequest(string assemblyToDebug)
@@ -146,7 +144,7 @@ namespace O2.Kernel.CodeUtils
         	var action = new KM_O2MdbgAction();
 			action.filename = assemblyToDebug;
 			action.o2MdbgAction = IM_O2MdbgActions.debugProcessRequest;
-            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
+            return KO2MessageQueue.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbgDebugMethodInfoRequest(MethodInfo methodToDebug, string loadDllsFrom)
@@ -155,7 +153,7 @@ namespace O2.Kernel.CodeUtils
 			action.loadDllsFrom = loadDllsFrom;
 			action.method = methodToDebug;
 			action.o2MdbgAction = IM_O2MdbgActions.debugMethodInfoRequest;
-            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
+            return KO2MessageQueue.o2MessageQueue.sendMessage(action);
         }
 
         public static Thread raiseO2MDbg_SetBreakPointOnFile(string fileName, int lineNumber)
@@ -164,7 +162,7 @@ namespace O2.Kernel.CodeUtils
 			action.line = lineNumber;
 			action.filename = fileName;
 			action.o2MdbgAction = IM_O2MdbgActions.setBreakpointOnFile;
-            return PublicDI_BCL.o2MessageQueue.sendMessage(action);
+            return KO2MessageQueue.o2MessageQueue.sendMessage(action);
         }
         
         //O2Messages.raiseO2MDbgAction(IM_O2MdbgActions.startDebugSession);
@@ -172,12 +170,12 @@ namespace O2.Kernel.CodeUtils
 
         public static Thread selectedTypeOrMethod(string _assemblyName, string _typeName, string _methodName, object[] _methodParameters)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_SelectedTypeOrMethod(_assemblyName, _typeName, _methodName, _methodParameters));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_SelectedTypeOrMethod(_assemblyName, _typeName, _methodName, _methodParameters));
         }
 
         public static Thread selectedTypeOrMethod(MethodInfo methodInfo)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(new KM_SelectedTypeOrMethod(methodInfo));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(new KM_SelectedTypeOrMethod(methodInfo));
         }
 
     
@@ -216,12 +214,12 @@ namespace O2.Kernel.CodeUtils
 
         public static Thread setCirData(ICirData cirData)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(KM_CirAction.setCirData(cirData));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(KM_CirAction.setCirData(cirData));
         }
 
         public static Thread setCirDataAnalysis(ICirDataAnalysis cirDataAnalysis)
         {
-            return PublicDI_BCL.o2MessageQueue.sendMessage(KM_CirAction.setCirDataAnalysis(cirDataAnalysis));
+            return KO2MessageQueue.o2MessageQueue.sendMessage(KM_CirAction.setCirDataAnalysis(cirDataAnalysis));
         }
 
         public static bool isGuiLoaded()

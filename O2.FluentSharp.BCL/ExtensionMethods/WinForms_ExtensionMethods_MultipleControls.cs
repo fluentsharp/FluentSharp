@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
 using System.ComponentModel;
-using O2.Views.ASCX.DataViewers;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods_Component
     {
@@ -1012,10 +1013,11 @@ namespace FluentSharp.ExtensionMethods
 
     public static class WinForms_ExtensionMethods_PropertyGrid
     {
-        public static void showInfo(this object _object)
+        public static T showInfo<T>(this T _object)
         {
             "Property Grid".popupWindow(300, 300)
-                           .add_Control<ascx_ShowInfo>().show(_object);            
+                           .add_Control<ctrl_ShowInfo>().show(_object);            
+            return _object;
         }
 
 		public static PropertyGrid add_PropertyGrid(this Control control, bool helpVisible)
@@ -1025,10 +1027,11 @@ namespace FluentSharp.ExtensionMethods
         public static PropertyGrid add_PropertyGrid(this Control control)
         {
             return control.add_Control<PropertyGrid>();
-        }
-        public static void show(this PropertyGrid propertyGrid, Object _object)
+        }        
+        public static T show<T>(this PropertyGrid propertyGrid, T _object)
         {
             propertyGrid.invokeOnThread(() => propertyGrid.SelectedObject = _object);
+            return _object;
         }
         public static PropertyGrid loadInPropertyGrid(this object objectToLoad)
         {

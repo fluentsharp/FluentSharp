@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using O2.Interfaces.O2Findings;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.DotNetWrappers.O2Findings
+namespace FluentSharp.BCL.O2Findings
 {
     public class OzasmtDiff
     {

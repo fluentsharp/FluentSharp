@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using O2.Kernel;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
-using O2.XRules.Database.Utils;
-//O2File:ISecretData.cs
-//O2File:SecretDataEditor.cs.o2
+using FluentSharp.BCL.Controls;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.XRules.Database.Utils
+
+namespace FluentSharp.BCL
 {
 
 	public static class SecretData_ExtensionMethods

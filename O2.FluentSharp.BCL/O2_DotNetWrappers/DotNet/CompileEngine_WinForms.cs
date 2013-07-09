@@ -1,22 +1,15 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using Microsoft.CSharp;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Filters;
-using O2.DotNetWrappers.O2Misc;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
-using O2.Kernel.Objects;
+using FluentSharp.BCL;
 using System.Windows.Forms;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.DotNet
+namespace FluentSharp.BCL.Utils
 {
     public class CompileEngine_WinForms
     {

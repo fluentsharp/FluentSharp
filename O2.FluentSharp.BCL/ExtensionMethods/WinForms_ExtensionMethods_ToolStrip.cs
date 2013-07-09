@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
-using O2.DotNetWrappers.DotNet;
-using O2.Platform.BCL.O2_Views_ASCX;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public class ToolStripCheckBox : ToolStripControlHost
     {

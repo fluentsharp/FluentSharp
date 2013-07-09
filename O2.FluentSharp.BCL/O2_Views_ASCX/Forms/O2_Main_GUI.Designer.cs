@@ -1,4 +1,4 @@
-namespace O2.Views.ASCX.Forms
+namespace FluentSharp.BCL.Controls
 {
     partial class O2_Main_GUI
     {

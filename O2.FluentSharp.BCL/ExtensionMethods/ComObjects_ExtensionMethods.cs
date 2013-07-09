@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
-using FluentSharp.ExtensionMethods;
 using System.Windows.Forms;
-using O2.Views.ASCX.classes.MainGUI;
 using System.Collections;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class ComObjects_ExtensionMethods
     {

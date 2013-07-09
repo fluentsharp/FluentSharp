@@ -1,54 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using O2.Views.ASCX.DataViewers;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.BCL.Controls;
 using System.Drawing;
-using O2.Kernel;
-using O2.DotNetWrappers.DotNet;
-using O2.Views.ASCX.classes.MainGUI;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods_O2_TableList
     {
         //add
-        public static ascx_TableList add_TableList(this Control control)
+        public static ctrl_TableList add_TableList(this Control control)
         {
             return control.add_TableList("");
         }
-        public static ascx_TableList add_TableList<T>(this Control control, IEnumerable<T> collection)
+        public static ctrl_TableList add_TableList<T>(this Control control, IEnumerable<T> collection)
         {
             return control.add_TableList("", collection);
         }
-        public static ascx_TableList add_TableList<T>(this Control control, string title, IEnumerable<T> collection)
+        public static ctrl_TableList add_TableList<T>(this Control control, string title, IEnumerable<T> collection)
         {
             return control.add_TableList(title).show<T>(collection);
         }
-        public static ascx_TableList add_TableList(this Control control, string tableTitle)
+        public static ctrl_TableList add_TableList(this Control control, string tableTitle)
         {
-            return (ascx_TableList)control.invokeOnThread(
-                                        () =>
-                                        {
-                                            var tableList = new ascx_TableList();
-                                            tableList._Title = tableTitle;
-                                            tableList.Dock = DockStyle.Fill;
-                                            control.Controls.Add(tableList);
-                                            return tableList;
-                                        });
-        }
-
+            return control.invokeOnThread(() => {
+                                                    var tableList = new ctrl_TableList();
+                                                    tableList._Title = tableTitle;
+                                                    tableList.Dock = DockStyle.Fill;
+                                                    control.Controls.Add(tableList);
+                                                    return tableList;
+                                                });
+        }        
 
         //misc
-        public static ascx_TableList title(this ascx_TableList tableList, string title)
+        public static ctrl_TableList title(this ctrl_TableList tableList, string title)
         {
             tableList.invokeOnThread(() => tableList._Title = title);
             return tableList;
 
         }
-        public static ascx_TableList show(this ascx_TableList tableList, object targetObject)
+        public static ctrl_TableList show(this ctrl_TableList tableList, object targetObject)
         {
             if (tableList.notNull() && targetObject.notNull())
             {
@@ -61,19 +55,19 @@ namespace FluentSharp.ExtensionMethods
             }
             return tableList;
         }
-        public static ascx_TableList show<T>(this ascx_TableList tableList, IEnumerable<T> collection, params string[] columnsToShow)
+        public static ctrl_TableList show<T>(this ctrl_TableList tableList, IEnumerable<T> collection, params string[] columnsToShow)
         {
             tableList.setDataTable(collection.dataTable(columnsToShow));
             return tableList;
         }
-        public static ascx_TableList clearTable(this ascx_TableList tableList)
+        public static ctrl_TableList clearTable(this ctrl_TableList tableList)
         {
             var listViewControl = tableList.getListViewControl();
             listViewControl.invokeOnThread(() => listViewControl.Clear());
 
             return tableList;
         }
-        public static ListView listView(this ascx_TableList tableList)
+        public static ListView listView(this ctrl_TableList tableList)
         {
             return tableList.getListViewControl();
         }
@@ -95,29 +89,30 @@ namespace FluentSharp.ExtensionMethods
                     return listViewItem;
                 });
         }
-        public static ascx_TableList resizeToMatchContents(this ascx_TableList tableList)
+        public static ctrl_TableList resizeToMatchContents(this ctrl_TableList tableList)
         {
             return tableList.resize();
         }
-        public static ascx_TableList resize(this ascx_TableList tableList)
+        public static ctrl_TableList resize(this ctrl_TableList tableList)
         {
-            return (ascx_TableList)tableList.invokeOnThread(
+            return (ctrl_TableList)tableList.invokeOnThread(
                 () =>
                 {
                     tableList.listView().AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                     return tableList;
                 });
         }
-        public static void add_Tab_IfListHasData<T>(this TabControl tabControl, string tabName, List<T> list)
+        public static ctrl_TableList add_Tab_IfListHasData<T>(this TabControl tabControl, string tabName, List<T> list)
         {
             if (list.Count > 0)
-                tabControl.add_Tab(tabName).add_TableList(list);
+                return tabControl.add_Tab(tabName).add_TableList(list);
+            return null;
         }        
 
         //Column(s)
-        public static ascx_TableList add_Columns(this ascx_TableList tableList, List<string> columnNames)
+        public static ctrl_TableList add_Columns(this ctrl_TableList tableList, List<string> columnNames)
         {
-            return (ascx_TableList)tableList.invokeOnThread(
+            return (ctrl_TableList)tableList.invokeOnThread(
                 () =>
                 {
                     ListView listView = tableList.getListViewControl();
@@ -129,23 +124,23 @@ namespace FluentSharp.ExtensionMethods
                 });
 
         }
-        public static ascx_TableList add_Column(this ascx_TableList tableList, string columnName)
+        public static ctrl_TableList add_Column(this ctrl_TableList tableList, string columnName)
         {
             var listViewControl = tableList.getListViewControl();
             listViewControl.invokeOnThread(() => listViewControl.Columns.Add(columnName));
 
             return tableList;
         }
-        public static ascx_TableList add_Columns(this ascx_TableList tableList, params string[] columnsName)
+        public static ctrl_TableList add_Columns(this ctrl_TableList tableList, params string[] columnsName)
         {
             tableList.add_Columns(columnsName.toList());
             return tableList;
         }
 
         //Row(s)
-        public static ascx_TableList add_Row(this ascx_TableList tableList, List<string> rowData)
+        public static ctrl_TableList add_Row(this ctrl_TableList tableList, List<string> rowData)
         {
-            return (ascx_TableList)tableList.invokeOnThread(
+            return (ctrl_TableList)tableList.invokeOnThread(
                 () =>
                 {
                     if (rowData.Count > 0)
@@ -160,23 +155,23 @@ namespace FluentSharp.ExtensionMethods
                     return tableList;
                 });
         }
-        public static ascx_TableList add_Row(this ascx_TableList tableList, params string[] cellValues)
+        public static ctrl_TableList add_Row(this ctrl_TableList tableList, params string[] cellValues)
         {
             tableList.add_Row(cellValues.toList());
             return tableList;
         }
-        public static ListViewItem row(this ascx_TableList tableList, int rowIndex)
+        public static ListViewItem row(this ctrl_TableList tableList, int rowIndex)
         {
             var rows = tableList.rows();
             if (rowIndex < rows.size())
                 return rows[rowIndex];
             return null;
         }
-        public static List<ListViewItem> rows(this ascx_TableList tableList)
+        public static List<ListViewItem> rows(this ctrl_TableList tableList)
         {
             return tableList.items();
         }
-        public static ListViewItem lastRow(this ascx_TableList tableList)
+        public static ListViewItem lastRow(this ctrl_TableList tableList)
         {
             return (ListViewItem)tableList.invokeOnThread(
                 () =>
@@ -189,7 +184,7 @@ namespace FluentSharp.ExtensionMethods
         }
 
         // ListViewItem
-        public static List<ListViewItem> items(this ascx_TableList tableList)
+        public static List<ListViewItem> items(this ctrl_TableList tableList)
         {
             return (List<ListViewItem>)tableList.invokeOnThread(
                 () =>
@@ -213,21 +208,21 @@ namespace FluentSharp.ExtensionMethods
         }
 
         //values
-        public static List<String> values(this ListViewItem listViewItem)
+        public static List<string> values(this ListViewItem listViewItem)
         {
-            return (List<String>)listViewItem.ListView.invokeOnThread(
+            return (List<string>)listViewItem.ListView.invokeOnThread(
                 () =>
                 {
                     return (from item in listViewItem.items()
                             select item.Text).toList();
                 });
         }
-        public static List<List<String>> values(this ascx_TableList tableList)
+        public static List<List<string>> values(this ctrl_TableList tableList)
         {
-            return (List<List<String>>)tableList.invokeOnThread(
+            return (List<List<string>>)tableList.invokeOnThread(
                 () =>
                 {
-                    var values = new List<List<String>>();
+                    var values = new List<List<string>>();
                     foreach (var row in tableList.rows())
                         values.Add(row.values());
                     return values;
@@ -235,7 +230,7 @@ namespace FluentSharp.ExtensionMethods
         }
 
         //events
-        public static ascx_TableList afterSelect(this ascx_TableList tableList, Action<List<ListViewItem>> callback)
+        public static ctrl_TableList afterSelect(this ctrl_TableList tableList, Action<List<ListViewItem>> callback)
         {
             tableList.getListViewControl().SelectedIndexChanged +=
                 (sender, e) =>
@@ -254,27 +249,27 @@ namespace FluentSharp.ExtensionMethods
 
         //TO MAP to groups above
 
-        public static ascx_TableList setWidthToContent(this ascx_TableList tableList)
+        public static ctrl_TableList setWidthToContent(this ctrl_TableList tableList)
 		{
 			tableList.makeColumnWidthMatchCellWidth();
 			tableList.Resize+=(e,s)=> {	 tableList.makeColumnWidthMatchCellWidth();};
 			tableList.getListViewControl().ColumnClick+=(e,s)=> { tableList.makeColumnWidthMatchCellWidth();};
 			return tableList;
 		}		
-		public static ascx_TableList show_In_ListView<T>(this IEnumerable<T> data)
+		public static ctrl_TableList show_In_ListView<T>(this IEnumerable<T> data)
 		{
 			return data.show_In_ListView("View data in List Viewer", 600,400);
 		}		
-		public static ascx_TableList show_In_ListView<T>(this IEnumerable<T> data, string title, int width, int height)
+		public static ctrl_TableList show_In_ListView<T>(this IEnumerable<T> data, string title, int width, int height)
 		{
 			return O2Gui.open<Panel>(title, width, height).add_TableList().show(data);
 		}		
-		public static ascx_TableList columnsWidthToMatchControlSize(this ascx_TableList tableList)
+		public static ctrl_TableList columnsWidthToMatchControlSize(this ctrl_TableList tableList)
 		{		
 			tableList.parent().widthAdd(1);		// this trick forces it (need to find how to invoke it directly
 			return tableList;
 		}		
-		public static ascx_TableList onDoubleClick_get_Row(this ascx_TableList tableList,  Action<ListViewItem> callback)
+		public static ctrl_TableList onDoubleClick_get_Row(this ctrl_TableList tableList,  Action<ListViewItem> callback)
 		{
 			tableList.invokeOnThread(
 				()=>{
@@ -287,7 +282,7 @@ namespace FluentSharp.ExtensionMethods
 					});
 			return tableList;					
 		}		
-		public static ascx_TableList onDoubleClick<T>(this ascx_TableList tableList,  Action<T> callback)
+		public static ctrl_TableList onDoubleClick<T>(this ctrl_TableList tableList,  Action<T> callback)
 		{
 			tableList.invokeOnThread(
 				()=>{
@@ -304,11 +299,11 @@ namespace FluentSharp.ExtensionMethods
 					});
 			return tableList;
 		}		
-		public static ascx_TableList onDoubleClick_ShowTagObject<T>(this ascx_TableList tableList)
+		public static ctrl_TableList onDoubleClick_ShowTagObject<T>(this ctrl_TableList tableList)
 		{
 			return tableList.onDoubleClick<T>((t)=> t.showInfo());
 		}				
-		public static ascx_TableList afterSelect<T>(this ascx_TableList tableList,  Action<T> callback)
+		public static ctrl_TableList afterSelect<T>(this ctrl_TableList tableList,  Action<T> callback)
 		{
 			tableList.afterSelect(
 				(selectedRows)=>{			
@@ -321,7 +316,7 @@ namespace FluentSharp.ExtensionMethods
 								});
 			return tableList;
 		}		
-		public static ascx_TableList afterSelects<T>(this ascx_TableList tableList,  Action<List<T>> callback)			
+		public static ctrl_TableList afterSelects<T>(this ctrl_TableList tableList,  Action<List<T>> callback)			
 		{
 			tableList.afterSelect(
 				(selectedRows)=>{	
@@ -336,7 +331,7 @@ namespace FluentSharp.ExtensionMethods
 								});
 			return tableList;
 		}				
-		public static ascx_TableList afterSelect_get_Cell(this ascx_TableList tableList, int rowNumber, Action<string> callback)
+		public static ctrl_TableList afterSelect_get_Cell(this ctrl_TableList tableList, int rowNumber, Action<string> callback)
 		{
 			tableList.afterSelect(
 				(selectedRows)=>{			
@@ -350,11 +345,11 @@ namespace FluentSharp.ExtensionMethods
 					});
 			return tableList;
 		}						
-		public static ascx_TableList afterSelect_set_Cell(this ascx_TableList tableList, int rowNumber, TextBox textBox)
+		public static ctrl_TableList afterSelect_set_Cell(this ctrl_TableList tableList, int rowNumber, TextBox textBox)
 		{
 			return tableList.afterSelect_get_Cell(rowNumber,(value)=> textBox.set_Text(value));			
 		}		
-		public static ascx_TableList afterSelect_get_Row(this ascx_TableList tableList, Action<ListViewItem> callback)
+		public static ctrl_TableList afterSelect_get_Row(this ctrl_TableList tableList, Action<ListViewItem> callback)
 		{
 			tableList.afterSelect(
 				(selectedRows)=>{			
@@ -363,7 +358,7 @@ namespace FluentSharp.ExtensionMethods
 					});
 			return tableList;
 		}		
-		public static ascx_TableList afterSelect_get_RowIndex(this ascx_TableList tableList, Action<int> callback)
+		public static ctrl_TableList afterSelect_get_RowIndex(this ctrl_TableList tableList, Action<int> callback)
 		{
 			tableList.afterSelect(
 				(selectedRows)=>{			
@@ -372,7 +367,7 @@ namespace FluentSharp.ExtensionMethods
 					});
 			return tableList;
 		}		
-		public static ascx_TableList afterSelect<T>(this ascx_TableList tableList, List<T> items, Action<T> callback)
+		public static ctrl_TableList afterSelect<T>(this ctrl_TableList tableList, List<T> items, Action<T> callback)
 		{
 			tableList.afterSelect(
 				(selectedRows)=>{			
@@ -385,9 +380,9 @@ namespace FluentSharp.ExtensionMethods
 					});
 			return tableList;
 		}		
-		public static ascx_TableList selectFirst(this ascx_TableList tableList)
+		public static ctrl_TableList selectFirst(this ctrl_TableList tableList)
 		{
-			return (ascx_TableList)tableList.invokeOnThread(
+			return (ctrl_TableList)tableList.invokeOnThread(
 				()=>{
 						var listView = tableList.getListViewControl();
 						listView.SelectedIndices.Clear();
@@ -395,7 +390,7 @@ namespace FluentSharp.ExtensionMethods
 						return tableList;
 					});
 		}		
-		public static ListViewItem selected(this ascx_TableList tableList)
+		public static ListViewItem selected(this ctrl_TableList tableList)
 		{
 			return (ListViewItem)tableList.invokeOnThread(
 				()=>{
@@ -404,7 +399,7 @@ namespace FluentSharp.ExtensionMethods
 						return null;
 					});
 		}		
-		public static object tag(this ascx_TableList tableList)
+		public static object tag(this ctrl_TableList tableList)
 		{
 			return (object)tableList.invokeOnThread(
 				()=>{
@@ -414,28 +409,28 @@ namespace FluentSharp.ExtensionMethods
 						return null;
 					});
 		}
-		public static T tag<T>(this ascx_TableList tableList)
+		public static T tag<T>(this ctrl_TableList tableList)
 		{
 			return tableList.selected<T>();
 		}		
-		public static T selected<T>(this ascx_TableList tableList)
+		public static T selected<T>(this ctrl_TableList tableList)
 		{
 			var tag = tableList.tag();
 			if (tag.notNull() && tag is T)
 				return (T)tag;
 			return default(T);
 		}				
-		public static ascx_TableList clearRows(this ascx_TableList tableList)
+		public static ctrl_TableList clearRows(this ctrl_TableList tableList)
 		{
-			return (ascx_TableList)tableList.invokeOnThread(
+			return (ctrl_TableList)tableList.invokeOnThread(
 				()=>{
 						tableList.getListViewControl().Items.Clear();
 						return tableList;
 					});
 		}						
-		public static ascx_TableList set_ColumnAutoSizeForLastColumn(this ascx_TableList tableList)
+		public static ctrl_TableList set_ColumnAutoSizeForLastColumn(this ctrl_TableList tableList)
 		{
-			return (ascx_TableList)tableList.invokeOnThread(
+			return (ctrl_TableList)tableList.invokeOnThread(
 				()=>{
 						var listView = tableList.getListViewControl();
 						if (listView.Columns.size()>0)
@@ -443,13 +438,13 @@ namespace FluentSharp.ExtensionMethods
 						return tableList;
 					});
 		}
-		public static ascx_TableList column_Width(this ascx_TableList tableList, int columnNumber, int width)
+		public static ctrl_TableList column_Width(this ctrl_TableList tableList, int columnNumber, int width)
 		{
 			return tableList.set_ColumnWidth(columnNumber, width);
 		}		
-		public static ascx_TableList set_ColumnWidth(this ascx_TableList tableList, int columnNumber, int width)
+		public static ctrl_TableList set_ColumnWidth(this ctrl_TableList tableList, int columnNumber, int width)
 		{
-			return (ascx_TableList)tableList.invokeOnThread(
+			return (ctrl_TableList)tableList.invokeOnThread(
 				()=>{
 						var listView = tableList.getListViewControl();
 						//if (listView.Columns.size()>columnNumber)
@@ -457,19 +452,19 @@ namespace FluentSharp.ExtensionMethods
 						return tableList;
 					});
 		}		
-		public static ascx_TableList columns_Width(this ascx_TableList tableList, params int[] widths)
+		public static ctrl_TableList columns_Width(this ctrl_TableList tableList, params int[] widths)
 		{
 			return tableList.set_ColumnsWidth(widths)
 							.set_ColumnsWidth(widths);    // BUG: there some extra event that gets fired on the fist column which reverts it to the original size
 													  	// the current solution is to invoke set_ColumnWidth twice 	
 		}
-		public static ascx_TableList set_ColumnsWidth(this ascx_TableList tableList, params int[] widths)
+		public static ctrl_TableList set_ColumnsWidth(this ctrl_TableList tableList, params int[] widths)
 		{
 			return tableList.set_ColumnsWidth(true, widths);
 		}		
-		public static ascx_TableList set_ColumnsWidth(this ascx_TableList tableList,bool lastColumnShouldAutoSize,  params int[] widths)
+		public static ctrl_TableList set_ColumnsWidth(this ctrl_TableList tableList,bool lastColumnShouldAutoSize,  params int[] widths)
 		{
-			return (ascx_TableList)tableList.invokeOnThread(
+			return (ctrl_TableList)tableList.invokeOnThread(
 				()=>{
 						var listView = tableList.getListViewControl();
 						for(var i = 0 ; i < widths.Length ; i++)
@@ -480,9 +475,9 @@ namespace FluentSharp.ExtensionMethods
 					});
 		}		
 		//very similar to the code in add_Row (prob with that one is that it doens't return the new ListViewItem object
-		public static ascx_TableList add_Row<T>(this ascx_TableList tableList, T _objectToAdd, Func<List<string>> getRowData)
+		public static ctrl_TableList add_Row<T>(this ctrl_TableList tableList, T _objectToAdd, Func<List<string>> getRowData)
 		{		
-			 return (ascx_TableList)tableList.invokeOnThread(
+			 return (ctrl_TableList)tableList.invokeOnThread(
                 () =>{
                 		var rowData = getRowData();
 						if (rowData.Count > 0)
@@ -498,11 +493,11 @@ namespace FluentSharp.ExtensionMethods
                     	return tableList;
 					});
 		}		
-		public static ListViewItem add_ListViewItem(this ascx_TableList tableList, params string[] rowData)
+		public static ListViewItem add_ListViewItem(this ctrl_TableList tableList, params string[] rowData)
 		{
 			return tableList.add_ListViewItem(rowData.toList());
 		}		
-		public static ListViewItem add_ListViewItem(this ascx_TableList tableList, List<string> rowData)
+		public static ListViewItem add_ListViewItem(this ctrl_TableList tableList, List<string> rowData)
         {
             return (ListViewItem)tableList.invokeOnThread(
                 ()=>{
@@ -520,23 +515,23 @@ namespace FluentSharp.ExtensionMethods
         }
 
         //Sorting
-        public static ascx_TableList ascending(this ascx_TableList tableList)
+        public static ctrl_TableList ascending(this ctrl_TableList tableList)
         {
-            return tableList.sort(System.Windows.Forms.SortOrder.Ascending);
+            return tableList.sort(SortOrder.Ascending);
         }
 
-        public static ascx_TableList descending(this ascx_TableList tableList)
+        public static ctrl_TableList descending(this ctrl_TableList tableList)
         {
-            return tableList.sort(System.Windows.Forms.SortOrder.Descending);
+            return tableList.sort(SortOrder.Descending);
         }
-        public static ascx_TableList sort(this ascx_TableList tableList)
+        public static ctrl_TableList sort(this ctrl_TableList tableList)
         {
-            return tableList.sort(System.Windows.Forms.SortOrder.Ascending);
+            return tableList.sort(SortOrder.Ascending);
         }
 
-        public static ascx_TableList sort(this ascx_TableList tableList, System.Windows.Forms.SortOrder sortOrder)
+        public static ctrl_TableList sort(this ctrl_TableList tableList, SortOrder sortOrder)
         {
-            return (ascx_TableList)tableList.invokeOnThread(
+            return (ctrl_TableList)tableList.invokeOnThread(
                 () =>
                 {
                     tableList.listView().Sorting = sortOrder;
@@ -604,7 +599,5 @@ namespace FluentSharp.ExtensionMethods
 		{
 			return listViewItem.backColor(Color.LightBlue);
 		}
-		
-        
     }
 }

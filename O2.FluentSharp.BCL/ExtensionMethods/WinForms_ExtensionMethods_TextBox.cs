@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
+
 using System.Drawing;
 using System.Text.RegularExpressions;
+using FluentSharp.CoreLib;
+
 //using O2.DotNetWrappers.DotNet;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class WinForms_ExtensionMethods_TextBox
     {

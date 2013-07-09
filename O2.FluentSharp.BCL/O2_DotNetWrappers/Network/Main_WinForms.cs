@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using O2.DotNetWrappers.Windows;
+using FluentSharp.CoreLib.API;
 using System.Drawing.Imaging;
 
-namespace O2.DotNetWrappers.Network
+namespace FluentSharp.BCL.Utils
 {
     public class Main_WinForms
     {

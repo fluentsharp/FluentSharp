@@ -1,24 +1,22 @@
-using System.Collections.Generic;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.Kernel;
-using O2.Views.ASCX.CoreControls;
-using O2.Views.ASCX.DataViewers;
+using FluentSharp.CoreLib;
+using FluentSharp.BCL.Controls;
 using System;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class CoreControls_ExtensionMethods
     {
-        #region ascx_Directory        
+        #region DirectoryViewer        
 
-        public static ascx_Directory open(this ascx_Directory directory, string directoryToOpen)
+        public static DirectoryViewer open(this DirectoryViewer directory, string directoryToOpen)
         {
             directory.openDirectory(directoryToOpen);
             return directory;
         }
 
-        public static ascx_Directory afterFileSelect(this ascx_Directory directory, Action<string> callback)
+        public static DirectoryViewer afterFileSelect(this DirectoryViewer directory, Action<string> callback)
         {
             directory.getTreeView().afterSelect<string>(
                 (file) =>
@@ -29,43 +27,44 @@ namespace O2.Views.ASCX.ExtensionMethods
             return directory;
         }
 
-        public static ascx_Directory add_Directory(this Control control)
+        public static DirectoryViewer add_Directory(this Control control)
         {
             return control.add_Directory(PublicDI.config.O2TempDir);
         }
 
-        public static ascx_Directory add_Directory(this Control control, string startDirectory)
+        public static DirectoryViewer add_Directory(this Control control, string startDirectory)
         {
-            var directory = control.add_Control<ascx_Directory>();
+            var directory = control.add_Control<DirectoryViewer>();
             directory.simpleMode_withAddressBar();
             directory._WatchFolder = true;
             directory.openDirectory(startDirectory);
             return directory;
         }
 
-        /*public static ascx_Directory add_Directory(this Control control, string startDirectory)
+        /*public static DirectoryViewer add_Directory(this Control control, string startDirectory)
         {
-            return (ascx_Directory)control.invokeOnThread(
+            return (DirectoryViewer)control.invokeOnThread(
                 () =>
                 {
-                    var directory = new ascx_Directory();
+                    var directory = new DirectoryViewer();
                     directory.Dock = DockStyle.Fill;
                     //directory.simpleMode_withAddressBar();
                     //directory.simpleMode();
-                    directory._ViewMode = ascx_Directory.ViewMode.Simple_With_LocationBar;
+                    directory._ViewMode = DirectoryViewer.ViewMode.Simple_With_LocationBar;
                     directory.openDirectory(startDirectory);
                     control.Controls.Add(directory);
                     return directory;
                 });
         }*/
 
-        public static ascx_Directory processDroppedObjects(this ascx_Directory directory, bool value)
+
+        public static DirectoryViewer processDroppedObjects(this DirectoryViewer directory, bool value)
         {
             directory.invokeOnThread(() => directory._ProcessDroppedObjects = value);
             return directory;
         }
 
-        public static ascx_Directory handleDrop(this ascx_Directory directory, bool value)
+        public static DirectoryViewer handleDrop(this DirectoryViewer directory, bool value)
         {
             directory.invokeOnThread(() => directory._HandleDrop = value);
             return directory;

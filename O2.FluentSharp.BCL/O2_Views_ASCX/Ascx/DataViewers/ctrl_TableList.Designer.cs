@@ -1,7 +1,7 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-namespace O2.Views.ASCX.DataViewers
+namespace FluentSharp.BCL.Controls
 {
-    partial class ascx_TableList
+    partial class ctrl_TableList
     {
         /// <summary> 
         /// Required designer variable.

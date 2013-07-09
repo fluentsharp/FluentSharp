@@ -4,8 +4,9 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml;
 using System.IO;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class Linq_ExtensionMethods
     {

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.DotNet;
 using System.Drawing;
-using O2.Views.ASCX.DataViewers;
-using O2.XRules.Database.Utils;
+using FluentSharp.BCL.Controls;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.BCL.Controls
 {
     public class REPL_Gui
     {
@@ -63,7 +59,7 @@ namespace O2.XRules.Database.Utils
     }
 }
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.BCL
 {
     public static class REPL_Gui_ExtensionMethods_CreateGuis
     {
@@ -137,7 +133,7 @@ namespace FluentSharp.ExtensionMethods
                     				  .load((Bitmap)result);
                     break;
                 default:
-                    panel.visible(true).add_Control<ascx_ShowInfo>()
+                    panel.visible(true).add_Control<ctrl_ShowInfo>()
                     	               .show(result);                    
                     break;
             }

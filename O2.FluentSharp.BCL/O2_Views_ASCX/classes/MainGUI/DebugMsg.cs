@@ -6,14 +6,11 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Network;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.DotNetWrappers.DotNet;
 using System.Threading;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.classes.MainGUI
+namespace FluentSharp.BCL.Utils
 {
     /// <summary>
     /// Debug and Logging functions

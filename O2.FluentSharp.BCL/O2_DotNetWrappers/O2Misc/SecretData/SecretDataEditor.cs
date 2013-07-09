@@ -1,17 +1,14 @@
 using System;
 using System.Windows.Forms;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
-using O2.Views.ASCX.ExtensionMethods;
-using O2.Views.ASCX.classes.MainGUI;
-using O2.Views.ASCX.CoreControls;
-using O2.Kernel;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.XRules.Database.Utils
+namespace FluentSharp.BCL.Controls
 {
     public class SecretDataEditor
     {    
-    	public ascx_Directory directory;
+    	public DirectoryViewer directory;
     	public DataGridView dataGridView;
 		public string selectedFile;
 		public ToolStripStatusLabel statusLabel;

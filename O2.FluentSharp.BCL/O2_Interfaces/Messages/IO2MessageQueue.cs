@@ -2,7 +2,7 @@
 using System;
 using System.Threading;
 
-namespace O2.Interfaces.Messages
+namespace FluentSharp.BCL.Interfaces
 {
     public interface IO2MessageQueue
     {

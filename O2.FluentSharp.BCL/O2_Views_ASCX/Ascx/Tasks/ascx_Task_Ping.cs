@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.DotNetWrappers.Network;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
+﻿using FluentSharp.CoreLib.API;
+
 //O2File:ascx_SimpleTaskGui.cs
 
-namespace O2.XRules.Database._Rules.APIs.Tasks
+namespace FluentSharp.BCL.Controls
 {
     public class ascx_Task_Ping : ascx_SimpleTaskGui
     {
         public ascx_Task_Ping()
         {
-            this.TaskType = "Ping";
-            this.TaskName = "...";
-            this.TaskFunction = () =>
+            TaskType = "Ping";
+            TaskName = "...";
+            TaskFunction = () =>
             {
                 var ping = new Ping();
                 return ping.ping(TaskName);
@@ -25,9 +20,9 @@ namespace O2.XRules.Database._Rules.APIs.Tasks
         public ascx_Task_Ping start(string target)
         {
             this.clear();
-            this.TaskName = target;
-            this.buildGui();
-            this.start();
+            TaskName = target;
+            buildGui();
+            start();
             return this;
         }
 

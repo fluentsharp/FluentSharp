@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace O2.DotNetWrappers.Network
+namespace FluentSharp.BCL.Utils
 {
     public class WebEncoding
     {

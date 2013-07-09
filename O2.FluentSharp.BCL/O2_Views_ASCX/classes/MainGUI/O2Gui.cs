@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using O2.Kernel;
-using O2.Views.ASCX.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.classes.MainGUI
+
+namespace FluentSharp.BCL.Controls
 {
     public class O2Gui : Form
     {

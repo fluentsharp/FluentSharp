@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using O2.Kernel.ExtensionMethods;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Network;
-//O2File:ascx_SimpleTaskGui.cs
-namespace O2.XRules.Database._Rules.APIs.Tasks
+﻿using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+
+namespace FluentSharp.BCL.Controls
 {
     public class ascx_Task_WebPost : ascx_SimpleTaskGui
     {

@@ -3,16 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.O2Findings;
-using O2.DotNetWrappers.Windows;
-using O2.Interfaces.O2Findings;
-using O2.Kernel.CodeUtils;
-using O2.Views.ASCX;
-using O2.Kernel;
+using FluentSharp.BCL.O2Findings;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Views.ASCX.O2Findings
+namespace FluentSharp.BCL.Controls
 {
     public partial class ascx_TraceTreeView
     {

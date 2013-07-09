@@ -3,18 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
-using O2.Kernel.CodeUtils;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-namespace O2.Views.ASCX.CoreControls
+namespace FluentSharp.BCL.Controls
 {
-    public partial class ascx_FileMappings
+    public partial class FileMappings
     {
         private bool runOnLoad = true;
         private const int fileIcon = 1;
@@ -39,7 +36,7 @@ namespace O2.Views.ASCX.CoreControls
             }
         }
 
-        public ascx_FileMappings()
+        public FileMappings()
         {
             InitializeComponent();
         }

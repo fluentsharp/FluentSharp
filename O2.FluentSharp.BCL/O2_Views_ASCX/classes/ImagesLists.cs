@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using O2.Views.ASCX.CoreControls;
+using FluentSharp.BCL.Controls;
 using System.Windows.Forms;
 
-namespace O2.Views.ASCX.classes
+namespace FluentSharp.BCL.Utils
 {
     public class ImagesLists
     {
         public static ImageList withFolderAndFile()
         {
 
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(ascx_Directory));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(DirectoryViewer));
             var imageList = new ImageList();
             imageList.ImageStream = ((ImageListStreamer)(resources.GetObject("ilDirectoriesAndFiles.ImageStream")));
             imageList.TransparentColor = System.Drawing.Color.Transparent;

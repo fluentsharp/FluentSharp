@@ -1,11 +1,12 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Collections.Generic;
-using O2.DotNetWrappers.Windows;
-using FluentSharp.ExtensionMethods;
-using O2.Interfaces.O2Findings;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.DotNetWrappers.O2Findings
+namespace FluentSharp.BCL.O2Findings
 {
     [Serializable] 
     public class O2Finding : IO2Finding
@@ -185,7 +186,7 @@ namespace O2.DotNetWrappers.O2Findings
                 var pathToSource = "";
                 foreach (var o2Trace in getPathToSource())
                 {
-                    var traceText = new Filters.FilteredSignature(o2Trace.signature).sFunctionName;
+                    var traceText = new FilteredSignature(o2Trace.signature).sFunctionName;
                     if (traceText == "")
                         traceText = o2Trace.signature;
                     pathToSource = traceText + " -> " + pathToSource;

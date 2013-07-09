@@ -1,9 +1,8 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
-
 using System;
-using O2.Interfaces.O2Findings;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Views.ASCX.O2Findings
+namespace FluentSharp.BCL.Controls
 {
     partial class ascx_FindingsViewer
     {
@@ -86,7 +85,7 @@ namespace O2.Views.ASCX.O2Findings
             this.llDragFilteredFindings = new System.Windows.Forms.LinkLabel();
             this.scrollBarHorizontalSize = new System.Windows.Forms.HScrollBar();
             this.scrollBarVerticalSize = new System.Windows.Forms.VScrollBar();
-            this.ascxTraceTreeView = new O2.Views.ASCX.O2Findings.ascx_TraceTreeView();
+            this.ascxTraceTreeView = new ascx_TraceTreeView();
             this.tabControl1.SuspendLayout();
             this.SaveFindings.SuspendLayout();
             this.tabPage2.SuspendLayout();

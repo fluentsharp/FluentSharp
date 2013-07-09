@@ -5,18 +5,13 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using O2.DotNetWrappers.DotNet;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Filters;
-using O2.DotNetWrappers.O2Findings;
-using O2.DotNetWrappers.O2Misc;
-using O2.DotNetWrappers.Windows;
-using O2.Interfaces.O2Findings;
-using O2.Interfaces.Views;
-using O2.Kernel.CodeUtils;
-using O2.Kernel;
+using FluentSharp.BCL.O2Findings;
+using FluentSharp.BCL.Utils;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Interfaces;
 
-namespace O2.Views.ASCX.O2Findings
+namespace FluentSharp.BCL.Controls
 {
     public partial class ascx_FindingsViewer
     {

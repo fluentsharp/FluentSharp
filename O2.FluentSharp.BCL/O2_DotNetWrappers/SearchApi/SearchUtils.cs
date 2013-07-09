@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using FluentSharp.ExtensionMethods;
-using O2.DotNetWrappers.Windows;
-using O2.Kernel;
+using FluentSharp.CoreLib.API;
 
-namespace O2.DotNetWrappers.SearchApi
+namespace FluentSharp.BCL.Utils
 {
     public class SearchUtils
     {
@@ -19,7 +17,7 @@ namespace O2.DotNetWrappers.SearchApi
 
         public static List<TextSearchResult> executeSearch(String sRegExToSearch, List<String> lsFileToSearch)
         {
-            var searchEngine = new DotNetWrappers.SearchApi.SearchEngine();
+            var searchEngine = new Utils.SearchEngine();
             searchEngine.loadFiles(lsFileToSearch);
             return searchEngine.executeSearch(sRegExToSearch);
         }

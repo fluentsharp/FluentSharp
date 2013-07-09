@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace O2.Views.ASCX.Forms
+namespace FluentSharp.BCL.Controls
 {
     public partial class O2_Main_GUI : Form
     {
