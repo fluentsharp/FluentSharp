@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentSharp.CoreLib;
 using FluentSharp.Git.APIs;
 using NGit.Revwalk;
@@ -51,6 +52,13 @@ namespace FluentSharp.Git
                 return nGit.Path_Local_Repository;
             return null;
         }
+
+        public static List<string> files_FullPath(this API_NGit nGit)
+        {
+            return (from file in nGit.files()
+                    select nGit.file_FullPath(file)).toList();
+        }
+
         public static List<string>  files(this API_NGit nGit)        
         {            
             return nGit.files_HEAD();

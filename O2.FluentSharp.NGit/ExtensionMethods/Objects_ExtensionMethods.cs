@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentSharp.CoreLib;
 using FluentSharp.Git.APIs;
+using FluentSharp.Git.Utils;
 using NGit;
 
 namespace FluentSharp.Git

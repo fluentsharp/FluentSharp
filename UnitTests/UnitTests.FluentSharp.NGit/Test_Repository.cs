@@ -23,6 +23,9 @@ namespace UnitTests.FluentSharp_NGit
             Assert.AreEqual(branches_After.size(),2);
             Assert.AreEqual(branches_After.first(),branchName);
             Assert.AreEqual(newBranch,branchName);
+
+            //Test Null handling
+            Assert.IsNull(nGit.branch_Create(null));
         }
 
         [Test(Description = "Returns string list of all refs")]

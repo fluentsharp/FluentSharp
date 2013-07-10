@@ -76,7 +76,7 @@
     <Compile Include="Test_NGit_Classes.cs" />
     <Compile Include="Test_O2Platform_Repos.cs" />
     <Compile Include="Test_Objects.cs" />
-    <Compile Include="Test_Push_Pull.cs" />
+    <Compile Include="Test_Push_Pull_Fetch_Merge.cs" />
     <Compile Include="Test_RefLogs.cs" />
     <Compile Include="Test_Repository.cs" />
     <Compile Include="Test_RevWalk.cs" />
@@ -98,6 +98,10 @@
     <ProjectReference Include="..\..\O2.FluentSharp.REPL\FluentSharp.REPL.csproj">
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
       <Name>FluentSharp.REPL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
+      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
+      <Name>O2_External_SharpDevelop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 using FluentSharp.CoreLib;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
+using FluentSharp.Git.Utils;
 using NGit;
 using NGit.Revwalk;
 using NUnit.Framework;

@@ -22,18 +22,12 @@ namespace FluentSharp.Git.APIs
         public List<PushResult>     Last_PushResult       { get; set; }
         public FetchResult          Last_FetchResult      { get; set; }
         public PullResult           Last_PullResult       { get; set; }
+        public Ref                  Last_ResetResult      { get; set; }
 
         public API_NGit()
         {
             Author    = new PersonIdent(NGit_Consts.DEFAULT_COMMIT_NAME, NGit_Consts.DEFAULT_COMMIT_EMAIL);
             Committer = new PersonIdent("FluentSharp NGit", "FluentSharp@o2platform.com");
         }
-    }
-
-    public class NGit_Consts
-    {
-        public static string DEFAULT_COMMIT_NAME  = "FluentSharp NGit";
-        public static string DEFAULT_COMMIT_EMAIL = "FluentSharp@o2platform.com";
-        public static string EMPTY_SHA1           = "0000000000000000000000000000000000000000";
-    }
+    }    
 }
