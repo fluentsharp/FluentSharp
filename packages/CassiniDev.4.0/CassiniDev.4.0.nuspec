@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CassiniDev</id>
+    <version>4.0</version>
+    <title>CassiniDev</title>
+    <authors>Rob Gibbens</authors>
+    <owners>Rob Gibbens</owners>
+    <licenseUrl>http://cassinidev.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cassinidev.codeplex.com/</projectUrl>
+    <iconUrl>http://download.codeplex.com/Download?ProjectName=cassinidev&amp;DownloadId=123365&amp;Build=18101</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>CassiniDev is packaged as a standalone WinForms GUI application, a console application and library assembly suitable for self hosting and in automated testing scenarios including continuous integration and as a 100% compatible drop-in replacement for the Visual Studio 2008/2010 development server.</description>
+    <summary>An open platform for developing a robust ASP.Net web server implementation that addresses many of the limitations and difficulties encountered when using Cassini and/or VS Development Server.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>Cassini WebServer</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Data" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
