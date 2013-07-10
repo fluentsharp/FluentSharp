@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 using FluentSharp.CoreLib.API;
 using JetBrains.Annotations;
@@ -118,77 +117,9 @@ namespace FluentSharp.CoreLib
         {
             return count > 0 ? new String(charToRepeat, count) : "";
         }
-        public static char[]    chars(this string value)
+        public static char[]    chars_Ascii(this string value)
         {
-            return Encoding.Default.GetChars(value.bytes());
-        }
-    }
-
-    public static class Misc_ExtensionMethods_Byte
-    {
-        public static char      @char(this byte @byte)
-        {
-            return (char)@byte;            
-        }
-        public static string    hex(this byte value)
-        {
-            return Convert.ToString(value, 16).caps();
-        }
-        public static string    ascii(this byte value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.ASCII.GetString(new[] { value });
-        }        
-        public static string    ascii(this byte[] value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.ASCII.GetString(value);
-        }
-        public static string    unicode(this byte value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.Unicode.GetString(new[] { value });
-        }
-        public static string    unicode(this byte[] value)
-        {
-            if (value.isNull())
-                return null;
-            return Encoding.Unicode.GetString(value);
-        }
-        public static byte[]    bytes(this string value)
-        {
-            return Encoding.Default.GetBytes(value);
-        }
-        public static List<string>  strings(this byte[] bytes, bool ignoreCharZeroAfterValidChar, int minimumStringSize)
-        {
-            //this method is only really good to find ASCII binary strings
-            var extractedStrings = new List<string>();
-            var stringBuilder = new StringBuilder();
-            for (int i = 0; i < bytes.Length - 1; i++)
-            {
-                var value = bytes[i];
-                if (value > 31 && value < 127) // see http://www.asciitable.com/
-                {
-                    var str = value.ascii();
-                    stringBuilder.Append(str);
-                    if (ignoreCharZeroAfterValidChar)
-                        if (bytes[i + 1] == 0)
-                            i++;
-                }
-                else
-                {
-                    if (stringBuilder.Length > 0)
-                    {
-                        if (minimumStringSize == -1 || stringBuilder.Length > minimumStringSize)
-                            extractedStrings.Add(stringBuilder.ToString());
-                        stringBuilder = new StringBuilder();
-                    }
-                }
-            }            
-            return extractedStrings;
+            return Encoding.ASCII.GetChars(value.bytes_Ascii());
         }
     }
 
@@ -245,7 +176,7 @@ namespace FluentSharp.CoreLib
 				return (T)value;
 			return default(T);
 		}		
-		public static T         o2Cache<T>(this string key, Func<T> ctor)
+		public static T         o2Cache<T>(this string key, Func<T> ctor)  where T : class
 		{
             try
             {
@@ -262,7 +193,7 @@ namespace FluentSharp.CoreLib
             }
             return default(T);			
 		}
-		public static T			o2Cache<T>(this string key, bool resetValue, Func<T> ctor)
+		public static T			o2Cache<T>(this string key, bool resetValue, Func<T> ctor) where T : class
 		{
 			if (resetValue)
 				key.o2Cache(null);

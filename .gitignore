@@ -17,3 +17,7 @@ binaries
 *.ncrunchsolution
 
 *.cache
+
+*.nupkg
+
+*.pdb

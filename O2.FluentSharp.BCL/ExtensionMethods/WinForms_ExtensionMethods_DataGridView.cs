@@ -213,7 +213,7 @@ namespace FluentSharp.BCL
                     dataGridView.Columns.Clear();
                     dataGridView.add_Column("string");
 
-                    foreach (var _string in file.contentsAsBytes().strings(ignoreCharZeroAfterValidChar, minimumStringSize))
+                    foreach (var _string in file.contentsAsBytes().strings_From_Bytes(ignoreCharZeroAfterValidChar, minimumStringSize))
                         dataGridView.add_Row(_string);
                     return dataGridView;
                 });

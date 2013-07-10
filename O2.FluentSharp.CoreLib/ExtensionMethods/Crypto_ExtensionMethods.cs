@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Security.Cryptography;
@@ -9,7 +10,7 @@ namespace FluentSharp.CoreLib
     public static class Crypto_ExtensionMethods
     {
         //Random numbers
-        public static Random randomObject = new Random((int)DateTime.Now.Ticks);         
+        public static Random randomObject = new Random((int)DateTime.Now.Ticks);                     
         public static int random(this int maxValue)
         {
             return randomObject.Next(maxValue);
@@ -17,7 +18,7 @@ namespace FluentSharp.CoreLib
         public static string randomString(this int size)
         {
             // inspired from the accepted answer from http://stackoverflow.com/questions/1122483/c-random-string-generator
-            var random = Crypto_ExtensionMethods.randomObject;
+            var random = randomObject;
 
             var stringBuilder = new StringBuilder();
             for (int i = 0; i < size; i++)
@@ -27,6 +28,25 @@ namespace FluentSharp.CoreLib
                 stringBuilder.Append(ch);
             }
             return stringBuilder.ToString();
+        }
+        
+        public static string randomChars(this int size)
+        {            
+            var random = randomObject;
+            var stringBuilder = new StringBuilder();
+            for (int i = 0; i < size; i++)
+            {
+                var next = (byte) 255.random();                
+                stringBuilder.Append(next.@char());
+            }
+            return stringBuilder.ToString();
+        }
+        public static byte[] randomBytes(this int size)
+        {                        
+            var bytes = new List<Byte>();
+            for (int i = 0; i < size; i++)
+                bytes.Add((byte) 255.random());
+            return bytes.toArray();
         }
         public static string randomNumbers(this int size)
         {
@@ -68,16 +88,7 @@ namespace FluentSharp.CoreLib
             var data = md5.ComputeHash(stringToHash.asciiBytes());
             return data.hexString();            
         }
-        public static string hexString(this byte[] bytes)
-        {
-            if (bytes.isNull())
-                return "";
-            var stringBuilder = new StringBuilder();
-            
-            for (int i = 0; i < bytes.Length; i++)            
-                stringBuilder.Append(bytes[i].ToString("x2"));                        
-            return stringBuilder.ToString();
-        }        
+        
         //MD5 Bitmap
         public static string md5Hash(this Bitmap bitmap)
         {

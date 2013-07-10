@@ -7,11 +7,11 @@ namespace FluentSharp.CoreLib.API
 {
     public class KO2Log : IO2Log
     {
-        public static string LogHost { get; set; }
+        public static string LogHost            { get; set; }
+        public static Exception Last_Exception  { get; set; }
 
-        public bool alsoShowInConsole { get; set; }
-
-        public IO2Log LogRedirectionTarget { get; set; }
+        public bool alsoShowInConsole           { get; set; }        
+        public IO2Log LogRedirectionTarget      { get; set; }
         
         public KO2Log()
         {
@@ -68,10 +68,11 @@ namespace FluentSharp.CoreLib.API
         }
         public void ex(Exception exception, string comment, bool showStackTrace)
         {
+            Last_Exception = exception;
             if (LogRedirectionTarget != null)
                 LogRedirectionTarget.ex(exception, comment, showStackTrace);
             else
-            {
+            {                
                 string exceptionFormat = "[Exception]: {0} " +
                                          ((comment != "") ? Environment.NewLine + "Comment: {1} " : "") +
                                          ((showStackTrace) ? Environment.NewLine + "StackTrace: {2} " : "");

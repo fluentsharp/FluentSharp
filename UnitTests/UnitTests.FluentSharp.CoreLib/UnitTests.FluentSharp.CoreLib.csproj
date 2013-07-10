@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,8 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Tests_Setup.cs" />
+    <Compile Include="ExtensionMethods\Test_Byte.cs" />
     <Compile Include="ExtensionMethods\Test_Char.cs" />
     <Compile Include="ExtensionMethods\Test_IO.cs" />
+    <Compile Include="ExtensionMethods\Test_Network.cs" />
     <Compile Include="ExtensionMethods\Test_Reflection.cs" />
     <Compile Include="ExtensionMethods\Test_String.cs" />
     <Compile Include="Test_Ex_Objects.cs" />
@@ -66,6 +69,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>FluentSharp.BCL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>

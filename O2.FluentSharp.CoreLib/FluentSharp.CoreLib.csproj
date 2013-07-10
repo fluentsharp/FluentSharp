@@ -55,6 +55,8 @@
   <ItemGroup>
     <None Include="FluentSharp.CoreLib.nuspec" />
     <None Include="O2_DotNetWrappers\DI.cs.txt" />
+    <Compile Include="ExtensionMethods\Byte_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NetWork_ExtensionMethods.cs" />
     <Compile Include="O2ConfigSettings.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CodeAnnotations.cs" />

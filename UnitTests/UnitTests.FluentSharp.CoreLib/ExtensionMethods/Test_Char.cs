@@ -43,7 +43,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
         [Test(Description = "Returns a byte array from a char array")]
         public void bytes()
         {
-            var chars = 256.randomString().chars();
+            var chars = 256.randomString().chars_Ascii();
             var bytes = chars.bytes();
 
             Assert.AreEqual(chars.size(), bytes.size());
@@ -59,7 +59,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
         public void ascii()
         {
             var value = "this is a string with some random chars: {0}".format(200.randomString());
-            var chars = value.chars();
+            var chars = value.chars_Ascii();
             Assert.AreEqual(value, chars.ascii());
         }   
 
@@ -67,7 +67,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
         public void ascii_Bytes()
         {
             var value = "this is a string with some random chars: {0}".format(200.randomString());
-            var chars = value.chars();
+            var chars = value.chars_Ascii();
             var bytes = chars.ascii_Bytes();
             var asciiValue = "";
             for (var i = 0; i < value.size(); i++)

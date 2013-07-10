@@ -7,7 +7,7 @@ using FluentSharp.BCL.Controls;
 //ctrl_ObjectViewer_ExtensionMethods
 namespace FluentSharp.BCL
 {
-    public class test_ctrl_ObjectViewer
+    /*public class test_ctrl_ObjectViewer
     {
         public static void launchGui()
         {
@@ -20,27 +20,27 @@ namespace FluentSharp.BCL
             _object.showObject();
 
         }
-    }
+    }*/
 
     public static class ctrl_ObjectViewer_ExtensionMethods
     {
 
-        public static T showDetails<T>(this T _object)
+        public static T showDetails<T>(this T _object) where T : class
         {
             return _object.showObject();
         }
 
-        public static T objectDetails<T>(this T _object)
+        public static T objectDetails<T>(this T _object) where T : class
         {
             return _object.showObject();
         }
 
-        public static T viewObject<T>(this T _object)
+        public static T viewObject<T>(this T _object) where T : class
         {
             return _object.showObject();
         }
 
-        public static T showObject<T>(this T _object)
+        public static T showObject<T>(this T _object) where T : class
         {
             if (_object.isNull())
                 "in showObject object provided was null".error();
@@ -53,7 +53,7 @@ namespace FluentSharp.BCL
             return _object;
         }
 
-        public static T details<T>(this T _object)
+        public static T details<T>(this T _object) where T : class
         {
             O2Thread.mtaThread(() => _object.showObject());
             return _object;

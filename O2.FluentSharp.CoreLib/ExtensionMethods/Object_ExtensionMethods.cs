@@ -18,7 +18,7 @@ namespace FluentSharp.CoreLib
         }
 
         [ContractAnnotation("_object:null => true")]
-        public static bool  isNull( this object _object)
+        public static bool  isNull<T>( this T _object) where T : class
         {
             return _object == null;
         }
@@ -74,7 +74,7 @@ namespace FluentSharp.CoreLib
 			return hostObject;
 		}
 
-        public static T clone<T>(this T objectToClone)
+        public static T clone<T>(this T objectToClone) where T : class
         {
             try
             {

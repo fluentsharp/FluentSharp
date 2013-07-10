@@ -140,6 +140,10 @@ namespace FluentSharp.CoreLib
                 return data.toList();
             return data.Take(count).toList();
         }
+        public static T[]           toArray<T>(this IEnumerable<T> list)
+        {
+            return list.notNull() ? list.ToArray() : new T[0];
+        }
     }
     public static class Collections_ExtensionMethods_List
     {        
@@ -853,7 +857,7 @@ namespace FluentSharp.CoreLib
         {
             return stack.ToArray().toList();
         }
-        public static Queue<T>      push<T>(this Queue<T> queue, T item)
+        public static Queue<T>      push<T>(this Queue<T> queue, T item)  where T : class
         {
             if (item.isNull())
                 "in Queue  push, provided value was null)".error();
@@ -882,7 +886,7 @@ namespace FluentSharp.CoreLib
         {
             return queue.hasItems();
         }
-        public static Queue<T>      add<T>(this Queue<T> queue, T item)
+        public static Queue<T>      add<T>(this Queue<T> queue, T item) where T : class
         {
             return queue.push(item);
         }
