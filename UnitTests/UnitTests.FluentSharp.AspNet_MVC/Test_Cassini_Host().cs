@@ -16,14 +16,14 @@ namespace UnitTests.FluentSharp_AspNet_MVC
         public void Host_Object()
         {
 
-            var host = server.invoke("GetHost");
+            //var host = server.invoke("GetHost");
             //Server.script_Me();
          //   Assert.IsNotNull(host);
             //
         }
 
         [Test]
-        public void Get_File()
+        public void Get_Html_From_Txt_and_Aspx_Files()
         {
             Action<string,string,string> checkFileViaHttp = 
                 (fileName,fileContents, expectedResponse) =>
