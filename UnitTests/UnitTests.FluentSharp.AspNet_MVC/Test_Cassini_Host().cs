@@ -46,7 +46,7 @@ namespace UnitTests.FluentSharp_AspNet_MVC
             checkFileViaHttp("test_File2.txt" , "Some contents ..."         , "Some contents ...");                        
             checkFileViaHttp("test_File2.txt" , "Some contents changed"     , "Some contents changed");                        
             checkFileViaHttp("test_ASPX1.aspx",  "<%=\"Hello from ASPX\"%>" , "Hello from ASPX");
-            checkFileViaHttp("test_ASPX1.aspx",  "<%=\"Hello Again\"%>"     , "Hello Again");
+            checkFileViaHttp("test_ASPX2.aspx",  "<%=\"Hello Again\"%>"     , "Hello Again");
         }
     }
 }
