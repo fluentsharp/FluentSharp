@@ -42,9 +42,9 @@ namespace UnitTests.FluentSharp_AspNet_MVC
                         Assert.IsFalse(filePath.fileExists());                
                     };
             
-            checkFileViaHttp("testFile.txt", "", "");
-            checkFileViaHttp("testFile.txt", "Some contents", "Some contents");                        
-            checkFileViaHttp("testFile.aspx", 
+            checkFileViaHttp("test_File1.txt", "", "");
+            checkFileViaHttp("test_File2.txt", "Some contents", "Some contents");                        
+            checkFileViaHttp("test_ASPX1.aspx", 
                              "<%=\"Hello from ASPX\"%>", 
                              "Hello from ASPX");
 
