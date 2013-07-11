@@ -155,6 +155,9 @@ namespace UnitTests.FluentSharp_NGit
             var privateKey = @"C:\Users\o2\.ssh\id_rsa".fileContents();
             var publicKey = @"C:\Users\o2\.ssh\id_rsa.pub".fileContents();
 
+            if (privateKey.fileExists().isFalse() || publicKey.fileExists().isFalse())
+                Assert.Ignore("Ignoring test because test SSH keys were not found");
+
             var factory = new CustomConfigSessionFactory(publicKey, privateKey);
             SshSessionFactory.SetInstance(factory);
 
