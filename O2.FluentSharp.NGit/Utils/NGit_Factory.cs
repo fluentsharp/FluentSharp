@@ -12,13 +12,12 @@ namespace FluentSharp.Git.Utils
     {
         public static OutputStream New_OutputStream()
         {
-            return Type_ByteArrayOutputStream().ctor()
-                                               .cast<OutputStream>();
+            return (OutputStream) Type_ByteArrayOutputStream().ctor();
         }
 
         public static Assembly Dll_Sharpen()
         {
-            return "Sharpen.dll".assembly();
+           return typeof (OutputStream).Assembly;            
         }
 
         public static Type Type_ByteArrayOutputStream()

@@ -37,9 +37,9 @@ namespace FluentSharp.REPL.Controls
         public Action onCompileFail             { get; set; }
         public Action onCompileOK               { get; set; }
         public Action<object> onExecute         { get; set; }
-        public CSharp_FastCompiler csharpCompiler { get; set; }
-        public string GeneratedCode             { get; set; }
-        public Dictionary<string, object> InvocationParameters { get; set; }
+        public CSharp_FastCompiler          csharpCompiler { get; set; }
+        public string                       GeneratedCode             { get; set; }
+        public Dictionary<string, object>   InvocationParameters { get; set; }
         //public bool 		  				ResolveInvocationParametersType { get; set; }
         public bool AutoCompileOnCodeChange     { get; set; }
         public bool AutoSaveOnCompileSuccess    { get; set; }
@@ -703,8 +703,7 @@ return _script.Code;
                       .execute();
             */
         }
-
-        private void handlePressedKeys(KeyEventArgs e)
+        public void handlePressedKeys(KeyEventArgs e)
         {
             //var currentOffset = commandsToExecute.textArea().Document.PositionToOffset(commandsToExecute.editor().caretLine);
             //commandsToExecute.textArea().Document.Remove(currentOffset, 1);
@@ -729,9 +728,8 @@ return _script.Code;
                 "Executing method".debug();
                 execute();
             }
-        }
-
-                public static ascx_Simple_Script_Editor startControl()
+        }        
+        public static ascx_Simple_Script_Editor startControl()
         {
             var control = O2Gui.load<ascx_Simple_Script_Editor>("O2 Simple Script Editor", 700, 300);
 
@@ -754,7 +752,6 @@ return _script.Code;
                     host.add_Control(scriptEditor);
                     return scriptEditor;
                 });
-        }		 
-
+        }		         
     }
 }

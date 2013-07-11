@@ -15,6 +15,7 @@ namespace UnitTests.FluentSharp_NGit
         [Test(Description = "Gets a string diff of the current repo (i.e. not committed changes")]
         public void diff()
         {
+            nGit.add_and_Commit_using_Status();
             //Diff when there are no file changes
             var diff1 = nGit.diff();
             Assert.AreEqual("", diff1);
@@ -94,6 +95,7 @@ namespace UnitTests.FluentSharp_NGit
         [Test(Description = "Gets an List of DiffEntry objects from two commits")]
         public void diff_Commits()
         {
+            nGit.add_and_Commit_using_Status();
             diff();  // will create two RevCommits
             var revCommits  = nGit.commits();            
             var diffEntries = nGit.diff_Commits(revCommits.first(), revCommits.second());

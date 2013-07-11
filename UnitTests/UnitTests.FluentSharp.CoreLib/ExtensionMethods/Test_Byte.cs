@@ -197,7 +197,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
             Assert.IsNotEmpty(strings_Ascii);
             Assert.IsNotEmpty(strings_Unicode);            
             Assert.Less(1, strings_Ascii.size());
-            Assert.Less(1, strings_Unicode.size());            
+            Assert.Less(1, strings_Unicode.size() , "For value:" + strings_Unicode);            
 
             Assert.IsTrue(strings_Ascii.first().contains("aaa"));
             Assert.IsTrue(strings_Ascii.last().error().contains("bbb"));

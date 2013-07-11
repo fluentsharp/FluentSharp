@@ -199,8 +199,8 @@ namespace FluentSharp.REPL.Utils
             CreatedFromSnipptet = createdFromSnipptet;
             _compileStack.Push(sourceCode);
             compileSourceCode();
-        }
-		public void compileSourceCode(string sourceCode)
+        }       
+        public void compileSourceCode(string sourceCode)
         {
             if (sourceCode.valid().isFalse())
             {
@@ -230,74 +230,89 @@ namespace FluentSharp.REPL.Utils
             {
                 if (_compiling == false && _compileStack.Count > 0)
                 {
-                    _compiling = true;
-                    CompiledAssembly = null;
+                    _compiling = true;                    
                     FinishedCompilingCode.Reset();
-                    compileExtraSourceCodeReferencesAndUpdateReferencedAssemblies();
-                    //this.sleep(forceAstBuildDelay, DebugMode);            // wait a bit to allow more entries to be cleared from the stack
+                    compileExtraSourceCodeReferencesAndUpdateReferencedAssemblies();                    
                     var sourceCode = _compileStack.Pop();
-                    _compileStack.Clear();
-                    // remove all previous compile requests (since their source code is now out of date
-                                   			                		
-                    Environment.CurrentDirectory = PublicDI.config.CurrentExecutableDirectory;
-                    
-                    beforeCompile.invoke();
-                    DebugMode.ifInfo("Compiling Source Code (Size: {0})", sourceCode.size());
-                    SourceCode = sourceCode;
-                    
-                    if (sourceCode.lines().starting("//CLR_3.5").notEmpty())        // allow setting compilation into 2.0 CLR
-                    {
-                        CompilationVersion= "v3.5";
-                    }
+                    _compileStack.Clear();                                  // remove all previous compile requests (since their source code is now out of date
 
-                    var providerOptions = new Dictionary<string, string>().add("CompilerVersion", CompilationVersion);
+                    compileSourceCode_Sync(sourceCode);
 
-                    var csharpCodeProvider = new Microsoft.CSharp.CSharpCodeProvider(providerOptions);
-					var compilerParams = new CompilerParameters();
-					compilerParams.OutputAssembly = "_o2_Script.dll".tempFile();
-					compilerParams.IncludeDebugInformation = generateDebugSymbols;
-					compilerParams.GenerateInMemory = !generateDebugSymbols;
-
-                    foreach (var referencedAssembly in ReferencedAssemblies)
-                        compilerParams.ReferencedAssemblies.Add(referencedAssembly);
-
-                    CompilerResults = (generateDebugSymbols) 
-                                            ? csharpCodeProvider.CompileAssemblyFromFile(compilerParams, sourceCode.saveWithExtension(".cs"))
-                                            : csharpCodeProvider.CompileAssemblyFromSource(compilerParams, sourceCode);
-
-                    if (CompilerResults.Errors.Count > 0 || CompilerResults.CompiledAssembly == null)
-                    {
-                        CompilationErrors = "";
-                        foreach (CompilerError error in CompilerResults.Errors)
-                        {
-                            //CompilationErrors.Add(CompilationErrors.line(error.ToString());
-                            var errorMessage = String.Format("{0}::{1}::{2}::{3}::{4}", error.Line,
-                                                                     error.Column, error.ErrorNumber,
-                                                                     error.ErrorText, error.FileName);
-                            CompilationErrors = CompilationErrors.line(errorMessage);
-                            "[CSharp_FastCompiler] Compilation Error: {0}".error(errorMessage);
-                        }
-                        DebugMode.ifError("Compilation failed");
-                        onCompileFail.invoke();
-                    }
-                    else
-                    {
-                        CompiledAssembly = CompilerResults.CompiledAssembly;
-                        if (CompiledAssembly.Location.fileExists())
-                            CompileEngine.setCachedCompiledAssembly_toMD5(sourceCode, CompiledAssembly);
-                        DebugMode.ifDebug("Compilation was OK");
-						onCompileOK.invoke();
-                    }
                     _compiling = false;
                     FinishedCompilingCode.Set();
-                    compileSourceCode();
+                    compileSourceCode();                    
                 }
             }
             catch (Exception ex)
             {
                 ex.log("in compileSourceCode");
                 _compiling = false;
-                FinishedCompilingCode.Set();
+                FinishedCompilingCode.Set();                
+            }
+        }
+
+        public Assembly compileSourceCode_Sync(string sourceCode)
+        {
+            if (sourceCode.notValid())
+                return null;
+            try
+            {
+                Environment.CurrentDirectory = PublicDI.config.CurrentExecutableDirectory;
+                CompiledAssembly = null;
+                beforeCompile.invoke();
+                DebugMode.ifInfo("Compiling Source Code (Size: {0})", sourceCode.size());
+                SourceCode = sourceCode;
+
+                if (sourceCode.lines().starting("//CLR_3.5").notEmpty()) // allow setting compilation into 2.0 CLR
+                {
+                    CompilationVersion = "v3.5";
+                }
+
+                var providerOptions = new Dictionary<string, string>().add("CompilerVersion", CompilationVersion);
+
+                var csharpCodeProvider = new Microsoft.CSharp.CSharpCodeProvider(providerOptions);
+                var compilerParams = new CompilerParameters();
+                compilerParams.OutputAssembly = "_o2_Script.dll".tempFile();
+                compilerParams.IncludeDebugInformation = generateDebugSymbols;
+                compilerParams.GenerateInMemory = !generateDebugSymbols;
+
+                foreach (var referencedAssembly in ReferencedAssemblies)
+                    compilerParams.ReferencedAssemblies.Add(referencedAssembly);
+
+                CompilerResults = (generateDebugSymbols)
+                                      ? csharpCodeProvider.CompileAssemblyFromFile(compilerParams,
+                                                                                   sourceCode.saveWithExtension(".cs"))
+                                      : csharpCodeProvider.CompileAssemblyFromSource(compilerParams, sourceCode);
+
+                if (CompilerResults.Errors.Count > 0 || CompilerResults.CompiledAssembly == null)
+                {
+                    CompilationErrors = "";
+                    foreach (CompilerError error in CompilerResults.Errors)
+                    {
+                        //CompilationErrors.Add(CompilationErrors.line(error.ToString());
+                        var errorMessage = String.Format("{0}::{1}::{2}::{3}::{4}", error.Line,
+                                                         error.Column, error.ErrorNumber,
+                                                         error.ErrorText, error.FileName);
+                        CompilationErrors = CompilationErrors.line(errorMessage);
+                        "[CSharp_FastCompiler] Compilation Error: {0}".error(errorMessage);
+                    }
+                    DebugMode.ifError("Compilation failed");
+                    onCompileFail.invoke();
+                }
+                else
+                {
+                    CompiledAssembly = CompilerResults.CompiledAssembly;
+                    if (CompiledAssembly.Location.fileExists())
+                        CompileEngine.setCachedCompiledAssembly_toMD5(sourceCode, CompiledAssembly);
+                    DebugMode.ifDebug("Compilation was OK");
+                    onCompileOK.invoke();
+                }
+                return CompiledAssembly;
+            }
+            catch (Exception ex)
+            {
+                ex.log("[compileSourceCode_Sync");
+                return null;
             }
         }
         // we need to use CompileEngine (which is slower but supports multiple file compilation 

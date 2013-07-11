@@ -161,10 +161,10 @@ namespace FluentSharp.REPL
 		}
 		public static ascx_Simple_Script_Editor code_Append(this ascx_Simple_Script_Editor scriptEditor, string textToInsert)
 		{
-			scriptEditor.Code = scriptEditor.Code.line() +  scriptEditor.Code;
+			scriptEditor.Code = scriptEditor.Code.line() +  textToInsert;
 			return scriptEditor;
 		}
-        public static SourceCodeEditor     csharp_Colors(this SourceCodeEditor codeEditor)
+        public static SourceCodeEditor          csharp_Colors(this SourceCodeEditor codeEditor)
         {
             return codeEditor.set_ColorsForCSharp();
         }
@@ -173,6 +173,13 @@ namespace FluentSharp.REPL
             simpleEditor.ExecuteOnCompile = true;
             return simpleEditor;
         }
+        public static ascx_Simple_Script_Editor makeInvocationParametersTypeGeneric(this ascx_Simple_Script_Editor simpleEditor)
+        {
+            simpleEditor.csharpCompiler.ResolveInvocationParametersType = false;
+            return simpleEditor;
+        }
+
+        
         //"test".popupWindow().add_Script().InvocationParameters.add("mdbgShell", mdbgShell);        
     }
 }

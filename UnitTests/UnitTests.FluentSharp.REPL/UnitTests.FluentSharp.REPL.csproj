@@ -49,6 +49,7 @@
     <Compile Include="Config\Default_Helpers.cs" />
     <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_CSharp_FastCompiler.cs" />
     <Compile Include="Test_Embedded_Assemblies_Load.cs" />
     <Compile Include="Test_ScriptEditor.cs" />
     <Compile Include="Test_SourceCodeEditor.cs" />

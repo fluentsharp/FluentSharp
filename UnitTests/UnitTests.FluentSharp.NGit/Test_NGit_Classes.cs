@@ -2,6 +2,7 @@
 using System.Reflection;
 using FluentSharp.CoreLib;
 using FluentSharp.Git.Utils;
+using FluentSharp.REPL;
 using NUnit.Framework;
 using Sharpen;
 
@@ -69,11 +70,17 @@ namespace UnitTests.FluentSharp_NGit
         [Test(Description = "returns the Type object of the private class Sharpen.ByteArrayOutputStream")]
         public void Type_ByteArrayOutputStream()
         {
-            var type = NGit_Factory.Type_ByteArrayOutputStream();
+            var type                  = NGit_Factory.Type_ByteArrayOutputStream();
+            var byteArrayOutputStream = type.ctor();
             Assert.IsNotNull(type);
             Assert.IsInstanceOf<Type>(type);
             Assert.AreEqual(type.name(),"ByteArrayOutputStream");
             Assert.AreEqual(type.fullName(),"Sharpen.ByteArrayOutputStream");
+            Assert.IsNotNull(type);
+            Assert.IsInstanceOf<OutputStream>(byteArrayOutputStream);
+
+            //type.script_Me_WaitForClose();
+
         }
 
         [Test(Description = "returns a new instance of the OutputStream object")]

@@ -41,6 +41,6 @@ using System.Reflection;
 using System;
 
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyVersionAttribute("5.1.1")]
+[assembly: AssemblyVersionAttribute("5.3.0")]
 [assembly: AssemblyTitleAttribute("O2's fork of SharpDevelop Editor")]
-[assembly: AssemblyFileVersionAttribute("5.1.1")]
+[assembly: AssemblyFileVersionAttribute("5.3.0")]
