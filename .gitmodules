@@ -1,0 +1,6 @@
+[submodule "FluentSharp_Fork.SharpDevelop"]
+	path = FluentSharp_Fork.SharpDevelop
+	url = git@github.com:o2platform/FluentSharp_Fork.SharpDevelop.git
+[submodule "FluentSharp_Fork.CassiniDev"]
+	path = FluentSharp_Fork.CassiniDev
+	url = git@github.com:o2platform/FluentSharp_Fork.CassiniDev.git

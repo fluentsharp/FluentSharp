@@ -54,11 +54,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
+    <ProjectReference Include="..\..\FluentSharp.BCL\FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.BCL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+    <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>

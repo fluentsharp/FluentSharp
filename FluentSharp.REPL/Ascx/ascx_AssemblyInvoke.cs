@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using FluentSharp.BCL;
 using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
-using O2.Platform.External.SharpDevelop.Resources;
+using FluentSharp.SharpDevelop.Resources;
 
 namespace FluentSharp.REPL.Controls
 {

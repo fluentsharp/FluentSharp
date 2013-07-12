@@ -56,25 +56,25 @@
     <Compile Include="Test_ScriptMe.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\O2.FluentSharp.BCL\FluentSharp.BCL.csproj">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FluentSharp.BCL\FluentSharp.BCL.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.BCL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+    <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\O2.FluentSharp.REPL\FluentSharp.REPL.csproj">
+    <ProjectReference Include="..\..\FluentSharp.REPL\FluentSharp.REPL.csproj">
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
       <Name>FluentSharp.REPL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\O2_External_SharpDevelop\O2_External_SharpDevelop.csproj">
-      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
-      <Name>O2_External_SharpDevelop</Name>
+    <ProjectReference Include="..\..\FluentSharp_Fork.SharpDevelop\FluentSharp_Fork.SharpDevelop.csproj">
+      <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>
+      <Name>FluentSharp_Fork.SharpDevelop</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
