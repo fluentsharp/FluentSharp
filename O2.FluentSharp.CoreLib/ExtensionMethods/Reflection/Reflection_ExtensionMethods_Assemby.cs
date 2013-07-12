@@ -97,8 +97,7 @@ namespace FluentSharp.CoreLib
                 ex.log("[assembly_PortableExecutableKind]");                
             }
             return PortableExecutableKinds.NotAPortableExecutableImage;
-        }
-        
+        }        
         public static string                    fullName                        (this Assembly assembly)                    
         {
             if (assembly.notNull())
