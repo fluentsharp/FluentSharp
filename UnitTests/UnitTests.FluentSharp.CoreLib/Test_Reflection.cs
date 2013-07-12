@@ -9,15 +9,7 @@ namespace UnitTests.FluentSharp_CoreLib
     {
         public string property1 { get; set; }
         public int    property2 { get; set; }
-
-        [Test]
-        public void Assemblies()
-        {
-            var currentAssembly = this.type().Assembly;
-            var assembly = currentAssembly.name().assembly();
-            Assert.AreEqual(assembly,currentAssembly);
-        }
-
+        
         [Test]
         public void Types()
         {

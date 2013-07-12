@@ -90,10 +90,10 @@ namespace FluentSharp.CoreLib.API
                 return null;
 
             var nameToFind = (name.isAssemblyName())
-                    ? name.assemblyName().Name
+                    ? name.assembly_Name()
                     : name;
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().removeAssembliesSignedByMicrosoft();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().removeAssembliesSignedByMsft();
             //first see if the one we're trying to find is already loaded in memory
             foreach (var assembly in assemblies)
                 if (assembly.FullName == name)

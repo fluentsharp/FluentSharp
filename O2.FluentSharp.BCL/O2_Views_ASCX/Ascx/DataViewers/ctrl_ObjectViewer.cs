@@ -254,7 +254,7 @@ namespace FluentSharp.BCL.Controls
                                                                     (item) => PublicDI.reflection.getProperty(item, targetObject),
                                                                     (item) => false);
 
-                        targetNode.add_Node("fields", null).add_Nodes(targetObject.type().fields(),
+                        targetNode.add_Node("fields", null).add_Nodes(targetObject.type().fieldInfos(),
                                                                     (item) => item.Name,
                                                                     (item) => targetObject.field(item.Name), //PublicDI.reflection.getField(item,_object),   
                                                                     (item) => false);
@@ -268,7 +268,7 @@ namespace FluentSharp.BCL.Controls
             {
                 targetNode.add_Node("_PropertyInfo(s)", null).add_Nodes(targetObject.type().properties(),
                                                         (item) => item.Name);
-                targetNode.add_Node("_FieldInfo(s)", null).add_Nodes(targetObject.type().fields(),
+                targetNode.add_Node("_FieldInfo(s)", null).add_Nodes(targetObject.type().fieldInfos(),
                                                         (item) => item.Name);
             }
             if (ShowMethods)

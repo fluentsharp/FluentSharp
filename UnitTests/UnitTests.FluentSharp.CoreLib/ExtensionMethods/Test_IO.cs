@@ -38,7 +38,7 @@ namespace UnitTests.FluentSharp_CoreLib
         {
             var result_TextFile      = "test".save().isBinaryFormat();
             var result_TextWithChar0 = "aaa\0aaa".saveAs(TempFile1).isBinaryFormat();
-            var result_Assembly      = typeof (string).assemblyLocation().isBinaryFormat();
+            var result_Assembly      = typeof (string).assembly_Location().isBinaryFormat();
 
             Assert.IsFalse(result_TextFile);
             Assert.IsTrue (result_TextWithChar0);

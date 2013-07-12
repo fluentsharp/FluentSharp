@@ -144,7 +144,7 @@ namespace FluentSharp.REPL
 @"return {0};
 
 //" + @"O2Ref:{1}";
-            scriptHost.Code = code.format(objectName, objectToScript.type().assemblyLocation().fileName()); ;
+            scriptHost.Code = code.format(objectName, objectToScript.type().assembly_Location().fileName()); ;
             if (objectToScript.isNull())
                 "[script_Me] provided objectToScript was null".error();
             return scriptHost;

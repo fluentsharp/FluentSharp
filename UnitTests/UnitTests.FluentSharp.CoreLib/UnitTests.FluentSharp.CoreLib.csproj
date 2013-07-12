@@ -48,10 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Tests_Setup.cs" />
+    <Compile Include="Config\Tests_Utils.cs" />
+    <Compile Include="ExtensionMethods\Reflection\Test_Reflection_Assembly.cs" />
+    <Compile Include="ExtensionMethods\Reflection\Test_Reflection_Fields.cs" />
     <Compile Include="ExtensionMethods\Test_Byte.cs" />
     <Compile Include="ExtensionMethods\Test_Char.cs" />
     <Compile Include="ExtensionMethods\Test_IO.cs" />
     <Compile Include="ExtensionMethods\Test_Network.cs" />
+    <Compile Include="ExtensionMethods\Test_Object.cs" />
     <Compile Include="ExtensionMethods\Test_Reflection.cs" />
     <Compile Include="ExtensionMethods\Test_String.cs" />
     <Compile Include="Test_Ex_Objects.cs" />

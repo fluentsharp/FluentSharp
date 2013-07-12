@@ -6,23 +6,11 @@ using FluentSharp.CoreLib.API;
 namespace FluentSharp.CoreLib
 {
     public static class Reflection_ExtensionMethods_Fields
-    { 
-        public static List<FieldInfo>   fields(this Type type)
-        {
-            return PublicDI.reflection.getFields(type);
-        }
-        public static List<FieldInfo>	fields<T>(this Type type)
-        {
-            return type.fields().where((field) => field.FieldType == typeof(T));
-        }
+    {         
         public static object            field(this object liveObject, string fieldName)
         {
             return PublicDI.reflection.getFieldValue(fieldName, liveObject);
-        }
-        public static object            field(this Type type, string fieldName)
-        {
-            return PublicDI.reflection.getField(type, fieldName);
-        }
+        }        
         public static object            field(this object liveObject, string fieldName, object value)
         {
             PublicDI.reflection.setField(fieldName, liveObject, value);
@@ -39,18 +27,35 @@ namespace FluentSharp.CoreLib
         {						
             var fieldInfo =  (FieldInfo)type.field(fieldName);
             return PublicDI.reflection.getFieldValue(fieldInfo, type);
-        }		
+        }
+
+        public static FieldInfo         fieldInfo(this object _object, string fieldName)
+        {
+            return _object.type().fieldInfo(fieldName);
+        }
+        public static FieldInfo         fieldInfo(this Type type, string fieldName)
+        {            
+            return PublicDI.reflection.getField(type, fieldName);
+        }
+        public static List<FieldInfo>   fieldInfos(this Type type)
+        {
+            return PublicDI.reflection.getFields(type);
+        }
+        public static List<FieldInfo>	fieldInfos<T>(this Type type)
+        {
+            return type.fieldInfos().where((field) => field.FieldType == typeof(T));
+        }
         public static object            fieldValue(this Type type, string fieldName)
         {
-            var fieldInfo = (FieldInfo)type.field(fieldName);
+            var fieldInfo = type.fieldInfo(fieldName);
             return PublicDI.reflection.getFieldValue(fieldInfo, null);
         }
         public static Type              fieldValue(this Type type, string fieldName, object value)
         {
-            var fieldInfo = (FieldInfo)type.field(fieldName);			
+            var fieldInfo = type.fieldInfo(fieldName);			
             PublicDI.reflection.setField(fieldInfo, fieldInfo.ReflectedType, value);
             return type;
-        }		
+        }		        
         
     }
 }

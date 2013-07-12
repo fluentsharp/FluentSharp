@@ -759,7 +759,7 @@ namespace FluentSharp.BCL
             if (treeNode.Tag != data)							// protection agaist recusively adding the same node
                 treeNode = treeNode.add_Node(data.typeName(), data);
 
-            foreach (var field in data.type().fields())
+            foreach (var field in data.type().fieldInfos())
             {
                 if (field.Name.contains("k__BackingField").isFalse())
                 {
@@ -774,7 +774,7 @@ namespace FluentSharp.BCL
                     else if (tag is T || tag is ICollection)
                     {
                         if (tag is T)
-                            hasChildNodes = (tag != null && tag.type().fields().size() > 0);// || tag.type().properties().size() > 0));
+                            hasChildNodes = (tag != null && tag.type().fieldInfos().size() > 0);// || tag.type().properties().size() > 0));
                         else if (tag is ICollection)
                             hasChildNodes = (tag as ICollection).Count > 0;
                         if (hideWhenNoDataIsAvailable && hasChildNodes == false)

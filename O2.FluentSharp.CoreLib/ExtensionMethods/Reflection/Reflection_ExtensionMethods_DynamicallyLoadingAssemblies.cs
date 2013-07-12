@@ -54,9 +54,9 @@ namespace FluentSharp.CoreLib
             Func<string,string> resolveAssemblyName = 
                 (name)=>{   			
                             if (name.starts("System"))
-                                return name; 
-                            if(name.isAssemblyName())		 		
-                                name = name.assemblyName().name();  										
+                                return name;
+                            if (name.isAssemblyName())
+                                name = name.assembly_Name();
                             
                             var resolvedPath = referencesFiles.find_File_in_List(name, name+ ".dll", name+ ".exe");					
                             
@@ -87,7 +87,7 @@ namespace FluentSharp.CoreLib
                                                 loadReferencedAssemblies(assembly); 												                                                
                                                 if (assembly.Location.valid().isFalse())
                                                 {
-                                                    loadAssembly(assembly.FullName.assemblyName().name());
+                                                    loadAssembly(assembly.FullName.assembly_Name());
                                                     loadAssembly(assembly.ManifestModule.Name != "<Unknown>"
                                                                      ? assembly.ManifestModule.Name
                                                                      : assembly.ManifestModule.ScopeName);

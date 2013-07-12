@@ -90,5 +90,10 @@ namespace FluentSharp.CoreLib
             }
             return default(T);
         }	
+
+        public static object obj<T>(this T _object)    where T : class
+        {
+            return _object;
+        }
     }
 }

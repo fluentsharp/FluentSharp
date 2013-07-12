@@ -40,12 +40,12 @@ namespace FluentSharp.BCL.Utils
     	public static DataTable from_List_using_Fields<T>(List<T> data)
     	{    		
     		var dataTable = new DataTable();    		
-    		foreach(var field in typeof(T).fields())      		
+    		foreach(var field in typeof(T).fieldInfos())      		
     			dataTable.Columns.Add(field.Name);    		    		
     		foreach(var item in data)
     		{
     			var rowContents = new List<object>();
-    			foreach(var field in typeof(T).fields())  
+    			foreach(var field in typeof(T).fieldInfos())  
     				rowContents.Add(item.field(field.Name));    			
                 dataTable.Rows.Add(rowContents.ToArray());
     		}    		

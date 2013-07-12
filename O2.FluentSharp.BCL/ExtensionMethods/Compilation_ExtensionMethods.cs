@@ -115,7 +115,7 @@ namespace FluentSharp.BCL
 						//{							
 						var targetFileName = location.fileName();
 						if (targetFileName.isAssemblyName())
-							targetFileName = "{0}.dll".format(targetFileName.assemblyName().Name);
+							targetFileName = "{0}.dll".format(targetFileName.assembly_Name());
 						var targetFile = targetFolder.pathCombine(targetFileName);											
 						if (targetFile.fileExists())
 							"[copyReferencesToTargetFolder] skipping copy since it already exists in target folder: {0}".info(targetFile);
