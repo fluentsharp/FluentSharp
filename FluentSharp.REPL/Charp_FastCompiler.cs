@@ -104,7 +104,7 @@ namespace FluentSharp.REPL.Utils
             CompileEngine.DefaultReferencedAssemblies
                             .add_OnlyNewItems("FluentSharp.BCL.dll",                                                                
                                               "FluentSharp.REPL.exe",
-											  "O2_Platform_External_SharpDevelop.dll",
+											  "FluentSharp.SharpDevelop.dll",
                                               "WeifenLuo.WinFormsUI.Docking.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
                                               
         }                		
