@@ -59,12 +59,13 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection
             var location1 = this.type().assembly_Location();
             var location2 = typeof(string).assembly_Location();
             var location3 = @"C:\noFileIshere.dll";
-            var location4 = 40.randomChars();            
-            Assert.AreEqual(location1       .assembly_PortableExecutableKind(), PortableExecutableKinds.ILOnly | PortableExecutableKinds.Required32Bit);            
+            var location4 = 40.randomChars();                        
             Assert.AreEqual(location3       .assembly_PortableExecutableKind(), PortableExecutableKinds.NotAPortableExecutableImage);
             Assert.AreEqual(location4       .assembly_PortableExecutableKind(), PortableExecutableKinds.NotAPortableExecutableImage);
             Assert.AreEqual((null as string).assembly_PortableExecutableKind(), PortableExecutableKinds.NotAPortableExecutableImage);
 
+            if (location1.assembly_PortableExecutableKind() !=  PortableExecutableKinds.ILOnly)             // happens in TeamCity
+                Assert.AreEqual(location1       .assembly_PortableExecutableKind(), PortableExecutableKinds.ILOnly | PortableExecutableKinds.Required32Bit);            
             if (location2.assembly_PortableExecutableKind() !=  PortableExecutableKinds.ILOnly)             // happens in TeamCity
                 Assert.AreEqual(location2   .assembly_PortableExecutableKind(), PortableExecutableKinds.ILOnly | PortableExecutableKinds.Required32Bit);
         }
