@@ -31,23 +31,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Posix">
-      <HintPath>..\..\O2.FluentSharp.NGit\_EmbededDlls\Mono.Posix.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\..\O2.FluentSharp.NGit\_EmbededDlls\Mono.Security.dll</HintPath>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="NGit">
-      <HintPath>..\..\O2.FluentSharp.NGit\_EmbededDlls\NGit.dll</HintPath>
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="NSch">
-      <HintPath>..\..\O2.FluentSharp.NGit\_EmbededDlls\NSch.dll</HintPath>
+    <Reference Include="NGit, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\NGit.dll</HintPath>
+    </Reference>
+    <Reference Include="NSch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\NSch.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Sharpen">
-      <HintPath>..\..\O2.FluentSharp.NGit\_EmbededDlls\Sharpen.dll</HintPath>
+    <Reference Include="Sharpen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\Sharpen.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
