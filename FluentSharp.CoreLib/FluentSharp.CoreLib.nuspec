@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>FluentSharp.CoreLib</id>
+        <version>4.5.2.0</version>
+        <title>FluentSharp - CoreLib</title>
+        <authors>O2 Platform</authors>
+        <owners>O2 Platform</owners>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+        <projectUrl>http://o2platform.wordpress.com</projectUrl>
+        <iconUrl>https://www.owasp.org/images/f/f5/O2_Logo_no_Shadow.jpg</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. As an example, the reflection wrapper is probably one of the most powerful .NET Reflection APIs, since it provides (via user-friendly methods) full access to all .NET classes, methods, properties, fields and enums (regardless of their public/private status).</description>
+        <summary>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. It makes extensive use of .NET ExtensionMethods and it reduces the amount of code required (while making it more read</summary>
+        <releaseNotes>5.0.x  - version auto created from TeamCity
+					4.5.2.0 - More Extension Methods
+					4.4.2.0 - Added MemoryLogger, Improved script packaging
+					4.4.0.0 - Syncing all FluentSharp Dlls to 4.4.0.0
+					4.3.3.0 - Fix on TempDir calculation
+					4.3.2.0 - First Commit</releaseNotes>
+        <copyright>O2 Platform 2012</copyright>
+        <language>en-GB</language>
+        <tags>Fluent OWASP O2Platform Security</tags>
+				<frameworkAssemblies>
+					<frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
+				</frameworkAssemblies>
+    </metadata>    
+</package>
