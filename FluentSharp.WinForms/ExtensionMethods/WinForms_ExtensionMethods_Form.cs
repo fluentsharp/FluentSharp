@@ -184,20 +184,28 @@ namespace FluentSharp.WinForms
             return form;
         }
         public static T         waitForClose<T>(this T control) where T: Control
-        {
-            if (control.IsDisposed.isFalse())
+        {       
+            try
             {
-                var form = control.parentForm();
-                if (form.IsDisposed.isFalse())
+                if (control.IsDisposed.isFalse())
                 {
-                    var formClosed = new AutoResetEvent(false);
-                    form.onClosed(() => formClosed.Set());
-                    while (form.IsDisposed.isFalse())
-                    {
-                        if (formClosed.WaitOne(1000))
-                            return control;
-                    }                    
+                    var form = control.parentForm();
+                    if (form.notNull())
+                        if (form.IsDisposed.isFalse())
+                        {
+                            var formClosed = new AutoResetEvent(false);
+                            form.onClosed(() => formClosed.Set());
+                            while (form.IsDisposed.isFalse())
+                            {
+                                if (formClosed.WaitOne(1000))
+                                    return control;
+                            }                    
+                        }
                 }
+            }
+            catch(Exception ex)
+            {
+                ex.log("[Control][waitForClose]");
             }
             return control;
         }

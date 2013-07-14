@@ -162,150 +162,150 @@
     <Compile Include="O2_DotNetWrappers\Windows\Screenshots.cs" />
     <None Include="O2_Interfaces\O2Core\IReflectionASCX.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Messages.cs" />
-    <Compile Include="O2_Views_ASCX\APIs\API_ConsoleOut.cs">
+    <Compile Include="Utils\APIs\API_ConsoleOut.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\DirectoryViewer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\DirectoryViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\DirectoryViewer.Designer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\DirectoryViewer.Designer.cs">
       <DependentUpon>DirectoryViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\DownloadFile.cs">
+    <Compile Include="Utils\Ascx\CoreControls\DownloadFile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\DownloadFile.Designer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\DownloadFile.Designer.cs">
       <DependentUpon>DownloadFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\DropObject.cs">
+    <Compile Include="Utils\Ascx\CoreControls\DropObject.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\DropObject.Designer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\DropObject.Designer.cs">
       <DependentUpon>DropObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\FileMappings.Controllers.cs">
+    <Compile Include="Utils\Ascx\CoreControls\FileMappings.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\FileMappings.cs">
+    <Compile Include="Utils\Ascx\CoreControls\FileMappings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\FileMappings.Designer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\FileMappings.Designer.cs">
       <DependentUpon>FileMappings.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\O2ObjectModel.Controllers.cs">
+    <Compile Include="Utils\Ascx\CoreControls\O2ObjectModel.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\O2ObjectModel.cs">
+    <Compile Include="Utils\Ascx\CoreControls\O2ObjectModel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\O2ObjectModel.Designer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\O2ObjectModel.Designer.cs">
       <DependentUpon>O2ObjectModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\SelectVisiblePanels.cs">
+    <Compile Include="Utils\Ascx\CoreControls\SelectVisiblePanels.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\CoreControls\SelectVisiblePanels.Designer.cs">
+    <Compile Include="Utils\Ascx\CoreControls\SelectVisiblePanels.Designer.cs">
       <DependentUpon>SelectVisiblePanels.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.Controllers.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ascx_FunctionsViewer.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ascx_FunctionsViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.Designer.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ascx_FunctionsViewer.Designer.cs">
       <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ctrl_ObjectViewer.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ctrl_ObjectViewer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ctrl_ShowInfo.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ctrl_ShowInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ctrl_TableList.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ctrl_TableList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\DataViewers\ctrl_TableList.Designer.cs">
+    <Compile Include="Utils\Ascx\DataViewers\ctrl_TableList.Designer.cs">
       <DependentUpon>ctrl_TableList.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_LogViewer.cs">
+    <Compile Include="Utils\Ascx\MainGUI\ascx_LogViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_LogViewer.Designer.cs">
+    <Compile Include="Utils\Ascx\MainGUI\ascx_LogViewer.Designer.cs">
       <DependentUpon>ascx_LogViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.cs">
+    <Compile Include="Utils\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.Designer.cs">
+    <Compile Include="Utils\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.Designer.cs">
       <DependentUpon>ascx_O2InstallAndTempDirectories.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_WorkingOnTask.cs">
+    <Compile Include="Utils\Ascx\MainGUI\ascx_WorkingOnTask.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\MainGUI\ascx_WorkingOnTask.Designer.cs">
+    <Compile Include="Utils\Ascx\MainGUI\ascx_WorkingOnTask.Designer.cs">
       <DependentUpon>ascx_WorkingOnTask.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.Controllers.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_FindingEditor.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_FindingEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.Designer.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_FindingEditor.Designer.cs">
       <DependentUpon>ascx_FindingEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.Controllers.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_FindingsViewer.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_FindingsViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.Designer.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_FindingsViewer.Designer.cs">
       <DependentUpon>ascx_FindingsViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.Controllers.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_TraceTreeView.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_TraceTreeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.Designer.cs">
+    <Compile Include="Utils\Ascx\O2Findings\ascx_TraceTreeView.Designer.cs">
       <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\REPL_Gui.cs" />
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui.cs">
+    <Compile Include="Utils\Ascx\REPL_Gui.cs" />
+    <Compile Include="Utils\Ascx\Tasks\ascx_SimpleTaskGui.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_SimpleTaskGui_ExtensionMethods.cs" />
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.cs">
+    <Compile Include="Utils\Ascx\Tasks\ascx_SimpleTaskGui_ExtensionMethods.cs" />
+    <Compile Include="Utils\Ascx\Tasks\ascx_Task.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.Designer.cs">
+    <Compile Include="Utils\Ascx\Tasks\ascx_Task.Designer.cs">
       <DependentUpon>ascx_Task.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_Ping.cs">
+    <Compile Include="Utils\Ascx\Tasks\ascx_Task_Ping.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_WebGet.cs">
+    <Compile Include="Utils\Ascx\Tasks\ascx_Task_WebGet.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task_WebPost.cs">
+    <Compile Include="Utils\Ascx\Tasks\ascx_Task_WebPost.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\classes\CreateDataTable.cs" />
-    <Compile Include="O2_Views_ASCX\classes\ImagesLists.cs" />
-    <Compile Include="O2_Views_ASCX\classes\MainGUI\DebugMsg.cs" />
-    <Compile Include="O2_Views_ASCX\classes\MainGUI\O2Gui.cs">
+    <Compile Include="Utils\classes\CreateDataTable.cs" />
+    <Compile Include="Utils\classes\ImagesLists.cs" />
+    <Compile Include="Utils\classes\MainGUI\DebugMsg.cs" />
+    <Compile Include="Utils\classes\MainGUI\O2Gui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\classes\MainGUI\WinForms.cs" />
-    <Compile Include="O2_Views_ASCX\classes\MainGUI\WinFormsUILog.cs" />
-    <Compile Include="O2_Views_ASCX\classes\TasksWrappers\Task_LoadAssessmentFiles.cs" />
-    <Compile Include="O2_Views_ASCX\classes\Tasks\BTask.cs" />
-    <Compile Include="O2_Views_ASCX\classes\Tasks\TaskThread.cs" />
-    <Compile Include="O2_Views_ASCX\classes\Tasks\TaskUtils.cs" />
-    <Compile Include="O2_Views_ASCX\classes\WebRequests.cs" />
+    <Compile Include="Utils\classes\MainGUI\WinForms.cs" />
+    <Compile Include="Utils\classes\MainGUI\WinFormsUILog.cs" />
+    <Compile Include="Utils\classes\TasksWrappers\Task_LoadAssessmentFiles.cs" />
+    <Compile Include="Utils\classes\Tasks\BTask.cs" />
+    <Compile Include="Utils\classes\Tasks\TaskThread.cs" />
+    <Compile Include="Utils\classes\Tasks\TaskUtils.cs" />
+    <Compile Include="Utils\classes\WebRequests.cs" />
     <None Include="Resources\fromILSpy\Assembly.png" />
     <None Include="Resources\fromILSpy\AssemblyList.png" />
     <None Include="Resources\fromILSpy\AssemblyWarning.png" />
@@ -586,23 +586,23 @@
     <None Include="Resources\camera-video.png" />
     <None Include="Resources\camera-photo.png" />
     <None Include="Resources\bookmark-new.png" />
-    <None Include="O2_Views_ASCX\DI.cs.tzt" />
+    <None Include="Utils\DI.cs.tzt" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
     <Compile Include="ExtensionMethods\FluentSharp_Controls\DirectoryViewer_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods.cs" />
-    <Compile Include="O2_Views_ASCX\Forms\O2_Main_GUI.cs">
+    <Compile Include="Utils\Forms\O2_Main_GUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Forms\O2_Main_GUI.Designer.cs">
+    <Compile Include="Utils\Forms\O2_Main_GUI.Designer.cs">
       <DependentUpon>O2_Main_GUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Forms\ReportBug.cs">
+    <Compile Include="Utils\Forms\ReportBug.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="O2_Views_ASCX\Forms\ReportBug.Designer.cs">
+    <Compile Include="Utils\Forms\ReportBug.Designer.cs">
       <DependentUpon>ReportBug.cs</DependentUpon>
     </Compile>
-    <Compile Include="O2_Views_ASCX\FormImages.Designer.cs">
+    <Compile Include="Utils\FormImages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FormImages.resx</DependentUpon>
@@ -612,73 +612,72 @@
     <None Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\DirectoryViewer.resx">
+    <EmbeddedResource Include="Utils\Ascx\CoreControls\DirectoryViewer.resx">
       <DependentUpon>DirectoryViewer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\DownloadFile.resx">
+    <EmbeddedResource Include="Utils\Ascx\CoreControls\DownloadFile.resx">
       <DependentUpon>DownloadFile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\DropObject.resx">
+    <EmbeddedResource Include="Utils\Ascx\CoreControls\DropObject.resx">
       <DependentUpon>DropObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\FileMappings.resx">
+    <EmbeddedResource Include="Utils\Ascx\CoreControls\FileMappings.resx">
       <DependentUpon>FileMappings.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\O2ObjectModel.resx">
+    <EmbeddedResource Include="Utils\Ascx\CoreControls\O2ObjectModel.resx">
       <DependentUpon>O2ObjectModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\CoreControls\SelectVisiblePanels.resx">
+    <EmbeddedResource Include="Utils\Ascx\CoreControls\SelectVisiblePanels.resx">
       <DependentUpon>SelectVisiblePanels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\DataViewers\ascx_FunctionsViewer.resx">
+    <EmbeddedResource Include="Utils\Ascx\DataViewers\ascx_FunctionsViewer.resx">
       <DependentUpon>ascx_FunctionsViewer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\DataViewers\ctrl_TableList.resx">
+    <EmbeddedResource Include="Utils\Ascx\DataViewers\ctrl_TableList.resx">
       <DependentUpon>ctrl_TableList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\MainGUI\ascx_LogViewer.resx">
+    <EmbeddedResource Include="Utils\Ascx\MainGUI\ascx_LogViewer.resx">
       <DependentUpon>ascx_LogViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.resx">
+    <EmbeddedResource Include="Utils\Ascx\MainGUI\ascx_O2InstallAndTempDirectories.resx">
       <DependentUpon>ascx_O2InstallAndTempDirectories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\MainGUI\ascx_WorkingOnTask.resx">
+    <EmbeddedResource Include="Utils\Ascx\MainGUI\ascx_WorkingOnTask.resx">
       <DependentUpon>ascx_WorkingOnTask.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingEditor.resx">
+    <EmbeddedResource Include="Utils\Ascx\O2Findings\ascx_FindingEditor.resx">
       <DependentUpon>ascx_FindingEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\O2Findings\ascx_FindingsViewer.resx">
+    <EmbeddedResource Include="Utils\Ascx\O2Findings\ascx_FindingsViewer.resx">
       <DependentUpon>ascx_FindingsViewer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\O2Findings\ascx_TraceTreeView.resx">
+    <EmbeddedResource Include="Utils\Ascx\O2Findings\ascx_TraceTreeView.resx">
       <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Ascx\Tasks\ascx_Task.resx">
+    <EmbeddedResource Include="Utils\Ascx\Tasks\ascx_Task.resx">
       <DependentUpon>ascx_Task.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Forms\O2_Main_GUI.resx">
+    <EmbeddedResource Include="Utils\Forms\O2_Main_GUI.resx">
       <DependentUpon>O2_Main_GUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\Forms\ReportBug.resx">
+    <EmbeddedResource Include="Utils\Forms\ReportBug.resx">
       <DependentUpon>ReportBug.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="O2_Views_ASCX\FormImages.resx">
+    <EmbeddedResource Include="Utils\FormImages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FormImages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CustomToolNamespace>FluentSharp.WinForms.Utils</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="O2_Interfaces\Messages\IM_OpenControlInGUI.cs.txt" />
     <None Include="O2_Kernel\InterfacesBaseImpl\KM_OpenControlInGUI.cs.txt" />
-    <None Include="O2_Views_ASCX\classes\o2FindingsScriptLibrary.xml">
+    <None Include="Utils\classes\o2FindingsScriptLibrary.xml">
       <SubType>Designer</SubType>
     </None>
     <None Include="TmpKey.snk" />
