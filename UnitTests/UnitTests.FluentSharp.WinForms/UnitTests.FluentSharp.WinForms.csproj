@@ -8,8 +8,8 @@
     <ProjectGuid>{15ABA7E8-436C-4D60-97CA-E63D221FC09C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests.FluentSharp_BCL</RootNamespace>
-    <AssemblyName>UnitTests.FluentSharp.BCL</AssemblyName>
+    <RootNamespace>UnitTests.FluentSharp_WinForms</RootNamespace>
+    <AssemblyName>UnitTests.FluentSharp.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

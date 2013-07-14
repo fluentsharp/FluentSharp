@@ -32,7 +32,7 @@ namespace FluentSharp.CoreLib
         public static O2AppDomainFactory	loadMainO2Dlls(this O2AppDomainFactory o2AppDomain)
         {
             o2AppDomain.load("FluentSharp.CoreLib.dll");
-            o2AppDomain.load("FluentSharp.BCL.dll");
+            o2AppDomain.load("FluentSharp.WinForms.dll");
             return o2AppDomain;
         }
         public static string				executeCodeSnippet_InSeparateAppDomain(this string scriptToExecute)

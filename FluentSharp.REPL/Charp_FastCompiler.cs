@@ -84,10 +84,10 @@ namespace FluentSharp.REPL.Utils
         public static void setDefaultUsingStatements()
         {
             CompileEngine.DefaultUsingStatements
-                            .add_OnlyNewItems("FluentSharp.BCL",
-                                              "FluentSharp.BCL.Controls",
-                                              "FluentSharp.BCL.Interfaces",
-                                              "FluentSharp.BCL.Utils",
+                            .add_OnlyNewItems("FluentSharp.WinForms",
+                                              "FluentSharp.WinForms.Controls",
+                                              "FluentSharp.WinForms.Interfaces",
+                                              "FluentSharp.WinForms.Utils",
                                               "FluentSharp.REPL",
                                               "FluentSharp.REPL.Controls",
                                               "FluentSharp.REPL.Utils"
@@ -102,7 +102,7 @@ namespace FluentSharp.REPL.Utils
         public static void setDefaultReferencedAssemblies()
         {
             CompileEngine.DefaultReferencedAssemblies
-                            .add_OnlyNewItems("FluentSharp.BCL.dll",                                                                
+                            .add_OnlyNewItems("FluentSharp.WinForms.dll",                                                                
                                               "FluentSharp.REPL.exe",
 											  "FluentSharp.SharpDevelop.dll",
                                               "WeifenLuo.WinFormsUI.Docking.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)

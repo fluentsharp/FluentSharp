@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.WinForms.Controls;
+using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms
 {
@@ -437,7 +437,7 @@ namespace FluentSharp.WinForms
                 textBox.width(width);
             updateTextBox = (newText) =>
             {
-                toolStrip.invokeOnThread(        // this can be removed after the next update of FluentSharp.BCL
+                toolStrip.invokeOnThread(        // this can be removed after the next update of FluentSharp.WinForms
                     () =>
                     {
                         textBox.set_Text(newText);

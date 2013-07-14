@@ -130,7 +130,7 @@ namespace FluentSharp.WPF
         }
 
 
-        //removed to remove depencies to FluentSharp.BCL
+        //removed to remove depencies to FluentSharp.WinForms
         /*
         // WPF Winforms TreeView
         public static System.Windows.Forms.TreeView showStructureInTreeView(this UIElement uiElement, System.Windows.Forms.TreeView treeView)

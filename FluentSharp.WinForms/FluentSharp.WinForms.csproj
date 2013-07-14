@@ -8,8 +8,8 @@
     <ProjectGuid>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>O2.Platform.BCL</RootNamespace>
-    <AssemblyName>FluentSharp.BCL</AssemblyName>
+    <RootNamespace>FluentSharp.WinForms</RootNamespace>
+    <AssemblyName>FluentSharp.WinForms</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -672,6 +672,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FormImages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CustomToolNamespace>FluentSharp.WinForms.Utils</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

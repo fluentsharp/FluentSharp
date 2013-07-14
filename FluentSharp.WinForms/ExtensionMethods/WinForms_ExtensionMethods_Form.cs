@@ -9,6 +9,7 @@ using System.Threading;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.WinForms.Controls;
+using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms
 {

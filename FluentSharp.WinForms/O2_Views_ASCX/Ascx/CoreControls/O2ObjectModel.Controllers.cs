@@ -33,7 +33,7 @@ namespace FluentSharp.WinForms.Controls
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().toList()
                                         .with_Valid_Location()
-                                        .where((assembly) => assembly.name().contains("O2"));
+                                        .where((assembly) => assembly.name().contains("FluentSharp"));
             foreach(var assembly in assemblies)
                 "Loading data for assembly: {0}".info(assembly.Location);
             return assemblies;
@@ -171,7 +171,7 @@ namespace FluentSharp.WinForms.Controls
                         // create methodsLoaded_bySignature                       
                         if (methods_bySignature.ContainsKey(filteredSignature.sSignature))
                         {
-                            if (method.type().Assembly.GetName().Name.contains("O2"))
+                            if (method.type().Assembly.GetName().Name.contains("FluentSharp"))
                                 PublicDI.log.error("in mapMethodsToFilteredSignatures, repeated signature: {0}", filteredSignature.sSignature);
                         }
                         else
