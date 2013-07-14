@@ -1,40 +1,24 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using FluentSharp.CoreLib;
 using Microsoft.Win32;
-using System.IO;
 
-
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.CoreLib.API
 {
-	public class RegisterWindowsExtension
+    public class RegisterWindowsExtension
 	{
 		[DllImport("Shell32.dll", CharSet=CharSet.Auto, SetLastError=true)]
 		public static extern void SHChangeNotify(UInt32 wEventId, UInt32 uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
 		static UInt32 SHCNE_ASSOCCHANGED = 0x8000000;
 		static UInt32 SHCNF_IDLIST = 0;
-
-         
-		public static void registerO2Extensions()
-		{
-			RegisterWindowsExtension.register_CurrentApplication(".h2", "O2 Platform v.4.1", @"Icons\H2Logo.ico");
-			RegisterWindowsExtension.register_CurrentApplication(".o2", "O2 Platform v.4.1", @"Icons\O2Logo.ico");			
-		}
+         		
 
 		public static void raiseChangeNotify()
 		{		
 			SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
 				
 		}
-		
-		public static void register_CurrentApplication(string extension, string name, string icon_VirtualPath)
-		{
-
-			register(extension, name, Path.Combine( Application.StartupPath, icon_VirtualPath), Application.ExecutablePath);
-		}
-
+				
         public static void register(string extension, string name, string icon_Path, string exe_Path)
         {
             var classesRoot = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Classes", true);

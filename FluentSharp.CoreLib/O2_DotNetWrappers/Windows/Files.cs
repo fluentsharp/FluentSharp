@@ -10,14 +10,7 @@ using System.Text;
 namespace FluentSharp.CoreLib.API
 {
     public class Files
-    {
-        // code to use binaryreader:
-        /*FileStream fileStream = File.Open(pathToProxyDll, FileMode.Open, FileAccess.Read);
-                 
-                BinaryReader  binaryReader = new BinaryReader(fileStream);
-                Files.WriteFileContent(file, binaryReader);
-                 */
-
+    {        
         public static String copy(String sourceFile, String targetFileOrFolder)
         {
             return copy(sourceFile, targetFileOrFolder, false);
@@ -654,5 +647,6 @@ namespace FluentSharp.CoreLib.API
                 ex.log("in Files.renameFolder");
             }            
         }
+        
     }
 }

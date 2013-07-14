@@ -6,9 +6,8 @@ using FluentSharp.CoreLib.API;
 
 namespace FluentSharp.BCL
 {
-    public static class CoreControls_ExtensionMethods
-    {
-        #region DirectoryViewer        
+    public static class DirectoryViewer_ExtensionMethods
+    {               
 
         public static DirectoryViewer open(this DirectoryViewer directory, string directoryToOpen)
         {
@@ -68,8 +67,6 @@ namespace FluentSharp.BCL
         {
             directory.invokeOnThread(() => directory._HandleDrop = value);
             return directory;
-        }	
-
-        #endregion    
+        }	        
     }
 }

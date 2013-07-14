@@ -1,25 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FluentSharp.BCL.Controls;
-using FluentSharp.BCL.Utils;
-using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
 
-namespace FluentSharp.BCL
+namespace FluentSharp.CoreLib.Utils
 {
 
 	public static class SecretData_ExtensionMethods
     {
-        #region credential
+        //#region credential
 
-        public static List<Credential> credentialTypes(this ISecretData secretData, string credentialType)
+        public static List<Credential> credentialTypes(this SecretData secretData, string credentialType)
         {                    
             var credentials = new List<Credential>();
             if (secretData.isNull())
             	return credentials;
             if (credentialType.valid().isFalse())
-                if (secretData != null && secretData.Credentials != null)
+                if (secretData.Credentials != null)
                     return secretData.Credentials;
                 else
                     return credentials;
@@ -30,7 +27,7 @@ namespace FluentSharp.BCL
             return credentials;
         }
                 
-		public static ICredential credential(this string fileWithSecretData, string credentialTypeOrName)
+		public static Credential credential(this string fileWithSecretData, string credentialTypeOrName)
         {
         	if (fileWithSecretData.fileExists().isFalse())
     			fileWithSecretData = PublicDI.config.UserData.pathCombine(fileWithSecretData);
@@ -42,7 +39,7 @@ namespace FluentSharp.BCL
             return null;
         }
 
-        public static ICredential credential(this SecretData secretData, string credentialTypeOrName)
+        public static Credential credential(this SecretData secretData, string credentialTypeOrName)
         {        	
             if (secretData != null)
             {
@@ -83,26 +80,26 @@ namespace FluentSharp.BCL
     	}
         
                 
-        #endregion
+        //#endregion
         
-        #region username
+       // #region username
 
-        public static string username(this ISecretData secretData)
+        public static string username(this SecretData secretData)
         {
             return secretData.username("", 0);
         }
 
-        public static string username(this ISecretData secretData, string credentialType)
+        public static string username(this SecretData secretData, string credentialType)
         {
             return secretData.username(credentialType,0);
         }
         
-        public static string username(this ISecretData secretData, int index)
+        public static string username(this SecretData secretData, int index)
         {
             return secretData.username("", index);
         }
 
-        public static string username(this ISecretData secretData, string credentialType, int index)
+        public static string username(this SecretData secretData, string credentialType, int index)
         {
             var credentials = secretData.credentialTypes(credentialType);
             if (index < credentials.size())
@@ -110,18 +107,18 @@ namespace FluentSharp.BCL
             return "";
         }
 
-        public static List<ICredential> usernames(this ISecretData secretData)
+        public static List<Credential> usernames(this SecretData secretData)
         {
             return secretData.usernames("");
         }
-        public static List<ICredential> usernames(this ISecretData secretData, string credentialType)
+        public static List<Credential> usernames(this SecretData secretData, string credentialType)
         {
             var usernames = from credential in secretData.credentialTypes(credentialType)
-                            select (ICredential)credential;
+                            select credential;
             return usernames.ToList();
         }
         
-        public static string username(this ICredential credential)
+        public static string username(this Credential credential)
         {
         	if (credential.notNull())
             	return credential.UserName;
@@ -138,16 +135,14 @@ namespace FluentSharp.BCL
         		    select credential.UserName).toList();
         }
 
-        #endregion
+        //#region get_User
 
-        #region get_User
-
-        public static ICredential get_User(this ISecretData secretData, string userName)
+        public static Credential get_User(this SecretData secretData, string userName)
         {
             return secretData.get_User("", userName);
         }
 
-        public static ICredential get_User(this ISecretData secretData, string credentialType, string userName)
+        public static Credential get_User(this SecretData secretData, string credentialType, string userName)
         {
             if (secretData != null && secretData.Credentials != null)
                 foreach (var credential in secretData.Credentials)
@@ -156,27 +151,25 @@ namespace FluentSharp.BCL
                             return credential;
             return null;
         }
-
-        #endregion
         
-        #region password
+        //#region password
 
-        public static string password(this ISecretData secretData)
+        public static string password(this SecretData secretData)
         {
             return secretData.password("", 0);
         }
 
-        public static string password(this ISecretData secretData, string credentialType)
+        public static string password(this SecretData secretData, string credentialType)
         {
             return secretData.password(credentialType, 0);
         }
 
-        public static string password(this ISecretData secretData, int index)
+        public static string password(this SecretData secretData, int index)
         {
             return secretData.password("", index);
         }
 
-        public static string password(this ISecretData secretData, string credentialType, int index)
+        public static string password(this SecretData secretData, string credentialType, int index)
         {
             var credentials = secretData.credentialTypes(credentialType);
             if (index < credentials.size())
@@ -184,7 +177,7 @@ namespace FluentSharp.BCL
             return "";
         }
 
-        public static string password(this ISecretData secretData, string credentialType, string username)
+        public static string password(this SecretData secretData, string credentialType, string username)
         {
             foreach (var credential in secretData.Credentials)
                 if (credential.UserName == username && credential.CredentialType == credentialType)
@@ -192,20 +185,12 @@ namespace FluentSharp.BCL
             return "";
         }
                 
-        public static string password(this ICredential credential)
+        public static string password(this Credential credential)
         {
             return credential.Password;
         }
-        #endregion
+       // #endregion
 
-		#region SecretDataEditor
-		
-		public static string show_SecretDataEditor(this string userDataDirectory)
-		{
-			return new SecretDataEditor().showGui(userDataDirectory);
-		}
-		
-		#endregion
     }   
     
     

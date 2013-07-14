@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
 using System.Reflection;
-using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.CoreLib
 {
     public static class Compilation_ExtensionMethods
     {

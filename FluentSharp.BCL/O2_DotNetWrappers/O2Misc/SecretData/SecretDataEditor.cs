@@ -1,8 +1,8 @@
 using System;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.Utils;
 
 namespace FluentSharp.BCL.Controls
 {
@@ -60,7 +60,7 @@ namespace FluentSharp.BCL.Controls
         	{        	
 	        	if (fileName.extension(".xml").isFalse())
 	        		fileName+=".xml";
-	            var selectedFile = directory.getCurrentDirectory().pathCombine(fileName);            
+	            selectedFile = directory.getCurrentDirectory().pathCombine(fileName);            
 	            secretData.serialize(selectedFile);
 	            statusMessage("Created new File: {0}".format(selectedFile));
 	        }   
@@ -77,7 +77,7 @@ namespace FluentSharp.BCL.Controls
         	var secretData = new SecretData();
             foreach (var row in dataGridView.rows())
                 if ((row[0] as string).valid())
-                    secretData.Credentials.createTypeAndAddToList<Credential>(
+                    secretData.Credentials.createTypeAndAddToList(
 					row[0],
 					row[1],
 					row[2],
@@ -105,5 +105,13 @@ namespace FluentSharp.BCL.Controls
             	statusMessage("Error loading select file: {0}".format(fileToLoad));
             }
 		}               		
+    }
+
+    public static class SecretDataEditor_ExtensionMethods
+    {
+        public static string show_SecretDataEditor(this string userDataDirectory)
+		{
+			return new SecretDataEditor().showGui(userDataDirectory);
+		}
     }
 }

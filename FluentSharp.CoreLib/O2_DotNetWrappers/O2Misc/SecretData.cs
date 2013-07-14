@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using FluentSharp.CoreLib;
 
-//O2File:SecretData_ExtensionMethods.cs
-//O2Ref:System.Xml.Linq.dll
-//O2Ref:System.Xml.dll
-
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.CoreLib.Utils
 {    
-    public interface ISecretData
+/*    public interface ISecretData
     {        
         List<Credential> Credentials { get; set;}
     }
@@ -18,13 +13,13 @@ namespace FluentSharp.BCL.Utils
     {
         string UserName { get; set; }
         string Password { get; set; }
-        string Url { get; set; }
+        string Url      { get; set; }
         string CredentialType { get; set; }
         string Description { get; set; }
-    }
+    }*/
 
     [Serializable]
-    public class SecretData : ISecretData
+    public class SecretData //: ISecretData
     {
         public List<Credential> Credentials { get; set; }
 
@@ -35,7 +30,7 @@ namespace FluentSharp.BCL.Utils
     }
 
     [Serializable]
-    public class Credential : ICredential
+    public class Credential// : ICredential
     {
         [XmlAttribute]
         public string UserName { get; set; }

@@ -59,7 +59,34 @@
   <ItemGroup>
     <None Include="FluentSharp.BCL.nuspec" />
     <None Include="O2_DotNetWrappers\DI.cs.txt" />
+    <Compile Include="Controls\MiscUI\ascx_AskUserForLoginDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MiscUI\ascx_CaptchaQuestion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtensionMethods\ComObjects_TreeView_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FluentSharp_Controls\ctrl_ObjectViewer_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Button.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_CheckBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ComboBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Component.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ComponentResourceManager.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_FlowLayoutPanel.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_GroupBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Label.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_LinkLabel.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ListBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ListView.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_MainMenu.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Panel.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_PictureBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ProgressBar.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_PropertyGrid.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_RichTextBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_SplitContainer.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_TabControl.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_TrackBar.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\ClickOnceDeployment.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CompileEngine_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\DnD.cs" />
@@ -70,8 +97,6 @@
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Misc_GUI_Helpers.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_WebBrowser.cs" />
     <Compile Include="ExtensionMethods\Clipboard_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\ComObjects_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Compilation_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ConfigFiles_ExtensionMethods_WinForms.cs" />
     <Compile Include="ExtensionMethods\Data_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Download_ExtensionMethods.cs" />
@@ -79,16 +104,17 @@
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Control_Object.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_DataGridView.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Form.cs" />
-    <Compile Include="ExtensionMethods\IO_ExtensionMethods_WinForms.cs" />
+    <Compile Include="ExtensionMethods\MessageBox_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\O2Controls_ExtensioMethods.cs" />
     <Compile Include="ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
     <Compile Include="ExtensionMethods\Thread_Invoke_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_MultipleControls.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Mini_Gui_Controls.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_TreeView.cs" />
     <Compile Include="ExtensionMethods\XElement_ExtensionMethods.cs" />
+    <Compile Include="O2_DotNetWrappers\DotNet\Reflection_MethodInfo.cs" />
     <Compile Include="O2_DotNetWrappers\Network\Main_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\Network\WebEncoding.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\DotNet\AspNetAnalysis.cs" />
@@ -106,15 +132,11 @@
     <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtSearch.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtStats.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\OzasmtUtils.cs" />
-    <Compile Include="O2_DotNetWrappers\O2Misc\FileCache.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\SourceCodeMappingsUtils.cs" />
-    <Compile Include="O2_DotNetWrappers\SearchApi\SearchEngine.cs" />
     <Compile Include="O2_DotNetWrappers\SearchApi\SearchUtils.cs" />
-    <Compile Include="O2_DotNetWrappers\SearchApi\TextSearchResult.cs" />
-    <Compile Include="O2_DotNetWrappers\ViewObjects\Reflection_MethodInfo.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Files_WinForms.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\FillTreeViewWithlSerializedObjectData.cs" />
-    <Compile Include="O2_DotNetWrappers\Windows\RegisterWindowsExtension.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\RegisterWindowsExtension_WinForms.cs" />
     <Compile Include="O2_Interfaces\Controllers\IAssemblyAnalysis.cs" />
     <Compile Include="O2_Interfaces\Messages\IM_CirAction.cs" />
     <Compile Include="O2_Interfaces\Messages\IM_DotNetAssemblyAvailable.cs" />
@@ -566,7 +588,7 @@
     <None Include="Resources\bookmark-new.png" />
     <None Include="O2_Views_ASCX\DI.cs.tzt" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
-    <Compile Include="ExtensionMethods\CoreControls_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\FluentSharp_Controls\DirectoryViewer_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods.cs" />
     <Compile Include="O2_Views_ASCX\Forms\O2_Main_GUI.cs">
       <SubType>Form</SubType>
@@ -585,8 +607,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FormImages.resx</DependentUpon>
     </Compile>
-    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\ISecretData.cs" />
-    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData\SecretData_ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Start_O2.cs" />
     <None Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs.txt" />

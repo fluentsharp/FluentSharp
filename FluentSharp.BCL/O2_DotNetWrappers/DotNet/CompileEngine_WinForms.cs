@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using FluentSharp.BCL;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
 

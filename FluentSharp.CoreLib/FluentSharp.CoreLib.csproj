@@ -56,6 +56,16 @@
     <None Include="FluentSharp.CoreLib.nuspec" />
     <None Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="ExtensionMethods\Byte_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\ComObjects_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Compilation_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Delete_Or_Copy.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_FileInfo.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Open.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Save.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Folders.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\FileCache.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\SearchEngine.cs" />
+    <Compile Include="O2_DotNetWrappers\O2Misc\SecretData.cs" />
     <Compile Include="ExtensionMethods\NetWork_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Assemby.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Attributes.cs" />
@@ -70,6 +80,7 @@
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Properties.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Types.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_WebServices_SOAP.cs" />
+    <Compile Include="ExtensionMethods\SecretData_ExtensionMethods.cs" />
     <Compile Include="O2ConfigSettings.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\AssemblyResolver.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\CodeAnnotations.cs" />
@@ -96,7 +107,7 @@
     <Compile Include="ExtensionMethods\EmbeddedResources_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\GZip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\H2_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\IO_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_MemoryStream.cs" />
     <Compile Include="ExtensionMethods\Items_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Misc_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\NamedPipes_ExtensionMethods.cs" />
@@ -130,6 +141,7 @@
     <Compile Include="O2_DotNetWrappers\Windows\FolderWatcher.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\NamePipes.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Processes.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\RegisterWindowsExtension.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Registry.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Win32.cs" />
     <Compile Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.cs">

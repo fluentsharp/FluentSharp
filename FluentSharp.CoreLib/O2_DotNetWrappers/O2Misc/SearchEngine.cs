@@ -5,13 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
 
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.CoreLib.API
 {
-    public class SearchEngine 
+    public class SearchEngine
     {
         //public Dictionary<String, String> dLines;                
         public Dictionary<String, List<String>> dLoadedFilesCache ; // <FileName, Lines from FileContents>
@@ -133,19 +133,7 @@ namespace FluentSharp.BCL.Utils
         {
             dLoadedFilesCache.Clear();
         }
-
-        public void loadListBoxWithListOfFilesLoaded(ListBox lBoxTargetListBox)
-        {
-            lBoxTargetListBox.invokeOnThread(
-                () =>
-                    {
-                        lBoxTargetListBox.Items.Clear();
-                        foreach (String sFile in dLoadedFilesCache.Keys)
-                            lBoxTargetListBox.Items.Add(sFile);
-                        lBoxTargetListBox.Sorted = true;
-                    });            
-        }
-
+       
         public List<TextSearchResult> searchFor(String sRegExToSearch)
         {
             return executeSearch(sRegExToSearch);
@@ -210,6 +198,29 @@ namespace FluentSharp.BCL.Utils
         public Dictionary<String, List<String>> getLoadedFilesCache()
         {
             return dLoadedFilesCache;
+        }
+    }
+
+        public class TextSearchResult
+    {
+        public int iLength;
+        public int iLineNumber;
+        public int iPosition;
+        public Regex rRegExUsed;
+        public String sFile;
+        public String sMatchLine;
+        public String sMatchText;
+
+        public TextSearchResult(Regex rRegExUsed, String sMatchText, String sMatchLine, String sFile,
+                                int iLineNumber, int iPosition, int iLength)
+        {
+            this.rRegExUsed = rRegExUsed;
+            this.sMatchText = sMatchText;
+            this.sMatchLine = sMatchLine;
+            this.sFile = sFile;
+            this.iLineNumber = iLineNumber;
+            this.iPosition = iPosition;
+            this.iLength = iLength;
         }
     }
 }

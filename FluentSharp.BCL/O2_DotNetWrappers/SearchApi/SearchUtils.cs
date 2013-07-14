@@ -17,11 +17,10 @@ namespace FluentSharp.BCL.Utils
 
         public static List<TextSearchResult> executeSearch(String sRegExToSearch, List<String> lsFileToSearch)
         {
-            var searchEngine = new Utils.SearchEngine();
+            var searchEngine = new SearchEngine();
             searchEngine.loadFiles(lsFileToSearch);
             return searchEngine.executeSearch(sRegExToSearch);
         }
-
         public static void loadInDataGridView_textSearchResults(List<TextSearchResult> currentSearchResults,
                                                                 DataGridView dgvTargetDataGridView)
         {
@@ -160,5 +159,20 @@ namespace FluentSharp.BCL.Utils
             text.AppendLine("This is a finding search");
             loadInThread(text, tbSearchResults);            
         }       
+    }
+
+     public static class SearchEngine_ExtensionMethods
+     {
+        public static void  loadListBoxWithListOfFilesLoaded(this SearchEngine searchEngine, ListBox lBoxTargetListBox)
+        {
+            lBoxTargetListBox.invokeOnThread(
+                () =>
+                    {
+                        lBoxTargetListBox.Items.Clear();
+                        foreach (String sFile in searchEngine.dLoadedFilesCache.Keys)
+                            lBoxTargetListBox.Items.Add(sFile);
+                        lBoxTargetListBox.Sorted = true;
+                    });            
+        }
     }
 }
