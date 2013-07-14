@@ -1,7 +1,7 @@
 ﻿using System;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Web_Encoding_ExtensionMethods
     {

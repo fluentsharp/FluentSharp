@@ -4,9 +4,9 @@ using System.Windows.Forms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
-    public class WinForms
+    public class WinForms_Show
     {
         public static Control showAscxInForm(Type controlType)
     	{

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using FluentSharp.BCL.O2Findings;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.O2Findings;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class ascx_FindingEditor
     {

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class ascx_WorkingOnTask : UserControl
     {

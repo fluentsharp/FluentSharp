@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class DropObject : UserControl
     {

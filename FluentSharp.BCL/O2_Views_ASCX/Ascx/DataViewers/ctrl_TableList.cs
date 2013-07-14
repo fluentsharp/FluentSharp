@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 using System.Collections;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class ctrl_TableList : UserControl
     {

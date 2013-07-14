@@ -5,7 +5,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using System.Windows.Forms;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class Files_WinForms : Files
     {

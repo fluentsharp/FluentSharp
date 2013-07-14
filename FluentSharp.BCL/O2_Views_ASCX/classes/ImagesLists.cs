@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FluentSharp.BCL.Controls;
 using System.Windows.Forms;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class ImagesLists
     {

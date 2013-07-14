@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FluentSharp.BCL.Interfaces
+namespace FluentSharp.WinForms.Interfaces
 {
     public interface IO2Message
     {        

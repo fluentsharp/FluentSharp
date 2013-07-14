@@ -1,4 +1,4 @@
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     partial class O2_Main_GUI
     {

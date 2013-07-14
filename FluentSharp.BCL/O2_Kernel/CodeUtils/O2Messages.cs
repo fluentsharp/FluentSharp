@@ -4,10 +4,10 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
-using FluentSharp.BCL.Interfaces;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.Interfaces;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     
     [Serializable]

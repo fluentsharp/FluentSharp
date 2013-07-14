@@ -4,7 +4,7 @@ using System.Threading;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class TaskThread : ITaskThread
     {

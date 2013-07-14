@@ -2,11 +2,11 @@
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class ascx_LogViewer : UserControl
     {

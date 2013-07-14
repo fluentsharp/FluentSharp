@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Processes_ExtensionMethods_WinForms
     {

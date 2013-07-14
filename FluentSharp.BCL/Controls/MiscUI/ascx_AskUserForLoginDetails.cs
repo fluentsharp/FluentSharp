@@ -4,7 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class ascx_AskUserForLoginDetails : ContainerControl
     {       

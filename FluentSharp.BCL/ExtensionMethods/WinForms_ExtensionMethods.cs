@@ -1,10 +1,10 @@
 using System;
 using System.Windows.Forms;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods
     {
@@ -45,7 +45,7 @@ namespace FluentSharp.BCL
         }
         public static Control showInForm(this Type ascxType, string name, int width, int height)
         {
-            return WinForms.showAscxInForm(ascxType, name, width, height);
+            return WinForms_Show.showAscxInForm(ascxType, name, width, height);
         }
         public static object showAsForm(this Type type)
         {

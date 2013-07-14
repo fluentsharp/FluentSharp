@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Reflection;
 using System.IO;
 using System.Threading;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_Form
     {

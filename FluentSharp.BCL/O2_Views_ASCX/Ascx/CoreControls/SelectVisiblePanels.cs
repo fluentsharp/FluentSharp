@@ -2,9 +2,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class SelectVisiblePanels : UserControl
     {

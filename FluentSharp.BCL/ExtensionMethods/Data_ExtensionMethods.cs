@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 using System.Reflection;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Data_ExtensionMethods
     {

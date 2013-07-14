@@ -1,7 +1,7 @@
 using System.Reflection;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class Reflection_MethodInfo
     {

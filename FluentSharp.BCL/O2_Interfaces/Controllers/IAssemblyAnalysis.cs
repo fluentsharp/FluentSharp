@@ -3,7 +3,7 @@ using System;
 using System.Windows.Forms;
 //using O2.Kernel.CodeUtils;
 
-namespace FluentSharp.BCL.Interfaces
+namespace FluentSharp.WinForms.Interfaces
 {
     public interface IAssemblyAnalysis
     {

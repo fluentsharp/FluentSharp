@@ -2,7 +2,7 @@
 
 using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.BCL.Interfaces
+namespace FluentSharp.WinForms.Interfaces
 {
     public enum IM_CirActions 
     {

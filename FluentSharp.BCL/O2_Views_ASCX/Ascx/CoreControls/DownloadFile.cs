@@ -5,13 +5,13 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Utils;
 
 // with code inspired from the sample in : http://www.geekpedia.com/tutorial196_Creating-an-advanced-download-manager-in-Csharp.html
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class DownloadFile : UserControl
     {

@@ -6,7 +6,7 @@ using System.Xml;
 using System.IO;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Linq_ExtensionMethods
     {

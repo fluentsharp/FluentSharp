@@ -2,7 +2,7 @@
 
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     partial class O2ObjectModel
     {

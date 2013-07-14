@@ -2,10 +2,10 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class ComObjects_TreeView_ExtensionMethods
     {

@@ -1,10 +1,10 @@
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
-using FluentSharp.BCL.Controls;
 using System;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class DirectoryViewer_ExtensionMethods
     {               

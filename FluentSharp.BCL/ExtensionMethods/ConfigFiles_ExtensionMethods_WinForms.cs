@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class ConfigFiles_ExtensionMethods_WinForms
     {        

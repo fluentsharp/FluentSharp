@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Reflection;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class O2ObjectModel : UserControl
     {

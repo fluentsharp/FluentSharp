@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using FluentSharp.CoreLib;
 
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     // these are controls created via reflection (only available if the target dll is locally available
     public static class O2Controls_ExtensioMethods

@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {    
     public static class XTypedElement_ExtensionMethods_TreeView
     {

@@ -1,7 +1,7 @@
 ﻿using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class ascx_Task_WebGet : ascx_SimpleTaskGui
     {

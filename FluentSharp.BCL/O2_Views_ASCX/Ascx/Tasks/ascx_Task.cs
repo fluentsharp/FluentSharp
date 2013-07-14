@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class ascx_Task : UserControl, ITaskControl
     {

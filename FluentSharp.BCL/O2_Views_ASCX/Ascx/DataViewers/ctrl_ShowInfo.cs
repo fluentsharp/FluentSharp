@@ -3,7 +3,7 @@ using System.Collections;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class ctrl_ShowInfo : UserControl
     {      

@@ -4,7 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Thread_Invoke_ExtensionMethods
     {        

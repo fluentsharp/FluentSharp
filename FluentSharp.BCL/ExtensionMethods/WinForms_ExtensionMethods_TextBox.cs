@@ -10,7 +10,7 @@ using FluentSharp.CoreLib;
 
 //using O2.DotNetWrappers.DotNet;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_TextBox
     {

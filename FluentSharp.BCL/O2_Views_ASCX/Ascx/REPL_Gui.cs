@@ -2,11 +2,11 @@
 using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class REPL_Gui
     {
@@ -59,7 +59,7 @@ namespace FluentSharp.BCL.Controls
     }
 }
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class REPL_Gui_ExtensionMethods_CreateGuis
     {

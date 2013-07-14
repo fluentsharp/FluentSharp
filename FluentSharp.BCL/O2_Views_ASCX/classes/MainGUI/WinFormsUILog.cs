@@ -2,11 +2,11 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class WinFormsUILog : MarshalByRefObject, IO2Log
     {        

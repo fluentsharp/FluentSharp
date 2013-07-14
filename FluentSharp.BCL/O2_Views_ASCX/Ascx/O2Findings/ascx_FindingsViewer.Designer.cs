@@ -2,7 +2,7 @@
 using System;
 using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     partial class ascx_FindingsViewer
     {

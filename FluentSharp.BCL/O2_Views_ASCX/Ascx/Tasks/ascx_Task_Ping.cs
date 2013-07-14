@@ -2,7 +2,7 @@
 
 //O2File:ascx_SimpleTaskGui.cs
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class ascx_Task_Ping : ascx_SimpleTaskGui
     {

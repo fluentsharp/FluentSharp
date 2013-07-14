@@ -1,6 +1,6 @@
 using System.Web;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class WebEncoding
     {

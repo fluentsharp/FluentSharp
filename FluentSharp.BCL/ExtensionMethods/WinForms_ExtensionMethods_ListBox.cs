@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_ListBox
     { 

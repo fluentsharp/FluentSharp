@@ -1,12 +1,12 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
 using System.Collections.Generic;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.O2Findings
+namespace FluentSharp.WinForms.O2Findings
 {
     [Serializable] 
     public class O2Finding : IO2Finding

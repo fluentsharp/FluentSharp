@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using FluentSharp.BCL.O2Findings;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.O2Findings;
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public partial class ascx_FindingEditor : UserControl
     {        

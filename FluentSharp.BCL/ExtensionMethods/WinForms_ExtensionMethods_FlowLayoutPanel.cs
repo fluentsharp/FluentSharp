@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_FlowLayoutPanel
     {             

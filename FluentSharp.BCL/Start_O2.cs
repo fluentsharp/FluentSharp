@@ -4,7 +4,7 @@ using FluentSharp.CoreLib.API;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
 	public class Start_O2
 	{

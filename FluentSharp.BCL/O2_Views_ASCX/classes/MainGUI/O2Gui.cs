@@ -5,7 +5,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
 
-namespace FluentSharp.BCL.Controls
+namespace FluentSharp.WinForms.Controls
 {
     public class O2Gui : Form
     {
@@ -110,12 +110,12 @@ namespace FluentSharp.BCL.Controls
 
         public static T load<T>(string title) where T : Control
         {
-            return (T)WinForms.showAscxInForm(typeof(T), title);
+            return (T)WinForms_Show.showAscxInForm(typeof(T), title);
         }
 
         public static T load<T>(string title, int width, int height) where T : Control
         {
-            return (T)WinForms.showAscxInForm(typeof(T), title, width, height);
+            return (T)WinForms_Show.showAscxInForm(typeof(T), title, width, height);
         }        
 
         public static T showAsForm<T>() where T : Control
@@ -125,12 +125,12 @@ namespace FluentSharp.BCL.Controls
 
         public static T showAsForm<T>(string title) where T : Control
         {
-            return (T)WinForms.showAscxInForm(typeof(T),title);
+            return (T)WinForms_Show.showAscxInForm(typeof(T),title);
         }
 
         public static T showAsForm<T>(string title, int width, int height) where T : Control
         {
-            return (T)WinForms.showAscxInForm(typeof(T), title,width, height);
+            return (T)WinForms_Show.showAscxInForm(typeof(T), title,width, height);
         }
         
             

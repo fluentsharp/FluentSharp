@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using FluentSharp.BCL.Controls;
+using FluentSharp.WinForms.Controls;
 
 //O2File:ascx_SimpleTaskGui.cs
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class ascx_SimpleTaskGui_ExtensionMethods
     {

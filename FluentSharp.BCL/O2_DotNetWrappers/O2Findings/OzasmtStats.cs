@@ -3,10 +3,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL.O2Findings
+namespace FluentSharp.WinForms.O2Findings
 {
     public class OzasmtStats
     {

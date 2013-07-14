@@ -8,7 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class CompileEngine_WinForms
     {

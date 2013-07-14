@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using FluentSharp.BCL.Controls;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_PropertyGrid
     {

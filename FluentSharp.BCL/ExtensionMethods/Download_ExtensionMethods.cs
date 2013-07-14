@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using FluentSharp.CoreLib;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib.API;
+using FluentSharp.WinForms.Controls;
 
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Download_ExtensionMethods        
 	{		

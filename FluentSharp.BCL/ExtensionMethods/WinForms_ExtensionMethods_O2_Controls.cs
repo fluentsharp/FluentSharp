@@ -1,10 +1,10 @@
 ﻿using System.Windows.Forms;
-using FluentSharp.BCL.Controls;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
+using FluentSharp.WinForms.Controls;
+using FluentSharp.WinForms.Utils;
 
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_O2_Controls
     {

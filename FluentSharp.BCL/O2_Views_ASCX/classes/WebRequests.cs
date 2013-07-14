@@ -3,10 +3,10 @@ using System;
 using System.IO;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.BCL.Controls;
 using FluentSharp.CoreLib.Interfaces;
+using FluentSharp.WinForms.Controls;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class WebRequests
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public static class Controls
     {

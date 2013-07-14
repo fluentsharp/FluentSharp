@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.BCL.Controls;
+using FluentSharp.WinForms.Controls;
 
 //ctrl_ObjectViewer_ExtensionMethods
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     /*public class test_ctrl_ObjectViewer
     {

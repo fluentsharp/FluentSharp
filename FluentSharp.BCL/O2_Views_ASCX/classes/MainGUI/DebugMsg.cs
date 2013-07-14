@@ -10,7 +10,7 @@ using System.Threading;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     /// <summary>
     /// Debug and Logging functions

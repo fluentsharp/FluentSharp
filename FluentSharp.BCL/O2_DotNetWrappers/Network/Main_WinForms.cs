@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
 using System.Drawing.Imaging;
 
-namespace FluentSharp.BCL.Utils
+namespace FluentSharp.WinForms.Utils
 {
     public class Main_WinForms
     {

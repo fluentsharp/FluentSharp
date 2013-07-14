@@ -5,7 +5,7 @@ using System.IO;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.BCL.O2Findings
+namespace FluentSharp.WinForms.O2Findings
 {
     [Serializable]
     public class O2Assessment : IO2Assessment

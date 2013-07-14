@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_Button
     {     

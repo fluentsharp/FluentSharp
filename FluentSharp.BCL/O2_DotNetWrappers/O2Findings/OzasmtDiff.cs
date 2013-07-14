@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.BCL.O2Findings
+namespace FluentSharp.WinForms.O2Findings
 {
     public class OzasmtDiff
     {

@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
-using FluentSharp.BCL.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using System.Windows.Forms;
+using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.BCL
+namespace FluentSharp.WinForms
 {
     public static class Clipboard_ExtensionMethods
     {

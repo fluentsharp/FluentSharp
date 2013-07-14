@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentSharp.CoreLib.Interfaces;
 
-namespace FluentSharp.BCL.O2Findings
+namespace FluentSharp.WinForms.O2Findings
 {
     public class OzasmtSearch
     {
