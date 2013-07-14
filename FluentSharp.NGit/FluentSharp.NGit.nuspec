@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>FluentSharp.NGit</id>
-        <version>4.1.0.1</version>
+        <version>5.3.0.0</version>
         <title>FluentSharp - NGit</title>
         <authors>O2 Platform</authors>
         <owners>O2 Platform</owners>
@@ -14,13 +14,14 @@
 
 This is the FluentSharp NGit which provides exposed NGit (a managed Git API)</description>
         <summary>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. It makes extensive use of .NET ExtensionMethods and it reduces the amount of code required (while making it more read</summary>
-        <releaseNotes>4.1.0.1 - fixed the dependenc
-4.1.0.0 - First release</releaseNotes>
+        <releaseNotes>5.0.x  - version auto created from TeamCity
+          4.1.0.1 - fixed the dependenc
+          4.1.0.0 - First release</releaseNotes>
         <copyright>O2 Platform 2012</copyright>
         <language>en-GB</language>
         <tags>Fluent OWASP O2Platform Security</tags>
         <dependencies>
-            <group targetFramework=".NETFramework3.5">
+            <group targetFramework=".NETFramework4.0">
                 <dependency id="FluentSharp.CoreLib" />
             </group>
         </dependencies>

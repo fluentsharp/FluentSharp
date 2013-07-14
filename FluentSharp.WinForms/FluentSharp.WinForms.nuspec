@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>FluentSharp.BCL</id>
-    <version>4.0.0.3</version>
-    <title>FluentSharp - BCL (Base Class Libraries)</title>
+    <id>FluentSharp.WinForms</id>
+    <version>5.3.0.0</version>
+    <title>FluentSharp - WinForms</title>
     <authors>O2 Platform</authors>
     <owners>O2 Platform</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -11,9 +11,9 @@
     <iconUrl>https://www.owasp.org/images/f/f5/O2_Logo_no_Shadow.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. </summary>
-    <description>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. This is the Fluent# BCL which provides support for System.Forms and Web</description>
+    <description>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. This is the Fluent# BCL which provides support for System.Forms</description>
     <releaseNotes>Added Dlls Dependencies</releaseNotes>
-    <copyright>Copyright 2012</copyright>
+    <copyright>Copyright 2013</copyright>
     <tags>Fluent OWASP O2Platform Security</tags>
     <dependencies>
       <dependency id="FluentSharp.CoreLib" />

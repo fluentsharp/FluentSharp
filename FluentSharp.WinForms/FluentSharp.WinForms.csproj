@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FluentSharp.BCL.nuspec" />
+    <None Include="FluentSharp.WinForms.nuspec" />
     <None Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="Controls\MiscUI\ascx_AskUserForLoginDetails.cs">
       <SubType>Component</SubType>
