@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using NUnit.Framework;

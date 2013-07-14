@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using FluentSharp.BCL;
-using FluentSharp.BCL.Controls;
+using FluentSharp.WinForms;
+using FluentSharp.WinForms.Controls;
 using FluentSharp.CoreLib;
 using FluentSharp.REPL.Controls;
 

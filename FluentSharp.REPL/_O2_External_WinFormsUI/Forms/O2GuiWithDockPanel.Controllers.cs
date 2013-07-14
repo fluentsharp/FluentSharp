@@ -2,10 +2,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using FluentSharp.BCL;
-using FluentSharp.BCL.Controls;
-using FluentSharp.BCL.Interfaces;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms;
+using FluentSharp.WinForms.Controls;
+using FluentSharp.WinForms.Interfaces;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
 using WeifenLuo.WinFormsUI.Docking;

@@ -1,4 +1,4 @@
-﻿using FluentSharp.BCL;
+﻿using FluentSharp.WinForms;
 using FluentSharp.REPL;
 using FluentSharp.REPL.Controls;
 using NUnit.Framework;

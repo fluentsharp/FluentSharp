@@ -86,7 +86,7 @@
     <Compile Include="ExtensionMethods\Threading_ExtensionMethods.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExtensionMethods\WinFormIntegration_ExtensionMethods.cs">
+    <Compile Include="ExtensionMethods\WinForms_Integration\WinFormIntegration_ExtensionMethods.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,13 +120,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentSharp.BCL\FluentSharp.BCL.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>FluentSharp.BCL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,6 @@
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using System.Windows.Forms;
-using FluentSharp.BCL.Controls;
+using FluentSharp.WinForms.Controls;
 
 //O2File:ExtensionMethods/Views_ExtensionMethods.cs
 //O2File:CodeUtils/O2Kernel_O2Thread.cs

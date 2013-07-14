@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.NGit", "FluentS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.Roslyn", "FluentSharp.Roslyn\FluentSharp.Roslyn.csproj", "{1D5E7298-537E-409B-8059-2040CA60B55A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.BCL", "FluentSharp.BCL\FluentSharp.BCL.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.WinForms", "FluentSharp.WinForms\FluentSharp.WinForms.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.CoreLib", "FluentSharp.CoreLib\FluentSharp.CoreLib.csproj", "{0A7CE0E0-B092-43B5-AB80-99BA909019C9}"
 EndProject
@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.CoreLib", "UnitTests\UnitTests.FluentSharp.CoreLib\UnitTests.FluentSharp.CoreLib.csproj", "{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.BCL", "UnitTests\UnitTests.FluentSharp.BCL\UnitTests.FluentSharp.BCL.csproj", "{15ABA7E8-436C-4D60-97CA-E63D221FC09C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.WinForms", "UnitTests\UnitTests.FluentSharp.WinForms\UnitTests.FluentSharp.WinForms.csproj", "{15ABA7E8-436C-4D60-97CA-E63D221FC09C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.REPL", "UnitTests\UnitTests.FluentSharp.REPL\UnitTests.FluentSharp.REPL.csproj", "{EF0BBE23-9379-4595-B7E9-3496A70262FE}"
 EndProject
@@ -38,6 +38,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp_Fork.SharpDevelop", "FluentSharp_Fork.SharpDevelop\FluentSharp_Fork.SharpDevelop.csproj", "{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests_FluentSharp_Fork.CassiniDev", "FluentSharp_Fork.CassiniDev\UnitTests_FluentSharp_Fork.CassiniDev\UnitTests_FluentSharp_Fork.CassiniDev.csproj", "{C840A5BF-81EF-4E86-A437-CA8C4F78F257}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "O2_Platform", "O2_Platform", "{ECE6E804-DD33-4942-A9AC-8A84FD717E0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.O2Platform", "..\O2.Platform.Projects\Website.O2Platform\Website.O2Platform.csproj", "{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Website.O2Platform", "..\O2.Platform.Projects\UnitTests\UnitTests.Website.O2Platform\UnitTests.Website.O2Platform.csproj", "{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +145,18 @@ Global
 		{C840A5BF-81EF-4E86-A437-CA8C4F78F257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C840A5BF-81EF-4E86-A437-CA8C4F78F257}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C840A5BF-81EF-4E86-A437-CA8C4F78F257}.Release|x86.ActiveCfg = Release|Any CPU
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,5 +177,7 @@ Global
 		{21F37EE0-0117-44D1-8017-5DF2EF426B67} = {19B11B70-C710-4E28-ACDE-7DBB7709C5D8}
 		{4FD4F2BA-63F1-475C-ACDB-29E16FC66AD9} = {19B11B70-C710-4E28-ACDE-7DBB7709C5D8}
 		{C840A5BF-81EF-4E86-A437-CA8C4F78F257} = {19B11B70-C710-4E28-ACDE-7DBB7709C5D8}
+		{C44BB4E2-AE4D-4B75-94CE-80EC836425A5} = {ECE6E804-DD33-4942-A9AC-8A84FD717E0B}
+		{2F0A8852-7F1A-484C-B979-DC1F30D46FEF} = {ECE6E804-DD33-4942-A9AC-8A84FD717E0B}
 	EndGlobalSection
 EndGlobal

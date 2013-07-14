@@ -1,6 +1,6 @@
 // This file is part of the OWASP O2 Platform (http://www.owasp.org/index.php/OWASP_O2_Platform) and is released under the Apache 2.0 License (http://www.apache.org/licenses/LICENSE-2.0)
 using System;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using System.Windows;
 using System.Windows.Controls;
@@ -130,7 +130,8 @@ namespace FluentSharp.WPF
         }
 
 
-
+        //removed to remove depencies to FluentSharp.BCL
+        /*
         // WPF Winforms TreeView
         public static System.Windows.Forms.TreeView showStructureInTreeView(this UIElement uiElement, System.Windows.Forms.TreeView treeView)
         {
@@ -165,7 +166,7 @@ namespace FluentSharp.WPF
                 });
             return uiElementNode;
         }
-
+        */
 		//#endregion
 
     }

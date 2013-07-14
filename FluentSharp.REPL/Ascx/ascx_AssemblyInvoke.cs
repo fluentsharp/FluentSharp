@@ -3,8 +3,8 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using FluentSharp.BCL;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.SharpDevelop.Resources;
 

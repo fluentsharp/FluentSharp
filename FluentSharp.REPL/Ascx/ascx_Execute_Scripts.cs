@@ -2,9 +2,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using FluentSharp.BCL;
-using FluentSharp.BCL.Controls;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms;
+using FluentSharp.WinForms.Controls;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL.Utils;
@@ -35,7 +35,7 @@ namespace FluentSharp.REPL.Controls
 
         public static void startControl_With_Args(string[] args)
         {
-            RegisterWindowsExtension.registerO2Extensions();
+            RegisterWindowsExtension_WinForms.registerO2Extensions();
             startControl(args);
         }
 
@@ -393,7 +393,7 @@ namespace FluentSharp.REPL.Controls
             var path = PublicDI.config.LocalScriptsFolder;
             
             //var treeView = new TreeView();
-            var treeView = (TreeView)WinForms.showAscxInForm(typeof(TreeView), "O2 - Available scripts", 300, 300);
+            var treeView = (TreeView)WinForms_Show.showAscxInForm(typeof(TreeView), "O2 - Available scripts", 300, 300);
 
             treeView.BeforeExpand += (sender, e) => mapFoldersAndFiles(treeView, e.Node);
 

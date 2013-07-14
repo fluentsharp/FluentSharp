@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
-using FluentSharp.BCL;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 

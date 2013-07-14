@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL;
 using ICSharpCode.TextEditor;

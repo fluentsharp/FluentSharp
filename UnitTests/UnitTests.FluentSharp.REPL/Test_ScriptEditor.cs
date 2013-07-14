@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.REPL;
 using FluentSharp.REPL.Utils;
 using NUnit.Framework;

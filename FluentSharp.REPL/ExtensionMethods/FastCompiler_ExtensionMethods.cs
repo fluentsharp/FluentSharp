@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Threading;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL.Utils;

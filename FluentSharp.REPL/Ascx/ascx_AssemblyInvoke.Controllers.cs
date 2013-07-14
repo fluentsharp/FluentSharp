@@ -5,10 +5,10 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using FluentSharp.BCL;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib;
-using FluentSharp.BCL.Interfaces;
+using FluentSharp.WinForms.Interfaces;
 using FluentSharp.CoreLib.API;
 
 

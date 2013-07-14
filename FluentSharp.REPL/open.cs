@@ -1,9 +1,9 @@
 using System.Windows.Forms;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL.Controls;
-using FluentSharp.BCL.Controls;
+using FluentSharp.WinForms.Controls;
 using System.Threading;
 
 //O2File:ExtensionMethods/Reflection_ExtensionMethods.cs

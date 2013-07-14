@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.BCL", "O2.FluentSharp.BCL\FluentSharp.BCL.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.WinForms", "O2.FluentSharp.WinForms\FluentSharp.WinForms.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.CoreLib", "O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj", "{0A7CE0E0-B092-43B5-AB80-99BA909019C9}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.CoreL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.REPL", "UnitTests\UnitTests.FluentSharp.REPL\UnitTests.FluentSharp.REPL.csproj", "{EF0BBE23-9379-4595-B7E9-3496A70262FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.BCL", "UnitTests\UnitTests.FluentSharp.BCL\UnitTests.FluentSharp.BCL.csproj", "{15ABA7E8-436C-4D60-97CA-E63D221FC09C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.WinForms", "UnitTests\UnitTests.FluentSharp.WinForms\UnitTests.FluentSharp.WinForms.csproj", "{15ABA7E8-436C-4D60-97CA-E63D221FC09C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Projects", "External Projects", "{1E68CB12-07CC-4E9C-8B86-D18388888F84}"
 EndProject

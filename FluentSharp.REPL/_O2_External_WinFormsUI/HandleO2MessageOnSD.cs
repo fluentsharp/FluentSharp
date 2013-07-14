@@ -2,8 +2,8 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using FluentSharp.BCL.Interfaces;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms.Interfaces;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib.Interfaces;
 using FluentSharp.REPL.Controls;
 using FluentSharp.WinFormUI.Utils;

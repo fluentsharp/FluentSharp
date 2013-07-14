@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.CodeDom;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using System.Collections;
 using ICSharpCode.SharpDevelop.Dom;

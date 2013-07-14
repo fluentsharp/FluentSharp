@@ -40,7 +40,7 @@ namespace FluentSharp.REPL.Controls
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tbFileToOpen = new System.Windows.Forms.ToolStripTextBox();
             this.llReloadXRules = new System.Windows.Forms.ToolStripLabel();
-            this.directoryWithLocalXRules = new global::FluentSharp.BCL.Controls.DirectoryViewer();
+            this.directoryWithLocalXRules = new global::FluentSharp.WinForms.Controls.DirectoryViewer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btCreateRuleFromTemplate = new System.Windows.Forms.Button();
             this.tbNewRuleName = new System.Windows.Forms.TextBox();
@@ -48,7 +48,7 @@ namespace FluentSharp.REPL.Controls
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabControl_WithLocalScripts = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.directoryWithXRulesDatabase = new global::FluentSharp.BCL.Controls.DirectoryViewer();
+            this.directoryWithXRulesDatabase = new global::FluentSharp.WinForms.Controls.DirectoryViewer();
             this.tabPage_WithSearchForScript = new System.Windows.Forms.TabPage();
             this.scRightPanel = new System.Windows.Forms.SplitContainer();
             this.llReloadSelectedSourceCodeFile = new System.Windows.Forms.LinkLabel();
@@ -181,7 +181,7 @@ namespace FluentSharp.REPL.Controls
             this.directoryWithLocalXRules._ShowFileContentsOnTopTip = false;
             this.directoryWithLocalXRules._ShowFileSize = false;
             this.directoryWithLocalXRules._ShowLinkToUpperFolder = true;
-            this.directoryWithLocalXRules._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
+            this.directoryWithLocalXRules._ViewMode = global::FluentSharp.WinForms.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
             this.directoryWithLocalXRules._WatchFolder = true;
             this.directoryWithLocalXRules.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -283,7 +283,7 @@ namespace FluentSharp.REPL.Controls
             this.directoryWithXRulesDatabase._ShowFileContentsOnTopTip = false;
             this.directoryWithXRulesDatabase._ShowFileSize = false;
             this.directoryWithXRulesDatabase._ShowLinkToUpperFolder = true;
-            this.directoryWithXRulesDatabase._ViewMode = global::FluentSharp.BCL.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
+            this.directoryWithXRulesDatabase._ViewMode = global::FluentSharp.WinForms.Controls.DirectoryViewer.ViewMode.Simple_With_LocationBar;
             this.directoryWithXRulesDatabase._WatchFolder = true;
             this.directoryWithXRulesDatabase.BackColor = System.Drawing.SystemColors.Control;
             this.directoryWithXRulesDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -416,7 +416,7 @@ namespace FluentSharp.REPL.Controls
         #endregion
 
         private System.Windows.Forms.SplitContainer scTopLevel;
-        private global::FluentSharp.BCL.Controls.DirectoryViewer directoryWithXRulesDatabase;
+        private global::FluentSharp.WinForms.Controls.DirectoryViewer directoryWithXRulesDatabase;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btCreateRuleFromTemplate;
@@ -427,7 +427,7 @@ namespace FluentSharp.REPL.Controls
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private global::FluentSharp.BCL.Controls.DirectoryViewer directoryWithLocalXRules;
+        private global::FluentSharp.WinForms.Controls.DirectoryViewer directoryWithLocalXRules;
         private System.Windows.Forms.LinkLabel llRemoveSelectedSourceCodeFile;
 		private System.Windows.Forms.LinkLabel llReloadSelectedSourceCodeFile;
         private System.Windows.Forms.ToolStrip toolStrip2;

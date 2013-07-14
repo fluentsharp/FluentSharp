@@ -92,10 +92,6 @@
       <Project>{DB05A453-1449-432C-A188-7B10B6D4656D}</Project>
       <Name>FluentSharp.AspNet_MVC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.BCL\FluentSharp.BCL.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>FluentSharp.BCL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
@@ -103,6 +99,10 @@
     <ProjectReference Include="..\..\FluentSharp.REPL\FluentSharp.REPL.csproj">
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
       <Name>FluentSharp.REPL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev.csproj">
       <Project>{E4F4B9DC-F41C-4E3E-A630-DC7F425F61A9}</Project>

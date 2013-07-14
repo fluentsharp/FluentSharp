@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using FluentSharp.BCL.Utils;
+using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib.API;
 
 namespace FluentSharp.REPL.Controls

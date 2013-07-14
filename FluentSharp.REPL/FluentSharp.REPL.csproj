@@ -146,12 +146,6 @@
     <Compile Include="Ascx\ascx_XRules_Editor.Designer.cs">
       <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ascx\MiscUI\ascx_AskUserForLoginDetails.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Ascx\MiscUI\ascx_CaptchaQuestion.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Ascx\MiscUI\ascx_FolderViewer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -275,13 +269,13 @@
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentSharp.BCL\FluentSharp.BCL.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>FluentSharp.BCL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
+      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
+      <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp_Fork.SharpDevelop\FluentSharp_Fork.SharpDevelop.csproj">
       <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using FluentSharp.BCL;
+using FluentSharp.WinForms;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
 using WeifenLuo.WinFormsUI.Docking;

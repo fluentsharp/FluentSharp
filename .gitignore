@@ -21,3 +21,5 @@ binaries
 *.nupkg
 
 *.pdb
+
+packages
