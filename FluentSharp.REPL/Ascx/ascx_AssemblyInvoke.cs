@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using FluentSharp.WinForms;
 using FluentSharp.WinForms.Utils;
 using FluentSharp.CoreLib.API;
-using FluentSharp.SharpDevelop.Resources;
+using FluentSharp.SharpDevelopEditor.Resources;
 
 namespace FluentSharp.REPL.Controls
 {

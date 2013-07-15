@@ -8,7 +8,7 @@ using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
 using ICSharpCode.TextEditor.Document;
 using FluentSharp.CoreLib;
-using FluentSharp.SharpDevelop.Resources;
+using FluentSharp.SharpDevelopEditor.Resources;
 
 
 namespace FluentSharp.REPL.Controls

@@ -27,7 +27,7 @@ This is the FluentSharp REPL which provides a C# REPL enviroment (REPL is Read E
             <group targetFramework=".NETFramework3.5">
                 <dependency id="FluentSharp.WinForms" />
                 <dependency id="FluentSharp.CoreLib"/>
-                <dependency id="FluentSharp.SharpDevelop"/>                
+                <dependency id="FluentSharp.SharpDevelopEditor"/>                
             </group>
         </dependencies>
         <frameworkAssemblies>
