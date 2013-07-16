@@ -57,26 +57,30 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API_NGit.cs" />
     <Compile Include="API_NGit_O2Platform.cs" />
+    <Compile Include="ExtensionMethods\API_NGit_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\GitData\GitData_Repository_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Other\O2Platform_Git_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Config_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Fetch_Merge_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Objects_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Pull_Push_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Commit_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Misc_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Diff_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Log_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Repository_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\RevWalk_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Status_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Init_Clone_Open_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\RefLogs_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Add_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Files_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Config_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Fetch_Merge_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Objects_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Pull_Push_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Commit_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Misc_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Diff_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Log_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Repository_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\RevWalk_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Status_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Init_Clone_Open_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\RefLogs_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Add_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Files_ExtensionMethods.cs" />
+    <Compile Include="GitData\GitData_Models.cs" />
     <Compile Include="Utils\NGit_Consts.cs" />
     <Compile Include="Utils\GitProgress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

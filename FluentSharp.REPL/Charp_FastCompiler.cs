@@ -358,7 +358,7 @@ namespace FluentSharp.REPL.Utils
             try
             {
                 //handle special incudes in source code
-                var lines = code.fixCRLF().lines();
+                var lines = code.fix_CRLF().lines();
                 foreach (var originalLine in lines)
                 {
                     string line = originalLine;

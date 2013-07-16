@@ -82,7 +82,7 @@ namespace FluentSharp.Git
             return repoFiles;
         }  
                       
-        public static RevCommit    commit_TreeWalk(this RevCommit revCommit, API_NGit nGit, Action<TreeWalk> onNext)
+        public static RevCommit       commit_TreeWalk(this RevCommit revCommit, API_NGit nGit, Action<TreeWalk> onNext)
         {            
             var treeWalk = new TreeWalk(nGit.Repository);
             var tree = revCommit.Tree;

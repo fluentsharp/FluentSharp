@@ -79,5 +79,11 @@ namespace FluentSharp.Git
         {
             return objectId.notNull() && objectId.Name != NGit_Consts.EMPTY_SHA1;
         }
+        public static string        sha1(this ObjectId objectId)
+        {
+            if (objectId.notNull())
+                return objectId.Name;
+            return NGit_Consts.EMPTY_SHA1;
+        }
     }
 }

@@ -56,6 +56,10 @@ namespace FluentSharp.Git
                 return null;
             }
         }
+        public static bool         isNotGitRepository(this string pathToFolder)
+        {
+            return pathToFolder.isGitRepository().isFalse();
+        }
         public static bool         isGitRepository(this string pathToFolder)
         {
             return pathToFolder.dirExists() && pathToFolder.pathCombine(".git").dirExists();
