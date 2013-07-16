@@ -128,7 +128,7 @@ namespace FluentSharp.WinForms.Controls
                             propertyGrid.show(selectedObject);
                             var toString = selectedObject.str();
                             if (toString == "System.__ComObject")
-                                toString += " : {0}".format(selectedObject.comTypeName());
+                                toString += " : {0}".format(selectedObject.comObject_TypeName());
                             toStringValue.set_Text(toString);
 
                             propertyGrid.parent().set_Text(selectedObject.typeFullName());

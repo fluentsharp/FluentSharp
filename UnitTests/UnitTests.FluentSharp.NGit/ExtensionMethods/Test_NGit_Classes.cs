@@ -32,7 +32,7 @@ namespace UnitTests.FluentSharp_NGit
             Action<int, string> checkFullMessage =
                 (lineCount, lastMessage) =>
                     {
-                        var lines = gitProcess.FullMessage.str().fixCRLF().lines();
+                        var lines = gitProcess.FullMessage.str().fix_CRLF().lines();
                         Assert.AreEqual(lines.size(), lineCount);
                         Assert.AreEqual(lines.last(), lastMessage);
                     };

@@ -117,7 +117,7 @@ namespace FluentSharp.WinForms
                 (file)=>{ 		
                             "Opening File: {0}".info(file);
                             textArea.set_Text((currentFile = file).fileContents()
-                                                                  .fixCRLF());
+                                                                  .fix_CRLF());
                         };
             
             Action<string> saveFile =

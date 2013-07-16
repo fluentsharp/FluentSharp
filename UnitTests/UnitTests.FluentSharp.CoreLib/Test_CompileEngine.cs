@@ -15,14 +15,14 @@ namespace UnitTests.FluentSharp_CoreLib
             var compileError = "";
             Action<string> onCompileOk = (msg) => { };
             Action<string> onCompileFail = (msg) => { compileError = msg; };
-            var result = snippet.fixCRLF().compileAndExecuteCodeSnippet(onCompileOk, onCompileFail);
+            var result = snippet.fix_CRLF().compileAndExecuteCodeSnippet(onCompileOk, onCompileFail);
             Assert.AreEqual("", compileError, "there were compile errors");
             Assert.That(result is Int32, "result should be an int");
             Assert.AreEqual(result, 12, "result should be 12");
 
             //try with bad script
             snippet = "AAAA";
-            result = snippet.fixCRLF().compileAndExecuteCodeSnippet(onCompileOk, onCompileFail);
+            result = snippet.fix_CRLF().compileAndExecuteCodeSnippet(onCompileOk, onCompileFail);
             Assert.AreNotEqual("", compileError, "compile errors were expected");
             Assert.IsNull(result, "result should be null");
         }

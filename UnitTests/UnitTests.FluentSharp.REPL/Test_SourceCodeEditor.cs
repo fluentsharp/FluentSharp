@@ -62,7 +62,7 @@ namespace UnitTests.FluentSharp_REPL
             Assert.IsTrue   (h2File.fileExists());
             Assert.IsNotNull(h2);
             CodeEditor.open(h2File);
-            Assert.AreEqual(CodeEditor.get_Code().fixCRLF(), h2File.fileContents());
+            Assert.AreEqual(CodeEditor.get_Code().fix_CRLF(), h2File.fileContents());
         }
         [Test,Ignore("Fails in TeamCity")] public void CheckCodeCompleteReferences()
         {

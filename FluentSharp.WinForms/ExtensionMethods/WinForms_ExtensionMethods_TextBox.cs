@@ -390,7 +390,7 @@ namespace FluentSharp.WinForms
             return "Viewing String with size: {0}".format(text.size())
                         .popupWindow()
                         .add_TextArea()
-                        .set_Text(text.fixCRLF());
+                        .set_Text(text.fix_CRLF());
         }
     }
 }

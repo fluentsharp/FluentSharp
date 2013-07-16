@@ -12,6 +12,7 @@ namespace FluentSharp.Git.APIs
         [XmlAttribute] public string               LocalPath           { get; set; }        
         [XmlElement]   public GitData_Branch       CurrentBranch       { get; set; }        
         
+        [XmlAttribute] public bool                 ShowingCommitTrees  { get; set;}
         public GitData_Repository()
         {
             CurrentBranch = new GitData_Branch();           
@@ -38,18 +39,29 @@ namespace FluentSharp.Git.APIs
         [XmlAttribute] public string                FilePath            { get; set; }
         [XmlAttribute] public string                Sha1                { get; set; }
     }
+    public class GitData_File_Commit
+    {
+        [XmlAttribute] public string                FilePath            { get; set; }
+        [XmlAttribute] public string                Sha1                { get; set; }
+        [XmlAttribute] public string                CommitId            { get; set; }
+        [XmlAttribute] public string                Author              { get; set; }
+        [XmlAttribute] public string                Committer           { get; set; }
+        [XmlAttribute] public long                  When                { get; set; }
+        [XmlAttribute] public string                FileContents        { get; set; }
+    }
+
     public class GitData_Commit
     {
         [XmlAttribute] public string                Author              { get; set; }
-        [XmlAttribute] public string                Committer           { get; set; }
-        [XmlAttribute] public string                Message             { get; set; }
+        [XmlAttribute] public string                Committer           { get; set; }        
         [XmlAttribute] public string                Sha1                { get; set; }
-        [XmlAttribute] public string                When                { get; set; }
-        [XmlElement]   public List<GitData_File>    Files               { get; set; }
+        [XmlAttribute] public long                  When                { get; set; }        
+        [XmlElement]   public string                Message             { get; set; }
+        [XmlElement]   public List<GitData_File>    Tree               { get; set; }
 
         public GitData_Commit()
         {            
-            Files = new List<GitData_File>();            
+            Tree = new List<GitData_File>();            
         }
     }
 }

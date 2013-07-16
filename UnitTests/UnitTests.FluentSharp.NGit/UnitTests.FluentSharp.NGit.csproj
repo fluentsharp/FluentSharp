@@ -69,23 +69,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitData\Test_Git_Repository.cs" />
+    <Compile Include="Helper\Temp_Clone_O2_Platform_Scripts.NGit.cs" />
     <Compile Include="Helper\Temp_Repo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test_Commit.cs" />
-    <Compile Include="Test_Config.cs" />
-    <Compile Include="Test_Create_Repos.cs" />
-    <Compile Include="Test_Diff.cs" />
-    <Compile Include="Test_Files.cs" />
-    <Compile Include="Test_Init_Clone_Open.cs" />
-    <Compile Include="Test_Misc.cs" />
-    <Compile Include="Test_NGit_Classes.cs" />
-    <Compile Include="Test_O2Platform_Repos.cs" />
-    <Compile Include="Test_Objects.cs" />
-    <Compile Include="Test_Push_Pull_Fetch_Merge.cs" />
-    <Compile Include="Test_RefLogs.cs" />
-    <Compile Include="Test_Repository.cs" />
-    <Compile Include="Test_RevWalk.cs" />
-    <Compile Include="Test_Status.cs" />
+    <Compile Include="ExtensionMethods\Test_Commit.cs" />
+    <Compile Include="ExtensionMethods\Test_Config.cs" />
+    <Compile Include="ExtensionMethods\Test_Create_Repos.cs" />
+    <Compile Include="ExtensionMethods\Test_Diff.cs" />
+    <Compile Include="ExtensionMethods\Test_Files.cs" />
+    <Compile Include="ExtensionMethods\Test_Init_Clone_Open.cs" />
+    <Compile Include="ExtensionMethods\Test_Misc.cs" />
+    <Compile Include="ExtensionMethods\Test_NGit_Classes.cs" />
+    <Compile Include="ExtensionMethods\Test_O2Platform_Repos.cs" />
+    <Compile Include="ExtensionMethods\Test_Objects.cs" />
+    <Compile Include="ExtensionMethods\Test_Push_Pull_Fetch_Merge.cs" />
+    <Compile Include="ExtensionMethods\Test_RefLogs.cs" />
+    <Compile Include="ExtensionMethods\Test_Repository.cs" />
+    <Compile Include="ExtensionMethods\Test_RevWalk.cs" />
+    <Compile Include="ExtensionMethods\Test_Status.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -112,6 +114,7 @@
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.WinForms", "O2.FluentSharp.WinForms\FluentSharp.WinForms.csproj", "{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.CoreLib", "O2.FluentSharp.CoreLib\FluentSharp.CoreLib.csproj", "{0A7CE0E0-B092-43B5-AB80-99BA909019C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.REPL", "O2.FluentSharp.REPL\FluentSharp.REPL.csproj", "{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5} = {DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}
+		{0A7CE0E0-B092-43B5-AB80-99BA909019C9} = {0A7CE0E0-B092-43B5-AB80-99BA909019C9}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FluentSharp - Main", "FluentSharp - Main", "{D6F3850C-4B6A-4BC3-A568-1D522A72B027}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{511DAB39-29D4-4D73-8164-931A7C8330E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.CoreLib", "UnitTests\UnitTests.FluentSharp.CoreLib\UnitTests.FluentSharp.CoreLib.csproj", "{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.REPL", "UnitTests\UnitTests.FluentSharp.REPL\UnitTests.FluentSharp.REPL.csproj", "{EF0BBE23-9379-4595-B7E9-3496A70262FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.WinForms", "UnitTests\UnitTests.FluentSharp.WinForms\UnitTests.FluentSharp.WinForms.csproj", "{15ABA7E8-436C-4D60-97CA-E63D221FC09C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Projects", "External Projects", "{1E68CB12-07CC-4E9C-8B86-D18388888F84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2_External_SharpDevelop", "O2_External_SharpDevelop\O2_External_SharpDevelop.csproj", "{E76BCE43-8511-4CE8-A965-C0150F713CE9}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = O2.FluentSharp.Main.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7CE0E0-B092-43B5-AB80-99BA909019C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF0BBE23-9379-4595-B7E9-3496A70262FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E76BCE43-8511-4CE8-A965-C0150F713CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76BCE43-8511-4CE8-A965-C0150F713CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76BCE43-8511-4CE8-A965-C0150F713CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76BCE43-8511-4CE8-A965-C0150F713CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0A7CE0E0-B092-43B5-AB80-99BA909019C9} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
+		{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
+		{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
+		{2D70DDE6-EC9B-4B69-8BD3-BCCC7FA4F165} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
+		{EF0BBE23-9379-4595-B7E9-3496A70262FE} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
+		{15ABA7E8-436C-4D60-97CA-E63D221FC09C} = {511DAB39-29D4-4D73-8164-931A7C8330E1}
+		{E76BCE43-8511-4CE8-A965-C0150F713CE9} = {1E68CB12-07CC-4E9C-8B86-D18388888F84}
+	EndGlobalSection
+EndGlobal

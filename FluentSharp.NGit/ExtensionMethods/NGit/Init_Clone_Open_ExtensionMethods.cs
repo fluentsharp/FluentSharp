@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using FluentSharp.CoreLib.API;
 using FluentSharp.Git.APIs;
 using FluentSharp.CoreLib;
@@ -90,12 +91,13 @@ namespace FluentSharp.Git
                 "[API_NGit] clone completed in: {0}".debug(start.timeSpan_ToString());
                                 
                 return nGit;
-            }
+            }                
             catch (Exception ex)
             {
                 nGit.Last_Exception = ex;
                 ex.log("[API_NGit] ");
-                Files.deleteFolder(targetFolder, true);
+                if(ex.isNotInstanceOf<WebException>() )
+                    Files.deleteFolder(targetFolder, true);
             }
             return null;
         }

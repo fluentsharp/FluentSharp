@@ -28,15 +28,15 @@ namespace FluentSharp.CoreLib
         }
         public static string    kBytesStr(this int value)
         {
-            return "{0:000.00} kb".format(value.kBytes());
+            return "{0:000.00} KB".format(value.kBytes());
         }
         public static string    mBytesStr(this int value)
         {
-            return "{0:000.00} kb".format(value.mBytes());
+            return "{0:000.00} MB".format(value.mBytes());
         }
         public static string    gBytesStr(this int value)
         {
-            return "{0:000.00} kb".format(value.gBytes());
+            return "{0:000.00} B".format(value.gBytes());
         }
         public static bool      eq(this int value1, int value2)
         {

@@ -91,6 +91,15 @@ namespace FluentSharp.CoreLib
             return default(T);
         }	
 
+        public static bool isInstanceOf<T>(this object _object)
+        {
+            return _object is T;
+        }
+
+        public static bool isNotInstanceOf<T>(this object _object)
+        {
+            return _object.isInstanceOf<T>().isFalse();
+        }
         public static object obj<T>(this T _object)    where T : class
         {
             return _object;

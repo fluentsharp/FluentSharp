@@ -44,6 +44,13 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
             Assert.AreEqual(value7.ascii(), expected7);
 
             Assert.IsNull((null as byte[]).ascii());
+
+            //byte with BOM
+            var value8 = "a string value";
+            var value9 = "a string value".bytes_Ascii().insert_Bytes('\xEF','\xBB','\xBF');
+            
+            Assert.AreEqual(value8, value8.bytes_Ascii().ascii());
+            Assert.AreEqual(value8, value9.ascii());
         }
 
         [Test(Description = "Returns the ascii bytes from an string")]
@@ -148,6 +155,25 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
             Assert.AreEqual("", (null as byte[]).hexString());
         }
 
+        [Test(Description = "Inserts one byte[] into another byte[], the result is a byte[] with  bytesToInsert[] + originalBytes[]")]
+        public void insert_Bytes()
+        {
+            var originalBytes = "originalBytes".asciiBytes();
+            var bytesToInsert = "bytesToInsert".asciiBytes();
+            var bytes1         = "bytesToInsertoriginalBytes".asciiBytes();
+            var bytes2         = bytesToInsert.insert_Bytes('\x41','\x42','\x43','\x44'); 
+            var expected1      = originalBytes.insert_Bytes(bytesToInsert);
+            var expected2      = "ABCDbytesToInsert".asciiBytes(); 
+
+            Assert.AreEqual(bytes1, expected1);
+            Assert.AreEqual(bytes2.ascii(), expected2.ascii());
+            Assert.AreEqual(bytes2, expected2);
+
+            //test expception handing
+            Assert.IsNull((null as byte[]).insert_Bytes(bytesToInsert));
+            Assert.IsNull(originalBytes.insert_Bytes(null as byte[])); 
+        }
+
         [Test(Description = "Returns the bytes from Hex formated string (with two chars per byte)")]
         public void bytes_From_HexString()
         {
@@ -170,6 +196,37 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
             Assert.IsEmpty("*&^123".bytes_From_HexString());
             Assert.IsEmpty("*BADHEX".bytes_From_HexString());
             Assert.IsNotEmpty("0124".bytes_From_HexString());                        
+        }
+
+        [Test(Description = "Removes n bytes from an byte[]")]
+        public void remove_Bytes()
+        {
+            var originalBytes = "1234".asciiBytes();
+            var position1      = (uint)0; 
+            var position2      = (uint)1; 
+            var position3      = (uint)2; 
+            var position4      = (uint)3; 
+            var position5      = (uint)4; 
+            var expected1      = "234".asciiBytes();
+            var expected2      = "34" .asciiBytes();
+            var expected3      = "4"  .asciiBytes();
+            var expected4      = ""   .asciiBytes();
+            var expected5      = new byte[0];
+
+            Assert.AreEqual(originalBytes.remove_Bytes(position1).ascii(), expected1.ascii());
+            Assert.AreEqual(originalBytes.remove_Bytes(position2).ascii(), expected2.ascii());
+            Assert.AreEqual(originalBytes.remove_Bytes(position3).ascii(), expected3.ascii());
+            Assert.AreEqual(originalBytes.remove_Bytes(position4).ascii(), expected4.ascii());
+            Assert.AreEqual(originalBytes.remove_Bytes(position5).ascii(), expected5.ascii());
+
+            Assert.AreEqual(originalBytes.remove_Bytes(position1)        , expected1);           
+            Assert.AreEqual(originalBytes.remove_Bytes(position2)        , expected2);           
+            Assert.AreEqual(originalBytes.remove_Bytes(position3)        , expected3);           
+            Assert.AreEqual(originalBytes.remove_Bytes(position4)        , expected4);           
+            Assert.AreEqual(originalBytes.remove_Bytes(position5)        , expected5);           
+
+            //test expception handing
+            Assert.IsEmpty((null as byte[]).remove_Bytes(0));            
         }
 
         [Test(Description = "Returns an unicode string from unicode bytes")]
@@ -206,5 +263,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
 
             Assert.IsEmpty(bytes_Unicode.strings_From_Bytes(false, 2));
         }
+
+        
     }
 }

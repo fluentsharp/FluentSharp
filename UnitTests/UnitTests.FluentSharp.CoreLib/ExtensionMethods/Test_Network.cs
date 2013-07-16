@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using NUnit.Framework;
@@ -79,8 +78,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
         [Test(Description = "Writes bytes or an string to an open TcpClient")]
         public void write()
         {            
-            var bytes = 200.randomBytes();
-            var bytes_Ascii = 200.randomLetters();
+            var bytes = 200.randomBytes();            
 
             var tcpListener = TestPort.tcpListener();
             var tcpClient = TestPort.tcpClient();
