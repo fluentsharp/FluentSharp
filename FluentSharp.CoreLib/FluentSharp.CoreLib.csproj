@@ -58,6 +58,7 @@
     <Compile Include="ExtensionMethods\Byte_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Compilation_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\DateTime_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Delete_Or_Copy.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_FileInfo.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Open.cs" />

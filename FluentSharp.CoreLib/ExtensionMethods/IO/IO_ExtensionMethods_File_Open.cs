@@ -49,9 +49,13 @@ namespace FluentSharp.CoreLib
         }
         public static string        contents(this string file)
         {
+            return file.contents(true);
+        }
+        public static string        contents(this string file, bool autoExtractH2Files)
+        {
             if (file.valid())
-            {
-                if (file.extension(".h2"))
+            {                
+                if (autoExtractH2Files && file.extension(".h2"))
                     return file.h2_SourceCode();
                 return Files.getFileContents(file);
             }

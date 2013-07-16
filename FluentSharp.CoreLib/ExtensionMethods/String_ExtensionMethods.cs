@@ -754,51 +754,5 @@ namespace FluentSharp.CoreLib
 		{
 			return UInt32.Parse(value);
 		}
-	}
-
-    public static class DateTime_ExtensionMethods
-	{
-		public static long      unixTime(this DateTime dateTime)
-		{
-			return (dateTime - new DateTime(1970, 1, 1)).TotalSeconds.toLong();
-		}		
-		public static long      unixTime_Now(this int secondsToAdd)
-		{
-			return DateTime.UtcNow.unixTime().add(secondsToAdd);
-		}		
-		public static long      unixTimeStamp_InSeconds(this int secondsToAdd)
-		{
-			return secondsToAdd.unixTime_Now();
-		}		
-		public static bool      isDate(this string date)
-		{
-			try
-			{
-				var parsedDate = DateTime.Parse(date);
-				return parsedDate.notNull();
-			}
-			catch
-			{
-				return false;
-			}
-		}		
-		public static string    timeSpan_ToString(this DateTime startDateTime)
-		{
-			return startDateTime.duration_to_Now();
-		}		
-		public static string    duration_to_Now(this DateTime startDateTime)
-		{
-			return  (DateTime.Now -  startDateTime).timeSpan_ToString();
-		}				
-		public static string    timeSpan_ToString(this TimeSpan timeSpan)
-		{
-			//return timeSpan.ToString("mm'm 'ss's 'ff'ms'");  //4.0 dependent
-            return timeSpan.ToString();
-		}
-        public static DateTime  fromFileTimeUtc(this long fileTimeUtc)
-        {
-            return DateTime.FromFileTimeUtc(fileTimeUtc);
-        }
-		
-	}
+	}    
 }
