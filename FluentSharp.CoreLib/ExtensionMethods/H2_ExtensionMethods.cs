@@ -16,7 +16,7 @@ namespace FluentSharp.CoreLib
             {
                 //"return source code of H2 file".info();
                 if (file.fileExists())
-                    return H2.load(file).SourceCode.fixCRLF();
+                    return H2.load(file).SourceCode.fix_CRLF();
             }
             return null;
         }

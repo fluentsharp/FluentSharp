@@ -229,7 +229,7 @@ namespace FluentSharp.CoreLib
         {
             if (removeEmptyLines)
                 return text.lines();
-            return text.fixCRLF()
+            return text.fix_CRLF()
                        .Split(new [] { Environment.NewLine }, StringSplitOptions.None )
                        .toList();
         }

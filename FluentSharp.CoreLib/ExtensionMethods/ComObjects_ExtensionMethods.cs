@@ -1,12 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections;
+using FluentSharp.CoreLib.API;
 
 namespace FluentSharp.CoreLib
 {
     public static class ComObjects_ExtensionMethods
     {
         
+        /*public static string        comTypeName(this object _object)
+        {
+            return _object.comObject_TypeName();
+        }*/
+        public static string        comObject_TypeName(this object _object)
+        {
+            return PublicDI.reflection.getComObjectTypeName(_object);
+        }
 		public static T             comObject_Get_Value<T>(this object comObject, string name)
 		{
 			return comObject.comObject_Prop<T>(name);
@@ -81,7 +90,7 @@ namespace FluentSharp.CoreLib
 						results.Add((T)item);
 					else
 						if(logCastErrors)
-							"[comObject_ExtractList] inside the IEnumerable, this item was not of type '{0}' it was of type: '{1}'".error(typeof(T), item.comTypeName());
+							"[comObject_ExtractList] inside the IEnumerable, this item was not of type '{0}' it was of type: '{1}'".error(typeof(T), item.comObject_TypeName());
 			}
 			else
 				"[comObject_ExtractList] the provided object was not IEnumerable: {0}".error(_object);

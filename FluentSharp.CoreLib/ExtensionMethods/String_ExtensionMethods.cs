@@ -311,14 +311,13 @@ namespace FluentSharp.CoreLib
             return targetString;
         }
 
-        public static string    fixCRLF(this string stringToFix)
+        public static string    fix_CRLF (this string stringToFix)
         {            
             if (stringToFix.isNull())
                 return null;
             return stringToFix.Replace(Environment.NewLine, "\n")
                               .Replace("\n", Environment.NewLine);
-        }    
-
+        }            
         public static void      removeLastChar(this StringBuilder stringBuilder)
         {
             if (stringBuilder.Length > 0)

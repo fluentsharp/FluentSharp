@@ -66,11 +66,7 @@ namespace FluentSharp.CoreLib
         {
             return types.Select((type) => type.Name).toList();
         }
-
-        public static string        comTypeName(this object _object)
-        {
-            return PublicDI.reflection.getComObjectTypeName(_object);
-        }
+        
         public static List<Type>    baseTypes(this Type type)
         {
             var baseType = new List<Type>();

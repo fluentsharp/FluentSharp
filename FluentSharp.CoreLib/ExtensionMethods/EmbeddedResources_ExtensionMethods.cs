@@ -53,7 +53,7 @@ namespace FluentSharp.CoreLib
         public static List<string> mapExtraEmbebbedResources(this string targetFolder, string fileToParse)
         {
             var extraEmbebbedResources = new List<string>();
-            var sourceCode = fileToParse.local().contents().fixCRLF();
+            var sourceCode = fileToParse.local().contents().fix_CRLF();
             if (sourceCode.notValid())
             {
                 "[mapExtraEmbebbedResources] could not get source code for file: {0}".format(fileToParse);
@@ -106,7 +106,7 @@ namespace FluentSharp.CoreLib
 */
 		public static string copyToolReferencesToFolder(this string targetFolder, string fileToParse)
 		{
-			var sourceCode = fileToParse.local().contents().fixCRLF();
+			var sourceCode = fileToParse.local().contents().fix_CRLF();
 			var tag = "//O2EmbedTool:";
 			foreach (var folder in sourceCode.lines().starting(tag).replace(tag,""))
 			{
@@ -122,9 +122,9 @@ namespace FluentSharp.CoreLib
         public static string copyFileReferencesToFolder(this string targetFolder, string fileToParse)
         {
 
-			var sourceCode = fileToParse.local().contents().fixCRLF(); 
-							/*fileToParse.extension(".h2") ? fileToParse.local().h2_SourceCode().fixCRLF()
-                                                          : fileToParse.local().fileContents().fixCRLF();*/
+			var sourceCode = fileToParse.local().contents().fix_CRLF(); 
+							/*fileToParse.extension(".h2") ? fileToParse.local().h2_SourceCode().fix_CRLF()
+                                                          : fileToParse.local().fileContents().fix_CRLF();*/
 			var tag = "//O2Package:";
 			foreach (var item in sourceCode.lines().starting(tag).replace(tag, ""))
 			{
