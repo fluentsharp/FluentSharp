@@ -64,6 +64,7 @@
     <Compile Include="API_NGit_O2Platform.cs" />
     <Compile Include="ExtensionMethods\API_NGit_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\GitData\GitData_Repository_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\NGit\Branch_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Other\O2Platform_Git_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\NGit\Config_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\NGit\Fetch_Merge_ExtensionMethods.cs" />

@@ -15,40 +15,20 @@ namespace UnitTests.FluentSharp_NGit
 
             var branchName      = "branch".add_RandomLetters();
             var branches_Before = nGit.branches();
-            var newBranch       = nGit.branch_Create(branchName);
+            var result          = nGit.branch_Create(branchName);
             var branches_After  = nGit.branches();
 
-            Assert.IsNotNull(newBranch);
+            Assert.IsNotNull(branchName);
             Assert.AreEqual(branches_Before.size(),1);
             Assert.AreEqual(branches_After.size(),2);
             Assert.AreEqual(branches_After.first(),branchName);
-            Assert.AreEqual(newBranch,branchName);
+            Assert.IsTrue(result);
 
             //Test Null handling
-            Assert.IsNull(nGit.branch_Create(null));
+            Assert.IsFalse(nGit.branch_Create(null));
         }
 
-        [Test(Description = "Returns string list of all refs")]
-        public void branches()
-        {
-            var branchesRaw1 = nGit.branches_Raw();
-            var branches1    = nGit.branches();
-
-            Assert.IsEmpty(branchesRaw1);
-            Assert.IsEmpty(branches1);
-
-            nGit.add_and_Commit_Random_File();
-
-            var branchesRaw2 = nGit.branches_Raw();
-            var branches2    = nGit.branches();
-
-            Assert.IsNotEmpty(branchesRaw2);
-            Assert.IsNotEmpty(branches2);
-            Assert.AreEqual  (branches2.size() ,1);            
-            Assert.AreEqual  (branches2.first(), "master");            
-            Assert.AreEqual  (branchesRaw2.first().GetName(), "refs/heads/master");
-            Assert.IsEmpty   ((null as API_NGit).branches_Raw());
-        }
+       
         [Test(Description = "Returns the SHA1 of the current repo HEAD")]
         public void head()
         {

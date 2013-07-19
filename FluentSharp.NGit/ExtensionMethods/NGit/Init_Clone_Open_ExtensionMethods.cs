@@ -24,7 +24,7 @@ namespace FluentSharp.Git
                 "[API_NGit][git_Init] tried to init a repository in a folder that already has a git repository: {0}"
                     .error(targetFolder);
                 return null;
-            }
+            }            
             try
             {
                 nGit.close();

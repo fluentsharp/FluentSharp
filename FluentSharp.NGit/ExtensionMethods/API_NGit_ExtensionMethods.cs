@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp.CoreLib;
-using FluentSharp.Git;
+﻿using FluentSharp.CoreLib;
 using FluentSharp.Git.APIs;
 
-namespace FluentSharp.ExtensionMethods
+namespace FluentSharp.Git
 {
     public static class API_NGit_ExtensionMethods
     {

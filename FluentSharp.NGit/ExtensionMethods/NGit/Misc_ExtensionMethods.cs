@@ -62,5 +62,19 @@ namespace FluentSharp.Git
         {
             return targetString.replace(@"//", @"/");
         }
+        public static string      simple_BranchName    (this string refName)
+        {
+            if(refName.notNull())                
+                return refName.starts("refs/heads/")
+                            ? refName.subString_After("refs/heads/")
+                            : refName;
+            return null;
+        }
+        public static string      simple_BranchName    (this Ref @ref)
+        {
+            if (@ref.notNull())            
+                return @ref.GetName().simple_BranchName();                
+            return null;
+        }
     }
 }

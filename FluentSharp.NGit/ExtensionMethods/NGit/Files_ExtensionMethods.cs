@@ -69,9 +69,15 @@ namespace FluentSharp.Git
             return nGit.files(nGit.head());
         }
 
-        public static List<string>  files(this API_NGit nGit, string commitId) 
+        public static List<string>  files(this API_NGit nGit, string commitId)
         {
             var repoFiles = new List<string>();
+            nGit.files(commitId, (treeWalk)=>repoFiles.Add(treeWalk.PathString));
+            return repoFiles;    
+        }
+        public static API_NGit  files(this API_NGit nGit,string commitId,  Action<TreeWalk> onTreeWalk) 
+        {
+            
             try
             {
                 var headCommit = nGit.Repository.Resolve(commitId);
@@ -85,18 +91,14 @@ namespace FluentSharp.Git
                     treeWalk.Recursive = true;
 
                     while (treeWalk.Next())
-                    {
-                        repoFiles.Add(treeWalk.PathString);
-                    }
+                        onTreeWalk(treeWalk);                 
                 }
-            }
-            //ncrunch: no coverage start
+            }            
             catch (Exception ex) 
             {
                 ex.log("[API_NGit][getRepoFiles]"); 
-            }
-            //ncrunch: no coverage end
-            return repoFiles;            
+            }            
+            return nGit ;
         }
     }
 }

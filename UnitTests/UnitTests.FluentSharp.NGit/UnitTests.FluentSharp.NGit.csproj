@@ -69,7 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GitData\Test_Git_Repository.cs" />
+    <Compile Include="ExtensionMethods\Test_Branch.cs" />
+    <Compile Include="GitData\Test_GitData_Repository.cs" />
     <Compile Include="Helper\Temp_Clone_O2_Platform_Scripts.NGit.cs" />
     <Compile Include="Helper\Temp_Repo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
