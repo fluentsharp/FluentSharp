@@ -1,5 +1,4 @@
 ﻿using FluentSharp.CoreLib;
-using FluentSharp.CoreLib.API;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
 using FluentSharp.NUnit;

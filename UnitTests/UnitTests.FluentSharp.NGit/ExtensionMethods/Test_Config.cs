@@ -124,8 +124,7 @@ namespace UnitTests.FluentSharp_NGit
 
             beforeSet.assert_Is_Null();
             afteret  .assert_Is_Not_Null()
-                        .and_Is_Equal_To("123");
-            "".popupWindow().add_TextArea().set_Text(config.file_Contents().fix_CRLF()).waitForClose();
+                        .and_Is_Equal_To("123");           
         }
 
         [Test(Description = "Returns current remotes")]
