@@ -1,7 +1,10 @@
 ﻿using FluentSharp.CoreLib;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
+using FluentSharp.NUnit;
+using FluentSharp.WinForms;
 using NGit;
+using NGit.Storage.File;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit
@@ -19,7 +22,7 @@ namespace UnitTests.FluentSharp_NGit
 
             Assert.IsNull((null as API_NGit).config());
         }
-
+                
         [Test(Description = "Returns the Repository's config sections")]
         public void config_Sections()
         {
@@ -60,6 +63,69 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsEmpty   (subsection_Null);
 
             Assert.IsEmpty((null as API_NGit).config_SubSections(""));
+        }
+
+        [Test(Description = "Returns the current repos config fie")]
+        public void config_Repo()
+        {
+            var config   = nGit.config_Repo();
+            var file     = config.file_Path();
+            var contents = config.file_Contents(); 
+
+            config.assert_Is_Not_Null()
+                     .and_Is_Instance_Of<FileBasedConfig>();
+            file  .assert_File_Exists();
+            contents  .assert_Contains("[core]");
+        }
+        
+        [Test(Description = "Returns the current global/user config fie")]
+        public void config_Global()
+        {
+            var config   = nGit.config_Global();
+            var file     = config.file_Path();
+            var contents = config.file_Contents(); 
+
+            config.assert_Is_Not_Null()
+                     .and_Is_Instance_Of<FileBasedConfig>();
+            file  .assert_File_Exists();
+            contents  .assert_Contains("[core]");
+        }
+
+        [Test(Description = "Returns the current system config fie")]
+        public void config_System()
+        {
+            var config   = nGit.config_System();
+            var file     = config.file_Path();
+            var contents = config.file_Contents(); 
+
+            config    .assert_Is_Not_Null()
+                         .and_Is_Instance_Of<FileBasedConfig>();
+            file      .assert_File_Exists();
+            contents  .assert_Contains("[core]");
+
+            assert_Are_Not_Equal(file, nGit.config_Global().file_Path());
+            assert_Are_Not_Equal(file, nGit.config_Repo  ().file_Path());
+
+            assert_Is_Null  ((null as FileBasedConfig).file_Path());
+            assert_Are_Equal((null as FileBasedConfig).file_Contents(),"");
+        }
+
+
+        [Test(Description = "Returns the names/vars in config section")]
+        public void section_Names()
+        {
+            var config = nGit.config_Repo();
+            var names = config.section_Names("core");
+            Assert.IsNotEmpty(names); 
+           
+            var beforeSet = config.section_Get_Value_String("core","aaa");
+            var afteret  = config.section_Set_Value_String("core","aaa","123")
+                                 .section_Get_Value_String("core","aaa");
+
+            beforeSet.assert_Is_Null();
+            afteret  .assert_Is_Not_Null()
+                        .and_Is_Equal_To("123");
+            "".popupWindow().add_TextArea().set_Text(config.file_Contents().fix_CRLF()).waitForClose();
         }
 
         [Test(Description = "Returns current remotes")]
@@ -107,7 +173,6 @@ namespace UnitTests.FluentSharp_NGit
             Assert.IsEmpty(nGit.remotes());
 
         }
-
         
         [Test(Description = "Removes a remote")]
         public void remote_Delete()

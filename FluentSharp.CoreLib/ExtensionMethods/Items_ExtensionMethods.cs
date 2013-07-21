@@ -70,11 +70,11 @@ namespace FluentSharp.CoreLib
 				items.Remove(itemToRemove);
 			return items;
 		}		
-		public static Items set(this Items items, string key, string value)
+		public static Items set_Value(this Items items, string key, string value)
 		{
 			return items.add(key,value);
 		}		
-		public static string get(this Items items, string key)
+		public static string get_Value(this Items items, string key)
 		{
 			return items[key];
 		}		

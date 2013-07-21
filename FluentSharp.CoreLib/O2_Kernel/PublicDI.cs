@@ -15,7 +15,7 @@ namespace FluentSharp.CoreLib.API
             O2Kernel_Web.ApplyNetworkConnectionHack();            
             log = new KO2Log();			
             reflection = new KReflection();            
-            config = O2ConfigLoader.getKO2Config();
+            config = new KO2Config();//O2ConfigLoader.getKO2Config();
             
 
             O2KernelProcessName = "Generic O2 Kernel Process";

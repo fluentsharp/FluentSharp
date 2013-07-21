@@ -214,12 +214,14 @@ namespace FluentSharp.CoreLib
 
         public static AutoResetEvent reset(this AutoResetEvent autoResetEvent)
         {
-            autoResetEvent.Reset();
+            if (autoResetEvent.notNull())
+                autoResetEvent.Reset();
             return autoResetEvent;
         }
         public static AutoResetEvent set(this AutoResetEvent autoResetEvent)
         {
-            autoResetEvent.Set();
+            if (autoResetEvent.notNull())
+                autoResetEvent.Set();
             return autoResetEvent;
         }
         public static bool waitOne(this AutoResetEvent autoResetEvent)

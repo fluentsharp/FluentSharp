@@ -78,14 +78,18 @@ namespace FluentSharp.CoreLib
 
             return type.assembly_AssemblyName().name();
         }
-        public static string                    append_CurrentAssemblyVersion   (this string aString)                       
+        public static string                    append_Version_Calling_Assembly (this string target)                        
         {
-            return Assembly.GetCallingAssembly().version();            
+            return "{0}{1}".format(target, Assembly.GetCallingAssembly().version());            
         }
-        public static string                    append_O2Version                (this string aString)                       
+        public static string                    append_Version_FluentSharp      (this string target)                        
         {
-            return Assembly.GetExecutingAssembly().version();
+            return "{0}{1}".format(target, typeof(PublicDI).assembly().version());
         }        
+        public static string                    append_Version_FluentSharp_Short(this string target)                        
+        {
+            return "{0}{1}".format(target, typeof(PublicDI).assembly().version_Short());
+        }                
         public static PortableExecutableKinds	assembly_PortableExecutableKind (this string assemblyLocation)              
         {
             try
@@ -263,7 +267,26 @@ namespace FluentSharp.CoreLib
         public static string                    version                         (this Assembly assembly)                    
         {
             if (assembly.notNull())
-                return assembly.GetName().Version.ToString();
+            {
+                var name = assembly.GetName();
+                if (name.notNull())
+                    return name.Version.str();
+            }
+            return "";
+        }
+        public static string                    version_Short                   (this Assembly assembly)                    
+        {
+            if (assembly.notNull())
+            {
+                var name = assembly.GetName();
+                if (name.notNull())
+                {
+                    var version = name.Version;
+                    if (version.notNull())
+                
+                    return name.Version.ToString(2);                    
+                }
+            }
             return "";
         }
 

@@ -96,6 +96,10 @@ namespace FluentSharp.REPL.Utils
             return "O2 Object Model".popupWindow(500, 400)
                                     .add_Control<O2ObjectModel>();        
         }
+        public static ascx_Panel_With_Inspector csharpREPL()
+        {
+            return ascx_Panel_With_Inspector.runControl();
+        }
         public static ascx_Panel_With_Inspector scriptEditor()
         {
             return ascx_Panel_With_Inspector.runControl();

@@ -211,7 +211,7 @@ namespace FluentSharp.REPL.Controls
                         .add_MenuItem("REPL script this Script"                      , scriptTheCurrentScript)
                         .add_MenuItem("REPL script this Script's codeComplete object", scriptTheCurrentScript_CodeComplete);
             contextMenu.add_MenuItem("O2 Scripts")
-                       .add_MenuItem("Download/Update O2 Scripts (via http)", O2Scripts.downloadO2Scripts)
+                       //.add_MenuItem("Download/Update O2 Scripts (via http)", O2Scripts.downloadO2Scripts)
                        .add_MenuItem("O2 Script: find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
                        .add_MenuItem("O2 Script: new C# Script Editor", () => open.scriptEditor())                                              
                        .add_MenuItem("O2 Script: Find Script to execute", () => "Util - O2 Available scripts.h2".local().executeH2Script())

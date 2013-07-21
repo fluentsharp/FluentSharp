@@ -1,11 +1,12 @@
 ﻿using FluentSharp.CoreLib;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
+using FluentSharp.NUnit;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit
 {
-    public class Temp_Repo
+    public class Temp_Repo : Tests
     {
         public API_NGit nGit        { get; set; }
         public string   repoPath    { get; set; }

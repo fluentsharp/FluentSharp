@@ -78,6 +78,10 @@
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
+      <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>
+      <Name>FluentSharp.NUnit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

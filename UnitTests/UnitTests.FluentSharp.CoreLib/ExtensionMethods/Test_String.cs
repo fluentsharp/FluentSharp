@@ -3,13 +3,69 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentSharp.CoreLib;
+using FluentSharp.NUnit;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
-{
-    [TestFixture]
-    public class Test_String
+{    
+    public class Test_String : Tests
     {
+        [Test(Description = "Returns true if the provided string(s) were found in the provided target")]
+        public void contains()
+        {
+            var target = "abc12345";
+            assert_Is_True (target.contains("a"));
+            assert_Is_True (target.contains("1"));
+            assert_Is_True (target.contains("abc"));
+            assert_Is_True (target.contains("123"));
+            assert_Is_True (target.contains("abc12345"));
+
+            assert_Is_False(target.contains("d"));
+            assert_Is_False(target.contains("6"));
+            assert_Is_False(target.contains("abcd"));
+            assert_Is_False(target.contains("0123"));
+            assert_Is_False(target.contains("abc123456"));
+
+            assert_Is_True (target.contains("a","XXX"));
+            assert_Is_True (target.contains("XXX","2"));
+            assert_Is_True (target.contains("Y","XXX","123"));
+            assert_Is_True (target.contains("XXX","Y","12345"));
+
+            assert_Is_False(target.contains("Y","XXX"));
+            assert_Is_False(target.contains("XXX","Y"));
+            
+            assert_Is_True (target.contains("1",null));
+            assert_Is_True (target.contains(null,"1"));
+            assert_Is_False(target.contains("XXX",null));
+            assert_Is_False(target.contains(null,"XXX"));
+            assert_Is_False(target.contains(null as string));            
+            assert_Is_False(target.contains(null as string []));            
+            
+            assert_Is_False((null as string).contains("a"));
+            assert_Is_False((null as string).contains("a","1"));
+            assert_Is_False((null as string).contains(null as string));
+            assert_Is_False((null as string).contains(null as string[]));        
+            
+            //test List<string>
+            var testList = new List<string>();
+            assert_Is_False(target.contains(testList));
+            assert_Is_True (target.contains(testList.clear().add("a")));
+            assert_Is_True (target.contains(testList.clear().add("1")));
+            assert_Is_True (target.contains(testList.clear().add("abc")));
+            assert_Is_True (target.contains(testList.clear().add("123")));
+            assert_Is_False(target.contains(testList.clear().add("z")));
+            assert_Is_False(target.contains(testList.clear().add("0")));
+            assert_Is_False(target.contains(testList.clear().add("abcd")));
+            assert_Is_False(target.contains(testList.clear().add("0123")));
+            assert_Is_True (target.contains(testList.clear().add("z")   .add("1")));
+            assert_Is_True (target.contains(testList.clear().add("a")   .add("0")));
+            assert_Is_True (target.contains(testList.clear().add("abcd").add("1")));
+            assert_Is_True (target.contains(testList.clear().add("a")   .add("0123")));            
+            assert_Is_True (target.contains(testList.clear().add("a")   .add(null as string)));
+            assert_Is_True (target.contains(testList.clear().add(null as string).add("1")));            
+            assert_Is_False(target.contains(testList.clear().add(null as string)));
+        }
+        
         [Test(Description = "Returns a string after the provided string")]
         public void subString_After()
         {

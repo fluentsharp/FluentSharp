@@ -6,6 +6,10 @@ namespace FluentSharp.CoreLib
 {
     public static class Object_ExtensionMethods
     {
+        public static T     assign<T>(this T dummyObject, T newValue)
+        {
+            return newValue;
+        }
         public static void  gcCollect(this object _object)
         {
             GC.Collect();
@@ -38,7 +42,7 @@ namespace FluentSharp.CoreLib
                 return (T)_object;
             return default(T);
         }
-
+        
 		public static T backTo<T>(this object hostObject, T objectToGoBackTo)
 		{
 			return objectToGoBackTo;

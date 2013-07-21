@@ -200,7 +200,7 @@
     <Compile Include="O2_Kernel\CodeUtils\AppDomainUtils.cs" />
     <Compile Include="O2_Kernel\CodeUtils\Callbacks.cs" />
     <Compile Include="O2_Kernel\CodeUtils\LoadTypes.cs" />
-    <Compile Include="O2_Kernel\CodeUtils\O2ConfigLoader.cs" />
+    <Content Include="O2_Kernel\CodeUtils\O2ConfigLoader.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Files.cs" />
     <EmbeddedResource Include="Apache.2.0.license.txt" />
     <None Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs.txt" />

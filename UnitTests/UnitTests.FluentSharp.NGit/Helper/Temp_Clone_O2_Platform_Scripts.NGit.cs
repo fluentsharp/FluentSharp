@@ -2,32 +2,28 @@
 using FluentSharp.CoreLib.API;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
+using FluentSharp.NUnit;
+using FluentSharp.O2Platform;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_NGit
 {
-    public class Temp_Clone_O2_Platform_Scripts
-    {   
-        public string   GIT_HUB_O2_PLATFORM_SCRIPTS { get; set; }
-
+    public class Temp_Clone_O2_Platform_Scripts : NUnitTests
+    {           
         public API_NGit nGit        { get; set; }
         public string   repoPath    { get; set; }        
         
         public Temp_Clone_O2_Platform_Scripts() 
         {
-            repoPath = PublicDI.config.O2TempDir.pathCombine("Temp_Clone_O2_Platform_Scripts");
-            GIT_HUB_O2_PLATFORM_SCRIPTS = "https://github.com/o2platform/O2.Platform.Scripts.git";
-            nGit = new API_NGit().open_or_Clone(GIT_HUB_O2_PLATFORM_SCRIPTS, repoPath);
-                        
-            Assert.IsNotEmpty(repoPath.files());
+            var o2PlatformScripts = new O2_Platform_Scripts();
+            o2PlatformScripts.Clone_Or_Open_O2_Platform_Scripts_Repository();
+            repoPath = o2PlatformScripts.ScriptsFolder();
+            nGit = o2PlatformScripts.nGit;
+
+            assert_Is_Not_Null(nGit);
+            Assert.IsNotEmpty(repoPath.files() , "[Temp_Clone_O2_Platform_Scripts] no files in repoPath:" + repoPath);
             Assert.IsNotEmpty(repoPath.dirs());                        
-            Assert.IsTrue    (repoPath.isGitRepository());
-            /*if (Web.Online)
-            {
-                var pullResult = nGit.pull();
-                Assert.IsTrue    (pullResult);
-            }*/
-            
+            Assert.IsTrue    (repoPath.isGitRepository());                       
         }        
         
 

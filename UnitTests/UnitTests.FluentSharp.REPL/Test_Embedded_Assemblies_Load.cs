@@ -11,7 +11,7 @@ namespace UnitTests.FluentSharp_REPL
     {
         public Test_Embedded_Assemblies_Load()
         {
-            O2ConfigSettings.O2Version = "O2_UnitTests\\FluentSharp_BCL".append_O2Version();            
+            O2ConfigSettings.O2Version = "O2_UnitTests\\FluentSharp_BCL".append_Version_FluentSharp();            
         }
 
         [Test]

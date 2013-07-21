@@ -125,7 +125,7 @@ namespace FluentSharp.WPF
                 });
         }
 		
-        public static ContentControl set(this ContentControl control,UIElement uiElement)
+        public static ContentControl set_Value(this ContentControl control,UIElement uiElement)
         {
             return (ContentControl)control.wpfInvoke(
                 ()=>{

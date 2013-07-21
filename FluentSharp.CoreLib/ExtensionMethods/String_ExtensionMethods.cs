@@ -49,19 +49,20 @@ namespace FluentSharp.CoreLib
         }        
         public static bool      contains(this string targetString, string stringToFind)
         {
-            return stringToFind != null && 
+            return targetString.notNull() && 
+                   stringToFind.notNull() && 
                    targetString.Contains(stringToFind);
         }
         public static bool      contains(this string targetString, List<string> stringsToFind)
         {
-            return targetString.contains(stringsToFind.ToArray());
+            return targetString.contains(stringsToFind.toArray());
         }
         public static bool      contains(this string targetString, params string[] stringsToFind)
         {
             if (stringsToFind.notNull())
             {
                 foreach (var stringToFind in stringsToFind)
-                    if (targetString.Contains(stringToFind))
+                    if (targetString.contains(stringToFind))
                         return true;
             }
             return false;

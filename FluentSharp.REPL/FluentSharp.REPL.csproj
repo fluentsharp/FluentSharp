@@ -91,9 +91,6 @@
     <Compile Include="Ascx\ascx_AssemblyInvoke.Designer.cs">
       <DependentUpon>ascx_AssemblyInvoke.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ascx\ascx_Execute_Scripts.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Ascx\ascx_Panel_With_Inspector.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -155,7 +152,6 @@
     <Compile Include="ExtensionMethods\FileViewers_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods_Misc.cs" />
     <Compile Include="O2Setup.cs" />
-    <Compile Include="launch.cs" />
     <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
     <None Include="app.config" />
@@ -165,7 +161,6 @@
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinFormsUI_ExtensionMethods.cs" />
-    <Compile Include="O2Scripts.cs" />
     <Compile Include="open.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -182,10 +182,10 @@ namespace FluentSharp.WPF
         }
         public static TreeView fontSize(this TreeView treeView, double size)
         {
-            return treeView.set("FontSize", size);
+            return treeView.set_Value("FontSize", size);
         }
         // generic setter for treeView properties
-        public static TreeView set(this TreeView treeView, string propertyToSet, object value)
+        public static TreeView set_Value(this TreeView treeView, string propertyToSet, object value)
         {
             return (TreeView)treeView.wpfInvoke(
                 () =>

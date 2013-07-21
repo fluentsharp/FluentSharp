@@ -9,15 +9,15 @@ namespace FluentSharp.REPL
     {
         public static BidirectionalGraph<object, IEdge<object>> vertex(this BidirectionalGraph<object, IEdge<object>> graph, object vertexToAdd)
         {
-            return graph.add_Node(vertexToAdd);           
+            return graph.add_Node_To_Graph(vertexToAdd);           
         }
 
         public static BidirectionalGraph<object, IEdge<object>> node(this BidirectionalGraph<object, IEdge<object>> graph, object vertexToAdd)
         {
-            return graph.add_Node(vertexToAdd);
+            return graph.add_Node_To_Graph(vertexToAdd);
         }
 
-        public static BidirectionalGraph<object, IEdge<object>> add_Node(this BidirectionalGraph<object, IEdge<object>> graph, object vertexToAdd)
+        public static BidirectionalGraph<object, IEdge<object>> add_Node_To_Graph(this BidirectionalGraph<object, IEdge<object>> graph, object vertexToAdd) // was add_Node but it was causing conflict with TreeView's add_View
         {
             if (vertexToAdd != null)
             {

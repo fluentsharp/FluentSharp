@@ -2,6 +2,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using FluentSharp.REPL;
+using FluentSharp.REPL.Controls;
 using FluentSharp.WinForms;
 using FluentSharp.WinForms.Controls;
 using FluentSharp.WinForms.Utils;
@@ -9,7 +11,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.REPL.Utils;
 
-namespace FluentSharp.REPL.Controls
+namespace FluentSharp.O2Platform.Controls
 {
     public class ascx_Execute_Scripts : UserControl
     {        
@@ -34,17 +36,13 @@ namespace FluentSharp.REPL.Controls
         }
 
         public static void startControl_With_Args(string[] args)
-        {
-            RegisterWindowsExtension_WinForms.registerO2Extensions();
+        {            
             startControl(args);
         }
 
         public static void startControl(string scriptToExecute)
-        {
-            //"O2Logo.ico".local().icon().set_As_Default_Form_Icon();
-            // load Execute_Scripts GUI
-            //var formTitle = "O2 XRules Database ({0})".format("O2_XRules_Database.exe".assembly().version());
-            var formTitle = "OWASP O2 Platform - Launcher (v5.1)";
+        {            
+            var formTitle = "{0} - Launcher".format(O2_Platform_Config.Current.Version_Name);
             "{0}".info(formTitle);
             var executeScripts = (ascx_Execute_Scripts)typeof(ascx_Execute_Scripts).showAsForm(formTitle, 340, 300);
             if (executeScripts.isNull())
@@ -66,6 +64,7 @@ namespace FluentSharp.REPL.Controls
                 var newGuiScript = NEW_GUI_SCRIPT.local();
                 if (newGuiScript.fileExists())
                 {
+                    executeScripts.currentScript = newGuiScript;
                     executeScripts.welcomeMessage = "New O2 GUI detected, launching it now...";
                     executeScripts.status(executeScripts.welcomeMessage);
                     {
@@ -129,7 +128,7 @@ namespace FluentSharp.REPL.Controls
                                 }
                                 else
                                 {
-                 */
+                 */                
                 var newGui = NEW_GUI_SCRIPT.compile_H2Script();
                 if (newGui.notNull())
                 {

@@ -112,7 +112,7 @@ namespace FluentSharp.WinForms
                         dataGridView.add_Row(values.ToArray());
                     });
         }
-        public static void set(this DataGridView dataGridView, int row, int column, object value)
+        public static void set_Value(this DataGridView dataGridView, int row, int column, object value)
         {
             dataGridView.invokeOnThread(
                 () =>

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{21F37EE0-0117-44D1-8017-5DF2EF426B67}</ProjectGuid>
+    <ProjectGuid>{E155CA3C-2C1D-45F8-A3CA-EBA23CE1B7D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests.FluentSharp_NGit</RootNamespace>
-    <AssemblyName>UnitTests.FluentSharp.NGit</AssemblyName>
+    <RootNamespace>UnitTests.FluentSharp.O2Platform</RootNamespace>
+    <AssemblyName>UnitTests.FluentSharp.O2Platform</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,37 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\Mono.Posix.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="NGit, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\NGit.dll</HintPath>
-    </Reference>
-    <Reference Include="NSch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\NSch.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Sharpen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FluentSharp.NGit\_EmbededDlls\Sharpen.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,29 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods\Test_Branch.cs" />
-    <Compile Include="GitData\Test_GitData_Repository.cs" />
-    <Compile Include="Helper\Temp_Clone_O2_Platform_Scripts.NGit.cs" />
-    <Compile Include="Helper\Temp_Repo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExtensionMethods\Test_Commit.cs" />
-    <Compile Include="ExtensionMethods\Test_Config.cs" />
-    <Compile Include="ExtensionMethods\Test_Create_Repos.cs" />
-    <Compile Include="ExtensionMethods\Test_Diff.cs" />
-    <Compile Include="ExtensionMethods\Test_Files.cs" />
-    <Compile Include="ExtensionMethods\Test_Init_Clone_Open.cs" />
-    <Compile Include="ExtensionMethods\Test_Misc.cs" />
-    <Compile Include="ExtensionMethods\Test_NGit_Classes.cs" />
-    <Compile Include="ExtensionMethods\Test_O2Platform_Repos.cs" />
-    <Compile Include="ExtensionMethods\Test_Objects.cs" />
-    <Compile Include="ExtensionMethods\Test_Push_Pull_Fetch_Merge.cs" />
-    <Compile Include="ExtensionMethods\Test_RefLogs.cs" />
-    <Compile Include="ExtensionMethods\Test_Repository.cs" />
-    <Compile Include="ExtensionMethods\Test_RevWalk.cs" />
-    <Compile Include="ExtensionMethods\Test_Status.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="Test_O2Launch.cs" />
+    <Compile Include="Test_O2PlatformConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
@@ -114,16 +68,26 @@
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
       <Name>FluentSharp.REPL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.Roslyn\FluentSharp.Roslyn.csproj">
+      <Project>{1D5E7298-537E-409B-8059-2040CA60B55A}</Project>
+      <Name>FluentSharp.Roslyn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.WPF\FluentSharp.WPF.csproj">
+      <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
+      <Name>FluentSharp.WPF</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
       <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

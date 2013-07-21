@@ -1,9 +1,10 @@
 ﻿using System;
+using FluentSharp.REPL;
 using FluentSharp.WinForms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-namespace FluentSharp.REPL.Utils
+namespace FluentSharp.O2Platform.Utils
 {
     public class O2Scripts
     {

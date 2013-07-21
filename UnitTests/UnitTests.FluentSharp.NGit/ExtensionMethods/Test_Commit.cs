@@ -156,7 +156,7 @@ namespace UnitTests.FluentSharp_NGit
 
             Assert.AreNotEqual(when1, default(DateTime));
             Assert.AreEqual   (when1, when2);
-            Assert.AreEqual   (when1.ToLongDateString(), now.ToLongDateString());
+            Assert.AreEqual   (when1.ToLongDateString(), now.ToLongDateString());  // This fails if executed in London between 1am and 2am
 
             //Check nulls
             Assert.IsNull  ((null as PersonIdent).name());

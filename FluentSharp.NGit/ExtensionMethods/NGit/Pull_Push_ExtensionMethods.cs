@@ -58,6 +58,22 @@ namespace FluentSharp.Git
                 return false;
             }
         }
+        public static bool  reset_Hard(this API_NGit nGit)
+        {
+            try
+            {
+                var resetCommand = nGit.git().Reset();
+                resetCommand.SetMode(ResetCommand.ResetType.HARD);
+                nGit.Last_ResetResult = resetCommand.Call();                        
+                "[API_NGit][reset_Hard] {0}".error(nGit.Last_ResetResult);
+                return true;      
+            }
+            catch (Exception ex)
+            {
+                ex.log("[API_NGit][reset_Hard]");
+                return false;
+            }
+        }
         public static bool  reset_on_MergeConflicts(this API_NGit nGit, PullResult pullResult)
         {
             if (nGit.notNull() && pullResult.notNull())
@@ -67,10 +83,7 @@ namespace FluentSharp.Git
                     if (pullResult.GetMergeResult().GetMergeStatus() == MergeStatus.CONFLICTING)
                     {
                         "[API_NGit][revert_on_MergeConflicts] pull result had a conflict so going to triger a hard reset".error();
-                        var resetCommand = nGit.git().Reset();
-                        resetCommand.SetMode(ResetCommand.ResetType.HARD);
-                        nGit.Last_ResetResult = resetCommand.Call();                        
-                        return true;                        
+                        return nGit.reset_Hard();                                          
                     }
                 }
                 catch (Exception ex)

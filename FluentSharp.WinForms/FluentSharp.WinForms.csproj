@@ -608,7 +608,6 @@
       <DependentUpon>FormImages.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Start_O2.cs" />
     <None Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs.txt" />
   </ItemGroup>
   <ItemGroup>
