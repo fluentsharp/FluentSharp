@@ -38,18 +38,18 @@ namespace FluentSharp.WinForms.Controls
         public event Callbacks.dMethod_Object eStartExecution_Event;
         public event Callbacks.dMethod_Object eDnDAction_ObjectDataReceived_Event;
 
-        private void ascx_DropObject_DragEnter(object sender, DragEventArgs e)
+        private void DropObject_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
             BackColor = cDragOverColor;
         }
 
-        private void ascx_DropObject_DragLeave(object sender, EventArgs e)
+        private void DropObject_DragLeave(object sender, EventArgs e)
         {
             BackColor = cDragOutColor;
         }
 
-        private void ascx_DropObject_DragDrop(object sender, DragEventArgs e)
+        private void DropObject_DragDrop(object sender, DragEventArgs e)
         {
             BackColor = cDragOutColor;
             //    o2Messages.sendMessage_DnDQueue_SendInfoMessage("A drop item was received");

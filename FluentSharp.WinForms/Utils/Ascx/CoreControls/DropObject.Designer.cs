@@ -67,9 +67,9 @@ namespace FluentSharp.WinForms.Controls
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "DropObject";
             this.Size = new System.Drawing.Size(136, 21);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ascx_DropObject_DragDrop);
-            this.DragLeave += new System.EventHandler(this.ascx_DropObject_DragLeave);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.ascx_DropObject_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.DropObject_DragDrop);
+            this.DragLeave += new System.EventHandler(this.DropObject_DragLeave);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.DropObject_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

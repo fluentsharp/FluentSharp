@@ -16,7 +16,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -38,6 +38,9 @@
     <ApplicationIcon>O2Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentSharp.WatiN">
+      <HintPath>..\..\FluentSharp_Fork.WatiN\FluentSharp.WatiN\bin\Debug\FluentSharp.WatiN.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +69,10 @@
     <ProjectReference Include="..\FluentSharp.NGit\FluentSharp.NGit.csproj">
       <Project>{B1AAFDA3-2A9F-4BBD-9A08-F0890BA886C1}</Project>
       <Name>FluentSharp.NGit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
+      <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>
+      <Name>FluentSharp.NUnit</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp.REPL\FluentSharp.REPL.csproj">
       <Project>{D742BBEF-BFDC-477F-9880-5E0E2C89B6B2}</Project>
