@@ -108,6 +108,7 @@ namespace UnitTests.FluentSharp_NGit.GitData
                 Assert.IsTrue(fullPath.fileExists());
                 if (file.FilePath.extension(".h2"))
                 {
+                    "Testing File:{0}".info(file.FilePath);
                     Assert.AreEqual(ascii.fix_CRLF(), nGit.file_FullPath(file.FilePath).contents(false).fix_CRLF());
                     filesChecked++;
                 }
@@ -137,7 +138,7 @@ namespace UnitTests.FluentSharp_NGit.GitData
             var fileCommits = file.file_Commits(nGit);
             
             Assert.IsNotEmpty (fileCommits);
-            Assert.AreEqual   (3, fileCommits.size());
+            Assert.AreEqual   (4, fileCommits.size());
             Assert.AreNotEqual(fileCommits[0].FileContents, fileCommits[1].FileContents);
             Assert.AreNotEqual(fileCommits[0].FileContents, fileCommits[2].FileContents);            
             return; 

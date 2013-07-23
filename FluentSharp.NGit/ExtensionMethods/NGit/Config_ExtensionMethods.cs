@@ -30,10 +30,16 @@ namespace FluentSharp.Git
         public static FileBasedConfig   config_System(this API_NGit nGit)
         {
             var fs = NGit.Util.FS.DETECTED;
+            var globalConfig = nGit.config_Global();
+
             var systemReader = NGit.Util.SystemReader.GetInstance();
-            var userConfig = systemReader.OpenSystemConfig(null, fs);
-            userConfig.Load();
-            return userConfig;
+            var systemConfig = systemReader.OpenSystemConfig(globalConfig, fs);
+
+            //var systemReader = NGit.Util.SystemReader.GetInstance();
+            //var systemConfig = systemReader.OpenSystemConfig(null, fs);
+
+            systemConfig.Load();
+            return systemConfig;
         }
                 
         public static List<string>  config_Sections(this API_NGit nGit)

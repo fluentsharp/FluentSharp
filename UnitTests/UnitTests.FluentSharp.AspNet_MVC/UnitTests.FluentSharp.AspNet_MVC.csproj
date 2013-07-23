@@ -104,10 +104,6 @@
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev.csproj">
-      <Project>{E4F4B9DC-F41C-4E3E-A630-DC7F425F61A9}</Project>
-      <Name>FluentSharp_Fork.CassiniDev</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />
