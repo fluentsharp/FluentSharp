@@ -240,7 +240,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
         [Test(Description = "Returns the strings found in a byte array (a string are bytes between 30 and 127")]
         public void strings_From_Bytes()
         {
-            var testString      = "aaa" + 20.randomChars() + "bbb";
+            var testString      = "aaa\0" + 20.randomChars() + "bbb";
             var bytes_Ascii     = testString.bytes_Ascii();
             var bytes_Unicode   = testString.bytes_Unicode();
             var strings_Ascii   = bytes_Ascii.strings_From_Bytes();
@@ -248,8 +248,8 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
 
             Assert.IsNotEmpty(bytes_Ascii);
             Assert.IsNotEmpty(bytes_Unicode);
-            Assert.AreEqual(bytes_Ascii.size(),26);
-            Assert.AreEqual(bytes_Unicode.size(),52);
+            Assert.AreEqual(bytes_Ascii.size(),27);
+            Assert.AreEqual(bytes_Unicode.size(),54);
 
             Assert.IsNotEmpty(strings_Ascii);
             Assert.IsNotEmpty(strings_Unicode);            

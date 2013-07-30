@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.IO;
 using System.IO.Compression;
 
@@ -9,13 +10,20 @@ namespace FluentSharp.CoreLib
     {
         public static byte[] gzip_Compress(this string _string)
         {
-            var bytes = Encoding.ASCII.GetBytes(_string);
-            var outputStream = new MemoryStream();
-            using (var gzipStream = new GZipStream(outputStream, CompressionMode.Compress))
-                gzipStream.Write(bytes, 0, bytes.size());
-            return outputStream.ToArray();
+            try
+            {
+                var bytes = Encoding.ASCII.GetBytes(_string);
+                var outputStream = new MemoryStream();
+                using (var gzipStream = new GZipStream(outputStream, CompressionMode.Compress))
+                    gzipStream.Write(bytes, 0, bytes.size());
+                return outputStream.ToArray();
+            }
+            catch(Exception ex)
+            {
+                ex.log("[byte[]][gzip_Compress]");
+                return new byte[0];
+            }
         }
-
         public static byte[] gzip_Decompress(this byte[] bytes)
         {
             var inputStream = new MemoryStream();
@@ -31,7 +39,6 @@ namespace FluentSharp.CoreLib
             }
             return outputStream.ToArray();
         }
-
         public static string gzip_Decompress_toString(this byte[] bytes)
         {
             return bytes.gzip_Decompress().ascii();

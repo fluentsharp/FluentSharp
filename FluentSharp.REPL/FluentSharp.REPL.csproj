@@ -170,6 +170,17 @@
     <Compile Include="_O2_API_AST\AST\AstValue.cs" />
     <Compile Include="_O2_API_AST\AST\Ast_CSharp.cs" />
     <Compile Include="_O2_API_AST\AST\Ast_CSharp_ShowDetailsInViewer.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\Ast_Engine_Cache.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\Ast_Engine_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\MethodMappings_Engine.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\MethodMappings_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\O2CodeStreamTaintRules_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\O2CodeStream_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\O2MappedAstData_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\O2MethodStream_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\Saved_MethodStream.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\SharpDevelop_O2MappedAstData_ExtensionMethods.cs" />
+    <Compile Include="_O2_API_AST\Ast_Engine\TextEditor_O2CodeStream_ExtensionMethods.cs" />
     <Compile Include="_O2_API_AST\CSharp\AstVisitors.cs" />
     <Compile Include="_O2_API_AST\CSharp\FindLocationInAst.cs" />
     <Compile Include="_O2_API_AST\CSharp\O2AstResolver.cs" />
@@ -277,6 +288,7 @@
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

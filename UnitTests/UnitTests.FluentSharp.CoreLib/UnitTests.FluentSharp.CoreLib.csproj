@@ -60,6 +60,7 @@
     <Compile Include="ExtensionMethods\Test_Reflection.cs" />
     <Compile Include="ExtensionMethods\Test_String.cs" />
     <Compile Include="Test_Ex_Objects.cs" />
+    <Compile Include="Test_GZip.cs" />
     <Compile Include="Test_H2_FileFormat.cs" />
     <Compile Include="Test_Logging.cs" />
     <Compile Include="Test_O2Config.cs" />
