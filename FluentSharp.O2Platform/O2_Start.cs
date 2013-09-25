@@ -22,7 +22,7 @@ namespace FluentSharp.O2Platform.Utils
         {        
             if (O2PlatformScriptsExist())
             {
-                RegisterO2Extensions();
+                //RegisterO2Extensions();
 
                 ascx_Execute_Scripts.startControl_With_Args(args);
             }
@@ -39,7 +39,7 @@ namespace FluentSharp.O2Platform.Utils
             "Something is wrong since the O2.Platform.Scripts repository is not available at the expected location: {0}".format(o2PlatformConfig.Folder_Scripts);
             return false;
         }
-        public O2_Start RegisterO2Extensions()
+        /*public O2_Start RegisterO2Extensions()
         {
             
             var versionName      = o2PlatformConfig.Version_Name;
@@ -48,7 +48,7 @@ namespace FluentSharp.O2Platform.Utils
             RegisterWindowsExtension_WinForms.register_CurrentApplication(".h2", versionName, h2Logo);
             RegisterWindowsExtension_WinForms.register_CurrentApplication(".o2", versionName, o2Logo);
             return this;
-        }
+        }*/
 
 
 

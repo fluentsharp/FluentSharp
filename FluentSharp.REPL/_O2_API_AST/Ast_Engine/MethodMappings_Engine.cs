@@ -205,8 +205,9 @@ namespace FluentSharp.CSharpAST.Utils
 		public static MethodMappings createMethodMappings(this string sourceFolder,List<string> references,  string resultsFolder, bool runOnSeparateAppDomain)
 		{
 			"Creating Method Mappings from folder : {0}".info(sourceFolder); 	 									
-			var methodFilter = @"";		
-			var results = MethodMappings_Engine.calculateMethodMappings(sourceFolder, resultsFolder,references,runOnSeparateAppDomain);     		
+			//var methodFilter = @"";		
+			//var results = 
+            MethodMappings_Engine.calculateMethodMappings(sourceFolder, resultsFolder,references,runOnSeparateAppDomain);     		
 			return resultsFolder.files("*.xml").loadAndMergeMethodMappings();
 		}
 	}

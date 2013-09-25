@@ -254,9 +254,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="H2Logo.ico" />
-    <EmbeddedResource Include="Ascx\ascx_SourceCodeViewer.resx">
-      <DependentUpon>ascx_SourceCodeViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="_Embedded_Dlls\WeifenLuo.WinFormsUI.Docking.dll" />
     <EmbeddedResource Include="_O2_External_WinFormsUI\Forms\GenericDockContent.resx">
       <DependentUpon>GenericDockContent.cs</DependentUpon>
