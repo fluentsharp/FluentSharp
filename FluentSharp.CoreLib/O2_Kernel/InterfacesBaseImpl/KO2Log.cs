@@ -15,8 +15,8 @@ namespace FluentSharp.CoreLib.API
         
         public KO2Log()
         {
-			//LogRedirectionTarget = new Logger_Memory();		  // default to Log to memory
-            LogRedirectionTarget = new Logger_DiagnosticsDebug(); // log to diagnostics
+			//redirectTo_Memory()           
+            redirectTo_DiagnosticsDebug(); // default to log to diagnostics debug
             LogHost = "";
         }
 
@@ -108,5 +108,17 @@ namespace FluentSharp.CoreLib.API
                 Console.WriteLine(message);
                 //+((LogHost != "") ? "                             ... in " + LogHost : ""));
         }
+
+        public Logger_Memory redirectTo_Memory()
+        {
+            LogRedirectionTarget = new Logger_Memory();		  
+            return (Logger_Memory)LogRedirectionTarget;
+        }
+        public Logger_DiagnosticsDebug redirectTo_DiagnosticsDebug()
+        {
+            LogRedirectionTarget = new Logger_DiagnosticsDebug(); 
+            return (Logger_DiagnosticsDebug)LogRedirectionTarget;
+        }
+
     }
 }

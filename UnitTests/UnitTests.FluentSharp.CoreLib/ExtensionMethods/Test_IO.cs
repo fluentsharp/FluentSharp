@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.IO;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
@@ -107,6 +108,40 @@ namespace UnitTests.FluentSharp_CoreLib
         {
             //readOnly_Add();
             Assert.IsFalse((null as string).file_Has_Attribute(FileAttributes.Archive));
+        }
+
+        [Test(Description = "Return files from Folder")]
+        public void files()
+        {
+            var tempFolder = "TempFolder".tempDir();
+            var file1 = tempFolder.pathCombine("aaa.js");
+            var file2 = tempFolder.pathCombine("aaa.cs");
+            var file3 = tempFolder.pathCombine("bbb.cs");
+
+            Assert.IsFalse(file1.exists());
+            Assert.IsFalse(file2.exists());
+            Assert.IsFalse(file3.exists());
+
+            "aaaa".saveAs(file1);
+            "bbbb".saveAs(file2);
+            "cccc".saveAs(file3);
+
+            Assert.IsTrue(file1.exists());
+            Assert.IsTrue(file2.exists());
+            Assert.IsTrue(file3.exists());
+
+            var folders = new List<string>() { tempFolder };
+
+            var files = folders.files();
+            Assert.IsNotEmpty(files);
+
+            //Assert.AreEqual(files.contains(file1));
+            //Assert.AreEqual(files.second(),file3);
+            //Assert.AreEqual(files.first(),file2);
+
+
+
+
         }
 
         [Test(Description = "Gets the attribues of the provided FileInfo object")]

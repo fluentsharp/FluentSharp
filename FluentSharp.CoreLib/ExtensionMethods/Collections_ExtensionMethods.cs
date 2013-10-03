@@ -343,6 +343,8 @@ namespace FluentSharp.CoreLib
         }
         public static List<TK>  select<T,TK>(this List<T> list, Func<T, TK> query)
         {
+            if (list.isNull() || query.isNull())
+                return new List<TK>();
             return list.Select(query).toList();
         }
         public static T         first<T>(this List<T> list, Func<T,bool> query)

@@ -33,7 +33,7 @@ namespace FluentSharp.CoreLib
 
         public static List<Type>	types<T>(this List<T> list)
         {
-            return list.Select((item) => type(item)).toList();
+            return list.select((item) => type(item)).toList();
         }
         public static object		infoTypeName(this object _object)
         {
@@ -43,28 +43,27 @@ namespace FluentSharp.CoreLib
                 "in infoTypeName _object was null".error();
             return _object;
         }
-        public static string        typeName(this object _object)
-        {
-            if (_object != null)
-                return _object.type().Name;
-            return "";
+        public static string        typeName(this object target)
+        {            
+            return target.isNull() ? "" : target.type().Name;            
         }
-        public static string        typeFullName(this object _object)
+        public static string        typeFullName(this object target)
         {
-            return _object.type().FullName;
+            return target.isNull() ? "" : target.type().FullName;
         }
         public static string        name(this Type type)
         {
-            return type.Name;
+            return type.isNull() ? "": type.Name;
         }
         public static string        fullName(this Type type)
         {
-            return type.FullName;
+            return type.isNull() ? "" : type.FullName;
         }
 
         public static List<string> names(this List<Type> types)
         {
-            return types.Select((type) => type.Name).toList();
+            return types.isNull() ? new List<string>()
+                                  : types.Select((type) => type.Name).toList();
         }
         
         public static List<Type>    baseTypes(this Type type)

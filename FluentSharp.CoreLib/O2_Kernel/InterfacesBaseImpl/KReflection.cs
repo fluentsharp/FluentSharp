@@ -168,7 +168,7 @@ namespace FluentSharp.CoreLib.API
 
         public List<Type> getTypes(Type type)
         {
-            return new List<Type>(type.GetNestedTypes());
+            return type.isNull() ? new List<Type>() : new List<Type>(type.GetNestedTypes());
         }
 
         public Type getType(string assemblyName, string typeToFind)

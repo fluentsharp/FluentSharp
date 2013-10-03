@@ -1,4 +1,5 @@
-﻿using FluentSharp.CoreLib;
+﻿using System.Collections;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 
 namespace FluentSharp.NUnit
@@ -62,6 +63,23 @@ namespace FluentSharp.NUnit
             Assert.IsNotNull(target, "Target was not null {0}".format(target));
             return target;
         }                
+
+        //Lists
+        public T  assert_Is_Empty<T>(T target) where  T : IEnumerable
+        {
+            Assert.IsEmpty(target, "Target was Not Empty");            
+            return target;
+        }
+        public T  assert_Is_Not_Empty<T>(T target) where  T : IEnumerable
+        {
+            Assert.IsNotEmpty(target, "Target was Empty");            
+            return target;
+        }
+        public T  assert_Size_Is<T>(T target, int size) where  T : IEnumerable
+        {
+            Assert.AreEqual(target.size(), size);
+            return target;
+        }
 
         //IO
 
