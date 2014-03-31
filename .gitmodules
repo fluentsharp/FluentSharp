@@ -1,3 +1,9 @@
 [submodule "FluentSharp_Fork.SharpDevelopEditor"]
 	path = FluentSharp_Fork.SharpDevelopEditor
 	url = https://github.com/o2platform/FluentSharp_Fork.SharpDevelopEditor.git
+[submodule "FluentSharp_Fork.CassiniDev"]
+	path = FluentSharp_Fork.CassiniDev
+	url = git@github.com:o2platform/FluentSharp_Fork.CassiniDev.git
+[submodule "FluentSharp_Fork.WatiN"]
+	path = FluentSharp_Fork.WatiN
+	url = git@github.com:o2platform/FluentSharp_Fork.WatiN.git

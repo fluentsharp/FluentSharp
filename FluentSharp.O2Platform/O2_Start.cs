@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.O2Platform.Controls;
-using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.O2Platform.Utils
 {
