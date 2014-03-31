@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FluentSharp - CoreLib")]
 [assembly: AssemblyDescription("FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. It makes extensive use of .NET ExtensionMethods and it reduces the amount of code required (while making it more readable)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("O2 Platform")]
+[assembly: AssemblyCompany("OWASP O2 Platform")]
 [assembly: AssemblyProduct("FluentSharp")]
 [assembly: AssemblyCopyright("O2 Platform")]
 [assembly: AssemblyTrademark("")]
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("5.3.0.0")]
-[assembly: AssemblyFileVersion("5.3.0.0")]
+[assembly: AssemblyVersion("5.4.0.0")]
+[assembly: AssemblyFileVersion("5.4.0.0")]

@@ -315,13 +315,14 @@ namespace FluentSharp.WinForms
         {
             try
             {
-                return new Icon(iconFile);
+                if(iconFile.valid())
+                    return new Icon(iconFile);
             }
             catch(Exception ex)
             {
-                "[icon] {0}".error(ex.Message);
-                return null;
+                "[icon] {0}".error(ex.Message);                
             }
+            return null;
         }
         public static string saveAs_Icon(this Bitmap bitmap)
         {
