@@ -12,13 +12,8 @@ namespace FluentSharp.WinForms.Controls
     	{
     		return showAscxInForm(controlType, controlType.Name);
     	}
-
-        public static Control showAscxInForm(Type controlType, string formTitle)
-    	{
-    		return showAscxInForm(controlType, formTitle, -1, -1);
-    	}
-
-        public static Control showAscxInForm(Type controlType, string formTitle, int width, int height)               
+        
+        public static Control showAscxInForm(Type controlType, string formTitle, int width = -1, int height = -1, bool startHidden = false)
         {
         	var controlCreation = new AutoResetEvent(false);
         	Control control = null;
@@ -31,7 +26,7 @@ namespace FluentSharp.WinForms.Controls
                         if (control != null)
                         {
                             control.Dock = DockStyle.Fill;
-                            o2Gui = new O2Gui(width, height, false) ;        // I might need to adjust these width, height so that the control is the one with this size (and not the hosting form)
+                            o2Gui = new O2Gui(width, height) ;        // I might need to adjust these width, height so that the control is the one with this size (and not the hosting form)
                             o2Gui.Text = formTitle;
                             if (width > -1)
                                 control.Width = width;
@@ -46,8 +41,14 @@ namespace FluentSharp.WinForms.Controls
                             o2Gui.clientSize(control.Width, o2Gui.Height);  // reset the form size to the control's size
                             o2Gui.Controls.Add(control);
                             o2Gui.Load += (sender, e) => controlCreation.Set();
-                            //o2Gui.showDialog(false);
-                            o2Gui.showDialog(false);
+                                
+                            if (startHidden)                         // very useful from UnitTests and cases where more should be added to the UI before showing it
+                            { 
+                                o2Gui.Opacity = 0;
+                                o2Gui.ShowInTaskbar = false;
+                            }
+                            
+                            o2Gui.showDialog(false);                            
                         }
                         else
                             controlCreation.Set();

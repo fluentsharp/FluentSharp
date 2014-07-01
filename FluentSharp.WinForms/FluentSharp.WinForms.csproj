@@ -51,6 +51,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
@@ -79,6 +80,7 @@
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ListBox.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ListView.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_MainMenu.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_MenuStrip.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Panel.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_PictureBox.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ProgressBar.cs" />
@@ -108,7 +110,6 @@
     <Compile Include="ExtensionMethods\O2Controls_ExtensioMethods.cs" />
     <Compile Include="ExtensionMethods\Processes_ExtensionMethods_WinForms.cs" />
     <Compile Include="ExtensionMethods\Thread_Invoke_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Mini_Gui_Controls.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_O2_Controls.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_TextBox.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="ExtensionMethods\XElement_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\Reflection_MethodInfo.cs" />
     <Compile Include="O2_DotNetWrappers\Network\Main_WinForms.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\WebEncoding.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\DotNet\AspNetAnalysis.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\O2Assessment.cs" />
     <Compile Include="O2_DotNetWrappers\O2Findings\O2Finding.cs" />
@@ -608,7 +608,6 @@
       <DependentUpon>FormImages.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="O2_DotNetWrappers\O2Misc\Stubs_Namespaces.cs.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Utils\Ascx\CoreControls\DirectoryViewer.resx">
@@ -728,6 +727,10 @@
     <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Web\FluentSharp.Web.csproj">
+      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
+      <Name>FluentSharp.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

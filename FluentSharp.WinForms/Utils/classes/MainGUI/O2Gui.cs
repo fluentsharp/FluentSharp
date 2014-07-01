@@ -9,9 +9,9 @@ namespace FluentSharp.WinForms.Controls
 {
     public class O2Gui : Form
     {
-		public AutoResetEvent formClosed = new AutoResetEvent(false);
-        public AutoResetEvent formLoaded = new AutoResetEvent(false);
-        
+		public AutoResetEvent formClosed    = new AutoResetEvent(false);
+        public AutoResetEvent formLoaded    = new AutoResetEvent(false);
+
         public O2Gui() : this(-1,-1, false)
         {            	
         }
@@ -24,20 +24,16 @@ namespace FluentSharp.WinForms.Controls
         {
             try
             {
-                if (base.IsDisposed.isFalse())
+                if (IsDisposed.isFalse())
                     base.Dispose(disposing);               
             }
             catch (Exception ex)
             {
                 ex.log("in O2Gui dispose");
             }
-        }
-
-        public O2Gui(int width, int height) : this(width, height, false)
-        {
-        }
-
-        public O2Gui(int width, int height, bool isMdiContainer)
+        }        
+        
+        public O2Gui(int width, int height, bool isMdiContainer = false)
         {
             if (PublicDI.log.LogRedirectionTarget == null)
                 PublicDI.log.LogRedirectionTarget = new WinFormsUILog();
@@ -50,7 +46,7 @@ namespace FluentSharp.WinForms.Controls
             Left = 1;
 
             IsMdiContainer = isMdiContainer;
-
+                        
             Closed += (sender, e) => formClosed.Set();
             Load += (sender, e) => formLoaded.Set();
             Closed += (sender,e) => this.Dispose();
@@ -58,19 +54,8 @@ namespace FluentSharp.WinForms.Controls
             this.set_DefaultIcon();
             
         }
-        		
-        public void showDialog()
-        {
-            showDialog(true);
-        }
-        public void showDialog(bool useNewStaThread)
-        {
-            if (useNewStaThread)
-        	    O2Thread.staThread(()=>ShowDialog());
-            else
-                ShowDialog();
-            //formLoaded.WaitOne();
-        }
+        		        
+ 
 
         public void show()
         {           
@@ -117,6 +102,10 @@ namespace FluentSharp.WinForms.Controls
         {
             return (T)WinForms_Show.showAscxInForm(typeof(T), title, width, height);
         }        
+        public static T load<T>(string title, int width, int height, bool startHidden) where T : Control
+        {
+            return (T)WinForms_Show.showAscxInForm(typeof(T), title, width, height, startHidden);
+        }
 
         public static T showAsForm<T>() where T : Control
         {

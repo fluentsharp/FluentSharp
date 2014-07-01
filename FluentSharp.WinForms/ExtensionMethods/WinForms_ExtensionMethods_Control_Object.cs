@@ -170,6 +170,12 @@ namespace FluentSharp.WinForms
                 });
 
         }
+         public static bool             isEnabled<T>(this T control) where T : Control
+        {
+            if (control.isNull())
+                return false;
+            return control.invokeOnThread(()=>control.Enabled);                
+        }
         public static T             enabled<T>(this T control) where T : Control
         {
             return control.enabled(true);
@@ -197,6 +203,12 @@ namespace FluentSharp.WinForms
                     control.Visible = state;
                     return (T)control;
                 });
+        }
+        public static bool             isVisible<T>(this T control) where T : Control
+        {
+            if (control.isNull())
+                return false;
+            return control.invokeOnThread(()=>control.Visible);                
         }
         public static T             mapToWidth<T>(this Control hostControl, T control, bool alignToTop) where T : Control
         {
@@ -508,7 +520,7 @@ namespace FluentSharp.WinForms
             return control.visible(false);
         }
         public static T show<T>(this T control) where T : Control
-        {
+        {            
             return control.visible(true);
         }
 
@@ -832,7 +844,7 @@ namespace FluentSharp.WinForms
             return control;
         }
         public static T onEnter<T>(this T control, Action<String> callback) where T : Control
-        {
+        {            
             return control.onKeyPress(Keys.Enter, callback);
         }
 

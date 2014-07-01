@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
@@ -63,9 +64,25 @@ namespace FluentSharp.WinForms
         {
             return dummyString.lastWindowShown();
         }
+        
         public static Form lastWindowShown(this string dummyString)
         {
             return dummyString.applicationWinForms().Last();
+        }
+        
+        public static double form_Opacity<T>(this T control) where T : Control
+        {
+            return control.parentForm().opacity();
+        }
+        public static bool opacity_Zero<T>(this T form) where T : Form
+        {
+            return form.opacity().Equals(0.0);
+        }
+        public static double opacity(this Form form)
+        {
+            if (form.notNull())
+                return form.invokeOnThread(() => form.Opacity);            
+            return 0;
         }
         public static Form opacity(this Form form, double value)
         {
@@ -77,7 +94,11 @@ namespace FluentSharp.WinForms
             return form;
         }
         
-        
+        public static Panel popupWindow_Hidden(this string title)
+        {
+            return title.showAsForm(startHidden: true);
+        }
+
         public static T     popupWindow<T>(this string title)			where T : Control
         {
             //title+=" - test" ;
@@ -87,11 +108,11 @@ namespace FluentSharp.WinForms
         {
             return title.showAsForm(width, height)
                         .add_Control<T>();
-        }       
-        public static Panel popupWindow(this string title)
-        {
-            //title+=" - test" ;
-            return title.showAsForm();
+        }        
+        public static Panel popupWindow(this string title, bool hidden = false)
+        {            
+            return (hidden) ? title.popupWindow_Hidden()
+                            : title.showAsForm();
         }        
         public static Panel popupWindow(this string title, int width, int height)
         {
@@ -109,6 +130,14 @@ namespace FluentSharp.WinForms
         public static Panel showAsForm(this string title, int width, int height)
         {
             return O2Gui.open<Panel>(title, width, height);
+        }
+        public static Panel showAsForm(this string title, bool startHidden)
+        {
+            return title.showAsForm(600, 400, startHidden);
+        }
+        public static Panel showAsForm(this string title, int width, int height, bool startHidden)
+        {
+            return O2Gui.load<Panel>(title, width, height, startHidden);
         }
         public static T	    openForm<T>(this string textToAppendToFormTitle) where T : Form
         {
@@ -132,7 +161,39 @@ namespace FluentSharp.WinForms
             return O2Gui.open<T>(title, width, height)
                             .add_H2Icon();
         }
+        
+        public static T show_PopupWindow<T>(this T control) where T : Control
+        {
+            control.parentForm().showDialog();            
+            return control;
+        }
+        
+        public static Form showDialog(this Form form, bool useNewStaThread = true)
+        {
+            if (form.notNull())
+            { 
+                var controlCreation = new AutoResetEvent(false);
+            
+                form.Load += (sender, e) =>
+                {
+                    controlCreation.Set();
+                };
+            
+                if (useNewStaThread)
+        	        O2Thread.staThread(()=>
+        	        {
+        	                form.ShowDialog();
+        	        });
+                else
+                    form.ShowDialog();
 
+                var maxTimeOut = Debugger.IsAttached ? -1 : 20000;
+            
+                if (controlCreation.WaitOne(maxTimeOut).failed())
+                    "[Form][showDialog] Something went wrong with the creation of the form since it took more than 20s to start".error();
+            }
+            return form;            
+        }
         public static T         closeForm<T>(this T control) where T : Control
         {
             control.parentForm().close();
@@ -228,18 +289,18 @@ namespace FluentSharp.WinForms
                 }
             return forms;
         }
-        public static Form      maximized(this Form form)
+        public static Form      maximize(this Form form)
         {
             return form.invokeOnThread(() =>{
                                                 form.WindowState = FormWindowState.Maximized;
                                                 return form;
                                             });
         }
-        public static T         minimized<T>(this T control)            where T : Control
+        public static T         minimize<T>(this T control)            where T : Control
         {
             return control.windowState(FormWindowState.Minimized);
         }
-        public static T         maximized<T>(this T control)            where T : Control
+        public static T         maximize<T>(this T control)            where T : Control
         {
             return control.windowState(FormWindowState.Maximized);
         }
@@ -247,12 +308,31 @@ namespace FluentSharp.WinForms
         {
             return control.windowState(FormWindowState.Normal);
         }
+        public static bool      isMaximized(this Form form)
+        {
+            return form.isWindowState(FormWindowState.Maximized);
+        }
+        public static bool      isMinimized(this Form form)
+        {
+            return form.isWindowState(FormWindowState.Minimized);
+        }
+        public static bool      isNormal(this Form form)
+        {
+            return form.isWindowState(FormWindowState.Normal);
+        }
+        public static bool      isWindowState(this Form form, FormWindowState state)
+        {
+            if (form.isNull())
+                return false;
+            
+            return form.invokeOnThread(() => form.WindowState == state);
+        }
         public static T         windowState<T>(this T control, FormWindowState state)            where T : Control
         {
             return control.invokeOnThread(() =>{
                                                     control.parentForm().WindowState = state;
                                                     return control;
-                                                });
+                                               });
         }
         public static T         parentForm_AlwaysOnTop<T>(this T control)			where T : Control
         {
@@ -267,6 +347,10 @@ namespace FluentSharp.WinForms
         public static Form      title(this Form form, string title)
         {
             return form.set_Text(title);
+        }
+        public static string    title(this Form form)
+        {
+            return form.get_Text();
         }
         public static Form      fadeOutIn(this Form form)
         {
@@ -288,6 +372,26 @@ namespace FluentSharp.WinForms
             return form;
         }
 
+        public static Form      hide (this Form form)
+        {
+            return   form.opacity(0);           // using opacity to hide the form since calling visible=false was trigering the o2Gui.Dispose() call
+        }
+        public static Form      show (this Form form) 
+        {
+            if (form.opacity_Zero())        // handle the case when the opacity has been set to 0 (which means that we also need to reset it, or the control will not be shown)
+                form.opacity(1);
+            form.visible(true);
+            return form;
+        }
+        public static T         showInTaskbar<T>(this  T control, bool value = true) where T: Control
+        {
+            if (control.isNull())
+                return null;
+            var form = control.parentForm();
+            if (form.notNull())
+                form.invokeOnThread(() => form.ShowInTaskbar == value);
+            return control;        
+        }
         //Icons
         public static Icon set_As_Default_Form_Icon(this Icon icon)
         {
