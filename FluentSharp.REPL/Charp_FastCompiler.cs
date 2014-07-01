@@ -60,6 +60,8 @@ namespace FluentSharp.REPL.Utils
         {
             setDefaultUsingStatements();
             setDefaultReferencedAssemblies();
+            register_GitHub_As_ExternalAssemblerResolver();
+            
         }
         public CSharp_FastCompiler()
         {        
@@ -76,7 +78,7 @@ namespace FluentSharp.REPL.Utils
             //OriginalCodeSnippet = "";
             SourceCode = "";
             FinishedCompilingCode = new System.Threading.ManualResetEvent(true);
-            CompilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
+            CompilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";            
             // defaults
 
         }
@@ -105,9 +107,14 @@ namespace FluentSharp.REPL.Utils
                             .add_OnlyNewItems("FluentSharp.WinForms.dll",                                                                
                                               "FluentSharp.REPL.exe",
 											  "FluentSharp.SharpDevelopEditor.dll",
-                                              "WeifenLuo.WinFormsUI.Docking.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
+                                              "WeifenLuo.WinFormsUI.Docking.dll",
+                                              "FluentSharp.Web.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
                                               
-        }                		
+        }    
+ 		public static void register_GitHub_As_ExternalAssemblerResolver()
+ 		{
+ 		    O2GitHub.register_GitHub_As_ExternalAssemblerResolver();
+ 		}
 		public Dictionary<string,object> getDefaultInvocationParameters()
 		{
 			return new Dictionary<string, object>();

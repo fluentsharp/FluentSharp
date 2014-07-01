@@ -96,6 +96,14 @@ namespace FluentSharp.REPL
                     return scriptEditor;
                 });
         }
+        public static ascx_Simple_Script_Editor open_In_Script_Editor_WaitForClose(this string file)
+        {
+            return file.open_In_Script_Editor().waitForClose();
+        }
+        public static ascx_Simple_Script_Editor open_In_Script_Editor(this string file)
+        {
+            return file.script_Me().openFile(file);
+        }
         public static ascx_Simple_Script_Editor script_Me_WaitForClose(this object objectToScript)
         {
             return objectToScript.script_Me().waitForClose();

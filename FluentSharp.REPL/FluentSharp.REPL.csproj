@@ -157,7 +157,7 @@
     <None Include="app.config" />
     <None Include="DI.cs.txt" />
     <Compile Include="ExtensionMethods\EmbeddedResources_Zip_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\FastCompiler_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\CSharp_FastCompiler_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinFormsUI_ExtensionMethods.cs" />
@@ -247,8 +247,8 @@
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
     <Compile Include="ExtensionMethods\JSON_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Zip_ExtensionMethods.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\Web_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
+    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\Web_Zip.cs" />
     <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
     <None Include="FluentSharp.REPL.nuspec">
       <SubType>Designer</SubType>
@@ -279,6 +279,10 @@
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Web\FluentSharp.Web.csproj">
+      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
+      <Name>FluentSharp.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>
@@ -288,7 +292,9 @@
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
