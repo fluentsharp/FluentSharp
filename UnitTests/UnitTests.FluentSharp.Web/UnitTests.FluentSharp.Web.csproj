@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{405D2254-C520-401F-B5BF-9FC7B574F95D}</ProjectGuid>
+    <ProjectGuid>{62F1C85F-0991-42EE-9B71-90D82EE7CD0B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests.FluentSharp.WPF</RootNamespace>
-    <AssemblyName>UnitTests.FluentSharp.WPF</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>UnitTests.FluentSharp.Web</RootNamespace>
+    <AssemblyName>UnitTests.FluentSharp.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,41 +30,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test_WinFormsIntegration.cs" />
+    <Compile Include="ExtensionMethods\Test_HTTP_ExtensionMethods_HEAD.cs" />
+    <Compile Include="ExtensionMethods\Test_O2GitHub_ExtensionMethods_CompileEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_Network.cs" />
+    <Compile Include="_Test_Helpers\Extra_NUnitTests_ExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Project>{0a7ce0e0-b092-43b5-ab80-99ba909019c9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>FluentSharp.WinForms</Name>
+    <ProjectReference Include="..\..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
+      <Project>{0da6b6b3-5be3-4610-bb7b-ea9a4baf27af}</Project>
+      <Name>FluentSharp.NUnit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.WPF\FluentSharp.WPF.csproj">
-      <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
-      <Name>FluentSharp.WPF</Name>
+    <ProjectReference Include="..\..\FluentSharp.Web\FluentSharp.Web.csproj">
+      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
+      <Name>FluentSharp.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

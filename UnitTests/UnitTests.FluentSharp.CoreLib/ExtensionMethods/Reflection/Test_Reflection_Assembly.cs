@@ -3,12 +3,13 @@ using System.IO;
 using System.Reflection;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.NUnit;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection
 {
     [TestFixture]
-    public class Test_Reflection_Assembly
+    public class Test_Reflection_Assembly : NUnitTests
     {
         [Test(Description = "Returns an Assembly object from assemblyName, bytes, assemblyName")]
         public void assembly()
@@ -82,5 +83,84 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection
             Assert.AreEqual(assembly1.fullName(),expected1);
             Assert.AreEqual(assembly2.fullName(),expected2);
         }
+    
+        [Test(Description = "Appends to provided string the Assembly version from from GetCallingAssembly, in format x.x.x.x (Major.MajorRevision.Minor.MinorRevision)")]
+        public void append_Version_Calling_Assembly()
+        {
+            var originalString  = "aaaa".add_RandomLetters(10);
+            var assembly        = Assembly.GetExecutingAssembly();
+            var version         = assembly.version();
+            var expected        = originalString + "1.0.0.0";
+            var result          = originalString.append_Version_Calling_Assembly();
+
+            assert_Are_Equal(result, expected);
+            assert_Are_Equal(result, originalString + version);
+            assert_Are_Equal((null as string).append_Version_Calling_Assembly(), version);
+        }
+
+        [Test(Description = "Appends to provided string the Assembly version from FluentSharp.CoreLib, in format x.x.x.x (Major.MajorRevision.Minor.MinorRevision)")]
+        public void append_Version_FluentSharp()
+        {
+            var originalString  = "aaaa".add_RandomLetters(10);
+            var assembly        = typeof(Files).assembly();
+            var version         = assembly.version();            
+            var result          = originalString.append_Version_FluentSharp();
+            
+            assert_Are_Equal(result, originalString + version);
+            assert_Are_Equal((null as string).append_Version_FluentSharp(), version);
+        }
+
+        [Test(Description = "Appends to provided string the Assembly version from FluentSharp.CoreLib, in format x.x (Major.MajorRevision)")]
+        public void append_Version_FluentSharp_Short()
+        {
+            var originalString  = "aaaa".add_RandomLetters(10);
+            var assembly        = typeof(Files).assembly();
+            var version         = assembly.version_Short();            
+            var result          = originalString.append_Version_FluentSharp_Short();
+            
+            assert_Are_Equal(result, originalString + version);
+            assert_Are_Equal((null as string).append_Version_FluentSharp_Short(), version);
+        }
+
+        [Test(Description = "returns the version number of the provided assembly in format x.x.x.x (Major.MajorRevision.Minor.MinorRevision)")]
+        public void version()
+        {
+            var currentAssembly = Assembly.GetExecutingAssembly();            
+            assert_Are_Equal(currentAssembly   .version(), "1.0.0.0");
+            assert_Are_Equal((null as Assembly).version(), "");
+        }
+
+        [Test(Description = "returns the version number of the provided assembly in format x.x.x.x (Major.MajorRevision")]
+        public void version_Short()
+        {
+            var currentAssembly = Assembly.GetExecutingAssembly();            
+            assert_Are_Equal(currentAssembly   .version_Short(), "1.0");
+            assert_Are_Equal((null as Assembly).version_Short(), "");
+        }
+  
+        [Test]
+        public void resolve_Assembly_Using_ExternalAssemblerResolver()
+        {
+            assert_Not_Null(AssemblyResolver.ExternalAssemblerResolver);
+            AssemblyResolver.ExternalAssemblerResolver.clear();            
+            assert_Null("System.dll".resolve_Assembly_Using_ExternalAssemblerResolver());
+            assert_Null("O2_Kernel_WCF.dll".resolve_Assembly_Using_ExternalAssemblerResolver());        // this should be resolved when tryToFetchAssemblyFromO2GitHub is set
+            
+            Func<string,Assembly> testResolver = (originalReference)=>
+                {
+                    if(originalReference == "System.dll")
+                        return "System.dll".assembly();
+                    return null;
+                };
+
+            AssemblyResolver.ExternalAssemblerResolver.add(testResolver);
+
+            assert_Not_Null("System.dll".resolve_Assembly_Using_ExternalAssemblerResolver());
+            assert_Null("O2_Kernel_WCF.dll".resolve_Assembly_Using_ExternalAssemblerResolver());
+
+
+
+        }
+        
     }
 }

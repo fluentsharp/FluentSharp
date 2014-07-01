@@ -4,21 +4,21 @@ using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_CoreLib
 {
+
+    //TODO: move these tests to the respective ExtensionMethod file with the code
     [TestFixture]
     public class Test_Reflection
     {
         public string property1 { get; set; }
         public int    property2 { get; set; }
         
-        [Test]
-        public void Types()
+        [Test] public void Types()
         {
             var currentType = this.type();
             Assert.AreEqual(currentType, this.GetType());
         }
 
-        [Test]
-        public void Properties()
+        [Test] public void Properties()
         {
             property1           = "a value";
             property2           = 12;
@@ -43,8 +43,7 @@ namespace UnitTests.FluentSharp_CoreLib
             Assert.AreEqual     (intValues.second()     , default(int));
         }
 
-        [Test]
-        public void AssemblyAttributes()
+        [Test] public void AssemblyAttributes()
         {
             var fluentSharpCoreLib = typeof (PublicDI).Assembly;
             var thisAssembly       = typeof (Test_Reflection).Assembly;
@@ -54,8 +53,7 @@ namespace UnitTests.FluentSharp_CoreLib
             Assert.IsTrue (thisAssembly      .hasAttribute<SkipTempPathLengthVerification>());            
         }
 
-        [Test]
-        public void Resources()
+        [Test] public void Resources()
         {
             var testResource        = "FluentSharp.CoreLib.Apache.2.0.license.txt";
             var expectedText        = "Apache License";

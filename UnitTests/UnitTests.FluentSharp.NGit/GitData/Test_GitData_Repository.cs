@@ -156,7 +156,7 @@ namespace UnitTests.FluentSharp_NGit.GitData
                     return;
                 }
             }*/
-            Assert.Fail();
+
         }
 
         [Test]

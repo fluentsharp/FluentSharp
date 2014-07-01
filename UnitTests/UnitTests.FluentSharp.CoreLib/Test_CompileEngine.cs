@@ -1,15 +1,40 @@
 ﻿using System;
 using FluentSharp.CoreLib.API;
+using FluentSharp.NUnit;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp_CoreLib
 {
     [TestFixture]
-    public class Test_CompileEngine
+    public class Test_CompileEngine : NUnitTests
     {
-        [Test] public void CompileAndExecuteCodeSnippet()
+        [Test] public void CompileEngine_Ctor()
         {
+            CompileEngine.clearCompilationCache();
+            // call the static Ctor to reset the values
+            typeof(CompileEngine).invoke_Ctor_Static();
+            
+            var compileEngine = new CompileEngine();
+            assert_Is_True  (compileEngine.useCachedAssemblyIfAvailable);
+            assert_Are_Equal(compileEngine.compilationVersion, "v4.0");
+            assert_Not_Empty(CompileEngine.LocalReferenceFolders);
+            
+            
+            assert_Not_Empty(CompileEngine.DefaultReferencedAssemblies);
+            assert_Not_Empty(CompileEngine.DefaultUsingStatements);                        
+            assert_Not_Empty(CompileEngine.CachedCompiledAssembliesMappingsFile);
+            assert_Not_Empty(CompileEngine._specialO2Tag_ExtraReferences);
+
+            assert_Is_Empty(CompileEngine.CachedCompiledAssemblies);            
+            assert_Is_Empty (CompileEngine.CompilationPathMappings);
+            assert_Is_Empty (CompileEngine.LocalScriptFileMappings);
+            assert_Is_Empty (CompileEngine.LocalFoldersToSearchForCodeFiles);
+            assert_Is_Empty (CompileEngine.LocalFoldersToAddToFileMappings); 
+
+        }
+        [Test] public void CompileAndExecuteCodeSnippet() 
+        {            
             //try with good script
             var snippet = "return 12;";
             var compileError = "";
