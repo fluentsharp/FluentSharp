@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.Web_4_5", "Flue
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.WatiN", "FluentSharp_Fork.WatiN\UnitTests.FluentSharp.WatiN\UnitTests.FluentSharp.WatiN.csproj", "{E3A47198-8891-4ABC-B34E-A73F716C8711}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp_Fork.WinFormsUI", "FluentSharp_Fork.WinFormsUI\FluentSharp_Fork.WinFormsUI.csproj", "{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -261,6 +263,16 @@ Global
 		{E3A47198-8891-4ABC-B34E-A73F716C8711}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E3A47198-8891-4ABC-B34E-A73F716C8711}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E3A47198-8891-4ABC-B34E-A73F716C8711}.Release|x86.ActiveCfg = Release|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -286,5 +298,6 @@ Global
 		{62F1C85F-0991-42EE-9B71-90D82EE7CD0B} = {19B11B70-C710-4E28-ACDE-7DBB7709C5D8}
 		{721FC60A-7BC0-4B81-8EFE-3191523D121B} = {D6F3850C-4B6A-4BC3-A568-1D522A72B027}
 		{E3A47198-8891-4ABC-B34E-A73F716C8711} = {19B11B70-C710-4E28-ACDE-7DBB7709C5D8}
+		{C0A8DA31-B2E3-416B-A484-B4CF947D4CBA} = {E7871828-867F-48BD-BCF4-388DC21ADCB0}
 	EndGlobalSection
 EndGlobal
