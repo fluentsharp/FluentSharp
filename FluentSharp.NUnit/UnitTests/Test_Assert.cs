@@ -77,6 +77,32 @@ namespace UnitTests.FluentSharp_NUnit
             assert_Folder_Not_Exists (folder);       
         }
 
+        [Test(Description = "Assert that first value is biggger than second (same as assert_Is_Greater")]
+        public void assert_Is_Bigger()
+        {
+            assert_Is_Bigger(20,10);            
+        }
+        [Test(Description = "Assert that first value is biggger than second")]
+        public void assert_Is_Greater()
+        {
+            assert_Is_Greater(20,10);
+            assert_Is_Greater(20,default(int));
+            Assert.Throws<AssertionException>(()=> assert_Is_Greater(10,20));
+            Assert.Throws<AssertionException>(()=> assert_Is_Greater(default(int),20));
+        }
+        [Test(Description = "Assert that first value is biggger than second (same as assert_Is_Less)")]
+        public void assert_Is_Smaller()
+        {
+            assert_Is_Smaller(10,20);            
+        }
+        [Test(Description = "Assert that first value is biggger than second")]
+        public void assert_Is_Less()
+        {
+            assert_Is_Less(10,20);
+            assert_Is_Less(default(int),20);
+            Assert.Throws<AssertionException>(()=> assert_Is_Less(20,10));
+            Assert.Throws<AssertionException>(()=> assert_Is_Less(20,default(int)));
+        }
     }
 
     public class Test_Assert_ExtensionMethods : NUnitTests

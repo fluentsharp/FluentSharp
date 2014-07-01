@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using FluentSharp.CoreLib;
 using NUnit.Framework;
 
 namespace FluentSharp.NUnit
@@ -25,9 +28,11 @@ namespace FluentSharp.NUnit
         }
 
         //string
-        public static string     assert_Contains(this string source,string target)       
+        public static string     assert_Contains(this string source,params string[] targets)       
         {
-            return nUnitTests.assert_Contains(source,target);
+            foreach(var target in targets)
+                nUnitTests.assert_Contains(source,target);
+            return source;
         }
         //T
         public static T     assert_Is_Equal_To<T>(this T source, T target)       
@@ -42,6 +47,10 @@ namespace FluentSharp.NUnit
         {
             return nUnitTests.assert_Is_Null(target);            
         }
+        public static T     assert_Not_Null<T>(this T target) where T : class 
+        {
+            return target.assert_Is_Not_Null();            
+        }     
         public static T     assert_Is_Not_Null<T>(this T target) where T : class 
         {
             return nUnitTests.assert_Is_Not_Null(target);            
@@ -74,6 +83,41 @@ namespace FluentSharp.NUnit
             return target;
         }
 
+        public static T    assert_Not_Empty<T>(this T target) where  T : IEnumerable
+        {
+            nUnitTests.assert_Is_Not_Empty(target);
+            return target;
+        }
+     
+        //Lists and IEnumerable
+        public static T  assert_Size_Is<T>(this T target, int size) where  T : IEnumerable
+        {
+            return nUnitTests.assert_Size_Is(target,size);
+        }
+        public static List<T>  assert_Not_Contains<T>(this List<T> target , T item)
+        {
+            if(target.contains(item))
+            {                 
+                throw new AssertionException("target list ( {0} )should not contain item: {1}".format(target, item));
+            }
+            return target;
+        }
+        public static List<T>  assert_Contains<T>(this List<T> target , T item)
+        {
+            Assert.Contains(item, target);
+            return target;
+        }
+        public static List<T>  assert_Item_Is_Equal<T>(this List<T> target, int index, T expectedItem)
+        {
+            if (target.size() < index)
+                nUnitTests.assert_Fail("in assert_Item_Is_Equal, the provided index value ({0}) is smaller than the size of target list ({1})".format(index, target.size()));
+
+            var itemAtIndex = target.value(index);
+            if (itemAtIndex.notNull())
+                nUnitTests.assert_Are_Equal(itemAtIndex, expectedItem);
+            return target;
+        }
+        
         //IO
         public static string  assert_File_Exists(this string filePath) 
         {
