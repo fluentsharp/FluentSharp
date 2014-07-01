@@ -4,7 +4,7 @@ namespace FluentSharp.WinForms.Utils
 {
     public class WebEncoding
     {
-        public static string urlDecode(string url)
+       /* public static string urlDecode(string url)
         {
             return HttpUtility.UrlDecode(url);
         }
@@ -22,6 +22,6 @@ namespace FluentSharp.WinForms.Utils
         public static string htmlDecode(string html)
         {
             return HttpUtility.HtmlDecode(html);
-        }
+        }*/
     }
 }

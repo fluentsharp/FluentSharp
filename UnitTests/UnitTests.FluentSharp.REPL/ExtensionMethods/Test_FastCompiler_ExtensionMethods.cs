@@ -33,14 +33,14 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
             assert_True(typeof(CSharp_FastCompiler_ExtensionMethods).invoke_Ctor_Static());
 
             CompileEngine.DefaultReferencedAssemblies.assert_Not_Null()
-                                                     .assert_Size_Is(14)
+                                                     .assert_Size_Is(13)
                                                      .assert_Contains    ("System.Drawing.dll")
                                                      .assert_Contains    ("FluentSharp.CoreLib.dll")
                                                      .assert_Contains    ("FluentSharp.REPL.exe")
                                                      .assert_Contains    ("FluentSharp.WinForms.dll")
-                                                     .assert_Contains    ("FluentSharp.SharpDevelopEditor.dll")
-                                                     .assert_Contains    ("WeifenLuo.WinFormsUI.Docking.dll")
-                                                     .assert_Contains    ("FluentSharp.Web.dll");
+                                                     .assert_Contains    ("FluentSharp.SharpDevelopEditor.dll")                                                    
+                                                     .assert_Contains    ("FluentSharp.Web.dll")
+                                                     .assert_Not_Contains("WeifenLuo.WinFormsUI.Docking.dll");          // removed since this is now part of the FluentSharp.WinFormsUI assembly
         }
         [Test] public void register_GitHub_As_ExternalAssemblerResolver()
         {

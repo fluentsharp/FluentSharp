@@ -35,9 +35,29 @@ namespace FluentSharp.NUnit
             return source;
         }
         //T
+        public static T     assert_Contains<T>(this T source, Func<string> callback, string target)
+        {
+            nUnitTests.assert_Contains(callback(), target);
+            return source;
+        }
+        public static T     assert_Are_Equal<T,T1>(this T source, Func<T1> callback, T1 target)
+        {
+            nUnitTests.assert_Are_Equal(callback(), target);
+            return source;
+        }
+        public static T     assert_Are_Equal<T,T1>(this T source, Func<T,T1> callback, T1 target)
+        {
+            nUnitTests.assert_Are_Equal(callback(source), target);
+            return source;
+        }
         public static T     assert_Is_Equal_To<T>(this T source, T target)       
         {
             return nUnitTests.assert_Are_Equal(source,target);
+        }
+        public static T     assert_Are_Not_Equal<T,T1>(this T source, Func<T,T1> callback, T1 target)
+        {
+            nUnitTests.assert_Are_Not_Equal(callback(source), target);
+            return source;
         }
         public static T     assert_Is_Not_Equal_To<T>(this T source, T target)       
         {
@@ -83,6 +103,11 @@ namespace FluentSharp.NUnit
             return target;
         }
 
+        public static T    assert_Is_Empty<T>(this T target) where  T : IEnumerable
+        {
+            nUnitTests.assert_Is_Empty(target);
+            return target;
+        }
         public static T    assert_Not_Empty<T>(this T target) where  T : IEnumerable
         {
             nUnitTests.assert_Is_Not_Empty(target);

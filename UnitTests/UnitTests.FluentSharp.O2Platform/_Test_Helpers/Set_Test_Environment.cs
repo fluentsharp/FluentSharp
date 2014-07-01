@@ -17,9 +17,13 @@ namespace UnitTests.FluentSharp.O2Platform
         [SetUp]
         public void SetupFixture_SetUp()
         {
+            
             var o2PlatformScripts = new O2_Platform_Scripts();
             var scriptsFolder     = o2PlatformScripts.ScriptsFolder();
             
+            if("".offline())                    // we can't do the sync when offline
+                return;
+
             Assert.IsTrue(o2PlatformScripts.SetUp());  // call SetUp which will trigger the git clone (if needed)
             
             scriptsFolder.assert_Folder_Exists()

@@ -371,11 +371,11 @@ namespace FluentSharp.CoreLib
             return "{0} {1}".format(_string, Guid.NewGuid());
         }
 
-        public static string    trim(this string _string)
+        public static string    trim(this string target)
         {           
-            if (_string.valid())
-                return _string.Trim();
-            return _string;
+            if (target.valid())
+                return target.Trim();
+            return target;
         }
         public static string    pad(this string targetString, int totalWidth)
         {
@@ -564,10 +564,13 @@ namespace FluentSharp.CoreLib
 		{
 			return _string.firstChar() == lastChar;
 		}		
-
-		public static string    add_RandomLetters(this string _string)
+        public static string    add_5_RandomLetters(this string target)
+        {
+            return target.add_RandomLetters(5);
+        }
+		public static string    add_RandomLetters(this string target)
 		{
-			return _string.add_RandomLetters(10);
+			return target.add_RandomLetters(10);
 		}		
 		public static string    add_RandomLetters(this string _string, int count)
 		{

@@ -107,7 +107,7 @@ namespace FluentSharp.REPL.Utils
                             .add_OnlyNewItems("FluentSharp.WinForms.dll",                                                                
                                               "FluentSharp.REPL.exe",
 											  "FluentSharp.SharpDevelopEditor.dll",
-                                              "WeifenLuo.WinFormsUI.Docking.dll",
+                                              //"WeifenLuo.WinFormsUI.Docking.dll",
                                               "FluentSharp.Web.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
                                               
         }    

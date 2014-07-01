@@ -87,7 +87,7 @@ namespace FluentSharp.WinForms.Utils
                 var file = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0];
                 PublicDI.log.debug("ClickOnce file raw: {0}", file);
                 file = file.Replace("file:///", "");
-                file = WebEncoding.urlDecode(file);
+                file = file.urlDecode();//WebEncoding.urlDecode(file);
                 file = file.Replace("/", "\\");
                 PublicDI.log.debug("ClickOnce file final: {0}", file);
                 return file;
