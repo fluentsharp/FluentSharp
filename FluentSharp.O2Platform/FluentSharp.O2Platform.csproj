@@ -53,9 +53,10 @@
     <Compile Include="ascx_Execute_Scripts.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="O2_Platform_Scripts.cs" />
     <Compile Include="O2_Start.cs" />
     <Compile Include="O2PlatformConfig.cs" />
-    <Compile Include="O2Scripts.cs" />
+    <Compile Include="Legacy\O2Scripts_Legacy.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

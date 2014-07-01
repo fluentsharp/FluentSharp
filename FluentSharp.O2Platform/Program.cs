@@ -7,7 +7,7 @@ namespace FluentSharp.O2Platform
     {
         public static void Main()
         {
-            new O2_Start().OpenStartGui(null);
+            new O2_Start().OpenStartGui();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace FluentSharp.O2Platform.Utils
             o2PlatformConfig = O2_Platform_Config.Current;
             o2PlatformScripts = new O2_Platform_Scripts();
         }
-        public O2_Start OpenStartGui(string[] args)
+        public O2_Start OpenStartGui(params string[] args)
         {        
             if (O2PlatformScriptsExist())
             {
