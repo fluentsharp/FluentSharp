@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using FluentSharp.CoreLib.API;
 
 namespace FluentSharp.CoreLib
 {
     public static class IO_ExtensionMethods_FileInfo
     {
-        public static FileAttributes attributes(this FileInfo fileInfo)
+        public static FileAttributes    attributes(this FileInfo fileInfo)
         {
             if (fileInfo.valid())
                 return fileInfo.Attributes;
@@ -27,7 +28,7 @@ namespace FluentSharp.CoreLib
                 return null;
             }
         }
-        public static bool             valid(this FileInfo fileInfo)
+        public static bool              valid(this FileInfo fileInfo)
         {
             return fileInfo.notNull() && fileInfo.Exists;
         }
@@ -243,6 +244,26 @@ namespace FluentSharp.CoreLib
         {
             var fileName = file.fileName();
             return fileName.contains(values);
+        }
+    
+        public static bool setAccessControl(this FileInfo fileInfo, string targetUser, FileSystemRights fileSystemRights, AccessControlType accessControlType)
+        {
+            if (fileInfo.notNull() && targetUser.notNull())
+            {
+                try
+                {
+                    var fileSystemAccessRule = new FileSystemAccessRule(targetUser, fileSystemRights, accessControlType);
+                    var fileSecurity = new FileSecurity();
+                    fileSecurity.AddAccessRule(fileSystemAccessRule);
+                    fileInfo.SetAccessControl(fileSecurity);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ex.log();
+                }
+            }
+            return false;
         }
     }
 }

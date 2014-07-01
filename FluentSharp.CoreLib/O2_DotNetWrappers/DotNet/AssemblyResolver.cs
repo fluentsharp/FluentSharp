@@ -9,8 +9,10 @@ namespace FluentSharp.CoreLib.API
     {        
         public static Func<string, string>              NameResolver				{ get; set; }
         public static Dictionary<string, Assembly>      CachedMappedAssemblies	    { get; set; }
-        public static Dictionary<string, byte[]>  LoadedEmbeddedAssemblies          { get; set; }
+        public static Dictionary<string, byte[]>        LoadedEmbeddedAssemblies    { get; set; }
         public static bool  Initialized                                             { get; set; }
+
+        public static List<Func<String,Assembly>>       ExternalAssemblerResolver   { get; set; }     
 
         static AssemblyResolver()
         {
@@ -18,6 +20,7 @@ namespace FluentSharp.CoreLib.API
             NameResolver                = resolve_using_CompilationReferencePath;
             CachedMappedAssemblies      = new Dictionary<string, Assembly>();
             LoadedEmbeddedAssemblies    = new Dictionary<string, byte[]>();
+            ExternalAssemblerResolver   = new List<Func<String,Assembly>>();
         }        
 
         public static string resolve_using_CompilationReferencePath(string file)

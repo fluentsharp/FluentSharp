@@ -1151,6 +1151,24 @@ namespace FluentSharp.CoreLib.API
             }
         }
         
+        public bool invoke_Ctor_Static(Type targetType)
+        {
+            try
+            {
+                targetType.TypeInitializer.Invoke(null, null);
+               /* the code below doesn't work   
+                constructorInfo.Invoke(BindingFlags.Public | BindingFlags.NonPublic | 
+                                       BindingFlags.Static,
+                                       new object[] {});
+                */
+                return true;
+            }
+            catch (Exception ex)
+            {               
+                PublicDI.log.ex(ex, "in reflection..invoke (ConstructorInfo", true);                
+                return false;
+            }
+        }
         #endregion
     }
 }

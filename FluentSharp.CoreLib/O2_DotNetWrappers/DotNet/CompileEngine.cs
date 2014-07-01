@@ -16,13 +16,13 @@ namespace FluentSharp.CoreLib.API
 {
     public class CompileEngine
     {                
-        static string       _onlyAddReferencedAssemblies = "O2Tag_OnlyAddReferencedAssemblies";        
-        static List<string> _specialO2Tag_ExtraReferences 	= new List<string>();
-        static List<string> _specialO2Tag_Download 			= new List<string>();
-        static List<string> _specialO2Tag_PathMapping 		= new List<string>();
-        static List<string> _specialO2Tag_ExtraSourceFile 	= new List<string>();
-        static List<string> _specialO2Tag_ExtraFolder 		= new List<string>();
-        static List<string> _specialO2Tag_DontCompile		= new List<string>();
+        public static string       _onlyAddReferencedAssemblies = "O2Tag_OnlyAddReferencedAssemblies";        
+        public static List<string> _specialO2Tag_ExtraReferences 	= new List<string>();
+        public static List<string> _specialO2Tag_Download 			= new List<string>();
+        public static List<string> _specialO2Tag_PathMapping 		= new List<string>();
+        public static List<string> _specialO2Tag_ExtraSourceFile 	= new List<string>();
+        public static List<string> _specialO2Tag_ExtraFolder 		= new List<string>();
+        public static List<string> _specialO2Tag_DontCompile		= new List<string>();
 
         public Assembly				compiledAssembly;
         public CompilerParameters	cpCompilerParameters;
@@ -61,7 +61,8 @@ namespace FluentSharp.CoreLib.API
             loadCachedCompiledAssembliesMappings();
             setDefaultLocalReferenceFolders();
             setDefaultReferencedAssemblies();
-            setDefaultUsingStatements();
+            setDefaultUsingStatements();            
+
             _specialO2Tag_ExtraReferences	.add("//O2Tag_AddReferenceFile:")
                                             .add("//O2Ref:");
             _specialO2Tag_Download			.add("//Download:")
@@ -84,7 +85,7 @@ namespace FluentSharp.CoreLib.API
         public CompileEngine(bool useCachedAssemblyIfAvailable)
         {
             this.useCachedAssemblyIfAvailable = useCachedAssemblyIfAvailable;            
-            compilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
+            this.compilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";
         }
         
         public CompileEngine(string compilation_Version) 
@@ -943,6 +944,7 @@ namespace FluentSharp.CoreLib.API
             }
             return reference;
         }
+        
         public static string resolve_Assembly_ToAddTo_ReferencedAssemblies_List(string originalReference, bool workOffline)
         {            
             var resolvedReference = resolveCompilationReferencePath(originalReference);
@@ -952,8 +954,7 @@ namespace FluentSharp.CoreLib.API
             {
                 if (workOffline.isFalse() && resolvedReference.fileExists().isFalse())
                 {
-                    new O2GitHub().tryToFetchAssemblyFromO2GitHub(resolvedReference);
-                    assembly = resolvedReference.assembly();
+                    assembly = originalReference.resolve_Assembly_Using_ExternalAssemblerResolver();                    
                 }
             }
             if (assembly.notNull())
@@ -1018,16 +1019,7 @@ namespace FluentSharp.CoreLib.API
                                 .add(resolvedAssemblies);
             saveCachedCompiledAssembliesMappings();         
         }
-        public static void populateCachedListOfGacAssemblies()
-        {
-            if (O2GitHub.AssembliesCheckedIfExists.size() < 50)
-            {
-                var gacAssemblies = GacUtils.assemblyNames();   
-                if (gacAssemblies.contains("Microsoft.mshtml"))     // have to hard-code this one since there are cases where this is in the GAC but the load fails
-                    gacAssemblies.Remove("Microsoft.mshtml");
-                O2GitHub.AssembliesCheckedIfExists.add_OnlyNewItems(gacAssemblies);
-            }
-        }
+        
 /*        public static bool isFileAReferenceARequestToUseThePrevioulsyCompiledVersion(string fileToResolve, List<string> ReferencedAssemblies)
         {
             if (fileToResolve.starts("Ref:"))

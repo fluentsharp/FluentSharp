@@ -34,6 +34,12 @@ namespace FluentSharp.CoreLib
             return type.GetConstructors(BindingFlags.NonPublic | 
                                         BindingFlags.Public | 
                                         BindingFlags.Instance).toList();
+        }
+		public static List<ConstructorInfo> ctors_Static(this Type type)
+        {
+            return type.GetConstructors(BindingFlags.NonPublic | 
+                                        BindingFlags.Public | 
+                                        BindingFlags.Static).toList();
         }		    
         public static Array                 createArray<T>(this Type arrayType,  params T[] values)			
         {
@@ -54,6 +60,6 @@ namespace FluentSharp.CoreLib
                 ex.log("in Array.createArray");
             }
             return null;
-        }	
+        }	        
     }
 }

@@ -132,5 +132,15 @@ namespace FluentSharp.CoreLib
         {
             return assembly.type(type).invokeStatic(method, parameters);
         }
+
+        /// <summary>
+        /// Invokes the static constructor of a particular class
+        /// </summary>
+        /// <param name="type">type to invoke the static ctor</param>
+        /// <returns>This represents the success of failure of the ctor invokation (note that by design a static ctor does not create an object we can use)</returns>
+        public static bool                  invoke_Ctor_Static(this Type type)
+        {
+            return PublicDI.reflection.invoke_Ctor_Static(type);
+        }
     }
 }

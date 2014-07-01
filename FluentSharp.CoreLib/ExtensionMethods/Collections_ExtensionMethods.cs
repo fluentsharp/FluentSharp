@@ -274,9 +274,15 @@ namespace FluentSharp.CoreLib
             return (from item in list
                     select item.ToLower())
                     .toList();            
-        }        
+        }
+        public static bool              notContains<T>(this List<T> list, T itemToFind)
+        {
+            return list.contains(itemToFind).isFalse();
+        }
         public static bool              contains<T>(this List<T> list, T itemToFind)
         {
+            if(list.isNull())
+                return false;
             return list.Contains(itemToFind);
         }
         public static List<T>           remove<T>(this List<T> list, int index)

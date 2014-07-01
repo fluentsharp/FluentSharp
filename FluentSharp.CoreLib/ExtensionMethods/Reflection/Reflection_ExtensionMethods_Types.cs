@@ -66,6 +66,13 @@ namespace FluentSharp.CoreLib
                                   : types.Select((type) => type.Name).toList();
         }
         
+        public static List<Type>    baseTypes(this Type type, bool addParent)
+        {
+            var baseTypes = type.baseTypes();
+            if(addParent)
+                baseTypes.insert(type);
+            return baseTypes;
+        }
         public static List<Type>    baseTypes(this Type type)
         {
             var baseType = new List<Type>();

@@ -14,25 +14,7 @@ namespace FluentSharp.CoreLib
         {
             return CompileEngine.findFileOnLocalScriptFolder(fileName.trim());
         }
-        public static Assembly  download_Assembly_From_O2_GitHub(this string assemblyName)
-        {
-            return assemblyName.download_Assembly_From_O2_GitHub(false);
-        }
-        public static Assembly  download_Assembly_From_O2_GitHub(this string assemblyName, bool ignoreSslErrors)
-        {
-            if (assemblyName.assembly().notNull())
-                "in download_Assembly_From_O2_GitHub, the requests assembly already exists".error(assemblyName);
-            else
-            {
-                if (ignoreSslErrors)
-                    Web.Https.ignoreServerSslErrors();
-
-                //add option to ignore cache
-                
-                new O2GitHub().tryToFetchAssemblyFromO2GitHub(assemblyName,false);
-            }
-            return assemblyName.assembly();
-        }
+        
 
         public static object    compileAndExecuteCodeSnippet(this string snippet)
         {

@@ -54,20 +54,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FluentSharp.CoreLib.nuspec" />
-    <None Include="O2_DotNetWrappers\DI.cs.txt" />
     <Compile Include="ExtensionMethods\Byte_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Compilation_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\DateTime_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\GZip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Delete_Or_Copy.cs" />
+    <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_DirectoryInfo.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_FileInfo.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Open.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Save.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Folders.cs" />
+    <Compile Include="ExtensionMethods\Encoding_ExtensionMethods.cs" />
+    <Compile Include="FluentSharp_Consts.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\FileCache.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\SearchEngine.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\SecretData.cs" />
-    <Compile Include="ExtensionMethods\NetWork_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Assemby.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Attributes.cs" />
     <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Ctor.cs" />
@@ -106,7 +108,6 @@
     <Compile Include="ExtensionMethods\Crypto_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\DynamicTypes_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\EmbeddedResources_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\GZip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\H2_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_MemoryStream.cs" />
     <Compile Include="ExtensionMethods\Items_ExtensionMethods.cs" />
@@ -122,17 +123,11 @@
     <Compile Include="ExtensionMethods\Serialize_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Sleep_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Thread_Info_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Web_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Xml_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredSignature.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredUrl.cs" />
     <Compile Include="O2_DotNetWrappers\H2Scripts\H2.cs" />
     <Compile Include="O2_DotNetWrappers\NetSDK\IL.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\HttpFormUpload.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\Mail.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\Netsh.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\Ping.cs" />
-    <Compile Include="O2_DotNetWrappers\Network\Web.cs" />
     <Compile Include="O2_DotNetWrappers\O2CmdShell\O2Cmd.cs" />
     <Compile Include="O2_DotNetWrappers\O2CmdShell\O2CmdApi.cs" />
     <Compile Include="O2_DotNetWrappers\O2CmdShell\O2CmdExec.cs" />
@@ -170,9 +165,7 @@
     <Compile Include="O2_Interfaces\FrameworkSupport\J2EE\ITilesDefinition.cs" />
     <Compile Include="O2_Interfaces\FrameworkSupport\J2EE\IValidationXml.cs" />
     <Compile Include="O2_Interfaces\FrameworkSupport\J2EE\IWebXml.cs" />
-    <None Include="O2_Interfaces\O2Core\IO2Config.cs.txt" />
     <Compile Include="O2_Interfaces\O2Core\IO2Log.cs" />
-    <None Include="O2_Interfaces\O2Core\IReflection.cs.txt" />
     <Compile Include="O2_Interfaces\O2Findings\IO2Assessment.cs" />
     <Compile Include="O2_Interfaces\O2Findings\IO2AssessmentLoad.cs" />
     <Compile Include="O2_Interfaces\O2Findings\IO2AssessmentSave.cs" />
@@ -200,14 +193,11 @@
     <Compile Include="O2_Kernel\CodeUtils\AppDomainUtils.cs" />
     <Compile Include="O2_Kernel\CodeUtils\Callbacks.cs" />
     <Compile Include="O2_Kernel\CodeUtils\LoadTypes.cs" />
-    <Content Include="O2_Kernel\CodeUtils\O2ConfigLoader.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Files.cs" />
     <EmbeddedResource Include="Apache.2.0.license.txt" />
-    <None Include="O2_Kernel\CodeUtils\O2Kernel_O2Thread.cs.txt" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Processes.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Serialize.cs" />
     <Compile Include="O2_Kernel\CodeUtils\O2Kernel_Web.cs" />
-    <Compile Include="O2_Kernel\CodeUtils\O2GitHub.cs" />
     <Compile Include="O2_Kernel\debug.cs" />
     <Compile Include="O2_Kernel\exec.cs" />
     <Compile Include="ExtensionMethods\Logging_ExtensionMethods.cs" />
@@ -239,15 +229,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="O2_DotNetWrappers\Windows\Mdi.cs.txt" />
-    <None Include="O2_DotNetWrappers\Windows\RemoteThreadInjection.cs.txt" />
-    <None Include="O2_Interfaces\O2Tools\ISearchEngine.cs.txt" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExtensionMethods\Network\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

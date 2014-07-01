@@ -294,5 +294,16 @@ namespace FluentSharp.CoreLib
         {
             return assemblies.notDynamic().where((assembly) => assembly.Location.valid()).toList();
         }
+    
+        public static Assembly                  resolve_Assembly_Using_ExternalAssemblerResolver(this string originalReference)
+        {
+            foreach(var assemblyResolver in AssemblyResolver.ExternalAssemblerResolver)
+            {
+                var assembly = assemblyResolver(originalReference);
+                if (assembly.notNull())
+                    return assembly;
+            }           
+            return null;
+        }
     }
 }

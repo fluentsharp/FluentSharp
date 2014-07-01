@@ -319,6 +319,19 @@ namespace FluentSharp.CoreLib
             return stringToFix.Replace(Environment.NewLine, "\n")
                               .Replace("\n", Environment.NewLine);
         }            
+        public static StringBuilder appendLine(this StringBuilder stringBuilder, string line)
+        {
+            if (stringBuilder.notNull() && line.notNull())
+                stringBuilder.AppendLine(line);
+            return stringBuilder;
+        }
+        public static StringBuilder appendLines(this StringBuilder stringBuilder, params string[] lines)
+        {
+            if (stringBuilder.notNull() && lines.notNull())
+                foreach(var line in lines)
+                    stringBuilder.appendLine(line);
+            return stringBuilder;
+        }
         public static void      removeLastChar(this StringBuilder stringBuilder)
         {
             if (stringBuilder.Length > 0)
@@ -563,7 +576,13 @@ namespace FluentSharp.CoreLib
 		public static int       randomNumber(this int max)
 		{
 			return max.random();
-		}				
+		}
+		public static string random_Email(this string emailName)
+        {
+            if (emailName.notValid())
+                emailName = 10.randomLetters();
+            return "{0}@{1}.com".format(emailName, 10.randomLetters());
+        }		
 		public static string    ascii(this int _int)
 		{
 			try
