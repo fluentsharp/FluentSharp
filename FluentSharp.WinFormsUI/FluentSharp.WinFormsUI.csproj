@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FluentSharp_Fork.WinFormsUI</RootNamespace>
     <AssemblyName>FluentSharp_Fork.WinFormsUI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>TmpKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -36,7 +43,6 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WeifenLuo.WinFormsUI.Docking">
@@ -86,9 +92,9 @@
       <Project>{d742bbef-bfdc-477f-9880-5e0e2c89b6b2}</Project>
       <Name>FluentSharp.REPL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp.Web\FluentSharp.Web.csproj">
+    <ProjectReference Include="..\FluentSharp.Web\FluentSharp.Web_3_5.csproj">
       <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
-      <Name>FluentSharp.Web</Name>
+      <Name>FluentSharp.Web_3_5</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
       <Project>{df7e73cb-02ac-4689-bb8c-ac21ffccddc5}</Project>
@@ -98,6 +104,9 @@
       <Project>{e76bce43-8511-4ce8-a965-c0150f713ce9}</Project>
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TmpKey.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
