@@ -35,9 +35,10 @@ namespace FluentSharp.NUnit
             return source;
         }
         //T
-        public static T     assert_Contains<T>(this T source, Func<string> callback, string target)
+        public static T     assert_Contains<T>(this T source, Func<string> callback, params string[] targets)
         {
-            nUnitTests.assert_Contains(callback(), target);
+            foreach(var target in targets)
+                nUnitTests.assert_Contains(callback(), target);
             return source;
         }
         public static T     assert_Are_Equal<T,T1>(this T source, Func<T1> callback, T1 target)
@@ -102,7 +103,10 @@ namespace FluentSharp.NUnit
             nUnitTests.assert_Is_True(callback(target));            
             return target;
         }
-
+        public static T    assert_Empty<T>(this T target) where  T : IEnumerable
+        {
+            return target.assert_Is_Empty();
+        }
         public static T    assert_Is_Empty<T>(this T target) where  T : IEnumerable
         {
             nUnitTests.assert_Is_Empty(target);
@@ -127,9 +131,10 @@ namespace FluentSharp.NUnit
             }
             return target;
         }
-        public static List<T>  assert_Contains<T>(this List<T> target , T item)
+        public static List<T>  assert_Contains<T>(this List<T> target , params T[] items)
         {
-            Assert.Contains(item, target);
+            foreach(var item in items)
+                Assert.Contains(item, target);
             return target;
         }
         public static List<T>  assert_Item_Is_Equal<T>(this List<T> target, int index, T expectedItem)
