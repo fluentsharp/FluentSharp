@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using FluentSharp.CoreLib;
@@ -90,6 +91,8 @@ namespace FluentSharp.REPL.Utils
                                               "FluentSharp.WinForms.Controls",
                                               "FluentSharp.WinForms.Interfaces",
                                               "FluentSharp.WinForms.Utils",
+                                              "FluentSharp.Web35",
+                                              "FluentSharp.Web35.API",
                                               "FluentSharp.REPL",
                                               "FluentSharp.REPL.Controls",
                                               "FluentSharp.REPL.Utils"
