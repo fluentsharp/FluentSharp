@@ -6,6 +6,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.Git;
 using FluentSharp.NUnit;
 using FluentSharp.O2Platform;
+using FluentSharp.Web35;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp.O2Platform

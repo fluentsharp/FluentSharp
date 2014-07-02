@@ -4,6 +4,7 @@ using FluentSharp.CoreLib.API;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
 using FluentSharp.Git.Utils;
+using FluentSharp.Web35.API;
 using NUnit.Framework;
 using NGit.Transport;
 

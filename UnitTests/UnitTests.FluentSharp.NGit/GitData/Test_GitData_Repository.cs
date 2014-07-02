@@ -12,34 +12,10 @@ namespace UnitTests.FluentSharp_NGit.GitData
 
     [TestFixture]
     public class Test_GitData_Repository : Temp_Clone_O2_Platform_Scripts
-    {
-        /*[Test]
-        public void Tes_gitData_Repository() 
-        {
-            var path = @"E:\O2\_Source_Code\FluentSharp_Fork.WatiN";
-            path = @"E:\O2\O2.Platform.Scripts";
-            path = @"E:\TeamMentor\TM_Dev Repos\TM_DEV";
-//            path = @"E:\TeamMentor\TM_Clients\Master - Site_www.teammentor.net\Library_Data\XmlDatabase\TM_Libraries_WWW\.Net 2.0";
-            var nGit = path.git_Open();
-            var start = DateTime.Now;
-            var gitDataRepository = nGit.gitData_Repository(true);
-            gitDataRepository.script_Me_WaitForClose();
-            return;
-            var time1 = (DateTime.Now - start).str();
-            var xml = gitDataRepository.toXml();
-            var time2 = (DateTime.Now - start).str();
-            xml.size().mBytesStr().info();
-            time1.info();
-            time2.info();
-            "size: {0}, took: {1} | {2} ".info(xml.size().mBytesStr(), time1, time2);
-            xml.saveWithExtension(".txt").startProcess();
-        }*/
+    {    
         [Test]
         public void gitData_Repository()
-        {
-            //typeof(API_NGit).assembly().Location.script_Me("location").waitForClose();
-            //new API_NGit().script_Me().waitForClose();
-            //return;
+        {            
             var start= DateTime.Now;
             var gitData_Repository  = nGit.gitData_Repository();
 

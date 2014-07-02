@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods

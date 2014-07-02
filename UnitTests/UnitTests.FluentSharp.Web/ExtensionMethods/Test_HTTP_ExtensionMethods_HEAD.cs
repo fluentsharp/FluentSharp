@@ -2,6 +2,7 @@
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
+using FluentSharp.Web35;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp.Web.ExtensionMethods

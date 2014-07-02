@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{15ABA7E8-436C-4D60-97CA-E63D221FC09C}</ProjectGuid>
+    <ProjectGuid>{66290938-8D8C-4B11-BD5D-C4A3867ED914}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests.FluentSharp_WinForms</RootNamespace>
-    <AssemblyName>UnitTests.FluentSharp.WinForms</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>UnitTests.FluentSharp.Web_4_5</RootNamespace>
+    <AssemblyName>UnitTests.FluentSharp.Web_4_5</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,14 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,36 +43,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Tests_Setup.cs" />
+    <Compile Include="ExtensionMethods\Test_Cookies_ExtensioMethods.cs" />
+    <Compile Include="ExtensionMethods\Test_HttpContextFactory_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Test_Json_ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test_WinForms_ExtensionMethods_Control_Object.cs" />
-    <Compile Include="Test_WinForms_ExtensionMethods_Form.cs" />
-    <Compile Include="Test_WinForms_ExtensionMethods_MenuStrip.cs" />
-    <Compile Include="Test_WinForms_ExtensionMethods_TextBox.cs" />
-    <Compile Include="Test_WinForms_ExtensionMethods_ToolStrip.cs" />
-    <Compile Include="Test_WinForms_ExtensionMethods_WebBrowser.cs" />
-    <Compile Include="Utils\Classes\Test_WinForms_Show.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
-      <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>
-      <Name>FluentSharp.NUnit</Name>
+    <ProjectReference Include="..\..\FluentSharp.Moq\FluentSharp.Moq.csproj">
+      <Project>{35BD5C37-838F-4BD3-8AC0-E156097FF2F0}</Project>
+      <Name>FluentSharp.Moq</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.Web\FluentSharp.Web_3_5.csproj">
-      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
-      <Name>FluentSharp.Web_3_5</Name>
+    <ProjectReference Include="..\..\FluentSharp.Web_4_5\FluentSharp.Web_4_5.csproj">
+      <Project>{721fc60a-7bc0-4b81-8efe-3191523d121b}</Project>
+      <Name>FluentSharp.Web_4_5</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
-      <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
-      <Name>FluentSharp.WinForms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
