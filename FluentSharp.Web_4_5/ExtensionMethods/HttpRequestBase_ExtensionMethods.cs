@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using FluentSharp.CoreLib;
 
-namespace FluentSharp.WinForms.ExtensionMethods.Web
+namespace FluentSharp.Web
 {
-    public static class Web_ExtensionMethods_HttpRequestBase
+    public static class HttpRequestBase_ExtensionMethods
     {
          public static bool hasHeader(this HttpRequestBase response, string headerName)
         {
