@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FluentSharp - WPF")]
-[assembly: AssemblyDescription("FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. It makes extensive use of .NET ExtensionMethods and it reduces the amount of code required (while making it more readable)")]
+[assembly: AssemblyTitle("O2 Platform Main UI")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("O2 Platform")]
-[assembly: AssemblyProduct("FluentSharp")]
-[assembly: AssemblyCopyright("O2 Platform")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("FluentSharp.O2Platform.Properties")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyTrademark("Owasp O2 Platform")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("739d321b-0850-4f6b-89a9-1a2b8e0c858b")]
+[assembly: Guid("b9f0a031-5f8b-41ee-b328-9ee06e7d72cc")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,8 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("5.5.0.0")]
-[assembly: AssemblyFileVersion("5.5.0.0")]
+[assembly: AssemblyVersion("5.5")]
+[assembly: AssemblyFileVersion("5.5")]
