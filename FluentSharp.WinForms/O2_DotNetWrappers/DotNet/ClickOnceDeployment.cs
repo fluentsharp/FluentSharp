@@ -2,6 +2,7 @@
 using System;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35;
 
 namespace FluentSharp.WinForms.Utils
 {

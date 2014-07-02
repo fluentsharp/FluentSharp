@@ -9,6 +9,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35;
 using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms
@@ -610,11 +611,7 @@ namespace FluentSharp.WinForms
     	public static WebBrowser bbc(this WebBrowser browser)
     	{
             return browser.open("http://news.bbc.co.uk");
-    	}  	
-    	public static WebBrowser teamMentor(this WebBrowser browser)
-    	{
-            return browser.open("http://owasp.teammentor.net");
-    	}
+    	}  	    	
     }
     //public static class WinForms_ExtensionMethods_WebBrowser_
 

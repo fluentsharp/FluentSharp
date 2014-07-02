@@ -45,7 +45,8 @@ namespace FluentSharp.WinForms
         }        
         public static T show<T>(this PropertyGrid propertyGrid, T _object)
         {
-            propertyGrid.invokeOnThread(() => propertyGrid.SelectedObject = _object);
+            var maxInvokeWait = 2000;  // 2 secs (more than this means a thread deadlock)
+            propertyGrid.invokeOnThread(maxInvokeWait, () => propertyGrid.SelectedObject = _object);
             return _object;
         }
         public static PropertyGrid loadInPropertyGrid(this object objectToLoad)
