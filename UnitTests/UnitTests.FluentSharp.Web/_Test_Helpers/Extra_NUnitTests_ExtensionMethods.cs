@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentSharp.CoreLib;
 using FluentSharp.NUnit;
+using FluentSharp.Web35;
 using NUnit.Framework;
 
 namespace FluentSharp.NUnit

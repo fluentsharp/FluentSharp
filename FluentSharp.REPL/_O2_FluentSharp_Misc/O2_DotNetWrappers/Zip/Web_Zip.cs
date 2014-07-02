@@ -6,6 +6,7 @@ using System.Net;
 using FluentSharp.CoreLib.API;
 using System.IO;
 using FluentSharp.CoreLib;
+using FluentSharp.Web35.API;
 
 namespace FluentSharp.REPL.Utils
 {

@@ -2,6 +2,7 @@
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
+using FluentSharp.Web35.API;
 using FluentSharp.WinForms;
 using NUnit.Framework;
 

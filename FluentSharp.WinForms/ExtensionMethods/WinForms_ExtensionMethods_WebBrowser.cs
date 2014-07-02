@@ -9,6 +9,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35;
 using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms
@@ -125,7 +126,7 @@ namespace FluentSharp.WinForms
             var postString = "";
             if (parameters != null)
                 foreach (var parameter in parameters.Keys)
-                    postString += "{0}={1}&".format(parameter, WebEncoding.urlEncode(parameters[parameter]));
+                    postString += "{0}={1}&".format(parameter, parameters[parameter].urlDecode()); //WebEncoding.urlEncode(parameters[parameter]));
             return webBrowser.submitRequest_POST(url, targetFrame, postString);            
         }
         public static WebBrowser submitRequest_POST(this WebBrowser webBrowser, string url, string targetFrame, string postString)
@@ -161,7 +162,7 @@ namespace FluentSharp.WinForms
             var parametersString = "";
             if (parameters != null)
                 foreach (var parameter in parameters.Keys)
-                    parametersString += "{0}={1}&".format(parameter, WebEncoding.urlEncode(parameters[parameter]));
+                    parametersString += "{0}={1}&".format(parameter, parameters[parameter].urlDecode());//WebEncoding.urlEncode(parameters[parameter]));
             return webBrowser.submitRequest_GET(url, targetFrame, parametersString);
         }
         public static WebBrowser submitRequest_GET(this WebBrowser webBrowser, string url, string targetFrame, string parametersString)
@@ -610,11 +611,7 @@ namespace FluentSharp.WinForms
     	public static WebBrowser bbc(this WebBrowser browser)
     	{
             return browser.open("http://news.bbc.co.uk");
-    	}  	
-    	public static WebBrowser teamMentor(this WebBrowser browser)
-    	{
-            return browser.open("http://owasp.teammentor.net");
-    	}
+    	}  	    	
     }
     //public static class WinForms_ExtensionMethods_WebBrowser_
 

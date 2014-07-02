@@ -1,25 +1,42 @@
 ﻿using System;
-using FluentSharp.WinForms.Utils;
+using System.Collections.Specialized;
+using System.Web;
 
-namespace FluentSharp.WinForms
+namespace FluentSharp.Web35
 {
     public static class Web_Encoding_ExtensionMethods
     {
+        public static string attributeEncode(this String stringToEncode)
+        {
+            return stringToEncode.htmlAttributeEncode();
+        }
+        public static string htmlAttributeEncode(this String stringToEncode)
+        {
+            return HttpUtility.HtmlAttributeEncode(stringToEncode);                        
+        }
+        public static NameValueCollection parseQueryString(this String queryString)
+        {
+            return HttpUtility.ParseQueryString(queryString);                        
+        }
+        public static string urlPathEncode(this String stringToEncode)
+        {
+            return HttpUtility.UrlPathEncode(stringToEncode);                        
+        }
         public static string urlEncode(this String stringToEncode)
         {
-            return WebEncoding.urlEncode(stringToEncode);
+            return HttpUtility.UrlEncode(stringToEncode);            
         }
-        public static string urlDecode(this String stringToEncode)
+        public static string urlDecode(this String stringToDecode)
         {
-            return WebEncoding.urlDecode(stringToEncode);
+            return HttpUtility.UrlDecode(stringToDecode);            
         }
         public static string htmlEncode(this String stringToEncode)
         {
-            return WebEncoding.htmlEncode(stringToEncode);
+            return HttpUtility.HtmlEncode(stringToEncode);            
         }
-        public static string htmlDecode(this String stringToEncode)
+        public static string htmlDecode(this String stringToDecode)
         {
-            return WebEncoding.htmlDecode(stringToEncode);
+            return HttpUtility.HtmlDecode(stringToDecode);                        
         }        
     }
 }

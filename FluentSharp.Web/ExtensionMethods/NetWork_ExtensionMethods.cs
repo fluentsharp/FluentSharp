@@ -2,8 +2,9 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class NetWork_ExtensionMethods
     {

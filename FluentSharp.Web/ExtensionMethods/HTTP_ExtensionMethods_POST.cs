@@ -1,7 +1,8 @@
 using System;
-using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib;
+using FluentSharp.Web35.API;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class HTTP_ExtensionMethods_POST
     {

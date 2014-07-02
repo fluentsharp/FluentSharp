@@ -78,6 +78,10 @@
       <Project>{1D5E7298-537E-409B-8059-2040CA60B55A}</Project>
       <Name>FluentSharp.Roslyn</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.Web\FluentSharp.Web_3_5.csproj">
+      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
+      <Name>FluentSharp.Web_3_5</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>

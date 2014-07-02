@@ -1,6 +1,7 @@
 using System;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class HTTP_ExtensionMethods_GET
     {

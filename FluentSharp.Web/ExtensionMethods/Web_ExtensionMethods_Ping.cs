@@ -1,6 +1,9 @@
+using System;
+using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class Web_ExtensionMethods_Ping
     {     
@@ -17,5 +20,6 @@ namespace FluentSharp.CoreLib
         {
             return _object.online().isFalse();            
         }
+        
     }
 }

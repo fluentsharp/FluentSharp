@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 
 namespace FluentSharp.WinForms.Utils
 {

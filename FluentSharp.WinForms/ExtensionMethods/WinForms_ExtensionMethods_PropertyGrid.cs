@@ -6,13 +6,35 @@ namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_PropertyGrid
     {
+        /// <summary>
+        /// Shows the provided object in a popupwindow using the default .NET property grid
+        /// 
+        /// Note: if you want to explore the object you should use <code>_object.details()</code> since that will give you
+        ///       recursive access to public and private: fields, properties and methods
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_object"></param>
+        /// <returns></returns>
         public static T showInfo<T>(this T _object)
         {
             "Property Grid".popupWindow(300, 300)
                            .add_Control<ctrl_ShowInfo>().show(_object);            
             return _object;
         }
-
+        /// <summary>
+        /// Same as <code>showInfo</code> but will wait the current execution unit the popupWindow is closed
+        /// This is usefully when debugging code or unit-tests
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_object"></param>
+        /// <returns></returns>
+        public static T showInfo_WaitForClose<T>(this T _object)
+        {
+            var popupWindow = "Property Grid".popupWindow(300, 300);
+            popupWindow.add_Control<ctrl_ShowInfo>().show(_object);            
+            popupWindow.waitForClose();
+            return _object;
+        }
         public static PropertyGrid add_PropertyGrid(this Control control, bool helpVisible)
         {
             return control.add_PropertyGrid().helpVisible(helpVisible);
@@ -23,7 +45,8 @@ namespace FluentSharp.WinForms
         }        
         public static T show<T>(this PropertyGrid propertyGrid, T _object)
         {
-            propertyGrid.invokeOnThread(() => propertyGrid.SelectedObject = _object);
+            var maxInvokeWait = 2000;  // 2 secs (more than this means a thread deadlock)
+            propertyGrid.invokeOnThread(maxInvokeWait, () => propertyGrid.SelectedObject = _object);
             return _object;
         }
         public static PropertyGrid loadInPropertyGrid(this object objectToLoad)

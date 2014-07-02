@@ -65,9 +65,9 @@
       <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>
       <Name>FluentSharp.NUnit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.Web\FluentSharp.Web.csproj">
+    <ProjectReference Include="..\..\FluentSharp.Web\FluentSharp.Web_3_5.csproj">
       <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
-      <Name>FluentSharp.Web</Name>
+      <Name>FluentSharp.Web_3_5</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>

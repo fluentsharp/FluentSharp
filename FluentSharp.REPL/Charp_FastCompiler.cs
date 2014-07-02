@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 using ICSharpCode.NRefactory.Ast;
 using ICSharpCode.NRefactory;
 using FluentSharp.CoreLib;
@@ -90,6 +91,8 @@ namespace FluentSharp.REPL.Utils
                                               "FluentSharp.WinForms.Controls",
                                               "FluentSharp.WinForms.Interfaces",
                                               "FluentSharp.WinForms.Utils",
+                                              "FluentSharp.Web35",
+                                              "FluentSharp.Web35.API",
                                               "FluentSharp.REPL",
                                               "FluentSharp.REPL.Controls",
                                               "FluentSharp.REPL.Utils"
@@ -107,7 +110,7 @@ namespace FluentSharp.REPL.Utils
                             .add_OnlyNewItems("FluentSharp.WinForms.dll",                                                                
                                               "FluentSharp.REPL.exe",
 											  "FluentSharp.SharpDevelopEditor.dll",
-                                              "WeifenLuo.WinFormsUI.Docking.dll",
+                                              //"WeifenLuo.WinFormsUI.Docking.dll",
                                               "FluentSharp.Web.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
                                               
         }    

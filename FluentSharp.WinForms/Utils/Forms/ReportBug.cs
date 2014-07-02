@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms.Controls

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Net;
+using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
 
@@ -15,9 +16,29 @@ namespace FluentSharp.CoreLib
 {
     public static class String_ExtensionMethods
     {
-        public static string    str(this object _object)
+        /// <summary>
+        /// Wrapper around string's ToString method        
+        /// 
+        /// The return value will be:
+        /// 
+        ///   - ToString() value of the target object 
+        ///   - <value>[null value]</value>: if the target object is null
+        ///   - <value>[ToString exeception]</value>: if the ToString methods throws an exception (which shouldn't really happen). see log for details
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static string    str(this object target)
         {
-            return (_object != null) ? _object.ToString() : "[null value]";
+            try
+            {
+                return (target != null) ? target.ToString() : "[null value]";
+            }
+            catch(Exception ex)
+            {
+                //This really shouldn't happen but its better to catch it here
+                "[object][str] ToString threw an exception on provided object: {0}".error(ex.Message);
+                return "[ToString exeception]";  
+            }
         }        
         public static string    str(this bool value, string trueValue, string falseValue)
         {
@@ -371,11 +392,11 @@ namespace FluentSharp.CoreLib
             return "{0} {1}".format(_string, Guid.NewGuid());
         }
 
-        public static string    trim(this string _string)
+        public static string    trim(this string target)
         {           
-            if (_string.valid())
-                return _string.Trim();
-            return _string;
+            if (target.valid())
+                return target.Trim();
+            return target;
         }
         public static string    pad(this string targetString, int totalWidth)
         {
@@ -564,10 +585,13 @@ namespace FluentSharp.CoreLib
 		{
 			return _string.firstChar() == lastChar;
 		}		
-
-		public static string    add_RandomLetters(this string _string)
+        public static string    add_5_RandomLetters(this string target)
+        {
+            return target.add_RandomLetters(5);
+        }
+		public static string    add_RandomLetters(this string target)
 		{
-			return _string.add_RandomLetters(10);
+			return target.add_RandomLetters(10);
 		}		
 		public static string    add_RandomLetters(this string _string, int count)
 		{
@@ -579,6 +603,7 @@ namespace FluentSharp.CoreLib
 		}
 		public static string random_Email(this string emailName)
         {
+            emailName = emailName.safeFileName();
             if (emailName.notValid())
                 emailName = 10.randomLetters();
             return "{0}@{1}.com".format(emailName, 10.randomLetters());

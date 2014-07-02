@@ -1,6 +1,7 @@
 ﻿using FluentSharp.CoreLib.API;
 
 //O2File:ascx_SimpleTaskGui.cs
+using FluentSharp.Web35.API;
 
 namespace FluentSharp.WinForms.Controls
 {

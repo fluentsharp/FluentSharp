@@ -60,8 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API_NGit.cs" />
-    <Compile Include="API_NGit_O2Platform.cs" />
+    <Compile Include="APIs\API_NGit.cs" />
+    <Compile Include="APIs\API_NGit_O2Platform.cs" />
     <Compile Include="ExtensionMethods\API_NGit_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\GitData\GitData_Repository_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\NGit\Branch_ExtensionMethods.cs" />

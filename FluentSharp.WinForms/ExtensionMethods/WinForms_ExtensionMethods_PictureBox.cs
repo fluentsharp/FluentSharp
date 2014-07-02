@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
+using FluentSharp.Web35;
 
 namespace FluentSharp.WinForms
 {

@@ -45,5 +45,25 @@ namespace FluentSharp.CoreLib
 			return memoryStream;
 		}
     }
+
+    public static class Stream_ExtensionMethods
+    {
+            public static byte[] bytes(this Stream stream)
+        {
+            return new BinaryReader(stream).ReadBytes((int)stream.Length);
+        }
+        public static string readToEnd(this Stream stream)
+        {
+            return stream.notNull() 
+                        ? new StreamReader(stream).ReadToEnd()
+                        : "";
+        }
+        public static StreamWriter send(this StreamWriter streamWriter, string textToWrite)
+        {
+            "sending text:{0}".format(textToWrite).debug();
+            streamWriter.WriteLine(textToWrite);
+            return streamWriter;
+        }
+    }
     
 }
