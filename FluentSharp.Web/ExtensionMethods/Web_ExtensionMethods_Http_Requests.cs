@@ -2,10 +2,12 @@ using System;
 using System.Net;
 using System.Drawing;
 using System.IO;
+using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class Web_ExtensionMethods_Http_Requests
     {

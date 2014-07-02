@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Sockets;
+using FluentSharp.CoreLib.API;
 
 
-
-namespace FluentSharp.CoreLib.API
+namespace FluentSharp.Web35.API
 {    
     public class Mail
     {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
-using FluentSharp.WinForms.Utils;
 
-namespace FluentSharp.WinForms
+namespace FluentSharp.Web35
 {
     public static class Web_Encoding_ExtensionMethods
     {

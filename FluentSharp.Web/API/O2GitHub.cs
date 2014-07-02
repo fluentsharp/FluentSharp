@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
 
-namespace FluentSharp.CoreLib.API
+namespace FluentSharp.Web35.API
 {
     //need to change this text (it is using GIT now)
     public class O2GitHub

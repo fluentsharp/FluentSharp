@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
+using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 
-
-
-
-
-namespace FluentSharp.CoreLib.API
+namespace FluentSharp.Web35.API
 {
     public class Web
     {

@@ -47,22 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeUtils\O2GitHub.cs" />
+    <Compile Include="API\O2GitHub.cs" />
     <Compile Include="ExtensionMethods\HTTP_ExtensionMethods_GET.cs" />
     <Compile Include="ExtensionMethods\HTTP_ExtensionMethods_HEAD.cs" />
     <Compile Include="ExtensionMethods\HTTP_ExtensionMethods_POST.cs" />
     <Compile Include="ExtensionMethods\O2GitHub_ExtensionMethods_CompileEngine.cs" />
-    <Compile Include="Network\WebEncoding.cs" />
     <Compile Include="ExtensionMethods\Web_Encoding_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\NetWork_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Web_ExtensionMethods_Ping.cs" />
     <Compile Include="ExtensionMethods\Web_ExtensionMethods_QueryString.cs" />
-    <Compile Include="ExtensionMethods\Web_ExtensionMethods_URI.cs" />
-    <Compile Include="Network\HttpFormUpload.cs" />
-    <Compile Include="Network\Mail.cs" />
-    <Compile Include="Network\Netsh.cs" />
-    <Compile Include="Network\Ping.cs" />
-    <Compile Include="Network\Web.cs" />
+    <Compile Include="API\HttpFormUpload.cs" />
+    <Compile Include="API\Mail.cs" />
+    <Compile Include="API\Netsh.cs" />
+    <Compile Include="API\Ping.cs" />
+    <Compile Include="API\Web.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExtensionMethods\Web_ExtensionMethods_Http_Requests.cs" />
   </ItemGroup>

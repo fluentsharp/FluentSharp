@@ -1,8 +1,9 @@
 using System;
 using System.Net;
 using System.Web;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class HTTP_ExtensionMethods_HEAD
     {
@@ -99,6 +100,11 @@ namespace FluentSharp.CoreLib
                     ex.log("in Web.httpFileExists ({0}) got SSL error: {1}".format(url, ex.Message));
                 return false;
             }
+        }
+
+        public static bool      exists(this Uri uri)
+        {
+            return uri.str().httpFileExists();
         }
     }
 }

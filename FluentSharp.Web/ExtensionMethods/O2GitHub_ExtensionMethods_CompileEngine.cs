@@ -1,7 +1,9 @@
 using System.Reflection;
+using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.Web35.API;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class O2GitHub_ExtensionMethods_CompileEngine
     {

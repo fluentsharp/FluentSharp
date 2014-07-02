@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentSharp.CoreLib;
 
-namespace FluentSharp.CoreLib
+namespace FluentSharp.Web35
 {
     public static class Web_ExtensionMethods_QueryString
     { 
