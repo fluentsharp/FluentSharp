@@ -57,6 +57,8 @@
     <Compile Include="ExtensionMethods\Byte_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Compilation_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Crypto\PBKDF2_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Crypto\SHA256_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\DateTime_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\GZip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Delete_Or_Copy.cs" />
@@ -66,7 +68,10 @@
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Save.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Folders.cs" />
     <Compile Include="ExtensionMethods\Encoding_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Uri_ExtensionMethods.cs" />
     <Compile Include="FluentSharp_Consts.cs" />
+    <Compile Include="O2_DotNetWrappers\Crypto\EncyptDecrypt.cs" />
+    <Compile Include="O2_DotNetWrappers\Crypto\PBKDF2.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\FileCache.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\SearchEngine.cs" />
     <Compile Include="O2_DotNetWrappers\O2Misc\SecretData.cs" />
@@ -236,9 +241,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExtensionMethods\Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

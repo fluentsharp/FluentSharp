@@ -5,7 +5,7 @@ using System.Reflection;
 using FluentSharp.CoreLib.API;
 
 namespace FluentSharp.CoreLib
-{
+{    
     public static class EmbeddedResources_ExtensionMethods
     {
         public static Stream resourceStream(this string resourceName)
@@ -27,10 +27,7 @@ namespace FluentSharp.CoreLib
                 return new List<string>();
             return assembly.GetManifestResourceNames().toList();
         }
-        public static byte[] bytes(this Stream stream)
-        {
-            return new BinaryReader(stream).ReadBytes((int)stream.Length);
-        }
+                
         public static string local_Or_Resource(this string fileName)
         {
             var mappedFile = fileName.local();

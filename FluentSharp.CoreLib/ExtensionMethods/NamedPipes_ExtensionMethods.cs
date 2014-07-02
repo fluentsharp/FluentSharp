@@ -29,13 +29,7 @@ namespace FluentSharp.CoreLib
             namedPipeClientStream.writer().send(textToWrite);
             return namedPipeClientStream;
         }
-
-        public static StreamWriter send(this StreamWriter streamWriter, string textToWrite)
-        {
-            "sending text:{0}".format(textToWrite).debug();
-            streamWriter.WriteLine(textToWrite);
-            return streamWriter;
-        }
+        
     }
 }
 

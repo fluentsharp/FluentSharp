@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text;
 using FluentSharp.CoreLib.API;
 using JetBrains.Annotations;
@@ -7,6 +8,14 @@ using System.Threading;
 
 namespace FluentSharp.CoreLib
 {
+    public static class Misc_ExtensionMethods_Double
+    {
+        public static bool isDouble(this string value)
+        {
+            double dummyDouble;
+            return Double.TryParse(value, out dummyDouble);
+        }
+    }
     public static class Misc_ExtensionMethods_Int
     {
         public static int       sleep(this int sleepPeriod)
