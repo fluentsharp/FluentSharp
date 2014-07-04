@@ -48,7 +48,7 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
                                                      .assert_Contains    ("FluentSharp.REPL.exe")                       // with these being added by CSharp_FastCompiler_ExtensionMethods..ctor()
                                                      .assert_Contains    ("FluentSharp.WinForms.dll")
                                                      .assert_Contains    ("FluentSharp.SharpDevelopEditor.dll")                                                    
-                                                     .assert_Contains    ("FluentSharp.Web.dll")
+                                                     .assert_Contains    ("FluentSharp.Web_3_5.dll")
                                                      .assert_Not_Contains("WeifenLuo.WinFormsUI.Docking.dll");          // removed since this is now part of the FluentSharp.WinFormsUI assembly
             
             CompileEngine.DefaultUsingStatements     .assert_Not_Null    ()

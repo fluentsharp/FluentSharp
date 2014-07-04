@@ -7,8 +7,8 @@
     <ProjectGuid>{FF88F616-4047-46F0-92C5-AFF282617505}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FluentSharp.Web</RootNamespace>
-    <AssemblyName>FluentSharp.Web</AssemblyName>
+    <RootNamespace>FluentSharp.Web_3_5</RootNamespace>
+    <AssemblyName>FluentSharp.Web_3_5</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -71,6 +71,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FluentSharp.Web_3_5.nuspec" />
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

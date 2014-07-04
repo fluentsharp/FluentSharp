@@ -111,7 +111,7 @@ namespace FluentSharp.REPL.Utils
                                               "FluentSharp.REPL.exe",
 											  "FluentSharp.SharpDevelopEditor.dll",
                                               //"WeifenLuo.WinFormsUI.Docking.dll",
-                                              "FluentSharp.Web.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
+                                              "FluentSharp.Web_3_5.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
                                               
         }    
  		public static void register_GitHub_As_ExternalAssemblerResolver()
