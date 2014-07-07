@@ -61,7 +61,7 @@
     <Compile Include="ExtensionMethods\Test_DateTime_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Test_IO.cs" />
     <Compile Include="ExtensionMethods\Test_Misc_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Test_Object.cs" />
+    <Compile Include="ExtensionMethods\Test_Object_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Reflection\Test_Reflection_Types.cs" />
     <Compile Include="ExtensionMethods\Test_String.cs" />
     <Compile Include="O2_DotNetWrappers\Crypto\Test_Crypto.cs" />

@@ -39,7 +39,7 @@ namespace UnitTests.FluentSharp.O2Platform
             currentProcess.waitFor_2nd_MainWindowHandle();      
 
             assert_Are_Not_Equal(currentProcess.MainWindowHandle, IntPtr.Zero);
-            var openForms = Application.OpenForms.toList<Form>(); 
+             
             var firstWindowTitle = "OWASP O2 Platform 5.4 - Launcher";
             var secondWindowTitle = "{0} : {1}".format("OWASP O2 Platform v5.5.0.0" , clr.details());
 
@@ -53,7 +53,7 @@ namespace UnitTests.FluentSharp.O2Platform
             if(lauchedUI_Form.notNull())
                 lauchedUI_Form.close().waitForClose();
 
-            assert_Size_Is(Application.OpenForms,0);
+           // assert_Size_Is(Application.OpenForms,0);
 
             /*if(openForms.size() == 2)
             {

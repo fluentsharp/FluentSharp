@@ -14,7 +14,7 @@ namespace UnitTests.FluentSharp_REPL
             O2ConfigSettings.O2Version = "O2_UnitTests\\FluentSharp_BCL".append_Version_FluentSharp();            
         }
 
-        [Test]
+        [Test][Ignore("FluentSharp.REPL doesn't have Embedded assemblies anymore")]
         public void GetAssemblyFromResources()
         {
             var testAssembly = "O2.FluentSharp.REPL._Embedded_Dlls.QuickGraph.dll";

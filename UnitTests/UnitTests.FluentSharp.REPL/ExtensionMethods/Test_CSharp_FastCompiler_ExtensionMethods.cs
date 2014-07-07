@@ -7,6 +7,7 @@ using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
 using FluentSharp.REPL;
 using FluentSharp.REPL.Utils;
+using FluentSharp.WinForms;
 using NUnit.Framework;
 
 namespace UnitTests.FluentSharp_REPL.ExtensionMethods
@@ -42,17 +43,18 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
             assert_True(typeof(CSharp_FastCompiler_ExtensionMethods).invoke_Ctor_Static());
 
             CompileEngine.DefaultReferencedAssemblies.assert_Not_Null    ()
-                                                     .assert_Size_Is     (13)
-                                                     .assert_Contains    ("System.Drawing.dll")                         // these should still be there
-                                                     .assert_Contains    ("FluentSharp.CoreLib.dll")
-                                                     .assert_Contains    ("FluentSharp.REPL.exe")                       // with these being added by CSharp_FastCompiler_ExtensionMethods..ctor()
-                                                     .assert_Contains    ("FluentSharp.WinForms.dll")
-                                                     .assert_Contains    ("FluentSharp.SharpDevelopEditor.dll")                                                    
-                                                     .assert_Contains    ("FluentSharp.Web_3_5.dll")
+                                                     .assert_Size_Is     (14)
+                                                     .assert_Contains    ("System.Drawing.dll",                         // these should still be there
+                                                                          "FluentSharp.CoreLib.dll",
+                                                                          "FluentSharp.REPL.exe",                       // with these being added by CSharp_FastCompiler_ExtensionMethods..ctor()
+                                                                          "FluentSharp.WinForms.dll",
+                                                                          "FluentSharp.SharpDevelopEditor.dll",                                                  
+                                                                          "FluentSharp.Web_3_5.dll",
+                                                                          "FluentSharp.Zip.dll")
                                                      .assert_Not_Contains("WeifenLuo.WinFormsUI.Docking.dll");          // removed since this is now part of the FluentSharp.WinFormsUI assembly
             
             CompileEngine.DefaultUsingStatements     .assert_Not_Null    ()
-                                                     .assert_Size_Is     (19)
+                                                     .assert_Size_Is     (20)
                                                      .assert_Contains    ("System.Drawing",                             // these should still be there
                                                                           "FluentSharp.CoreLib.API") 
                                                      .assert_Contains    ("FluentSharp.WinForms",                       // with these being added by CSharp_FastCompiler_ExtensionMethods..ctor()
@@ -63,7 +65,8 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
                                                                           "FluentSharp.Web35.API",
                                                                           "FluentSharp.REPL",
                                                                           "FluentSharp.REPL.Controls",
-                                                                          "FluentSharp.REPL.Utils");
+                                                                          "FluentSharp.REPL.Utils",
+                                                                          "FluentSharp.Zip");
         //FluentSharp.Web35.API
         
         }
@@ -77,5 +80,37 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
             assert_Is_Not_Empty(AssemblyResolver.ExternalAssemblerResolver);            
         }
     
+        [Test] public void compileScriptFile_into_SeparateFolder()
+        {
+            var scriptFile = Misc_WinForms_Script_Files.PopupWindow_With_LogViewer();
+
+            assert_File_Exists(scriptFile);
+
+            var compiledScript = scriptFile.compileScriptFile_into_SeparateFolder();            
+
+            compiledScript.assert_Not_Null()
+                          .assert_File_Exists();   
+
+            var parentFolder        = compiledScript.parentFolder();
+            var filesInParentFolder = parentFolder.files();
+            filesInParentFolder.fileNames().assert_Size_Is(3)
+                                           .assert_Item_Is_Equal(0,"FluentSharp.CoreLib.dll")                                           
+                                           .assert_Item_Is_Equal(1,"FluentSharp.WinForms.dll")
+                                           .assert_Item_Is_Equal(2,compiledScript.fileName());
+;            
+            parentFolder.assert_Contains(PublicDI.config.O2TempDir);            
+            
+            var tmpDll = compiledScript.fileName().inTempDir();
+            var tmpPdb = tmpDll.extensionChange("pdb");
+
+            //var tmpCs  = tmpDll.replace("._o2_Script.dll", ".cs");        // the temp file name is added by one, so this doesn't work
+            tmpDll.assert_File_Exists();//.assert_File_Deleted();           // can't delete because it is locked
+            tmpPdb.assert_File_Exists();//.assert_File_Deleted();           // can't delete because it is locked
+                        
+            scriptFile         .assert_File_Deleted();
+            filesInParentFolder.assert_Files_Deleted();
+            parentFolder       .assert_Folder_Deleted();            
+        }
+
     }
 }
