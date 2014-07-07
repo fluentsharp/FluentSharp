@@ -67,7 +67,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.Zip", "FluentSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.MsBuild", "UnitTests\UnitTests.FluentSharp.MsBuild\UnitTests.FluentSharp.MsBuild.csproj", "{E9BEB078-0D82-4F12-81A0-ADDAF3076FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp_Fork.CassiniDev", "FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev.csproj", "{E4F4B9DC-F41C-4E3E-A630-DC7F425F61A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSharp.CassiniDev", "FluentSharp_Fork.CassiniDev\FluentSharp_Fork.CassiniDev\FluentSharp.CassiniDev.csproj", "{E4F4B9DC-F41C-4E3E-A630-DC7F425F61A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.FluentSharp.CassiniDev", "FluentSharp_Fork.CassiniDev\UnitTests.FluentSharp.CassiniDev\UnitTests.FluentSharp.CassiniDev.csproj", "{C840A5BF-81EF-4E86-A437-CA8C4F78F257}"
 EndProject
