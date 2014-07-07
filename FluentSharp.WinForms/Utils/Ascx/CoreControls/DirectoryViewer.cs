@@ -538,7 +538,7 @@ namespace FluentSharp.WinForms.Controls
 
         private void tvDirectory_DragEnter(object sender, DragEventArgs e)
         {
-            string fileOrFolder = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e, false /*downloadIfHttp */);
+            string fileOrFolder = Dnd.tryToGetFileOrDirectoryFromDroppedObject(e);
             if (File.Exists(fileOrFolder))
             {
                 if (Path.GetDirectoryName(fileOrFolder) == getCurrentDirectory())

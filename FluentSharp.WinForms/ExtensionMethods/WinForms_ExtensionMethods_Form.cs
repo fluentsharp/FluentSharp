@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Reflection;
-using System.IO;
 using System.Threading;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.WinForms.Controls;
-using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms
 {
@@ -104,19 +100,19 @@ namespace FluentSharp.WinForms
             //title+=" - test" ;
             return title.showAsForm().add_Control<T>();
         }        
-        public static T     popupWindow<T>(this string title, int width, int height) where T : Control
+        public static T     popupWindow<T>(this string title, int width, int height, bool startHidden = false) where T : Control
         {
-            return title.showAsForm(width, height)
+            return title.showAsForm(width, height,startHidden)
                         .add_Control<T>();
         }        
-        public static Panel popupWindow(this string title, bool hidden = false)
+        public static Panel popupWindow(this string title, bool startHidden = false)
         {            
-            return (hidden) ? title.popupWindow_Hidden()
-                            : title.showAsForm();
+            return (startHidden) ? title.popupWindow_Hidden()
+                                 : title.showAsForm();
         }        
-        public static Panel popupWindow(this string title, int width, int height)
+        public static Panel popupWindow(this string title, int width, int height, bool startHidden = false)
         {
-            return title.showAsForm(width, height);
+            return title.showAsForm(width, height,startHidden);
         }
                 
         public static Panel createForm(this string title)
@@ -371,7 +367,6 @@ namespace FluentSharp.WinForms
             10.loop(100, () => form.opacity(value += 0.1));
             return form;
         }
-
         public static Form      hide (this Form form)
         {
             return   form.opacity(0);           // using opacity to hide the form since calling visible=false was trigering the o2Gui.Dispose() call
@@ -391,130 +386,6 @@ namespace FluentSharp.WinForms
             if (form.notNull())
                 form.invokeOnThread(() => form.ShowInTaskbar == value);
             return control;        
-        }
-        //Icons
-        public static Icon set_As_Default_Form_Icon(this Icon icon)
-        {
-            typeof(Form).fieldValue("defaultIcon", icon);
-            return icon;
-        }
-        public static Icon  asIcon(this Image image)
-        {
-            return image.asBitmap().asIcon();
-        }
-        public static Icon asIcon(this Bitmap bitmap)
-        {
-            try
-            {
-                return Icon.FromHandle(bitmap.GetHicon());
-            }
-            catch (Exception ex)
-            {
-                ex.log();
-                return null;
-            }
-            
-        }
-        public static Icon icon(this string iconFile)
-        {
-            try
-            {
-                if(iconFile.valid())
-                    return new Icon(iconFile);
-            }
-            catch(Exception ex)
-            {
-                "[icon] {0}".error(ex.Message);                
-            }
-            return null;
-        }
-        public static string saveAs_Icon(this Bitmap bitmap)
-        {
-            return bitmap.saveAs_Icon(".ico".tempFile());
-        }
-        public static string saveAs_Icon(this Bitmap bitmap, string targetFile)
-        {
-            return bitmap.asIcon().saveAs(targetFile);
-        }
-        public static string save(this Icon icon)
-        {            
-            return icon.saveAs(".ico".tempFile());
-        }
-        public static string saveAs(this Icon icon, string targetFile)
-        {
-            using (var fileStream = new FileStream(targetFile, FileMode.Create))
-                icon.Save(fileStream);
-            return targetFile;
-        }
-        public static T set_Form_Icon<T>(this T control, string iconFile)			where T : Control
-        {
-            return control.set_Form_Icon(iconFile.icon());
-        }		
-        public static T set_Form_Icon<T>(this T control, Icon icon)			where T : Control
-        {
-            control.parentForm().set_Icon(icon);
-            return control;
-        }
-        public static T set_Icon<T>(this T control, string iconName) where T : Control
-        {
-            var file = iconName.local_Or_Resource();
-            var parentForm = control.parentForm();
-            if (file.fileExists() && parentForm.notNull())
-            {
-                parentForm.set_Icon(file.icon());
-                return control;
-            }
-            "Error setting parent Form's Icon to: {0}".error(iconName);
-            return control;
-        }
-        public static Form set_Icon(this Form form, Icon icon)
-        {
-            form.invokeOnThread(()=> form.Icon = icon);
-            return form;
-        }								
-        public static T add_H2Icon<T>(this T control)			where T : Control
-        {
-            //return control.set_Form_Icon("H2Logo.ico".local());
-            return control.set_Form_Icon(FormImages.H2Logo);
-        }
-        public static Form set_H2Icon(this Form form)	
-        {
-            //return form.set_Icon("H2Logo.ico".local().icon());
-            return form.set_Form_Icon(FormImages.H2Logo);			
-        }
-        public static Form set_O2Icon(this Form form)	
-        {   
-            return form.set_Form_Icon(FormImages.O2Logo);			
-            //return form.set_Icon("O2Logo.ico".local().icon());
-        }
-        public static Form set_DefaultIcon(this Form form)
-        {
-            try
-            {
-                var entryAssembly = Assembly.GetEntryAssembly();
-
-                var icon = (entryAssembly.notNull())
-                               ? Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location)
-                               : FormImages.H2Logo;
-                form.set_Icon(icon);
-            }
-            catch (Exception ex)
-            {
-                ex.log("in set_DefaultIcon");
-            }
-            return form;        
-        }
-        public static Form clientSize(this Form form, int width, int height)
-        {
-            return form.invokeOnThread(() =>
-                {
-                    form.ClientSize = new Size(width, height);
-                    return form;
-                });
-        }
-        public static Image formImage(this string imageKey)
-        {
-            return (Image)typeof(FormImages).prop(imageKey);
         }
     }
 

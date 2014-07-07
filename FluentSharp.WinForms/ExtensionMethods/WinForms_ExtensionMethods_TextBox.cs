@@ -12,6 +12,10 @@ namespace FluentSharp.WinForms
 {
     public static class WinForms_ExtensionMethods_TextBox
     {
+        public static TextBox   add_Text(this Control control)
+        {
+            return control.add_TextArea();
+        }
         public static TextBox   add_TextArea(this Control control)
         {
             return control.add_TextBox(true)
@@ -111,6 +115,14 @@ namespace FluentSharp.WinForms
         {
             textBox.invokeOnThread(() => textBox.Select(start, length));
             return textBox;
+        }
+        public static string    text(this TextBox textBox)
+        {
+            return textBox.get_Text();
+        }
+        public static TextBox   text(this TextBox textBox, string text)
+        {
+            return textBox.set_Text(text);
         }
         public static TextBox   set_Text(this TextBox textBox, string text)
         {
@@ -382,13 +394,17 @@ namespace FluentSharp.WinForms
         {
             return textBox.invokeOnThread(() => { textBox.MaxLength = value; return textBox; });
         }
-
         public static TextBox   show_in_TextArea(this string text)
         {
             return "Viewing String with size: {0}".format(text.size())
                         .popupWindow()
                         .add_TextArea()
                         .set_Text(text.fix_CRLF());
+        }
+    
+        public static List<TextBox> textBoxes(this Control control)
+        {
+            return control.controls<TextBox>(true);
         }
     }
 }

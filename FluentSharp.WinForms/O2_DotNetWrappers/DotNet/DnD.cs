@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using FluentSharp.CoreLib.API;
-using FluentSharp.Web35.API;
 
 namespace FluentSharp.WinForms.Utils
 {
@@ -86,13 +85,8 @@ namespace FluentSharp.WinForms.Utils
                     return item;
             return null;
         }
-
+        
         public static String tryToGetFileOrDirectoryFromDroppedObject(DragEventArgs dragEventArgs)
-        {
-            return tryToGetFileOrDirectoryFromDroppedObject(dragEventArgs, true);
-        }
-
-        public static String tryToGetFileOrDirectoryFromDroppedObject(DragEventArgs dragEventArgs, bool downloadIfHttp)
         {
             var dataReceived = new List<object>();
             String[] sFormats = dragEventArgs.Data.GetFormats();
@@ -107,7 +101,7 @@ namespace FluentSharp.WinForms.Utils
                         case "String":
                             if (File.Exists(item.ToString()) || Directory.Exists(item.ToString()))
                                 return item.ToString();                            
-                            if ( item.ToString().ToLower().StartsWith("http"))
+                            /*if ( item.ToString().ToLower().StartsWith("http"))
                             {
                                 if (downloadIfHttp)
                                 {
@@ -116,8 +110,9 @@ namespace FluentSharp.WinForms.Utils
                                         return savedUrlContents;
                                 }
                                 return item.ToString();
-                            }
+                            }*/
                             break;
+                            
                         case "String[]":
                             foreach (string subItem in (string[]) item)
                                 if (File.Exists(subItem) || Directory.Exists(subItem))

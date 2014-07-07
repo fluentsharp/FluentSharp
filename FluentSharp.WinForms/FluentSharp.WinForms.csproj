@@ -75,6 +75,7 @@
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ComponentResourceManager.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_FlowLayoutPanel.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_GroupBox.cs" />
+    <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Icon.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Label.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_LinkLabel.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_ListBox.cs" />
@@ -274,25 +275,6 @@
       <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\Ascx\REPL_Gui.cs" />
-    <Compile Include="Utils\Ascx\Tasks\ascx_SimpleTaskGui.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Utils\Ascx\Tasks\ascx_SimpleTaskGui_ExtensionMethods.cs" />
-    <Compile Include="Utils\Ascx\Tasks\ascx_Task.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Utils\Ascx\Tasks\ascx_Task.Designer.cs">
-      <DependentUpon>ascx_Task.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utils\Ascx\Tasks\ascx_Task_Ping.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Utils\Ascx\Tasks\ascx_Task_WebGet.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Utils\Ascx\Tasks\ascx_Task_WebPost.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Utils\classes\CreateDataTable.cs" />
     <Compile Include="Utils\classes\ImagesLists.cs" />
     <Compile Include="Utils\classes\MainGUI\DebugMsg.cs" />
@@ -301,10 +283,6 @@
     </Compile>
     <Compile Include="Utils\classes\MainGUI\WinForms.cs" />
     <Compile Include="Utils\classes\MainGUI\WinFormsUILog.cs" />
-    <Compile Include="Utils\classes\TasksWrappers\Task_LoadAssessmentFiles.cs" />
-    <Compile Include="Utils\classes\Tasks\BTask.cs" />
-    <Compile Include="Utils\classes\Tasks\TaskThread.cs" />
-    <Compile Include="Utils\classes\Tasks\TaskUtils.cs" />
     <Compile Include="Utils\classes\WebRequests.cs" />
     <None Include="Resources\fromILSpy\Assembly.png" />
     <None Include="Resources\fromILSpy\AssemblyList.png" />
@@ -586,7 +564,6 @@
     <None Include="Resources\camera-video.png" />
     <None Include="Resources\camera-photo.png" />
     <None Include="Resources\bookmark-new.png" />
-    <None Include="Utils\DI.cs.tzt" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_O2_TableList.cs" />
     <Compile Include="ExtensionMethods\FluentSharp_Controls\DirectoryViewer_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods.cs" />
@@ -595,12 +572,6 @@
     </Compile>
     <Compile Include="Utils\Forms\O2_Main_GUI.Designer.cs">
       <DependentUpon>O2_Main_GUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utils\Forms\ReportBug.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utils\Forms\ReportBug.Designer.cs">
-      <DependentUpon>ReportBug.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\FormImages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -657,14 +628,8 @@
     <EmbeddedResource Include="Utils\Ascx\O2Findings\ascx_TraceTreeView.resx">
       <DependentUpon>ascx_TraceTreeView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utils\Ascx\Tasks\ascx_Task.resx">
-      <DependentUpon>ascx_Task.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Utils\Forms\O2_Main_GUI.resx">
       <DependentUpon>O2_Main_GUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Utils\Forms\ReportBug.resx">
-      <DependentUpon>ReportBug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\FormImages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -728,10 +693,9 @@
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp.Web\FluentSharp.Web_3_5.csproj">
-      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
-      <Name>FluentSharp.Web_3_5</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\classes\TasksWrappers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

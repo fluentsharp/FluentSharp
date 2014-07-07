@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
-using FluentSharp.Web35;
 
 namespace FluentSharp.WinForms
 {
@@ -86,12 +85,6 @@ namespace FluentSharp.WinForms
         public static PictureBox show(this PictureBox pictureBox, Bitmap bitmap)
         {
             return pictureBox.load(bitmap);
-        }
-        public static PictureBox loadFromUri(this PictureBox pictureBox, Uri uri)
-        {
-            "loading image from Uri into PictureBox".debug();
-            pictureBox.Image = uri.getImageAsBitmap();
-            return pictureBox;
         }
         public static PictureBox onClick(this PictureBox pictureBox, Action callback)
         {

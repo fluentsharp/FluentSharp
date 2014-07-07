@@ -9,8 +9,6 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.Web35;
-using FluentSharp.WinForms.Utils;
 
 namespace FluentSharp.WinForms
 {
@@ -121,14 +119,7 @@ namespace FluentSharp.WinForms
                                         ? "file://" + sDirectoryToOpen
                                         : "about:blank");
         }
-        public static WebBrowser submitRequest_POST(this WebBrowser webBrowser, string url, string targetFrame, Dictionary<string, string> parameters)
-        {
-            var postString = "";
-            if (parameters != null)
-                foreach (var parameter in parameters.Keys)
-                    postString += "{0}={1}&".format(parameter, parameters[parameter].urlDecode()); //WebEncoding.urlEncode(parameters[parameter]));
-            return webBrowser.submitRequest_POST(url, targetFrame, postString);            
-        }
+        
         public static WebBrowser submitRequest_POST(this WebBrowser webBrowser, string url, string targetFrame, string postString)
         {
             byte[] postData = Encoding.ASCII.GetBytes(postString);
@@ -157,14 +148,7 @@ namespace FluentSharp.WinForms
         {
             return webBrowser.submitRequest_GET(url, "", "");
         }
-        public static WebBrowser submitRequest_GET(this WebBrowser webBrowser, string url, string targetFrame, Dictionary<string, string> parameters)
-        {
-            var parametersString = "";
-            if (parameters != null)
-                foreach (var parameter in parameters.Keys)
-                    parametersString += "{0}={1}&".format(parameter, parameters[parameter].urlDecode());//WebEncoding.urlEncode(parameters[parameter]));
-            return webBrowser.submitRequest_GET(url, targetFrame, parametersString);
-        }
+       
         public static WebBrowser submitRequest_GET(this WebBrowser webBrowser, string url, string targetFrame, string parametersString)
         {
             return webBrowser.invokeOnThread(() =>
@@ -189,7 +173,6 @@ namespace FluentSharp.WinForms
         {
             return browser.invokeOnThread(() => { browser.Stop(); return browser; });
         }
-        
     }
     public static class WinForms_ExtensionMethods_WebBrowser_Dialogs
     {

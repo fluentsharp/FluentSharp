@@ -2,7 +2,6 @@
 using System;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
-using FluentSharp.Web35;
 
 namespace FluentSharp.WinForms.Utils
 {
@@ -79,7 +78,8 @@ namespace FluentSharp.WinForms.Utils
         */
 
         
-        public static string getClickOnceScriptPath()
+        /*
+         * public static string getClickOnceScriptPath()
         {
             if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null &&
                 AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null &&
@@ -110,7 +110,7 @@ namespace FluentSharp.WinForms.Utils
             //   if (ApplicationDeployment.IsNetworkDeployed)
             //       return String.Format("{0}  ({1})", sFormName, ApplicationDeployment.CurrentDeployment.CurrentVersion);
         }
-
+        */
         public static bool isClickOnceDeployment()
         {
 			return false;
