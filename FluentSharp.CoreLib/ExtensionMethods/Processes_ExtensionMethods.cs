@@ -117,6 +117,14 @@ namespace FluentSharp.CoreLib
         {
             return Processes.startProcessAndRedirectIO(processExe, arguments, onDataReceived);			
         }		
+        public static Process       startProcess(this string processExe, string arguments, string workingDirectory)
+		{
+			return processExe.startProcess(arguments, workingDirectory, (line)=>line.info());
+		}		
+		public static Process       startProcess(this string processExe, string arguments, string workingDirectory,  Action<string> onDataReceived)
+		{
+			return Processes.startProcessAndRedirectIO(processExe, arguments, workingDirectory, onDataReceived, onDataReceived);
+		}
         public static Process       startProcess(this string processExe, string arguments)
         {
             return Processes.startProcess(processExe, arguments);

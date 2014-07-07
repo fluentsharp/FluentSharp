@@ -125,6 +125,10 @@ namespace FluentSharp.CoreLib
             }
             return "";
         }
+        public static List<string>  fileNames(this string folder)
+		{
+			return folder.files().fileNames();
+		}
         public static List<string>  fileNames(this List<string> files)
         {
             var fileNames = from file in files
@@ -211,6 +215,37 @@ namespace FluentSharp.CoreLib
                     return false;
             }
         }
+        public static bool          files_Exist(this List<string> files)
+        {
+            if(files.empty())
+                return false;
+            foreach(var file in files)
+                if (file.file_Not_Exists())
+                    return false;
+            return true;
+
+        }
+        public static bool          files_Not_Exist(this List<string> files)
+        {
+            if(files.empty())
+                return true;
+            foreach(var file in files)
+                if (file.file_Exists())
+                    return false;
+            return true;
+        }
+        public static bool          file_Doesnt_Exist(this string file)
+        {
+            return file.file_Not_Exists();
+        }
+        public static bool          file_Not_Exists(this string file)
+        {
+            return file.fileExists().isFalse();
+        }
+        public static bool          file_Exists(this string file)
+        {
+            return file.fileExists();
+        }        
         public static bool          fileExists(this string file)
         {
             try

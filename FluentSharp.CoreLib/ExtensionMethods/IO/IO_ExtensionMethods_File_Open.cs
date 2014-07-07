@@ -8,6 +8,14 @@ namespace FluentSharp.CoreLib
 {
     public static class IO_ExtensionMethods_File_Open
     {        
+        public static string        file_Contents(this string file)
+        {
+            return file.contents();
+        }
+        public static string        file_Contents(this string folder, string file)
+		{
+			return folder.pathCombine(file).fileContents();
+		}
         public static string        filesContents(this List<string> files)
         {
             var filesContents = "";

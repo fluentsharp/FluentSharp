@@ -8,18 +8,77 @@ namespace FluentSharp.CoreLib
 {    
     public static class EmbeddedResources_ExtensionMethods
     {
-        public static Stream resourceStream(this string resourceName)
+        public static List<String>  embeddedResourceNames(this Assembly assembly)
         {
-            resourceName = resourceName.lower();
+            return assembly.GetManifestResourceNames().toList();
+        }
+        public static List<String>  embeddedAssembliesNames(this Assembly assembly)
+        {
+            return assembly.GetManifestResourceNames().toList()
+                                                      .where((name)=>name.ends(new [] {".dll",".exe",".dll.gz",".exe.gz"}));
+        }
+        /// <summary>
+        /// Returns the bytes of the embedded resources
+        /// 
+        /// Supports .gzip resources (if the name extension is .gz , <code>bytes.gzip_Decompress()</code>  will be called on the extrated bytes
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="name"></param>
+        /// <param name="alsoMatchPartialNames"></param>
+        /// <returns></returns>
+        public static byte[]        embeddedResource(this Assembly assembly, string name, bool alsoMatchPartialNames = true)
+        {            
+            if (assembly.isNull())
+                return null;
+            var assemblyStream = assembly.GetManifestResourceStream(name);
+            if (assemblyStream.isNull() && alsoMatchPartialNames)
+                foreach(var resourceName in assembly.resourcesNames())
+                    if (resourceName.ends(name))
+                    {
+                        assemblyStream = assembly.GetManifestResourceStream(resourceName);
+                        break;
+                    }
+            var bytes = assemblyStream.isNull() 
+                            ? null 
+                            : new BinaryReader(assemblyStream).ReadBytes((int) assemblyStream.Length);
+            return name.contains(".gz") 
+                            ? bytes.gzip_Decompress() 
+                            : bytes;
+        }
+        public static Stream resourceStream(this string nameToFind, bool alsoMatchPartialNames = true)
+        {            
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-                foreach (var name in assembly.resourcesNames())
-                    if (name.lower() == resourceName)
-                        return assembly.resourceStream(name);
+            {
+                var stream = assembly.resourceStream(nameToFind, alsoMatchPartialNames);
+                if (stream.notNull())
+                    return null;
+            }
+                
             return null;
         }
-        public static Stream resourceStream(this Assembly assembly, string resourceName)
-        {
-            return assembly.GetManifestResourceStream(resourceName);
+        public static Stream resourceStream(this Assembly assembly, string nameToFind, bool alsoMatchPartialNames = true )
+        {            
+            try
+            { 
+                if (assembly.isDynamic())       // cannot get resources from Dynamic Assemblies
+                    return null;
+                var stream = assembly.GetManifestResourceStream(nameToFind);
+                if (stream.notNull())
+                    return stream;
+                nameToFind = nameToFind.lower();
+                foreach (var resourceName in assembly.resourcesNames())
+                    if (resourceName.lower() == nameToFind || (alsoMatchPartialNames && resourceName.lower().ends(nameToFind)))
+                    { 
+                        stream = assembly.GetManifestResourceStream(resourceName);
+                        if (stream.notNull())
+                            return stream;
+                    }
+            }
+            catch(Exception ex)
+            {
+                ex.log("[Assembly][resourceStream] nameToFind = {0} alsoMatchPartialNames = {1}".format(nameToFind, alsoMatchPartialNames));
+            }
+            return null;
         }
         public static List<string> resourcesNames(this Assembly assembly)
         {
@@ -35,18 +94,29 @@ namespace FluentSharp.CoreLib
                 return mappedFile;
             return fileName.resource_GetFile();
         }
-        public static string resource_GetFile(this string resourceName)
+        public static string resource_GetFile(this Assembly assembly, string resourceName)
         {
             var targetFile = resourceName.inTempDir();
             if (targetFile.fileExists())
                 return targetFile;
-            resourceName.resourceStream().bytes().saveAs(targetFile);
-            if (targetFile.fileExists())
-                return targetFile;
-            "[EmbededResources]resource_GetFile failed for resourceName :{0}".error(resourceName);
+            var resourceStream = assembly.resourceStream(resourceName);
+            if (resourceStream.notNull())                
+                return resourceStream.save_Stream_To(targetFile);
+            "[EmbededResources][resource_GetFile] failed for resourceName :{0}".error(resourceName);
             return null;
         }
-
+        
+        public static string resource_GetFile(this string resourceName)
+        {            
+            var targetFile = resourceName.inTempDir();
+            if (targetFile.fileExists())
+                return targetFile;
+            var resourceStream = resourceName.resourceStream();
+            if (resourceStream.notNull())                
+                return resourceStream.save_Stream_To(targetFile);
+            "[EmbededResources][resource_GetFile] failed for resourceName :{0}".error(resourceName);
+            return null;
+        }        
         public static List<string> mapExtraEmbebbedResources(this string targetFolder, string fileToParse)
         {
             var extraEmbebbedResources = new List<string>();

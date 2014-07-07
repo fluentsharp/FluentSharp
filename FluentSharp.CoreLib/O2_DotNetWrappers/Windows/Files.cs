@@ -152,18 +152,26 @@ namespace FluentSharp.CoreLib.API
             }
             return false;
         }
-        public static void deleteFolder(String sFolderToDelete)
+        public static bool delete_Folder(String sFolderToDelete)
         {
-            deleteFolder(sFolderToDelete, false);
+            return deleteFolder(sFolderToDelete, false);
         }
-        public static bool deleteFolder(String sFolderToDelete, bool bRecursive)
+        public static bool delete_Folder_Recursively(String targetFolder)
+        {
+            return deleteFolder(targetFolder, true);
+        }
+        public static bool deleteFolder(String targetFolder)
+        {
+            return deleteFolder(targetFolder, false);
+        }
+        public static bool deleteFolder(String targetFolder, bool bRecursive)
         {
             try
             {
-                if (Directory.Exists(sFolderToDelete))
+                if (Directory.Exists(targetFolder))
                 {
-                    deleteAllFilesFromDir(sFolderToDelete);
-                    Directory.Delete(sFolderToDelete, bRecursive);
+                    deleteAllFilesFromDir(targetFolder);
+                    Directory.Delete(targetFolder, bRecursive);
                     return true;
                 }
             }

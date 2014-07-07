@@ -26,6 +26,8 @@ namespace FluentSharp.CoreLib
         }
         public static byte[] gzip_Decompress(this byte[] bytes)
         {
+            if (bytes.Length == 0)
+                return bytes;
             var inputStream = new MemoryStream();
             inputStream.Write(bytes, 0, bytes.Length);
             inputStream.Position = 0;

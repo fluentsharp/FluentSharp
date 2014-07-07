@@ -44,6 +44,10 @@ namespace FluentSharp.CoreLib
             return null;			
         }
 
+        public static List<string> files_Delete(this List<string> paths)
+        {
+            return paths.deleteFiles();
+        }
         public static bool file_Delete(this string path)
         {
             return path.delete_File();
@@ -75,13 +79,14 @@ namespace FluentSharp.CoreLib
         }
         public static bool folder_Delete(this string path)
         {
-            return path.delete_Folder();
+            return path.delete_Folder();            
         }
         public static bool delete_Folder(this string path)
         {
+            if (path.folder_Not_Exists())
+               return false;
             Files.deleteAllFilesFromDir(path);
-            Files.deleteFolder(path);
-            return path.dirExists();
+            return Files.deleteFolder(path);            
         }
     }
 }

@@ -48,7 +48,7 @@ namespace FluentSharp.CoreLib
 
     public static class Stream_ExtensionMethods
     {
-            public static byte[] bytes(this Stream stream)
+        public static byte[] bytes(this Stream stream)
         {
             return new BinaryReader(stream).ReadBytes((int)stream.Length);
         }
@@ -64,6 +64,19 @@ namespace FluentSharp.CoreLib
             streamWriter.WriteLine(textToWrite);
             return streamWriter;
         }
+        public static string save_Stream_To(this Stream stream, string targetFile)
+        {
+            if (stream.notNull())
+            {                 
+                stream.bytes().saveAs(targetFile);
+                if (targetFile.fileExists())
+                    return targetFile;
+                "[Stream]resource_GetFile failed to save Stream to  :{0}".error(targetFile);
+            }
+            "[Stream][save_Stream} provided Stream was empty".error();
+            return null;
+        }
+
     }
     
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -122,5 +123,45 @@ namespace FluentSharp.CoreLib
             }
             return default(DateTime);
         }
+    }
+    public static class Stopwatch_ExtensionMethods
+    {
+        public static TimeSpan stop(this Stopwatch stopwatch)
+		{
+			if(stopwatch.notNull())
+				stopwatch.Stop();
+			return stopwatch.Elapsed;
+		}
+		
+		public static string milliseconds(this TimeSpan timeSpan)
+		{
+			if (timeSpan.notNull())
+				return "{0}ms".format(timeSpan.Milliseconds);
+			return null;
+		}		
+		public static string seconds(this TimeSpan timeSpan)
+		{
+			if (timeSpan.notNull())
+				return "{0}s".format(timeSpan.Seconds);
+			return null;
+		}		
+		public static string minutes(this TimeSpan timeSpan)
+		{
+			if (timeSpan.notNull())
+				return "{0}m".format(timeSpan.Minutes);
+			return null;
+		}		
+		public static string seconds_And_Miliseconds(this TimeSpan timeSpan)
+		{
+			if (timeSpan.notNull())
+				return "{0}s {1}ms".format(timeSpan.Seconds, timeSpan.Milliseconds);
+			return null;
+		}
+		public static string minutes_Seconds_And_Miliseconds(this TimeSpan timeSpan)
+		{
+			if (timeSpan.notNull())
+				return "{0}m {0}s {1}ms".format(timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
+			return null;
+		}
     }
 }

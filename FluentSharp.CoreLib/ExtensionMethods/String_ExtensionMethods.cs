@@ -193,9 +193,13 @@ namespace FluentSharp.CoreLib
                     return true;
             return false;
         }
-        public static bool      empty(this string _string)
+        public static bool      isEmpty(this string target)
         {
-            return !(_string.valid());
+            return target.empty();
+        }
+        public static bool      empty(this string target)
+        {
+            return !(target.valid());
         }
         public static bool      validString(this object _object)
         {

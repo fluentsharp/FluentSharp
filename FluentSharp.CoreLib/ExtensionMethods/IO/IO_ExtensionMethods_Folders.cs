@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using FluentSharp.CoreLib.API;
 
@@ -19,6 +20,20 @@ namespace FluentSharp.CoreLib
                 return path.directoryName();
             return null;
         }
+        public static Process        parentFolder_Open_in_Explorer(this string path)
+        {
+            var parentFolder = path.parentFolder();
+            if(parentFolder.folder_Exists())
+                return parentFolder.startProcess();
+            return null;
+        }
+        public static string folder(this string basePath, string folderName)
+		{
+			var targetFolder = basePath.pathCombine(folderName);
+			if(targetFolder.dirExists())
+				return targetFolder;
+			return null;
+		}
         public static List<string>  folders(this string path)
         {
             return path.folders(false);
@@ -55,6 +70,14 @@ namespace FluentSharp.CoreLib
         public static bool          isFolder(this string path)
         {
             return path.dirExists();
+        }
+        public static bool          folder_Exists(this string path)
+        {
+            return path.folderExists();
+        }
+        public static bool          folder_Not_Exists(this string path)
+        {
+            return path.folderExists().isFalse();
         }
         public static bool          folderExists(this string path)
         {

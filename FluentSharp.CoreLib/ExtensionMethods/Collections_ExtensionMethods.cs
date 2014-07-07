@@ -171,7 +171,11 @@ namespace FluentSharp.CoreLib
             return list.Select(item => item.split(splitString)).ToList();
         }
 
-        public static List<string>      lines(this string targetString)
+        public static List<string>          lines_RegEx(this string target, string regEx)
+		{
+			return target.lines().containing_RegEx(regEx);
+		}		
+        public static List<string>          lines(this string targetString)
         {
             return StringsAndLists.fromTextGetLines(targetString);
         }
@@ -201,6 +205,10 @@ namespace FluentSharp.CoreLib
         {
             return list.contains(stringToNotFind).isFalse();
         }
+        public static List<string>          containing_RegEx(this List<string> items, string regEx)
+		{
+			return items.where(item=>item.regEx(regEx));
+		}
         public static List<T>           clear<T>(this List<T> list)
         {
             if (list.notNull())

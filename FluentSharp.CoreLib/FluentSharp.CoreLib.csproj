@@ -104,7 +104,7 @@
     <Compile Include="O2_DotNetWrappers\DotNet\Serialize.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\StringsAndLists.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\TypeConfusion.cs" />
-    <Compile Include="O2_DotNetWrappers\DotNet\MiscUtils.cs" />
+    <Compile Include="Classes\MiscUtils.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\XmlHelpers.cs" />
     <Compile Include="ExtensionMethods\AppDomain_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Collections_ExtensionMethods.cs" />
@@ -121,7 +121,6 @@
     <Compile Include="ExtensionMethods\O2Utils_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\PerformanceCounters_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Processes_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Reflection\Reflection_ExtensionMethods_Resources.cs" />
     <Compile Include="ExtensionMethods\RegEx_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Registry_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SavingData_ExtensionMethods.cs" />

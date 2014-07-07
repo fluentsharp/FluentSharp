@@ -36,6 +36,14 @@ namespace FluentSharp.CoreLib
         {
             return _object != null;
         }
+        /// <summary>
+        /// Casts the provided object into the provided type.
+        /// 
+        /// This is a nice way to transform an plain object into strongly type object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_object"></param>
+        /// <returns></returns>
         public static T     cast<T>(this object _object) 
         {
             if (_object is T)
@@ -104,6 +112,14 @@ namespace FluentSharp.CoreLib
         {
             return _object.isInstanceOf<T>().isFalse();
         }
+        /// <summary>
+        /// This decasts an strongly type object into a pure C# object
+        /// 
+        /// Usefull when there is a need to actualy lose strong typing (at compiler level)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_object"></param>
+        /// <returns></returns>
         public static object obj<T>(this T _object)    where T : class
         {
             return _object;
