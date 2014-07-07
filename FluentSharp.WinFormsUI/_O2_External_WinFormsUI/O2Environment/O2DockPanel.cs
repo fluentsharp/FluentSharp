@@ -85,10 +85,9 @@ namespace FluentSharp.WinFormUI.Utils
         {
             if (O2AscxGUI.o2GuiWithDockPanel == null)
             {
-                O2AscxGUI.o2GuiWithDockPanel = new O2GuiWithDockPanel();
-                O2AscxGUI.o2GuiWithDockPanel.Text =
-                    ClickOnceDeployment.getFormTitle_forClickOnce(formName ?? O2AscxGUI.o2GuiWithDockPanel.Text);
-                O2AscxGUI.o2GuiWithDockPanel.Width = (formWidth > 0) ? formWidth : O2AscxGUI.o2GuiWithDockPanel.Width;
+                O2AscxGUI.o2GuiWithDockPanel        = new O2GuiWithDockPanel();
+                O2AscxGUI.o2GuiWithDockPanel.Text   = formName ?? O2AscxGUI.o2GuiWithDockPanel.Text;
+                O2AscxGUI.o2GuiWithDockPanel.Width  = (formWidth > 0) ? formWidth : O2AscxGUI.o2GuiWithDockPanel.Width;
                 O2AscxGUI.o2GuiWithDockPanel.Height = (formHeight > 0) ? formHeight : O2AscxGUI.o2GuiWithDockPanel.Height;
             }
             return O2AscxGUI.o2GuiWithDockPanel;                            

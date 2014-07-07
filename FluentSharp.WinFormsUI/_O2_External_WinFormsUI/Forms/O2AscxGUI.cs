@@ -45,7 +45,7 @@ namespace FluentSharp.WinFormUI.Utils
                     PublicDI.log.error("There is already a GUI loaded and only one can be loaded");
                     return false;
                 }
-                parentFormTitle = ClickOnceDeployment.getFormTitle_forClickOnce(parentFormTitle);
+                //parentFormTitle = ClickOnceDeployment.getFormTitle_forClickOnce(parentFormTitle);
                 //new O2DockPanel();
 
                 O2Thread.staThread(() => new O2DockPanel());

@@ -20,7 +20,9 @@ This is the FluentSharp Roslyn which provides exposed Roslyn (a managed C# compi
         <tags>Fluent OWASP O2Platform Security</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.0">
-                <dependency id="FluentSharp.CoreLib"/>
+              <dependency id="FluentSharp.CoreLib"/>
+              <dependency id="Roslyn.Services.CSharp"/>
+              <dependency id="Roslyn.Compilers.CSharp"/>
             </group>
         </dependencies>
     </metadata>    

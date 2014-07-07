@@ -28,6 +28,5 @@ namespace FluentSharp.Web35
         {
             return url.getHtml();
         }
-
     }
 }

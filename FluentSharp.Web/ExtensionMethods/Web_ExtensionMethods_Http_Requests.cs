@@ -51,5 +51,17 @@ namespace FluentSharp.Web35
             var bitmap = new Bitmap(memoryStream);
             return bitmap;
         }
+
+        public static string GET(this string url, string cookies)
+		{			
+			return new Web().getUrlContents(url,cookies, false);
+		}
+		
+		public static string GET(this Web web, string url)
+		{
+			if (web.notNull())
+				return web.getUrlContents(url);
+			return null;
+		}
     }
 }

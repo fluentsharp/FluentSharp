@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -35,24 +35,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Roslyn.Compilers">
-      <HintPath>_EmbededDlls\Roslyn.Compilers.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Roslyn.Compilers.Common.1.1.20524.4\lib\net40\Roslyn.Compilers.dll</HintPath>
     </Reference>
     <Reference Include="Roslyn.Compilers.CSharp">
-      <HintPath>_EmbededDlls\Roslyn.Compilers.CSharp.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Roslyn.Compilers.CSharp.1.1.20524.4\lib\net40\Roslyn.Compilers.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Roslyn.Services">
-      <HintPath>_EmbededDlls\Roslyn.Services.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Roslyn.Services.Common.1.1.20524.4\lib\net40\Roslyn.Services.dll</HintPath>
     </Reference>
     <Reference Include="Roslyn.Services.CSharp">
-      <HintPath>_EmbededDlls\Roslyn.Services.CSharp.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Roslyn.Services.CSharp.1.1.20524.4\lib\net40\Roslyn.Services.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Roslyn.Utilities">
-      <HintPath>_EmbededDlls\Roslyn.Utilities.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Roslyn.Services.Common.1.1.20524.4\lib\net40\Roslyn.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -71,15 +66,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="FluentSharp.Roslyn.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_EmbededDlls\Roslyn.Compilers.CSharp.dll" />
@@ -87,12 +83,6 @@
     <EmbeddedResource Include="_EmbededDlls\Roslyn.Services.CSharp.dll" />
     <EmbeddedResource Include="_EmbededDlls\Roslyn.Services.dll" />
     <EmbeddedResource Include="_EmbededDlls\Roslyn.Utilities.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>FluentSharp.CoreLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

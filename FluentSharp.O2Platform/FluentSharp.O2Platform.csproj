@@ -63,9 +63,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FluentSharp.AST\FluentSharp.AST.csproj">
+      <Project>{bc47f7c7-36f4-456f-bd3e-fe7ceff05031}</Project>
+      <Name>FluentSharp.AST</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Moq\FluentSharp.Moq.csproj">
+      <Project>{35bd5c37-838f-4bd3-8ac0-e156097ff2f0}</Project>
+      <Name>FluentSharp.Moq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.MsBuild\FluentSharp.MsBuild.csproj">
+      <Project>{6b41807e-0d11-43ab-b679-2c777c6c763a}</Project>
+      <Name>FluentSharp.MsBuild</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp.NGit\FluentSharp.NGit.csproj">
       <Project>{B1AAFDA3-2A9F-4BBD-9A08-F0890BA886C1}</Project>
@@ -83,6 +95,18 @@
       <Project>{1D5E7298-537E-409B-8059-2040CA60B55A}</Project>
       <Name>FluentSharp.Roslyn</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Web\FluentSharp.Web_3_5.csproj">
+      <Project>{ff88f616-4047-46f0-92c5-aff282617505}</Project>
+      <Name>FluentSharp.Web_3_5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Web_4_5\FluentSharp.Web_4_5.csproj">
+      <Project>{721fc60a-7bc0-4b81-8efe-3191523d121b}</Project>
+      <Name>FluentSharp.Web_4_5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.WinFormsUI\FluentSharp.WinFormsUI.csproj">
+      <Project>{c0a8da31-b2e3-416b-a484-b4cf947d4cba}</Project>
+      <Name>FluentSharp.WinFormsUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.WinForms\FluentSharp.WinForms.csproj">
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>
@@ -90,6 +114,10 @@
     <ProjectReference Include="..\FluentSharp.WPF\FluentSharp.WPF.csproj">
       <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
       <Name>FluentSharp.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Zip\FluentSharp.Zip.csproj">
+      <Project>{ed28a793-2efe-416b-839d-f85b637ab7ea}</Project>
+      <Name>FluentSharp.Zip</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
       <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>

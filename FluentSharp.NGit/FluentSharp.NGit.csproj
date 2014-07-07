@@ -31,29 +31,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>_EmbededDlls\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>_EmbededDlls\Mono.Posix.dll</HintPath>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\Mono.Posix.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Security">
-      <HintPath>_EmbededDlls\Mono.Security.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="NGit">
-      <HintPath>_EmbededDlls\NGit.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Mono.Security.Win32, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\Mono.Security.Win32.dll</HintPath>
     </Reference>
-    <Reference Include="NSch">
-      <HintPath>_EmbededDlls\NSch.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="NGit, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\NGit.dll</HintPath>
     </Reference>
-    <Reference Include="Sharpen">
-      <HintPath>_EmbededDlls\Sharpen.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="NSch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\NSch.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharpen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\Sharpen.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharpen.Unix, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ngit2.2.1.0.20130924\lib\net40\Sharpen.Unix.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,6 +108,7 @@
     <None Include="FluentSharp.NGit.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
