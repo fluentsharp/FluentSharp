@@ -219,9 +219,9 @@ namespace FluentSharp.REPL.Controls
                        .add_MenuItem("O2 Script: open Main O2 GUI", () => "Main O2 Gui.h2".local().executeH2Script())
                        .add_MenuItem("O2 Script: open ConsoleOut", () => "Util - ConsoleOut.h2".local().executeH2Script());
 
-            contextMenu.add_MenuItem("package current Script as StandAlone Exe", () => packageCurrentScriptAsStandAloneExe());            
+            contextMenu.add_MenuItem("package current Script as StandAlone Exe", () => this.packageCurrentScriptAsStandAloneExe());            
             contextMenu.add_MenuItem("show O2 Object Model", () => open.o2ObjectModel());            
-            contextMenu.add_MenuItem("report a bug to O2 developers", () => ReportBug.showGui(commandsToExecute));
+       //     contextMenu.add_MenuItem("report a bug to O2 developers", () => ReportBug.showGui(commandsToExecute));
             contextMenu.add_MenuItem("show Log Viewer", (menuitem) => showLogViewer());
 
         }
@@ -233,17 +233,7 @@ namespace FluentSharp.REPL.Controls
             var file = selectedText.local();
             if (file.exists())
                 file.showInCodeEditor();
-        }
-        public void packageCurrentScriptAsStandAloneExe()
-        {
-            var h2File = currentSourceCodeFilePath();
-            if (h2File.valid())
-                saveScript();
-            else
-                h2File = Code.h2_File();
-            var packageScript = (Action<string>)"Util - Package O2 Script into separate Folder.h2".executeFirstMethod();
-            packageScript(h2File);
-        }
+        }        
         public void insertCodeSnipptet(string snippetToInsert)
         {
             switch (snippetToInsert)

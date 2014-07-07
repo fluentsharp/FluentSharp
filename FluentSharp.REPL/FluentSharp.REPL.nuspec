@@ -25,10 +25,12 @@ This is the FluentSharp REPL which provides a C# REPL enviroment (REPL is Read E
         <tags>Fluent OWASP O2Platform Security</tags>
         <dependencies>
             <group targetFramework=".NETFramework3.5">
+              <dependency id="FluentSharp.AST"/>
               <dependency id="FluentSharp.CoreLib"/>
-                <dependency id="FluentSharp.Web_3_5" />
-                <dependency id="FluentSharp.WinForms" />                                
-                <dependency id="FluentSharp.SharpDevelopEditor"/>                
+              <dependency id="FluentSharp.Web_3_5" />
+              <dependency id="FluentSharp.WinForms" />                                
+              <dependency id="FluentSharp.SharpDevelopEditor"/>
+              <dependency id="FluentSharp.Zip"/>
             </group>
         </dependencies>      
         <frameworkAssemblies>

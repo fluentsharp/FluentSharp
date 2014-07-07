@@ -79,7 +79,7 @@ namespace FluentSharp.REPL.Utils
             //OriginalCodeSnippet = "";
             SourceCode = "";
             FinishedCompilingCode = new System.Threading.ManualResetEvent(true);
-            CompilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";            
+            CompilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";                        
             // defaults
 
         }
@@ -93,6 +93,7 @@ namespace FluentSharp.REPL.Utils
                                               "FluentSharp.WinForms.Utils",
                                               "FluentSharp.Web35",
                                               "FluentSharp.Web35.API",
+                                              "FluentSharp.Zip",
                                               "FluentSharp.REPL",
                                               "FluentSharp.REPL.Controls",
                                               "FluentSharp.REPL.Utils"
@@ -107,11 +108,11 @@ namespace FluentSharp.REPL.Utils
         public static void setDefaultReferencedAssemblies()
         {
             CompileEngine.DefaultReferencedAssemblies
-                            .add_OnlyNewItems("FluentSharp.WinForms.dll",                                                                
+                            .add_OnlyNewItems("FluentSharp.WinForms.dll",
                                               "FluentSharp.REPL.exe",
 											  "FluentSharp.SharpDevelopEditor.dll",
-                                              //"WeifenLuo.WinFormsUI.Docking.dll",
-                                              "FluentSharp.Web_3_5.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
+                                              "FluentSharp.Web_3_5.dll",
+                                              "FluentSharp.Zip.dll");          // required or some scripts that don't need this will still need it to compile (due to FluentSharp.REPL use of it)
                                               
         }    
  		public static void register_GitHub_As_ExternalAssemblerResolver()

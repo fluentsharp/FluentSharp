@@ -55,14 +55,6 @@
     <ApplicationIcon>H2Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip">
-      <HintPath>_Embedded_Dlls\Ionic.Zip.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="QuickGraph">
-      <HintPath>_Embedded_Dlls\QuickGraph.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -114,6 +106,36 @@
     <Compile Include="Ascx\ascx_SourceCodeEditor.Controllers.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Ascx\Forms\ReportBug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ascx\Forms\ReportBug.Designer.cs">
+      <DependentUpon>ReportBug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_SimpleTaskGui.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_SimpleTaskGui_ExtensionMethods.cs" />
+    <Compile Include="Ascx\Tasks\ascx_Task.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_Task.Designer.cs">
+      <DependentUpon>ascx_Task.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_Task_Ping.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_Task_WebGet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ascx\Tasks\ascx_Task_WebPost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Misc_WinForms_Script_Files.cs" />
+    <Compile Include="Classes\Tasks\BTask.cs" />
+    <Compile Include="Classes\Tasks\TaskThread.cs" />
+    <Compile Include="Classes\Tasks\TaskUtils.cs" />
+    <Compile Include="Classes\Tasks\Task_LoadAssessmentFiles.cs" />
     <Compile Include="ExtensionMethods\ascx_FolderView_ExtensionMethods.cs" />
     <Compile Include="Ascx\SourceCodeEditor.cs">
       <SubType>UserControl</SubType>
@@ -145,14 +167,19 @@
     <Compile Include="Ascx\MiscUI\ascx_SimpleFileSearch.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ExtensionMethods\ascx_Simple_Script_Editor_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AST\Ast_CSharp_ShowDetailsInViewer.cs" />
+    <Compile Include="ExtensionMethods\AST\MethodMappings_ExtensionMethods_GUI.cs" />
+    <Compile Include="ExtensionMethods\AST\TextEditor_O2CodeStream_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FileViewers_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AST\SharpDevelop_O2MappedAstData_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods_Ast.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods_Misc.cs" />
-    <Compile Include="O2Setup.cs" />
+    <Compile Include="ExtensionMethods\WinForm_Web_ExtensionMethods.cs" />
     <Compile Include="ResolveO2CoreLib.cs" />
     <Compile Include="Charp_FastCompiler.cs" />
     <None Include="app.config" />
     <None Include="DI.cs.txt" />
-    <Compile Include="ExtensionMethods\EmbeddedResources_Zip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\CSharp_FastCompiler_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Scripts_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceCodeEditor_ExtensionMethods.cs" />
@@ -160,70 +187,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="show.cs" />
-    <Compile Include="_O2_API_AST\AST\AstDetails.cs" />
-    <Compile Include="_O2_API_AST\AST\AstTreeView.cs" />
-    <Compile Include="_O2_API_AST\AST\AstValue.cs" />
-    <Compile Include="_O2_API_AST\AST\Ast_CSharp.cs" />
-    <Compile Include="_O2_API_AST\AST\Ast_CSharp_ShowDetailsInViewer.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\Ast_Engine_Cache.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\Ast_Engine_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\MethodMappings_Engine.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\MethodMappings_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\O2CodeStreamTaintRules_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\O2CodeStream_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\O2MappedAstData_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\O2MethodStream_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\Saved_MethodStream.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\SharpDevelop_O2MappedAstData_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Ast_Engine\TextEditor_O2CodeStream_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\CSharp\AstVisitors.cs" />
-    <Compile Include="_O2_API_AST\CSharp\FindLocationInAst.cs" />
-    <Compile Include="_O2_API_AST\CSharp\O2AstResolver.cs" />
-    <Compile Include="_O2_API_AST\CSharp\O2AstVisitor.cs" />
-    <Compile Include="_O2_API_AST\CSharp\O2CodeStream.cs" />
-    <Compile Include="_O2_API_AST\CSharp\O2MappedAstData.cs" />
-    <Compile Include="_O2_API_AST\CSharp\O2MethodStream.cs" />
-    <Compile Include="ExtensionMethods\AST\AstResolve_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\BidirectionalGraph_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CodeDom_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\AbstractNode_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\AssignmentExpression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\Attribute_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\BlockStatement_ExtensionMethod.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\CompilationUnit_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\ConstructorDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\CSharpSourceCode_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\Expression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\FieldDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\IMethod_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\INode_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\InvocationExpression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\LocalVariableDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\MemberReferenceExpression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\MethodDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\NamespaceDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\ObjectCreateExpression_ExtensionMethod.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\ParameterDeclarationExpression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\Parser_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\IdentifierExpression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\PrimitiveExpression_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\PropertyDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\TypeDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\TypeReference_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\UsingDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\CSharp\VariableDeclaration_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\AST\IAstVisitor_ExtensionMethods.cs" />
-    <Compile Include="_O2_API_AST\Graph\AstMethodFinder.cs" />
-    <Compile Include="_O2_API_AST\Visitors\FindIdentifierUsage.cs" />
-    <Compile Include="_O2_API_AST\Visitors\GetAllINodes.cs" />
-    <Compile Include="_O2_API_AST\Visitors\MapAstToDom.cs" />
-    <Compile Include="_O2_API_AST\Visitors\MapAstToNRefactory.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\DotNet\GacUtils_Zip.cs" />
     <Compile Include="ExtensionMethods\JSON_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Zip_ExtensionMethods.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Windows\Services.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\Web_Zip.cs" />
-    <Compile Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Zip\zipUtils.cs" />
+    <Compile Include="Classes\Services.cs" />
     <None Include="FluentSharp.REPL.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -233,15 +198,21 @@
     <EmbeddedResource Include="Ascx\ascx_XRules_Editor.resx">
       <DependentUpon>ascx_XRules_Editor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="_Embedded_Dlls\QuickGraph.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Embedded_Dlls\Ionic.Zip.dll" />
+    <EmbeddedResource Include="Ascx\Forms\ReportBug.resx">
+      <DependentUpon>ReportBug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ascx\Tasks\ascx_Task.resx">
+      <DependentUpon>ascx_Task.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FluentSharp.AST\FluentSharp.AST.csproj">
+      <Project>{bc47f7c7-36f4-456f-bd3e-fe7ceff05031}</Project>
+      <Name>FluentSharp.AST</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
@@ -254,14 +225,16 @@
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Zip\FluentSharp.Zip.csproj">
+      <Project>{ed28a793-2efe-416b-839d-f85b637ab7ea}</Project>
+      <Name>FluentSharp.Zip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
       <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_O2_FluentSharp_Misc\O2_DotNetWrappers\Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
