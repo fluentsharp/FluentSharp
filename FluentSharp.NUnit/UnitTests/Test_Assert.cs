@@ -107,13 +107,38 @@ namespace UnitTests.FluentSharp_NUnit
 
     public class Test_Assert_ExtensionMethods : NUnitTests
     {
-        [Test(Description = "Asserts that bool is false")]
+        [Test]
         public void assert_Is_False()
         {            
             false.assert_Is_False    ();
             true .assert_Is_True     ();
             true .assert_Is_Not_False();
             false.assert_Is_Not_True ();            
+        }
+
+        [Test]
+        public void assert_Item_Is_Equal()
+        {
+            var item1 = "1".add_5_RandomLetters();
+            var item2 = "1".add_5_RandomLetters();
+            var items = new [] {item1, item2}.toList();
+            items.assert_Item_Is_Equal(0, item1);
+            items.assert_Item_Is_Equal(1, item2);            
+            assert_Throws(()=>items.assert_Item_Is_Equal(0 , item2));
+            assert_Throws(()=>items.assert_Item_Is_Equal(1 , item1));
+            assert_Throws(()=>items.assert_Item_Is_Equal(2 , item2));
+            assert_Throws(()=>items.assert_Item_Is_Equal(-1, item2));
+            assert_Throws(()=>items.assert_Item_Is_Equal(99, item2));
+            assert_Throws(()=>items.assert_Item_Is_Equal(99, null));
+
+            items.assert_Item_Not_Equal(0, item2);
+            items.assert_Item_Not_Equal(1, item1);
+            items.assert_Item_Not_Equal(2, item1);
+            items.assert_Item_Not_Equal(99, null);
+
+            assert_Throws(()=>items.assert_Item_Not_Equal(0 , item1));
+            assert_Throws(()=>items.assert_Item_Not_Equal(1 , item2));
+            
         }
     }
 }

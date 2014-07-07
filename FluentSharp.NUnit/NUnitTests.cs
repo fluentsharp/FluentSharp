@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
 
@@ -59,11 +60,11 @@ namespace FluentSharp.NUnit
         {
             return assert_Is_True(target);
         }
-        public bool   assert_Is_True     (bool target)
-        {            
-            Assert.IsTrue(target);
+        public bool   assert_Is_True     (bool target, string message = "Assert.IsTrue")
+        {
+            Assert.IsTrue(target, message);
             return true;
-        }    
+        }            
 
         //ints
         public bool   assert_Is_Bigger   (int source, int target)
@@ -104,7 +105,25 @@ namespace FluentSharp.NUnit
             Assert.IsNotNull(target, "Target was not null {0}".format(target));
             return target;
         }                
-
+        public T      assert_Default<T> (T target)
+        {
+            return assert_Is_Default(target);
+        }
+        public T      assert_Is_Default<T> (T target)
+        {                        
+            Assert.AreEqual(target, default(T), "provided target was not default(T). Target={0}   T={1}".format(target, typeof(T)));
+            return target;
+        }        
+        public T      assert_Not_Default<T> (T target)
+        {
+            return assert_Is_Not_Default(target);
+        }
+        public T      assert_Is_Not_Default<T> (T target)
+        {                        
+            Assert.AreNotEqual(target, default(T), "provided target was default(T). Target={0}   T={1}".format(target, typeof(T)));
+            return target;
+        }
+        
         //Lists
         public T  assert_Is_Empty<T>(T target) where  T : IEnumerable
         {
@@ -138,13 +157,27 @@ namespace FluentSharp.NUnit
             Assert.IsFalse(folderPath.dirExists());
             return folderPath;
         }
+        public List<string> assert_Files_Not_Exists(List<string> filesPath)
+        {
+            foreach(var filePath in filesPath)
+                assert_File_Not_Exists(filePath);
+            return filesPath;
+        }
         public string assert_File_Not_Exists(string filePath)
         {                        
             Assert.IsFalse(filePath.fileExists(), "Not Expected file was found: {0}".format(filePath));
             return filePath;
         }
+        public List<string> assert_Files_Exists(List<string> filesPath)
+        {
+            foreach(var filePath in filesPath)
+                assert_File_Exists(filePath);
+            return filesPath;
+        }
         public string assert_File_Exists(string filePath)
         {                        
+            if(filePath.notValid())
+                assert_Fail("[assert_File_Exists] provided filePath was null or empty");
             Assert.IsTrue(filePath.fileExists(),"Expected File was not found: {0}".format(filePath));
             return filePath;
         }
@@ -162,6 +195,29 @@ namespace FluentSharp.NUnit
         {
             return assert_Throws<T>(action);
         }
+        /// <summary>
+        /// Checks that the provided <paramref name="action"/>action throws an exception (no mater what type)
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public Action assert_Throws(Action action)
+        {
+            try
+            {
+                action();                
+            }
+            catch
+            {
+                return action;
+            }
+            throw new AssertionException("action didn't throw an exception");
+        }
+        /// <summary>
+        /// Checks that the provided <paramref name="action"/> throws an exception of the provided type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public Action assert_Throws<T>(Action action) where  T : Exception
         {                        
             Assert.Throws<T>(()=>action(), "action didn't throw expected execption {0}".format(typeof(T)));

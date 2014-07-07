@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>FluentSharp.NUnit</id>
+        <version>5.5.0.0</version>
+        <title>FluentSharp - NUnit</title>
+        <authors>O2 Platform</authors>
+        <owners>O2 Platform</owners>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+        <projectUrl>http://o2platform.com</projectUrl>
+        <iconUrl>https://www.owasp.org/images/f/f5/O2_Logo_no_Shadow.jpg</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>
+          FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs.
+
+          This is the FluentSharp NUnit which add a fluent APIs to NUnit and helps with TDD development</description>
+        <summary>
+          FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs.
+          This is the FluentSharp NUnit which add a fluent APIs to NUnit and helps with TDD development
+        </summary>
+        <releaseNotes>5.5.x  - version auto created from TeamCity</releaseNotes>
+        <copyright>O2 Platform 2014</copyright>
+        <language>en-GB</language>
+        <tags>FluentSharp Fluent OWASP O2Platform Security</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework3.5">
+                <dependency id="FluentSharp.CoreLib" />
+                <dependency id="NUnit" />
+            </group>
+        </dependencies>
+    </metadata>
+   
+</package>
