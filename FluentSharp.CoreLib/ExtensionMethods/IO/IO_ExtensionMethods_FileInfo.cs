@@ -152,10 +152,25 @@ namespace FluentSharp.CoreLib
             }
             return "";
         }
+        /// <summary>
+        /// Returns true if the file extension matches the provided value
+        /// 
+        /// extension value can be provided with our without the . (for example '.txt' or 'txt')
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="extension"></param>
+        /// <returns></returns>
         public static bool          extension(this string file, string extension)
-        {
-            if (file.valid())
-                return file.extension() == extension;
+        {            
+            if (file.valid() && extension.valid())
+            {
+                var fileExtension = file.extension();
+
+                if (extension.firstChar().equals("."))
+                    return fileExtension.equals(extension);
+                
+                return fileExtension.equals(".".append(extension));                                
+            }
             return false;
         }
         public static string        extensionChange(this string file, string newExtension)

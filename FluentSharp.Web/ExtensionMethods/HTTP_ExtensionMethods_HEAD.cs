@@ -30,7 +30,7 @@ namespace FluentSharp.Web35
         /// Returns the HttpStatusCode of the provided url. If an HTTP exception occurs, then it will be handeled
         /// and the corresponding HttpStatusCode returned
         /// </summary>
-        /// <param name="url">if this is not valid (or not an uri) the default(HttpStatusCode) is returned</param>
+        /// <param name="url">if this is not valid (or not an uri) or the target site doesn't exist the default(HttpStatusCode) is returned</param>
         /// <returns>HttpStatusCode</returns>
         public static HttpStatusCode           HEAD_StatusCode(this string url)
         {
@@ -49,9 +49,16 @@ namespace FluentSharp.Web35
             }
             catch (WebException webException)
             {
-                using(var webResponse = (HttpWebResponse)webException.Response)
+                try
                 { 
-                    return webResponse.StatusCode;
+                    using(var webResponse = (HttpWebResponse)webException.Response)
+                    { 
+                        return webResponse.StatusCode;
+                    }                    
+                }
+                catch
+                {
+                    return default(HttpStatusCode);
                 }
             }            
         }

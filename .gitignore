@@ -22,3 +22,7 @@ binaries
 
 *.pdb
 StoredText
+/packages/WatiN.2.1.0/mozilla
+/packages/WatiN.2.1.0/lib/net20
+/packages/WatiN.2.1.0/lib/net35
+/packages/WatiN.2.1.0/WatiN.chm

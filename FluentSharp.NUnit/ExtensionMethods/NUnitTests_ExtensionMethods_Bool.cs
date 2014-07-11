@@ -8,7 +8,7 @@ namespace FluentSharp.NUnit
 
         public static bool  assert_False(this bool target)
         {
-            return target.assert_Is_True();
+            return target.assert_Is_False();
         }
         /// <summary>
         /// Asserts that value provided is false"

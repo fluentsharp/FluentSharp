@@ -172,6 +172,10 @@ namespace FluentSharp.REPL
 			scriptEditor.Code = scriptEditor.Code.line() +  textToInsert;
 			return scriptEditor;
 		}
+        public static ascx_Simple_Script_Editor append_Code(this ascx_Simple_Script_Editor scriptEditor, string textToInsert)
+        {
+            return scriptEditor.code_Append(textToInsert);
+        }
         public static SourceCodeEditor          csharp_Colors(this SourceCodeEditor codeEditor)
         {
             return codeEditor.set_ColorsForCSharp();

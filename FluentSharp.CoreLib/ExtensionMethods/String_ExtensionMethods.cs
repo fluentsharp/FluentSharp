@@ -44,11 +44,15 @@ namespace FluentSharp.CoreLib
         {
             return value ? trueValue : falseValue;
         }
-        public static bool      eq(this string _string, params string[] values)
+        public static bool      equals(this string target, params string[] values)
         {
-            if (_string.isNull() || values.isNull())
+            return target.eq(values);
+        }
+        public static bool      eq(this string target, params string[] values)
+        {
+            if (target.isNull() || values.isNull())
                 return false;
-            return values.Any(value => _string == value);
+            return values.Any(value => target == value);
         }        
         public static void      eq(this string string1, string stringToFind, Action onMatch)
         {

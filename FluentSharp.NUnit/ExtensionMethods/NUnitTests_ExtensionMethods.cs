@@ -48,6 +48,10 @@ namespace FluentSharp.NUnit
             nUnitTests.assert_Are_Equal(callback(source), target);
             return source;
         }
+        public static T     assert_Equals<T>(this T source, T target)
+        {
+            return assert_Equal_To(source, target);
+        }
         public static T     assert_Equal_To<T>(this T source, T target)
         {
             return source.assert_Is_Equal_To(target);
@@ -60,6 +64,10 @@ namespace FluentSharp.NUnit
         {
             nUnitTests.assert_Are_Not_Equal(callback(source), target);
             return source;
+        }
+        public static T     assert_Not_Equals<T>(this T source, T target)
+        {
+            return source.assert_Is_Not_Equal_To(target);
         }
         public static T     assert_Is_Not_Equal_To<T>(this T source, T target)       
         {
