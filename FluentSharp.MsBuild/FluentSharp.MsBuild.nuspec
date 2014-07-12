@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>FluentSharp.NGit</id>
+        <id>FluentSharp.MsBuild</id>
         <version>5.5.0.0</version>
         <title>FluentSharp - NGit</title>
         <authors>O2 Platform</authors>
@@ -12,15 +12,18 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs.
 
-This is the FluentSharp NGit which provides exposed NGit (a managed Git API)</description>
-        <summary>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs. </summary>
-        <releaseNotes>5.0.x  - version auto created from TeamCity          e</releaseNotes>
+This is the FluentSharp MsBuild which simplifies the use of the Microsoft.Build Apis</description>
+        <summary>FluentSharp is an API that dramatically simplifies the use of .NET Framework APIs.</summary>
+        <releaseNotes>5.0.x  - version auto created from TeamCity          </releaseNotes>
         <copyright>O2 Platform 2014</copyright>
         <language>en-GB</language>
         <tags>FluentSharp Fluent OWASP O2Platform Security</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.0">
-                <dependency id="FluentSharp.CoreLib" />
+              <dependency id="FluentSharp.CoreLib" />
+              <dependency id="FluentSharp.REPL" />
+              <dependency id="FluentSharp.WinForms" />
+              <dependency id="FluentSharp.Zip" />
             </group>
         </dependencies>
     </metadata>

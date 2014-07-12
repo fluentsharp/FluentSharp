@@ -127,7 +127,6 @@
     <Compile Include="ExtensionMethods\Serialize_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Sleep_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Thread_Info_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Xml_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredSignature.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredUrl.cs" />
     <Compile Include="O2_DotNetWrappers\H2Scripts\H2.cs" />

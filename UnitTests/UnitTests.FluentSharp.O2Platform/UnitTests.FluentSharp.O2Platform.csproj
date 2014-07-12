@@ -94,6 +94,10 @@
       <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
       <Name>FluentSharp.WPF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.Zip\FluentSharp.Zip.csproj">
+      <Project>{ed28a793-2efe-416b-839d-f85b637ab7ea}</Project>
+      <Name>FluentSharp.Zip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
       <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>
       <Name>FluentSharp_Fork.SharpDevelopEditor</Name>

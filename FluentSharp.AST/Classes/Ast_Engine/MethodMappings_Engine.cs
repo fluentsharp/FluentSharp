@@ -13,6 +13,7 @@ using FluentSharp.WinForms.Controls;
 //O2File:ascx_ManualMethodStreams.cs
 
 //O2Ref:Quickgraph.dll
+using FluentSharp.Xml;
 
 namespace FluentSharp.CSharpAST.Utils
 {
@@ -172,7 +173,7 @@ namespace FluentSharp.CSharpAST.Utils
 			{
 				"Executing MethodMappings_Engine for {0} methods".debug(numberOfMethodsToProcess);				
 				var resultsFile = (runInSeparateAppDomain)
-									? MethodMappings_Engine.executeEngineOnSeparateAppDomain(sourceFolder, rawResultsFolder, methodFilter ,useCachedData, references, numberOfMethodsToProcess)
+									? executeEngineOnSeparateAppDomain(sourceFolder, rawResultsFolder, methodFilter ,useCachedData, references, numberOfMethodsToProcess)
 									: new MethodMappings_Engine().createMethodMappings(sourceFolder, rawResultsFolder, methodFilter ,useCachedData, references, numberOfMethodsToProcess); 
 				if (resultsFile.isNull())
                 {
