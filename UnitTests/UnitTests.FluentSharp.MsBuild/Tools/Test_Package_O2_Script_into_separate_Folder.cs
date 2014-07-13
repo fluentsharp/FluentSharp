@@ -28,12 +28,12 @@ namespace UnitTests.FluentSharp.MsBuild.Tools
             parentForm.controls<ComboBox>(true).assert_Size_Is(1);
 
             //parentForm.waitForClose();
-            //main.parentForm().close();
+            parentForm.close();
         }
 
         //Workflows
 
-        [Test] public void Invoke_Using_Reflection_Package_O2_Script_into_separate_Folder()
+        [Test][Ignore("TO FINISH")] public void Invoke_Using_Reflection_Package_O2_Script_into_separate_Folder()
         {
             var assembly = "FluentSharp.MsBuild".assembly().assert_Not_Null();
             var type     = assembly.type("Package_O2_Script_into_separate_Folder").assert_Not_Null();
