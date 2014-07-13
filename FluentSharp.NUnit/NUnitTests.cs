@@ -125,20 +125,20 @@ namespace FluentSharp.NUnit
         }
         
         //Lists
-        public T  assert_Is_Empty<T>(T target) where  T : IEnumerable
+        public T  assert_Is_Empty<T>(T target, string message = "Target was Not Empty") where  T : IEnumerable
         {
-            Assert.IsEmpty(target, "Target was Not Empty");            
+            Assert.IsEmpty(target, message);            
             return target;
-        }
+        }          
         public T  assert_Not_Empty<T>(T target) where  T : IEnumerable
         {
             return assert_Is_Not_Empty(target);
         }
-        public T  assert_Is_Not_Empty<T>(T target) where  T : IEnumerable
+        public T  assert_Is_Not_Empty<T>(T target, string message = "Target was Empty") where  T : IEnumerable
         {
-            Assert.IsNotEmpty(target, "Target was Empty");            
+            Assert.IsNotEmpty(target, message);            
             return target;
-        }
+        }        
         public T  assert_Size_Is<T>(T target, int size) where  T : IEnumerable
         {
             Assert.AreEqual(target.size(), size);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing;
 using System.Security.Cryptography;
 using System.IO;
 
@@ -10,20 +9,18 @@ namespace FluentSharp.CoreLib
     public static class Crypto_ExtensionMethods
     {
         //Random numbers
-        public static Random randomObject = new Random((int)DateTime.Now.Ticks);                     
+        public static Random _random = new Random((int)DateTime.Now.Ticks);                     
         public static int random(this int maxValue)
         {
-            return randomObject.Next(maxValue);
+            return _random.Next(maxValue);
         }        
         public static string randomString(this int size)
         {
-            // inspired from the accepted answer from http://stackoverflow.com/questions/1122483/c-random-string-generator
-            var random = randomObject;
-
+            // inspired from the accepted answer from http://stackoverflow.com/questions/1122483/c-random-string-generator            
             var stringBuilder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                var intValue = Convert.ToInt32(Math.Floor(93 * random.NextDouble() + 33));  // gets a ASCII value from 33 till 126		        	
+                var intValue = Convert.ToInt32(Math.Floor(93 * _random.NextDouble() + 33));  // gets a ASCII value from 33 till 126		        	
                 var ch = Convert.ToChar(intValue);
                 stringBuilder.Append(ch);
             }
@@ -31,12 +28,11 @@ namespace FluentSharp.CoreLib
         }
         
         public static string randomChars(this int size)
-        {            
-            var random = randomObject;
+        {                        
             var stringBuilder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                var next = (byte) 255.random();                
+                var next = (byte) 255.random();
                 stringBuilder.Append(next.@char());
             }
             return stringBuilder.ToString();
@@ -50,12 +46,10 @@ namespace FluentSharp.CoreLib
         }
         public static string randomNumbers(this int size)
         {
-            var random = Crypto_ExtensionMethods.randomObject;
-
             var stringBuilder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                var intValue = Convert.ToInt32(Math.Floor(10 * random.NextDouble() + 48));  // gets a ASCII value from 33 till 126		        	
+                var intValue = Convert.ToInt32(Math.Floor(10 * _random.NextDouble() + 48));  // gets a ASCII value from 33 till 126		        	
                 var ch = Convert.ToChar(intValue);
                 stringBuilder.Append(ch);
             }
@@ -63,12 +57,10 @@ namespace FluentSharp.CoreLib
         }
         public static string randomLetters(this int size)
         {
-            var random = Crypto_ExtensionMethods.randomObject;
-
             var stringBuilder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                var intValue = Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65));  // gets a ASCII value from 33 till 126
+                var intValue = Convert.ToInt32(Math.Floor(26 * _random.NextDouble() + 65));  // gets a ASCII value from 33 till 126
                 if (1000.random().isEven())			// if it is an even number
                     intValue += 32;				 	// make it lower case
                 var ch = Convert.ToChar(intValue);
@@ -89,48 +81,6 @@ namespace FluentSharp.CoreLib
             return data.hexString();            
         }
         
-        //MD5 Bitmap
-        public static string md5Hash(this Bitmap bitmap)
-        {
-            try
-            {
-                if (bitmap.isNull())
-                    return null;
-                //based on code snippets from http://dotnet.itags.org/dotnet-c-sharp/85838/
-                using (var strm = new MemoryStream())
-                {
-                    var image = new Bitmap(bitmap);
-                    bitmap.Save(strm, System.Drawing.Imaging.ImageFormat.Bmp);
-                    strm.Seek(0, 0);
-                    byte[] bytes = strm.ToArray();
-                    var md5 = new MD5CryptoServiceProvider();
-                    byte[] hashed = md5.TransformFinalBlock(bytes, 0, bytes.Length);
-                    string hash = BitConverter.ToString(hashed).ToLower();
-                    md5.Clear();
-                    image.Dispose();
-                    return hash;
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.log("in bitmap.md5Hash");
-                return "";
-            }
-        }
-        public static bool isNotEqualTo(this Bitmap bitmap1, Bitmap bitmap2)
-        {
-            return bitmap1.isEqualTo(bitmap2).isFalse();
-        }
-        public static bool isEqualTo(this Bitmap bitmap1, Bitmap bitmap2)
-        {
-            var md5Hash1 = bitmap1.md5Hash();
-            var md5Hash2 = bitmap2.md5Hash();
-            if (md5Hash1.valid() && md5Hash2.valid())
-                return md5Hash1 == md5Hash2;
-            
-            "in Bitmap.isEqualTo at least one of the calculated MD5 Hashes was not valid".error();
-            return false;
-        }
         
         //AES
         //based on code sample from: http://msdn.microsoft.com/en-us/library/system.security.cryptography.aes(v=vs.100).aspx

@@ -27,18 +27,14 @@ namespace FluentSharp.NUnit
         {
             return nUnitTests.assert_Is_Not_True(target);            
         }
-        public static bool  assert_True(this bool target)
+        public static bool  assert_True(this bool value, string message = "Assert.IsTrue")
         {
-            return target.assert_Is_True();
-        }
-        public static bool  assert_Is_True(this bool target, string message)
+            return value.assert_Is_True(message);
+        }        
+        public static bool  assert_Is_True(this bool target, string message = "Assert.IsTrue")
         {
             return nUnitTests.assert_Is_True(target, message);           
-        }
-        public static bool  assert_Is_True(this bool target) 
-        {
-            return nUnitTests.assert_Is_True(target);            
-        }
+        }        
         public static T     assert_Is_True<T>(this T target, Func<T,bool> callback) 
         {
             nUnitTests.assert_Is_True(callback(target));            

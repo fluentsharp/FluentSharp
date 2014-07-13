@@ -8,6 +8,20 @@ namespace FluentSharp.NUnit
         public static NUnitTests nUnitTests = new NUnitTests();
 
         //Files
+        public static string         assert_File_Contains(this string file, params string[] values)
+        {
+            var fileContents = file.assert_File_Exists().fileContents()
+                                                        .assert_Not_Empty();
+            fileContents.assert_Contains(values);
+            return file;
+        }
+        public static string         assert_File_Not_Contains(this string file, params string[] values)
+        {
+            var fileContents = file.assert_File_Exists().fileContents()
+                                                        .assert_Not_Empty();
+            fileContents.assert_Not_Contains(values);
+            return file;
+        }
         public static string  assert_File_Exists(this string filePath) 
         {
             return nUnitTests.assert_File_Exists(filePath);            
@@ -42,13 +56,49 @@ namespace FluentSharp.NUnit
         }
 
         //Folders
+         /// <summary>
+        /// Checks that a folder exists and has no files
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        public static string assert_Folder_Empty(this string folder)
+        {
+            folder.assert_Folder_Exists();
+            var files = folder.files();
+            files.assert_Empty("on Folder {0} there where {1} files".format(folder, files.size()));
+            return folder;
+        }
         public static string  assert_Folder_Exists(this string folderPath) 
         {
             return nUnitTests.assert_Folder_Exists(folderPath);            
         }
+        public static string assert_Folder_Has_Files(this string folder, params string[] files)
+        {
+            foreach(var file in files)
+                folder.assert_Folder_Has_File(file);
+            return folder;
+        }
+        public static string assert_Folder_Has_File(this string folder, string file)
+        {
+            folder.assert_Folder_Exists();
+            folder.mapPath(file).assert_File_Exists();
+            return folder;
+        }
         public static string  assert_Folder_Not_Exists(this string folderPath) 
         {
             return nUnitTests.assert_Folder_Not_Exists(folderPath);            
+        }
+          /// <summary>
+        /// Checks that a folder exists and has at least 1 files
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        public static string assert_Folder_Not_Empty(this string folder)
+        {
+            folder.assert_Folder_Exists();
+            var files = folder.files();
+            files.assert_Not_Empty("on Folder {0} there where no files".format(folder));
+            return folder;
         }
         public static string assert_Folder_Deleted(this string folderPath)
         {

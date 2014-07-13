@@ -54,11 +54,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+    <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
       <Project>{0a7ce0e0-b092-43b5-ab80-99ba909019c9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp.HtmlAgilityPack\FluentSharp.HtmlAgilityPack.csproj">
+    <ProjectReference Include="..\..\FluentSharp.HtmlAgilityPack\FluentSharp.HtmlAgilityPack.csproj">
       <Project>{50475ad0-e455-4790-8cec-fe518e7ba856}</Project>
       <Name>FluentSharp.HtmlAgilityPack</Name>
     </ProjectReference>

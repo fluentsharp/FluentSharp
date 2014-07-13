@@ -49,17 +49,20 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FluentSharp.CoreLib.nuspec" />
-    <Compile Include="ExtensionMethods\Byte_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\LiveObjects_And_Cache_Extensionmethods.cs" />
+    <Compile Include="ExtensionMethods\System\Char_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\Bool_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\Double_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\Byte_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ComObjects_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Compilation_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Crypto\PBKDF2_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Crypto\SHA256_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\DateTime_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\DateTime_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\GZip_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Delete_Or_Copy.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_DirectoryInfo.cs" />
@@ -68,6 +71,9 @@
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_File_Save.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_Folders.cs" />
     <Compile Include="ExtensionMethods\Encoding_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\Int_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\Long_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\UInt_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Uri_ExtensionMethods.cs" />
     <Compile Include="FluentSharp_Consts.cs" />
     <Compile Include="O2_DotNetWrappers\Crypto\EncyptDecrypt.cs" />
@@ -116,17 +122,16 @@
     <Compile Include="ExtensionMethods\H2_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\IO\IO_ExtensionMethods_MemoryStream.cs" />
     <Compile Include="ExtensionMethods\Items_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Misc_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AutoResetEvents_Extensionmethods.cs" />
     <Compile Include="ExtensionMethods\NamedPipes_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\O2Utils_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\PerformanceCounters_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Processes_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\RegEx_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Registry_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\SavingData_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Serialize_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Sleep_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Thread_Info_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Thread_ExtensionMethods.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredSignature.cs" />
     <Compile Include="O2_DotNetWrappers\Filters\FilteredUrl.cs" />
     <Compile Include="O2_DotNetWrappers\H2Scripts\H2.cs" />
@@ -204,8 +209,8 @@
     <Compile Include="O2_Kernel\debug.cs" />
     <Compile Include="O2_Kernel\exec.cs" />
     <Compile Include="ExtensionMethods\Logging_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\Object_ExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\String_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\Object_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\System\String_ExtensionMethods.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\Logger_DiagnosticsDebug.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KGacDll.cs" />
     <Compile Include="O2_Kernel\InterfacesBaseImpl\KLoadedXRule.cs" />

@@ -4,13 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Net;
-using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 
-
-//O2File:../PublicDI.cs
-//O2File:../PublicDI.cs
-//O2File:../CodeUtils/O2Kernel_Processes.cs
 
 namespace FluentSharp.CoreLib
 {
@@ -71,7 +66,8 @@ namespace FluentSharp.CoreLib
         public static bool      neq(this string string1, string string2)
         {
             return (string1 != string2);
-        }        
+        }    
+    
         public static bool      contains(this string targetString, string stringToFind)
         {
             return targetString.notNull() && 
@@ -91,7 +87,16 @@ namespace FluentSharp.CoreLib
                         return true;
             }
             return false;
-        }   
+        }  
+ 
+        public static bool contains_Not(this string target, string value)
+        {
+            return target.contains(value).isFalse();
+        }
+        public static bool doesnt_Contains(this string target, string value)
+        {
+            return target.contains_Not(value);
+        }
 
         public static bool      starts(this string textToSearch, List<string> stringsToFind)
         {
@@ -592,7 +597,18 @@ namespace FluentSharp.CoreLib
 		public static bool      firstChar(this string _string, string lastChar)
 		{
 			return _string.firstChar() == lastChar;
-		}		
+		}	
+	    /// <summary>
+        /// Inserts (ie adds to the beggining) 5 randoms letters to the provided target (separted by _ )
+        ///
+        /// If <code>target = "abc"</code> the return value will be <code>FujNe_abc</code> (with "FujNe" being the random letters)
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static string insert_5_RandomLetters(this string target)
+        {
+            return target.notNull() ? "{0}_{1}".format(5.randomLetters(), target) : null;
+        }
         public static string    add_5_RandomLetters(this string target)
         {
             return target.add_RandomLetters(5);
@@ -767,45 +783,4 @@ namespace FluentSharp.CoreLib
 			return asciiString.str();
 		}
     }
-
-
-    public static class Long_ExtensionMethods
-	{		
-		public static long      toLong(this double _double)
-		{
-			return (long)_double;
-		}		
-		public static long      add(this long _long, long value)
-		{
-			return _long + value;
-		}				
-	}
-	
-	public static class Int_ExtensionMethods
-	{		
-		public static int       toInt(this double _double)
-		{
-			return (int)_double;
-		}		
-		public static int       mod( this int num1, int num2)
-		{
-			return num1 % num2;
-		}
-		public static bool      mod0( this int num1, int num2)
-		{
-			return num1.mod(num2) ==0;
-		}		
-		public static string    intToBinaryString(this int number)
-		{
-			return Convert.ToString(number,2);
-		}			
-	}	
-	
-	public static class UInt_ExtensionMethods
-	{
-		public static uint      toUInt(this string value)
-		{
-			return UInt32.Parse(value);
-		}
-	}    
 }

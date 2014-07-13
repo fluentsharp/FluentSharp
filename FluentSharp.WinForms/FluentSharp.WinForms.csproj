@@ -63,6 +63,7 @@
     <Compile Include="Controls\MiscUI\ascx_CaptchaQuestion.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ExtensionMethods\BitMap_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ComObjects_TreeView_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\FluentSharp_Controls\ctrl_ObjectViewer_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\WinForms_ExtensionMethods_Button.cs" />

@@ -367,11 +367,11 @@ namespace FluentSharp.WinForms
             10.loop(100, () => form.opacity(value += 0.1));
             return form;
         }
-        public static Form      hide (this Form form)
+        public static Form      hide(this Form form)
         {
             return   form.opacity(0);           // using opacity to hide the form since calling visible=false was trigering the o2Gui.Dispose() call
         }
-        public static Form      show (this Form form) 
+        public static Form      show(this Form form) 
         {
             if (form.opacity_Zero())        // handle the case when the opacity has been set to 0 (which means that we also need to reset it, or the control will not be shown)
                 form.opacity(1);

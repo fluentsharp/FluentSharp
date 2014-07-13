@@ -9,16 +9,18 @@ namespace FluentSharp.NUnit
     {
         public static NUnitTests nUnitTests = new NUnitTests();
 
-        public static T    assert_Empty<T>(this T target) where  T : IEnumerable
+        public static T    assert_Empty<T>(this T target, string message = "Target was Not Empty") where  T : IEnumerable
         {
-            return target.assert_Is_Empty();
+            return nUnitTests.assert_Is_Empty(target, message);
         }
-        public static T    assert_Is_Empty<T>(this T target) where  T : IEnumerable
+        
+        public static T    assert_Is_Empty<T>(this T target, string message = "Target was Not Empty") where  T : IEnumerable
         {
             nUnitTests.assert_Is_Empty(target);
             return target;
         }
-        public static T    assert_Not_Empty<T>(this T target) where  T : IEnumerable
+        
+        public static T    assert_Not_Empty<T>(this T target, string message = "Target was empty") where  T : IEnumerable
         {
             nUnitTests.assert_Is_Not_Empty(target);
             return target;
