@@ -167,7 +167,7 @@
     <Compile Include="Ascx\MiscUI\ascx_SimpleFileSearch.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ExtensionMethods\ascx_Simple_Script_Editor_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Simple_Script_Editor_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\AST\Ast_CSharp_ShowDetailsInViewer.cs" />
     <Compile Include="ExtensionMethods\AST\MethodMappings_ExtensionMethods_GUI.cs" />
     <Compile Include="ExtensionMethods\AST\TextEditor_O2CodeStream_ExtensionMethods.cs" />

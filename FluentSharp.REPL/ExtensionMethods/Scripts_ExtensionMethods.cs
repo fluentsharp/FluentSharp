@@ -113,9 +113,9 @@ namespace FluentSharp.REPL
             var objectName = objectToScript.typeName().lowerCaseFirstLetter();
             return objectToScript.script_Me(objectName);
         }
-        public static ascx_Simple_Script_Editor script_Me(this object objectToScript, string objectName)
+        public static ascx_Simple_Script_Editor script_Me(this object objectToScript, string objectName, bool startHidden = false)
         {
-            var topPanel = "PoC - Script the {0} Object".format(objectName).popupWindow(700, 400).insert_LogViewer();
+            var topPanel = "PoC - Script the {0} Object".format(objectName).popupWindow(width:700, height:400 ,startHidden:startHidden).insert_LogViewer();
             return objectToScript.script_Me(objectName,topPanel);
         }
         public static ascx_Simple_Script_Editor add_Script_Object(this Panel topPanel, object objectToScript)

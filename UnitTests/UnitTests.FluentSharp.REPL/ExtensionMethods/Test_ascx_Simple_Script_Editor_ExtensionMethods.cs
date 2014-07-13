@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp.CoreLib;
+﻿using FluentSharp.CoreLib;
 using FluentSharp.NUnit;
+using FluentSharp.REPL;
 using FluentSharp.REPL.Controls;
 using NUnit.Framework;
 
