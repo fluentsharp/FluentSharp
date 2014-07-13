@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using FluentSharp.CoreLib;
 
-namespace TeamMentor.UnitTests.CoreLib
+namespace UnitTests.FluentSharp.CoreLib
 {
     [TestFixture]
     class Test_Crypto

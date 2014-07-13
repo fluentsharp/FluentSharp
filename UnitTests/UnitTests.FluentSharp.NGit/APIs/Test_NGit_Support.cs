@@ -4,7 +4,7 @@ using FluentSharp.Git;
 using FluentSharp.Git.APIs;
 using NUnit.Framework;
 
-namespace TeamMentor.UnitTests.TM_XmlDatabase
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_API_NGit

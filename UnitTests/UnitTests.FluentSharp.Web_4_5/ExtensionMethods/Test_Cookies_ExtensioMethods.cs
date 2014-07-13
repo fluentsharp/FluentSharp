@@ -4,7 +4,7 @@ using FluentSharp.Moq;
 using FluentSharp.Web;
 using NUnit.Framework;
 
-namespace TeamMentor.UnitTests.Web_4_5
+namespace UnitTests.FluentSharp.Web_4_5
 {
     [TestFixture]
     public class Test_Cookies_ExtensioMethods

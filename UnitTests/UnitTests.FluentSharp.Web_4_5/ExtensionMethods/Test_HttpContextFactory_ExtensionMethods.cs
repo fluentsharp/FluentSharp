@@ -4,7 +4,7 @@ using FluentSharp.Web;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
 
-namespace TeamMentor.UnitTests
+namespace UnitTests.FluentSharp.Web_4_5
 {
     [TestFixture]
     public class Test_HttpContextFactory_ExtensionMethods

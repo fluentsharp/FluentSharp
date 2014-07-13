@@ -1,8 +1,7 @@
-﻿using FluentSharp.CoreLib;
-using FluentSharp.HtmlAgilityPacK;
+﻿using FluentSharp.HtmlAgilityPacK;
 using NUnit.Framework;
 
-namespace TeamMentor.UnitTests.CoreLib.ExtensionMethods
+namespace UnitTests.FluentSharp.HtmlAgilityPacK
 {
     [TestFixture]
     public class Test_HtmlAgilityPack_ExtensionMethods
