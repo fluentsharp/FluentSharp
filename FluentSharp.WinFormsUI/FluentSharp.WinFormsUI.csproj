@@ -100,10 +100,6 @@
       <Project>{df7e73cb-02ac-4689-bb8c-ac21ffccddc5}</Project>
       <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
-      <Project>{e76bce43-8511-4ce8-a965-c0150f713ce9}</Project>
-      <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="TmpKey.snk" />

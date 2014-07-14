@@ -312,38 +312,34 @@ namespace FluentSharp.O2Platform.Controls
 
                 csharpCompiler = new CSharp_FastCompiler();
 
-                csharpCompiler.onAstFail =
-                    () =>
+                csharpCompiler.set_OnAstFail(() =>
                     {
-                        showError("Ast creation failed", csharpCompiler.AstErrors);
+                        showError("Ast creation failed", csharpCompiler.astErrors());
                         csharpCompiler_OnAstFail.invoke();
-                    };
+                    });
 
-                csharpCompiler.onAstOK =
-                    () =>
+                csharpCompiler.set_OnAstOK  (() =>
                     {
                         showInfo("Ast creation Ok");
                         csharpCompiler_OnAstOk.invoke();
-                    };
+                    });
 
-                csharpCompiler.onCompileFail =
-                    () =>
+                csharpCompiler.set_OnCompileFail(() =>
                     {
-                        showError("Compilation failed", csharpCompiler.CompilationErrors);
+                        showError("Compilation failed", csharpCompiler.compilationErrors());
                         csharpCompiler_OnCompileFail.invoke();
-                    };
+                    });
 
-                csharpCompiler.onCompileOK =
-                    () =>
+                csharpCompiler.set_OnCompileOK(() =>
                     {
                         showInfo("Compilation Ok: Executing 1st method");
                         csharpCompiler_OnCompileOk.invoke();
                         executeCompiledCode();
-                    };
+                    });
 
                 var sourceCode = "";
                 PublicDI.CurrentScript = scriptToLoad;
-                csharpCompiler.SourceCodeFile = scriptToLoad;
+                csharpCompiler.CompilerOptions.SourceCodeFile = scriptToLoad;
                 if (scriptToLoad.extension(".h2"))
                     sourceCode = H2.load(scriptToLoad).SourceCode;
                 if (scriptToLoad.extension(".o2") || scriptToLoad.extension(".cs"))
@@ -450,7 +446,7 @@ namespace FluentSharp.O2Platform.Controls
                 {
                     if (csharpCompiler != null)
                         //if (csharpCompiler.CompilerResults != null)
-                        if (csharpCompiler.CompiledAssembly != null)
+                        if (csharpCompiler.compiledAssembly() != null)
                         {
                             var result = csharpCompiler.executeFirstMethod();
                             showInfo("Execution Completed", result);

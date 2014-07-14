@@ -139,9 +139,9 @@ namespace FluentSharp.NUnit
             Assert.IsNotEmpty(target, message);            
             return target;
         }        
-        public T  assert_Size_Is<T>(T target, int size) where  T : IEnumerable
+        public T  assert_Size_Is<T>(T target, int size, string message = "target size didn't match expected value") where  T : IEnumerable
         {
-            Assert.AreEqual(target.size(), size);
+            Assert.AreEqual(target.size(), size, message);
             return target;
         }
 

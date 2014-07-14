@@ -119,9 +119,9 @@
       <Project>{ed28a793-2efe-416b-839d-f85b637ab7ea}</Project>
       <Name>FluentSharp.Zip</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
-      <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>
-      <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
+    <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp.SharpDevelopEditor\FluentSharp.SharpDevelopEditor.csproj">
+      <Project>{e76bce43-8511-4ce8-a965-c0150f713ce9}</Project>
+      <Name>FluentSharp.SharpDevelopEditor</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp_Fork.WatiN\FluentSharp.WatiN\FluentSharp.WatiN.csproj">
       <Project>{95399705-D70E-44FD-9D48-F71C33E2D9D1}</Project>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentSharp.CoreLib;
+﻿using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.WinForms.Controls;
 
@@ -25,14 +23,18 @@ namespace FluentSharp.WinForms
     public static class ctrl_ObjectViewer_ExtensionMethods
     {
 
-        public static T showDetails<T>(this T _object) where T : class
+        public static T showDetails_WaitForClose<T>(this T target) where T : class
         {
-            return _object.showObject();
+            return target.showObject(waitForClose:true);
+        }
+        public static T showDetails<T>(this T target) where T : class
+        {
+            return target.showObject();
         }
 
-        public static T objectDetails<T>(this T _object) where T : class
+        public static T objectDetails<T>(this T target) where T : class
         {
-            return _object.showObject();
+            return target.showObject();
         }
 
         public static T viewObject<T>(this T _object) where T : class
@@ -40,7 +42,7 @@ namespace FluentSharp.WinForms
             return _object.showObject();
         }
 
-        public static T showObject<T>(this T _object) where T : class
+        public static T showObject<T>(this T _object, bool waitForClose = false) where T : class
         {
             if (_object.isNull())
                 "in showObject object provided was null".error();
@@ -49,6 +51,8 @@ namespace FluentSharp.WinForms
                 var formTitle = "Object Viewer = {0}".format(_object.type());
                 var objectViewer = O2Gui.open<ctrl_ObjectViewer>(formTitle, 800, 400);
                 objectViewer.show(_object);
+                if (waitForClose)
+                    objectViewer.waitForClose();
             }
             return _object;
         }

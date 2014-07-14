@@ -27,9 +27,9 @@ namespace FluentSharp.NUnit
         }
      
         //Lists and IEnumerable
-        public static T  assert_Size_Is<T>(this T target, int size) where  T : IEnumerable
+        public static T  assert_Size_Is<T>(this T target, int size, string message = "target size didn't match expected value") where  T : IEnumerable
         {
-            return nUnitTests.assert_Size_Is(target,size);
+            return nUnitTests.assert_Size_Is(target,size, message);
         }
         public static List<T>  assert_Not_Contains<T>(this List<T> target , T item)
         {

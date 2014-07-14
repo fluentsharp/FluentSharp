@@ -394,6 +394,12 @@ namespace FluentSharp.WinForms
         {
             return textBox.invokeOnThread(() => { textBox.MaxLength = value; return textBox; });
         }
+        public static string   show_in_TextArea_WaitForClose(this string text)
+        {
+            var textBox = text.show_in_TextArea();
+            textBox.parent().waitForClose();
+            return text;
+        }
         public static TextBox   show_in_TextArea(this string text)
         {
             return "Viewing String with size: {0}".format(text.size())

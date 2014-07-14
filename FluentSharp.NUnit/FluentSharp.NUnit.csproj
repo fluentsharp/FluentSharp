@@ -47,6 +47,8 @@
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_Bool.cs" />
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_IO.cs" />
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_Lists.cs" />
+    <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_String.cs" />
+    <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_T_Comparisson.cs" />
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_Web.cs" />
     <Compile Include="NUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
