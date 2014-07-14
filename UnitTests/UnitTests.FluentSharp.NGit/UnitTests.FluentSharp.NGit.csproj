@@ -125,10 +125,6 @@
       <Project>{DF7E73CB-02AC-4689-BB8C-AC21FFCCDDC5}</Project>
       <Name>FluentSharp.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
-      <Project>{329E0FB8-8AB1-41FD-BE38-3C2FF0B35A50}</Project>
-      <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
