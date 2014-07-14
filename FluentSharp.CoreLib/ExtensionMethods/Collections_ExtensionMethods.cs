@@ -272,6 +272,24 @@ namespace FluentSharp.CoreLib
 				targetList.remove(item);
 			return targetList;
 		}
+        public static List<T>           remove_First<T>(this List<T> targetList)
+		{
+            if (targetList.notEmpty())
+            { 
+                var lastItem = targetList.first();
+                return targetList.remove(lastItem);
+            }
+            return targetList;			
+		}
+        public static List<T>           remove_Last<T>(this List<T> targetList)
+		{
+            if (targetList.notEmpty())
+            { 
+                var lastItem = targetList.last();
+                return targetList.remove(lastItem);
+            }
+            return targetList;			
+		}
         public static List<String>      sort(this List<String> list)
         {
             list.Sort();

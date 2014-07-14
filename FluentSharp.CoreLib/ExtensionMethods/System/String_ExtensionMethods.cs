@@ -88,7 +88,10 @@ namespace FluentSharp.CoreLib
             }
             return false;
         }  
- 
+        public static bool not_Contains(this string target, string value)
+        {
+            return target.contains_Not(value);
+        }
         public static bool contains_Not(this string target, string value)
         {
             return target.contains(value).isFalse();

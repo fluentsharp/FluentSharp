@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ICSharpCode.NRefactory.Ast;
 
 using FluentSharp.CoreLib;
@@ -31,9 +30,7 @@ namespace FluentSharp.CSharpAST
         {
             var lastChild = abstractNode.lastChild();
 
-            return (lastChild != null) ?
-                        lastChild.GetType() == type :
-                        false;
+            return (lastChild != null) && lastChild.GetType() == type;
         }
 
         public static object getLastReturnValue(this AbstractNode abstractNode)
@@ -52,5 +49,10 @@ namespace FluentSharp.CSharpAST
             return null;
         }
 
+        public static List<ReturnStatement> returnStatements(this AbstractNode abstractNode)
+        {
+            return abstractNode.notNull() ? abstractNode.iNodes<ReturnStatement>() 
+                                          : new List<ReturnStatement> ();
+        }
     }
 }

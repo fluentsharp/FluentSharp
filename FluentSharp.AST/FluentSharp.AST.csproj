@@ -60,6 +60,7 @@
     <Compile Include="Classes\Ast_Engine\O2MappedAstData_ExtensionMethods.cs" />
     <Compile Include="Classes\Ast_Engine\O2MethodStream_ExtensionMethods.cs" />
     <Compile Include="Classes\Ast_Engine\Saved_MethodStream.cs" />
+    <Compile Include="Classes\Compile\CSharp_FastCompiler_Events.cs" />
     <Compile Include="Classes\CSharp\AstVisitors.cs" />
     <Compile Include="Classes\CSharp\FindLocationInAst.cs" />
     <Compile Include="Classes\CSharp\O2AstResolver.cs" />
@@ -71,7 +72,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExtensionMethods\AST\AstResolve_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AST\Ast_CSharp_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AST\Ast_CSharp_ExtensionMethods_Code_Generation.cs" />
+    <Compile Include="ExtensionMethods\AST\Ast_Details_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\AST\CodeDom_ExtensionMethods.cs" />
+    <Compile Include="Classes\Compile\CSharp_FastCompiler_CompilerOptions.cs" />
+    <Compile Include="Classes\Compile\CSharp_FastCompiler_CompilerArtifacts.cs" />
+    <Compile Include="Classes\Compile\CSharp_FastCompiler_ExecuteOptions.cs" />
     <Compile Include="ExtensionMethods\CSharp\AbstractNode_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\CSharp\AssignmentExpression_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\CSharp\Attribute_ExtensionMethods.cs" />
@@ -118,13 +125,18 @@
       <Project>{d93677d4-ea68-4931-8a23-21f42e0e71b3}</Project>
       <Name>FluentSharp.Xml</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp_Fork.SharpDevelopEditor.csproj">
-      <Project>{e76bce43-8511-4ce8-a965-c0150f713ce9}</Project>
-      <Name>FluentSharp_Fork.SharpDevelopEditor</Name>
+    <ProjectReference Include="..\FluentSharp_Fork.SharpDevelopEditor\FluentSharp.SharpDevelopEditor\FluentSharp.SharpDevelopEditor.csproj">
+      <Project>{E76BCE43-8511-4CE8-A965-C0150F713CE9}</Project>
+      <Name>FluentSharp.SharpDevelopEditor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="ExtensionMethods\Compile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FluentSharp.AST.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TmpKey.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

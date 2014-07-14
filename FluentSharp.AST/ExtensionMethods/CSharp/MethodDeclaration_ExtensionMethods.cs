@@ -276,5 +276,16 @@ namespace FluentSharp.CSharpAST
         {
             return methodDeclaration.parameters().names().ast_Identifiers();
         }
+   
+        public static MethodDeclaration                 remove_LastReturnStatement(this MethodDeclaration methodDeclaration)
+        {
+            if (methodDeclaration.notNull())
+            {                
+                var returnStatement = methodDeclaration.returnStatements().last();
+                if(returnStatement.notNull())                
+                    methodDeclaration.Body.Children.remove(returnStatement);                
+            }
+            return methodDeclaration;
+        }
     }
 }
