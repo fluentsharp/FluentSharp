@@ -187,7 +187,7 @@ namespace FluentSharp.REPL
         }
         public static ascx_Simple_Script_Editor makeInvocationParametersTypeGeneric(this ascx_Simple_Script_Editor simpleEditor)
         {
-            simpleEditor.csharpCompiler.ResolveInvocationParametersType = false;
+            simpleEditor.csharpCompiler().resolveInvocationParametersType(false);
             return simpleEditor;
         }
 

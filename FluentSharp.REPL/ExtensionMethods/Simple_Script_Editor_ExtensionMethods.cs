@@ -2,15 +2,26 @@
 using System.Windows.Forms;
 using FluentSharp.CoreLib;
 using FluentSharp.REPL.Controls;
+using FluentSharp.REPL.Utils;
 
 namespace FluentSharp.REPL
 {
     public static class Simple_Script_Editor_ExtensionMethods
     {
+        public static CSharp_FastCompiler csharpCompiler(this ascx_Simple_Script_Editor simpleScriptEditor)
+        {
+            return simpleScriptEditor.notNull() ? simpleScriptEditor.CSharpCompiler : null;                
+        }
+        public static ascx_Simple_Script_Editor csharpCompiler(this ascx_Simple_Script_Editor simpleScriptEditor, CSharp_FastCompiler value)
+        {
+            if (simpleScriptEditor.notNull())
+                simpleScriptEditor.CSharpCompiler = value;
+            return simpleScriptEditor;
+        }
         public static ascx_Simple_Script_Editor compile_WaitFor_CompilationComplete(this ascx_Simple_Script_Editor simpleScriptEditor)
         {
             simpleScriptEditor.compile();
-            simpleScriptEditor.csharpCompiler.waitForCompilationComplete();            
+            simpleScriptEditor.csharpCompiler().waitForCompilationComplete();            
             return simpleScriptEditor;
         }
 

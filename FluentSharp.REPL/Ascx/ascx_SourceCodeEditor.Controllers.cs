@@ -805,15 +805,14 @@ namespace FluentSharp.REPL.Controls
             {				
                 saveSourceCode(); // always save before compiling  
                 var csharpCompiler = new CSharp_FastCompiler();
-                csharpCompiler.onAstFail +=
-                    ()=> "AST Creation for provided source code failed".error();   
+                csharpCompiler.set_OnAstFail(()=> "AST Creation for provided source code failed".error());   
                 //csharpCompiler.generateDebugSymbols = true;
                 csharpCompiler.compileSnippet(sourceCode);
                 csharpCompiler.waitForCompilationComplete();
-                if (csharpCompiler.CompilerResults != null && csharpCompiler.CompilerResults.Errors.Count ==0)
-                    return csharpCompiler.CompilerResults.CompiledAssembly;
-                if (csharpCompiler.CompiledAssembly.notNull())
-                    return csharpCompiler.CompiledAssembly;
+                if (csharpCompiler.compilerResults() != null && csharpCompiler.compilerResults().Errors.Count ==0)
+                    return csharpCompiler.compilerResults().CompiledAssembly;
+                if (csharpCompiler.compiledAssembly().notNull())
+                    return csharpCompiler.compiledAssembly();
             }
             return null;
         }

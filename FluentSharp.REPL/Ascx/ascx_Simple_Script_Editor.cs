@@ -38,8 +38,8 @@ namespace FluentSharp.REPL.Controls
         public Action onCompileFail             { get; set; }
         public Action onCompileOK               { get; set; }
         public Action<object> onExecute         { get; set; }
-        public CSharp_FastCompiler          csharpCompiler { get; set; }
-        public string                       GeneratedCode             { get; set; }
+        public CSharp_FastCompiler          CSharpCompiler       { get; set; }
+        public string                       GeneratedCode        { get; set; }
         public Dictionary<string, object>   InvocationParameters { get; set; }
         //public bool 		  				ResolveInvocationParametersType { get; set; }
         public bool AutoCompileOnCodeChange     { get; set; }
@@ -92,7 +92,7 @@ namespace FluentSharp.REPL.Controls
                     "Loading Code Complete data".info();
                     commandsToExecute.enableCodeComplete();
                     commandsToExecute.editor().o2CodeCompletion.UseParseCodeThread = false;
-                    commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+                    commandsToExecute.editor().o2CodeCompletion.addReferences(this.csharpCompiler().referencedAssemblies());
                 });
         }
         private void createGui()
@@ -305,48 +305,41 @@ namespace FluentSharp.REPL.Controls
         {
             var o2Timer = new O2Timer("Code Compiled in");
 
-            this.csharpCompiler = new CSharp_FastCompiler();
-            //csharpCompiler.field("forceAstBuildDelay",250); 		// try to prevent the problem with missing the compilation of the last char
-            this.csharpCompiler.beforeSnippetAst =
-                () =>
-                {
-                    this.csharpCompiler.InvocationParameters = this.InvocationParameters;
-                };
+            this.csharpCompiler(new CSharp_FastCompiler());
+            
+            this.csharpCompiler().set_BeforeSnippetAst(() => this.csharpCompiler().invocationParameters(this.InvocationParameters));
 
 
-            this.csharpCompiler.onAstFail =
-                () =>
+            this.csharpCompiler().set_OnAstFail(() =>
                 {
                     //"AST creation failed".error();
                     //	this.sourceCodeViewer.enabled(false);    	 				
                     executeButton.enabled(false);
                     result_RichTextBox.textColor(Color.Red).set_Text("Ast Parsing Errors:\r\n\r\n");
                     //.append_Text(csharpCompiler.AstErrors);						
-                    commandsToExecute.updateCodeComplete(csharpCompiler);
-                    sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);
+                    commandsToExecute.updateCodeComplete(this.csharpCompiler());
+                    sourceCodeViewer.setDocumentContents(this.csharpCompiler().sourceCode());
                     OnAstFail.invoke();
-                };
+                });
 
-            this.csharpCompiler.onAstOK =
-                () =>
+            this.csharpCompiler().set_OnAstOK(() =>
                 {
                     o2Timer.start();
                     commandsToExecute.editor().refresh();
                     sourceCodeViewer.enabled(true);
                     commandsToExecute.invokeOnThread(() => commandsToExecute.Refresh());
-                    GeneratedCode = csharpCompiler.SourceCode;
-                    commandsToExecute.updateCodeComplete(csharpCompiler);
-                    sourceCodeViewer.setDocumentContents(csharpCompiler.SourceCode);
+                    GeneratedCode = this.csharpCompiler().sourceCode();
+                    commandsToExecute.updateCodeComplete(this.csharpCompiler());
+                    sourceCodeViewer.setDocumentContents(this.csharpCompiler().sourceCode());
                     OnAstOK.invoke();
-                };
+                });
 
-            csharpCompiler.onCompileFail =
-               () =>
+            this.csharpCompiler().set_OnCompileFail(() =>
                {
                    //"AST OK, but compilation failed".error();
                    executeButton.enabled(false);
-                   var codeOffset = csharpCompiler.getGeneratedSourceCodeMethodLineOffset();
-                   csharpCompiler.CompilationErrors.runForEachCompilationError(
+                   var codeOffset = this.csharpCompiler().getGeneratedSourceCodeMethodLineOffset();
+                   this.csharpCompiler().compilationErrors().runForEachCompilationError(
                                              (row, col) =>
                                              {
                                                  sourceCodeViewer.editor().setSelectedText(row, col, true, false);
@@ -360,12 +353,11 @@ namespace FluentSharp.REPL.Controls
                                              });
                    result_RichTextBox.textColor(Color.Red)
                                      .set_Text("Compilation Errors:\r\n\r\n")
-                                     .append_Text(csharpCompiler.CompilationErrors);
+                                     .append_Text(this.csharpCompiler().compilationErrors());
                    onCompileFail.invoke();
 
-               };
-            csharpCompiler.onCompileOK =
-               () =>
+               });
+            this.csharpCompiler().set_OnCompileOK(() =>
                {
                    o2Timer.stop();
                    "Compilation OK".debug();
@@ -384,19 +376,19 @@ namespace FluentSharp.REPL.Controls
                    onCompileOK.invoke();
                    // once all is done update the codeComplete information
                    if (commandsToExecute.editor().o2CodeCompletion.notNull())
-                       commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+                       commandsToExecute.editor().o2CodeCompletion.addReferences(this.csharpCompiler().referencedAssemblies());
 
                    //add_ExtraMethodsFile();									// restore previous mappings here
 
                    //register cacheAssmbly
                    var codeMd5 = previousCompiledCodeText.md5Hash();
-                   CompileEngine.CachedCompiledAssemblies.add(codeMd5, this.csharpCompiler.CompiledAssembly.Location);
+                   CompileEngine.CachedCompiledAssemblies.add(codeMd5, this.csharpCompiler().compiledAssembly().Location);
 
                    executeButton.enabled(true);
 
                    if (ExecuteOnCompile)
                        execute();
-               };		
+               });		
 
         }      
         public string handleExtraO2TagsInSourceCode(string codeToCompile)
@@ -404,11 +396,10 @@ namespace FluentSharp.REPL.Controls
             if (codeToCompile.contains("O2Tag_CleanCompilation"))
                 codeToCompile = codeToCompile.insertAfter( "".line() + " //O2Tag_OnlyAddReferencedAssemblies");
       
-            csharpCompiler.ResolveInvocationParametersType = codeToCompile.contains("//O2Tag_SetInvocationParametersToDynamic")
-                                                                           .isFalse();
+            this.csharpCompiler().resolveInvocationParametersType(codeToCompile.not_Contains("//O2Tag_SetInvocationParametersToDynamic"));
 
-            csharpCompiler.UseCachedAssemblyIfAvailable = codeToCompile.contains("//O2Tag_DontUseCachedAssemblyIfAvailable")
-                                                                       .isFalse();
+            this.csharpCompiler().useCachedAssemblyIfAvailable   (codeToCompile.not_Contains("//O2Tag_DontUseCachedAssemblyIfAvailable"));
+                                                                       
             return codeToCompile;
         }    
         public void triggerCompilation()
@@ -463,8 +454,8 @@ namespace FluentSharp.REPL.Controls
                 commandsToExecute.editor().clearBookmarksAndMarkers();
                 var currentFile = commandsToExecute.editor().getFullPathTOCurrentSourceCodeFile();
                 if (currentFile.fileExists())
-                    csharpCompiler.SourceCodeFile = currentFile;
-                csharpCompiler.compileSnippet(codeSnippet);
+                    this.csharpCompiler().sourceCodeFile(currentFile);
+                this.csharpCompiler().compileSnippet(codeSnippet);
             }
             catch (Exception ex)
             {
@@ -483,7 +474,7 @@ namespace FluentSharp.REPL.Controls
             sourceCodeViewer.enabled(true);
             sourceCodeViewer.set_Text(dummyclass);
             csharpCompiler.compileSourceCode(dummyclass);*/
-            csharpCompiler.compileSourceCode(sourceCodeViewer.get_Text());
+            this.csharpCompiler().compileSourceCode(sourceCodeViewer.get_Text());
         }
         public void replaceMainCodeWithGeneratedSource()
         {
@@ -529,7 +520,7 @@ namespace FluentSharp.REPL.Controls
                 result_RichTextBox.textColor(Color.Black).set_Text("Executing code");
 
                 stopCurrentExecution();
-                ExecutionThread = O2Thread.mtaThread(() => showResult(csharpCompiler.executeFirstMethod()));
+                ExecutionThread = O2Thread.mtaThread(() => showResult(this.csharpCompiler().executeFirstMethod()));
             }
         }
         public void stopCurrentExecution()
@@ -634,7 +625,7 @@ namespace FluentSharp.REPL.Controls
         {
             commandsToExecute.enableCodeComplete();
             commandsToExecute.editor().o2CodeCompletion.UseParseCodeThread = false;
-            commandsToExecute.editor().o2CodeCompletion.addReferences(csharpCompiler.ReferencedAssemblies);
+            commandsToExecute.editor().o2CodeCompletion.addReferences(this.csharpCompiler().referencedAssemblies());
         }
         public void enableDisableFullCodeComplete()
         {

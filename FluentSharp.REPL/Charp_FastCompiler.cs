@@ -1,6 +1,8 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Threading;
+using FluentSharp.AST;
 using FluentSharp.CSharpAST.Utils;
 using FluentSharp.CoreLib.API;
 using FluentSharp.Web35.API;
@@ -12,50 +14,25 @@ using System.Reflection;
 
 namespace FluentSharp.REPL.Utils
 {
+    
     public class CSharp_FastCompiler
     {
+        public CSharp_FastCompiler_CompilerOptions   CompilerOptions   {  get; set; }
+        public CSharp_FastCompiler_CompilerArtifacts CompilerArtifacts {  get; set; }
+        public CSharp_FastCompiler_ExecutionOptions  ExecutionOptions  {  get; set; }
+        public CSharp_FastCompiler_Events            Events            {  get; set; }
+
         public int forceAstBuildDelay = 0;
-        public string SourceCode { get; set; }						// I think there is a small race condition with the use of this variable
-        public string SourceCodeFile { get; set; }
-        //public string OriginalCodeSnippet { get; set; }	
-        public bool             CreatedFromSnipptet             { get; set; }
-        public bool             ResolveInvocationParametersType { get; set; }
-        public bool             UseCachedAssemblyIfAvailable { get; set; }
-        public List<string>     ReferencedAssemblies            { get; set; }
-        public Dictionary<string, object> InvocationParameters { get; set; }
-        public CompilationUnit  CompilationUnit { get; set; }
-        public List<string>     ExtraSourceCodeFilesToCompile { get; set; }
-        public AstDetails       AstDetails { get; set; }
-        public string			AstErrors { get; set; }
-        public bool				generateDebugSymbols	{ get; set; }
         
-        public string			CompilationErrors		{ get; set; }      
-  		public Assembly			CompiledAssembly		{ get; set; }
-        public CompilerResults	CompilerResults			{ get; set; }
-        public bool				ExecuteInStaThread		{ get; set; }
-        public bool				ExecuteInMtaThread		{ get; set; }
-        public bool				WorkOffline				{ get; set; }
-        public string           CompilationVersion      { get; set; }
-
-        public Action onAstFail { get; set; }
-        public Action onAstOK { get; set; }
-        public Action onCompileFail { get; set; }
-        public Action onCompileOK { get; set; }
-        public Action beforeSnippetAst { get; set; }
-        public Action beforeCompile { get; set; }
-
-        public string default_MethodName {get; set;}
-        public string default_TypeName { get; set; }
-
-		public bool   DebugMode {get ; set;}
+		public bool   DebugMode                 { get ; set;}
 		
-		Stack<string> _createAstStack = new Stack<string>();
-        Stack<string> _compileStack = new Stack<string>();		
-		bool          _creatingAst;
-		bool          _compiling;
-                
+		public Stack<string> _createAstStack = new Stack<string>();
+        public Stack<string> _compileStack = new Stack<string>();		
 
-        public System.Threading.ManualResetEvent FinishedCompilingCode { get;set;}
+		public bool          _creatingAst;
+		public bool          _compiling;
+                
+        public ManualResetEvent FinishedCompilingCode { get;set;}
 
         static CSharp_FastCompiler()
         {
@@ -66,22 +43,13 @@ namespace FluentSharp.REPL.Utils
         }
         public CSharp_FastCompiler()
         {        
-        	DebugMode = false;				// set to true to see details about each AstCreation and Compilation stage
-            //DebugMode = true;	
-            ResolveInvocationParametersType = true;
-            UseCachedAssemblyIfAvailable = true;
-        	InvocationParameters = new Dictionary<string, object>();
-            ExtraSourceCodeFilesToCompile = new List<String>();
-            ReferencedAssemblies = CompileEngine.DefaultReferencedAssemblies;
-            default_MethodName = "dynamicMethod";
-            default_TypeName = "DynamicType";            
-            generateDebugSymbols = false;
-            //OriginalCodeSnippet = "";
-            SourceCode = "";
-            FinishedCompilingCode = new System.Threading.ManualResetEvent(true);
-            CompilationVersion = (Environment.Version.Major.eq(4)) ? "v4.0" : "v3.5";                        
-            // defaults
+        	DebugMode             = false;				        // set to true to see details about each AstCreation and Compilation stage
+            FinishedCompilingCode = new ManualResetEvent(true);            
 
+            CompilerOptions       = new CSharp_FastCompiler_CompilerOptions ();
+            ExecutionOptions      = new CSharp_FastCompiler_ExecutionOptions();
+            CompilerArtifacts     = new CSharp_FastCompiler_CompilerArtifacts();
+            Events                = new CSharp_FastCompiler_Events           (); 
         }
         
         public static void setDefaultUsingStatements()
@@ -96,14 +64,7 @@ namespace FluentSharp.REPL.Utils
                                               "FluentSharp.Zip",
                                               "FluentSharp.REPL",
                                               "FluentSharp.REPL.Controls",
-                                              "FluentSharp.REPL.Utils"
-                                              /*"O2.External.SharpDevelop.ExtensionMethods",
-                                              "O2.External.SharpDevelop.Ascx",
-                                              "O2.Views.ASCX.classes.MainGUI",
-                                              "O2.Views.ASCX.ExtensionMethods",
-                                              "O2.XRules.Database.APIs",
-                                              "O2.XRules.Database.Utils",
-											  "O2.FluentSharp"*/);                                     
+                                              "FluentSharp.REPL.Utils");                                     
         }
         public static void setDefaultReferencedAssemblies()
         {
@@ -164,11 +125,11 @@ namespace FluentSharp.REPL.Utils
 			var cachedCompilation = CompileEngine.getCachedCompiledAssembly_MD5(filesMd5);
 			if (cachedCompilation.notNull())
 			{
-				this.CompiledAssembly = cachedCompilation;
+				this.compiledAssembly(cachedCompilation);
 
-				if (CompileEngine.loadReferencedAssembliesIntoMemory(this.CompiledAssembly))
+				if (CompileEngine.loadReferencedAssembliesIntoMemory(this.compiledAssembly()))
 				{
-					this.onCompileOK.invoke();				
+					this.raise_OnCompileOK();				
 					FinishedCompilingCode.Set();
 					return true;
 				}
@@ -190,14 +151,14 @@ namespace FluentSharp.REPL.Utils
 
                         _createAstStack.Clear();
 
-                        InvocationParameters = getDefaultInvocationParameters();
-                        beforeSnippetAst.invoke();
+                        this.invocationParameters(getDefaultInvocationParameters());
+                        this.raise_BeforeSnippetAst();
                         DebugMode.ifInfo("Compiling Source Snippet (Size: {0})", codeSnippet.size());
                         var sourceCode = createCSharpCodeWith_Class_Method_WithMethodText(codeSnippet);
-                        if (UseCachedAssemblyIfAvailable && getCachedAssemblyForCode_and_RaiseEvents(sourceCode))   // see if we have already compiled this snippet before
+                        if (this.useCachedAssemblyIfAvailable() && getCachedAssemblyForCode_and_RaiseEvents(sourceCode))   // see if we have already compiled this snippet before
                             return;
                         if (sourceCode != null)
-                            compileSourceCode(sourceCode, CreatedFromSnipptet);
+                            compileSourceCode(sourceCode, this.createdFromSnippet());
                         else
                             FinishedCompilingCode.Set();
                         _creatingAst = false;
@@ -205,9 +166,9 @@ namespace FluentSharp.REPL.Utils
                     }
                 });
         }
-        private void compileSourceCode(string sourceCode, bool createdFromSnipptet)
+        private void compileSourceCode(string sourceCode, bool createdFromSnippet)
         {
-            CreatedFromSnipptet = createdFromSnipptet;
+            this.createdFromSnippet(createdFromSnippet);
             _compileStack.Push(sourceCode);
             compileSourceCode();
         }       
@@ -216,8 +177,7 @@ namespace FluentSharp.REPL.Utils
             if (sourceCode.valid().isFalse())
             {
                 "in CSharp_FastCompiler,compileSourceCode, provided sourceCode code was empty".error();
-                if (onCompileFail !=null)
-                    onCompileFail();
+                this.raise_OnCompileFail();
             }
             else
             {
@@ -225,13 +185,13 @@ namespace FluentSharp.REPL.Utils
 					return;
                 // we need to do make sure we include any extra references included in the code
                 var astCSharp = new Ast_CSharp(sourceCode);
-                mapCodeO2References(astCSharp);
+                astCSharp.mapCodeO2References(CompilerOptions);
                 compileSourceCode(sourceCode, false);
             }
        	}       	
        	public void compileSourceCode()
        	{
-       	    O2Thread.mtaThread(() => compileSourceCode_Thread() );
+       	    O2Thread.mtaThread(compileSourceCode_Thread );
         }
 
         //so that we can do EnC
@@ -269,56 +229,56 @@ namespace FluentSharp.REPL.Utils
             try
             {
                 Environment.CurrentDirectory = PublicDI.config.CurrentExecutableDirectory;
-                CompiledAssembly = null;
-                beforeCompile.invoke();
+                this.compiledAssembly(null);
+                this.raise_BeforeCompile();
                 DebugMode.ifInfo("Compiling Source Code (Size: {0})", sourceCode.size());
-                SourceCode = sourceCode;
+                this.sourceCode(sourceCode);
 
                 if (sourceCode.lines().starting("//CLR_3.5").notEmpty()) // allow setting compilation into 2.0 CLR
                 {
-                    CompilationVersion = "v3.5";
+                    this.compilationVersion("v3.5");
                 }
 
-                var providerOptions = new Dictionary<string, string>().add("CompilerVersion", CompilationVersion);
+                var providerOptions = new Dictionary<string, string>().add("CompilerVersion", this.compilationVersion());
 
                 var csharpCodeProvider = new Microsoft.CSharp.CSharpCodeProvider(providerOptions);
-                var compilerParams = new CompilerParameters();
-                compilerParams.OutputAssembly = "_o2_Script.dll".tempFile();
-                compilerParams.IncludeDebugInformation = generateDebugSymbols;
-                compilerParams.GenerateInMemory = !generateDebugSymbols;
+                var compilerParams = new CompilerParameters
+                    {
+                        OutputAssembly = "_o2_Script.dll".tempFile(),
+                        IncludeDebugInformation = CompilerOptions.generateDebugSymbols,
+                        GenerateInMemory = !CompilerOptions.generateDebugSymbols
+                    };
 
-                foreach (var referencedAssembly in ReferencedAssemblies)
+                foreach (var referencedAssembly in CompilerOptions.ReferencedAssemblies)
                     compilerParams.ReferencedAssemblies.Add(referencedAssembly);
 
-                CompilerResults = (generateDebugSymbols)
-                                      ? csharpCodeProvider.CompileAssemblyFromFile(compilerParams,
-                                                                                   sourceCode.saveWithExtension(".cs"))
-                                      : csharpCodeProvider.CompileAssemblyFromSource(compilerParams, sourceCode);
+                this.compilerResults((this.generateDebugSymbols()) ? csharpCodeProvider.CompileAssemblyFromFile  (compilerParams,sourceCode.saveWithExtension(".cs"))
+                                                                   : csharpCodeProvider.CompileAssemblyFromSource(compilerParams, sourceCode));
 
-                if (CompilerResults.Errors.Count > 0 || CompilerResults.CompiledAssembly == null)
+                if (this.compilerResults().Errors.Count > 0 || this.compilerResults().CompiledAssembly == null)
                 {
-                    CompilationErrors = "";
-                    foreach (CompilerError error in CompilerResults.Errors)
+                    this.compilationErrors("");
+                    foreach (CompilerError error in this.compilerResults().Errors)
                     {
                         //CompilationErrors.Add(CompilationErrors.line(error.ToString());
                         var errorMessage = String.Format("{0}::{1}::{2}::{3}::{4}", error.Line,
                                                          error.Column, error.ErrorNumber,
                                                          error.ErrorText, error.FileName);
-                        CompilationErrors = CompilationErrors.line(errorMessage);
+                        this.compilationErrors(this.compilationErrors().line(errorMessage));
                         "[CSharp_FastCompiler] Compilation Error: {0}".error(errorMessage);
                     }
                     DebugMode.ifError("Compilation failed");
-                    onCompileFail.invoke();
+                    this.raise_OnCompileFail();
                 }
                 else
                 {
-                    CompiledAssembly = CompilerResults.CompiledAssembly;
-                    if (CompiledAssembly.Location.fileExists())
-                        CompileEngine.setCachedCompiledAssembly_toMD5(sourceCode, CompiledAssembly);
+                    this.compiledAssembly(this.compilerResults().CompiledAssembly);
+                    if (this.compiledAssembly().Location.fileExists())
+                        CompileEngine.setCachedCompiledAssembly_toMD5(sourceCode, this.compiledAssembly());
                     DebugMode.ifDebug("Compilation was OK");
-                    onCompileOK.invoke();
+                    this.raise_OnCompileOK();                    
                 }
-                return CompiledAssembly;
+                return this.compiledAssembly();
             }
             catch (Exception ex)
             {
@@ -329,16 +289,16 @@ namespace FluentSharp.REPL.Utils
         // we need to use CompileEngine (which is slower but supports multiple file compilation 
         public void compileExtraSourceCodeReferencesAndUpdateReferencedAssemblies()
         {            
-            if (ExtraSourceCodeFilesToCompile.size() > 0)
+            if (CompilerOptions.ExtraSourceCodeFilesToCompile.size() > 0)
             {
-                "[CSharp Compiler] Compiling provided {0} external source code references".info(ExtraSourceCodeFilesToCompile.size());
-                var assembly = new CompileEngine(UseCachedAssemblyIfAvailable).compileSourceFiles(ExtraSourceCodeFilesToCompile);                
+                "[CSharp Compiler] Compiling provided {0} external source code references".info(CompilerOptions.ExtraSourceCodeFilesToCompile.size());
+                var assembly = new CompileEngine(this.useCachedAssemblyIfAvailable()).compileSourceFiles(CompilerOptions.ExtraSourceCodeFilesToCompile);                
                 if (assembly != null)
                 {
                     
-                    ReferencedAssemblies.Add(assembly.Location);
-                    CompileEngine.setCachedCompiledAssembly(ExtraSourceCodeFilesToCompile, assembly);
-                    generateDebugSymbols = true;                // if there are extra assemblies we can't generate the assembly in memory                    
+                    CompilerOptions.ReferencedAssemblies.Add(assembly.Location);
+                    CompileEngine.setCachedCompiledAssembly(CompilerOptions.ExtraSourceCodeFilesToCompile, assembly);
+                    CompilerOptions.generateDebugSymbols = true;                // if there are extra assemblies we can't generate the assembly in memory                    
                 }
             }
         }
@@ -355,11 +315,18 @@ namespace FluentSharp.REPL.Utils
             if (parsedCode == null)
             {
                 DebugMode.ifError("Ast parsing Failed");
-                onAstFail.invoke();
+                this.raise_OnAstFail();
             }
             return parsedCode;
         }
-        //this code needs to be completely rewritten
+        ///                
+        /// <summary>
+        /// Returns a compilable C# file from and Snippet
+        /// 
+        /// Dev Note:this code needs to be refactored (since it is too big and complex)
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public string tryToCreateCSharpCodeWith_Class_Method_WithMethodText(string code)
         {
             if (code.empty())
@@ -376,7 +343,7 @@ namespace FluentSharp.REPL.Utils
                     originalLine.starts("//O2Include:", (includeText) => 
                         {
                             var file = includeText;
-                            var baseFile = SourceCodeFile ?? PublicDI.CurrentScript;
+                            var baseFile = CompilerOptions.SourceCodeFile ?? PublicDI.CurrentScript;
                             var parentFolder = baseFile.parentFolder();
                             if (parentFolder.notValid())
                                 "[CSharpFastCompiled] in O2Include mapping, could not get parent folder of current script".error();
@@ -394,8 +361,9 @@ namespace FluentSharp.REPL.Utils
                 var snippetParser = new SnippetParser(SupportedLanguage.CSharp);
                 
                 var parsedCode = snippetParser.Parse(code);
-				AstErrors = snippetParser.errors();
-                CompilationUnit = new CompilationUnit();
+				this.astErrors(snippetParser.errors());
+
+                this.compilationUnit(new CompilationUnit());
 
                 if (parsedCode is BlockStatement || parsedCode is CompilationUnit)
                 {
@@ -404,69 +372,72 @@ namespace FluentSharp.REPL.Utils
                     {
                         // map parsedCode into a new type and method 
                         var blockStatement = (BlockStatement)parsedCode;
-                        CompilationUnit.add_Type(default_TypeName)
-                            .add_Method(default_MethodName, InvocationParameters, this.ResolveInvocationParametersType, blockStatement);
+
+                        var csharpCode = blockStatement.ast_CSharp_CreateCompilableClass(snippetParser, code,
+                                                                                         CompilerOptions, CompilerArtifacts, ExecutionOptions);
+                        /*this.compilationUnit().add_Type(this.default_TypeName())
+                                              .add_Method(this.default_MethodName(), this.invocationParameters(), CompilerOptions.ResolveInvocationParametersType, blockStatement);
                         
                         // remove comments from parsed code
-                        astCSharp = new Ast_CSharp(CompilationUnit, snippetParser.Specials);
+                        astCSharp = new Ast_CSharp(this.compilationUnit(), snippetParser.Specials);
                         
                         // add references included in the original source code file
-                        mapCodeO2References(astCSharp);
+                        astCSharp.mapCodeO2References(CompilerOptions);
 
                         astCSharp.mapAstDetails();
 
                         astCSharp.ExtraSpecials.Clear();
-                        var method = CompilationUnit.method(default_MethodName);
+                        var method     = this.compilationUnit().method(this.default_MethodName());
                         var returntype = method.returnType();
-                        var type = CompilationUnit.type(default_TypeName);
+                        var type       = this.compilationUnit().type(this.default_TypeName());
                         
                         type.Children.Clear();
                         var tempBlockStatement = new BlockStatement();
                         tempBlockStatement.add_Variable("a", 0);                        
                         method.Body = tempBlockStatement;                      
-                        var newMethod = type.add_Method(default_MethodName, InvocationParameters, this.ResolveInvocationParametersType, tempBlockStatement);
+                        var newMethod = type.add_Method(this.default_MethodName(), this.invocationParameters(), CompilerOptions.ResolveInvocationParametersType, tempBlockStatement);
                         newMethod.TypeReference = returntype;
                         astCSharp.mapAstDetails();
                         var csharpCode = astCSharp.AstDetails.CSharpCode
-                                                  .replace("Int32 a = 0;", code);
+                                                  .replace("Int32 a = 0;", code);*/
 
-                        AstDetails = new Ast_CSharp(csharpCode).AstDetails;
-                        CreatedFromSnipptet = true;
+                        this.astDetails(new Ast_CSharp(csharpCode).AstDetails);
+                        this.createdFromSnippet(true);
                         DebugMode.ifDebug("Ast parsing was OK");
-                        SourceCode = csharpCode;
-                        onAstOK.invoke();
+                        this.sourceCode(csharpCode);
+                        this.raise_OnAstOK();                        
                         
                         return csharpCode;
                     }
                     
                     
-                    CompilationUnit = (CompilationUnit)parsedCode;
-                    if (CompilationUnit.Children.Count == 0)
+                    this.compilationUnit((CompilationUnit)parsedCode);
+                    if (this.compilationUnit().Children.Count == 0)
                         return null;
 
-                    astCSharp = new Ast_CSharp(CompilationUnit, snippetParser.Specials);
+                    astCSharp = new Ast_CSharp(this.compilationUnit(), snippetParser.Specials);
                     // add the comments from the original code                        
 
-                    mapCodeO2References(astCSharp);
-                    CreatedFromSnipptet = false;                    
+                    astCSharp.mapCodeO2References(CompilerOptions);
+                    this.createdFromSnippet(false);
                     
                     // create sourceCode using Ast_CSharp & AstDetails		
-                    if(CompilationUnit.Children.Count > 0)
+                    if(this.compilationUnit().Children.Count > 0)
                     {                        
                         // reset the astCSharp.AstDetails object        	
                         astCSharp.mapAstDetails();
                         // add the comments from the original code
                         astCSharp.ExtraSpecials.AddRange(snippetParser.Specials);	                 
 
-	                    SourceCode = astCSharp.AstDetails.CSharpCode;
+	                    this.sourceCode(astCSharp.AstDetails.CSharpCode);
 
                         //once we have the created SourceCode we need to create a new AST with it
-                        var tempAstDetails = new Ast_CSharp(SourceCode).AstDetails;
+                        var tempAstDetails = new Ast_CSharp(this.sourceCode()).AstDetails;
                         //note we should try to add back the specials here (so that comments make it to the generated code
-                        AstDetails = tempAstDetails;
+                        this.astDetails(tempAstDetails);
 	                    DebugMode.ifDebug("Ast parsing was OK");
-	                    onAstOK.invoke();
-	                    return SourceCode;
+                        this.raise_OnAstOK();	                    
+	                    return this.sourceCode();
                     }
                 }            
             }
@@ -476,7 +447,7 @@ namespace FluentSharp.REPL.Utils
             }      			
 			return null;                
         }        
-        public void mapCodeO2References(Ast_CSharp astCSharp)
+        /*public void mapCodeO2References(Ast_CSharp astCSharp)
         {            
             bool onlyAddReferencedAssemblies = false;			
             ExtraSourceCodeFilesToCompile = new List<string>();                                
@@ -528,8 +499,8 @@ namespace FluentSharp.REPL.Utils
 			//make sure the referenced assemblies are in the current execution directory
 			CompileEngine.tryToResolveReferencesForCompilation(ReferencedAssemblies, WorkOffline);            
 
-        }
-        public void resolveFileLocationsOfExtraSourceCodeFilesToCompile()
+        }*/
+/*        public void resolveFileLocationsOfExtraSourceCodeFilesToCompile()
         {
             if (ExtraSourceCodeFilesToCompile.size() > 0)
             {                
@@ -571,22 +542,22 @@ namespace FluentSharp.REPL.Utils
                     ex.log("in compileExtraSourceCodeReferencesAndUpdateReferencedAssemblies while resolving ExtraSourceCodeFilesToCompile");
                 }
             }
-        }
+        }*/
         public object executeFirstMethod()
         {
-			if (CompiledAssembly.notNull())
+			if (this.compiledAssembly().notNull())
 			{
-				var parametersValues = InvocationParameters.valuesArray();
-				return CompiledAssembly.executeFirstMethod(ExecuteInStaThread, ExecuteInMtaThread, parametersValues);
+				var parametersValues = this.invocationParameters().valuesArray();
+				return this.compiledAssembly().executeFirstMethod(CompilerOptions.ExecuteInStaThread, CompilerOptions.ExecuteInMtaThread, parametersValues);
 			}
 			return null;
         }                       
         public Location getGeneratedSourceCodeMethodLineOffset()
         {
-            if (CreatedFromSnipptet && SourceCode.valid())                
-                    if (AstDetails.Methods.size() > 0)
+            if (this.createdFromSnippet() && this.sourceCode().valid())                
+                    if (this.astDetails().Methods.size() > 0)
                     {
-                        return AstDetails.Methods[0].OriginalObject.firstLineOfCode();
+                        return this.astDetails().Methods[0].OriginalObject.firstLineOfCode();
                     }
             return new Location(0, 0) ;
         }

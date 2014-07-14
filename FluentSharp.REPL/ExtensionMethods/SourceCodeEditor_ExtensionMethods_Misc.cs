@@ -528,10 +528,10 @@ namespace FluentSharp.REPL
         {
             if (sourceCodeEditor.o2CodeCompletion != null)
             {
-                foreach (var extraReference in csharpFastCompiler.ExtraSourceCodeFilesToCompile)
+                foreach (var extraReference in csharpFastCompiler.extraSourceCodeFilesToCompile())
                     sourceCodeEditor.o2CodeCompletion.parseFile(extraReference);
                 //var currentCode = csharpFastCompiler.processedCode();
-                var currentCode = csharpFastCompiler.SourceCode;
+                var currentCode = csharpFastCompiler.sourceCode();
                 sourceCodeEditor.o2CodeCompletion.parseSourceCode(currentCode);
                 sourceCodeEditor.o2CodeCompletion.CodeCompleteCaretLocationOffset = csharpFastCompiler.getGeneratedSourceCodeMethodLineOffset();
                 
