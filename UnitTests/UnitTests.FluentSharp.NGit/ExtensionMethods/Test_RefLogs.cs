@@ -6,7 +6,7 @@ using NGit.Storage.File;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_RefLogs : Temp_Repo

@@ -9,7 +9,7 @@ using NGit.Revwalk;
 using NUnit.Framework;
 using TransportException = NGit.Errors.TransportException;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_Push_Pull_Fetch_Merge

@@ -7,7 +7,7 @@ using NGit;
 using NGit.Revwalk;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_Commit : Temp_Repo

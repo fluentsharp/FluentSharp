@@ -54,8 +54,19 @@ namespace FluentSharp.NUnit
             filesPath.assert_Files_Not_Exist();
             return filesPath;
         }
+        public static string assert_File_Extension_Is(this string filePath, string expectedValue)
+        {
+            filePath.extension(expectedValue).assert_True(NUnit_Messages.ASSERT_FILE_EXTENSION_IS.format(filePath, expectedValue));
+            return filePath;
+        }
+        public static string assert_File_Extension_Is_Not(this string filePath, string expectedValue)
+        {
+            filePath.extension(expectedValue).assert_False(NUnit_Messages.ASSERT_FILE_EXTENSION_IS_NOT.format(filePath, expectedValue));
+            return filePath;
+        }
 
         //Folders
+
          /// <summary>
         /// Checks that a folder exists and has no files
         /// </summary>

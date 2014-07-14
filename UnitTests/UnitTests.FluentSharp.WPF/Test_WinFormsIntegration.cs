@@ -15,7 +15,7 @@ namespace UnitTests.FluentSharp.WPF
         [Test]
         public void add_Wpf()
         {
-            var winFormControl = "popupWindow".popupWindow(); // returns a System.Windows.Forms.Panel
+            var winFormControl = "popupWindow".popupWindow_Hidden(); // returns a System.Windows.Forms.Panel
             var elementHost = winFormControl.add_Wpf();
 
             Assert.IsNotNull(winFormControl);

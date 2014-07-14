@@ -103,11 +103,13 @@ namespace FluentSharp.CSharpAST.Utils
 			//o2AppDomain.load("O2_XRules_Database"); 	
 			//o2AppDomain.load("O2_Kernel");
 			//o2AppDomain.load("O2_DotNetWrappers");
-			o2AppDomain.load("FluentSharp.CoreLib");
-			o2AppDomain.load("FluentSharp.WinForms");
-			o2AppDomain.load("FluentSharp.REPL");
-			o2AppDomain.load("FluentSharp.SharpDevelopEditor.dll");
-			var o2Proxy =  (O2Proxy)o2AppDomain.getProxyObject("O2Proxy");
+            
+			o2AppDomain.appDomain().load("FluentSharp.CoreLib",
+                                         "FluentSharp.WinForms",
+                                         "FluentSharp.REPL",
+			                             "FluentSharp.SharpDevelopEditor.dll");
+
+			var o2Proxy =  (O2Proxy)(o2AppDomain.appDomain().getProxyObject("O2Proxy"));
 			var parameters = new object[]
 					{ 
 						sourceFolder,
@@ -119,7 +121,7 @@ namespace FluentSharp.CSharpAST.Utils
 					};					
 
     	    var result =(string)o2Proxy.staticInvocation("O2_External_SharpDevelop","FastCompiler_ExtensionMethods","executeFirstMethod",new object[]{script, parameters});	
-    	    o2AppDomain.unLoadAppDomain(); 
+    	    o2AppDomain.appDomain().unLoadAppDomain(); 
     	    "AppDomain execution completed, Runing GCCollect".info();
     	    PublicDI.config.gcCollect();
         	"GCCollect completed, returning result data: {0}".info(result);
@@ -180,9 +182,9 @@ namespace FluentSharp.CSharpAST.Utils
                     "in calculateMethodMappings Results file was null".error();
 					break;
                 }
-				else								
-					if (resultsFile.xRoot().elementsAll().size() < 6)
-						break;	
+											
+				if (resultsFile.xRoot().elementsAll().size() < 6)
+					break;	
 				//"NUMBER OF ELEMENTS:{0}".error(resultsFile.xRoot().elementsAll().size());														
 			}
 			var consolidatedFile = resultsFolder.pathCombine("ConsolidatedMethodMappings_{0}.xml".format(sourceFolder.fileName()));

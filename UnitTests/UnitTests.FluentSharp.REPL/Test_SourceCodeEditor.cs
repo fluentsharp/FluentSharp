@@ -64,7 +64,7 @@ namespace UnitTests.FluentSharp_REPL
             CodeEditor.open(h2File);
             Assert.AreEqual(CodeEditor.get_Code().fix_CRLF(), h2File.fileContents());
         }
-        [Test,Ignore("Fails in TeamCity")] public void CheckCodeCompleteReferences()
+        [Test] public void CheckCodeCompleteReferences() //Ignore("Fails in TeamCity")
         {
             //var referenceToLoad = "FluentSharp.REPL.exe";
             CodeEditor.compileCSSharpFile();

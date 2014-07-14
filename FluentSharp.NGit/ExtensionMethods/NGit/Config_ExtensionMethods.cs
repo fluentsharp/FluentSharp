@@ -9,6 +9,11 @@ namespace FluentSharp.Git
 {
     public static class Config_ExtensionMethods
     {
+        /// <summary>
+        /// Returns the Repository's config object
+        /// </summary>
+        /// <param name="nGit"></param>
+        /// <returns></returns>
         public static StoredConfig      config(this API_NGit nGit)
         {
             if (nGit.repository().notNull())
@@ -72,7 +77,12 @@ namespace FluentSharp.Git
         {
             return fileBasedConfig.file_Path().fileContents();
         }
-
+        /// <summary>
+        /// Returns the names/vars in config section
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="section"></param>
+        /// <returns></returns>
         public static List<string>  section_Names (this FileBasedConfig config, string section)
         {            
             if(config.notNull())
@@ -94,11 +104,22 @@ namespace FluentSharp.Git
             }
             return config;
         }
-
+        /// <summary>
+        /// Returns current Git remotes
+        /// </summary>
+        /// <param name="nGit"></param>
+        /// <returns></returns>
         public static List<string>  remotes      (this API_NGit nGit)
         {
             return nGit.config_SubSections("remote");
         }        
+        /// <summary>
+        /// Adds a remote
+        /// </summary>
+        /// <param name="nGit"></param>
+        /// <param name="remoteName"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public static bool          remote_Add   (this API_NGit nGit, string remoteName, string url)
         {
             if (nGit.repository().notNull() && remoteName.valid() && url.valid())            

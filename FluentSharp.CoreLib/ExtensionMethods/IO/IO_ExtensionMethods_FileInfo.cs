@@ -156,6 +156,8 @@ namespace FluentSharp.CoreLib
         /// Returns true if the file extension matches the provided value
         /// 
         /// extension value can be provided with our without the . (for example '.txt' or 'txt')
+        /// 
+        /// comparison is not case sensitive (i.e. both values are converter using <code>.lower()</code> before comparision is made
         /// </summary>
         /// <param name="file"></param>
         /// <param name="extension"></param>
@@ -164,6 +166,7 @@ namespace FluentSharp.CoreLib
         {            
             if (file.valid() && extension.valid())
             {
+                extension = extension.lower();
                 var fileExtension = file.extension();
 
                 if (extension.firstChar().equals("."))

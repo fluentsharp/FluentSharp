@@ -6,7 +6,7 @@ using System.Text;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.IO
+namespace UnitTests.FluentSharp.CoreLib
 {
     [TestFixture]
     public class Test_IO_ExtensionMethods_DirectoryInfo

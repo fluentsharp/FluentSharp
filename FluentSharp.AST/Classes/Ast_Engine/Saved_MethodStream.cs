@@ -393,8 +393,8 @@ namespace FluentSharp.CSharpAST.Utils
 	    	"Creating new AppDomain".info();
 			var appDomainName = 4.randomString();
 			var o2AppDomain =  new O2AppDomainFactory(appDomainName);			
-			o2AppDomain.load("FluentSharp.CoreLib.dll"); 						
-			var o2Proxy =  (O2Proxy)o2AppDomain.getProxyObject("O2Proxy");
+			o2AppDomain.appDomain().load("FluentSharp.CoreLib.dll"); 						
+			var o2Proxy =  (O2Proxy)(o2AppDomain.appDomain().getProxyObject("O2Proxy"));
 			var parameters = new object[]
 					{ 
 						savedMethodStream.Serialized_Saved_MethodStream_FileCache
@@ -409,7 +409,7 @@ namespace FluentSharp.CSharpAST.Utils
 		    var result =(string)o2Proxy.staticInvocation("O2_External_SharpDevelop","FastCompiler_ExtensionMethods","executeFirstMethod",new object[]{script, parameters});	
 		    "Result: {0}".info(result);
 		    o2AppDomain.sleep(2000);
-		    o2AppDomain.unLoadAppDomain(); 
+		    o2AppDomain.appDomain().unLoadAppDomain(); 
 		    "AppDomain execution completed, Runing GCCollect".info();
 		    PublicDI.config.gcCollect();
 	    	"GCCollect completed, returning result data: {0}".info(result);

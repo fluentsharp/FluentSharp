@@ -316,9 +316,9 @@ namespace FluentSharp.CoreLib
             }
             return null;
         }
-        public static string        file_Copy(this string file, string folder)
+        public static string        file_Copy(this string file, string targetFolderOrFile)
         {
-            return file.file_CopyToFolder(folder);
+            return file.file_CopyToFolder(targetFolderOrFile);
         }
         public static List<string>  files_Copy(this List<string> files, string targetFolder)
         {

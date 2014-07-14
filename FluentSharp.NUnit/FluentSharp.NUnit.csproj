@@ -50,6 +50,7 @@
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_String.cs" />
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_T_Comparisson.cs" />
     <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_Web.cs" />
+    <Compile Include="ExtensionMethods\NUnit_Messages.cs" />
     <Compile Include="NUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

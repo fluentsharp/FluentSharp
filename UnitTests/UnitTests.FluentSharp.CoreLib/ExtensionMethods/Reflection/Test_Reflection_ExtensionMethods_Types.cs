@@ -6,7 +6,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection
+namespace UnitTests.FluentSharp.CoreLib
 {
     [TestFixture]
     public class Test_Reflection_ExtensionMethods_Types : NUnitTests

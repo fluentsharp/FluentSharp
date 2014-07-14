@@ -8,7 +8,7 @@ using FluentSharp.Web35.API;
 using NUnit.Framework;
 using NGit.Transport;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     class Test_O2Platform_Repos

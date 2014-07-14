@@ -5,7 +5,7 @@ using FluentSharp.NUnit;
 using FluentSharp.O2Platform;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     public class Temp_Clone_O2_Platform_Scripts : NUnitTests
     {           

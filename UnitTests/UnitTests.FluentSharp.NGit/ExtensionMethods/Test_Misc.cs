@@ -4,7 +4,7 @@ using FluentSharp.Git.APIs;
 using FluentSharp.Git.Utils;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_Misc : Temp_Repo

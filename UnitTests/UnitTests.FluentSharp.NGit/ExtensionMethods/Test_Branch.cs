@@ -9,7 +9,7 @@ using FluentSharp.Git.APIs;
 using NGit.Api.Errors;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit.ExtensionMethods
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_Branch : Temp_Repo

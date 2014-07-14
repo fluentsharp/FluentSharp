@@ -38,6 +38,10 @@ namespace FluentSharp.CoreLib.API
         }
         public static Process   startProcess(String sProcessToStart, String sArguments, bool createNoWindow)
         {
+            if (sProcessToStart.notValid())
+                return null;
+            if (sArguments.isNull())
+                sArguments = "";
             try
             {
                 PublicDI.log.debug("Starting process {0} with arguments {1}", sProcessToStart, sArguments);

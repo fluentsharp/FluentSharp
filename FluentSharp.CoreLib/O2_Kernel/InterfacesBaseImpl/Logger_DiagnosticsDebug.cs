@@ -27,10 +27,12 @@ namespace FluentSharp.CoreLib.API
     {        
         public IO2Log           LogRedirectionTarget   { get ; set;}
         public bool             alsoShowInConsole      { get ; set;}
+        public bool             alsoWriteToDebug       { get ; set;}        
         public StringBuilder    LogData                { get ; set;}     
 
         public Logger_DiagnosticsDebug()
         {
+            alsoWriteToDebug = true;
             LogData = new StringBuilder();
         }
 
@@ -45,7 +47,8 @@ namespace FluentSharp.CoreLib.API
                 var message = variables.isNull()
                               ? messageFormat
                               : messageFormat.format(variables);
-                Debug.Write(message);
+                if (alsoWriteToDebug)
+                    Debug.Write(message);
                 if (alsoShowInConsole)
                     Console.Write(message);
                 LogData.Append(message);

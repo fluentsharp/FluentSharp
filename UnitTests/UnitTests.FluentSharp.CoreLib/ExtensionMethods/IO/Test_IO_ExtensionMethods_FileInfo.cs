@@ -6,7 +6,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.IO
+namespace UnitTests.FluentSharp.CoreLib
 {
     [TestFixture]
     public class Test_IO_ExtensionMethods_FileInfo : NUnitTests

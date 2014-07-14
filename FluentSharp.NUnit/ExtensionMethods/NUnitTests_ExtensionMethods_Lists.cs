@@ -31,6 +31,23 @@ namespace FluentSharp.NUnit
         {
             return nUnitTests.assert_Size_Is(target,size, message);
         }
+
+        public static T assert_Size_Is_Bigger_Than<T>(this T target, int value) where  T : IEnumerable
+        {
+            return nUnitTests.assert_Size_Is_Bigger_Than(target,value);
+        }
+        public static T assert_Bigger_Than<T>(this T target, int value)  where  T : IEnumerable
+        {
+            return target.assert_Size_Is_Bigger_Than(value);
+        }
+        public static T assert_Size_Is_Smaller_Than<T>(this T target, int value)  where  T : IEnumerable
+        {
+            return nUnitTests.assert_Size_Is_Smaller_Than(target,value);
+        }
+        public static T assert_Smaller_Than<T>(this T target, int value)  where  T : IEnumerable
+        {
+            return target.assert_Size_Is_Smaller_Than(value);
+        }
         public static List<T>  assert_Not_Contains<T>(this List<T> target , T item)
         {
             if(target.contains(item))

@@ -6,7 +6,7 @@ using NGit.Treewalk;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     class Test_Diff : Temp_Repo

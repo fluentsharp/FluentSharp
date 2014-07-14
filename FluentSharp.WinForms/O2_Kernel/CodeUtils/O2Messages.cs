@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.CoreLib.Interfaces;
 using FluentSharp.WinForms.Interfaces;
@@ -60,7 +61,7 @@ namespace FluentSharp.WinForms.Utils
         {
             // lets try to find this control in the current AppDomain
             var o2AppDomainFactory = AppDomainUtils.getO2AppDomainFactoryForCurrentO2Kernel();
-            Type proxyObjectType = o2AppDomainFactory.getProxyType(controlTypeAndAssembly);
+            Type proxyObjectType = o2AppDomainFactory.appDomain().getProxyType(controlTypeAndAssembly);
             if (proxyObjectType == null)
                 PublicDI.log.error("in openControlInGUI, could not find control: {0}", controlTypeAndAssembly);
             else

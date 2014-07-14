@@ -44,6 +44,12 @@ namespace FluentSharp.CoreLib
                        ? Files.getListOfAllDirectoriesFromDirectory(path, recursive)
                        : new List<string>();
         }
+        
+        /// <summary>
+        /// checks if the provided directory exists and if not, calls <code>Files.checkIfDirectoryExistsAndCreateIfNot(directory);</code>
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
         public static string        createDir(this string directory)
         {            
             return Files.checkIfDirectoryExistsAndCreateIfNot(directory);            

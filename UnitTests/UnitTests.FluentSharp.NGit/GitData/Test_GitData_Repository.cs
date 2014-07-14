@@ -7,7 +7,7 @@ using FluentSharp.REPL;
 using FluentSharp.WinForms;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit.GitData
+namespace UnitTests.FluentSharp.Git
 {
 
     [TestFixture]

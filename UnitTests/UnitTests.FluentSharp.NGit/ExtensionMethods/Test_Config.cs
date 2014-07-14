@@ -7,12 +7,12 @@ using NGit;
 using NGit.Storage.File;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_Config : Temp_Repo
     {
-        [Test(Description = "Returns the Repository's config object")]
+        [Test]
         public void config()
         {
             var config = nGit.config();
@@ -73,7 +73,7 @@ namespace UnitTests.FluentSharp_NGit
             var contents = config.file_Contents(); 
 
             config.assert_Is_Not_Null()
-                     .and_Is_Instance_Of<FileBasedConfig>();
+                  .assert_Is_Instance_Of<FileBasedConfig>();
             file  .assert_File_Exists();
             contents  .assert_Contains("[core]");
         }
@@ -85,8 +85,7 @@ namespace UnitTests.FluentSharp_NGit
             var file     = config.file_Path();
             var contents = config.file_Contents(); 
 
-            config.assert_Is_Not_Null()
-                     .and_Is_Instance_Of<FileBasedConfig>();
+            config.assert_Is_Not_Null().assert_Is_Instance_Of<FileBasedConfig>();
             file  .assert_File_Exists();
             contents  .assert_Contains("[core]");
         }
@@ -99,8 +98,7 @@ namespace UnitTests.FluentSharp_NGit
             var file     = config.file_Path();
             var contents = config.file_Contents(); 
 
-            config    .assert_Is_Not_Null()
-                         .and_Is_Instance_Of<FileBasedConfig>();
+            config    .assert_Is_Not_Null().assert_Is_Instance_Of<FileBasedConfig>();
             file      .assert_File_Exists();
             contents  .assert_Contains("[core]");
 
@@ -109,32 +107,22 @@ namespace UnitTests.FluentSharp_NGit
 
             assert_Is_Null  ((null as FileBasedConfig).file_Path());
             assert_Are_Equal((null as FileBasedConfig).file_Contents(),"");
-        }
-
-
-        [Test(Description = "Returns the names/vars in config section")]
+        }        
+        [Test]
         public void section_Names()
         {
             var config = nGit.config_Repo();
-            var names = config.section_Names("core");
-            Assert.IsNotEmpty(names); 
-           
-            var beforeSet = config.section_Get_Value_String("core","aaa");
-            var afteret  = config.section_Set_Value_String("core","aaa","123")
-                                 .section_Get_Value_String("core","aaa");
+            
+            config.section_Names           ("core"      ).assert_Not_Empty();
+                       
+            config.section_Get_Value_String("core","aaa").assert_Is_Null();
 
-            beforeSet.assert_Is_Null();
-            afteret  .assert_Is_Not_Null()
-                        .and_Is_Equal_To("123");           
+            config.section_Set_Value_String("core","aaa","123")
+                  .section_Get_Value_String("core","aaa").assert_Is_Not_Null()
+                                                         .assert_Is_Equal_To("123");           
         }
-
-        [Test(Description = "Returns current remotes")]
-        public void remotes()
-        {
-            //remote_add()
-        }
-
-        [Test(Description = "Adds a remote")]
+  
+        [Test]
         public void remote_add()
         {
             var remoteName           = "remote_".add_RandomLetters();

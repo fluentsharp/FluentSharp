@@ -1,7 +1,7 @@
 ﻿using FluentSharp.CoreLib.API;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_BCL
+namespace  UnitTests.FluentSharp_WinForms
 {
     [SetUpFixture]
     public class Tests_Setup

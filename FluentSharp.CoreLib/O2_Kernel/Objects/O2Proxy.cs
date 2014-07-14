@@ -10,12 +10,6 @@ namespace FluentSharp.CoreLib.API
     {
         public bool InvokeInStaThread { get; set; }
         public bool InvokeInMtaThread { get; set; }
-        //  public AppDomain appDomain = AppDomain.CurrentDomain;
-
-        /*  public O2AppDomainFactory getO2AppDomainFactoryWithCurrentAppDomain() // use this to get an proxy into the current AppDomain
-        {
-            return new O2AppDomainFactory(AppDomain.CurrentDomain );
-        }*/
 
         public override string ToString()
         {
@@ -24,8 +18,6 @@ namespace FluentSharp.CoreLib.API
         }
 
         // reflection helpers
-
-        // need to convert it to strings since we can't send the Assembly Objects to the calling appDomain
         public List<String> getAssemblies()
         {
             return getAssemblies(false);
@@ -83,7 +75,7 @@ namespace FluentSharp.CoreLib.API
             return methods;
         }
 
-        #region Methods to help basic testing
+        // Methods to help basic testing
 
         public string Property { get; set; }
 
@@ -127,9 +119,9 @@ namespace FluentSharp.CoreLib.API
             return PublicDI.log.showMessageBox(message, messageBoxTitle, messageBoxButtons);
         }*/
         
-        #endregion
+        
 
-        #region InstanceInvocation
+        // InstanceInvocation
 
         public object instanceInvocation(string typeToLoad, string methodToExecute, object[] methodParams)
         {
@@ -195,9 +187,9 @@ namespace FluentSharp.CoreLib.API
             return null;
         }
 
-        #endregion
+        
 
-        #region staticInvocation
+        // staticInvocation
 
         public object staticInvocation(string typeToLoad, string methodToExecute, object[] methodParams)
         {
@@ -243,7 +235,8 @@ namespace FluentSharp.CoreLib.API
                                     }).Join();
                                 return returnValue;
                             }                            
-                            return PublicDI.reflection.invoke(null, method, methodParams);
+                            returnValue = PublicDI.reflection.invoke(null, method, methodParams);
+                            return returnValue;
                         }
                     }
                 }
@@ -255,7 +248,7 @@ namespace FluentSharp.CoreLib.API
             return null;
         }
 
-        #endregion
+        
 
 
         public bool staThread()

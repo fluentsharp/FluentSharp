@@ -6,84 +6,79 @@ using NUnit.Framework;
 
 namespace FluentSharp.NUnit
 {    
-    public class Tests : NUnitTests
-    {
-        
-    }
     [TestFixture]
     public class NUnitTests
-    {   
-
+    {                  
         //string
-        public string      assert_Contains(string source, string target)
+        public string      assert_Contains(string target, string value, string message = NUnit_Messages.ASSERT_CONTAINS)
         {            
-            Assert.IsTrue(source.contains(target));
-            return source;
+            Assert.IsTrue(target.contains(value), message.format(target, target));
+            return target;
         }                     
         //Equality
-        public T      assert_Are_Equal<T>(T source, T target )
+        public T      assert_Are_Equal<T>(T target, T value , string message = NUnit_Messages.ASSERT_ARE_EQUAL)
         {            
-            Assert.AreEqual(source,target);
-            return source;
+            Assert.AreEqual(target,value, message.format(target, value));
+            return target;
         }             
-        public T      assert_Not_Equal<T>(T source, T target )
+        public T      assert_Not_Equal<T>(T target, T value, string message = NUnit_Messages.ASSERT_ARE_NOT_EQUAL)
         {
-            return assert_Are_Not_Equal(source,target);     
+            return assert_Are_Not_Equal(target, value, message);     
         }
-        public T      assert_Are_Not_Equal<T>(T source, T target )
+        public T      assert_Are_Not_Equal<T>(T target, T value , string message = NUnit_Messages.ASSERT_ARE_NOT_EQUAL)
         {            
-            Assert.AreNotEqual(source,target);
-            return source;
+            Assert.AreNotEqual(target,value, message.format(target, value));
+            return target;
         }     
         
         //Bool
-        public bool   assert_False     (bool target)
+        public bool   assert_False          (bool target, string message = NUnit_Messages.ASSERT_FALSE)
         {
-            return assert_Is_False(target);
+            return assert_Is_False(target, message);
         }
-        public bool   assert_Is_False    (bool target)
+        public bool   assert_Is_False       (bool target, string message = NUnit_Messages.ASSERT_FALSE)
         {            
-            Assert.IsFalse(target);
+            Assert.IsFalse(target,message);
             return true;
         }             
-        public bool   assert_Is_Not_True (bool target)
+        public bool   assert_Is_Not_True    (bool target, string message = NUnit_Messages.ASSERT_FALSE)
         {            
-            Assert.IsFalse(target);
+            Assert.IsFalse(target,message);
             return true;
         }    
-        public bool   assert_Is_Not_False(bool target)
+        public bool   assert_Is_Not_False   (bool target, string message = NUnit_Messages.ASSERT_TRUE)
         {            
-            Assert.IsTrue(target);
+            Assert.IsTrue(target, message);
             return true;
         }
-        public bool   assert_True     (bool target)
+        public bool   assert_True           (bool target, string message = NUnit_Messages.ASSERT_TRUE)
         {
-            return assert_Is_True(target);
+            return assert_Is_True(target, message);
         }
-        public bool   assert_Is_True     (bool target, string message = "Assert.IsTrue")
+        public bool   assert_Is_True        (bool target, string message = NUnit_Messages.ASSERT_TRUE)
         {
             Assert.IsTrue(target, message);
             return true;
         }            
 
         //ints
-        public bool   assert_Is_Bigger   (int source, int target)
+        public int   assert_Is_Bigger   (int target, int value)
         {
-            return assert_Is_Greater(source,target);
+            return assert_Is_Greater(target,value);            
         }
-        public bool   assert_Is_Greater  (int source, int target)
+        public int   assert_Is_Greater  (int target, int value)
         {            
-            Assert.Greater(source,target);
-            return true;
+            Assert.Greater(target,value);
+            return target;
         } 
-        public bool   assert_Is_Smaller  (int source, int target)
+        public int   assert_Is_Smaller  (int target, int value)
         {
-            return assert_Is_Less(source,target);
+            return assert_Is_Less(target,value);
         }    
-        public bool   assert_Is_Less     (int source, int target)
+        public int   assert_Is_Less     (int target, int value)
         {            
-            Assert.Less(source,target);
-            return true;
+            Assert.Less(target,value);
+            return target;
         }             
         
         //Object
@@ -144,7 +139,16 @@ namespace FluentSharp.NUnit
             Assert.AreEqual(target.size(), size, message);
             return target;
         }
-
+        public T  assert_Size_Is_Bigger_Than<T>(T target, int size, string message = "target size was smaller than expected value") where  T : IEnumerable
+        {
+            Assert.Greater(target.size(), size, message);
+            return target;
+        }
+        public T  assert_Size_Is_Smaller_Than<T>(T target, int size, string message = "target size was bigger than expected value") where  T : IEnumerable
+        {
+            Assert.Less(target.size(), size, message);
+            return target;
+        }
         //IO
 
         public string assert_Dir_Exists(string folderPath)

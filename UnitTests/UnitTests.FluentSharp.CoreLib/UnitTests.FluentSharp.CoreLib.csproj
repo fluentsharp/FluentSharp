@@ -52,6 +52,7 @@
     <Compile Include="Config\Tests_Utils.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_DirectoryInfo.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_FileInfo.cs" />
+    <Compile Include="ExtensionMethods\Reflection\AppDomain\Test_O2Proxy_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Reflection\Test_Reflection_Assembly.cs" />
     <Compile Include="ExtensionMethods\Reflection\Test_Reflection_ExtensionMethods_Ctor.cs" />
     <Compile Include="ExtensionMethods\Reflection\Test_Reflection_ExtensionMethods_Invoke.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="ExtensionMethods\Test_String.cs" />
     <Compile Include="O2_DotNetWrappers\Crypto\Test_Crypto.cs" />
     <Compile Include="O2_Kernel\InterfaceBaseImpl\Test_KReflection.cs" />
+    <Compile Include="O2_Kernel\Objects\Test_O2Proxy.cs" />
     <Compile Include="Test_Ex_Objects.cs" />
     <Compile Include="Test_GZip.cs" />
     <Compile Include="Test_H2_FileFormat.cs" />

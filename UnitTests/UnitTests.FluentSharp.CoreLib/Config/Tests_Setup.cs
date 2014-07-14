@@ -2,7 +2,7 @@
 using FluentSharp.CoreLib.API;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_CoreLib
+namespace UnitTests.FluentSharp.CoreLib
 {
     [SetUpFixture]
     public class Tests_Setup
@@ -16,6 +16,7 @@ namespace UnitTests.FluentSharp_CoreLib
         [TearDown]
         public void RunAfterAnyTests()
         {
+            O2ConfigSettings.CheckForTempDirMaxSizeCheck = true;
         }
     }
 }

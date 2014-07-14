@@ -6,7 +6,7 @@ using FluentSharp.Git.APIs;
 using NGit.Api.Errors;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     internal class Test_Init_Clone_Open

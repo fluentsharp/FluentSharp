@@ -6,7 +6,7 @@ using System.Text;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection
+namespace UnitTests.FluentSharp.CoreLib
 {
     [TestFixture]
     class Test_Reflection_Fields

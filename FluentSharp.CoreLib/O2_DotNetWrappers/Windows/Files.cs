@@ -168,12 +168,13 @@ namespace FluentSharp.CoreLib.API
         {
             try
             {
-                if (Directory.Exists(targetFolder))
+                if (targetFolder.folder_Exists())
                 {
                     deleteAllFilesFromDir(targetFolder);
                     Directory.Delete(targetFolder, bRecursive);
-                    return true;
+                    targetFolder.folder_Wait_For_Deleted();                    
                 }
+                return targetFolder.folder_Not_Exists();
             }
             catch (Exception ex)
             {

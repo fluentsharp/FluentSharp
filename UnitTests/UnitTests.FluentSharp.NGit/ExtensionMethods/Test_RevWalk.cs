@@ -3,7 +3,7 @@ using FluentSharp.Git;
 using FluentSharp.Git.APIs;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     class Test_RevWalk : Temp_Repo

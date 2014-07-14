@@ -169,7 +169,12 @@ namespace FluentSharp.CoreLib
         {
             return (from assemblyName in assemblyNames
                     select assemblyName.name()).toList();
-        }        
+        }
+        public static List<string>              names                           (this List<Assembly>     assemblies)     
+        {
+            return (from assembly in assemblies
+                    select assembly.name()).toList();
+        }
         public static List<Assembly>            notDynamic                      (this List<Assembly> assemblies)            
         {
             return (from assembly in assemblies                    

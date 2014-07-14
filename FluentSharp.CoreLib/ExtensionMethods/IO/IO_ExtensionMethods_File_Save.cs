@@ -5,7 +5,11 @@ using FluentSharp.CoreLib.API;
 namespace FluentSharp.CoreLib
 {
     public static class IO_ExtensionMethods_File_Save
-    {        
+    {   
+        public static bool      write_To_File(this string file, string fileContents)
+        {
+            return file.fileWrite(fileContents);
+        }
         public static bool      fileWrite(this string file, string fileContents)
         {
             return Files.WriteFileContent(file, fileContents);

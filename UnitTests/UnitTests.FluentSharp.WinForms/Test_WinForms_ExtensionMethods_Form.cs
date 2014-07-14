@@ -10,7 +10,7 @@ namespace UnitTests.FluentSharp_WinForms
     [TestFixture]
     public class Test_WinForms_ExtensionMethods_Form : NUnitTests
     {
-        [Ignore]
+        //[Ignore]
         [Test(Description = "Returns true is the provided form window state is 'Normal' (related to isMinimized and isMaximized)")]
         public void isNormal()
         {

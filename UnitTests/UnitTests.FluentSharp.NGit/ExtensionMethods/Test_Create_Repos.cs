@@ -1,11 +1,10 @@
-﻿using FluentSharp;
-using FluentSharp.CoreLib;
+﻿using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.Git;
 using FluentSharp.Git.APIs;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     public class Test_Create_Repos// : Temp_Repo

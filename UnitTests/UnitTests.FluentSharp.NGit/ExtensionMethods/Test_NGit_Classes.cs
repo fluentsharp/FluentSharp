@@ -6,7 +6,7 @@ using FluentSharp.REPL;
 using NUnit.Framework;
 using Sharpen;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     public class Test_NGit_Classes
     {

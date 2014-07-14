@@ -6,9 +6,9 @@ using FluentSharp.CoreLib;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods
+namespace UnitTests.FluentSharp.CoreLib
 {    
-    public class Test_String : Tests
+    public class Test_String : NUnitTests
     {
         [Test(Description = "Returns true if the provided string(s) were found in the provided target")]
         public void contains()

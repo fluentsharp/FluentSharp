@@ -53,6 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FluentSharp.CoreLib.nuspec" />
+    <Compile Include="ExtensionMethods\AppDomain\AppDomain_ExtensionMethods_ExecuteCode.cs" />
+    <Compile Include="ExtensionMethods\AppDomain\AppDomain_ExtensionMethods_Proxy_Objects.cs" />
+    <Compile Include="ExtensionMethods\AppDomain\O2AppDomainFactory_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AppDomain\O2Proxy_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\LiveObjects_And_Cache_Extensionmethods.cs" />
     <Compile Include="ExtensionMethods\System\Char_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\System\Bool_ExtensionMethods.cs" />
@@ -112,7 +116,7 @@
     <Compile Include="O2_DotNetWrappers\DotNet\TypeConfusion.cs" />
     <Compile Include="Classes\MiscUtils.cs" />
     <Compile Include="O2_DotNetWrappers\DotNet\XmlHelpers.cs" />
-    <Compile Include="ExtensionMethods\AppDomain_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\AppDomain\AppDomain_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Collections_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\CompileEngine_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\ConfigFiles_ExtensionMethods.cs" />

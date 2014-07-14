@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentSharp.CoreLib;
+using FluentSharp.CoreLib.API;
 using FluentSharp.Git;
 using FluentSharp.NUnit;
 using FluentSharp.O2Platform;
@@ -18,7 +19,8 @@ namespace UnitTests.FluentSharp.O2Platform
         [SetUp]
         public void SetupFixture_SetUp()
         {
-            
+            CompileEngine.clearCompilationCache();              // ensure the compilatation cache is clean
+
             var o2PlatformScripts = new O2_Platform_Scripts();
             var scriptsFolder     = o2PlatformScripts.ScriptsFolder();
             

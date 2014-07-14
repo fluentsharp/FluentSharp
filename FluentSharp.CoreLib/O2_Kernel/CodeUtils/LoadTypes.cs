@@ -14,12 +14,9 @@ namespace FluentSharp.CoreLib.API
                                                                  object[] methodParameters)
         {
             var appDomainHelper = new O2AppDomainFactory(appDomain);
-            object proxyObject = appDomainHelper.createAndUnWrap(dllWithType, typeToCreateAndUnwrap);
+            object proxyObject = appDomainHelper.appDomain().createAndUnWrap(dllWithType, typeToCreateAndUnwrap);
             if (proxyObject == null)
-                PublicDI.log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");            
-                //    var proxy = appDomain.CreateInstanceAndUnwrap(dllToLoad, typeToCreateAndUnwrap);
-                //if (proxy == null)
-                //    log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");
+                PublicDI.log.error("in loadTypeAndExecuteMethodInAppDomain, proxy == null");                            
             else
             {
                 MethodInfo methodInfo = PublicDI.reflection.getMethod(proxyObject.GetType(), methodToExecute, methodParameters);

@@ -21,6 +21,7 @@ namespace UnitTests.FluentSharp_CoreLib
             Assert.NotNull(lastThread_Name  , "lastThread_Name");
             Assert.IsTrue(lastThread_Name.contains("Check_If_MtaThreadName_Contains_StackTrace"));
             lastThread_Name.info();
+            lastThread.Join();
         }
     }
 }

@@ -5,7 +5,7 @@ using FluentSharp.Git.Utils;
 using NGit;
 using NUnit.Framework;
 
-namespace UnitTests.FluentSharp_NGit
+namespace UnitTests.FluentSharp.Git
 {
     [TestFixture]
     class Test_Objects : Temp_Repo
