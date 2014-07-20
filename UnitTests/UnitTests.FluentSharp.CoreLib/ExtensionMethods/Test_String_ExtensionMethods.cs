@@ -8,10 +8,9 @@ using NUnit.Framework;
 
 namespace UnitTests.FluentSharp.CoreLib
 {    
-    public class Test_String : NUnitTests
+    public class Test_String_ExtensionMethods : NUnitTests
     {
-        [Test(Description = "Returns true if the provided string(s) were found in the provided target")]
-        public void contains()
+        [Test] public void contains()
         {
             var target = "abc12345";
             assert_Is_True (target.contains("a"));
@@ -65,9 +64,16 @@ namespace UnitTests.FluentSharp.CoreLib
             assert_Is_True (target.contains(testList.clear().add(null as string).add("1")));            
             assert_Is_False(target.contains(testList.clear().add(null as string)));
         }
-        
-        [Test(Description = "Returns a string after the provided string")]
-        public void subString_After()
+        [Test] public void remove()
+        {
+            "123456".remove("1"  ).assert_Is("23456" );
+            "123456".remove("6"  ).assert_Is("12345" );
+            "123456".remove("123").assert_Is("456"   );
+
+            "123456".remove(""   ).assert_Is("123456");
+            "123456".remove(null ).assert_Is("123456");
+        }
+        [Test] public void subString_After()
         {
             var value = "123456";
             var test1 = "1";
@@ -94,6 +100,18 @@ namespace UnitTests.FluentSharp.CoreLib
             Assert.AreEqual((null as string).subString_After(""), "");
             Assert.AreEqual(value.subString_After((null as string)), "");
         }
+        [Test] public void replaceAllWith()
+        {
+            "123456".replaceAllWith("abc","1"     ).assert_Is("abc23456"  );
+            "123456".replaceAllWith("abc","6"     ).assert_Is("12345abc"  );
+            "123456".replaceAllWith("abc","123"   ).assert_Is("abc456"    );            
+            "123456".replaceAllWith("abc","1", "2").assert_Is("abcabc3456");
+            "123456".replaceAllWith("abc",""      ).assert_Is("123456"    );
 
+            "123456".replaceAllWith(""   ,"abc"   ).assert_Is("123456"    );
+            "123456".replaceAllWith(null ,"abc"   ).assert_Is("123456"    );            
+            "123456".replaceAllWith("abc",null    ) .assert_Is("123456"   );
+        }
+        
     }
 }

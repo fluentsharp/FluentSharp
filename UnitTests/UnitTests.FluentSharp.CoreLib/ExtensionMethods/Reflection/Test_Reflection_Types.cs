@@ -150,7 +150,7 @@ namespace UnitTests.FluentSharp.CoreLib
             var types = assembly.types();       
 
             assert_Are_Equal  (assembly.name(),"mscorlib"); // assumes that mscorlib as 3017 types
-            assert_Is_Greater (types.size(),3017);        
+            types.size().assert_Is_Greater(3017);        
             assert_Is_Empty   ((null as Assembly).types());
             assert_Is_Not_Null((null as Assembly).types());
 
@@ -179,7 +179,7 @@ namespace UnitTests.FluentSharp.CoreLib
             var assembly = "".type().assembly();
             var withBaseTypes = assembly.withBaseType<MulticastDelegate>();
             assert_Is_Not_Empty(withBaseTypes);
-            assert_Is_Bigger   (withBaseTypes.size(),60);
+            withBaseTypes.size().assert_Is_Bigger(60);
             assert_Are_Equal   (withBaseTypes.first().name(), "Action`1");
         }
     }

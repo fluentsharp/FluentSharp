@@ -60,27 +60,7 @@ namespace FluentSharp.NUnit
             Assert.IsTrue(target, message);
             return true;
         }            
-
-        //ints
-        public int   assert_Is_Bigger   (int target, int value)
-        {
-            return assert_Is_Greater(target,value);            
-        }
-        public int   assert_Is_Greater  (int target, int value)
-        {            
-            Assert.Greater(target,value);
-            return target;
-        } 
-        public int   assert_Is_Smaller  (int target, int value)
-        {
-            return assert_Is_Less(target,value);
-        }    
-        public int   assert_Is_Less     (int target, int value)
-        {            
-            Assert.Less(target,value);
-            return target;
-        }             
-        
+                          
         //Object
         public T      assert_Null<T>    (T target) where  T : class
         {
@@ -151,7 +131,7 @@ namespace FluentSharp.NUnit
         }
         //IO
 
-        public string assert_Dir_Exists(string folderPath)
+        /*public string assert_Dir_Exists(string folderPath)
         {                        
             Assert.IsTrue(folderPath.dirExists());
             return folderPath;
@@ -161,30 +141,8 @@ namespace FluentSharp.NUnit
             Assert.IsFalse(folderPath.dirExists());
             return folderPath;
         }
-        public List<string> assert_Files_Not_Exists(List<string> filesPath)
-        {
-            foreach(var filePath in filesPath)
-                assert_File_Not_Exists(filePath);
-            return filesPath;
-        }
-        public string assert_File_Not_Exists(string filePath)
-        {                        
-            Assert.IsFalse(filePath.fileExists(), "Not Expected file was found: {0}".format(filePath));
-            return filePath;
-        }
-        public List<string> assert_Files_Exists(List<string> filesPath)
-        {
-            foreach(var filePath in filesPath)
-                assert_File_Exists(filePath);
-            return filesPath;
-        }
-        public string assert_File_Exists(string filePath)
-        {                        
-            if(filePath.notValid())
-                assert_Fail("[assert_File_Exists] provided filePath was null or empty");
-            Assert.IsTrue(filePath.fileExists(),"Expected File was not found: {0}".format(filePath));
-            return filePath;
-        }
+        
+        
         public string assert_Folder_Exists(string folderPath) 
         {
             return assert_Dir_Exists(folderPath);
@@ -192,7 +150,7 @@ namespace FluentSharp.NUnit
         public string assert_Folder_Not_Exists(string folderPath) 
         {
             return assert_Dir_Not_Exists(folderPath);
-        }        
+        }   */     
     
         //Exceptions
         public Action assert_Does_Throw<T>(Action action) where  T : Exception

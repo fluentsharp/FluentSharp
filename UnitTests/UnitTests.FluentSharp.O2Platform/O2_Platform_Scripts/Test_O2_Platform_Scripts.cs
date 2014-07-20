@@ -26,9 +26,9 @@ namespace UnitTests.FluentSharp.O2Platform
             var fullPath1 = nGit.file_FullPath("README");
             var fullPath2 = nGit.file_FullPath(@"_DataFiles\_Images\O2_Logo.gif");
             
-            assert_Not_Null   (nGit);
-            assert_File_Exists(fullPath1);
-            assert_File_Exists(fullPath2);    
+            nGit     .assert_Not_Null   ();
+            fullPath1.assert_File_Exists();
+            fullPath2.assert_File_Exists();    
         }
 
     }

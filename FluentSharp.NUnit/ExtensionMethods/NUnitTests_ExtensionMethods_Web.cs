@@ -1,4 +1,5 @@
 using System.Net;
+using FluentSharp.CoreLib;
 
 namespace FluentSharp.NUnit
 {
@@ -18,6 +19,10 @@ namespace FluentSharp.NUnit
             statusCode.assert_Equal_To(expectedStatus);
             return statusCode;
         }
-        
+        public static string assert_Is_Uri(this string url, string message = NUnit_Messages.ASSERT_IS_URI)
+        {
+            url.isUri().assert_True(message.format(url));
+            return url;
+        }        
     }
 }

@@ -68,6 +68,12 @@ namespace FluentSharp.CoreLib
             return (string1 != string2);
         }    
     
+        /// <summary>
+        /// Returns true if the provided string(s) were found in the provided target
+        /// </summary>
+        /// <param name="targetString"></param>
+        /// <param name="stringToFind"></param>
+        /// <returns></returns>
         public static bool      contains(this string targetString, string stringToFind)
         {
             return targetString.notNull() && 
@@ -252,10 +258,21 @@ namespace FluentSharp.CoreLib
             //targetString = targetString.Replace(stringToFind.upper(), stringToReplaceWith);
             return targetString;
         }
+        /// <summary>
+        /// Looks in the <code>targetString</code> for the values in multiple <code>stringsToFind</code> and replaces them with <code>stringToReplaceWith</code> (which is the first parameter inside the ExtensionMethod)
+        /// </summary>
+        /// <param name="targetString"></param>
+        /// <param name="stringToReplaceWith"></param>
+        /// <param name="stringsToFind"></param>
+        /// <returns></returns>
         public static string    replaceAllWith(this string targetString, string stringToReplaceWith, params string[] stringsToFind)
-        {
-            foreach (var stringToFind in stringsToFind)
-                targetString = targetString.Replace(stringToFind, stringToReplaceWith);
+        {                   
+            if (stringToReplaceWith.isNull())
+                stringToReplaceWith = "";
+            if(targetString.valid() && stringsToFind.notEmpty())
+                foreach (var stringToFind in stringsToFind)
+                    if(stringToFind.valid())
+                        targetString = targetString.Replace(stringToFind, stringToReplaceWith);
             return targetString;
         }
         public static int       size(this string _string)
@@ -545,7 +562,13 @@ namespace FluentSharp.CoreLib
 				return subString;
 			return subString.Substring(0,size);
 		}		
-		public static string    subString_After(this string value, string stringToFind)
+		/// <summary>
+		/// Returns a string after the provided string
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="stringToFind"></param>
+		/// <returns></returns>
+        public static string    subString_After(this string value, string stringToFind)
 		{
             if (value.notNull() && stringToFind.notNull())
             {

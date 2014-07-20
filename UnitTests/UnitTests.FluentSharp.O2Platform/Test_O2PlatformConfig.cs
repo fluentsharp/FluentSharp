@@ -13,9 +13,9 @@ namespace UnitTests.FluentSharp.O2Platform
             var appData          = o2PlatformConfig.CurrentUser_AppData;
             var mainFolder       = o2PlatformConfig.Folder_Root;
 
-            assert_Is_Not_Null  (o2PlatformConfig);
-            assert_Folder_Exists(appData);
-            assert_Folder_Exists(mainFolder);
+            o2PlatformConfig.assert_Is_Not_Null  ();
+            appData         .assert_Folder_Exists();
+            mainFolder      .assert_Folder_Exists();
         }
     }
 }

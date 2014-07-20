@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp.CoreLib;
+﻿using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
 using FluentSharp.REPL;
@@ -30,7 +26,7 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
         {
             var scriptFile = Misc_WinForms_Script_Files.PopupWindow_With_LogViewer();
 
-            assert_File_Exists(scriptFile);
+            scriptFile.assert_File_Exists();
 
             var compiledScript = scriptFile.compileScriptFile_into_SeparateFolder();            
 
@@ -43,7 +39,7 @@ namespace UnitTests.FluentSharp_REPL.ExtensionMethods
                                            .assert_Item_Is_Equal(0,"FluentSharp.CoreLib.dll")                                           
                                            .assert_Item_Is_Equal(1,"FluentSharp.WinForms.dll")
                                            .assert_Item_Is_Equal(2,compiledScript.fileName());
-;            
+            
             parentFolder.assert_Contains(PublicDI.config.O2TempDir);            
             
             var tmpDll = compiledScript.fileName().inTempDir();

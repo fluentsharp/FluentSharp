@@ -37,10 +37,10 @@ namespace UnitTests.FluentSharp_WinForms
             assert_Is_True  (parentForm.isEnabled());   
             assert_Is_True  (parentForm.type().baseTypes(true).contains(typeof(Form)));                        
             assert_Is_False (parentForm.type().baseTypes(true).contains(typeof(Panel)));            
-            assert_Is_Bigger(parentForm.width() , width);
-            assert_Is_Bigger(parentForm.height(), height);
-            assert_Are_Equal(parentForm.title() , title);            
-            
+            parentForm.width ().assert_Is_Bigger(width);
+            parentForm.height().assert_Is_Bigger(height);
+            title .assert_Equal_To (parentForm.title());            
+            parentForm.close();
         }
 
         [Test(Description="When startHidden is set to false the O2Gui/Form is set with opacity=0 and ShowInTaskbar = false")]

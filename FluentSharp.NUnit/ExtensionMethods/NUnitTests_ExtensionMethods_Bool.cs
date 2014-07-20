@@ -1,4 +1,6 @@
 ﻿using System;
+using FluentSharp.CoreLib;
+using NUnit.Framework;
 
 namespace FluentSharp.NUnit
 {
@@ -51,6 +53,16 @@ namespace FluentSharp.NUnit
         public static T  assert_True         <T>(this T target, Func<T,bool> callback, string message = NUnit_Messages.ASSERT_TRUE)
         {
             callback(target).assert_True(message);
+            return target;
+        }
+        public static T assert_False<T>(this T target, Func<T, bool> callback, string message = NUnit_Messages.ASSERT_CALLBACK_FALSE)
+        {
+            Assert.False(callback(target), message.format(target));
+            return target;
+        }
+        public static T assert_False<T>(this T target, Func<bool> callback, string message = NUnit_Messages.ASSERT_CALLBACK_FALSE)
+        {
+            Assert.False(callback(), message.format(target));
             return target;
         }
     }

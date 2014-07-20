@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods\NUnitTests_ExtensionMethods_IO.cs" />
+    <Compile Include="ExtensionMethods\Test_NUnitTests_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Test_NUnitTests_ExtensionMethods_IO.cs" />
     <Compile Include="ExtensionMethods\Test_NUnitTests_ExtensionMethods_Bool.cs" />
     <Compile Include="Classes\Test_NUnitTests.cs" />
     <Compile Include="ExtensionMethods\Test_NUnitTests_ExtensionMethods_Lists.cs" />

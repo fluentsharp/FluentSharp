@@ -73,7 +73,7 @@ namespace FluentSharp.CoreLib
                             PublicDI.log.ex(ex1, "could not load assembly (method1): " + fullAssemblyName);
                             PublicDI.log.ex(ex2, "could not load assembly (method2): " + fullAssemblyName);
                             PublicDI.log.ex(ex3, "could not load assembly (method3): " + fullAssemblyName);
-                            PublicDI.log.ex(ex3, "could not load assembly (method4): " + assemblyLocation);
+                            PublicDI.log.ex(ex4, "could not load assembly (method4): " + assemblyLocation);
                             return false;
                         }                        
                     }

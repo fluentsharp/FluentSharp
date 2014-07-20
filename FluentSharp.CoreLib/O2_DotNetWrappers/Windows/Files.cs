@@ -273,7 +273,7 @@ namespace FluentSharp.CoreLib.API
         }        
         public static void getListOfAllFilesFromDirectory(List<String> lsFiles, String sStartDirectory,bool bSearchRecursively, String sSearchPattern, bool bVerbose)
         {
-        try
+            try
             {
                 sStartDirectory = sStartDirectory.Trim();
                 if (Directory.Exists(sStartDirectory))
@@ -281,7 +281,7 @@ namespace FluentSharp.CoreLib.API
                     if (sSearchPattern == "")
                         lsFiles.AddRange(Directory.GetFiles(sStartDirectory));
                     else
-                    {
+                    {                            
                         var searchOptions = (bSearchRecursively) ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
                         String[] sFileMatches = Directory.GetFiles(sStartDirectory, sSearchPattern, searchOptions);
                         if (bVerbose)
@@ -289,16 +289,11 @@ namespace FluentSharp.CoreLib.API
                                 PublicDI.log.debug("File matched filter: {0}", sFile);
                         lsFiles.AddRange(sFileMatches);
                     }
-                    /*if (bSearchRecursively)
-                        foreach (String sDirectory in Directory.GetDirectories(sStartDirectory))
-                            getListOfAllFilesFromDirectory(lsFiles, sDirectory, true,
-                                                           sSearchPattern,
-                                                           bVerbose);*/
                 }
             }
             catch (Exception ex)
             {
-                PublicDI.log.debug("Error in getListOfAllFilesFromDirectory {0}", ex.Message);
+                ex.log("[List<String>][getListOfAllFilesFromDirectory] with sStartDirectory {0}", sStartDirectory);
             }
         }
         public static List<String> getListOfAllDirectoriesFromDirectory(String startDirectory, bool searchRecursively)

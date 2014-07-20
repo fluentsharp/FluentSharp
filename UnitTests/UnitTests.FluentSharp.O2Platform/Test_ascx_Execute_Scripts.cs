@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentSharp.CoreLib;
+﻿using FluentSharp.CoreLib;
 using FluentSharp.NUnit;
 using FluentSharp.O2Platform.Controls;
 using FluentSharp.REPL;
@@ -20,9 +16,9 @@ namespace UnitTests.FluentSharp.O2Platform
             var newGuiScript_FileName  = ascx_Execute_Scripts.NEW_GUI_SCRIPT;
             var newGuiScript_LocalPath = newGuiScript_FileName.local();
 
-            assert_Not_Null   (newGuiScript_FileName);
-            assert_Not_Null   (newGuiScript_LocalPath);
-            assert_File_Exists(newGuiScript_LocalPath);
+            newGuiScript_FileName .assert_Not_Null   ();
+            newGuiScript_LocalPath.assert_Not_Null   ();
+            newGuiScript_LocalPath.assert_File_Exists();
 
             var newGui = newGuiScript_LocalPath.compile_H2Script();
 

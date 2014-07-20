@@ -19,7 +19,7 @@ namespace UnitTests.FluentSharp.Web.ExtensionMethods
         {
             this.ignore_If_Offline();
             tempDownloadDir = "O2GitHub_Temp_DownloadDir".tempDir();            
-            assert_Dir_Exists(tempDownloadDir);
+            tempDownloadDir.assert_Dir_Exists();            
         }
         [TearDown]
         public void teardown()
@@ -27,7 +27,7 @@ namespace UnitTests.FluentSharp.Web.ExtensionMethods
             Files.deleteAllFilesFromDir(tempDownloadDir);
             
             Files.deleteFolder         (tempDownloadDir);
-            assert_Dir_Not_Exists(tempDownloadDir);
+            tempDownloadDir.assert_Dir_Not_Exists();
         }
         /// <summary>
         /// Thread used to download a file from GitHub (will try a couple locations)
@@ -46,15 +46,15 @@ namespace UnitTests.FluentSharp.Web.ExtensionMethods
                     var localFilePath = tempDownloadDir.pathCombine(targetAssembly);
                     var webLocation = "{0}{1}".format(downloadLocation, targetAssembly).trim();
 
-                    assert_File_Not_Exists(localFilePath);                              // file shouln't be there before download
+                    localFilePath.assert_File_Not_Exists();                             // file shouln't be there before download
                     assert_True           (webLocation.httpFileExists());               // check that we can ping it
 
                     new O2Kernel_Web().downloadBinaryFile(webLocation, localFilePath);  // download file
 
-                    assert_File_Exists    (localFilePath);                              // file should be there now        
+                    localFilePath.assert_File_Exists();                                 // file should be there now        
                     
                     localFilePath.file_Delete();                                        // delete in order to not affect test_downloadThread tests 
-                    assert_File_Not_Exists(localFilePath);                              
+                    localFilePath.assert_File_Not_Exists();                              
                 };
             
             Action<string, bool> test_downloadThread = (file, shouldExist) =>
@@ -92,7 +92,7 @@ namespace UnitTests.FluentSharp.Web.ExtensionMethods
             var currentLocation = AssemblyResolver.NameResolver(targetAssembly);       // check if it has been downloaded before and delete it if it had
             if (currentLocation.fileExists())
                 currentLocation.file_Delete();
-            assert_File_Not_Exists(currentLocation);
+            currentLocation.assert_File_Not_Exists();
 
             if(targetAssembly.assembly().isNull())  // this test will only run once per appdomain (since after that the assembly is already going to exist in memory)
             {
@@ -109,7 +109,7 @@ namespace UnitTests.FluentSharp.Web.ExtensionMethods
             var currentLocation = AssemblyResolver.NameResolver(targetAssembly);       // check if it has been downloaded before and delete it if it had
             if (currentLocation.fileExists())
                 currentLocation.file_Delete();
-            assert_File_Not_Exists(currentLocation);
+            currentLocation.assert_File_Not_Exists();
 
 
             assert_Not_Null(AssemblyResolver.ExternalAssemblerResolver);
