@@ -19,6 +19,24 @@ The FluentSharp APIs are at the core of the [OWASP O2 Platform](https://www.owas
 O2 is designed to Automate Security Consultants Knowledge and Workflows and to Allow non-security experts to access and 
 consume Security Knowledge'
 
+## Nuget
+
+You can get all FluentSharp APIs via Nuget. For example  [FluentSharp.WatiN](https://www.nuget.org/packages/FluentSharp.WatiN) can be installed by typing this command in the VisualStudio Package Manager Console ```Install-Package FluentSharp.WatiN```
+
+Here are the main packages:
+
+* [FluentSharp.CoreLib](https://www.nuget.org/packages/FluentSharp.CoreLib)
+* [FluentSharp.REPL](https://www.nuget.org/packages/FluentSharp.REPL)
+* [FluentSharp.NUnit](https://www.nuget.org/packages/FluentSharp.NUnit)
+* [FluentSharp.WatiN](https://www.nuget.org/packages/FluentSharp.WatiN)
+* [FluentSharp.WatiN.NUnit](https://www.nuget.org/packages/FluentSharp.WatiN.NUnit)
+* [FluentSharp.CassiniDev.NUnit](https://www.nuget.org/packages/FluentSharp.CassiniDev.NUnit)
+* [FluentSharp.NGit](https://www.nuget.org/packages/FluentSharp.NGit)
+* [FluentSharp.WinForms](https://www.nuget.org/packages/FluentSharp.WinForms)
+* [FluentSharp.Moq](https://www.nuget.org/packages/FluentSharp.Moq)
+
+Full list of published Nuget packages [is here](https://www.nuget.org/profiles/DinisCruz) 
+
 ## Code Samples
 
 Here is where you can find tons of code samples and O2 releated posts
