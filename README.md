@@ -19,6 +19,34 @@ The FluentSharp APIs are at the core of the [OWASP O2 Platform](https://www.owas
 O2 is designed to Automate Security Consultants Knowledge and Workflows and to Allow non-security experts to access and 
 consume Security Knowledge'
 
+## Code Samples
+
+Here is where you can find tons of code samples and O2 releated posts
+
+* [O2 Web Scripting](https://github.com/o2platform/Book_WebAutomation/blob/master/O2Documentation.md) and [Developing WinForms in O2](https://github.com/o2platform/Book_WebAutomation/blob/master/WinForms.md) from the Book WebAutomation repository 
+* [O2 Platform posts](http://blog.diniscruz.com/search/label/O2%20Platform) at Dinis Cruz blog (217+ posts)
+* [O2 Plaftorm blog](http://o2platform.wordpress.com/) 200+ posts (older posts, not updated in a while, but still a good source of code examples and scripts)
+* [Exploiting Microsoft MVC vulnerabilities using OWASP O2 Platform](http://www.codeproject.com/Articles/471784/Exploiting-Microsoft-MVC-vulnerabilities-using-OWA)
+
+## Presentations:
+
+* [O2 platform and ASP.NET MVC, by Michael Hidalgo](www.slideshare.net/DinisCruz/o2-platform-and-aspnet-mvc-by-michael-hidalgo)
+* [Owasp o2 platform (smaller presentation) august 2011](www.slideshare.net/DinisCruz/owasp-o2-platform-smaller-presentation-august-2011)
+* [Owasp o2 platform november 2010](http://www.slideshare.net/DinisCruz/owasp-o2-platform-november-2010)
+* [O2 presentation jan 09 - v1.00](http://www.slideshare.net/DinisCruz/o2-presentation-jan-09-v100)
+
+## Mailing list and issues list
+
+If you want to ask questions about the O2 Platform or FluetnSHarp please use the https://groups.google.com/a/owasp.org/forum/#!forum/o2-platform.
+
+If you want to open an issue or want to help, please take a look at the issues currently opened and see if you can provide a fix for them:
+
+* [FluentSharp issues](https://github.com/o2platform/FluentSharp_Fork.WatiN/issues) - Issues for the main FluentSharp Projects: CoreLib, REPL,NUnit, etc...
+* [FluentSharp_Fork.WatiN](https://github.com/o2platform/FluentSharp_Fork.WatiN/issues) - Issues for the WatiN Extension Methods (Browser/IE automation)
+* [O2.Platform.Scripts](https://github.com/o2platform/O2.Platform.Scripts/issues) - Issues for the O2 Platform Scripts
+
+
+
 ### FluentSharp in Action: Example 1
 
 For example if you want to list all files from a particular directory you can just execute:
@@ -149,25 +177,7 @@ The code above when executed will look like this:
 
 Here is an example of how to use the FluentSharp REPL (also part of the O2 Development Environment) to develop and quickly execute the script above:
 
-
-
 ![](/Docs/Images/FluentSharp_ScriptExample_2.jpeg)
-
-## More code Samples
-
-Here is where you can find tons of code samples and O2 releated posts
-
-* [O2 Web Scripting](https://github.com/o2platform/Book_WebAutomation/blob/master/O2Documentation.md) and [Developing WinForms in O2](https://github.com/o2platform/Book_WebAutomation/blob/master/WinForms.md) from the Book WebAutomation repository 
-* [O2 Platform posts](http://blog.diniscruz.com/search/label/O2%20Platform) at Dinis Cruz blog (217+ posts)
-* [O2 Plaftorm blog](http://o2platform.wordpress.com/) 200+ posts (older posts, not updated in a while, but still a good source of code examples and scripts)
-* [Exploiting Microsoft MVC vulnerabilities using OWASP O2 Platform](http://www.codeproject.com/Articles/471784/Exploiting-Microsoft-MVC-vulnerabilities-using-OWA)
-
-## Presentations:
-
-* [O2 platform and ASP.NET MVC, by Michael Hidalgo](www.slideshare.net/DinisCruz/o2-platform-and-aspnet-mvc-by-michael-hidalgo)
-* [Owasp o2 platform (smaller presentation) august 2011](www.slideshare.net/DinisCruz/owasp-o2-platform-smaller-presentation-august-2011)
-* [Owasp o2 platform november 2010](http://www.slideshare.net/DinisCruz/owasp-o2-platform-november-2010)
-* [O2 presentation jan 09 - v1.00](http://www.slideshare.net/DinisCruz/o2-presentation-jan-09-v100)
 
 
 # GitHub Repositories
@@ -185,13 +195,6 @@ There a number of GitHub repositories used to host the multiple parts of the Flu
 
 There is also the https://github.com/o2platform/Book_WebAutomation which contains the first pass at creating an book about the O2 Platform and WatiN APIs
 
-# Being involved and Fixing Issues
-
-If you want to help (or learn C#) please take a look at the issues currently opened and see if you can provide a fix for them:
-
-* [FluentSharp issues](https://github.com/o2platform/FluentSharp_Fork.WatiN/issues) - Issues for the main FluentSharp Projects: CoreLib, REPL,NUnit, etc...
-* [FluentSharp_Fork.WatiN](https://github.com/o2platform/FluentSharp_Fork.WatiN/issues) - Issues for the WatiN Extension Methods (Browser/IE automation)
-* [O2.Platform.Scripts](https://github.com/o2platform/O2.Platform.Scripts/issues) - Issues for the O2 Platform Scripts
 
 
 
