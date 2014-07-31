@@ -1,50 +1,61 @@
-FluentSharp
-===========
+# FluentSharp
 
-FluentSharp are a number of APIs that dramatically simplifies the use of .NET Framework APIs. 
+FluentSharp are a number of Open Source .Net APIs that dramatically simplifies the use of .NET Framework APIs. 
 
-They makes extensive use of .NET ExtensionMethods and i reduces the amount of code required (while making it more readable).
+They makes extensive use of .NET ExtensionMethods and reduces the amount of code required (while making the original code more readable).
 
-By now, a large part of the .NET Framework is already covered by Fluent ExtensionMethods (String, Xml, IO, WinForms, 
+By now, a large part of the .NET Framework is covered by FluentSharp ExtensionMethods (String, Xml, IO, WinForms, 
 Reflection, etc..). 
 
-As an example, the reflection wrapper is probably one of the most powerful .NET Reflection APIs, since it provides 
-(via user-friendly methods) full access to all .NET classes, methods, properties, fields and enums 
+As an example, the FluentSharp .NET Reflection ExtensionMethods are very powerful, since they provide 
+(via user-friendly methods) full access to .NET classes, methods, properties, fields and enums 
 (regardless of their public/private status).
 
 
-* What is the O2 Platform
+## What is the OWASP O2 Platform
 
-These FluentSharp APIs are at the core of the O2 Platform which is usually described like this:
+The FluentSharp APIs are at the core of the [OWASP O2 Platform](https://www.owasp.org/index.php/OWASP_O2_Platform) which is usually described like this:
 'The O2 platform represents a new paradigm for how to perform, document and distribute Web Application security reviews. 
 O2 is designed to Automate Security Consultants Knowledge and Workflows and to Allow non-security experts to access and 
 consume Security Knowledge'
 
-**FluentSharp in Action: Example 1**
+### FluentSharp in Action: Example 1
 
 For example if you want to list all files from a particular directory you can just execute:
 
-```@"C:\O2".files();```
+```csharp 
+@"C:\O2".files();
+```
 
 ...if you wanted all files in all directories (i.e. recursive search), you would use:
 
-```@"C:\O2".files(true);````
+```csharp
+@"C:\O2".files(true);
+```
 
 ... all *.cs files:
 
-```@"C:\O2".files(true,"*.cs");```
+```csharp
+@"C:\O2".files(true,"*.cs");
+```
 
 ... all *.cs and *.h2 files:
 
-```@"C:\O2".files(true,"*.cs" ,"*.h2");```
+```csharp
+@"C:\O2".files(true,"*.cs" ,"*.h2");
+```
 
 ... show files in treeView:
 
-```new TreeView().add_Nodes(@"C:\O2".files(true,"*.cs","*.h2"));```
+```csharp
+new TreeView().add_Nodes(@"C:\O2".files(true,"*.cs","*.h2"));
+```
 
  ...show results in a popupWindow (i.e.  in Windows Form) with treeView showing files:
 
-```"New popup Window with TreeView".popupWindow().add_TreeView().add_Nodes(@"C:\O2".files(true,"*.cs","*.h2"));```
+```csharp
+"New popup Window with TreeView".popupWindow().add_TreeView().add_Nodes(@"C:\O2".files(true,"*.cs","*.h2"));
+```
 
 ... swow in popupWindow with the TreeVIew with files and a source code viewer that shows the selected file:
 
@@ -58,25 +69,29 @@ sourceCodeViewer.insert_Left(200)
 		.after_Selected<string>((file)=>sourceCodeViewer.open(file));
 ```
 
-I really like this way of programming since it makes it really easy read and understand what is going on.
+The key objective of this style of programming is to make it really easy read and understand what is going on.
 
-The way I write the extension methods that power these scripts is to focus on the Intent of the action, 
-and then hide all technology behind the scenes. And I keep doing this until there is nothing to take out.
+The way these extension methods are written is to focus on the Intent of the action, 
+and then hide all technology behind the scenes.
 
 For example in the last example, this code 
 
-```.add_TreeView().add_Nodes(targetFolder ,"*.cs","*.h2"), (file)=>file.fileName());```
+```csharp
+.add_TreeView().add_Nodes(targetFolder ,"*.cs","*.h2"), (file)=>file.fileName());
+```
 
 can be further refactored to:
 
-```.add_TreeView().add_Files(targetFolder ,"*.cs","*.h2");```
+```csharp
+.add_TreeView().add_Files(targetFolder ,"*.cs","*.h2");
+```
 
 
-**FluentSharp in Action: Example 2**
+### FluentSharp in Action: Example 2
 
 Here is a more complete example that shows these FluentSharp APIs in action (inside VisualStudio):
 
-```csharp```
+```csharp
 using System;
 using System.Linq;
 using System.Text;
@@ -128,7 +143,7 @@ namespace FluentSharp_Test
     }
 }
 ```
-The code above (see download section for the VS project) when executed will look like this:
+The code above when executed will look like this:
 
 ![](http://download.codeplex.com/download?ProjectName=fluentsharp&DownloadId=247370)
 
@@ -137,10 +152,23 @@ Here is an example of how to use the FluentSharp REPL (also part of the O2 Devel
 ![](http://download.codeplex.com/download?ProjectName=fluentsharp&DownloadId=247369)
 
 
+# GitHub Repositories
 
+There a number of GitHub repositories used to host the multiple parts of the FluentSharp and O2 Platform components:
 
-Being involved and Fixing Issues
-=============
+* https://github.com/o2platform/FluentSharp - main FluentSharp projects
+* https://github.com/o2platform/FluentSharp_Fork.WatiN - Watin ExtensionMethods
+* https://github.com/o2platform/FluentSharp_Fork.CassiniDev - Fork of Cassini with some bug fixes and lots of ExtensionMethods
+* https://github.com/o2platform/FluentSharp_Fork.SharpDevelopEditor - Fork of SharpDevelop Editor (which is used by the FluentSharp REPL)
+* https://github.com/o2platform/O2.Platform.Scripts - hundreds of Scripts exposed, consumed and developed via the O2 Platform UI
+* https://github.com/o2platform/FluentSharp.VisualStudio - VisualStudio Addin
+* https://github.com/o2platform/O2.Platform.Projects - a bit legacy (needs clean up)
+* https://github.com/o2platform/Web_CSharp_REPL - code for web repl that can be see at http://csharp-repl.apphb.com/1
+
+There is also the https://github.com/o2platform/Book_WebAutomation which contains the first pass at creating an book about the O2 Platform and WatiN APIs
+
+# Being involved and Fixing Issues
+
 If you want to help (or learn C#) please take a look at the issues currently opened and see if you can provide a fix for them:
 
 * [FluentSharp issues](https://github.com/o2platform/FluentSharp_Fork.WatiN/issues) - Issues for the main FluentSharp Projects: CoreLib, REPL,NUnit, etc...
@@ -148,8 +176,9 @@ If you want to help (or learn C#) please take a look at the issues currently ope
 * [O2.Platform.Scripts](https://github.com/o2platform/O2.Platform.Scripts/issues) - Issues for the O2 Platform Scripts
 
 
-Why Fluent?
-===========
+
+# Why Fluent?
+
 Rational and References for Fluent Interfaces, Fluent Programming
 
 The O2 Platform scripting environment makes extensive use of C# 3.0 features like Linq, Lambda and ExtensionMethods. 
