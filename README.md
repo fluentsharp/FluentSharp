@@ -145,11 +145,13 @@ namespace FluentSharp_Test
 ```
 The code above when executed will look like this:
 
-![](http://download.codeplex.com/download?ProjectName=fluentsharp&DownloadId=247370)
+![](/Docs/Images/FluentSharp_ScriptExample_1.jpeg)
 
 Here is an example of how to use the FluentSharp REPL (also part of the O2 Development Environment) to develop and quickly execute the script above:
 
-![](http://download.codeplex.com/download?ProjectName=fluentsharp&DownloadId=247369)
+
+
+![](/Docs/Images/FluentSharp_ScriptExample_2.jpeg)
 
 
 # GitHub Repositories
