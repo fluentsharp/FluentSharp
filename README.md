@@ -153,6 +153,22 @@ Here is an example of how to use the FluentSharp REPL (also part of the O2 Devel
 
 ![](/Docs/Images/FluentSharp_ScriptExample_2.jpeg)
 
+## More code Samples
+
+Here is where you can find tons of code samples and O2 releated posts
+
+* [O2 Web Scripting](https://github.com/o2platform/Book_WebAutomation/blob/master/O2Documentation.md) and [Developing WinForms in O2](https://github.com/o2platform/Book_WebAutomation/blob/master/WinForms.md) from the Book WebAutomation repository 
+* [O2 Platform posts](http://blog.diniscruz.com/search/label/O2%20Platform) at Dinis Cruz blog (217+ posts)
+* [O2 Plaftorm blog](http://o2platform.wordpress.com/) 200+ posts (older posts, not updated in a while, but still a good source of code examples and scripts)
+* [Exploiting Microsoft MVC vulnerabilities using OWASP O2 Platform](http://www.codeproject.com/Articles/471784/Exploiting-Microsoft-MVC-vulnerabilities-using-OWA)
+
+## Presentations:
+
+* [O2 platform and ASP.NET MVC, by Michael Hidalgo](www.slideshare.net/DinisCruz/o2-platform-and-aspnet-mvc-by-michael-hidalgo)
+* [Owasp o2 platform (smaller presentation) august 2011](www.slideshare.net/DinisCruz/owasp-o2-platform-smaller-presentation-august-2011)
+* [Owasp o2 platform november 2010](http://www.slideshare.net/DinisCruz/owasp-o2-platform-november-2010)
+* [O2 presentation jan 09 - v1.00](http://www.slideshare.net/DinisCruz/o2-presentation-jan-09-v100)
+
 
 # GitHub Repositories
 
