@@ -339,23 +339,24 @@ namespace FluentSharp.REPL.Utils
                 var lines = code.fix_CRLF().lines();
                 foreach (var originalLine in lines)
                 {
-                    string line = originalLine;
-                    originalLine.starts("//O2Include:", (includeText) => 
+                    var line = originalLine;                    
+                    if(originalLine.starts("//O2Include:"))
+                    {
+                        var includeText = line.subString_After("//O2Include:");
+                        var file = includeText;
+                        var baseFile = CompilerOptions.SourceCodeFile ?? PublicDI.CurrentScript;
+                        var parentFolder = baseFile.parentFolder();
+                        if (parentFolder.notValid())
+                            "[CSharpFastCompiled] in O2Include mapping, could not get parent folder of current script".error();
+                        var resolvedFile = CompileEngine.findFileOnLocalScriptFolder(file,parentFolder);
+                        if (resolvedFile.fileExists())
                         {
-                            var file = includeText;
-                            var baseFile = CompilerOptions.SourceCodeFile ?? PublicDI.CurrentScript;
-                            var parentFolder = baseFile.parentFolder();
-                            if (parentFolder.notValid())
-                                "[CSharpFastCompiled] in O2Include mapping, could not get parent folder of current script".error();
-                            var resolvedFile = CompileEngine.findFileOnLocalScriptFolder(file,parentFolder);
-                            if (resolvedFile.fileExists())
-                            {
-                                var fileContents = resolvedFile.contents();
-                                code = code.Replace(line, line.line().add(fileContents).line());
-                            }
-                            else
-                                "[CSharpFastCompiled] in O2Include mapping, could not a mapping for: {0}".error(includeText);
-                        });
+                            var fileContents = resolvedFile.contents();
+                            code = code.Replace(line, line.line().add(fileContents).line());
+                        }
+                        else
+                            "[CSharpFastCompiled] in O2Include mapping, could not a mapping for: {0}".error(includeText);
+                    };
                 }
 
                 var snippetParser = new SnippetParser(SupportedLanguage.CSharp);
@@ -374,32 +375,7 @@ namespace FluentSharp.REPL.Utils
                         var blockStatement = (BlockStatement)parsedCode;
 
                         var csharpCode = blockStatement.ast_CSharp_CreateCompilableClass(snippetParser, code,
-                                                                                         CompilerOptions, CompilerArtifacts, ExecutionOptions);
-                        /*this.compilationUnit().add_Type(this.default_TypeName())
-                                              .add_Method(this.default_MethodName(), this.invocationParameters(), CompilerOptions.ResolveInvocationParametersType, blockStatement);
-                        
-                        // remove comments from parsed code
-                        astCSharp = new Ast_CSharp(this.compilationUnit(), snippetParser.Specials);
-                        
-                        // add references included in the original source code file
-                        astCSharp.mapCodeO2References(CompilerOptions);
-
-                        astCSharp.mapAstDetails();
-
-                        astCSharp.ExtraSpecials.Clear();
-                        var method     = this.compilationUnit().method(this.default_MethodName());
-                        var returntype = method.returnType();
-                        var type       = this.compilationUnit().type(this.default_TypeName());
-                        
-                        type.Children.Clear();
-                        var tempBlockStatement = new BlockStatement();
-                        tempBlockStatement.add_Variable("a", 0);                        
-                        method.Body = tempBlockStatement;                      
-                        var newMethod = type.add_Method(this.default_MethodName(), this.invocationParameters(), CompilerOptions.ResolveInvocationParametersType, tempBlockStatement);
-                        newMethod.TypeReference = returntype;
-                        astCSharp.mapAstDetails();
-                        var csharpCode = astCSharp.AstDetails.CSharpCode
-                                                  .replace("Int32 a = 0;", code);*/
+                                                                                         CompilerOptions, CompilerArtifacts, ExecutionOptions);                        
 
                         this.astDetails(new Ast_CSharp(csharpCode).AstDetails);
                         this.createdFromSnippet(true);

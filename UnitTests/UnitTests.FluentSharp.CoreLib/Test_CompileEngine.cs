@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.APIs;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 using FluentSharp.CoreLib;
@@ -94,6 +95,19 @@ namespace UnitTests.FluentSharp.CoreLib
             Assert.IsTrue   (localScripts.hasKey(extraFileName.lower()));
             Assert.AreEqual (extraFileName.local(),extraFile);
             Assert.AreEqual (extraFileName.local().fileContents(),extraFileContents);
+        }
+        [Test] public void resolveCompilationReferencePath()
+        {
+            //testing NuGet assembly resolution (other parts of resolveCompilationReferencePath are missing)
+
+            var assemblyName = "FluentSharp.HtmlAgilityPack";
+            var nuGet =new API_NuGet();
+            nuGet.install(assemblyName);
+            nuGet.path_Package(assemblyName).assert_Folder_Exists();
+
+            CompileEngine.resolveCompilationReferencePath(assemblyName).assert_File_Exists()
+                                                                       .assert_Contains(assemblyName)
+                                                                       .fileName().assert_Is(assemblyName.append(".dll"));
         }
     }
 }

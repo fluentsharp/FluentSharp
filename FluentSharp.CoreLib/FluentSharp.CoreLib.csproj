@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FluentSharp.CoreLib.nuspec" />
+    <Compile Include="APIs\API_NuGet.cs" />
     <Compile Include="ExtensionMethods\AppDomain\AppDomain_ExtensionMethods_ExecuteCode.cs" />
     <Compile Include="ExtensionMethods\AppDomain\AppDomain_ExtensionMethods_Proxy_Objects.cs" />
     <Compile Include="ExtensionMethods\AppDomain\O2AppDomainFactory_ExtensionMethods.cs" />

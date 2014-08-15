@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
-using System.Reflection;
 using FluentSharp.CoreLib;
 using FluentSharp.WinForms.Utils;
 
@@ -17,7 +16,7 @@ namespace FluentSharp.WinForms
 
         public static DataTable add_Columns(this DataTable dataTable, params string[] columnsTitle)
         {
-            columnsTitle.forEach<string>((title) => dataTable.Columns.Add(title));
+            columnsTitle.forEach(title => dataTable.Columns.Add(title));
             return dataTable;
         }
 
@@ -40,12 +39,12 @@ namespace FluentSharp.WinForms
             if (typeof(T) == typeof(String))			// we need to handle string seperately since it is also an IEnumerable
             {
                 dataTable.add_Column("String");
-                collection.toList().forEach<string>((item) => dataTable.newRow(item));
+                collection.toList<string>().forEach(value => dataTable.newRow(value));
             }
             else
             {
                 var columnsToShowList = columnsToShow.ToList();
-                typeof(T).properties().forEach<PropertyInfo>(
+                typeof(T).properties().forEach(
                     (propertyInfo) =>
                     {
                         if (columnsToShow == null || columnsToShow.size() == 0 || columnsToShowList.Contains(propertyInfo.Name))
@@ -54,10 +53,11 @@ namespace FluentSharp.WinForms
 
                 foreach (var item in collection)
                 {
-                    var row = dataTable.newRow();
-                    dataTable.Columns.toList().forEach<DataColumn>(
+                    var row        = dataTable.newRow();
+                    var pinnedItem = item;
+                    dataTable.Columns.toList<DataColumn>().forEach(
                         (dataColumn) =>{
-                                            row[dataColumn.ColumnName] = item.property(dataColumn.ColumnName);
+                                            row[dataColumn.ColumnName] = pinnedItem.property(dataColumn.ColumnName);
                                         });
                 }
             }

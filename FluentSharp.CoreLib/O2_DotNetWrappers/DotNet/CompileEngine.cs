@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using FluentSharp.CoreLib.APIs;
 using Microsoft.CSharp;
 
 
@@ -939,8 +940,14 @@ namespace FluentSharp.CoreLib.API
                     resolvedFile = localReferenceFolder.pathCombine(reference + ".exe");
                     if (resolvedFile.fileExists())
                             return resolvedFile;                    
-                }
-                
+                }                
+            }
+            //as a final attempt try to find it on the NuGet folder
+            if (reference.contains("\\").isFalse())
+            { 
+                var nugetAssemblyFile = new API_NuGet().Packages_Folder.files(true,reference, reference+".dll",reference+".exe").first();
+                if (nugetAssemblyFile.notNull())
+                    return nugetAssemblyFile;
             }
             return reference;
         }

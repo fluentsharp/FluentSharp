@@ -206,7 +206,7 @@ namespace FluentSharp.WinForms.Utils
         public static void _Info(String sFormat, params Object[] oArgs)
         {
             if (bShowInfo)
-                    insertText("INFO: " + sFormat.format(oArgs), Color.Black);
+                    insertText("INFO : " + sFormat.format(oArgs), Color.Black);
         }
         public static void _Debug(String sFormat, params Object[] oArgs)
         {

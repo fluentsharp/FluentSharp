@@ -197,20 +197,20 @@ namespace FluentSharp.REPL.Controls
                        .add_MenuItem("enable /disabled 'Only Show Code Complete Results From O2 Namespace'", (menuitem) => enableDisableFullCodeComplete());
             contextMenu.add_MenuItem("code snippets (helper)")
                        .add_MenuItem("when compiling: Dont use Cached Assembly if available", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("when compiling: remove all auto references to O2 scripts and dlls (same as next two options)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       //.add_MenuItem("when compiling: don't include extra cs file (with extension methods)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("when compiling, only add referenced assemblies", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("when compiling, set InvocationParameters to dynamic", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("generate debug symbols (and create temp assembly)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("add using statement", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("add additional source code (when compile)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("add external reference (dll or exe or GAC assembly)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("run in STA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("run in MTA thread (when invoke)", (menuitem) => insertCodeSnipptet(menuitem.Text))
-                       .add_MenuItem("clear 'AssembliesCheckedIfExists' cache", (menuitem) => insertCodeSnipptet(menuitem.Text));
+                       .add_MenuItem("when compiling: remove all auto references to O2 scripts and dlls (same as next two options)", (menuitem) => insertCodeSnipptet(menuitem.Text))                       
+                       .add_MenuItem("when compiling, only add referenced assemblies"       , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("when compiling, set InvocationParameters to dynamic"  , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("generate debug symbols (and create temp assembly)"    , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("add using statement"                                  , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("add additional source code (when compile)"            , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("add external reference (dll or exe or GAC assembly)"  , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("add NuGet reference"                                  , (menuitem) => insertCodeSnipptet(menuitem.Text))                       
+                       .add_MenuItem("run in STA thread (when invoke)"                      , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("run in MTA thread (when invoke)"                      , (menuitem) => insertCodeSnipptet(menuitem.Text))
+                       .add_MenuItem("clear 'AssembliesCheckedIfExists' cache"              , (menuitem) => insertCodeSnipptet(menuitem.Text));
             contextMenu.add_MenuItem("This Script Editor")
-                        .add_MenuItem("REPL script this Script"                      , scriptTheCurrentScript)
-                        .add_MenuItem("REPL script this Script's codeComplete object", scriptTheCurrentScript_CodeComplete);
+                        .add_MenuItem("REPL script this Script"                             , scriptTheCurrentScript)
+                        .add_MenuItem("REPL script this Script's codeComplete object"       , scriptTheCurrentScript_CodeComplete);
             contextMenu.add_MenuItem("O2 Scripts")
                        //.add_MenuItem("Download/Update O2 Scripts (via http)", O2Scripts.downloadO2Scripts)
                        .add_MenuItem("O2 Script: find WinForms Control and REPL it ", ()=>"Util - Find WinForms Control and REPL it.h2".local().executeH2Script())
@@ -264,6 +264,9 @@ namespace FluentSharp.REPL.Controls
                     break;
                 case "add external reference (dll or exe or GAC assembly)":
                     commandsToExecute.insert_Text("".line() + "//O2Ref:".line());
+                    break;
+                case "add NuGet reference":
+                    commandsToExecute.insert_Text("".line() + "//NuGet:".line());
                     break;
                 case "run in STA thread (when invoke)":
                     commandsToExecute.insert_Text("".line() + "//StaThread:".line());

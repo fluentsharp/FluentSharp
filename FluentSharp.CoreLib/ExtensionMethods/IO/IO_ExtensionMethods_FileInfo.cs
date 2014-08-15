@@ -169,10 +169,10 @@ namespace FluentSharp.CoreLib
                 extension = extension.lower();
                 var fileExtension = file.extension();
 
-                if (extension.firstChar().equals("."))
-                    return fileExtension.equals(extension);
+                if (extension.firstChar().equal("."))
+                    return fileExtension.equal(extension);
                 
-                return fileExtension.equals(".".append(extension));                                
+                return fileExtension.equal(".".append(extension));                                
             }
             return false;
         }
@@ -291,7 +291,7 @@ namespace FluentSharp.CoreLib
         public static bool          fileName_Is(this string file, params string[] values)
         {
             var fileName = file.fileName();
-            return fileName.eq(values);
+            return fileName.equals(values);
         }
         public static bool          fileName_Contains(this string file, params string[] values)
         {

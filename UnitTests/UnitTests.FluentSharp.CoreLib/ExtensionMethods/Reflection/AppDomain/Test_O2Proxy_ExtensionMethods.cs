@@ -15,7 +15,7 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection.AppDomain
             if (appDomain.rootFolder().pathCombine("FluentSharp.CoreLib.dll").file_Not_Exists())
                 appDomain.isAssemblyLoaded("FluentSharp.CoreLib").assert_False(); 
 
-            var o2Proxy = appDomain.o2Proxy();
+            var o2Proxy = appDomain.o2Proxy(copyToAppDomainBaseDirectoryBeforeLoad:true);
             
             o2Proxy.assert_Not_Null();
 
@@ -25,10 +25,11 @@ namespace UnitTests.FluentSharp_CoreLib.ExtensionMethods.Reflection.AppDomain
         {
             var appDomain = "Temp_AppDomain".add_5_RandomLetters().appDomain_New().appDomain();           
 
-            appDomain.o2Proxy().assert_Not_Null()
-                               .assemblies().assert_Not_Empty()
-                                            .assert_Contains("FluentSharp.CoreLib")
-                                            .assert_Contains("mscorlib");
+            appDomain.o2Proxy(copyToAppDomainBaseDirectoryBeforeLoad :true)
+                                   .assert_Not_Null()
+                                   .assemblies().assert_Not_Empty()
+                                                .assert_Contains("FluentSharp.CoreLib")
+                                                .assert_Contains("mscorlib");
             
             appDomain.isAssemblyLoaded("FluentSharp.CoreLib").assert_True();            
         }

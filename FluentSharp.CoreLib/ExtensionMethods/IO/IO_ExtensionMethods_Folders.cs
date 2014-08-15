@@ -33,15 +33,17 @@ namespace FluentSharp.CoreLib
 			if(targetFolder.dirExists())
 				return targetFolder;
 			return null;
-		}
-        public static List<string>  folders(this string path)
-        {
-            return path.folders(false);
-        }
-        public static List<string>  folders(this string path, bool recursive)
+		}        
+        public static List<string>  folders(this string path, bool recursive = false)
         {
             return (path.isFolder())
                        ? Files.getListOfAllDirectoriesFromDirectory(path, recursive)
+                       : new List<string>();
+        }
+        public static List<string>  folders(this string path, string searchPattern, bool recursive = false)
+        {
+            return (path.isFolder())
+                       ? Files.getListOfAllDirectoriesFromDirectory(path, recursive, searchPattern)
                        : new List<string>();
         }
         
@@ -78,7 +80,7 @@ namespace FluentSharp.CoreLib
             return path.dirExists();
         }
         /// <summary>
-        /// Creates a file in the provided folder
+        /// Creates a file in the provided folder.
         /// 
         /// Returns path to created file.
         /// 

@@ -25,12 +25,11 @@ namespace FluentSharp.CoreLib
             value = "{{ {0} }}".format(value);
             return value;
         }
-        public static IList         forEach<T>(this IList list, Action<T> action)
+        public static IList<T>         forEach<T>(this IList<T> list, Action<T> callback)
         {            
-            if(list.notNull() && action.notNull())
-                foreach (var item in list)
-                    if (item is T)
-                        action((T)item);
+            if(list.notNull() && callback.notNull())
+                foreach (var item in list)                    
+                    callback(item);
             return list;
         }
         
@@ -120,7 +119,9 @@ namespace FluentSharp.CoreLib
         }
         public static List<T>       toList<T>(this IEnumerable list)
         {
-            return (from object item in list select (T) item).ToList();
+            return (from object item in list
+                    where item is T
+                    select (T) item).ToList();
         }
         public static List<string>  toList(this StringCollection stringCollection)
         {
@@ -415,10 +416,10 @@ namespace FluentSharp.CoreLib
             list.RemoveRange(start,end);
             return list;
         }	
-        public static List<T>   list<T>(this T item)
+        /*public static List<T>   list<T>(this T item)
         {
             return item.wrapOnList();
-        }		
+        }*/		
         public static List<T>   push<T>(this List<T> list, T value)
         {
             if (list.notNull())			

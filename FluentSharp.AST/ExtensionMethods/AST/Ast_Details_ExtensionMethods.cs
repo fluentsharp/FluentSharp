@@ -18,5 +18,12 @@ namespace FluentSharp.AST
             return (astDetails.notNull()) ?  astDetails.Methods : new List<AstValue<MethodDeclaration>>();
                 
         }
+        public static List<string> comments(this AstDetails astDetails)
+        {            
+            if(astDetails.isNotNull() && astDetails.Comments.notNull())
+                return (from comment in astDetails.Comments
+                        select comment.Text).toList();
+            return new List<string>();;
+        }
     }
 }

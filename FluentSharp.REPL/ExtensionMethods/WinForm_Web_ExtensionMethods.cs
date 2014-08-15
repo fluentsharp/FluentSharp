@@ -5,7 +5,7 @@ using FluentSharp.CoreLib;
 using FluentSharp.Web35;
 using FluentSharp.WinForms;
 
-namespace O2.FluentSharp.REPL.ExtensionMethods
+namespace FluentSharp.REPL.ExtensionMethods
 {
     public static class WinForm_Web_ExtensionMethods
     {

@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 
 namespace FluentSharp.CoreLib
@@ -34,5 +35,17 @@ namespace FluentSharp.CoreLib
         {
             return value.isTrue();
         }
+        public static bool     if_True(this bool value, Action callback)
+        {
+            if(value.isTrue())
+                callback.invoke();
+            return value;
+        }
+        public static bool     if_False(this bool value, Action callback)
+        {
+            if(value.isFalse())
+                callback.invoke();
+            return value;
+        }        
     }
 }

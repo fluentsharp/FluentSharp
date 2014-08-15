@@ -112,7 +112,7 @@ namespace UnitTests.FluentSharp.Git
         }
 
         [Test]//[Ignore("Needs hardcoded credentials")]
-        [Ignore("GitHub.com is down")]
+        //[Ignore("GitHub.com is down")]
         public void Clone_Private_Repo_With_Authentication_UserName_Pwd()
         {
             var hardCodedbadPWd = "pwd_123456!!!";
@@ -152,17 +152,13 @@ namespace UnitTests.FluentSharp.Git
         [Test]        
         public void Clone_Private_Repo_With_Authentication_SSH()
         {            
-            // in case this is set-up
-            //Environment.SetEnvironmentVariable("GIT_SSH", string.Empty, EnvironmentVariableTarget.Process);
-
-
-            var privateKey = @"C:\Users\o2\.ssh\id_rsa".fileContents();
-            var publicKey = @"C:\Users\o2\.ssh\id_rsa.pub".fileContents();
+            var privateKey = @"C:\Users\o2\.ssh\id_rsa";
+            var publicKey = @"C:\Users\o2\.ssh\id_rsa.pub";
 
             if (privateKey.fileExists().isFalse() || publicKey.fileExists().isFalse())
                 Assert.Ignore("Ignoring test because test SSH keys were not found");
 
-            var factory = new CustomConfigSessionFactory(publicKey, privateKey);
+            var factory = new CustomConfigSessionFactory(publicKey.fileContents(), privateKey.fileContents());
             SshSessionFactory.SetInstance(factory);
 
             
