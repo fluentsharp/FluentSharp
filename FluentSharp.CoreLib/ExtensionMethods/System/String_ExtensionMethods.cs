@@ -426,7 +426,9 @@ namespace FluentSharp.CoreLib
         }
 
         public static string    trim(this string target)
-        {   
+        {
+            if (target.isNull())
+                return String.Empty;
             if (target.valid())
                 return target.Trim();
             return target;
