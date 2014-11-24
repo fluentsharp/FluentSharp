@@ -349,13 +349,13 @@ namespace FluentSharp.CoreLib
         public static string    lower(this string value)
         {
             if (value.isNull())
-                return null;
+                return String.Empty;
             return value.ToLower();
         }
         public static string    upper(this string value)
         {
             if (value.isNull())
-                return null;
+                return String.Empty;
             return value.ToUpper();
         }
 
@@ -426,7 +426,7 @@ namespace FluentSharp.CoreLib
         }
 
         public static string    trim(this string target)
-        {           
+        {   
             if (target.valid())
                 return target.Trim();
             return target;

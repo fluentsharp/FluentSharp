@@ -112,6 +112,47 @@ namespace UnitTests.FluentSharp.CoreLib
             "123456".replaceAllWith(null ,"abc"   ).assert_Is("123456"    );            
             "123456".replaceAllWith("abc",null    ) .assert_Is("123456"   );
         }
-        
+        [Test] public void Test_toLower()
+        {
+            string input = "ABCD01234";
+            input.lower().assert_Is("abcd01234");
+
+            input = null;
+            input.lower().assert_Is_Empty();
+
+            string output = "";
+            output.add_RandomLetters(20);
+            string.Compare(output.lower(), output.ToLower(), StringComparison.InvariantCulture);
+
+            input = "abcd1234";
+            input.lower().equals(input).assert_True();
+        }
+        [Test] public void Test_toUpper()
+        {
+            string input = "ABCD1234";
+            input.upper().equals(input).assert_True();
+
+            input = null;
+            input.upper().assert_Is_Empty();
+
+            input = "abcd1234!@#$%";
+            input.upper().equals("ABCD1234!@#$%");
+
+            string output = "";
+            output.add_RandomLetters(20);
+            string.Compare(output.upper(), output.ToUpper(), StringComparison.InvariantCulture);
+
+        }
+        [Test] public void Test_trim()
+        {
+            string input = " ";
+            input.trim().assert_Is_Equal_To(input);
+
+            input = " a ";
+            input.trim().Length.eq(1).assert_True();
+
+            input = null;
+            input.trim().assert_Is_Empty();
+        }
     }
 }
