@@ -29,7 +29,7 @@ namespace FluentSharp.WinForms
         {
             var value = xElement.Value;
             if (value.valid())
-                xElement.Nodes().toList().forEach<XElement>(
+                xElement.Nodes().toList<XElement>().forEach(
                     (element) => value = value.replace(element.Value, ""));
             return value.trim();
         }
@@ -43,7 +43,7 @@ namespace FluentSharp.WinForms
                 (xElement) =>
                 {
                     treeView.current().clear();
-                    xElement.Nodes().toList().forEach<XElement>(
+                    xElement.Nodes().toList<XElement>().forEach(
                             (element) => treeView.current().add_Node(element));
 
                     xElement.Attributes().toList().forEach<XAttribute>(

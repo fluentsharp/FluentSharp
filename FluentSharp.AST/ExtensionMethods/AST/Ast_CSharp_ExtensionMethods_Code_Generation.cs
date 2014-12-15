@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.APIs;
 using FluentSharp.CSharpAST;
 using FluentSharp.CSharpAST.Utils;
 using ICSharpCode.NRefactory;
@@ -57,35 +58,21 @@ namespace FluentSharp.AST
         }
 
         public static Ast_CSharp mapCodeO2References(this Ast_CSharp astCSharp, CSharp_FastCompiler_CompilerOptions compilerOptions)
-        {            
-            bool onlyAddReferencedAssemblies = false;			
+        {                        		
             compilerOptions.ExtraSourceCodeFilesToCompile = new List<string>();                                
-            var compilationUnit = astCSharp.CompilationUnit;
-            compilerOptions.ReferencedAssemblies = new List<string>();
+            var compilationUnit = astCSharp.CompilationUnit;            
+            compilerOptions.ReferencedAssemblies = new List<string>();                  // this should be cleared in a more global location
+            compilerOptions.Extra_Using_Statements = new List<string>();                // same here
+
             var filesToDownload = new List<string>();
 
             var currentUsingDeclarations = new List<string>();
             foreach(var usingDeclaration in astCSharp.AstDetails.UsingDeclarations)
                 currentUsingDeclarations.Add(usingDeclaration.Text);        	
         	
-            foreach (var comment in astCSharp.AstDetails.Comments)
-            {
-                comment.Text.eq    ("O2Tag_OnlyAddReferencedAssemblies", () => onlyAddReferencedAssemblies = true);				
-                comment.Text.starts("using ", false, value => astCSharp.CompilationUnit.add_Using(value));
-                comment.Text.starts(new [] {"ref ", "O2Ref:"}, false,  value => compilerOptions.ReferencedAssemblies.Add(value));
-                comment.Text.starts(new[]  { "Download:","download:", "O2Download:" }, false, filesToDownload.Add);
-                comment.Text.starts(new[]  { "include", "file ", "O2File:" }, false, value => compilerOptions.ExtraSourceCodeFilesToCompile.Add(value));
-                comment.Text.starts(new[]  { "dir ", "O2Dir:" }, false, value => compilerOptions.ExtraSourceCodeFilesToCompile.AddRange(value.files("*.cs",true))); 
-               
-                comment.Text.starts(new[]  { "O2:debugSymbols",
-                    "generateDebugSymbols", 
-                    "debugSymbols"}, true, (value) => compilerOptions.generateDebugSymbols = true);
-                comment.Text.starts(new[]  {"SetInvocationParametersToDynamic"}, (value) => compilerOptions.ResolveInvocationParametersType = false);
-                comment.Text.starts(new[]  { "DontSetInvocationParametersToDynamic" }, (value) => compilerOptions.ResolveInvocationParametersType = true);                    
-                comment.Text.eq("StaThread", () => { compilerOptions.ExecuteInStaThread = true; });
-                comment.Text.eq("MtaThread", () => { compilerOptions.ExecuteInMtaThread = true; });
-                comment.Text.eq("WorkOffline", () => { compilerOptions.WorkOffline = true; });                
-            }
+            compilerOptions.mapOptionsDefinedInsideComments(astCSharp.AstDetails.comments())          
+                           .mapNuGetReferences()
+                           .Extra_Using_Statements.forEach (value => astCSharp.CompilationUnit.add_Using(value));
 
             //resolve location of ExtraSourceCodeFilesToCompile
             astCSharp.resolveFileLocationsOfExtraSourceCodeFilesToCompile(compilerOptions);
@@ -93,13 +80,14 @@ namespace FluentSharp.AST
             CompileEngine.handleReferencedAssembliesInstallRequirements(astCSharp.AstDetails.CSharpCode);
 
             //use the same technique to download files that are needed for this script (for example *.zip files or other unmanaged/support files)
-            CompileEngine.tryToResolveReferencesForCompilation(filesToDownload, compilerOptions.WorkOffline);            
+            CompileEngine.tryToResolveReferencesForCompilation(filesToDownload, compilerOptions.WorkOffline);     
+                   
 
-            if (onlyAddReferencedAssemblies.isFalse())
+            if (compilerOptions.onlyAddReferencedAssemblies.isFalse())
             {
                 foreach (var defaultRefAssembly in CompileEngine.DefaultReferencedAssemblies)
                     if (compilerOptions.ReferencedAssemblies.Contains(defaultRefAssembly).isFalse())
-                        compilerOptions.ReferencedAssemblies.add(defaultRefAssembly);
+                        compilerOptions.ReferencedAssemblies.add(defaultRefAssembly);                
                 foreach (var usingStatement in CompileEngine.DefaultUsingStatements)
                     if (false == currentUsingDeclarations.Contains(usingStatement))
                         compilationUnit.add_Using(usingStatement);
@@ -109,7 +97,59 @@ namespace FluentSharp.AST
             CompileEngine.tryToResolveReferencesForCompilation(compilerOptions.ReferencedAssemblies, compilerOptions.WorkOffline);            
             return astCSharp;
         }
-    
+        public static CSharp_FastCompiler_CompilerOptions mapOptionsDefinedInsideComments(this CSharp_FastCompiler_CompilerOptions compilerOptions, List<string> comments)
+        {
+            if (compilerOptions.isNull() || comments.empty())
+                return compilerOptions;
+
+            foreach (var comment in comments)
+            {
+                switch(comment)
+                {
+                    case "O2Tag_OnlyAddReferencedAssemblies"    : compilerOptions.onlyAddReferencedAssemblies     = true ; continue;     
+                    
+                    case "generateDebugSymbols"                 : compilerOptions.generateDebugSymbols            = true ; continue;                       
+
+                    case "SetInvocationParametersToDynamic"     : compilerOptions.ResolveInvocationParametersType = false; continue;
+                    case "DontSetInvocationParametersToDynamic" : compilerOptions.ResolveInvocationParametersType = true ; continue;
+                    case "StaThread"                            : compilerOptions.ExecuteInStaThread              = true ; continue;
+                    case "MtaThread"                            : compilerOptions.ExecuteInMtaThread              = true ; continue;
+                    case "WorkOffline"                          :  compilerOptions.WorkOffline                    = true ; continue;   
+                }
+                if(comment.starts("using "))
+                    compilerOptions.Extra_Using_Statements.add(comment.subString_After("using "));
+                else
+                {
+                    switch(comment.split(":").first())
+                    {
+                        case "O2Ref"     : compilerOptions.ReferencedAssemblies.add         (comment.subString_After("O2Ref:"     ))                   ; continue;
+                        case "O2Download": compilerOptions.FilesToDownload.add              (comment.subString_After("O2Download:"))                   ; continue;
+                        case "O2File"    : compilerOptions.ExtraSourceCodeFilesToCompile.add(comment.subString_After("O2File:"    ))                   ; continue;
+                        case "O2Dir"     : compilerOptions.ExtraSourceCodeFilesToCompile.add(comment.subString_After("O2Dir:"     ).files("*.cs",true)); continue;                            
+                        case "NuGet"     : compilerOptions.NuGet_References.add             (comment.subString_After("NuGet:"     ))                   ; continue;
+                    }
+                }
+            }
+            return compilerOptions;
+        }
+
+        public static CSharp_FastCompiler_CompilerOptions mapNuGetReferences(this CSharp_FastCompiler_CompilerOptions compilerOptions)
+        {
+            return compilerOptions.mapNuGetReferences(new API_NuGet());
+        }
+        public static CSharp_FastCompiler_CompilerOptions mapNuGetReferences(this CSharp_FastCompiler_CompilerOptions compilerOptions, API_NuGet nuGet)
+        {
+            foreach(var nugetReference  in compilerOptions.NuGet_References)
+            {
+                if(nuGet.does_Not_Have_Package(nugetReference))               
+                    nuGet.install(nugetReference);
+                var assemmbliesInsideNugetPackage = nuGet.path_Package(nugetReference).files(true,"*.exe", "*.dll");
+                if (assemmbliesInsideNugetPackage.empty())
+                    "[CSharp_FastCompiler_CompilerOptions][mapNuGetReferences] no assemblies found for Nuget package: {0}".error(nugetReference);
+                compilerOptions.ReferencedAssemblies.add(assemmbliesInsideNugetPackage);
+            }
+            return compilerOptions;
+        }
 
         /// <summary>
         /// From a provided C# code snippet (for example <code>2+2</code>) create a full compilable C# class file 

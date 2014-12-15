@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIs\Test_API_NuGet.cs" />
     <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="Config\Tests_Utils.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_DirectoryInfo.cs" />

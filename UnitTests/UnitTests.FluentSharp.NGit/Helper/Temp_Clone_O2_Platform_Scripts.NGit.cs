@@ -29,7 +29,7 @@ namespace UnitTests.FluentSharp.Git
         [Test]
         public void CheckThatRepoHasExpectedFiles()
         {
-            var fullPath1 = nGit.file_FullPath("README");
+            var fullPath1 = nGit.file_FullPath("README.md");
             var fullPath2 = nGit.file_FullPath(@"_DataFiles\_Images\O2_Logo.gif");
             Assert.IsTrue(fullPath1.fileExists());
             Assert.IsTrue(fullPath2.fileExists());            

@@ -51,7 +51,7 @@ namespace FluentSharp.CoreLib
             {
                 var stream = assembly.resourceStream(nameToFind, alsoMatchPartialNames);
                 if (stream.notNull())
-                    return null;
+                    return stream;
             }
                 
             return null;

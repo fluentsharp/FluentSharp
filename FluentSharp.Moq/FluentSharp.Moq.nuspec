@@ -3,7 +3,7 @@
     <metadata>
         <id>FluentSharp.Moq</id>
         <version>5.5.0.0</version>
-        <title>FluentSharp - NGit</title>
+        <title>FluentSharp - Moq</title>
         <authors>O2 Platform</authors>
         <owners>O2 Platform</owners>
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -25,6 +25,5 @@ This is the FluentSharp Moq which simplifies the use of the Moq API</description
               <dependency id="Moq" />
             </group>
         </dependencies>
-    </metadata>
-   
+    </metadata>   
 </package>

@@ -52,7 +52,7 @@ namespace FluentSharp.NUnit
         {
             if(target.contains(item))
             {                 
-                throw new AssertionException("target list ( {0} )should not contain item: {1}".format(target, item));
+                throw new AssertionException("target list ( {0} )should not contain item: {1}".format(target.toXml(), item));
             }
             return target;
         }

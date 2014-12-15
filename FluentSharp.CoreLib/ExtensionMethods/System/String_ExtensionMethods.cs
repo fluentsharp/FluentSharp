@@ -39,35 +39,79 @@ namespace FluentSharp.CoreLib
         {
             return value ? trueValue : falseValue;
         }
+        public static bool      equal(this string target, string value)
+        {
+            return target.equals(value);
+        }
+        /// <summary>
+        /// Returns true if one of the params values is equal to the target value
+        /// 
+        /// if both values are null, returns true
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
         public static bool      equals(this string target, params string[] values)
         {
-            return target.eq(values);
-        }
-        public static bool      eq(this string target, params string[] values)
-        {
-            if (target.isNull() || values.isNull())
+            if (target.isNull() && values.isNull())
+                return true;
+            if (values.isNull())
                 return false;
             return values.Any(value => target == value);
-        }        
-        public static void      eq(this string string1, string stringToFind, Action onMatch)
-        {
-            string1.eq(new [] {stringToFind}, onMatch);
-        }        
-        public static void      eq(this string string1, List<string> stringsToFind, Action onMatch)
-        {
-            string1.eq(stringsToFind.ToArray(), onMatch);
-        }
-        public static void      eq(this string string1, string[] stringsToFind, Action onMatch)
-        {
-            if (stringsToFind.Any(stringToFind => string1 == stringToFind))
-                onMatch();                
-        }
-
-        public static bool      neq(this string string1, string string2)
+        }                                
+        public static bool      not_Equal(this string string1, string string2)
         {
             return (string1 != string2);
         }    
-    
+        /// <summary>
+        /// Returns true if all values are not equal to the target
+        /// 
+        /// /// if both values are null, returns false
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static bool      not_Equals(this string target, params string[] values)
+        {
+            if (target.isNull() && values.isNull())
+                return false;
+            if (values.isNull())
+                return true;
+            return values.All(value => target != value);
+        }
+
+        public static string     if_Equal(this string target, string value, Action callback)
+        {
+            if(target.equal(value))
+                callback.invoke();
+            return target;
+        }
+        public static string     if_Equal(this string target, string value, Action<string> callback)
+        {
+            if(target.equal(value))
+                callback.invoke(value);
+            return target;
+        }
+        public static string     if_Starts(this string target, string value, Action callback)
+        {
+            if(target.starts(value))
+                callback.invoke();
+            return target;
+        }
+        /// <summary>
+        /// invokes callback if the target starts with value (note that the callback string is the target.subString_After(value)
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="value"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public static string     if_Starts(this string target, string value, Action<string> callback)
+        {
+            if(target.equal(value))
+                callback.invoke(target.subString_After(value));
+            return target;
+        }
+        
         /// <summary>
         /// Returns true if the provided string(s) were found in the provided target
         /// </summary>
@@ -107,28 +151,26 @@ namespace FluentSharp.CoreLib
             return target.contains_Not(value);
         }
 
-        public static bool      starts(this string textToSearch, List<string> stringsToFind)
+        public static bool      starts(this string textToSearch, IEnumerable<string> stringsToFind)
         {
             if (textToSearch.valid() && stringsToFind.notNull())
-                foreach(var stringToFind in stringsToFind)
-                    if (textToSearch.starts(stringToFind))
-                        return true;
+                return stringsToFind.Any(stringToFind => textToSearch.starts(new[] {stringToFind}));
             return false;
         }
-        public static bool      starts(this string stringToSearch, string stringToFind)
+        /*public static bool      starts(this string stringToSearch, string stringToFind)
         {
             if (stringToSearch.notValid() || stringToFind.notValid())
                 return false;
             return stringToSearch.StartsWith(stringToFind);
-        }
-        public static bool      starts(this string stringToSearch, string[] stringsToFind)
+        }*/
+        public static bool      starts(this string stringToSearch, params string[] stringsToFind)
         {
             if (stringToSearch.notValid() || stringsToFind.empty())
                 return false;
             return stringsToFind.Any(stringToSearch.StartsWith);
         }
 
-        public static void      starts(this string stringToSearch, string[] stringsToFind, Action<string> onMatch)
+        /*public static void      starts(this string stringToSearch, string[] stringsToFind, Action<string> onMatch)
         {
             stringToSearch.starts(stringsToFind, true, onMatch);
         }
@@ -162,7 +204,8 @@ namespace FluentSharp.CoreLib
                 }
             }
             return false;
-        }
+        }*/
+
         /*public static bool      nstarts(this string stringToSearch, string stringToFind)
         {
             return ! starts(stringToSearch, stringToFind);
@@ -587,8 +630,14 @@ namespace FluentSharp.CoreLib
             }
             return "";
         }
-
         public static string    subString_Before(this string stringToProcess, string untilString)
+        {
+            var lastIndex = stringToProcess.index(untilString);
+            return (lastIndex > 0)
+                        ? stringToProcess.subString(0, lastIndex)
+                        : stringToProcess;
+        }
+        public static string    subString_Before_Last(this string stringToProcess, string untilString)
         {
             var lastIndex = stringToProcess.indexLast(untilString);
             return (lastIndex > 0)
