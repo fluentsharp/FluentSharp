@@ -112,47 +112,43 @@ namespace UnitTests.FluentSharp.CoreLib
             "123456".replaceAllWith(null ,"abc"   ).assert_Is("123456"    );            
             "123456".replaceAllWith("abc",null    ) .assert_Is("123456"   );
         }
-        [Test] public void Test_toLower()
+        [Test] public void lower()
         {
-            string input = "ABCD01234";
+            var input = "ABCD01234";
             input.lower().assert_Is("abcd01234");
 
-            input = null;
-            input.lower().assert_Is_Empty();
+            (null as string).lower().assert_Is_Empty();
 
-            string output = "";
-            output.add_RandomLetters(20);
-            string.Compare(output.lower(), output.ToLower(), StringComparison.InvariantCulture);
+            var output = "".add_RandomLetters(20);
+            output.lower().assert_Is(output.ToLower());
 
             input = "abcd1234";
             input.lower().equals(input).assert_True();
         }
-        [Test] public void Test_toUpper()
+        [Test] public void upper()
         {
-            string input = "ABCD1234";
+            var input = "ABCD1234";
             input.upper().equals(input).assert_True();
-
-            input = null;
-            input.upper().assert_Is_Empty();
+            
+            (null as string).upper().assert_Is_Empty();
 
             input = "abcd1234!@#$%";
             input.upper().equals("ABCD1234!@#$%");
 
-            string output = "";
-            output.add_RandomLetters(20);
-            string.Compare(output.upper(), output.ToUpper(), StringComparison.InvariantCulture);
+            var output = "".add_RandomLetters(20);
+            output.upper().assert_Is(output.ToUpper());
 
         }
-        [Test] public void Test_trim()
+        [Test] public void trim()
         {
-            string input = " ";
-            input.trim().assert_Is_Equal_To(input);
-
-            input = " a ";
-            input.trim().Length.eq(1).assert_True();
-
-            input = null;
-            input.trim().assert_Is_Empty();
+            " ".trim().assert_Is("").assert_Is(String.Empty);
+            "    ".trim().assert_Is("").assert_Is(String.Empty);
+            "  a ".trim().assert_Is("a").assert_Size_Is(1);
+            " aa ".trim().assert_Is("aa");
+            "aa  ".trim().assert_Is("aa");
+            "a a ".trim().assert_Is("a a");
+            " a a".trim().assert_Is("a a");
+            (null as string).trim().assert_Is("").assert_Is(String.Empty);
         }
     }
 }
