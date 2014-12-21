@@ -8,18 +8,39 @@ namespace FluentSharp.CoreLib
 {
     public static class IO_ExtensionMethods_Folders
     {
+        /// <summary>
+        /// Given a valid folder path returns top directory name by calling <code>folder.filename()</code>
+        /// </summary>
+        /// <param name="folder">
+        /// Input is checked that it is not null or empty <code>string.IsNullOrEmpty(folder)</code> and <code>folder.isFolder()</code>
+        /// </param>
+        /// <returns></returns>
         public static string        folderName(this string folder)
         {
-            if (folder.isFolder())
-                return folder.fileName();
-            return null;
+            if (string.IsNullOrEmpty(folder) || !folder.isFolder())
+                return null;
+
+            return folder.fileName();
+           
         }		
+        /// <summary>
+        /// Given a valid path returns the parent folder
+        /// </summary>
+        /// <param name="path"></param>
+        /// Input is validated using <code>path.valid()</code> function
+        /// <returns></returns>
         public static string        parentFolder(this string path)
         {
             if (path.valid())
                 return path.directoryName();
             return null;
         }
+        /// <summary>
+        /// Given a file path or directory path opens the parent folder in windows explorer
+        /// </summary>
+        /// <param name="path"></param>
+        /// Input parameters is validated using <code>path.parentFolder().folder_Exists()</code>
+        /// <returns></returns>
         public static Process       parentFolder_Open_in_Explorer(this string path)
         {
             var parentFolder = path.parentFolder();
@@ -27,6 +48,12 @@ namespace FluentSharp.CoreLib
                 return parentFolder.startProcess();
             return null;
         }
+        /// <summary>
+        /// Checks if a folder exists in the current directory path.
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="folderName"></param>
+        /// <returns>If <code>basePath.pathCombine(folderName)</code> is a valid path then return it otherwise returns null</returns>
         public static string        folder(this string basePath, string folderName)
 		{
 			var targetFolder = basePath.pathCombine(folderName);
@@ -34,6 +61,11 @@ namespace FluentSharp.CoreLib
 				return targetFolder;
 			return null;
 		}
+        /// <summary>
+        /// Return a list of folders 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static List<string>  folders(this string path)
         {
             return path.folders(false);
