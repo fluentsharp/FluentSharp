@@ -191,6 +191,13 @@ namespace FluentSharp.CoreLib
         {
             return path.folderExists();
         }
+        /// <summary>
+        /// Checks if folder does not exist
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>
+        /// True if folder does not exist , false otherwise.
+        /// </returns>
         public static bool          folder_Not_Exists(this string path)
         {
             return path.folderExists().isFalse();
@@ -222,24 +229,47 @@ namespace FluentSharp.CoreLib
             }
             return folder;
         }
+        /// <summary>
+        /// Checks if folder exists
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>
+        /// Returns true if folder exists, false otherwise.
+        /// </returns>
         public static bool          folderExists(this string path)
         {
             return path.dirExists();
         }
+        /// <summary>
+        /// Checks if folder exists
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>
+        /// Returns true if folder exists, false otherwise.
+        /// </returns>
         public static bool          dirExists(this string path)
         {
             if (path.valid())
                 return Directory.Exists(path);
             return false;
-        }        
+        }
+        /// <summary>
+        /// Returns a list of folders found at current path.                
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static List<string>  dirs(this string path)
         {
             return path.folders(false);
         }
-
+        /// <summary>
+        /// Returns a new instance of <code>DirectoryInfo</code> class for a valid directory path
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
         public static DirectoryInfo directoryInfo(this string directoryPath)
         {
-            return new DirectoryInfo(directoryPath);
+            return string.IsNullOrEmpty(directoryPath) || directoryPath.folder_Not_Exists() ? null : new DirectoryInfo(directoryPath);
         }
 
         /// <summary>
@@ -268,10 +298,27 @@ namespace FluentSharp.CoreLib
             }
             return mappedPath;
         }
+        /// <summary>
+        /// Creates a temporary folder 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="appendRandomStringToFolderName"></param>
+        /// <returns>
+        /// If the path is valid then it will return newly created folder appended with a random string
+        /// Otherwise will return <code>PublicDI.config.O2TempDir</code> path
+        /// </returns>
         public static string temp_Folder(this string name, bool appendRandomStringToFolderName = true)
         {
             return name.temp_Dir(appendRandomStringToFolderName);
         }
+        /// <summary>
+        /// Creates a temporary folder 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="appendRandomStringToFolderName"></param>
+        /// <returns>If the path is valid then it will return newly created folder appended with a random string
+        /// Otherwise will return <code>PublicDI.config.O2TempDir</code> path
+        /// </returns>
         public static string temp_Dir(this string name, bool appendRandomStringToFolderName = true)
         {
             return name.tempDir(appendRandomStringToFolderName);

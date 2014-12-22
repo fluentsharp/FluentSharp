@@ -425,7 +425,7 @@ namespace FluentSharp.CoreLib
         {
             if (target.isNull())
                 return String.Empty;
-            return target.trim();
+            return target.Trim();
         }
         public static string    pad(this string targetString, int totalWidth)
         {
