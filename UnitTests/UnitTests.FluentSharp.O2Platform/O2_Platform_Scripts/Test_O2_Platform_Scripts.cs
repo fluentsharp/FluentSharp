@@ -23,7 +23,7 @@ namespace UnitTests.FluentSharp.O2Platform
 
             //check that expected O2.Platform.Scripts files are in there:
             var nGit      = o2PlatformScripts.nGit;            
-            var fullPath1 = nGit.file_FullPath("README");
+            var fullPath1 = nGit.file_FullPath("README.md");
             var fullPath2 = nGit.file_FullPath(@"_DataFiles\_Images\O2_Logo.gif");
             
             nGit     .assert_Not_Null   ();

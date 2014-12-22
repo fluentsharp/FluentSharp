@@ -71,10 +71,6 @@
       <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
       <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSharp.Moq\FluentSharp.Moq.csproj">
-      <Project>{35bd5c37-838f-4bd3-8ac0-e156097ff2f0}</Project>
-      <Name>FluentSharp.Moq</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FluentSharp.MsBuild\FluentSharp.MsBuild.csproj">
       <Project>{6b41807e-0d11-43ab-b679-2c777c6c763a}</Project>
       <Name>FluentSharp.MsBuild</Name>
@@ -114,6 +110,10 @@
     <ProjectReference Include="..\FluentSharp.WPF\FluentSharp.WPF.csproj">
       <Project>{874D79CB-629F-4E56-AB00-9836EB21F69C}</Project>
       <Name>FluentSharp.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSharp.Xml\FluentSharp.Xml.csproj">
+      <Project>{d93677d4-ea68-4931-8a23-21f42e0e71b3}</Project>
+      <Name>FluentSharp.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSharp.Zip\FluentSharp.Zip.csproj">
       <Project>{ed28a793-2efe-416b-839d-f85b637ab7ea}</Project>

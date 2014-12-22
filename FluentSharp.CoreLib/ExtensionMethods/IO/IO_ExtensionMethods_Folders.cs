@@ -18,7 +18,7 @@ namespace FluentSharp.CoreLib
         public static string        folderName(this string folder)
         {
             if (string.IsNullOrEmpty(folder) || !folder.isFolder())
-                return null;
+            return null;
 
             return folder.fileName();
            
@@ -60,28 +60,21 @@ namespace FluentSharp.CoreLib
 			if(targetFolder.dirExists())
 				return targetFolder;
 			return null;
-		}
-        /// <summary>
+		} /// <summary>
         /// Returns a list of folders found at current path.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static List<string>  folders(this string path)
-        {
-            return path.folders(false);
-        }
-        /// <summary>
-        /// Returns a list of folders found at current path.                
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="recursive">
-        /// This flag specifies whether the search  operation should include all subdirectories or only the current directory.
-        /// </param>
-        /// <returns></returns>
-        public static List<string>  folders(this string path, bool recursive)
+        public static List<string>  folders(this string path, bool recursive = false)
         {
             return (path.isFolder())
                        ? Files.getListOfAllDirectoriesFromDirectory(path, recursive)
+                       : new List<string>();
+        }
+        public static List<string>  folders(this string path, string searchPattern, bool recursive = false)
+        {
+            return (path.isFolder())
+                       ? Files.getListOfAllDirectoriesFromDirectory(path, recursive, searchPattern)
                        : new List<string>();
         }
         
@@ -137,7 +130,7 @@ namespace FluentSharp.CoreLib
             return path.dirExists();
         }
         /// <summary>
-        /// Creates a file in the provided folder
+        /// Creates a file in the provided folder.
         /// 
         /// Returns path to created file.
         /// 
@@ -252,7 +245,7 @@ namespace FluentSharp.CoreLib
             if (path.valid())
                 return Directory.Exists(path);
             return false;
-        }
+        }        
         /// <summary>
         /// Returns a list of folders found at current path.                
         /// </summary>

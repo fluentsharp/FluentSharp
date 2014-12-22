@@ -138,5 +138,20 @@ namespace UnitTests.FluentSharp_REPL
             Assert.AreEqual (parameterName, "parameterName");
             Assert.AreEqual (parameterType, "System.Object");        // note: in the source code the parameter is dynamic    
         }
+        [Test] public void Compile_Using_NuGet_Reference()
+        {
+            "return 42;"                          .compile_CodeSnippet().assert_Not_Null();
+            "//using FluentSharp.HtmlAgilityPack;".compile_CodeSnippet().assert_Null();
+            "//using Newtonsoft.Json;"            .compile_CodeSnippet().assert_Null();
+
+            @"return 42;
+              //using FluentSharp.HtmlAgilityPacK;
+              //NuGet:FluentSharp.HtmlAgilityPack".compile_CodeSnippet().assert_Not_Null();
+
+            @"return 42;
+              //using Newtonsoft.Json;
+              //NuGet:Newtonsoft.Json"           .compile_CodeSnippet().assert_Not_Null();
+            
+        }
     }
 }

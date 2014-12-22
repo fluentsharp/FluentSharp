@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods\Test_Ast_CSharp_ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\Test_Ast_CSharp_ExtensionMethods_Code_Generation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +54,10 @@
     <ProjectReference Include="..\..\FluentSharp.AST\FluentSharp.AST.csproj">
       <Project>{BC47F7C7-36F4-456F-BD3E-FE7CEFF05031}</Project>
       <Name>FluentSharp.AST</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>FluentSharp.CoreLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
       <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>

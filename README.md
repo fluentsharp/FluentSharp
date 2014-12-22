@@ -11,6 +11,7 @@ As an example, the FluentSharp .NET Reflection ExtensionMethods are very powerfu
 (via user-friendly methods) full access to .NET classes, methods, properties, fields and enums 
 (regardless of their public/private status).
 
+[How to clone and compile FluentSharp in VisualStudio 2013](https://github.com/o2platform/FluentSharp/issues/24)
 
 ## What is the OWASP O2 Platform
 

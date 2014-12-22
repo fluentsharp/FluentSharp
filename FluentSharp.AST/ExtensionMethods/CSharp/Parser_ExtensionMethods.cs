@@ -61,7 +61,7 @@ namespace FluentSharp.CSharpAST
         public static void runForEachAstParsingError(this string astParsingErrors, Action<int, int> runOnError)
         {
             foreach (var items in astParsingErrors.lines().split_onSpace())
-                if (items.size() > 5 && items[1].eq("line") && items[3].eq("col"))
+                if (items.size() > 5 && items[1].equals("line") && items[3].equal("col"))
                 {
                     runOnError(items[2].toInt(), items[4].toInt());
                 }

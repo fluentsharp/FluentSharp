@@ -160,7 +160,7 @@ namespace FluentSharp.CoreLib.API
         private static string saveAssemblyBytesToDisk(string name, byte[] assemblyBytes)
         {
             var saveAssemblyTo = PublicDI.config.EmbeddedAssemblies.createDir().pathCombine(name); //nameToFind);
-            if(saveAssemblyTo.extension().eq(".dll",".exe").isFalse())
+            if(saveAssemblyTo.extension().equals(".dll",".exe").isFalse())
                 saveAssemblyTo+=".dll";
             if (saveAssemblyTo.fileExists())
                 "Resource file already existed, so skipping it: {0}".info(saveAssemblyTo);

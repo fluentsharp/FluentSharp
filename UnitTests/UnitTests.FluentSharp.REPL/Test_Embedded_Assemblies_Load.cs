@@ -17,7 +17,7 @@ namespace UnitTests.FluentSharp_REPL
         [Test][Ignore("FluentSharp.REPL doesn't have Embedded assemblies anymore")]
         public void GetAssemblyFromResources()
         {
-            var testAssembly = "O2.FluentSharp.REPL._Embedded_Dlls.QuickGraph.dll";
+            var testAssembly = "FluentSharp.REPL._Embedded_Dlls.QuickGraph.dll";
             var fluentSharpREPL = typeof (CSharp_FastCompiler).Assembly;
             
             var resourceNames = fluentSharpREPL.embeddedResourceNames();

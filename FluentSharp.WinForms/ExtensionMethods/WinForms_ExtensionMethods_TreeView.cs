@@ -399,7 +399,7 @@ namespace FluentSharp.WinForms
 
         public static TreeView          expand(this TreeView treeView)
         {
-            treeView.Nodes.forEach<TreeNode>((node) => treeView.expand(node));
+            treeView.nodes().forEach((node) => treeView.expand(node));
             return treeView;
         }
         public static TreeView          expand(this TreeView treeView, TreeNode treeNode)
@@ -569,13 +569,15 @@ namespace FluentSharp.WinForms
         {            
             var nodes = new List<TreeNode>();
             if (treeView.notNull())
-                treeView.Nodes.forEach<TreeNode>((node) => nodes.Add(node));
+                treeView.Nodes.toList<TreeNode>()
+                              .forEach(nodes.Add);
             return nodes;
         }
         public static List<TreeNode>    nodes(this TreeNode treeNode)
         {
             var nodes = new List<TreeNode>();
-            treeNode.Nodes.forEach<TreeNode>((node) => nodes.Add(node));
+            if (treeNode.notNull())
+                treeNode.Nodes.toList<TreeNode>().forEach(nodes.Add);
             return nodes;
         }
         public static List<TreeNode>    nodes(this List<TreeNode> treeNodes)
