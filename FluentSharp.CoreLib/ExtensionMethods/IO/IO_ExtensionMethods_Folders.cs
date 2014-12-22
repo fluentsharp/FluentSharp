@@ -62,7 +62,7 @@ namespace FluentSharp.CoreLib
 			return null;
 		}
         /// <summary>
-        /// Return a list of folders 
+        /// Returns a list of folders found at current path.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -70,6 +70,14 @@ namespace FluentSharp.CoreLib
         {
             return path.folders(false);
         }
+        /// <summary>
+        /// Returns a list of folders found at current path.                
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="recursive">
+        /// This flag specifies whether the search  operation should include all subdirectories or only the current directory.
+        /// </param>
+        /// <returns></returns>
         public static List<string>  folders(this string path, bool recursive)
         {
             return (path.isFolder())
@@ -84,12 +92,26 @@ namespace FluentSharp.CoreLib
         /// <returns></returns>
         public static string        createDir(this string directory)
         {            
-            return Files.checkIfDirectoryExistsAndCreateIfNot(directory);            
+            return string.IsNullOrEmpty(directory) ? null: Files.checkIfDirectoryExistsAndCreateIfNot(directory);            
         }
+        /// <summary>
+        ///  checks if the provided directory exists and if not, calls <code>Files.checkIfDirectoryExistsAndCreateIfNot(directory);</code>
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
         public static string        createFolder(this string folder)
         {            
             return folder.createDir();
         }
+        /// <summary>
+        /// Given a <code>file.valid()</code> path returns directory name
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>
+        /// Returns directory name if the path is valid
+        /// If filepath is root or empty then returns null
+        /// Otherwise returns empty string.
+        /// </returns>
         public static string        directoryName(this string file)
         {
             if (file.valid())
@@ -105,6 +127,11 @@ namespace FluentSharp.CoreLib
             }
             return ""; 
         }
+        /// <summary>
+        /// Checks if a path is folder or a file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static bool          isFolder(this string path)
         {
             return path.dirExists();
@@ -137,6 +164,13 @@ namespace FluentSharp.CoreLib
             }
             return null;
         }
+        /// <summary>
+        /// Delete all files in current directory.
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns>
+        /// Returns true if folder is empty oterwhise returns false.
+        /// </returns>
         public static bool          folder_Delete_Files(this string folder)
         {
             if (folder.isFolder() && folder.files().notEmpty())
@@ -146,6 +180,13 @@ namespace FluentSharp.CoreLib
             }
             return false;
         }
+        /// <summary>
+        /// Checks if folder exists
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>
+        /// True if folder exists , false otherwise.
+        /// </returns>
         public static bool          folder_Exists(this string path)
         {
             return path.folderExists();
