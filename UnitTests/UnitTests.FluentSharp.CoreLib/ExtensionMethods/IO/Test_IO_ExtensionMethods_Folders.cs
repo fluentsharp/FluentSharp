@@ -18,14 +18,14 @@ namespace UnitTests.FluentSharp.CoreLib
         [TestFixtureSetUp]
         public void Initialize()
         {
-            rootDrive = string.Format(@"{0}:\", driveLetter);
-            if (string.IsNullOrEmpty(temporaryFolderPath))
+            rootDrive = @"{0}:\".format(driveLetter);
+            if (temporaryFolderPath.notValid())
             {
                 var randomPath = Path.GetRandomFileName().Replace(".", "");
                 temporaryFolderPath = string.Format(@"{0}{1}", rootDrive, randomPath);
             }
 
-            if (!Directory.Exists(temporaryFolderPath))
+            if (temporaryFolderPath.folder_Not_Exists())
             {
                 // It needs to create directory with specific rights in order to able to delete it after test execution
                 DirectorySecurity securityRules = new DirectorySecurity();
@@ -33,7 +33,7 @@ namespace UnitTests.FluentSharp.CoreLib
                 Directory.CreateDirectory(temporaryFolderPath, securityRules);
             }
 
-            if (string.IsNullOrEmpty(randomFilePath))
+            if (randomFilePath.notValid())
             {
                 randomFilePath = Path.GetRandomFileName();
             }
@@ -46,15 +46,18 @@ namespace UnitTests.FluentSharp.CoreLib
             randomFilePath.folderName().assert_Is_Null();
             "".folderName().assert_Is_Null();
             (null as string).folderName().assert_Is_Null();
+            var folderName = temporaryFolderPath.folderName();
+            rootDrive.pathCombine(folderName).folderName().assert_Is(folderName);
         }
 
         [Test]
         public void parentFolder()
         {
-            temporaryFolderPath.parentFolder().assert_Is_Not_Null();
-            randomFilePath.parentFolder().assert_Is_Empty();
-            "".parentFolder().assert_Is_Null();
-            (null as string).parentFolder().assert_Is_Null();
+            temporaryFolderPath.parent_Folder().assert_Is_Not_Null();
+            randomFilePath.parent_Folder().assert_Is_Empty();
+            "".parent_Folder().assert_Is_Null();
+            (null as string).parent_Folder().assert_Is_Null();
+            temporaryFolderPath.parent_Folder().assert_Is(rootDrive);
         }
 
         [Test]
@@ -69,7 +72,7 @@ namespace UnitTests.FluentSharp.CoreLib
         public void folder()
         {
             temporaryFolderPath.folder("".add_5_RandomLetters()).assert_Is_Null();
-            var parentFolder = temporaryFolderPath.parentFolder();
+            var parentFolder = temporaryFolderPath.parent_Folder();
             var folderName = temporaryFolderPath.folderName();
             parentFolder.folder(folderName).assert_Is_Equal_To(temporaryFolderPath);
             (null as string).folder(folderName).assert_Is_Null();
@@ -85,7 +88,6 @@ namespace UnitTests.FluentSharp.CoreLib
             temporaryFolderPath.folders(true).count().assert_Is_Equal_To(0);
             "".folders(true).count().assert_Is_Equal_To(0);
             (null as string).folders(true).count().assert_Is_Equal_To(0);
-
             rootDrive.folders(true).count().assert_Is_Not_Equal_To(0);
         }
 
@@ -101,9 +103,9 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test]
         public void createFolder()
         {
-            (null as string).createFolder().assert_Is_Null();
-            "".createFolder().assert_Is_Null();
-            "test_createDir".createFolder().assert_Is_Equal_To("test_createDir");
+            (null as string).create_Folder().assert_Is_Null();
+            "".create_Folder().assert_Is_Null();
+            "test_createDir".create_Folder().assert_Is_Equal_To("test_createDir");
             "test_createDir".delete_Folder().assert_True();
         }
 
@@ -112,7 +114,7 @@ namespace UnitTests.FluentSharp.CoreLib
         {
             (null as string).directoryName().assert_Is_Empty();
             "".directoryName().assert_Is_Empty();
-            temporaryFolderPath.directoryName().assert_Is_Equal_To(temporaryFolderPath.parentFolder());
+            temporaryFolderPath.directoryName().assert_Is_Equal_To(temporaryFolderPath.parent_Folder());
             rootDrive.directoryName().assert_Is_Null();
         }
 
@@ -176,11 +178,11 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test]
         public void folderExists()
         {
-            (null as string).folderExists().assert_Is_False();
-            "".folderExists().assert_Is_False();
-            temporaryFolderPath.folderExists().assert_Is_True();
+            (null as string).folder_Exists().assert_Is_False();
+            "".folder_Exists().assert_Is_False();
+            temporaryFolderPath.folder_Exists().assert_Is_True();
             randomFilePath.folder_Delete_Files().assert_Is_False();
-            rootDrive.folderExists().assert_Is_True();
+            rootDrive.folder_Exists().assert_Is_True();
         }
 
         [Test]

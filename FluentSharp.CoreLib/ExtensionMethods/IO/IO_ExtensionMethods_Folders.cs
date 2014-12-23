@@ -17,10 +17,7 @@ namespace FluentSharp.CoreLib
         /// <returns></returns>
         public static string        folderName(this string folder)
         {
-            if (string.IsNullOrEmpty(folder) || !folder.isFolder())
-            return null;
-
-            return folder.fileName();
+            return folder.isFolder() ? folder.fileName() : null;
            
         }		
         /// <summary>
@@ -29,11 +26,22 @@ namespace FluentSharp.CoreLib
         /// <param name="path"></param>
         /// Input is validated using <code>path.valid()</code> function
         /// <returns></returns>
-        public static string        parentFolder(this string path)
+        public static string        parent_Folder(this string path)
         {
             if (path.valid())
                 return path.directoryName();
             return null;
+        }
+        /// <summary>
+        /// Given a valid path returns the parent folder
+        /// </summary>
+        /// <param name="path"></param>
+        /// Input is validated using <code>path.valid()</code> function
+        /// <returns></returns>
+        [Obsolete("parentFolder is deprecated.Please use parent_Folder instead")]
+        public static string parentFolder(this string path)
+        {
+            return path.parent_Folder();
         }
         /// <summary>
         /// Given a file path or directory path opens the parent folder in windows explorer
@@ -49,7 +57,7 @@ namespace FluentSharp.CoreLib
             return null;
         }
         /// <summary>
-        /// Checks if a folder exists in the current directory path.
+        /// Combine two paths and checks if a folder exists in the merged directory path.
         /// </summary>
         /// <param name="basePath"></param>
         /// <param name="folderName"></param>
@@ -60,8 +68,9 @@ namespace FluentSharp.CoreLib
 			if(targetFolder.dirExists())
 				return targetFolder;
 			return null;
-		} /// <summary>
-        /// Returns a list of folders found at current path.
+		}
+        /// <summary>
+        /// It is searching recursive or non recursive for a list of folders in current path.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -71,6 +80,13 @@ namespace FluentSharp.CoreLib
                        ? Files.getListOfAllDirectoriesFromDirectory(path, recursive)
                        : new List<string>();
         }
+        /// <summary>
+        /// It is searching recursive or non recursive for a list of folders in current path by a specific search pattern.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="searchPattern"></param>
+        /// <param name="recursive"></param>
+        /// <returns></returns>
         public static List<string>  folders(this string path, string searchPattern, bool recursive = false)
         {
             return (path.isFolder())
@@ -85,16 +101,35 @@ namespace FluentSharp.CoreLib
         /// <returns></returns>
         public static string        createDir(this string directory)
         {            
-            return string.IsNullOrEmpty(directory) ? null: Files.checkIfDirectoryExistsAndCreateIfNot(directory);            
+            return Files.checkIfDirectoryExistsAndCreateIfNot(directory);            
         }
         /// <summary>
         ///  checks if the provided directory exists and if not, calls <code>Files.checkIfDirectoryExistsAndCreateIfNot(directory);</code>
         /// </summary>
         /// <param name="folder"></param>
         /// <returns></returns>
-        public static string        createFolder(this string folder)
+        public static string        create_Folder(this string folder)
         {            
             return folder.createDir();
+        }
+        /// <summary>
+        ///  checks if the provided directory exists and if not, calls <code>Files.checkIfDirectoryExistsAndCreateIfNot(directory);</code>
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        [Obsolete("createFolder is deprecated.Please use create_Folder instead")] 
+        public static string createFolder(this string folder)
+        {
+            return folder.create_Folder();
+        }
+        /// <summary>
+        ///  checks if the provided directory exists and if not, calls <code>Files.checkIfDirectoryExistsAndCreateIfNot(directory);</code>
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        public static string folder_Create(this string folder)
+        {
+            return folder.create_Folder();
         }
         /// <summary>
         /// Given a <code>file.valid()</code> path returns directory name
@@ -127,7 +162,25 @@ namespace FluentSharp.CoreLib
         /// <returns></returns>
         public static bool          isFolder(this string path)
         {
+            return path.is_Folder();
+        }
+        /// <summary>
+        /// Checks if a path is folder or a file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool is_Folder(this string path)
+        {
             return path.dirExists();
+        }
+        /// <summary>
+        /// Checks if a path is not folder or a file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool is_Not_Folder(this string path)
+        {
+            return path.dir_Not_Exists();
         }
         /// <summary>
         /// Creates a file in the provided folder.
@@ -174,17 +227,6 @@ namespace FluentSharp.CoreLib
             return false;
         }
         /// <summary>
-        /// Checks if folder exists
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns>
-        /// True if folder exists , false otherwise.
-        /// </returns>
-        public static bool          folder_Exists(this string path)
-        {
-            return path.folderExists();
-        }
-        /// <summary>
         /// Checks if folder does not exist
         /// </summary>
         /// <param name="path"></param>
@@ -193,7 +235,7 @@ namespace FluentSharp.CoreLib
         /// </returns>
         public static bool          folder_Not_Exists(this string path)
         {
-            return path.folderExists().isFalse();
+            return path.folder_Exists().isFalse();
         }
          /// <summary>
         /// Waits for a folder to be deleted from disk. 
@@ -229,9 +271,21 @@ namespace FluentSharp.CoreLib
         /// <returns>
         /// Returns true if folder exists, false otherwise.
         /// </returns>
-        public static bool          folderExists(this string path)
+        public static bool          folder_Exists(this string path)
         {
             return path.dirExists();
+        }
+        /// <summary>
+        /// Checks if folder exists
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>
+        /// Returns true if folder exists, false otherwise.
+        /// </returns>
+        [Obsolete("folderExists is deprecated.Please use folder_Exists instead.")]
+        public static bool folderExists(this string path)
+        {
+            return path.folder_Exists();
         }
         /// <summary>
         /// Checks if folder exists
@@ -245,9 +299,22 @@ namespace FluentSharp.CoreLib
             if (path.valid())
                 return Directory.Exists(path);
             return false;
-        }        
+        }
         /// <summary>
-        /// Returns a list of folders found at current path.                
+        /// Checks if folder exists
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>
+        /// Returns true if folder exists, false otherwise.
+        /// </returns>
+        public static bool dir_Not_Exists(this string path)
+        {
+            if (path.valid())
+                return !Directory.Exists(path);
+            return false;
+        }   
+        /// <summary>
+        /// It is searching non recursive for a list of folders in current path.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
