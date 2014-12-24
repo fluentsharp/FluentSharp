@@ -38,6 +38,11 @@ namespace UnitTests.FluentSharp.CoreLib
                 randomFilePath = Path.GetRandomFileName();
             }
         }
+        [TestFixtureTearDown]
+        public void CleanUp()
+        {
+            Files.delete_Folder_Recursively(temporaryFolderPath);
+        }
 
         [Test]
         public void folderName()
@@ -262,6 +267,12 @@ namespace UnitTests.FluentSharp.CoreLib
             (null as string).temp_Folder().assert_Equal(PublicDI.config.O2TempDir);
             ("").temp_Folder().assert_Equal(PublicDI.config.O2TempDir);
             "temp".temp_Folder(false).assert_Equal(Path.Combine(PublicDI.config.O2TempDir,"temp")).folder_Delete().assert_Is_True();
+            // Combining two paths ( e.g path1 = "C:\temp1" , path2 = "C:\temp2" using Path.Combine will return path2
+            @"C:\te".temp_Folder(false).dirExists().assert_Is_True();
+            @"C:\te".folder_Delete().assert_Is_True();
+            randomFilePath.temp_Folder(false).assert_Equal(Path.Combine(PublicDI.config.O2TempDir,randomFilePath));
+            randomFilePath.temp_Folder(false).folder_Delete().assert_Is_True();
+
 
         }
 
@@ -272,18 +283,14 @@ namespace UnitTests.FluentSharp.CoreLib
             rootDrive.temp_Dir().assert_Is_Not_Null().folder_Delete().assert_Is_True();
             (null as string).temp_Dir().assert_Equal(PublicDI.config.O2TempDir);
             ("").temp_Dir().assert_Equal(PublicDI.config.O2TempDir);
+            "temp".temp_Dir(false).assert_Equal(Path.Combine(PublicDI.config.O2TempDir, "temp")).folder_Delete().assert_Is_True();
+            // Combining two paths ( e.g path1 = "C:\temp1" , path2 = "C:\temp2" using Path.Combine will return path2
+            @"C:\te".temp_Dir(false).dirExists().assert_Is_True();
+            @"C:\te".folder_Delete().assert_Is_True();
+            randomFilePath.temp_Dir(false).assert_Equal(Path.Combine(PublicDI.config.O2TempDir, randomFilePath));
+            randomFilePath.temp_Dir(false).folder_Delete().assert_Is_True();
         }
 
-        [TestFixtureTearDown]
-        public void CleanUp()
-        {
-            if (!string.IsNullOrEmpty(temporaryFolderPath))
-            {
-                if (Directory.Exists(temporaryFolderPath))
-                {
-                    Directory.Delete(temporaryFolderPath, true);
-                }
-            }
-        }
+        
     }
 }
