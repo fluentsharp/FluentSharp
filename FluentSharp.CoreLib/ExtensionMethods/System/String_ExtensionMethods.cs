@@ -249,7 +249,7 @@ namespace FluentSharp.CoreLib
         }
         public static bool      valid(this string _string)
         {
-            if (_string != null && false == string.IsNullOrEmpty(_string))
+            if (!string.IsNullOrEmpty(_string))
                 if (_string.Trim() != "")
                     return true;
             return false;
@@ -391,15 +391,11 @@ namespace FluentSharp.CoreLib
         }
         public static string    lower(this string value)
         {
-            if (value.isNull())
-                return null;
-            return value.ToLower();
+            return value.isNull() ? String.Empty : value.ToLower();
         }
         public static string    upper(this string value)
         {
-            if (value.isNull())
-                return null;
-            return value.ToUpper();
+            return value.isNull() ? String.Empty : value.ToUpper();
         }
 
         public static string    lowerCaseFirstLetter(this string targetString)
@@ -469,10 +465,10 @@ namespace FluentSharp.CoreLib
         }
 
         public static string    trim(this string target)
-        {           
-            if (target.valid())
-                return target.Trim();
-            return target;
+        {
+            if (target.isNull())
+                return String.Empty;
+            return target.trim();
         }
         public static string    pad(this string targetString, int totalWidth)
         {
@@ -813,7 +809,7 @@ namespace FluentSharp.CoreLib
 			}
 		}		
 		public static byte[]    hexToBytes(this List<string> hexNumbers)
-		{
+		{   
 			var bytes = new List<byte>();
 			foreach(var hexNumber in hexNumbers)
 				bytes.add(hexNumber.hexToByte());
