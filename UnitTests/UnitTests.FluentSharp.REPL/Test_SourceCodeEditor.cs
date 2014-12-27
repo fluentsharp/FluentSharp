@@ -19,8 +19,10 @@ namespace UnitTests.FluentSharp_REPL
                                         .open_InCodeEditor();            
         }
         [TearDown]  public void tearDown()
-        {            
-            CodeEditor.close()
+        { 
+            if (CodeEditor.o2CodeCompletion.notNull() && CodeEditor.o2CodeCompletion.ParseCodeThread.notNull())
+                CodeEditor.o2CodeCompletion.ParseCodeThread.Abort();
+            CodeEditor.parentForm().close()
                       .waitForClose();
         }
 
