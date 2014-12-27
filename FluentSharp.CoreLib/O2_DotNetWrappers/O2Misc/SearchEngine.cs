@@ -166,7 +166,7 @@ namespace FluentSharp.CoreLib.API
             var tsrSearchResults = new List<TextSearchResult>();
             try
             {
-                var sbResult = new StringBuilder();
+                //var sbResult = new StringBuilder();
                 foreach (Regex rRegEx in lreRegExToSearch)
                 {
                     foreach (String sFileToSearch in dLoadedFilesCache.Keys)
