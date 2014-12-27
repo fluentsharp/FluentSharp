@@ -37,5 +37,13 @@ namespace FluentSharp.CoreLib.API
                         clr4() ? "4.0" : "3.5",
                         x86() ? "32" : "64");                       
         }
+		public static bool mono()
+		{
+			return Type.GetType ("Mono.Runtime").isNotNull();
+		}
+		public static bool not_Mono()
+		{
+			return mono().isFalse();
+		}
     }
 }

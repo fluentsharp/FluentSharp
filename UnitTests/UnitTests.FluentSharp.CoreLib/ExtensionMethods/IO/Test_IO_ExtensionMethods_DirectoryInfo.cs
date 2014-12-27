@@ -5,12 +5,21 @@ using System.Linq;
 using System.Text;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
+using FluentSharp.CoreLib.API;
+using FluentSharp.NUnit;
 
 namespace UnitTests.FluentSharp.CoreLib
 {
     [TestFixture]
     public class Test_IO_ExtensionMethods_DirectoryInfo
     {
+		[TestFixtureSetUp]
+		public void setup()
+		{
+			if (clr.mono())		
+				"ignoring tests since we are on mono".assert_Ignore();
+		}
+
         [Test(Description="Adds a Deny Write ACL for the User's Security group (to the provided folder)")]
         public void deny_Write_Users()
         {

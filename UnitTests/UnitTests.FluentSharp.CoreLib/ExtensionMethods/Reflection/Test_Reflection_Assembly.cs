@@ -51,15 +51,18 @@ namespace UnitTests.FluentSharp.CoreLib
             Assert.IsInstanceOf<NullReferenceException>(KO2Log.Last_Exception);
             KO2Log.Last_Exception = null;
             Assert.IsNull((null as string).assembly_AssemblyName());
-            Assert.IsNull(@"aaab\50\r\n".assembly_AssemblyName());
-            Assert.IsInstanceOf<FileLoadException>(KO2Log.Last_Exception);
+			if (clr.not_Mono ()) 
+			{
+				Assert.IsNull (@"aaab\50\r\n".assembly_AssemblyName ());
+				Assert.IsInstanceOf<FileLoadException> (KO2Log.Last_Exception);
+			}
         }
 
         [Test (Description = "Returns a PortableExecutableKind with the type of .Net assembly that the provided string is")]
         public void assembly_PortableExecutableKind()
         {
-            var location1 = this.type().assembly_Location();
-            var location2 = typeof(string).assembly_Location();
+            //var location1 = this.type().assembly_Location();
+            //var location2 = typeof(string).assembly_Location();
             var location3 = @"C:\noFileIshere.dll";
             var location4 = 40.randomChars();                        
             Assert.AreEqual(location3       .assembly_PortableExecutableKind(), PortableExecutableKinds.NotAPortableExecutableImage);

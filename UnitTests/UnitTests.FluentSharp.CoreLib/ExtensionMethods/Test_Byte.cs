@@ -47,7 +47,7 @@ namespace UnitTests.FluentSharp.CoreLib
 
             //byte with BOM
             var value8 = "a string value";
-            var value9 = "a string value".bytes_Ascii().insert_Bytes('\xEF','\xBB','\xBF');
+			var value9 = "a string value".bytes_Ascii().insert_Bytes((byte)'\xEF',(byte)'\xBB',(byte)'\xBF');
             
             Assert.AreEqual(value8, value8.bytes_Ascii().ascii());
             Assert.AreEqual(value8, value9.ascii());

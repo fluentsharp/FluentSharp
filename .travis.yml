@@ -1,0 +1,10 @@
+language: csharp
+solution: ./_vsSolutions/FluentSharp.CoreLib.sln
+
+install:
+  - sudo apt-get install nunit-console
+  - nuget restore ./_vsSolutions/FluentSharp.CoreLib.sln
+
+script:
+  - xbuild ./_vsSolutions/FluentSharp.CoreLib.sln
+  - nunit-console ./UnitTests/UnitTests.FluentSharp.CoreLib/bin/Debug/UnitTests.FluentSharp.CoreLib.dll

@@ -2,6 +2,7 @@
 using FluentSharp.CoreLib.APIs;
 using FluentSharp.NUnit;
 using NUnit.Framework;
+using FluentSharp.CoreLib.API;
 
 namespace UnitTests.FluentSharp_CoreLib.APIs
 {
@@ -34,23 +35,28 @@ namespace UnitTests.FluentSharp_CoreLib.APIs
         }
         [Test] public void help()
         {
+			if(clr.mono())
+				"Currently hanging on mono, although the nuget execution works (seems caused by not detecting that process has ended and console ReadToEnd not firing".assert_Ignore();
             new API_NuGet().help().assert_Not_Null()
                                   .assert_Contains("usage: NuGet <command> [args] [options]");            
         }
 
         [Test] public void list()
         {
+			if (clr.mono ())
+				"Same prob as help() method".assert_Ignore ();
+
             var nuGet = new API_NuGet();
 
             nuGet.list("FluentSharp").assert_Not_Empty()
-                                     .assert_Size_Is(28)
+                                     .assert_Size_Is(29)
                                      .assert_Equal_To(nuGet.packages_FluentSharp());
         }
         [Test] public void install()
         {
             var nuGet = new API_NuGet();
             nuGet.install("FluentSharp.CoreLib").assert_Not_Null()         .assert_Folder_Exists()
-                                                .pathCombine(@"lib\net35\").assert_Folder_Exists()
+											    .pathCombine(@"lib").pathCombine("net35").assert_Folder_Exists()
                                                 .files().first().fileName().assert_Is_Equal_To  ("FluentSharp.CoreLib.dll");
         }
         [Test] public void extract_Installed_PackageName()
