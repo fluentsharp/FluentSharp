@@ -31,13 +31,12 @@ namespace FluentSharp.CoreLib.APIs
 		public string execute(string command)
 		{
 			var nuGetExe = this.setup().NuGet_Exe;
-			if (Type.GetType ("Mono.Runtime").isNull ())
-				return nuGetExe.startProcess_getConsoleOut (command);
-			else 
+			if (clr.mono())				
 			{
 				var workingDirectory = nuGetExe.parentFolder();
 				return "mono".startProcess_getConsoleOut ("\"{0}\" {1}".format (nuGetExe, command), workingDirectory);
-			}
+			}		
+			return nuGetExe.startProcess_getConsoleOut (command);
 		}
     }
 
@@ -70,7 +69,7 @@ namespace FluentSharp.CoreLib.APIs
         }
         public static string help(this API_NuGet nuGet)
         {
-            return nuGet.execute("");
+            return nuGet.execute("help");
         }
         /// <summary>
         /// Returns the path to the package name provided (note that this doesn't handle very well the package version

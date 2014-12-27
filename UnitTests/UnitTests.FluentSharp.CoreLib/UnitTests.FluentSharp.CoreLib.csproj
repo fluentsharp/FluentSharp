@@ -78,6 +78,7 @@
     <Compile Include="Test_CompileEngine.cs" />
     <Compile Include="Test_O2Threads.cs" />
     <Compile Include="Test_Reflection.cs" />
+    <Compile Include="O2_Kernel\Test_clr.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
