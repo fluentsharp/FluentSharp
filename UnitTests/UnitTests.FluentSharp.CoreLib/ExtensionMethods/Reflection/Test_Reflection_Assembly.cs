@@ -58,8 +58,8 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test (Description = "Returns a PortableExecutableKind with the type of .Net assembly that the provided string is")]
         public void assembly_PortableExecutableKind()
         {
-            var location1 = this.type().assembly_Location();
-            var location2 = typeof(string).assembly_Location();
+            //var location1 = this.type().assembly_Location();
+            //var location2 = typeof(string).assembly_Location();
             var location3 = @"C:\noFileIshere.dll";
             var location4 = 40.randomChars();                        
             Assert.AreEqual(location3       .assembly_PortableExecutableKind(), PortableExecutableKinds.NotAPortableExecutableImage);

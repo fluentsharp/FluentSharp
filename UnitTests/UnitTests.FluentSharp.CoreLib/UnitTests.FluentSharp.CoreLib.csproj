@@ -33,10 +33,6 @@
     <SkipPostSharp>True</SkipPostSharp>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -46,6 +42,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\Test_API_NuGet.cs" />
@@ -81,16 +80,6 @@
     <Compile Include="Test_Reflection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
-      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
-      <Name>FluentSharp.CoreLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
-      <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>
-      <Name>FluentSharp.NUnit</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -101,4 +90,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\FluentSharp.CoreLib\FluentSharp.CoreLib.csproj">
+      <Project>{0A7CE0E0-B092-43B5-AB80-99BA909019C9}</Project>
+      <Name>FluentSharp.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FluentSharp.NUnit\FluentSharp.NUnit.csproj">
+      <Project>{0DA6B6B3-5BE3-4610-BB7B-EA9A4BAF27AF}</Project>
+      <Name>FluentSharp.NUnit</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
