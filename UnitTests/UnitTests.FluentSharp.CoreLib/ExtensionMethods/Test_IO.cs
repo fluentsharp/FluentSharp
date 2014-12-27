@@ -5,6 +5,7 @@ using System.IO;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
 using FluentSharp.CoreLib.API;
+using FluentSharp.NUnit;
 
 namespace UnitTests.FluentSharp_CoreLib
 {
@@ -81,6 +82,8 @@ namespace UnitTests.FluentSharp_CoreLib
         [Test(Description = "Adds the ReadOnly attribute from a particular file")]
         public void readOnly_Add()
         {
+			if(clr.mono())
+				"ignoring on mono".assert_Ignore();
             var testContent = "testContent".add_RandomLetters(200);
             testContent.saveAs(TempFile1);
             var fileInfo = TempFile1.fileInfo();
