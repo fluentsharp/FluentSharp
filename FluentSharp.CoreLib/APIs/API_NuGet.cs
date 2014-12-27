@@ -30,8 +30,14 @@ namespace FluentSharp.CoreLib.APIs
 		}
 		public string execute(string command)
 		{
-			return this.setup()
-                       .NuGet_Exe.startProcess_getConsoleOut(command);
+			var nuGetExe = this.setup().NuGet_Exe;
+			if (Type.GetType ("Mono.Runtime").isNull ())
+				return nuGetExe.startProcess_getConsoleOut (command);
+			else 
+			{
+				var workingDirectory = nuGetExe.parentFolder();
+				return "mono".startProcess_getConsoleOut ("\"{0}\" {1}".format (nuGetExe, command), workingDirectory);
+			}
 		}
     }
 
