@@ -2,7 +2,9 @@
 using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
 using NUnit.Framework;
+using System;
 using System.IO;
+using System.Reflection;
 using System.Security.AccessControl;
 
 namespace UnitTests.FluentSharp.CoreLib
@@ -117,14 +119,23 @@ namespace UnitTests.FluentSharp.CoreLib
         }
 
         [Test]
-        public void createFolder()
+        public void create_Folder()
         {
             (null as string).create_Folder().assert_Is_Null();
             "".create_Folder().assert_Is_Null();
             "test_createDir".create_Folder().assert_Is_Equal_To("test_createDir");
             "test_createDir".delete_Folder().assert_True();
         }
+        [Test]
+        [UnitTestMethodReference("create_Folder")]
+        public void createFolder()
+        {
+            MethodBase method = MethodBase.GetCurrentMethod();
+            UnitTestMethodReferenceAttribute attr = (UnitTestMethodReferenceAttribute)method.GetCustomAttributes(typeof(UnitTestMethodReferenceAttribute), true)[0];
+            attr.MethodToInvoke.invoke();
+        }
 
+        
         [Test]
         public void directoryName()
         {
@@ -197,15 +208,12 @@ namespace UnitTests.FluentSharp.CoreLib
         }
 
         [Test]
+        [UnitTestMethodReference("folder_Exists")]
         public void folderExists()
         {
-            (null as string).folderExists().assert_Is_False();
-            "".folderExists().assert_Is_False();
-            temporaryFolderPath.folderExists().assert_Is_True();
-            var newFolder = temporaryFolderPath.mapPath("newFolder").create_Folder();
-            newFolder.folderExists().assert_Is_True();
-            newFolder.delete_Folder().assert_Is_True();
-            rootDrive.folderExists().assert_Is_True();
+            MethodBase method = MethodBase.GetCurrentMethod();
+            UnitTestMethodReferenceAttribute attr = (UnitTestMethodReferenceAttribute)method.GetCustomAttributes(typeof(UnitTestMethodReferenceAttribute), true)[0];
+            attr.MethodToInvoke.invoke();
         }
 
         [Test]
@@ -279,18 +287,12 @@ namespace UnitTests.FluentSharp.CoreLib
         }
 
         [Test]
+        [UnitTestMethodReference("temp_Folder")]
         public void temp_Dir()
         {
-            temporaryFolderPath.temp_Dir().assert_Is_Not_Null().folder_Delete().assert_Is_True();
-            rootDrive.temp_Dir().assert_Is_Not_Null().folder_Delete().assert_Is_True();
-            (null as string).temp_Dir().assert_Equal(PublicDI.config.O2TempDir);
-            ("").temp_Dir().assert_Equal(PublicDI.config.O2TempDir);
-            "temp".temp_Dir(false).assert_Equal(Path.Combine(PublicDI.config.O2TempDir, "temp")).folder_Delete().assert_Is_True();
-            // Combining two paths ( e.g path1 = "C:\temp1" , path2 = "C:\temp2" using Path.Combine will return path2
-            @"C:\te".temp_Dir(false).dirExists().assert_Is_True();
-            @"C:\te".folder_Delete().assert_Is_True();
-            randomFilePath.temp_Dir(false).assert_Equal(Path.Combine(PublicDI.config.O2TempDir, randomFilePath));
-            randomFilePath.temp_Dir(false).folder_Delete().assert_Is_True();
+            MethodBase method = MethodBase.GetCurrentMethod();
+            UnitTestMethodReferenceAttribute attr = (UnitTestMethodReferenceAttribute)method.GetCustomAttributes(typeof(UnitTestMethodReferenceAttribute), true)[0];
+            attr.MethodToInvoke.invoke();
         }
 
         

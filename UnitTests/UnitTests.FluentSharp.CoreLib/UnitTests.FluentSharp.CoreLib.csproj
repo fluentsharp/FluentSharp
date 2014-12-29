@@ -50,6 +50,7 @@
     <Compile Include="APIs\Test_API_NuGet.cs" />
     <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="Config\Tests_Utils.cs" />
+    <Compile Include="Attributes\UnitTestMethodReferenceAttribute.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_DirectoryInfo.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_FileInfo.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_Folders.cs" />
