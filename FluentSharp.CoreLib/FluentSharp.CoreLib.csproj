@@ -240,6 +240,7 @@
     <Compile Include="O2_Kernel\Objects\O2Proxy.cs" />
     <Compile Include="O2_Kernel\PublicDI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TmpKey.snk" />

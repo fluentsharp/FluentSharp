@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using FluentSharp.CoreLib;
 using NUnit.Framework;
+using FluentSharp.CoreLib.API;
+using FluentSharp.NUnit;
 
 namespace UnitTests.FluentSharp_CoreLib
 {
@@ -80,6 +82,8 @@ namespace UnitTests.FluentSharp_CoreLib
         [Test(Description = "Adds the ReadOnly attribute from a particular file")]
         public void readOnly_Add()
         {
+			if(clr.mono())
+				"ignoring on mono".assert_Ignore();
             var testContent = "testContent".add_RandomLetters(200);
             testContent.saveAs(TempFile1);
             var fileInfo = TempFile1.fileInfo();
@@ -165,9 +169,9 @@ namespace UnitTests.FluentSharp_CoreLib
         [Test(Description = "Combine two paths (usually a folder and a filename")]
         public void pathCombine()
         {
-            var folder1 = @"C:\aaa";
+			var folder1 = clr.mono() ? "/Users/aaa" : @"C:\aaa";
             var file1 = "text.txt";
-            var expected1 = @"C:\aaa\text.txt";
+			var expected1 = clr.mono() ? "/Users/aaa/text.txt" : @"C:\aaa\text.txt";
 
             Assert.AreEqual(folder1.pathCombine(file1), expected1);
 
@@ -175,9 +179,12 @@ namespace UnitTests.FluentSharp_CoreLib
             var largePath = folder1.pathCombine(largeFile);
             Assert.Greater(255, largePath.size());
 
-            //should not handle bad chars
-            var unsafeString = 40.randomString() + ":*\aaa";
-            Assert.Throws<ArgumentException>(()=> folder1.pathCombine(unsafeString));
+            
+			if (clr.not_Mono()) //should not handle bad chars
+			{
+            	var unsafeString = 40.randomString() + ":*\aaa";
+            	Assert.Throws<ArgumentException>(()=> folder1.pathCombine(unsafeString));
+			}
 
             var bigFolder1 = @"C:\aaa".add_RandomLetters(250);
 

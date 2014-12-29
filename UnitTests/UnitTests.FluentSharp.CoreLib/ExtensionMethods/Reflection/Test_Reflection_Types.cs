@@ -114,8 +114,9 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test(Description="returns the Type FullName of an object")]
         public void typeFullName()
         {
+			var expectedType = clr.mono () ? "System.MonoType" : "System.RuntimeType";
             assert_Are_Equal  (""            .typeFullName(),"System.String");
-            assert_Are_Equal  ("".type()     .typeFullName(),"System.RuntimeType");
+			assert_Are_Equal  ("".type()     .typeFullName(),expectedType);
             assert_Are_Equal  ((null as Type).typeFullName(), "");
             assert_Is_Not_Null((null as Type).typeFullName());
         }
@@ -123,8 +124,9 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test(Description="returns the Type Name of an object")]
         public void typeName()
         {
+			var expectedTypeName = clr.mono () ? "MonoType" : "RuntimeType";
             assert_Are_Equal  (""            .typeName(),"String");
-            assert_Are_Equal  ("".type()     .typeName(),"RuntimeType");
+			assert_Are_Equal  ("".type()     .typeName(),expectedTypeName);
             assert_Are_Equal  ((null as Type).typeName(), "");
             assert_Is_Not_Null((null as Type).typeName());
         }
@@ -145,12 +147,13 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test(Description="returns the Types in an Assembly, Type or List of of Objects")]
         public void types()
         {
+			var expectedTypeName = clr.mono () ? "MonoType" : "RuntimeType";
             //types(this Assembly assembly)
             var assembly = "".type().assembly();        
             var types = assembly.types();       
 
             assert_Are_Equal  (assembly.name(),"mscorlib"); // assumes that mscorlib as 3017 types
-            types.size().assert_Is_Greater(3017);        
+            types.size().assert_Is_Greater(2017);        
             assert_Is_Empty   ((null as Assembly).types());
             assert_Is_Not_Null((null as Assembly).types());
 
@@ -166,9 +169,9 @@ namespace UnitTests.FluentSharp.CoreLib
             assert_Are_Equal  (listTypes.size(),5);   
             assert_Are_Equal  (listTypes.first() .name(), "String");
             assert_Are_Equal  (listTypes.second().name(), "Int32" );
-            assert_Are_Equal  (listTypes.third() .name(), "RuntimeType"); 
+			assert_Are_Equal  (listTypes.third() .name(), expectedTypeName); 
             assert_Are_Equal  (listTypes.fourth().name(), ""); 
-            assert_Are_Equal  (listTypes.fifth() .name(), "RuntimeType"); 
+			assert_Are_Equal  (listTypes.fifth() .name(), expectedTypeName); 
             assert_Is_Empty   ((null as List<Object>).types());
             assert_Is_Not_Null((null as List<Object>).types());
         }
@@ -176,11 +179,12 @@ namespace UnitTests.FluentSharp.CoreLib
         [Test(Description="returns all Types with a particular BaseType")]
         public void withBaseType()
         {
+			var expectedTypeName = clr.mono () ? "PrimalityTest" : "Action`1";
             var assembly = "".type().assembly();
             var withBaseTypes = assembly.withBaseType<MulticastDelegate>();
             assert_Is_Not_Empty(withBaseTypes);
             withBaseTypes.size().assert_Is_Bigger(60);
-            assert_Are_Equal   (withBaseTypes.first().name(), "Action`1");
+			assert_Are_Equal   (withBaseTypes.first().name(), expectedTypeName);
         }
     }
 }

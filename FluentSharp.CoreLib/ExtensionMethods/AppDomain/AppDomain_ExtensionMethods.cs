@@ -124,7 +124,8 @@ namespace FluentSharp.CoreLib
         }
         public static bool          isAssemblyLoaded         (this AppDomain appDomain, string assemblyName)
         {
-            return appDomain.assemblies().contains(assemblyName);
+            var assemblies =  appDomain.assemblies();
+            return assemblies.contains(assemblyName);
         }
         public static bool          isAssemblyNotLoaded     (this AppDomain appDomain, string assemblyName)
         {

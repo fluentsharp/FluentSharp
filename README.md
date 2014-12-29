@@ -1,4 +1,4 @@
-# FluentSharp
+# FluentSharp [![Build Status](https://travis-ci.org/o2platform/FluentSharp.svg?branch=master)](https://travis-ci.org/o2platform/FluentSharp)
 
 FluentSharp are a number of Open Source .Net APIs that dramatically simplifies the use of .NET Framework APIs. 
 
