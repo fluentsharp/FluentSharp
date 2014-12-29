@@ -18,6 +18,8 @@ namespace UnitTests.FluentSharp.CoreLib
         [TestFixtureSetUp]
         public void Initialize()
         {
+            if (clr.mono())
+                "ignoring on mono".assert_Ignore();
             rootDrive = @"{0}:\".format(driveLetter);
             if (temporaryFolderPath.notValid())
             {
