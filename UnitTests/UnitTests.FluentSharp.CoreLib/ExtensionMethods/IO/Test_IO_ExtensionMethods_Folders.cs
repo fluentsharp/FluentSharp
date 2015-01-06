@@ -1,5 +1,6 @@
 ﻿using FluentSharp.CoreLib;
 using FluentSharp.CoreLib.API;
+using FluentSharp.CoreLib.O2_DotNetWrappers.Windows;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 using System;
@@ -73,6 +74,11 @@ namespace UnitTests.FluentSharp.CoreLib
         public void parentFolder_Open_in_Explorer()
         {
             temporaryFolderPath.parentFolder_Open_in_Explorer().assert_Is_Not_Null();
+            var openWindowsWithText = Window.FindWindowsWithText(driveLetter + ":"); 
+            if(!openWindowsWithText.empty())
+            {
+                openWindowsWithText.forEach(x => Window.CloseWindow(x));
+            }
             "".parentFolder_Open_in_Explorer().assert_Is_Null();
             (null as string).parentFolder_Open_in_Explorer().assert_Is_Null();
         }
