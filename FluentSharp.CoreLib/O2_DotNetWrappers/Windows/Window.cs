@@ -22,7 +22,7 @@ namespace FluentSharp.CoreLib.O2_DotNetWrappers.Windows
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder strText, int maxCount);
        
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll")] 
         public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
         public static string GetWindowText(IntPtr hWnd)
         {
