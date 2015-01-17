@@ -16,7 +16,7 @@ namespace UnitTests.FluentSharp.CoreLib
         public UnitTestMethodReferenceAttribute(string methodName)
         {
             var method = Assembly.GetExecutingAssembly()
-                        .methods().first(x => x.Name == methodName);
+                                                  .methods().first(x => x.Name == methodName);
             if (method.isNotNull())
                 MethodToInvoke = method;
             else

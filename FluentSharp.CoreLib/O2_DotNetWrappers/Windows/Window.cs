@@ -11,16 +11,16 @@ namespace FluentSharp.CoreLib.O2_DotNetWrappers.Windows
 {
     public class Window
     {
-        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+        public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
         public const int WM_COMMAND = 0x0112;
         public const int WM_CLOSE = 0xF060;
 
         [DllImport("user32.dll")]
-        private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+        public static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern int GetWindowTextLength(IntPtr hWnd);
+        public static extern int GetWindowTextLength(IntPtr hWnd);
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder strText, int maxCount);
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder strText, int maxCount);
        
         [DllImport("user32.dll")] 
         public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);

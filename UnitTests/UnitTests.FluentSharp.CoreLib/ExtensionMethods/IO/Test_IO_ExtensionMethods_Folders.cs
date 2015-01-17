@@ -223,16 +223,12 @@ namespace UnitTests.FluentSharp.CoreLib
         }
 
         [Test]
+        [UnitTestMethodReference("folder_Exists")]
         public void dirExists()
         {
-            (null as string).dirExists().assert_Is_False();
-            "".dirExists().assert_Is_False();
-            temporaryFolderPath.dirExists().assert_Is_True();
-            randomFilePath.folder_Delete_Files().assert_Is_False();
-            rootDrive.dirExists().assert_Is_True();
-            var newFolder = temporaryFolderPath.mapPath("newFolder").create_Folder();
-            newFolder.dirExists().assert_Is_True();
-            newFolder.delete_Folder().assert_Is_True();
+            MethodBase method = MethodBase.GetCurrentMethod();
+            UnitTestMethodReferenceAttribute attr = (UnitTestMethodReferenceAttribute)method.GetCustomAttributes(typeof(UnitTestMethodReferenceAttribute), true)[0];
+            attr.MethodToInvoke.invoke();
         }
 
         [Test]
