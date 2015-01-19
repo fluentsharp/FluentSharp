@@ -666,7 +666,7 @@ namespace FluentSharp.REPL.Controls
             var code = "return script.Code;";
             this.script_Me("script").set_Code(code);
 
-            /*var topPanel = "PoC - Script the Script".popupWindow(700, 400);
+            /*var topPanel = "directoryInfo Script".popupWindow(700, 400);
 
             var scriptHost = topPanel.title("Script").add_Script(false);
             scriptHost.onCompileExecuteOnce();
