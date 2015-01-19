@@ -50,8 +50,10 @@
     <Compile Include="APIs\Test_API_NuGet.cs" />
     <Compile Include="Config\Tests_Setup.cs" />
     <Compile Include="Config\Tests_Utils.cs" />
+    <Compile Include="Attributes\UnitTestMethodReferenceAttribute.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_DirectoryInfo.cs" />
     <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_FileInfo.cs" />
+    <Compile Include="ExtensionMethods\IO\Test_IO_ExtensionMethods_Folders.cs" />
     <Compile Include="ExtensionMethods\Reflection\AppDomain\Test_O2Proxy_ExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\Reflection\Test_Reflection_Assembly.cs" />
     <Compile Include="ExtensionMethods\Reflection\Test_Reflection_ExtensionMethods_Ctor.cs" />
@@ -82,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -482,8 +482,10 @@ namespace FluentSharp.CoreLib.API
         }
         public static String checkIfDirectoryExistsAndCreateIfNot(String directory)
         {
+            if (string.IsNullOrEmpty(directory))
+                return null;
             try
-            {                
+            {
                 if (Directory.Exists(directory))
                     return directory;
                 Directory.CreateDirectory(directory);
@@ -494,7 +496,7 @@ namespace FluentSharp.CoreLib.API
             {
                 PublicDI.log.error("Could not create directory: {0} ({1})", directory, e.Message);
             }
-            return "";
+            return null;
         }
         /*   public static List<String> loadSourceFileIntoList(String sPathToSourceCodeFile)
         {
