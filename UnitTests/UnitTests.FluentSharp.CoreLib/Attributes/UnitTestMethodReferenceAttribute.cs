@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using FluentSharp.CoreLib;
 
 namespace UnitTests.FluentSharp.CoreLib
 {
@@ -15,12 +16,9 @@ namespace UnitTests.FluentSharp.CoreLib
 
         public UnitTestMethodReferenceAttribute(string methodName)
         {
-            var method = Assembly.GetExecutingAssembly()
-                                                  .methods().first(x => x.Name == methodName);
-            if (method.isNotNull())
-                MethodToInvoke = method;
-            else
-                "Method {0} does not exists ".error(methodName); 
+            MethodToInvoke =  this.type().assembly().method(methodName);
+            if (MethodToInvoke.isNull())
+                "[UnitTestMethodReferenceAttribute] Could not find method {0} in assembly {1}".error(methodName, this.type().assembly()); 
         }
 
     }

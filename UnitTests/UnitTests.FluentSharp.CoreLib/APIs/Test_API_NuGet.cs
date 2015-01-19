@@ -9,29 +9,43 @@ namespace UnitTests.FluentSharp_CoreLib.APIs
     [TestFixture]
     public class Test_API_NuGet
     {
+        API_NuGet apiNuGet;
+        [TestFixtureSetUp]
+        public void FixtureSetup()
+        {
+            apiNuGet = new API_NuGet();                
+        }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown()
+        {
+            
+        }
+
         [Test] public void API_Nuget_Ctor()
         {
-            var apiNuGet = new API_NuGet(); 
-
             apiNuGet.NuGet_Exe             .assert_Not_Null();
             apiNuGet.NuGet_Exe_Download_Uri.assert_Not_Null();
+            
         }
 
         [Test] public void setup()
         {
             
-            var apiNuGet = new API_NuGet(); 
-            if(apiNuGet.NuGet_Exe.fileExists())
-                apiNuGet.NuGet_Exe.assert_File_Deleted();
+            var apiNuGet_Setup = new API_NuGet();  
 
-            apiNuGet.setup()  .assert_Not_Null();
-            apiNuGet.NuGet_Exe.assert_File_Exists();
+            apiNuGet_Setup.NuGet_Exe =  "_temp_NuGet".temp_Dir().path_Combine("nuget.exe");  //we need to change this, or there will be a lock on the nuget.exe (when used by another test)
+            if(apiNuGet_Setup.NuGet_Exe.fileExists())
+                apiNuGet_Setup.NuGet_Exe.assert_File_Deleted();
+            
+            apiNuGet_Setup.setup()  .assert_Not_Null();
+            apiNuGet_Setup.NuGet_Exe.assert_File_Exists();
+            
+            apiNuGet_Setup.NuGet_Exe.assert_File_Deleted();
+            apiNuGet_Setup.NuGet_Exe_Download_Uri = null;
 
-            apiNuGet.NuGet_Exe.assert_File_Deleted();
-            apiNuGet.NuGet_Exe_Download_Uri = null;
-
-            apiNuGet.setup() .assert_Is_Null();
-            apiNuGet.NuGet_Exe.assert_File_Not_Exists();
+            apiNuGet_Setup.setup() .assert_Is_Null();
+            apiNuGet_Setup.NuGet_Exe.assert_File_Not_Exists();
         }
         [Test] public void help()
         {
@@ -46,8 +60,7 @@ namespace UnitTests.FluentSharp_CoreLib.APIs
 			if (clr.mono ())
 				"Same prob as help() method".assert_Ignore ();
 
-            var nuGet = new API_NuGet();
-
+            var nuGet = new API_NuGet();            
             nuGet.list("FluentSharp").assert_Not_Empty()
                                      .assert_Size_Is(29)
                                      .assert_Equal_To(nuGet.packages_FluentSharp());
