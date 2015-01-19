@@ -106,6 +106,12 @@ namespace FluentSharp.CoreLib
             return (from attribute in attributes
                     select attribute.name()).toList();
         }		
+
+        public static List<T>           attributes_Custom<T>(this MethodBase methodBase) where T : Attribute
+        {
+            return methodBase.GetCustomAttributes(typeof(T), true).toList<T>();
+        }
+
         
     }
 }

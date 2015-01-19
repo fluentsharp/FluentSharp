@@ -44,6 +44,8 @@ namespace FluentSharp.CoreLib.API
         }
         public string downloadBinaryFile_Action(string urlOfFileToFetch, string targetFileOrFolder)
         {
+            if (urlOfFileToFetch.is_Null() || targetFileOrFolder.is_Null())
+                return null;
             var targetFile = targetFileOrFolder;
             if (Directory.Exists(targetFileOrFolder))
                 targetFile = targetFileOrFolder.pathCombine(urlOfFileToFetch.fileName());

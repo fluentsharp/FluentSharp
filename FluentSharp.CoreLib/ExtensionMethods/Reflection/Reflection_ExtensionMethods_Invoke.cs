@@ -142,5 +142,9 @@ namespace FluentSharp.CoreLib
         {
             return PublicDI.reflection.invoke_Ctor_Static(type);
         }
+        public static object                invoke_No_Catch(this MethodInfo methodInfo, object thisObject, params object[] methodParams)
+        {
+            return methodInfo.Invoke(thisObject, BindingFlags.OptionalParamBinding , null, new object [] {}, null);
+        }
     }
 }

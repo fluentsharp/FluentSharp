@@ -153,7 +153,7 @@
     <Compile Include="O2_DotNetWrappers\Windows\RegisterWindowsExtension.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Registry.cs" />
     <Compile Include="O2_DotNetWrappers\Windows\Win32.cs" />
-    <Compile Include="O2_DotNetWrappers\Windows\Window.cs" />
+    <Compile Include="O2_DotNetWrappers\Windows\Win32_Window.cs" />
     <Compile Include="O2_DotNetWrappers\Xsd\SourceCodeMappings.cs">
       <DependentUpon>SourceCodeMappings.xsd</DependentUpon>
     </Compile>

@@ -33,7 +33,7 @@ namespace FluentSharp.CoreLib.APIs
 			var nuGetExe = this.setup().NuGet_Exe;
 			if (clr.mono())				
 			{
-				var workingDirectory = nuGetExe.parentFolder();
+				var workingDirectory = nuGetExe.parent_Folder();
 				return "mono".startProcess_getConsoleOut ("\"{0}\" {1}".format (nuGetExe, command), workingDirectory);
 			}		
 			return nuGetExe.startProcess_getConsoleOut (command);
@@ -46,7 +46,7 @@ namespace FluentSharp.CoreLib.APIs
         {
             if (nuGet.NuGet_Exe.file_Doesnt_Exist())
             {
-                nuGet.NuGet_Exe.parentFolder().createDir();
+                nuGet.NuGet_Exe.parent_Folder().createDir();
                 new O2Kernel_Web().downloadBinaryFile(nuGet.NuGet_Exe_Download_Uri.str(), nuGet.NuGet_Exe); 
             }
             return nuGet.NuGet_Exe.fileExists() ? nuGet : null;

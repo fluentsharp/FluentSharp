@@ -160,7 +160,10 @@ namespace FluentSharp.CoreLib
                 files.AddRange(folder.files(filter, recursive));
             return files;
         }		
-        
+        public static string        path_Combine(this string folder, string path)
+        {            
+            return pathCombine(folder, path);
+        }
         public static string        pathCombine(this string folder, string path)
         {            
             return pathCombine_MaxSize(folder, path);

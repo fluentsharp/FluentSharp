@@ -20,21 +20,40 @@ namespace FluentSharp.CoreLib
                 return _object.GetHashCode();
             return default(int);
         }
+        public static bool  is_Default<T>( this T _object) where T : class
+        {
+            return _object == default(T);
+        }
 
         [ContractAnnotation("_object:null => true")]
-        public static bool  isNull<T>( this T _object) where T : class
+        public static bool  is_Null<T>( this T _object) where T : class
         {
             return _object == null;
         }
         [ContractAnnotation("null => false")]
-        public static bool  isNotNull(this object _object)
+        public static bool  is_Not_Null(this object _object)
         {
             return _object != null;
+        }
+        [ContractAnnotation("_object:null => true")]
+        public static bool  isNull<T>( this T _object) where T : class
+        {
+            return _object.is_Null();
+        }
+        [ContractAnnotation("null => false")]
+        public static bool  isNotNull(this object _object)
+        {
+            return _object.is_Not_Null();
+        }
+        [ContractAnnotation("null => false")]
+        public static bool  not_Null(this object _object)
+        {
+            return _object.is_Not_Null();
         }
         [ContractAnnotation("null => false")]
         public static bool  notNull(this object _object)
         {
-            return _object != null;
+            return _object.is_Not_Null();
         }
         /// <summary>
         /// Casts the provided object into the provided type.

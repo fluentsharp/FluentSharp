@@ -302,9 +302,13 @@ namespace FluentSharp.CoreLib
                     select item.ToLower())
                     .toList();            
         }
-        public static bool              notContains<T>(this List<T> list, T itemToFind)
+        public static bool              not_Contains<T>(this List<T> list, T itemToFind)
         {
             return list.contains(itemToFind).isFalse();
+        }
+        public static bool              notContains<T>(this List<T> list, T itemToFind)
+        {
+            return list.not_Contains(itemToFind);
         }
         public static bool              contains<T>(this List<T> list, T itemToFind)
         {

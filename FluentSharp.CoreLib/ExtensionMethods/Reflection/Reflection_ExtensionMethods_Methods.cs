@@ -7,7 +7,7 @@ using FluentSharp.CoreLib.API;
 namespace FluentSharp.CoreLib
 {
     public static class Reflection_ExtensionMethods_Methods
-    {
+    {        
         public static List<MethodInfo>  methods(this Type type)
         {
             return PublicDI.reflection.getMethods(type);
@@ -62,6 +62,10 @@ namespace FluentSharp.CoreLib
         public static MethodInfo        method(this Type type, string name)
         {
             return type.methods().first(method => method.Name == name);
+        }
+        public static MethodInfo        method(this Assembly assembly, string name)
+        {
+            return assembly.methods().first(method => method.Name == name);
         }
         public static string            signature(this MethodInfo methodInfo)
         {

@@ -15,11 +15,15 @@ namespace FluentSharp.CoreLib
         /// Input is checked that it is not null or empty <code>string.IsNullOrEmpty(folder)</code> and <code>folder.isFolder()</code>
         /// </param>
         /// <returns></returns>
-        public static string        folderName(this string folder)
+        public static string        folder_Name(this string folder)
         {
             return folder.isFolder() ? folder.fileName() : null;
            
         }		
+        public static string        folderName(this string folder)
+        {
+            return folder.folder_Name();
+        }
         /// <summary>
         /// Given a valid path returns the parent folder
         /// </summary>
@@ -51,7 +55,7 @@ namespace FluentSharp.CoreLib
         /// <returns></returns>
         public static Process       parentFolder_Open_in_Explorer(this string path)
         {
-            var parentFolder = path.parentFolder();
+            var parentFolder = path.parent_Folder();
             if(parentFolder.folder_Exists())
                 return parentFolder.startProcess();
             return null;
@@ -69,10 +73,12 @@ namespace FluentSharp.CoreLib
 				return targetFolder;
 			return null;
 		}
+
         /// <summary>
         /// It is searching recursive or non recursive for a list of folders in current path.
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="recursive"></param>
         /// <returns></returns>
         public static List<string>  folders(this string path, bool recursive = false)
         {
@@ -320,16 +326,17 @@ namespace FluentSharp.CoreLib
         /// <returns></returns>
         public static List<string>  dirs(this string path)
         {
-            return path.folders(false);
+            return path.folders();
         }
         /// <summary>
-        /// Returns a new instance of <code>DirectoryInfo</code> class for a valid directory path
+        /// Returns a new instance of <code>DirectoryInfo</code> class for a valid directory path 
+        /// Returns null of the provided folder doesn't exist
         /// </summary>
         /// <param name="directoryPath"></param>
         /// <returns></returns>
         public static DirectoryInfo directoryInfo(this string directoryPath)
         {
-            return string.IsNullOrEmpty(directoryPath) || directoryPath.folder_Not_Exists() ? null : new DirectoryInfo(directoryPath);
+            return directoryPath.folder_Not_Exists() ? null : new DirectoryInfo(directoryPath);
         }
 
         /// <summary>
