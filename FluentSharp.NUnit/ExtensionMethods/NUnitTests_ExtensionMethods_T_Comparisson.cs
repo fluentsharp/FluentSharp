@@ -72,7 +72,7 @@ namespace FluentSharp.NUnit
         }
         public static T     assert_Null<T>            (this T target, string message = NUnit_Messages.ASSERT_NULL) where T : class
         {
-            Assert.True(target.isNull(), message);
+            Assert.True(target.isNull(), message.format(target));
             return target;
         }        
         public static T     assert_Is_Null<T>         (this T target, string message = NUnit_Messages.ASSERT_NULL) where T : class     
