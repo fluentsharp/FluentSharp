@@ -3,6 +3,8 @@ using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.AccessControl;
@@ -59,10 +61,10 @@ namespace UnitTests.FluentSharp.CoreLib
         public void parentFolder_Open_in_Explorer()
         {
             var tmpDir = "_open_In_explorer".tempDir();
-            var envs = Environment.GetEnvironmentVariables().toList();
+            var envs = Environment.GetEnvironmentVariables().toList<DictionaryEntry>();
             foreach (var item in envs)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(item.Value);
             }
             tmpDir.parentFolder_Open_in_Explorer().assert_Is_Not_Null();
             var windowTitle = tmpDir.parent_Folder().folderName();
