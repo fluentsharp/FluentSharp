@@ -61,15 +61,15 @@ namespace UnitTests.FluentSharp.CoreLib
         public void parentFolder_Open_in_Explorer()
         {
             var tmpDir = "_open_In_explorer".tempDir();
-            var envs = Environment.GetEnvironmentVariables().toList<DictionaryEntry>();
-            foreach (var item in envs)
-            {
-                if (item.Value.ToString().contains("appveyor"))
-                { 
-                    "Appveyor is running in terminal mode.(Skipping)".assert_Ignore();
-                    return;
-                }
-            }
+            //var envs = Environment.GetEnvironmentVariables().toList<DictionaryEntry>();
+            //foreach (var item in envs)
+            //{
+            //    if (item.Value.ToString().contains("appveyor"))
+            //    { 
+            //        "Appveyor is running in terminal mode.(Skipping)".assert_Ignore();
+            //        return;
+            //    }
+            //}
             tmpDir.parentFolder_Open_in_Explorer().assert_Is_Not_Null();
             var windowTitle = tmpDir.parent_Folder().folderName();
             windowTitle.error();
