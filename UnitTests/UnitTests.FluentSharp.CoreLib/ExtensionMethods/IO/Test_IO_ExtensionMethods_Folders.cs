@@ -64,7 +64,9 @@ namespace UnitTests.FluentSharp.CoreLib
             var envs = Environment.GetEnvironmentVariables().toList<DictionaryEntry>();
             foreach (var item in envs)
             {
+                Console.WriteLine(item.Key);
                 Console.WriteLine(item.Value);
+                Console.WriteLine("---");
             }
             tmpDir.parentFolder_Open_in_Explorer().assert_Is_Not_Null();
             var windowTitle = tmpDir.parent_Folder().folderName();
