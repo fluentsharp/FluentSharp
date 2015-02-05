@@ -59,7 +59,7 @@ namespace UnitTests.FluentSharp.CoreLib
         public void parentFolder_Open_in_Explorer()
         {
             var tmpDir = "_open_In_explorer".tempDir();
-            var envs = Environment.GetEnvironmentVariables();
+            var envs = Environment.GetEnvironmentVariables().toList();
             foreach (var item in envs)
             {
                 Console.WriteLine(item);
