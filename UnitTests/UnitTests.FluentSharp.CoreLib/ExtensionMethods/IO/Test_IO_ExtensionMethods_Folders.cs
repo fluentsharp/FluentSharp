@@ -64,9 +64,11 @@ namespace UnitTests.FluentSharp.CoreLib
             var envs = Environment.GetEnvironmentVariables().toList<DictionaryEntry>();
             foreach (var item in envs)
             {
-                Console.WriteLine(item.Key);
-                Console.WriteLine(item.Value);
-                Console.WriteLine("---");
+                if (item.Value.ToString().contains("appveyor"))
+                { 
+                    "Appveyor is running in terminal mode.(Skipping)".assert_Ignore();
+                    return;
+                }
             }
             tmpDir.parentFolder_Open_in_Explorer().assert_Is_Not_Null();
             var windowTitle = tmpDir.parent_Folder().folderName();
