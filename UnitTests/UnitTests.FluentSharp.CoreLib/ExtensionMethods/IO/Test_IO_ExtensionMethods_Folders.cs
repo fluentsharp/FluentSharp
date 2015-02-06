@@ -74,7 +74,7 @@ namespace UnitTests.FluentSharp.CoreLib
             var windowTitle = tmpDir.parent_Folder().folderName();
             windowTitle.error();
             var window = windowTitle.win32_Desktop_Window_With_Title();            
-            window.assert_Not_Default()
+            window
                   .win32_CloseWindow().assert_True();
             
             "".parentFolder_Open_in_Explorer().assert_Is_Null();
