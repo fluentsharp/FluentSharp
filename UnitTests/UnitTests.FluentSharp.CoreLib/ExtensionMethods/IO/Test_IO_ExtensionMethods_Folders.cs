@@ -3,8 +3,6 @@ using FluentSharp.CoreLib.API;
 using FluentSharp.NUnit;
 using NUnit.Framework;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.AccessControl;
