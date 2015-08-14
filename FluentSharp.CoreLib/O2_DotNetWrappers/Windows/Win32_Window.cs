@@ -71,7 +71,7 @@ namespace FluentSharp.CoreLib.API
         public static IntPtr win32_Desktop_Window_With_Title(this string title, bool waitForWindow = true)
         {
             var wait_Count = 10;
-            var wait_Value = 100;
+            var wait_Value = 1000;
             var window = Win32_Window.FindWindowsWithText(title).first();    
             if (window != default(IntPtr))
                 return window;
