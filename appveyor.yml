@@ -1,2 +1,7 @@
 install:
   - cmd: git submodule -q update --init
+
+version: 1.0.{build}
+build:
+  project: FluentSharp.sln
+  verbosity: minimal
