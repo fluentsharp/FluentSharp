@@ -41,7 +41,7 @@ namespace UnitTests.FluentSharp.O2Platform
             assert_Are_Not_Equal(currentProcess.MainWindowHandle, IntPtr.Zero);
              
             var firstWindowTitle = "OWASP O2 Platform 5.4 - Launcher";
-            var secondWindowTitle = "{0} : {1}".format("OWASP O2 Platform v5.5.0.0" , clr.details());
+            var secondWindowTitle = "{0} : {1}".format("OWASP O2 Platform v6.0.1.0" , clr.details());
 
             //get expected form references (note: resharper runnner sometimes doesn't catch the 1st one)
             var lauchedUI_Form    = firstWindowTitle.applicationWinForm();

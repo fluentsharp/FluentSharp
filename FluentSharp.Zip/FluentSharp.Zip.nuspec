@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>FluentSharp.Zip</id>
-        <version>5.5.0.0</version>
+        <version>6.0.1.0</version>
         <title>FluentSharp - Web (for .NET 3.5)</title>
         <authors>O2 Platform</authors>
         <owners>O2 Platform</owners>

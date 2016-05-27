@@ -231,13 +231,13 @@ namespace FluentSharp.CoreLib
         public static List<string>  onlyValidFiles(this List<string> files)
         {
             return (from file in files
-                    where file.fileExists()
+                    where file.file_Exists()
                     select file).toList();
         }
         public static List<string> onlyValidFolders(this List<string> folders)
         {
             return (from folder in folders
-                    where folder.folderExists()
+                    where folder.folder_Exists()
                     select folder).toList();
         }
         public static List<string>  lines(this string text, bool removeEmptyLines)
