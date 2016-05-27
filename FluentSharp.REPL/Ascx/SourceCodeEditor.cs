@@ -469,7 +469,11 @@ namespace FluentSharp.REPL.Controls
             set
             {
                 toolStripWithSourceCodeActions.Visible = value;
-                if (toolStripWithSourceCodeActions.Visible)
+
+                scCodeAndAst.fill();
+
+                //this was causing the nasty error of not having scroll bars in the Script REPL
+                /*if (toolStripWithSourceCodeActions.Visible)
                 {
                     scCodeAndAst.Top = 30;
                     scCodeAndAst.Height = Height - scCodeAndAst.Top;
@@ -484,7 +488,7 @@ namespace FluentSharp.REPL.Controls
                     scCodeAndAst.Top = 0;
                     scCodeAndAst.Height = Height;
                     //tecSourceCode.Dock = DockStyle.Fill;
-                }
+                }*/
             }
 
             get

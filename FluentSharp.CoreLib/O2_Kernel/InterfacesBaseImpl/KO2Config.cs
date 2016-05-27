@@ -87,31 +87,31 @@ namespace FluentSharp.CoreLib.API
             {
 			    defaultO2LocalTempFolder = O2ConfigSettings.defaultO2LocalTempName;
 			    defaultLocalScriptFolder = O2ConfigSettings.defaultLocalScriptName;
-                /*
-			    //detect if we are running O2 as a stand alone exe
-			    if (Assembly.GetEntryAssembly().isNull() || Assembly.GetEntryAssembly().name().starts("O2 Platform"))
+
+
+            //if we are running from an installed version 
+            if (CurrentExecutableDirectory.contains(new string[] { "Program Files (x86)", "Program Files" }))   // need a better way to identify an install scenario
+                if (CurrentExecutableDirectory.contains(@"OWASP\OWASP O2 Platform"))
+                {
+                    defaultO2LocalTempFolder = getValidLocalSystemTempFolder().path_Combine(defaultO2LocalTempFolder);
+                    defaultLocalScriptFolder = getValidLocalSystemTempFolder().path_Combine(defaultLocalScriptFolder);
+                    return this;
+                }
+
+            // Use locally folder (happens when the main zip is downloaded directly
+            defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
+			defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
+            if (O2ConfigSettings.CheckForTempDirMaxSizeCheck)            
+			    if (defaultLocalScriptFolder.size() > MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE)
 			    {
-				    if (CurrentExecutableDirectory.pathCombine(@"..\..\" + O2ConfigSettings.defaultLocalScriptName).dirExists()) // check if the GitHub synced Scripts Folder exists
-				    {
-					    defaultO2LocalTempFolder = @"..\..\" + O2ConfigSettings.defaultO2LocalTempName;
-					    defaultLocalScriptFolder = @"..\..\" + O2ConfigSettings.defaultLocalScriptName;
-				    }
-			    }*/
-
-
-			    defaultO2LocalTempFolder = CurrentExecutableDirectory.pathCombine(defaultO2LocalTempFolder);
-			    defaultLocalScriptFolder = CurrentExecutableDirectory.pathCombine(defaultLocalScriptFolder);
-                if (O2ConfigSettings.CheckForTempDirMaxSizeCheck)            
-			        if (defaultLocalScriptFolder.size() > MAX_LOCALSCRIPTFOLDER_PARENTPATHSIZE)
-			        {
-				        "[o2setup] defaultLocalScriptFolder path was more than 120 chars: {0}".debug(defaultLocalScriptFolder);
-				        var applicationData = getValidLocalSystemTempFolder();
-				        var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.O2Version);
-				        "[o2setup] using as baseTempFolder: {0}".debug(baseTempFolder);
-				        defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
-				        defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);
-				        //"[o2setup] set LocalScriptsFolder to: {0}".debug(defaultLocalScriptFolder);
-			        }
+				    "[o2setup] defaultLocalScriptFolder path was more than 120 chars: {0}".debug(defaultLocalScriptFolder);
+				    var applicationData = getValidLocalSystemTempFolder();
+				    var baseTempFolder = applicationData.pathCombine("O2_" + O2ConfigSettings.O2Version);
+				    "[o2setup] using as baseTempFolder: {0}".debug(baseTempFolder);
+				    defaultLocalScriptFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultLocalScriptName);
+				    defaultO2LocalTempFolder = baseTempFolder.pathCombine(O2ConfigSettings.defaultO2LocalTempName);
+				    //"[o2setup] set LocalScriptsFolder to: {0}".debug(defaultLocalScriptFolder);
+			    }
             }
             catch(Exception ex)
             {

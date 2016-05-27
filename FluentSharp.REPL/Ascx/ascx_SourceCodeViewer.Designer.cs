@@ -33,7 +33,7 @@ namespace FluentSharp.REPL.Controls
             // 
             // sourceCodeEditor
             // 
-            this.sourceCodeEditor._ShowSearchAndAstDetails = true;
+            this.sourceCodeEditor._ShowSearchAndAstDetails = false;
             this.sourceCodeEditor._ShowTopMenu = false;
             this.sourceCodeEditor.AllowDrop = true;
             this.sourceCodeEditor.BackColor = System.Drawing.SystemColors.Control;
