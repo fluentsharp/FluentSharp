@@ -52,3 +52,6 @@
 [submodule "FluentSharp.Web_4_5"]
 	path = FluentSharp.Web_4_5
 	url = git@github.com:o2platform/FluentSharp.Web_4_5.git
+[submodule "FluentSharp.WinForms"]
+	path = FluentSharp.WinForms
+	url = git@github.com:o2platform/FluentSharp.WinForms.git
