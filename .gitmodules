@@ -19,3 +19,6 @@
 [submodule "FluentSharp.AspNet_MVC"]
 	path = FluentSharp.AspNet_MVC
 	url = git@github.com:o2platform/FluentSharp.AspNet_MVC.git
+[submodule "FluentSharp.HtmlAgilityPack"]
+	path = FluentSharp.HtmlAgilityPack
+	url = git@github.com:o2platform/FluentSharp.HtmlAgilityPack.git
