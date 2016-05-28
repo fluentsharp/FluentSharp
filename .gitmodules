@@ -13,3 +13,6 @@
 [submodule "FluentSharp.AST"]
 	path = FluentSharp.AST
 	url = git@github.com:o2platform/FluentSharp.AST.git
+[submodule "FluentSharp.REPL"]
+	path = FluentSharp.REPL
+	url = git@github.com:o2platform/FluentSharp.REPL.git
