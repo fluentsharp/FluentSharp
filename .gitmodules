@@ -46,3 +46,6 @@
 [submodule "FluentSharp.WPF"]
 	path = FluentSharp.WPF
 	url = git@github.com:o2platform/FluentSharp.WPF.git
+[submodule "FluentSharp.Web"]
+	path = FluentSharp.Web
+	url = git@github.com:o2platform/FluentSharp.Web.git
