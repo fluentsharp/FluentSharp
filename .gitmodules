@@ -28,3 +28,6 @@
 [submodule "FluentSharp.Moq"]
 	path = FluentSharp.Moq
 	url = git@github.com:o2platform/FluentSharp.Moq.git
+[submodule "FluentSharp.MsBuild"]
+	path = FluentSharp.MsBuild
+	url = git@github.com:o2platform/FluentSharp.MsBuild.git
