@@ -7,3 +7,6 @@
 [submodule "FluentSharp_Fork.CassiniDev"]
 	path = FluentSharp_Fork.CassiniDev
 	url = https://github.com/o2platform/FluentSharp_Fork.CassiniDev
+[submodule "FluentSharp.CoreLib"]
+	path = FluentSharp.CoreLib
+	url = git@github.com:o2platform/FluentSharp.CoreLib.git
