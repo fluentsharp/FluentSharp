@@ -40,3 +40,6 @@
 [submodule "FluentSharp.O2Platform"]
 	path = FluentSharp.O2Platform
 	url = git@github.com:o2platform/FluentSharp.O2Platform.git
+[submodule "FluentSharp.Roslyn"]
+	path = FluentSharp.Roslyn
+	url = git@github.com:o2platform/FluentSharp.Roslyn.git
