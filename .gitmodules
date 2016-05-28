@@ -37,3 +37,6 @@
 [submodule "FluentSharp.NUnit"]
 	path = FluentSharp.NUnit
 	url = git@github.com:o2platform/FluentSharp.NUnit.git
+[submodule "FluentSharp.O2Platform"]
+	path = FluentSharp.O2Platform
+	url = git@github.com:o2platform/FluentSharp.O2Platform.git
