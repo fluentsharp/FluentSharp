@@ -49,3 +49,6 @@
 [submodule "FluentSharp.Web"]
 	path = FluentSharp.Web
 	url = git@github.com:o2platform/FluentSharp.Web.git
+[submodule "FluentSharp.Web_4_5"]
+	path = FluentSharp.Web_4_5
+	url = git@github.com:o2platform/FluentSharp.Web_4_5.git
