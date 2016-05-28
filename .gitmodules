@@ -43,3 +43,6 @@
 [submodule "FluentSharp.Roslyn"]
 	path = FluentSharp.Roslyn
 	url = git@github.com:o2platform/FluentSharp.Roslyn.git
+[submodule "FluentSharp.WPF"]
+	path = FluentSharp.WPF
+	url = git@github.com:o2platform/FluentSharp.WPF.git
