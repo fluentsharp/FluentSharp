@@ -16,3 +16,6 @@
 [submodule "FluentSharp.REPL"]
 	path = FluentSharp.REPL
 	url = git@github.com:o2platform/FluentSharp.REPL.git
+[submodule "FluentSharp.AspNet_MVC"]
+	path = FluentSharp.AspNet_MVC
+	url = git@github.com:o2platform/FluentSharp.AspNet_MVC.git
