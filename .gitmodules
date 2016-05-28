@@ -22,3 +22,6 @@
 [submodule "FluentSharp.HtmlAgilityPack"]
 	path = FluentSharp.HtmlAgilityPack
 	url = git@github.com:o2platform/FluentSharp.HtmlAgilityPack.git
+[submodule "FluentSharp.HtmlAgilityPack.WinForms"]
+	path = FluentSharp.HtmlAgilityPack.WinForms
+	url = git@github.com:o2platform/FluentSharp.HtmlAgilityPack.WinForms.git
