@@ -1,5 +1,6 @@
 install:
-  - cmd: git submodule -q update --init
+  - cmd: sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - cmd: git submodule -q update --init          
 
 version: 1.0.{build}
 build:
