@@ -10,3 +10,6 @@
 [submodule "FluentSharp.CoreLib"]
 	path = FluentSharp.CoreLib
 	url = git@github.com:o2platform/FluentSharp.CoreLib.git
+[submodule "FluentSharp.AST"]
+	path = FluentSharp.AST
+	url = git@github.com:o2platform/FluentSharp.AST.git
