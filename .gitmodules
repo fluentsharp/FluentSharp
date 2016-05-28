@@ -31,3 +31,6 @@
 [submodule "FluentSharp.MsBuild"]
 	path = FluentSharp.MsBuild
 	url = git@github.com:o2platform/FluentSharp.MsBuild.git
+[submodule "FluentSharp.NGit"]
+	path = FluentSharp.NGit
+	url = git@github.com:o2platform/FluentSharp.NGit.git
