@@ -58,3 +58,6 @@
 [submodule "FluentSharp.WinFormsUI"]
 	path = FluentSharp.WinFormsUI
 	url = git@github.com:o2platform/FluentSharp.WinFormsUI.git
+[submodule "FluentSharp.Xml"]
+	path = FluentSharp.Xml
+	url = git@github.com:o2platform/FluentSharp.Xml.git
