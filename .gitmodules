@@ -61,3 +61,6 @@
 [submodule "FluentSharp.Xml"]
 	path = FluentSharp.Xml
 	url = git@github.com:o2platform/FluentSharp.Xml.git
+[submodule "FluentSharp.Zip"]
+	path = FluentSharp.Zip
+	url = git@github.com:o2platform/FluentSharp.Zip.git
